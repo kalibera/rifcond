@@ -1,14 +1,15 @@
 This is a report from running a modified version of R-devel 72354. R was
 modified to abort when `if` is executed with a condition that has length
-greated than 1. In older version of R this is allowed, but one gets a
+greater than 1. In older version of R this is allowed, but one gets a
 warning and the first element is used. In recent versions of R one may
 choose to get an error instead, via environment variable
 `_R_CHECK_LENGTH_1_CONDITION_`.
 
-The modified version that was run here used `R_Suicide` and reports more
-diagnostic information.  This information will end up in some output file,
-depending on which test/example is running. This is the code that produces
-the report
+The modified version that was run here used `R_Suicide` (aborts
+unconditionally) and reports diagnostic information to help debugging.  This
+information will end up in some output file, depending on which test/example
+is running (and a part of it that fits will appear in `00check.log`).  This
+is the code that produces the report
 
 ```c
 if (length(s) > 1) {
@@ -32,10 +33,12 @@ if (length(s) > 1) {
   findFunctionForBody(R_ClosureExpr(R_GlobalContext->callfun));
   REprintf(" ----------- END FAILURE REPORT -------------- \n");
   R_Suicide("the condition has length > 1 and only the first element will be used XXXXXX");
+}
 ```
-Consequently, if a package experienced more than one instance of this problem, only
-one would be covered by this experiment (one can then use `_R_CHECK_LENGTH_1_CONDITION_=1`
-with the current R-devel or possibly the code above).
+Only one instance of the problem per checked package would be covered by
+this experiment. One can then use `_R_CHECK_LENGTH_1_CONDITION_=true` with the
+current R-devel or possibly the code above to check for more problems after
+fixing the reported one.
 
 The outputs here are in directories named after the packages that failed,
 which are not always the packages at fault (packages that include the
@@ -44,9 +47,11 @@ problematic call to `if`). This is clear from the outputs, e.g.
 ```
 funcy.Rcheck/funcy-Ex.Rout
 ```
-is an error report from a failure of package `funcy`. This report would
-appear in file `funcy-Ex.Rout`, but for simplicity I have removed everything
-from `funcy-Ex.Rout` but the report. The report is
+
+is an error report from a failure of package `funcy`.  This report would
+appear in file `funcy-Ex.Rout`, but for simplicity in the outputs shown
+here, everything but the report is removed.  The report in `funcy-Ex.Rout`
+is
 
 ```
  --- srcref --- 
@@ -80,9 +85,34 @@ function (x, eval.points, h, cross = FALSE, weights = rep(1, nrow(x)),
 <environment: namespace:sm>
  --- function (body) search ---
 Function sm.weight2 in namespace sm has this body.
-``
+```
+One can see from the report that the problematic `if` statement is in
+package `sm` and the source file with the `if` statement is `regression.r`, the
+line is `1055` and it is in function `sm.weight2`.  The value for the
+condition was a logical vector of 2 values `c(FALSE,FALSE)`.  One can also
+see the R stacktrace.
 
-One can see from the report that package at fault is not `funcy`, it is
-instead `sm`, the source file with the `if` statement is `regression.r`, the
-line is `1055`. The value for the condition was a logical vector of 2 values
-`c(FALSE,FALSE)`. One can also see the R stacktrace.
+One then has to look into `regression.r` to see that the problem is because
+the option `poly.index` is not scalar. One can guess from the stacktrace shown
+here that the options actually comes from a call to `smoothFct2D` inside
+`funPrinComp.R` from `funcy`, at line `127`. From the [documentation of
+`sm`](https://cran.r-project.org/web/packages/sm/sm.pdf) it seems that
+`poly.index` should be a scalar value of `0` or `1`. 
+
+To validate this it is probably best to run the example again with
+`_R_CHECK_LENGTH_1_CONDITION_=true` and use the R debugger.
+
+```
+env _R_CHECK_LENGTH_1_CONDITION_=true ./bin/R CMD check ./down/funcy_0.8.6.tar.gz 
+```
+
+reproduces the error. A faster way to reproduce is just running the example
+
+```
+env _R_CHECK_LENGTH_1_CONDITION_=true ../bin/R --vanilla < funcy-Ex.R
+```
+
+so one can also run the example in an interactive session and use
+`options(error=recover)` to start the debugger where the problem happens. 
+The `opt$poly.index` in `sm.weight2` is the same one (even by reference) as
+in `smoothFct2D`, and it is `c(1,2)`.
