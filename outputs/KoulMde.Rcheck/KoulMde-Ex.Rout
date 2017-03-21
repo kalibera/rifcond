@@ -1,0 +1,22 @@
+ --- srcref --- 
+ at /tmp/RtmpPLwyTl/R.INSTALL2fc08336d15ad/KoulMde/R/RevisedMdeFunc.R#283: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+where 1 at /tmp/RtmpPLwyTl/R.INSTALL2fc08336d15ad/KoulMde/R/RevisedMdeFunc.R#370: FindIndex((LenE + 1), EPlus, EMinus, PointVec, gVec, hVec)
+where 2 at /tmp/RtmpPLwyTl/R.INSTALL2fc08336d15ad/KoulMde/R/RevisedMdeFunc.R#416: GetbVec(Y, X, DYM, XpmM, bVec, l)
+where 3 at /tmp/RtmpPLwyTl/R.INSTALL2fc08336d15ad/KoulMde/R/RevisedMdeFunc.R#128: EstimateBetaMDESimple(Y, X, D, b0, iter, critVal)
+where 4 at /tmp/RtmpPLwyTl/R.INSTALL2fc08336d15ad/KoulMde/R/RevisedMdeFunc.R#803: KoulLrMde(Y, X, D, b0, RegIntMeasure)
+where 5: Koul2StageMde(Y, X, "default", b0, Lx, 1, Lx)
+
+ --- value of length: 90 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[85] FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function --- 
+ --- function (body) search ---

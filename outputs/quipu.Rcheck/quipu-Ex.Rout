@@ -1,0 +1,192 @@
+ --- srcref --- 
+ at /tmp/RtmpFninIF/R.INSTALL133f01ff5b818/quipu/R/quipu.R#389: 
+ --- call (function) --- 
+rquipu(dat)
+ --- stacktrace ---
+where 1: rquipu(dat)
+
+ --- value of length: 4 type: logical ---
+[1] FALSE  TRUE  TRUE FALSE
+ --- function --- 
+function (data,
+            #accession, marker, marker.size, map.location, 
+            a.subset = c("all"),
+            ylim = c(50,350), 
+            res=c(1500,1200),
+            dir.print = tempdir(),
+            dir.logo = NA, 
+            col.node = c("red3","green","blue","gray50"), 
+            col.marg = c("gray60","black","black"), 
+            species.name = NA, 
+            set.name = NA,
+            img.format = c("screen","jpeg","jpg","png"),
+            ltr.size = 0.8,
+            show.accs.total = TRUE,
+            id.label = "Identifier",
+            node.size = c(1.5, 1.2, 0.9, 0.6),
+            grp.brks = c(0.01, 0.05, 0.1),
+            obs.alls.frq = NULL,
+            obs.alls.frq.ref = "dataset",
+            layout=c("full", "no text")
+)
+  {
+  grp.size = node.size
+  col.fig = col.node
+  assert(is.data.frame(data), "Data is not a data.frame")
+  assert(all(names(data) %in% c("accession_id", "primer_name","marker_size","map_location")),
+         "The data.frame does not contain the expected column names (see documentation).")
+  assert(nrow(data)>0,
+         "The data.frame does not contain sufficient data.")
+  
+  stopifnot(all(is.vector(col.fig), is.character(col.fig), length(col.fig)==4))
+  stopifnot(all(col.fig %in% colors()))
+  
+  stopifnot(all(is.vector(grp.brks), is.numeric(grp.brks), length(grp.brks)==3))
+  stopifnot(all(grp.brks[1] > 0, grp.brks[2] > grp.brks[1], grp.brks[3] > grp.brks[2], 1>grp.brks[3] ) )
+  
+  stopifnot(all(is.vector(grp.size)))
+  
+  if(!is.null(obs.alls.frq)){
+    stopifnot(all(class(obs.alls.frq)=="data.frame", 
+                  names(obs.alls.frq) %in% c("marker", "marker_size", "frequency"))
+              )
+    stopifnot(all(is.numeric(obs.alls.frq$frequency), 
+                  0 < min(obs.alls.frq$frequency), 
+                  max(obs.alls.frq$frequency < 1) ))
+  }
+  
+    options(warn = -1)
+      CLON = data$accession_id
+      MARK = data$primer_name
+      SIZE = data$marker_size
+      CROMOS = data$map_location
+  
+  
+   if(!("all" %in% a.subset))  {
+     assert(is.vector(a.subset), 
+            "The parameter 'a.subset' must be a vector.")
+     assert(is.character(a.subset), 
+            "The parameter 'a.subset' must be a vector of type 'character'.")
+     ss = a.subset %in% data$accession_id
+     mss= paste(a.subset[!ss],collapse=", ")
+     assert(all(ss),paste("The dentifier(s): '",mss,"' is/are not in the database.", sep=""))
+   }
+      
+   dir=paste("In the folder ",dir.print,sep="")
+   dat=data.frame(CIP.number=CLON,primer_name_original=MARK,Marker.size=SIZE,Cromosomas=CROMOS)
+   
+   ## sorting the data by level of chromosome
+   dt2=data.frame(rm1=c("I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX"),
+                  valor=c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20))
+   datos=data.frame(dat,rep("unknw",nrow(dat)))
+   dt2=as.matrix(dt2)
+   datos=as.matrix(datos)
+   for(i in 1:nrow(dat))
+   { 
+     for(j in 1:nrow(dt2))
+     {
+       if(datos[i,4]==dt2[j,1]){datos[i,5]=dt2[j,2]}
+     }
+   }
+   datos=data.frame(datos)
+   dat=dat[order(datos[,5], datos[,2],datos[,3]),]
+   
+  
+   datt=data.frame(dat,peso=rep(0,nrow(dat)),color=rep(0,nrow(dat)))
+   
+   # Calculate allele frequency by locus or primer pair
+   alls = paste(dat$primer_name ,dat$Marker.size,sep=".")
+   alls.fr=table(alls)
+   alls.to=table(dat$primer_name)
+   
+   up = unique(dat$primer_name)
+   for(a in 1:length(up) ){
+     pn = as.character(up[a])
+     alls.fr[str_detect(names(alls.fr),pn)]= 
+       alls.fr[str_detect(names(alls.fr),pn)]/alls.to[[pn]]
+   }
+
+   alls.range=NULL
+   if(!is.null(obs.alls.frq)){
+     Alleles = paste(obs.alls.frq$marker, obs.alls.frq$marker_size, sep=".")
+     obs.fr = cbind(Alleles, obs.alls.frq$frequency)
+     row.names(obs.fr) = Alleles
+     ofr = table(obs.fr[,1])
+     ofr = obs.fr[,2]
+     
+     assert(all(names(alls.fr) %in% names(ofr)),
+            paste( 
+              paste(names(alls.fr)[!(names(alls.fr) %in% names(ofr))],collapse=", "), 
+              "is/are missing in your reference file of allele frequencies." )
+            )
+     alls.fr = ofr
+     alls.range = tapply.stat(obs.alls.frq[,"marker_size"], obs.alls.frq[,"marker"], min)
+     alls.range = cbind(alls.range,
+                        tapply.stat(obs.alls.frq[,"marker_size"], obs.alls.frq[,"marker"], max)[2])
+     names(alls.range) = c("Marker","min","max")
+   }
+
+
+   #print(str(alls.fr))
+   for(r in 1:nrow(datt)){
+     #print(str(datt))
+     an = paste(datt$primer_name_original[r],datt$Marker.size[r],sep=".")
+     #print(an)
+     ra = as.numeric(alls.fr[[an]])
+     
+     if(ra<  (grp.brks[1]))                    {datt[r,5]=grp.size[1]; datt[r,6]=col.fig[1]}
+     if(ra>= (grp.brks[1]) & ra< (grp.brks[2])){datt[r,5]=grp.size[2]; datt[r,6]=col.fig[2]}
+     if(ra>= (grp.brks[2]) & ra< (grp.brks[3])){datt[r,5]=grp.size[3]; datt[r,6]=col.fig[3]}
+     if(ra>= (grp.brks[3]))                    {datt[r,5]=grp.size[4]; datt[r,6]=col.fig[4]}
+     #print(paste(r, ra, datt[r,5],sep=" "))
+   }
+   
+   ## Graphic
+   x = NA
+   if(!is.na(dir.logo)){
+     if(file.exists(dir.logo)){
+     x <- read.pnm(dir.logo) # reading the logo  
+   }
+   }
+   
+   if(a.subset != "all"){
+     datt = datt[datt$CIP.number %in% a.subset, ]
+   }
+
+   
+   clones=unique(datt$CIP.number)
+   nameclones1=paste("CIP",unique(datt$CIP.number))
+   nameclones=paste(nameclones1,"                          ", sep="")
+   
+   if(img.format %in% c("jpeg","jpg")) nameclones2=file.path(dir.print, paste(nameclones1,".jpg", sep=""))
+   if(img.format=="png")  nameclones2=file.path(dir.print, paste(nameclones1,".png", sep=""))
+   
+   mrcs=unique(datt$primer_name_original) 
+   
+   for(j in 1:length(clones))
+   {
+     grup1=datt[datt$CIP.number==clones[j],]
+     #mrcs=unique(grup1$primer_name_original) 
+     
+     ## print image 
+     if(img.format %in% c("jpeg","jpg")) jpeg(nameclones2[j],quality = 100,width = res[1], height = res[2],pointsize = 22)
+     if(img.format=="png") png(nameclones2[j],width = res[1], height = res[2],pointsize = 22)
+     if(layout=="full"){
+       layout_large_plot(mrcs, grup1, ltr.size, id.label, nameclones, j, ylim, col.marg)
+       draw_legend(j, mrcs, ylim, grp.brks, col.fig, grp.size, ltr.size, img.format, nameclones2, species.name,
+                        set.name, clones, show.accs.total, x, obs.alls.frq.ref)       
+     } else {
+       layout_small_plot(mrcs, grup1, ltr.size, id.label, nameclones, j, ylim, col.marg)
+     }
+
+     draw_vertical_lines(mrcs, datt, ylim, obs.alls.frq, alls.range, layout)
+     draw_nodes(mrcs, grup1, datt, ylim, ltr.size)
+     
+     if(img.format != "screen" ) dev.off()
+   }
+  options(warn=1)
+  
+}
+<environment: namespace:quipu>
+ --- function (body) search ---
+Function rquipu in namespace quipu has this body.

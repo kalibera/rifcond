@@ -1,0 +1,49 @@
+ --- srcref --- 
+ at /tmp/RtmpKMzjba/R.INSTALL233ea5b561459/phyloseq/R/multtest-wrapper.R#101: 
+ --- call (function) --- 
+mt(x, "Enterotype", method = c("fdr", "bonferroni"), test = "f", 
+    B = 300)
+ --- stacktrace ---
+where 1 at /tmp/RtmpKMzjba/R.INSTALL233ea5b561459/phyloseq/R/multtest-wrapper.R#71: mt(x, "Enterotype", method = c("fdr", "bonferroni"), test = "f", 
+    B = 300)
+where 2: mt(x, "Enterotype", method = c("fdr", "bonferroni"), test = "f", 
+    B = 300)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+Method Definition:
+
+function (physeq, classlabel, minPmaxT = "minP", method = "fdr", 
+    ...) 
+{
+    if (!is.null(sample_data(physeq, FALSE)) & inherits(classlabel, 
+        "character") & identical(length(classlabel), 1L)) {
+        rawFactor = get_variable(physeq, classlabel[1])
+        if (!inherits(rawFactor, "factor")) {
+            rawFactor = factor(rawFactor)
+        }
+        classlabel = rawFactor
+    }
+    MT = mt(otu_table(physeq), classlabel, minPmaxT, ...)
+    if (!is.null(tax_table(physeq, FALSE))) {
+        MT = cbind(MT, as(tax_table(physeq), "matrix")[rownames(MT), 
+            , drop = FALSE])
+    }
+    if (length(method) > 0 & method %in% p.adjust.methods) {
+        method <- method[which(method %in% p.adjust.methods)]
+        adjp = sapply(method, function(meth, p) {
+            p.adjust(p, meth)
+        }, p = MT$rawp, USE.NAMES = TRUE)
+        MT <- cbind(MT, adjp)
+    }
+    return(MT)
+}
+<environment: namespace:phyloseq>
+
+Signatures:
+        physeq     classlabel 
+target  "phyloseq" "character"
+defined "phyloseq" "ANY"      
+ --- function (body) search ---
+S4 Method mt:phyloseq defined in namespace phyloseq with signature phyloseq#ANY has this body.

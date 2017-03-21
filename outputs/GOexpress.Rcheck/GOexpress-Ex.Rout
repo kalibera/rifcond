@@ -1,0 +1,83 @@
+ --- srcref --- 
+ at /tmp/RtmpEPba6s/R.INSTALL22c3239e4c73c/VennDiagram/R/adjust.venn.R#42: 
+ --- call (function) --- 
+VennDiagram::adjust.venn(VennDiagram::rotate.venn.degrees(grob.list, 
+    rotation.degree, rotation.centre[1], rotation.centre[2]), 
+    ...)
+ --- stacktrace ---
+where 1 at /tmp/RtmpEPba6s/R.INSTALL22c3239e4c73c/VennDiagram/R/draw.quintuple.venn.R#447: VennDiagram::adjust.venn(VennDiagram::rotate.venn.degrees(grob.list, 
+    rotation.degree, rotation.centre[1], rotation.centre[2]), 
+    ...)
+where 2 at /tmp/RtmpEPba6s/R.INSTALL22c3239e4c73c/VennDiagram/R/venn.diagram.R#359: VennDiagram::draw.quintuple.venn(area1 = length(A), area2 = length(B), 
+    area3 = length(C), area4 = length(D), area5 = length(E), 
+    n12 = length(n12), n13 = length(n13), n14 = length(n14), 
+    n15 = length(n15), n23 = length(n23), n24 = length(n24), 
+    n25 = length(n25), n34 = length(n34), n35 = length(n35), 
+    n45 = length(n45), n123 = length(n123), n124 = length(n124), 
+    n125 = length(n125), n134 = length(n134), n135 = length(n135), 
+    n145 = length(n145), n234 = length(n234), n235 = length(n235), 
+    n245 = length(n245), n345 = length(n345), n1234 = length(n1234), 
+    n1235 = length(n1235), n1245 = length(n1245), n1345 = length(n1345), 
+    n2345 = length(n2345), n12345 = length(n12345), category = list.names, 
+    ind = FALSE, print.mode = print.mode, sigdigs = sigdigs, 
+    ...)
+where 3 at /tmp/RtmpwiGQJf/R.INSTALL160b45fb40c86/GOexpress/R/post_analysis.R#837: venn.diagram(x = gene_sets, filename = filename, category.names = go_ids, 
+    mar = mar, ...)
+where 4: overlap_GO(go_ids = head(filtered_results$GO$go_id, n = 5), result = filtered_results, 
+    filename = "VennDiagram.tiff")
+
+ --- value of length: 4 type: logical ---
+[1] TRUE TRUE TRUE TRUE
+ --- function --- 
+function(gList1, margin = 0.01, ...) {
+	# adjusts the positions of the ellipses to account for changes made to the plot so far
+
+	# vectors containing all the data sequentially
+	x.vect <- vector();
+	y.vect <- vector();
+
+	# list containing each vector in x.vect and y.vect
+	x.list <- list();
+	y.list <- list();
+
+	for (i in 1:length(gList1)) {
+		x.vect <- c(x.vect, as.vector(gList1[i][[1]]$x, mode = 'numeric'));
+		y.vect <- c(y.vect, as.vector(gList1[i][[1]]$y, mode = 'numeric'));
+		x.list[[i]] <- as.vector(gList1[i][[1]]$x, mode = 'numeric');
+		y.list[[i]] <- as.vector(gList1[i][[1]]$y, mode = 'numeric');
+		}
+
+	# get dimensions of ellipses
+	max.x <- max(x.vect) + margin;
+	min.x <- min(x.vect) - margin;
+	max.y <- max(y.vect) + margin;
+	min.y <- min(y.vect) - margin;
+	x.centre <- (max.x + min.x) / 2;
+	y.centre <- (max.y + min.y) / 2;
+
+	size <- 0.99;
+
+	# wider than tall
+	if (max.x - min.x >= max.y - min.y) {
+		for (i in 1:length(x.list)) {
+			x.list[[i]] <- unit((x.list[[i]] - x.centre) * (size / (max.x - min.x)) + 0.5, 'npc');
+			y.list[[i]] <- unit((y.list[[i]] - y.centre) * (size / (max.x - min.x)) + 0.5, 'npc');
+			}
+		}
+	else {
+		for (i in 1:length(x.list)) {
+			x.list[[i]] <- unit((x.list[[i]] - x.centre) * (size / (max.y - min.y)) + 0.5, 'npc');
+			y.list[[i]] <- unit((y.list[[i]] - y.centre) * (size / (max.y - min.y)) + 0.5, 'npc');
+			}
+		}
+
+	for (i in 1:length(gList1)) {
+		gList1[i][[1]]$x <- x.list[[i]];
+		gList1[i][[1]]$y <- y.list[[i]];
+		}
+
+	return(gList1);
+	}
+<environment: namespace:VennDiagram>
+ --- function (body) search ---
+Function adjust.venn in namespace VennDiagram has this body.

@@ -1,0 +1,54 @@
+ --- srcref --- 
+ at /tmp/RtmpV3drEv/R.INSTALL237df5c52346d/SEPA/R/truetimevisualize.R#28: 
+ --- call (function) --- 
+FUN(X[[i]], ...)
+ --- stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: lapply(X = X, FUN = FUN, ...)
+where 3 at /tmp/RtmpV3drEv/R.INSTALL237df5c52346d/SEPA/R/truetimevisualize.R#27: sapply(1:length(levels(truetime)), function(i) {
+    if (mode == "mean") {
+        mean(e[truetime == levels(truetime)[i]])
+    }
+    else {
+        median(e[truetime == levels(truetime)[i]])
+    }
+})
+where 4: FUN(X[[i]], ...)
+where 5: lapply(X = X, FUN = FUN, ...)
+where 6: sapply(gene, function(singlegene) {
+    e <- expr[singlegene, names(truetime)]
+    sapply(1:length(levels(truetime)), function(i) {
+        if (mode == "mean") {
+            mean(e[truetime == levels(truetime)[i]])
+        }
+        else {
+            median(e[truetime == levels(truetime)[i]])
+        }
+    })
+})
+where 7 at /tmp/RtmpV3drEv/R.INSTALL237df5c52346d/SEPA/R/truetimevisualize.R#25: as.vector(sapply(gene, function(singlegene) {
+    e <- expr[singlegene, names(truetime)]
+    sapply(1:length(levels(truetime)), function(i) {
+        if (mode == "mean") {
+            mean(e[truetime == levels(truetime)[i]])
+        }
+        else {
+            median(e[truetime == levels(truetime)[i]])
+        }
+    })
+}))
+where 8: truetimevisualize(HSMMdata, truetime, c("ENSG00000122180.4", 
+    "ENSG00000125968.7"))
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function --- 
+function(i) {
+                  if (mode == "mean") {
+                        mean(e[truetime==levels(truetime)[i]])      
+                  } else {
+                        median(e[truetime==levels(truetime)[i]])
+                  }                  
+            }
+<environment: 0x17241168>
+ --- function (body) search ---

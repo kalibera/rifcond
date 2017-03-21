@@ -1,0 +1,39 @@
+ --- srcref --- 
+ at /tmp/Rtmp2HosQo/R.INSTALL15d2a4738c8bd/chinese.misc/R/aboutlocale.R#41: 
+ --- call (function) --- 
+doTryCatch(return(expr), name, parentenv, handler)
+ --- stacktrace ---
+where 1: doTryCatch(return(expr), name, parentenv, handler)
+where 2: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 3: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7 at /tmp/Rtmp2HosQo/R.INSTALL15d2a4738c8bd/chinese.misc/R/aboutlocale.R#37: tryCatch(expr = {
+    xx <- x
+    de <- suppressWarnings(Ruchardet::detectEncoding(x))
+    if (!de %in% c("UTF-8", "utf-8")) {
+        xx <- stringi::stri_encode(xx, to = "UTF-8")
+    }
+    xx
+}, error = function(e) {
+    return(-999999)
+}, warning = function(w) {
+    return(-999999)
+})
+where 8 at /tmp/Rtmp2HosQo/R.INSTALL15d2a4738c8bd/chinese.misc/R/dir_or_file.R#31: whetherencode(x)
+where 9: dir_or_file(x1, x2, special = "rds$")
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+function (expr, name, parentenv, handler) 
+{
+    .Internal(.addCondHands(name, list(handler), parentenv, environment(), 
+        FALSE))
+    expr
+}
+<bytecode: 0x195cf60>
+<environment: 0x6db3918>
+ --- function (body) search ---

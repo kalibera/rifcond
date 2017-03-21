@@ -1,0 +1,48 @@
+ --- srcref --- 
+ at /tmp/Rtmpg30MYu/R.INSTALL19c054e687918/pkmon/R/Simul_kmon.R#110: 
+ --- call (function) --- 
+rmixSpline(n = 100, c(5, 20), 3, c(0.5, 0.5))
+ --- stacktrace ---
+where 1: rmixSpline(n = 100, c(5, 20), 3, c(0.5, 0.5))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function(n=1, supp, k, prob){
+  # random generation for a mixture of splines
+  #
+  # INPUT
+  # supp : vector containing the support of the mixture
+  # prob : vector of the same length as supp, containing the
+  #      probabilities of each spline of the mixture
+  # n : the size of the sample
+  # k : integer for the degree of the k-monotony of the splines
+  #
+  # OUTPUT
+  # vector of length n
+  
+  # Checking input
+  if(abs(supp - round(supp)) >= .Machine$double.eps^0.5 | supp<0){
+    stop("supp should be a positive integer")
+  }
+  
+  if(abs(k - round(k)) >= .Machine$double.eps^0.5 | k<2){
+    stop("k should be an integer strictly larger than 1")
+  }
+  
+  if(!is.numeric(prob)){
+    stop("prob should be a numeric vector.")
+  }
+  
+	if(length(supp)!=1){
+		prob=prob/sum(prob);
+		j=sample(supp, size=n, replace=TRUE, prob=prob);
+		X=unlist(lapply(j, rSpline, n=1, k=k));
+	} else {
+		X=rSpline(n=n, k=k);
+	}
+	return(X);
+}
+<environment: namespace:pkmon>
+ --- function (body) search ---
+Function rmixSpline in namespace pkmon has this body.

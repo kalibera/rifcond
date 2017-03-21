@@ -1,0 +1,24 @@
+ --- srcref --- 
+ at /tmp/Rtmp4jqaiX/R.INSTALL29e0e170250e6/debrowser/R/heatmap.R#38: 
+ --- call (function) --- 
+distfun(x)
+ --- stacktrace ---
+where 1 at /tmp/RtmpAaQju8/R.INSTALL18e23394bb7e8/gplots/R/heatmap.2.R#219: distfun(x)
+where 2 at /tmp/Rtmp4jqaiX/R.INSTALL29e0e170250e6/debrowser/R/heatmap.R#45: heatmap.2(cld, Rowv = TRUE, main = title, dendrogram = dend, 
+    Colv = TRUE, col = redblue(256), labRow = names, distfun = dist2, 
+    hclustfun = hclust2, density.info = "none", trace = "none", 
+    margins = c(10, 10))
+where 3: runHeatmap(mtcars)
+
+ --- value of length: 7 type: logical ---
+[1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+ --- function --- 
+function(x, ...) {
+        if (distance_method != "cor") {
+            return(dist(x, method = distance_method))
+        } else {
+            return(as.dist(1 - cor(t(x))))
+        }
+    }
+<environment: 0x275a35c0>
+ --- function (body) search ---

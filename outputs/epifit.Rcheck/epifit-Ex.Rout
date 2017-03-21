@@ -1,0 +1,92 @@
+ --- srcref --- 
+ at /tmp/RtmpfKg2nj/R.INSTALL2d1a7670d7cf0/epifit/R/pullOneValue.R#74: 
+ --- call (function) --- 
+pullOneValue(dat, c("a1", "a2", "a3"))
+ --- stacktrace ---
+where 1: pullOneValue(dat, c("a1", "a2", "a3"))
+
+ --- value of length: 4 type: logical ---
+[1] FALSE  TRUE FALSE FALSE
+ --- function --- 
+function(data=NULL, varlist=c(""), check=TRUE, choose=c("first", "last", "lower", "upper")){
+
+  res <- NULL
+  
+  if(is.null(data) || !is.data.frame(data))
+    stop("data must be data.frame")
+  
+  allvar <- colnames(data)
+  
+  for(i in 1:length(varlist)){
+    if(!varlist[i] %in% allvar)
+      stop("at least one variable in varlist is not included in data")
+  }
+  
+  idx <- GetParamPosition(varlist, allvar)
+  
+  if(length(idx) < 2)
+    return(data[,idx])
+  
+  n <- nrow(data)
+
+  # check variable mode
+  if(is.numeric(data[,idx[1]])){
+    res <- as.numeric(rep(NA, n))
+    for(i in 2:length(idx)){
+      if(!is.numeric(data[,idx[i]]))
+        stop("mode of variables are different")
+    }
+  } else if(is.character(data[,idx[1]])){
+    res <- as.character(rep(NA, n))
+    for(i in 2:length(idx)){
+      if(!is.character(data[,idx[i]]))
+        stop("mode of variables are different")
+    }
+  } else if(is.factor(data[,idx[1]])){
+    res <- as.factor(rep(NA, n))
+    levels(res) <- levels(data[, idx[1]])
+    for(i in 2:length(idx)){
+      if(!is.factor(data[,idx[i]]))
+        stop("mode of variables are different")
+    }
+    warning("factor is not fully supported")
+  } else {
+    stop("unsupported variable type")
+  }
+
+  for(i in 1:n){
+    for(j in idx){
+      
+      if(!is.na(data[i,j]) && !is.nan(data[i,j])){
+        if(is.na(res[i])){
+          res[i] <- data[i,j]
+          if(!check)
+            next
+        } else {
+          if(res[i] != data[i,j]){
+            cat("Imcompatible data exists in row:", i,"\n")
+            for(j in idx){
+              cat(allvar[j], " = ", data[i,j], "\n")
+            }
+            if(choose=="last"){
+              res[i] <- data[i,j]
+            } else if(choose=="lower"){
+              if(res[i] > data[i,j])
+                res[i] <- data[i,j]
+            } else if(choose=="upper"){
+              if(res[i] < data[i,j])
+                res[i] <- data[i,j]
+            } else if(choose!="first"){
+              stop("unknown option is specified in choose argument")
+            }
+          }
+        }
+      }
+    }
+  }
+  return(res)
+}
+<bytecode: 0xccf3798>
+<environment: namespace:epifit>
+ --- function (body) search ---
+Function pullOneValue in namespace epifit has this body.

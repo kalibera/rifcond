@@ -1,0 +1,28 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /tmp/RtmpP4UCv7/R.INSTALLf1bf29b74f7d/CTT/R/subscales.R#12: suppressWarnings(if (!is.na(scale.names)) names(sets) <- scale.names else names(sets) <- paste("Q.", 
+    c(seq(1:n.scales)), sep = ""))
+where 3: subscales(CTTdata, q, c("T1", "T2"), TRUE, TRUE, CTTkey)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x8f9acd8>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

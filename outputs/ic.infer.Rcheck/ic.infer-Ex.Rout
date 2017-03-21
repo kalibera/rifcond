@@ -1,0 +1,24 @@
+ --- srcref --- 
+ at /tmp/RtmpDNjfJc/R.INSTALL1944d6f80d403/ic.infer/R/pchibar.R#4: 
+ --- call (function) --- 
+pchibar(T, 2:0, wt.plus)
+ --- stacktrace ---
+where 1: pchibar(T, 2:0, wt.plus)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function (x, df, wt) 
+{
+    ## acknowlegment: taken from package ibdreg
+    if (x <= 0) {
+        return(0)
+    }
+    zed <- df == 0
+    cdf <- ifelse(any(zed), wt[zed], 0)
+    cdf <- cdf + sum(pchisq(x, df[!zed]) * wt[!zed])
+    return(cdf)
+}
+<environment: namespace:ic.infer>
+ --- function (body) search ---
+Function pchibar in namespace ic.infer has this body.

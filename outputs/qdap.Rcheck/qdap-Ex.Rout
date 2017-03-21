@@ -1,0 +1,50 @@
+ --- srcref --- 
+ at /tmp/RtmpW1Ztdo/R.INSTALL1f04c54173008/qdap/R/term.count.R#6: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2: suppressWarnings(if (is.na(str) | length(p) == 1 & p < 1) {
+    0
+} else {
+    length(p)
+})
+where 3: tester(x, str)
+where 4: FUN(X[[i]], ...)
+where 5: lapply(X = X, FUN = FUN, ...)
+where 6: sapply(mat, function(x) tester(x, str))
+where 7 at /tmp/RtmpW1Ztdo/R.INSTALL1f04c54173008/qdap/R/termco.h.R#7: term.count(tolower(x), mat = tolower(match.string))
+where 8: FUN(X[[i]], ...)
+where 9 at /tmp/RtmpW1Ztdo/R.INSTALL1f04c54173008/qdap/R/termco.h.R#7: lapply(text.var, function(x) term.count(tolower(x), mat = tolower(match.string)))
+where 10 at /tmp/RtmpW1Ztdo/R.INSTALL1f04c54173008/qdap/R/termco.R#429: termco.h(text.var = strip(text.var, lower.case = FALSE, char.keep = char.keep, 
+    digit.remove = digit.remove, apostrophe.remove = apostrophe.remove, 
+    ...), match.string = match.string, grouping.var = grouping.var, 
+    ignore.case = ignore.case)
+where 11 at /tmp/RtmpW1Ztdo/R.INSTALL1f04c54173008/qdap/R/termco.R#297: termco_d(text.var = text.var, grouping.var = grouping.var, match.string = ML, 
+    ignore.case = ignore.case, percent = percent, apostrophe.remove = apostrophe.remove, 
+    char.keep = char.keep, digit.remove = FALSE, digits = digits, 
+    zero.replace = zero.replace, ...)
+where 12: termco(dialogue, person, ml)
+where 13: eval(substitute(expr), data, enclos = parent.frame())
+where 14: eval(substitute(expr), data, enclos = parent.frame())
+where 15: with.default(raj.act.1, termco(dialogue, person, ml))
+where 16: with(raj.act.1, termco(dialogue, person, ml))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x57b9940>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

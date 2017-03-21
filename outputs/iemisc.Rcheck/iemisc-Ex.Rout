@@ -1,0 +1,86 @@
+ --- srcref --- 
+ at /tmp/RtmpFqpUG9/R.INSTALL195c655217349/iemisc/R/PgivenG.R#46: 
+ --- call (function) --- 
+PgivenG(1000, 4, 15)
+ --- stacktrace ---
+where 1: PgivenG(1000, 4, 15)
+
+ --- value of length: 6 type: logical ---
+[1]  TRUE FALSE FALSE FALSE FALSE FALSE
+ --- function --- 
+function (G, n, i, frequency = c("annual", "semiannual", "quarter", "bimonth", "month", "daily")) {
+
+i <- i / 100
+
+fr <- frequency
+
+if (fr == "annual") {
+fr <- 1
+n <- n * fr
+
+i <- i / fr
+
+PgivenG <- G * (1 / i) * (((((1 + i) ^ n) - 1) / (i * ((1 + i) ^ n))) - (n / (1 + i) ^ n))
+
+return(round(PgivenG, digits = 2))
+
+} else if (fr == "semiannual") {
+
+fr <- 2
+n <- n * fr
+
+i <- i / fr
+
+PgivenG <- G * (1 / i) * (((((1 + i) ^ n) - 1) / (i * ((1 + i) ^ n))) - (n / (1 + i) ^ n))
+
+return(round(PgivenG, digits = 2))
+
+} else if (fr == "quarter") {
+
+fr <- 4
+n <- n * fr
+
+i <- i / fr
+
+PgivenG <- G * (1 / i) * (((((1 + i) ^ n) - 1) / (i * ((1 + i) ^ n))) - (n / (1 + i) ^ n))
+
+return(round(PgivenG, digits = 2))
+
+} else if (fr == "bimonth") {
+
+fr <- 6
+n <- n * fr
+
+i <- i / fr
+
+PgivenG <- G * (1 / i) * (((((1 + i) ^ n) - 1) / (i * ((1 + i) ^ n))) - (n / (1 + i) ^ n))
+
+return(round(PgivenG, digits = 2))
+
+} else if (fr == "month") {
+
+fr <- 12
+n <- n * fr
+
+i <- i / fr
+
+PgivenG <- G * (1 / i) * (((((1 + i) ^ n) - 1) / (i * ((1 + i) ^ n))) - (n / (1 + i) ^ n))
+
+return(round(PgivenG, digits = 2))
+
+} else if (fr == "daily") {
+
+fr <- 365
+n <- n * fr
+
+i <- i / fr
+
+PgivenG <- G * (1 / i) * (((((1 + i) ^ n) - 1) / (i * ((1 + i) ^ n))) - (n / (1 + i) ^ n))
+
+return(round(PgivenG, digits = 2))
+
+}
+}
+<environment: namespace:iemisc>
+ --- function (body) search ---
+Function PgivenG in namespace iemisc has this body.

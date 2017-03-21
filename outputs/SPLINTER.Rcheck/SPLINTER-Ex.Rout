@@ -1,0 +1,12 @@
+ --- srcref --- 
+ at /tmp/Rtmpn1Ax6O/R.INSTALL34c13a9f75a1/SPLINTER/R/main_splinter.R#817: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+where 1: insertRegion(region_minus_exon, roi)
+
+ --- value of length: 17 type: logical ---
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[16] TRUE TRUE
+ --- function --- 
+ --- function (body) search ---

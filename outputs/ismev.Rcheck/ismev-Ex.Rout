@@ -1,0 +1,72 @@
+ --- srcref --- 
+ at /tmp/Rtmpab2IRN/R.INSTALL2cac537fe9cbc/ismev/R/game.R#198: 
+ --- call (function) --- 
+gamGPDfitUp(y., xi.nu = param.old, xiFrhs = xiFrhs, nuFrhs = nuFrhs, 
+    yname = datvar, verbose = verbose, ...)
+ --- stacktrace ---
+where 1 at /tmp/Rtmpab2IRN/R.INSTALL2cac537fe9cbc/ismev/R/game.R#314: gamGPDfitUp(y., xi.nu = param.old, xiFrhs = xiFrhs, nuFrhs = nuFrhs, 
+    yname = datvar, verbose = verbose, ...)
+where 2: gamGPDfit(x, threshold = u, datvar = "value", xiFrhs = ~covar + 
+    s(time) - 1, nuFrhs = ~covar + s(time) - 1, epsxi = eps, 
+    epsnu = eps)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function(y, xi.nu, xiFrhs, nuFrhs, yname, verbose=TRUE, ...)
+{
+    if(!is.data.frame(y)) stop("gamGPDfitUp: invalid y argument.")
+
+    dim. <- dim( y )
+    n <- dim.[ 1 ]
+
+    if(dim.[ 2 ] < 1 || n <= 0) stop("gamGPDfitUp: invalid y argument.")
+
+    if(dim(xi.nu) != c(n, 2)) stop("gamGPDfitUp: invalid xi.nu argument.")
+    
+
+#    stopifnot(is.data.frame(y), (dim. <- dim(y))[2] >= 1,
+#              length(which(colnames(y)==yname))==1,
+#              (n <- dim.[1]) > 0, dim(xi.nu)==c(n, 2),
+#              require(mgcv))
+
+    ## pick out xi and nu (for readability)
+    xi <- xi.nu[,1]
+    nu <- xi.nu[,2]
+
+    ## compute one Newton step in xi
+    DrLL <- DrLogL(y[,yname], xi=xi, nu=nu, verbose=verbose) # (n1,4) matrix
+    rl.xi <- DrLL[,"rl.xi"] # score in xi
+    rl.xixi. <- adjustD2(DrLL[,"rl.xixi"], verbose=verbose) # -weight
+    Newton.xi <- xi - rl.xi / rl.xixi. # Newton step
+
+    ## concatenate Newton.xi and rl.xixi. to y, build formula, and estimate xi
+    if("Newton.xi" %in% colnames(y))
+        stop("y is not allowed to have a column named 'Newton.xi'")
+    y. <- cbind(y, Newton.xi=Newton.xi, rl.xixi.=rl.xixi.)
+    xi.formula <- update(xiFrhs, Newton.xi~.) # build formula Newton.xi ~ xiFrhs
+    xi.obj <- gam(xi.formula, data=y., weights=-rl.xixi., ...) # updated xi object of type gamObject
+
+    ## build fitted (xi) object and check
+    xi.fit <- fitted(xi.obj)
+    if((n. <- length(xi.fit)) != n) stop(paste("length(xi.fit) = ",n.," != ",n,". This most likely comes from non-finite weights in the call to adjustD2()",sep=""))
+
+    ## compute one Newton step in nu (for given new xi)
+    DrLL <- DrLogL(y[,yname], xi=xi.fit, nu=nu, verbose=verbose) # (n1,4) matrix
+    rl.nu <- DrLL[,"rl.nu"] # score in nu
+    rl.nunu. <- adjustD2(DrLL[,"rl.nunu"], verbose=verbose) # -weight
+    Newton.nu <- nu - rl.nu / rl.nunu. # Newton step
+
+    ## concatenate Newton.nu and rl.nunu. to y, build formula, and estimate nu
+    if("Newton.nu" %in% colnames(y))
+        stop("y is not allowed to have a column named 'Newton.nu'")
+    y. <- cbind(y, Newton.nu=Newton.nu, rl.nunu.=rl.nunu.)
+    nu.formula <- update(nuFrhs, Newton.nu~.) # build formula Newton.nu ~ nuFrhs
+    nu.obj <- gam(nu.formula, data=y., weights=-rl.nunu., ...) # updated nu object of type gamObject
+
+    ## return list of two gamObject objects (for xi, nu)
+    list(xi=xi.obj, nu=nu.obj, xi.weights=-rl.xixi., nu.weights=-rl.nunu.) # note: the naming (xi, nu) is not ideal but guarantees that colnames(param.old) = colnames(param.new) in gamGPDfit
+}
+<environment: namespace:ismev>
+ --- function (body) search ---
+Function gamGPDfitUp in namespace ismev has this body.

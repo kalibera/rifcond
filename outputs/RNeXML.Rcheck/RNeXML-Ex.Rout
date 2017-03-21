@@ -1,0 +1,43 @@
+ --- srcref --- 
+ at /tmp/Rtmp6O5cDD/R.INSTALL1f50b56660aa/RNeXML/R/simmap.R#29: 
+ --- call (function) --- 
+simmap_to_nexml(phy)
+ --- stacktrace ---
+where 1: simmap_to_nexml(phy)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function --- 
+function(phy, state_ids = NULL){
+
+  
+  ## Hack to deal with S3 class issues when coercing to S4
+  if(class(phy) == c("simmap", "phylo"))
+    class(phy) <- "phylo"
+  
+  ## Create the NeXML object
+  nexml <- as(phy, "nexml")
+
+  if(!is.null(phy$states)){
+    nexml <- add_characters(data.frame(states = as.integer(as.factor(phy$states))), nexml)
+    
+    ## FIXME doesn't have states
+    chars_ids <- get_state_maps(nexml)[[1]]
+    char_id <- names(chars_ids)
+    state_ids <-  reverse_map(chars_ids[[1]]) 
+    # can assume no other states added yet since works on a phy, not nexml  
+  }
+
+
+  if(!is.null(phy$maps))
+    nexml <- simmap_edge_annotations(maps = phy$maps, 
+                                     nexml = nexml, 
+                                     state_ids = state_ids, 
+                                     char_id = char_id)
+  
+ 
+  nexml
+}
+<environment: namespace:RNeXML>
+ --- function (body) search ---
+Function simmap_to_nexml in namespace RNeXML has this body.

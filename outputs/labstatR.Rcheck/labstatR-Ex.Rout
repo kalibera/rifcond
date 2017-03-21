@@ -1,0 +1,51 @@
+ --- srcref --- 
+ at /tmp/RtmpDZHN4d/R.INSTALL14e8129c57e7d/labstatR/R/labstatR.R#428: 
+ --- call (function) --- 
+test.var(x, 20)
+ --- stacktrace ---
+where 1: test.var(x, 20)
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function --- 
+function (x, var0, alternative = 
+ c("greater", "less"), alpha = 0.05){
+  if(missing(var0))
+   stop("specificare l'ipotesi nulla var0")
+  if(missing(x))
+   stop("specificare i dati x")
+
+  n <- length(x)
+  stat <- (n-1)*var(x)/var0
+  cat("\n Ipotesi nulla => H0 : sigma2 =",var0)
+  cat("\n Varianza campionaria:",var(x),",")
+  cat(" statistica test:",stat)
+
+  if(alternative == "greater"){
+   soglia <- qchisq(1-alpha,df=n-1)
+   cat("\n p-value:",1-pchisq(stat,df=n-1),",")    
+   cat(" livello del test:",alpha)
+   cat("\n Quantile Chi-quadrato:",soglia," con ",
+    n-1,"gdl")
+   cat("\n Ipotesi alternativa => H1 : sigma2 > ",var0)
+   if(stat > soglia)
+    cat("\n Decisione: si rifuta H0\n")
+   else
+    cat("\n Decisione: non si rifuta H0\n")
+  }
+  else if(alternative == "less"){
+   soglia <- qchisq(alpha,df=n-1)
+   cat("\n p-value:",pchisq(stat,df=n-1),",")    
+   cat(" livello del test:",alpha)
+   cat("\n Quantile Chi-quadrato:",soglia," con ",
+    n-1,"gdl")
+   cat("\n Ipotesi alternativa => H1 : sigma2 < ",var0)
+   if(stat<soglia)
+    cat("\n Decisione: si rifuta H0\n")
+   else
+    cat("\n Decisione: non si rifuta H0\n")
+  } 
+}
+<environment: namespace:labstatR>
+ --- function (body) search ---
+Function test.var in namespace labstatR has this body.

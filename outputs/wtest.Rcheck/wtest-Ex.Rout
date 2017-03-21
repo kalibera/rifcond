@@ -1,0 +1,34 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /tmp/RtmpZUbUEk/R.INSTALL255afa79970c/wtest/R/w.diagnosis.R#54: suppressWarnings(if (hf1 == "default.hf1") {
+    hf1 = array(c(0.5, 0.667, 1, 2), dim = c(2, 2))
+} else {
+    hf1 = hf1[, 2:3]
+})
+where 3: w.diagnosis(mydata, w.order = 1, n.rep = 200, hf1 = hf1, main = NULL, 
+    xlab = NULL, ylab = NULL)
+
+ --- value of length: 6 type: logical ---
+         k     h     f
+[1,] FALSE FALSE FALSE
+[2,] FALSE FALSE FALSE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x7c83240>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

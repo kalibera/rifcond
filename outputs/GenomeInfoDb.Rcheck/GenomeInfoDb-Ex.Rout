@@ -1,0 +1,74 @@
+ --- srcref --- 
+ at /tmp/Rtmpi11Ji4/R.INSTALL29fec4ed62906/GenomicFeatures/R/TxDb-class.R#377: 
+ --- call (function) --- 
+`seqlevels<-`(`*tmp*`, value = c("CH2L", "CH2R", "CH3L", "CH3R", 
+"CH4", "CHX", "CHU", "CHM", "CH2LHet", "CH2RHet", "CH3LHet", 
+"CH3RHet", "CHXHet", "CHYHet", "CHUextra"))
+ --- stacktrace ---
+where 1 at /tmp/RtmpGE4V3D/R.INSTALL47558affbd7/GenomeInfoDb/R/seqinfo.R#198: `seqlevels<-`(`*tmp*`, value = c("CH2L", "CH2R", "CH3L", "CH3R", 
+"CH4", "CHX", "CHU", "CHM", "CH2LHet", "CH2RHet", "CH3LHet", 
+"CH3RHet", "CHXHet", "CHYHet", "CHUextra"))
+where 2 at /tmp/RtmpGE4V3D/R.INSTALL47558affbd7/GenomeInfoDb/R/seqlevels-wrappers.R#53: `seqlevels<-`(`*tmp*`, value = c("CH2L", "CH2R", "CH3L", "CH3R", 
+"CH4", "CHX", "CHU", "CHM", "CH2LHet", "CH2RHet", "CH3LHet", 
+"CH3RHet", "CHXHet", "CHYHet", "CHUextra"))
+where 3: renameSeqlevels(txdb, sub("chr", "CH", seqlevels(txdb)))
+
+ --- value of length: 15 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE
+ --- function --- 
+Method Definition:
+
+function (x, force = FALSE, pruning.mode = c("error", "coarse", 
+    "fine", "tidy"), value) 
+{
+    x_seqlevels0 <- seqlevels0(x)
+    if (identical(value, x_seqlevels0)) 
+        return(x$initialize())
+    x_seqlevels <- seqlevels(x)
+    mode <- GenomeInfoDb:::getSeqlevelsReplacementMode(value, 
+        x_seqlevels0)
+    if (mode == -2L) {
+        x$user_seqlevels <- value
+        x$user2seqlevels0 <- match(value, x_seqlevels0)
+        return(x)
+    }
+    new2old <- GenomeInfoDb:::getSeqlevelsReplacementMode(value, 
+        x_seqlevels)
+    if (identical(new2old, -3L)) {
+        x$user_seqlevels <- value
+        return(x)
+    }
+    if (identical(new2old, -2L) || identical(new2old, -1L)) {
+        new2old <- match(value, x_seqlevels)
+    }
+    user2seqlevels0 <- x$user2seqlevels0[new2old]
+    na_idx <- which(is.na(user2seqlevels0))
+    if (length(na_idx) != 0L) {
+        user2seqlevels0[na_idx] <- match(value[na_idx], x_seqlevels0)
+        if (anyNA(user2seqlevels0)) 
+            stop(wmsg("adding seqlevels to a TxDb object is not supported"))
+        any_dup <- anyDuplicated(user2seqlevels0)
+        if (any_dup) {
+            idx0 <- user2seqlevels0[any_dup]
+            in1string <- paste(value[user2seqlevels0 == idx0], 
+                collapse = ", ")
+            seqlevel0 <- x_seqlevels0[idx0]
+            stop(wmsg("more than one user-supplied seqlevels ", 
+                "(", in1string, ") refer to the same seqlevel ", 
+                "stored in the db (", seqlevel0, ")"))
+        }
+    }
+    x$user_seqlevels <- unname(value)
+    x$user2seqlevels0 <- user2seqlevels0
+    x
+}
+<bytecode: 0x24c8ea48>
+<environment: namespace:GenomicFeatures>
+
+Signatures:
+        x     
+target  "TxDb"
+defined "TxDb"
+ --- function (body) search ---
+S4 Method seqlevels<-:GenomeInfoDb defined in namespace GenomicFeatures with signature TxDb has this body.

@@ -1,0 +1,31 @@
+ --- srcref --- 
+ at /tmp/RtmpGJ2Nus/R.INSTALL654a32adba9a/burnr/R/utils.R#332: 
+ --- call (function) --- 
+sort.fhx(lgr2, decreasing = TRUE)
+ --- stacktrace ---
+where 1: sort.fhx(lgr2, decreasing = TRUE)
+where 2: sort(lgr2, decreasing = TRUE)
+where 3: plot(sort(lgr2, decreasing = TRUE))
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function --- 
+function(x, decreasing=FALSE, sort_by = c('first_year', 'last_year'), ...) {
+  stopifnot(is.fhx(x))
+
+  if (is.null(sort_by)) sort.order <- min
+  if (sort_by == "first_year") sort.order <- min
+  if (sort_by == "last_year") sort.order <- max
+  if (length(unique(x$series)) == 1) {
+    return(x)
+  }
+  series_minyears <- stats::aggregate(year ~ series, x, sort.order)
+  i <- order(series_minyears$year, decreasing = decreasing)
+  x$series <- factor(x$series,
+                     levels = series_minyears$series[i],
+                     ordered = TRUE)
+  x
+}
+<environment: namespace:burnr>
+ --- function (body) search ---
+Function sort.fhx in namespace burnr has this body.

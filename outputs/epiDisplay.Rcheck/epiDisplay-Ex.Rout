@@ -1,0 +1,31 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /tmp/Rtmp2O9oLX/R.INSTALL2b2772ff285e0/epiDisplay/R/epiDisplay.R#4280: suppressWarnings(if (bar.values == "percent") {
+    table.to.plot <- round(table.to.plot/sum(table.to.plot) * 
+        100, decimal)
+    scale.label <- "%"
+})
+where 3: tab1(eclair)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE  TRUE FALSE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x110099e0>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

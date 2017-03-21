@@ -1,0 +1,29 @@
+ --- srcref --- 
+ at /tmp/RtmpIsa3Aa/R.INSTALL1a153c27b2c2/secr/R/model.average.R#148: 
+ --- call (function) --- 
+FUN(X[[i]], ...)
+ --- stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: lapply(object, getLP)
+where 3: model.average(ovenbird.model.1, ovenbird.model.1b, ovenbird.model.1T, 
+    ovenbird.model.h2, realnames = "D")
+
+ --- value of length: 5 type: logical ---
+ 2005  2006  2007  2008  2009 
+FALSE FALSE FALSE FALSE FALSE 
+ --- function --- 
+function (object1) {  ## predicted values of real parameters
+            getfield <- function (x) {
+                 secr.lpredictor (formula = object1$model[[x]], newdata = newdata,
+                    indx = object1$parindx[[x]], beta = object1$fit$par,
+                    beta.vcv = object1$beta.vcv, field = x,
+                    smoothsetup = object1$smoothsetup[[x]])
+            }
+            ## check added 2016-06-16
+            if (nclusters(object1$capthist)>1)
+                warning("model.average is ignoring n.mashed", call. = FALSE)
+            sapply (names(object1$model), getfield, simplify = FALSE)
+        }
+<bytecode: 0x1a4f8f58>
+<environment: 0x1e05fac8>
+ --- function (body) search ---

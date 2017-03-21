@@ -1,0 +1,23 @@
+ --- srcref --- 
+ at /tmp/RtmpTnmcXe/R.INSTALL580d55e5c605/AnalyzeFMRI/R/threshold.R#126: 
+ --- call (function) --- 
+Threshold.Bonferroni(0.05, 1000)
+ --- stacktrace ---
+where 1: Threshold.Bonferroni(0.05, 1000)
+
+ --- value of length: 3 type: logical ---
+[1]  TRUE FALSE FALSE
+ --- function --- 
+function(p.val, n, type = c("Normal", "t", "F"), df1 = NULL, df2 = NULL) {
+
+    ## calculate the Bonferroni threshold for n iid tests to give a p-value of p.val
+    ## type specifies the univariate distribution of the test statistics under consideration
+    
+    if(type == "Normal") return(qnorm(1 - p.val / n))
+    if(type == "t") return(qt(1 - p.val / n, df = df1))
+    if(type == "F") return(qf(1 - p.val / n, df1 = df1, df2 = df2))
+
+}
+<environment: namespace:AnalyzeFMRI>
+ --- function (body) search ---
+Function Threshold.Bonferroni in namespace AnalyzeFMRI has this body.

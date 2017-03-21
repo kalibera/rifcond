@@ -1,0 +1,203 @@
+ --- srcref --- 
+ at /tmp/RtmprNQ4Za/R.INSTALL20d242105c742/saemix/R/SaemixData.R#394: 
+ --- call (function) --- 
+read.saemixData(x)
+ --- stacktrace ---
+where 1 at /tmp/RtmprNQ4Za/R.INSTALL20d242105c742/saemix/R/global.R#6: read.saemixData(x)
+where 2: read.saemixData(x)
+where 3: saemixData(name.data = theo.saemix, header = TRUE, sep = " ", 
+    na = NA, name.group = c("Id"), name.predictors = c("Dose", 
+        "Time"), name.response = c("Concentration"), name.covariates = c("Weight", 
+        "Sex"), units = list(x = "hr", y = "mg/L", covariates = c("kg", 
+        "-")), name.X = "Time")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+Method Definition:
+
+function (object) 
+{
+    ow <- options("warn")
+    options(warn = -1)
+    if (class(object@name.data) != "character") {
+        cat("Please provide the name of the data (data.frame or path to file on disk) as a character string.\n")
+        return("Creation of saemixData failed")
+    }
+    if (exists(object@name.data)) {
+        cat("Using the object called", object@name.data, "in this R session as the data.\n")
+        dat <- get(object@name.data)
+    }
+    else {
+        cat("Reading data from file", object@name.data, "\n")
+        header <- object@header
+        if (is.null(header)) 
+            header <- TRUE
+        sep <- object@sep
+        if (is.null(sep)) 
+            sep <- ""
+        na.strings <- object@na
+        if (is.null(na.strings)) 
+            na.strings <- "NA"
+        dat <- try(read.table(object@name.data, header = header, 
+            sep = sep, na.strings = na.strings))
+        if (class(dat) == "try-error") 
+            stop("The file ", object@name.data, " does not exist. Please check the name and path.\n")
+        cat("These are the first lines of the dataset as read into R. Please check the format of the data is appropriate, if not, modify the na and/or sep items and retry:\n")
+        print(head(dat))
+    }
+    if (dim(dat)[2] < 3) {
+        cat("The dataset does not contain enough data. The non-linear mixed effect model requires at least 3 columns, with subject ID, predictor (at least one) and response. \nPlease check the field separator, currently given as:", 
+            paste("sep=\"", object@sep, "\"", sep = ""), "\n")
+        return("Creation of saemixData failed")
+    }
+    if (!is.na(as.integer(object@name.group))) {
+        object@name.group <- colnames(dat)[as.integer(object@name.group)]
+    }
+    if (is.na(object@name.group)) 
+        object@name.group <- ""
+    if (object@name.group == "") {
+        i1 <- match("id", tolower(colnames(dat)))
+        if (length(i1) == 0 | is.na(i1)) {
+            i1 <- c(grep("subject", tolower(colnames(dat)), fixed = T), 
+                grep("sujet", tolower(colnames(dat)), fixed = T))
+        }
+        if (length(i1) > 0) {
+            object@name.group <- colnames(dat)[i1[1]]
+            cat("    no name for the group variable (ID) given, will use column --", 
+                object@name.group, "-- in the dataset.\n")
+        }
+    }
+    if (is.na(match(object@name.group, colnames(dat)))) {
+        cat("Can't find a column named", object@name.group, "in the data.\n")
+        return("Creation of saemixData failed")
+    }
+    if (object@name.group == "") {
+        cat("Please provide a name for the ID column.\n")
+        return("Creation of saemixData failed")
+    }
+    i1 <- as.integer(object@name.predictors[!is.na(as.integer(object@name.predictors))])
+    if (length(i1) > 0) {
+        object@name.predictors[!is.na(as.integer(object@name.predictors))] <- colnames(dat)[i1]
+    }
+    if (is.na(object@name.predictors)) 
+        object@name.predictors <- ""
+    if (length(object@name.predictors) == 0 | (length(object@name.predictors) == 
+        1 & object@name.predictors[1] == "")) {
+        i1 <- c(match(c("time", "temps", "tps", "tim", "x", "dose"), 
+            tolower(colnames(dat))))
+        i1 <- i1[!is.na(i1)]
+        if (length(i1) > 0) {
+            object@name.predictors <- colnames(dat)[i1]
+            cat("    no name for the predictor variable given, will use column(s) --", 
+                object@name.predictors, "-- in the dataset.\n")
+        }
+    }
+    id1 <- match(object@name.predictors, colnames(dat), nomatch = 0)
+    if (length(id1[id1 == 0]) > 0) {
+        cat("    cannot find column(s) --", object@name.predictors[id1 == 
+            0], "-- dropping them from the data.\n")
+    }
+    xnam <- object@name.predictors[id1 > 0]
+    if (length(xnam) == 0) 
+        object@name.predictors <- ""
+    else object@name.predictors <- xnam
+    if (length(xnam) == 0) {
+        cat("Please provide at least one predictor.\n")
+        return("Creation of saemixData failed")
+    }
+    if (!is.na(as.integer(object@name.response))) {
+        object@name.response <- colnames(dat)[as.integer(object@name.response)]
+    }
+    if (object@name.response == "") {
+        i1 <- match("y", tolower(colnames(dat)))
+        if (length(i1) == 0 | is.na(i1)) {
+            i1 <- c(grep("response", tolower(colnames(dat)), 
+                fixed = TRUE), match(c("resp", "conc"), tolower(colnames(dat))), 
+                grep("concentration", tolower(colnames(dat)), 
+                  fixed = TRUE))
+            i1 <- i1[!is.na(i1)]
+        }
+        if (length(i1) > 0) {
+            object@name.response <- colnames(dat)[i1[1]]
+            cat("    no name for the response variable given, will use column --", 
+                object@name.response, "-- in the dataset.\n")
+        }
+    }
+    if (is.na(object@name.response)) 
+        object@name.response <- ""
+    if (is.na(match(object@name.response, colnames(dat)))) {
+        cat("Can't find a column named", object@name.response, 
+            "for the response column.\n")
+        return("Creation of saemixData failed")
+    }
+    if (object@name.response == "") {
+        cat("Please provide a name for the response column.\n")
+        return("Creation of saemixData failed")
+    }
+    if (length(object@name.covariates) > 0 & object@name.covariates[1] != 
+        "") {
+        i1 <- as.integer(object@name.covariates[!is.na(as.integer(object@name.covariates))])
+        object@name.covariates[!is.na(as.integer(object@name.covariates))] <- colnames(dat)[i1]
+    }
+    if (nchar(object@name.group) * length(object@name.predictors) * 
+        nchar(object@name.response) <= 0) {
+        stop("Please check the structure of the data file and provide information concerning which columns specify the group structure (ID), the predictors (eg dose, time) and the response (eg Y, conc). See documentation for automatic recognition of column names for these elements.\n")
+    }
+    if (nchar(object@name.X) == 0) 
+        object@name.X <- object@name.predictors[1]
+    if (!is.na(as.integer(object@name.X))) {
+        if (dim(dat)[2] < as.integer(object@name.X)) {
+            cat("Attribute name.X", object@name.X, "does not correspond to a valid column in the dataset, setting the X axis for graphs to", 
+                object@name.predictors[1], ".\n")
+            object@name.X <- object@name.predictors[1]
+        }
+        else object@name.X <- colnames(dat)[as.integer(object@name.X)]
+    }
+    if (match(object@name.X, object@name.predictors, nomatch = 0) == 
+        0) {
+        cat("Attribute name.X", object@name.X, "does not correspond to a valid column in the dataset, setting the X axis for graphs to", 
+            object@name.predictors[1], ".\n")
+        object@name.X <- object@name.predictors[1]
+    }
+    all.names <- c(object@name.group, object@name.predictors, 
+        object@name.response, object@name.covariates)
+    dat <- dat[, all.names, drop = FALSE]
+    if (class(dat) != "data.frame") 
+        dat <- as.data.frame(dat)
+    if (sum(is.na(dat[, object@name.response])) > 0) {
+        cat("Removing missing observations.\n")
+    }
+    dat <- dat[!is.na(dat[, object@name.response]), ]
+    for (i in object@name.predictors) {
+        if (sum(is.na(dat[, i])) > 0) 
+            cat("Removing missing values for predictor", i, "\n")
+        dat <- dat[!is.na(dat[, i]), ]
+    }
+    object@ocov <- dat[, object@name.covariates, drop = FALSE]
+    for (icov in object@name.covariates) {
+        if (length(unique(dat[, icov])) == 2) 
+            dat[, icov] <- as.integer(factor(dat[, icov])) - 
+                1
+    }
+    object@ntot.obs <- dim(dat)[1]
+    id <- dat[, object@name.group]
+    object@N <- length(unique(id))
+    nind.obs <- tapply(id, id, length)
+    nind.obs <- nind.obs[match(unique(id), names(nind.obs))]
+    object@nind.obs <- c(nind.obs)
+    dat <- cbind(index = rep(1:object@N, times = nind.obs), dat)
+    object@data <- dat
+    options(ow)
+    validObject(object)
+    return(object)
+}
+<bytecode: 0x81b5738>
+<environment: namespace:saemix>
+
+Signatures:
+        object      
+target  "SaemixData"
+defined "SaemixData"
+ --- function (body) search ---
+S4 Method read.saemixData:saemix defined in namespace saemix with signature SaemixData has this body.

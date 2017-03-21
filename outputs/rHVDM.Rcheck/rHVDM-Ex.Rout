@@ -1,0 +1,60 @@
+ --- srcref --- 
+ at /tmp/RtmpTCG6Sf/R.INSTALL4e411414ed28/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- call (function) --- 
+.computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- stacktrace ---
+where 1 at /tmp/RtmpTCG6Sf/R.INSTALL4e411414ed28/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /tmp/RtmpTCG6Sf/R.INSTALL4e411414ed28/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A", refchips = leastnoisychips)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function --- 
+function(X,errtable,refchips){
+	#method as described in GB paper
+	#prepare the receptacle
+	N<-dim(X)[2]
+	if(missing(refchips)){
+		refchips<-c(1:N)
+	}
+	m<-dim(errtable)[1]
+	res<-matrix(rep(0,m*N),m,N)
+	dimnames(res)[[2]]<-dimnames(X)[[2]]
+	#compute average
+	coeffmul<-rep(1./N,N)
+	aver<-as.vector(X %*% coeffmul)
+	difsq<-(X-aver)^2
+	#determine bounds for classification
+	bnds<-c(-20,errtable[,1])
+	for(i in c(1:(m-1))){
+		bnds[i+1]<-errtable[i,1]/2+errtable[i+1,1]/2
+	}
+	bnds[m+1]<-log(max(aver)+1)
+	if(refchips==0){
+		wei<-rep(0,m)
+	}
+	for(i in c(1:m)){
+		keep<-((log(aver)>bnds[i]) & (log(aver)<=bnds[i+1]))
+		ngenes<-sum(keep*1)
+		coe<-rep(1./ngenes,ngenes)
+		res[i,]<-as.vector(t(difsq[keep,]) %*% coe)
+		if(refchips==0){
+			wei[i]<-ngenes
+		}
+	}
+	if(refchips==0){
+		refchips<-.retlessnoisy(X=res,weight=wei,N=3)
+		print(refchips)
+	}
+	#compute average for reference group
+	nref<-length(refchips)
+	coe<-rep(1./nref,nref)
+	avrefchi<-res[,refchips] %*% coe
+	ratio<-as.vector(errtable[,2]/avrefchi)
+	res<-cbind(errtable[,1],res*ratio)
+	dimnames(res)[[2]][1]<-"avg"
+	res
+}
+<environment: namespace:rHVDM>
+ --- function (body) search ---
+Function .computeinderrtable in namespace rHVDM has this body.

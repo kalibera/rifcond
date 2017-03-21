@@ -1,0 +1,29 @@
+ --- srcref --- 
+ at /tmp/Rtmp8JPXIZ/R.INSTALL47d71a950c95/hapFabia/R/methods-IBDsegmentList-class.R#110: 
+ --- call (function) --- 
+`[<-`(`*tmp*`, c(3, 4), value = <S4 object of class "IBDsegmentList">)
+ --- stacktrace ---
+where 1: `[<-`(`*tmp*`, c(3, 4), value = <S4 object of class "IBDsegmentList">)
+where 2: `[<-`(`*tmp*`, c(3, 4), value = <S4 object of class "IBDsegmentList">)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function --- 
+Method Definition:
+
+function (x, i, j, ..., value) 
+{
+    IBDsegments(x)[i] <- value
+    if (i > lengthList(x)) {
+        lengthList(x) <- i
+    }
+    x
+}
+<environment: namespace:hapFabia>
+
+Signatures:
+        x                i         j         value           
+target  "IBDsegmentList" "numeric" "missing" "IBDsegmentList"
+defined "IBDsegmentList" "numeric" "missing" "IBDsegmentList"
+ --- function (body) search ---
+S4 Method [<-:base defined in namespace hapFabia with signature IBDsegmentList#numeric#missing#IBDsegmentList has this body.

@@ -1,0 +1,77 @@
+ --- srcref --- 
+ at /tmp/Rtmp6YgqLx/R.INSTALL7b8f70cf263f/ExtDist/R/Laplace.R#159: 
+ --- call (function) --- 
+eLaplace(c(0.0981874006662456, 0.192470502598578, 0.080791234832357, 
+0.215236023124703, 0.0819730366346613, 0.24239909348071, 0.291549819432398, 
+0.129892486493783, 0.495251284596173, 0.225291873070169, 0.0986519759850062, 
+0.0150824679556766, 0.383426481328028, 0.160799286869712, 0.164533232520633, 
+0.337847383659928, 0.309543236063974, 0.262315444940739, 0.331943574039946, 
+0.300946540030764, 0.176780985838737, 0.0210178267742363, 0.267370883721543, 
+0.159363307917005, 0.147018777993215, 0.0411277558158178, 0.112029728358418, 
+0.230108923380977, 0.448809362187509, 0.153487083730173), c(1, 
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+1, 1, 1, 1, 1, 1, 1, 1))
+ --- stacktrace ---
+where 1: eLaplace(c(0.0981874006662456, 0.192470502598578, 0.080791234832357, 
+0.215236023124703, 0.0819730366346613, 0.24239909348071, 0.291549819432398, 
+0.129892486493783, 0.495251284596173, 0.225291873070169, 0.0986519759850062, 
+0.0150824679556766, 0.383426481328028, 0.160799286869712, 0.164533232520633, 
+0.337847383659928, 0.309543236063974, 0.262315444940739, 0.331943574039946, 
+0.300946540030764, 0.176780985838737, 0.0210178267742363, 0.267370883721543, 
+0.159363307917005, 0.147018777993215, 0.0411277558158178, 0.112029728358418, 
+0.230108923380977, 0.448809362187509, 0.153487083730173), c(1, 
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+1, 1, 1, 1, 1, 1, 1, 1))
+where 2: FUN(X[[i]], ...)
+where 3 at /tmp/Rtmp6YgqLx/R.INSTALL7b8f70cf263f/ExtDist/R/bestDist.R#35: lapply(paste0("e", candDist), do.call, args = list(X, w))
+where 4: bestDist(X, candDist = c("Laplace", "Normal", "Beta_ab"), criterion = "logLik")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function --- 
+function(X,w, method =c("analytic.MLE","numerical.MLE"),...){
+    n<-length(X)
+    if(missing(w)){
+      w <- rep(1,n)
+    } else {
+      w <- n*w/sum(w)
+    }
+    
+    if(method == "analytic.MLE") {
+      
+      mu <- median(X, na.rm=T)
+      b <- mean(abs(X-mu))
+      est.par <- list(mu=mu, b=b) 
+      est.par.se <- rep(NA, length(est.par))
+    } else{
+      method == "numerical.MLE"  
+      
+      est.par <- wmle(X=X, w=w, distname="Laplace",
+                      initial=list(mu=0, b=1),
+                      lower=list(mu=-Inf, b=0),
+                      upper=list(mu=Inf, b=Inf))
+      
+      est.par.se <- try(sqrt(diag(solve(attributes(est.par)$nll.hessian))),silent=TRUE)
+      if(class(est.par.se) == "try-error") {
+        est.par.se <- rep(NA, length(est.par))
+      } 
+    } 
+    
+    attributes(est.par)$ob <- X
+    attributes(est.par)$weights <- w
+    attributes(est.par)$distname <- "Laplace"
+    
+    attributes(est.par)$method <- method
+    attributes(est.par)$par.name <- c("mu","b")
+    attributes(est.par)$par.type <- c("location", "scale")
+    attributes(est.par)$par.vals <- c(est.par$mu, est.par$b)
+    attributes(est.par)$par.s.e <-  est.par.se  
+    
+    class(est.par) <- "eDist"
+    
+    return(est.par)
+  }
+<bytecode: 0x8a6a780>
+<environment: namespace:ExtDist>
+ --- function (body) search ---
+Function eLaplace in namespace ExtDist has this body.

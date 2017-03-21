@@ -1,0 +1,25 @@
+ --- srcref --- 
+ at /tmp/RtmpDbD979/R.INSTALL114e6236e2ca6/financial/R/ireff.R#4: 
+ --- call (function) --- 
+ireff(20, c(1:20, Inf))
+ --- stacktrace ---
+where 1: ireff(20, c(1:20, Inf))
+
+ --- value of length: 21 type: logical ---
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+ --- function --- 
+function (nom,p) 
+{
+if (p != Inf) {
+	return(((1+nom/(100*p))^p-1)*100)
+	}
+	else
+	{
+	return ((exp(nom/100)-1)*100)
+	}
+
+}
+<environment: namespace:financial>
+ --- function (body) search ---
+Function ireff in namespace financial has this body.

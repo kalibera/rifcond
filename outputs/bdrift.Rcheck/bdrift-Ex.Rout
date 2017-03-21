@@ -1,0 +1,58 @@
+ --- srcref --- 
+ at /tmp/RtmpMx7UJ2/R.INSTALLb73334f304d2/quantmod/R/Defaults.R#8: 
+ --- call (function) --- 
+importDefaults("getSymbols")
+ --- stacktrace ---
+where 1 at /tmp/RtmpMx7UJ2/R.INSTALLb73334f304d2/quantmod/R/getSymbols.R#26: importDefaults("getSymbols")
+where 2 at /tmp/RtmpMx7UJ2/R.INSTALLb73334f304d2/quantmod/R/OHLC.transformations.R#296: quantmod::getSymbols(Symbols = symbol, auto.assign = FALSE, ...)
+where 3 at /tmp/RtmpMx7UJ2/R.INSTALLb73334f304d2/quantmod/R/OHLC.transformations.R#289: has.Ad(x)
+where 4 at /tmp/RtmpCqZMpQ/R.INSTALLfb904d84add/bdrift/R/BDAloader.R#66: quantmod::Ad(quantmod::getSymbols(Symbols = symbol, auto.assign = FALSE, 
+    ...))
+where 5: BDA.loader(symbol = "XOM")
+
+ --- value of length: 3 type: logical ---
+[1]  TRUE  TRUE FALSE
+ --- function --- 
+function(calling.fun=NULL) {
+  sc <- sys.call(-1)
+  if(is.null(calling.fun)) calling.fun <- as.character(sc[[1]])
+  if(is.function(calling.fun)) calling.fun <- deparse(substitute(calling.fun))
+  if(is.null(sc)) 
+    stop("importDefaults is only valid inside a function call") 
+  if(as.character(sc[[1]]) != calling.fun) return()
+  #calling.fun <- as.character(match.call(call=as.call(sys.call(-1)))[1])
+  all.defaults <- getDefaults(calling.fun)
+  if(is.null(all.defaults)) return()
+  envir <- as.environment(-1)
+  #passed.args <- names(sapply(match.call(call=as.call(sys.call(-1)))[-1],deparse))
+  passed.args <- names(as.list(match.call(
+                       definition=eval(parse(text=calling.fun)),
+                       call=as.call(sys.call(-1)))))[-1]
+  formal.args <- names(formals(as.character(sys.call(-1))))
+  default.args <- names(which(sapply(all.defaults,function(x) !is.null(x))==TRUE))
+  for(arg in formal.args) {
+    if(!arg %in% passed.args) {
+      if(arg %in% default.args) {
+        if(typeof(all.defaults[arg][[1]])=='list') {
+          assign(arg, as.vector(all.defaults[arg][[1]]),envir=envir)
+        } 
+        else if(typeof(all.defaults[arg][[1]]) %in% c('symbol','language')) {
+          assign(arg, all.defaults[arg][[1]],envir=envir)
+        }
+        else if(typeof(all.defaults[arg][[1]])=="character") {
+           if(length(all.defaults[arg][[1]])==1) {
+             assign(arg, eval(parse(text=all.defaults[arg][[1]])),envir=envir)
+           } else {
+             assign(arg, as.character(parse(text=all.defaults[arg][[1]])),envir=envir)
+           }
+        }
+        else {
+          assign(arg, as.vector(unlist(all.defaults[arg][[1]])),envir=envir)
+        }
+      }
+    }
+  }
+}
+<environment: namespace:quantmod>
+ --- function (body) search ---
+Function importDefaults in namespace quantmod has this body.

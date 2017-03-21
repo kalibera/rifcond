@@ -1,0 +1,101 @@
+ --- srcref --- 
+ at /tmp/RtmpsGBKlt/R.INSTALL112466aff3191/imPois/R/imTools.R#155: 
+ --- call (function) --- 
+FUN(newX[, i], ...)
+ --- stacktrace ---
+where 1: FUN(newX[, i], ...)
+where 2 at /tmp/RtmpsGBKlt/R.INSTALL112466aff3191/imPois/R/imTools.R#150: apply(vtx, 1, function(x) {
+    if (length(x) == 2) {
+        if (wrt == "canonical") {
+            tryCatch(et.pdf(y = y, pars = c(0, x[1], x[2])), 
+                error = function(e) {
+                  robj <- list(y = y, pars = c(0, x[1], x[2]), 
+                    pars1 = c(0, x[1] + sum(y), x[2] + length(y)), 
+                    value = NA)
+                  return(robj)
+                })
+        }
+        else if (wrt == "mean") {
+            tryCatch(em.pdf(y = y, pars = c(0, x[1], x[2])), 
+                error = function(e) {
+                  robj <- list(y = y, pars = c(0, x[1], x[2]), 
+                    pars1 = c(0, x[1] + sum(y), x[2] + length(y)), 
+                    value = NA)
+                  return(robj)
+                })
+        }
+    }
+    else if (length(x) == 3) {
+        if (wrt == "canonical") {
+            tryCatch(et.pdf(y = y, pars = c(x[1], x[2], x[3])), 
+                error = function(e) {
+                  robj <- list(y = y, pars = c(x[1], x[2], x[3]), 
+                    pars1 = c(x[1], x[2] + sum(y), x[3] + length(y)), 
+                    value = NA)
+                  return(robj)
+                })
+        }
+        else if (wrt == "mean") {
+            tryCatch(em.pdf(y = y, pars = c(x[1], x[2], x[3])), 
+                error = function(e) {
+                  robj <- list(y = y, pars = c(x[1], x[2], x[3]), 
+                    pars1 = c(x[1], x[2] + sum(y), x[3] + length(y)), 
+                    value = NA)
+                  return(robj)
+                })
+        }
+    }
+})
+where 3: update.impinf(op, y = NULL)
+where 4: update(op, y = NULL)
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function --- 
+function(x){
+	# TODO: optimize code here in terms of 'pars' and 'pars1'
+		
+		if (length(x) == 2) {  # TODO: iprior <- "lgamma"
+
+			if (wrt == "canonical") {
+			
+				tryCatch(et.pdf(y=y, pars=c(0, x[1],x[2])), 
+					error=function(e) {
+						robj <- list(y=y, pars=c(0, x[1],x[2]), pars1=c(0, x[1]+sum(y),x[2]+length(y)), value=NA)
+						return(robj)
+						}) 
+
+			} else if (wrt == "mean") { 
+				
+				tryCatch(em.pdf(y=y, pars=c(0, x[1],x[2])), 
+					error=function(e) {
+			 			robj <- list(y=y, pars=c(0, x[1],x[2]), pars1=c(0, x[1]+sum(y),x[2]+length(y)), value=NA)
+						return(robj)
+			 		}) 
+
+			}
+
+		} else if (length(x) == 3) {  # TODO: iprior <- "normal"
+
+			if (wrt == "canonical") { 
+
+				tryCatch(et.pdf(y=y, pars=c(x[1],x[2],x[3])), 
+					error=function(e) {
+						robj <- list(y=y, pars=c(x[1],x[2],x[3]), pars1=c(x[1],x[2]+sum(y),x[3]+length(y)), value=NA)
+						return(robj)
+					} ) 
+
+			} else if (wrt == "mean") { 
+				tryCatch(em.pdf(y=y, pars=c(x[1],x[2],x[3])), 
+					error=function(e) {
+						robj <- list(y=y, pars=c(x[1],x[2],x[3]), pars1=c(x[1],x[2]+sum(y),x[3]+length(y)), value=NA)
+					return(robj)
+					} ) 
+	
+			}
+
+		}
+	
+	}
+<environment: 0x29e3610>
+ --- function (body) search ---

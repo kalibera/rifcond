@@ -1,0 +1,29 @@
+ --- srcref --- 
+ at /tmp/RtmpKJO8ay/R.INSTALL2e7472dee3d8/Nippon/R/zen2han.R#5: 
+ --- call (function) --- 
+zen2han(as.character(zenkaku))
+ --- stacktrace ---
+where 1: zen2han(as.character(zenkaku))
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function --- 
+function(s){
+    ## if(localeToCharset()[1] == "CP932" && substitute(s) != "zenkaku"){
+    ##     s <- iconv(unlist(s), from = "CP932", to = "UTF-8")
+    ## }
+    if(Encoding(s) != "UTF-8")  s <- iconv(s, from = "", to = "UTF-8")
+    s <- paste(s, sep='', collapse='')
+    y <- sapply(unlist(strsplit(s, split = "")), function(x){
+        i <- utf8ToInt(x)
+        if(i >= 65281 && i <= 65374){
+            return(intToUtf8(i - 65248))
+        }else{
+            return(x)
+        }
+    })
+    return(paste(y, collapse = ""))
+}
+<environment: namespace:Nippon>
+ --- function (body) search ---
+Function zen2han in namespace Nippon has this body.

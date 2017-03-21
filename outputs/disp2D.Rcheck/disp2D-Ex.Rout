@@ -1,0 +1,46 @@
+ --- srcref --- 
+ at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#322: 
+ --- call (function) --- 
+FUN(newX[, i], ...)
+ --- stacktrace ---
+where 1: FUN(newX[, i], ...)
+where 2 at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#68: apply(pp1, 1, distShape, pp = pp2)
+where 3 at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#57: distconvhull(A, B)
+where 4 at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#106: dhn(xa1, xa2)
+where 5: simplex(A, bootstrap = TRUE, nresamples = 100)
+
+ --- value of length: 4 type: logical ---
+        z        pp typeShape      isna 
+     TRUE      TRUE      TRUE      TRUE 
+ --- function --- 
+function(z,pp){
+  zinpp = 0
+  for(i in 1:nrow(pp)){
+    if(z[1] == pp[i,1] & z[2] == pp[i,2]){
+      zinpp = 1
+      distance = 0
+    }
+  }
+
+  if(zinpp == 0){
+    distance = NA
+    zpp = moveShapeAndPoint(z,pp)
+    if(!is.na(zpp)){
+      z0 = zpp$z
+      pp0 = zpp$pp
+      typeShape0 = zpp$typeShape
+      if(typeShape0 == "triangle") 
+        distance = distTriangle(z0,pp0,correctPosition=TRUE)
+      if(typeShape0 == "segment") 
+        distance = distSegment(z0,pp0,correctPosition=TRUE)
+      if(typeShape0 == "point") 
+        distance = dist(rbind(z,pp[1,]))
+    } else {
+      distance = 0
+    }
+  }
+  distance
+}
+<environment: namespace:disp2D>
+ --- function (body) search ---
+Function distShape in namespace disp2D has this body.

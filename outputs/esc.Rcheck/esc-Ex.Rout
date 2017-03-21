@@ -1,0 +1,61 @@
+ --- srcref --- 
+ at /tmp/Rtmppg00h9/R.INSTALL2b3a8cf399e9/esc/R/esc_or2d.R#48: 
+ --- call (function) --- 
+esc_or2d(3.56, se = 0.91)
+ --- stacktrace ---
+where 1: esc_or2d(3.56, se = 0.91)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE  TRUE FALSE
+ --- function --- 
+function(or, se, v, totaln, es.type = c("d", "cox.d", "g"), info = NULL, study = NULL) {
+  # check if parameter are complete
+  if ((missing(se) || is.null(se)) && (missing(v) || is.null(v))) {
+    stop("Either `se` or `v` must be specified.", call. = F)
+  }
+
+  # do we have se?
+  if (!missing(se) && !is.null(se)) v <- se ^ 2
+
+  # do we have total n?
+  if (missing(totaln)) totaln <- NULL
+
+  # do we have a separate info string?
+  if (is.null(info)) {
+    if (es.type == "cox.d")
+      info <- "effect size OR to effect size Cox d"
+    else if (es.type == "d")
+      info <- "effect size OR to effect size d"
+    else if (es.type == "g")
+      info <- "effect size OR to effect size Hedges' g"
+  }
+
+  if (es.type == "d" || es.type == "g") {
+    es <- log(or) / (pi / sqrt(3))
+    v <- v / ((pi  ^ 2) / 3)
+    measure <- es.type
+    # hedges g?
+    if (es.type == "g") {
+      # do we have total n?
+      if (is.null(totaln))
+        warning("`totaln` is needed to calculate Hedges' g.", call. = F)
+      else
+        es <- hedges_g(es, totaln)
+    }
+  } else {
+    es <- log(or) / 1.65
+    v <- v / (1.65  ^ 2)
+    measure <- "cox d"
+  }
+
+  # return effect size d
+  return(structure(
+    class = c("esc", "esc_or2d"),
+    list(es = es, se = sqrt(v), var = v, ci.lo = lower_d(es, v),
+         ci.hi = upper_d(es, v), w = 1 / v, totaln = totaln,
+         measure = measure, info = info, study = study)
+  ))
+}
+<environment: namespace:esc>
+ --- function (body) search ---
+Function esc_or2d in namespace esc has this body.

@@ -1,0 +1,306 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+FUN(...)
+ --- stacktrace ---
+where 1: FUN(...)
+where 2: doTryCatch(return(expr), name, parentenv, handler)
+where 3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 4: tryCatchList(expr, classes, parentenv, handlers)
+where 5: tryCatch({
+    FUN(...)
+}, error = handle_error)
+where 6: withCallingHandlers({
+    tryCatch({
+        FUN(...)
+    }, error = handle_error)
+}, warning = handle_warning)
+where 7: FUN(X[[i]], ...)
+where 8: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(X = 1L, FUN = function (...) 
+{
+    setTimeLimit(timeout, timeout, TRUE)
+    on.exit(setTimeLimit(Inf, Inf, FALSE))
+    if (stop.on.error && ERROR_OCCURRED) {
+        UNEVALUATED
+    }
+    else {
+        withCallingHandlers({
+            tryCatch({
+                FUN(...)
+            }, error = handle_error)
+        }, warning = handle_warning)
+    }
+})
+where 9 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#72: do.call(msg$data$fun, msg$data$args)
+where 10: doTryCatch(return(expr), name, parentenv, handler)
+where 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#71: tryCatch({
+    do.call(msg$data$fun, msg$data$args)
+}, error = function(e) {
+    .error_worker_comm(e, "worker evaluation failed")
+})
+where 14: doTryCatch(return(expr), name, parentenv, handler)
+where 15: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 16: tryCatchList(expr, classes, parentenv, handlers)
+where 17 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#55: tryCatch({
+    msg <- .recv(manager, "worker")
+    if (inherits(msg, "error")) 
+        break
+    if (msg$type == "DONE") {
+        .close(manager)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        sout <- character()
+        file <- textConnection("sout", "w", local = TRUE)
+        sink(file, type = "message")
+        sink(file, type = "output")
+        gc(reset = TRUE)
+        t1 <- proc.time()
+        value <- tryCatch({
+            do.call(msg$data$fun, msg$data$args)
+        }, error = function(e) {
+            .error_worker_comm(e, "worker evaluation failed")
+        })
+        t2 <- proc.time()
+        sink(NULL, type = "message")
+        sink(NULL, type = "output")
+        close(file)
+        success <- !(inherits(value, "bperror") || !all(bpok(value)))
+        log <- .log_buffer_get()
+        gc <- gc()
+        .send_VALUE(manager, msg$data$tag, value, success, t2 - 
+            t1, log, gc, sout)
+    }
+}, interrupt = function(e) {
+    NULL
+})
+where 18 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#49: bploop.SOCK0node(node)
+where 19 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/SnowParam-utils.R#60: bploop(node)
+where 20: eval(expr, env)
+where 21 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/SnowParam-utils.R#49: parallel::mcparallel({
+    con <- NULL
+    suppressWarnings({
+        while (is.null(con)) {
+            con <- tryCatch({
+                socketConnection(host, port, FALSE, TRUE, "a+b", 
+                  timeout = timeout)
+            }, error = function(e) {
+            })
+        }
+    })
+    node <- structure(list(con = con), class = "SOCK0node")
+    bploop(node)
+}, detached = TRUE)
+where 22 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/SnowParam-utils.R#38: .bpforkChild(host, port, rank, timeout)
+where 23 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/SnowParam-class.R#282: .bpfork(nnodes, bptimeout(x), .hostname(x), .port(x))
+where 24: .local(x, ...)
+where 25 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/AllGenerics.R#109: bpstart(BPPARAM, length(X))
+where 26 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/SnowParam-class.R#403: bpstart(BPPARAM, length(X))
+where 27 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/AllGenerics.R#2: bplapply(X, fun, BPPARAM = bpparam)
+where 28: bplapply(X, fun, BPPARAM = bpparam)
+where 29: doTryCatch(return(expr), name, parentenv, handler)
+where 30: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 31: tryCatchList(expr, classes, parentenv, handlers)
+where 32: tryCatch({
+    bplapply(X, fun, BPPARAM = bpparam)
+}, error = identity)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+function (x) 
+{
+    if (x == 1) {
+        Sys.sleep(2)
+        if (TRUE & c(TRUE, TRUE)) 
+            x
+    }
+    else if (x == 2) {
+        x
+    }
+    else if (x == 3) {
+        sqrt("FOO")
+    }
+}
+ --- function (body) search ---
+ --- srcref --- 
+: 
+ --- call (function) --- 
+FUN(...)
+ --- stacktrace ---
+where 1: FUN(...)
+where 2: doTryCatch(return(expr), name, parentenv, handler)
+where 3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 4: tryCatchList(expr, classes, parentenv, handlers)
+where 5: tryCatch({
+    FUN(...)
+}, error = handle_error)
+where 6: withCallingHandlers({
+    tryCatch({
+        FUN(...)
+    }, error = handle_error)
+}, warning = handle_warning)
+where 7: FUN(X[[i]], ...)
+where 8: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(X = 1L, FUN = function (...) 
+{
+    setTimeLimit(timeout, timeout, TRUE)
+    on.exit(setTimeLimit(Inf, Inf, FALSE))
+    if (stop.on.error && ERROR_OCCURRED) {
+        UNEVALUATED
+    }
+    else {
+        withCallingHandlers({
+            tryCatch({
+                FUN(...)
+            }, error = handle_error)
+        }, warning = handle_warning)
+    }
+})
+where 9 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#72: do.call(msg$data$fun, msg$data$args)
+where 10: doTryCatch(return(expr), name, parentenv, handler)
+where 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#71: tryCatch({
+    do.call(msg$data$fun, msg$data$args)
+}, error = function(e) {
+    .error_worker_comm(e, "worker evaluation failed")
+})
+where 14: doTryCatch(return(expr), name, parentenv, handler)
+where 15: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 16: tryCatchList(expr, classes, parentenv, handlers)
+where 17 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#55: tryCatch({
+    msg <- .recv(manager, "worker")
+    if (inherits(msg, "error")) 
+        break
+    if (msg$type == "DONE") {
+        .close(manager)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        sout <- character()
+        file <- textConnection("sout", "w", local = TRUE)
+        sink(file, type = "message")
+        sink(file, type = "output")
+        gc(reset = TRUE)
+        t1 <- proc.time()
+        value <- tryCatch({
+            do.call(msg$data$fun, msg$data$args)
+        }, error = function(e) {
+            .error_worker_comm(e, "worker evaluation failed")
+        })
+        t2 <- proc.time()
+        sink(NULL, type = "message")
+        sink(NULL, type = "output")
+        close(file)
+        success <- !(inherits(value, "bperror") || !all(bpok(value)))
+        log <- .log_buffer_get()
+        gc <- gc()
+        .send_VALUE(manager, msg$data$tag, value, success, t2 - 
+            t1, log, gc, sout)
+    }
+}, interrupt = function(e) {
+    NULL
+})
+where 18 at /tmp/Rtmp4jqlJj/R.INSTALL236995ea2f701/BiocParallel/R/bploop.R#49: bploop.SOCKnode(snow::makeSOCKmaster(master, port))
+where 19: BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+where 20: eval(quote({
+    master <- "localhost"
+    port <- ""
+    snowlib <- Sys.getenv("R_SNOW_LIB")
+    outfile <- Sys.getenv("R_SNOW_OUTFILE")
+    args <- commandArgs()
+    pos <- match("--args", args)
+    args <- args[-(1:pos)]
+    for (a in args) {
+        pos <- regexpr("=", a)
+        name <- substr(a, 1, pos - 1)
+        value <- substr(a, pos + 1, nchar(a))
+        switch(name, MASTER = master <- value, PORT = port <- value, 
+            SNOWLIB = snowlib <- value, OUT = outfile <- value)
+    }
+    if (!(snowlib %in% .libPaths())) .libPaths(c(snowlib, .libPaths()))
+    library(methods)
+    loadNamespace("snow")
+    if (port == "") port <- getClusterOption("port")
+    BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+}), new.env())
+where 21: eval(quote({
+    master <- "localhost"
+    port <- ""
+    snowlib <- Sys.getenv("R_SNOW_LIB")
+    outfile <- Sys.getenv("R_SNOW_OUTFILE")
+    args <- commandArgs()
+    pos <- match("--args", args)
+    args <- args[-(1:pos)]
+    for (a in args) {
+        pos <- regexpr("=", a)
+        name <- substr(a, 1, pos - 1)
+        value <- substr(a, pos + 1, nchar(a))
+        switch(name, MASTER = master <- value, PORT = port <- value, 
+            SNOWLIB = snowlib <- value, OUT = outfile <- value)
+    }
+    if (!(snowlib %in% .libPaths())) .libPaths(c(snowlib, .libPaths()))
+    library(methods)
+    loadNamespace("snow")
+    if (port == "") port <- getClusterOption("port")
+    BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+}), new.env())
+where 22: eval(expr, p)
+where 23: eval(expr, p)
+where 24: eval.parent(substitute(eval(quote(expr), envir)))
+where 25: local({
+    master <- "localhost"
+    port <- ""
+    snowlib <- Sys.getenv("R_SNOW_LIB")
+    outfile <- Sys.getenv("R_SNOW_OUTFILE")
+    args <- commandArgs()
+    pos <- match("--args", args)
+    args <- args[-(1:pos)]
+    for (a in args) {
+        pos <- regexpr("=", a)
+        name <- substr(a, 1, pos - 1)
+        value <- substr(a, pos + 1, nchar(a))
+        switch(name, MASTER = master <- value, PORT = port <- value, 
+            SNOWLIB = snowlib <- value, OUT = outfile <- value)
+    }
+    if (!(snowlib %in% .libPaths())) 
+        .libPaths(c(snowlib, .libPaths()))
+    library(methods)
+    loadNamespace("snow")
+    if (port == "") 
+        port <- getClusterOption("port")
+    BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+})
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+function (x) 
+{
+    if (x == 1) {
+        Sys.sleep(2)
+        if (TRUE & c(TRUE, TRUE)) 
+            x
+    }
+    else if (x == 2) {
+        x
+    }
+    else if (x == 3) {
+        sqrt("FOO")
+    }
+}
+ --- function (body) search ---

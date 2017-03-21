@@ -1,0 +1,56 @@
+ --- srcref --- 
+ at /tmp/RtmpFJv6aQ/R.INSTALL2bfb559330cc8/CDF.PSIdekick/R/CDFtestingSuite.R#269: 
+ --- call (function) --- 
+diffatQuantile(c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 
+    1), c(0.1, 0.2, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.4, 1), c(1, 
+    10), 1, 0.05)
+ --- stacktrace ---
+where 1: diffatQuantile(c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 
+    1), c(0.1, 0.2, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.4, 1), c(1, 
+    10), 1, 0.05)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function(Y, est, quantile=0.5,...) {
+xY <- c()
+xest <- c()
+#for storing the real quantile value and the corresponding estimate value
+tempvector <- c(0,0)  
+#locate the quantile in the CDF vector using the index, and store that value
+# the median of quantile values must be found in the case of non-monotonic CDFs
+if (min(Y-quantile)<0){
+  for (i in 2:(length(Y)-1)) {  
+    if ((Y[i]-quantile) >=0)  {
+      if ((Y[i-1] -quantile) <0 ){
+      xY[length(xY)+1] <- Y[i] 
+      tempvector[1] <- median(xY)
+      }
+    }
+  }
+}
+else{
+  tempvector[1]<-Y[1]
+}
+  # do the same for the private-CDF vector
+  if (min(est-quantile)<0){
+  for (i in 2:(length(est)-1)) {  
+    if ((est[i]-quantile) >=0)  {
+      if ((est[i-1] -quantile) <0 ){
+     xest[length(xest)+1] <- est[i] 
+     tempvector[2] <- median(xest) 
+      }
+    }
+  }
+}
+else{
+  tempvector[2] <-est[1]
+}
+#find the absolute difference
+diff <- abs(tempvector[2] - tempvector[1])
+return(diff)
+}
+<bytecode: 0x359d438>
+<environment: namespace:CDF.PSIdekick>
+ --- function (body) search ---
+Function diffatQuantile in namespace CDF.PSIdekick has this body.

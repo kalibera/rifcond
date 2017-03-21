@@ -1,0 +1,52 @@
+ --- srcref --- 
+ at /tmp/Rtmpr3bvir/R.INSTALLbfb1fdf4eb7/as.color/R/as.color.R#49: 
+ --- call (function) --- 
+as.color(fact, alpha = 1)
+ --- stacktrace ---
+where 1: as.color(fact, alpha = 1)
+
+ --- value of length: 5 type: logical ---
+[1] TRUE TRUE TRUE TRUE TRUE
+ --- function --- 
+function(x, alpha, seed){
+  
+  #set random seed
+  if(missing(seed)){
+    lSeed <- round(runif(n = 1, min = 1, max = .Machine$integer.max), 0)
+    print(paste("colors chosen using", lSeed, "as random seed", sep = " "))
+    set.seed(lSeed)  
+  } else {
+    set.seed(seed)  
+  }
+  
+  #set color alpha, or default to 0.5
+  if(missing(alpha)){
+    alpha <- 0.5
+  }
+  
+  #get the number of colors needed
+  numcols <- unique(x)
+  colseq <- seq(0, 1, length.out=255)
+  
+  #check for number of input colors
+  if( numcols > 255^3){
+    warning("The input vector has more unique values than possible colors,
+	    some colors will be recycled.")
+  }
+  
+  #create colors
+  r <- sample(colseq, length(numcols), replace = F)
+  g <- sample(colseq, length(numcols), replace = F)
+  b <- sample(colseq, length(numcols), replace = F)
+  colz <- rgb(red = r, green = g, blue = b, alpha = alpha)
+  
+  #assign colors to input values
+  colvec <- rep(NA, length(x))
+  for(i in 1:length(numcols)){
+    colvec[x %in% numcols[i] ] <- colz[i] 
+  }
+  return(colvec)
+}
+<environment: namespace:as.color>
+ --- function (body) search ---
+Function as.color in namespace as.color has this body.

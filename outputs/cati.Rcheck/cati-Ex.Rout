@@ -1,0 +1,12 @@
+ --- srcref --- 
+ at /tmp/RtmpDitBZJ/R.INSTALL2430b1c29bcac/cati/R/allfunctions_cati.R#2993: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+where 1: plotSpPop(traits.finch, ind.plot.finch, sp.finch, silent = TRUE)
+
+ --- value of length: 2 type: logical ---
+                   (Intercept) x.pop[spplot == levels(sp)[s]] 
+                         FALSE                          FALSE 
+ --- function --- 
+ --- function (body) search ---

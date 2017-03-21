@@ -1,0 +1,27 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /tmp/Rtmpif363M/R.INSTALL3e0e50fbe233/wbsts/R/wbs.lsw.R#25: suppressWarnings(if (is.na(OUT)) OUT = NULL)
+where 3: wbs.lsw(y, M = 1, C_i = C_i)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x8a2d490>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

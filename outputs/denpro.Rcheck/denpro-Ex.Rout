@@ -1,0 +1,10 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+ --- function (body) search ---

@@ -1,0 +1,120 @@
+ --- srcref --- 
+ at /tmp/RtmptqfTqb/R.INSTALL22edd30cc3893/wle/R/anova.wle.glm.R#16: 
+ --- call (function) --- 
+anova.wle.glm.root(extractRoot(wle.glm.D93))
+ --- stacktrace ---
+where 1: anova.wle.glm.root(extractRoot(wle.glm.D93))
+where 2 at /tmp/RtmplHt5Uq/Rex149a95f40109a#16: anova(extractRoot(wle.glm.D93))
+where 3: eval(ei, envir)
+where 4: eval(ei, envir)
+where 5: withVisible(eval(ei, envir))
+where 6: source(tf, local, echo = echo, prompt.echo = paste0(prompt.prefix, 
+    getOption("prompt")), continue.echo = paste0(prompt.prefix, 
+    getOption("continue")), verbose = verbose, max.deparse.length = Inf, 
+    encoding = "UTF-8", skip.echo = skips, keep.source = TRUE)
+where 7: example("wle.glm", echo = FALSE)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE  TRUE  TRUE
+ --- function --- 
+function(object, ..., dispersion=NULL, test=NULL) {
+    warnings('Hey Claudio: remember to finish this function before to release the package!')
+    if (class(object)!='wle.glm.root')
+      stop("Use 'extractRoot(object)' to extract a single root from a wle.glm object")
+    ## check for multiple objects
+    dotargs <- list(...)
+    named <- if (is.null(names(dotargs)))
+	rep(FALSE, length(dotargs)) else (names(dotargs) != "")
+    if(any(named))
+	warning("the following arguments to 'anova.wle.glm.root' are invalid and dropped: ", paste(deparse(dotargs[named]), collapse=", "))
+    dotargs <- dotargs[!named]
+    is.glm <- unlist(lapply(dotargs,function(x) inherits(x,"wle.glm.root")))
+    dotargs <- dotargs[is.glm]
+    nargs <- length(dotargs)
+    if (nargs) 
+      return(anova.wleglmlist(c(list(object), dotargs), dispersion = dispersion, test = test))
+    
+    ## extract variables from model
+    varlist <- attr(object$terms, "variables")
+    ## must avoid partial matching here.
+    x <- if (n <- match("x", names(object), 0L))
+	   object[[n]]
+	 else model.matrix(object)
+    varseq <- attr(x, "assign")
+    nvars <- max(0, varseq)
+    resdev <- resdf <- NULL
+
+    ## if there is more than one explanatory variable then
+    ## recall glm.fit to fit variables sequentially
+
+    if(nvars > 1) {
+	method <- object$method
+	if(!is.function(method))
+	    method <- get(method, mode = "function", envir=parent.frame())
+        ## allow for 'y = FALSE' in the call (PR#13098)
+        y <- object$y
+        if(is.null(y)) { ## code from residuals.glm
+            mu.eta <- object$family$mu.eta
+            eta <- object$linear.predictors
+            y <-   object$fitted.values + object$residuals * mu.eta(eta)
+        }
+        nobs <- NROW(y)
+	for(i in 1L:(nvars-1)) {
+	    ## explanatory variables up to i are kept in the model
+	    ## use method from glm to find residual deviance
+	    ## and df for each sequential fit
+	    fit <- method(x=x[, varseq <= i, drop = FALSE],
+			  y=y,
+			  weights=object$prior.weights*object$wle.weights,
+			  start	 =object$start,
+			  offset =object$offset,
+			  family =object$family,
+			  control=object$control)
+	    resdev <- c(resdev, fit$deviance)
+	    resdf <- c(resdf, fit$df.residual + sum(object$wle.weights) - nobs)
+	}
+    }
+
+    ## add values from null and full model
+
+    resdf <- c(object$df.null, resdf, object$df.residual)
+    resdev <- c(object$null.deviance, resdev, object$deviance)
+
+    ## construct table and title
+
+    table <- data.frame(c(NA, -diff(resdf)),
+			c(NA, pmax(0, -diff(resdev))), resdf, resdev)
+    tl <- attr(object$terms, "term.labels")
+    if (length(tl) == 0L) table <- table[1,,drop=FALSE] # kludge for null model
+    dimnames(table) <- list(c("NULL", tl),
+			    c("Df", "Deviance", "Resid. Df", "Resid. Dev"))
+    title <- paste("Robust Analysis of Deviance Table", "\n\nModel: ",
+		   object$family$family, ", link: ", object$family$link,
+		   "\n\nResponse: ", as.character(varlist[-1L])[1L],
+		   "\n\nTerms added sequentially (first to last)\n\n", sep="")
+
+    ## calculate test statistics if needed
+
+    df.dispersion <- Inf
+    if(is.null(dispersion)) {
+	dispersion <- summary(object, dispersion=dispersion)$dispersion
+	df.dispersion <- if (dispersion == 1) Inf else object$df.residual
+    }
+    if(!is.null(test)) {
+        if(test == "F" && df.dispersion == Inf) {
+            fam <- object$family$family
+            if(fam == "binomial" || fam == "poisson")
+                warning(gettextf("using F test with a %s family is inappropriate",
+                                 fam),
+                        domain = NA)
+            else
+                warning("using F test with a fixed dispersion is inappropriate")
+        }
+	table <- stat.anova(table=table, test=test, scale=dispersion,
+			    df.scale=df.dispersion, n=sum(object$wle.weights))
+    }
+    structure(table, heading = title, class= c("anova", "data.frame"))
+}
+<environment: namespace:wle>
+ --- function (body) search ---
+Function anova.wle.glm.root in namespace wle has this body.

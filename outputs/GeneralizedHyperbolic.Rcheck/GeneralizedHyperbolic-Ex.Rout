@@ -1,0 +1,38 @@
+ --- srcref --- 
+ at /tmp/RtmpSBkJqA/R.INSTALL188a597541d3/GeneralizedHyperbolic/R/gigHessian.R#4: 
+ --- call (function) --- 
+gigHessian(obs, param, hessianMethod = hessianMethod, whichParam = 1)
+ --- stacktrace ---
+where 1 at /tmp/RtmpSBkJqA/R.INSTALL188a597541d3/GeneralizedHyperbolic/R/summary.gigFit.R#15: gigHessian(obs, param, hessianMethod = hessianMethod, whichParam = 1)
+where 2: summary.gigFit(fit, hessian = TRUE)
+where 3: summary(fit, hessian = TRUE)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function --- 
+function(x, param, hessianMethod = c("tsHessian", "exact"),
+                       whichParam = 1) {
+  if (hessianMethod == "exact") {
+    stop("Exact hessian not available yet. Use method tsHessian instead.")
+  }
+  if (whichParam != 1){
+    stop("Only parameterization 1 has been implemented at present")
+  }
+  if (hessianMethod == "tsHessian") {
+    llfuncH <- function(param) {
+      loggigDens <- param[3]/2*log(exp(param[2])/exp(param[1])) -
+                    log(2*besselK(sqrt(exp(param[1])*exp(param[2])),
+                                  nu = param[3])) + (param[3] - 1)*log(x) -
+                    1/2*(exp(param[1])*x^-1 + exp(param[2])*x)
+      as.numeric(loggigDens)
+      return(sum(loggigDens))
+    }
+  }
+
+  hessian <- tsHessian(param = param, fun = llfuncH)
+  return(hessian)
+}
+<bytecode: 0xa32f248>
+<environment: namespace:GeneralizedHyperbolic>
+ --- function (body) search ---
+Function gigHessian in namespace GeneralizedHyperbolic has this body.

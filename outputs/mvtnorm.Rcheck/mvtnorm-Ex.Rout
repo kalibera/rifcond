@@ -1,0 +1,71 @@
+ --- srcref --- 
+ at /tmp/RtmpOj2xW7/R.INSTALL1764e6a4be642/mvtnorm/R/mvt.R#160: 
+ --- call (function) --- 
+pmvt(lower = -Inf, upper = 1, delta = rep(0, 5), df = rep(300, 
+    5), corr = diag(5))
+ --- stacktrace ---
+where 1: pmvt(lower = -Inf, upper = 1, delta = rep(0, 5), df = rep(300, 
+    5), corr = diag(5))
+
+ --- value of length: 5 type: logical ---
+[1] FALSE FALSE FALSE FALSE FALSE
+ --- function --- 
+function(lower=-Inf, upper=Inf, delta=rep(0, length(lower)),
+                 df=1, corr=NULL, sigma=NULL,
+                 algorithm = GenzBretz(),
+                 type = c("Kshirsagar", "shifted"), ...)
+{
+    type <- match.arg(type)
+    carg <- checkmvArgs(lower=lower, upper=upper, mean=delta, corr=corr,
+                        sigma=sigma)
+    if (type == "shifted") { # can be handled by integrating over central t
+      if(!is.null(carg$corr)){ # using transformed integration bounds
+        d <- 1
+      } else {
+        if(!is.null(carg$sigma)){
+          d <- sqrt(diag(carg$sigma))
+          carg$corr <- cov2cor(carg$sigma)
+        }
+      }
+      carg$lower <- (carg$lower - carg$mean)/d
+      carg$upper <- (carg$upper - carg$mean)/d
+      carg$mean <- rep(0, length(carg$mean))
+    }
+
+    if (is.null(df))
+        stop(sQuote("df"), " not specified")
+    if (df < 0) # MH: was any(..)
+        stop("cannot compute multivariate t distribution with ",
+             sQuote("df"), " < 0")
+    if(is.finite(df) && (df != as.integer(df))) # MH: was !isTRUE(all.equal(as.integer(df), df))
+        stop(sQuote("df"), " is not an integer")
+    if (carg$uni) {
+        if (df > 0) # df = Inf is taken care of by pt()
+            RET <- list(value = pt(carg$upper, df=df, ncp=carg$mean) -
+                                pt(carg$lower, df=df, ncp=carg$mean),
+                       error = 0, msg="univariate: using pt")
+        else
+            RET <- list(value = pnorm(carg$upper, mean = carg$mean) -
+                                pnorm(carg$lower, mean=carg$mean),
+                       error = 0, msg="univariate: using pnorm")
+    } else { # mvt() takes care of df = 0 || df = Inf
+        if (!is.null(carg$corr)) {
+            RET <- mvt(lower=carg$lower, upper=carg$upper, df=df, corr=carg$corr,
+                       delta=carg$mean,  algorithm = algorithm, ...)
+        } else { # need to transform integration bounds and delta
+            d <- sqrt(diag(carg$sigma))
+            lower <- carg$lower/d
+            upper <- carg$upper/d
+            corr <- cov2cor(carg$sigma)
+            RET <- mvt(lower=lower, upper=upper, df=df, corr=corr,
+                       delta=carg$mean/d, algorithm = algorithm, ...)
+        }
+    }
+    attr(RET$value, "error") <- RET$error
+    attr(RET$value, "msg") <- RET$msg
+    return(RET$value)
+}
+<bytecode: 0x2458648>
+<environment: namespace:mvtnorm>
+ --- function (body) search ---
+Function pmvt in namespace mvtnorm has this body.

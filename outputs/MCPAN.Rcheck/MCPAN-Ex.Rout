@@ -1,0 +1,57 @@
+ --- srcref --- 
+ at /tmp/Rtmpg4kUSe/R.INSTALL1205d77966e1d/MCPAN/R/mosaicShannonSimpson.R#5: 
+ --- call (function) --- 
+mosaicdiv(SCI, decreasing = TRUE, col = rainbow(n = 8))
+ --- stacktrace ---
+where 1: mosaicdiv(SCI, decreasing = TRUE, col = rainbow(n = 8))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function --- 
+function(x, decreasing=NULL, ...)
+{
+if(!class(x)%in%c("Shannonci","Simpsonci")){warning("This is a convenience function for objects of class 'Shannonci' or 'Simpsonci'!")}
+
+tab<-x$sample.estimate$table
+
+aargs<-list(...)
+
+if(is.null(aargs$las))
+ {aargs$las<-1}
+
+if(is.null(aargs$main))
+ {aargs$main<-""}
+
+
+if(is.null(decreasing))
+{
+aargs$x<-tab
+do.call("mosaicplot", aargs)
+}
+else{
+
+if(!is.logical(decreasing)) 
+ {stop("decreasing should be either TRUE, FALSE or NULL")}
+
+if(decreasing)
+{
+cs<-apply(tab, 2, sum)
+CO<-order(cs, decreasing=TRUE)
+aargs$x<-tab[,CO]
+do.call("mosaicplot", aargs)
+}
+
+
+if(!decreasing)
+{
+cs<-apply(tab, 2, sum)
+CO<-order(cs, decreasing=FALSE)
+aargs$x<-tab[,CO]
+do.call("mosaicplot", aargs)
+}
+}
+
+}
+<environment: namespace:MCPAN>
+ --- function (body) search ---
+Function mosaicdiv in namespace MCPAN has this body.

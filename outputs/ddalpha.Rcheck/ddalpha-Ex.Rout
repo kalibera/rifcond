@@ -1,0 +1,41 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /tmp/RtmpO53FWi/R.INSTALL168b33337c0ba/ddalpha/R/ddalpha-internal.r#897: suppressWarnings(if (!is.na(cov)) {
+    cov.eig <- eigen(cov)
+    B <- cov.eig$vectors %*% diag(sqrt(cov.eig$values))
+    lambda <- solve(B)
+} else {
+    lambda = diag(ncol(pattern))
+})
+where 3 at /tmp/RtmpO53FWi/R.INSTALL168b33337c0ba/ddalpha/R/ddalpha-internal.r#872: .spatial_depths(ddalpha, ddalpha$patterns[[i]]$points)
+where 4: f(ddalpha)
+where 5: .ddalpha.learn.depth(ddalpha)
+where 6: ddalpha.train(data, depth = "spatial")
+
+ --- value of length: 25 type: logical ---
+        time status  age  sex disease
+time    TRUE   TRUE TRUE TRUE    TRUE
+status  TRUE   TRUE TRUE TRUE    TRUE
+age     TRUE   TRUE TRUE TRUE    TRUE
+sex     TRUE   TRUE TRUE TRUE    TRUE
+disease TRUE   TRUE TRUE TRUE    TRUE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x85d3198>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

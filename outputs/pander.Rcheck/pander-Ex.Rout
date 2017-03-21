@@ -1,0 +1,56 @@
+ --- srcref --- 
+ at /tmp/Rtmp0DLOxD/R.INSTALL3b104a050191/pander/R/pandoc.R#346: 
+ --- call (function) --- 
+pandoc.title.return(...)
+ --- stacktrace ---
+where 1: pandoc.title.return(...)
+where 2 at /tmp/Rtmp0DLOxD/R.INSTALL3b104a050191/pander/R/pandoc.R#383: cat(pandoc.title.return(...))
+where 3: pandoc.title(c("Tom", "Jerry"), "Render pandoc in R", "2012-05-16")
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+function(author = '', title = '', date = '') {
+
+    if (author == '' && title == '' && date != '') {
+        stop('You cannot create a title with only date specified!')
+    }
+    ## updating title tags
+    if (author != '') {
+        author <- paste('%', paste(author, collapse = '; '))
+    }
+    if (title != '') {
+        title  <- paste0('% ', gsub('[\t ][\t ]*', '  ', gsub('\n', '\n  ', paste(title, collapse = '\n'))))
+    }
+
+    ## formatting result
+    if (title == '') {
+        # author
+        res <- paste0('%\n', author)
+    } else {
+        if (date == '') {
+            if (author == '') {
+                # title
+                res <- title
+            } else {
+                # author & title
+                res <- paste(title, author, sep = '\n')
+            }
+        } else {
+            date <- paste0('% ', gsub('\n', ' ', date)[1])
+            if (author == '') {
+                # title & date
+                res <- paste(title, '%', date, sep = '\n')
+            } else {
+                # author & title & date
+                res <- paste(title, author, date, sep = '\n')
+            }
+        }
+    }
+
+    sprintf('%s\n', res)
+
+}
+<environment: namespace:pander>
+ --- function (body) search ---
+Function pandoc.title.return in namespace pander has this body.

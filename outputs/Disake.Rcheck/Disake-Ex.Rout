@@ -1,0 +1,14 @@
+ --- srcref --- 
+ at /tmp/RtmpIeZNn2/R.INSTALL1032954bedf/Disake/R/Baysbw.R#18: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+where 1: Baysbw(Vec)
+
+ --- value of length: 60 type: logical ---
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[31] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[46] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ --- function --- 
+ --- function (body) search ---

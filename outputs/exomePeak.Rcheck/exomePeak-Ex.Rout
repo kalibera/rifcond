@@ -1,0 +1,12 @@
+ --- srcref --- 
+ at /tmp/RtmppFW3co/R.INSTALL2bba64efddc3d/exomePeak/R/RMT.R#119: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+where 1: RMT(INPUT_BAM = input_bam, IP_BAM = ip_bam, INPUT2IP = input2bam, 
+    GENE_ANNO_GTF = gene_anno_gtf)
+
+ --- value of length: 4 type: logical ---
+[1] FALSE  TRUE FALSE  TRUE
+ --- function --- 
+ --- function (body) search ---

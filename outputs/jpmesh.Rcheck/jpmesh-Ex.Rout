@@ -1,0 +1,58 @@
+ --- srcref --- 
+ at /tmp/Rtmp3Wl2yL/R.INSTALL1de99390415e1/jpmesh/R/export_mesh.R#36: 
+ --- call (function) --- 
+export_mesh(code = c(latlong_to_meshcode(lat = 35.82083, long = 137.0563, 
+    order = 3), latlong_to_meshcode(lat = 38.40052, long = 141.0131, 
+    order = 3)))
+ --- stacktrace ---
+where 1: export_mesh(code = c(latlong_to_meshcode(lat = 35.82083, long = 137.0563, 
+    order = 3), latlong_to_meshcode(lat = 38.40052, long = 141.0131, 
+    order = 3)))
+where 2 at /tmp/RtmpKzJiYc/R.INSTALL11a3734d83612/leaflet/R/layers.R#16: evalAll(list)
+where 3: evalFormula(list(...), data)
+where 4 at /tmp/RtmpKzJiYc/R.INSTALL11a3734d83612/leaflet/R/layers.R#1127: invokeMethod(map, getMapData(map), "addGeoJSON", geojson, layerId, 
+    group, options)
+where 5: addGeoJSON(., export_mesh(code = c(latlong_to_meshcode(lat = 35.82083, 
+    long = 137.0563, order = 3), latlong_to_meshcode(lat = 38.40052, 
+    long = 141.0131, order = 3))))
+where 6: function_list[[k]](value)
+where 7: withVisible(function_list[[k]](value))
+where 8 at /tmp/RtmptVGtOo/R.INSTALL160154dd5212f/magrittr/R/pipe.R#28: freduce(value, `_function_list`)
+where 9: `_fseq`(`_lhs`)
+where 10: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 11: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 12: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+where 13: leaflet() %>% addTiles() %>% setView(lng = 135, lat = 38, zoom = 3) %>% 
+    addGeoJSON(export_mesh(code = c(latlong_to_meshcode(lat = 35.82083, 
+        long = 137.0563, order = 3), latlong_to_meshcode(lat = 38.40052, 
+        long = 141.0131, order = 3))))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function(code) {
+  
+  # variables handling
+  mesh_code <- NULL
+  lng1 <- lat1 <- lng2 <- lat2 <- NULL
+  code <- as.integer(as.numeric(code))
+  
+  if (nchar(code) > 8) {
+    message("too file mesh.\nthe meshcode gave must be 8 digits.")
+  }
+  
+  df <- code %>% 
+    purrr::map(meshcode_to_latlon) %>% 
+    purrr::map_df(~ .[c("lat_center", "long_center", "lat_error", "long_error")]) %>% 
+    dplyr::mutate(mesh_code = code) %>% 
+    bundle_mesh_vars() %>% 
+    dplyr::select(mesh_code, lng1, lat1, lng2, lat2)
+  
+  res <- poly_to_geojson(df)
+  
+  return(res)
+}
+<bytecode: 0x105dd800>
+<environment: namespace:jpmesh>
+ --- function (body) search ---
+Function export_mesh in namespace jpmesh has this body.

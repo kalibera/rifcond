@@ -1,0 +1,65 @@
+ --- srcref --- 
+ at /tmp/RtmpRXGOxY/R.INSTALL2991d2df5a27f/SurvRank/R/innerAUC_fct.R#37: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+where 1: innerAUC_fct(f = fsSurvRankCox, data = data, t = t, cv.out = cv.out, 
+    cv.in = cv.in, i = i, fold = fold, data.out = data.out, nr.var = nr.var, 
+    out.s = out.s, sd1 = sd1, c.time = c.time, ranking = ranking, 
+    used.rank = used.rank, used.rank1se = used.rank1se, pred.in = pred.in, 
+    pred.out = pred.out, pred.out1 = pred.out1, auc.out = auc.out, 
+    auc.out1 = auc.out1)
+where 2: eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+where 3: eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7 at /tmp/RtmpiIzr1a/R.INSTALL170742af0d3a5/doParallel/R/doParallel.R#330: tryCatch(eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv), 
+    error = function(e) e)
+where 8: (function (args) 
+{
+    lapply(names(args), function(n) assign(n, args[[n]], pos = .doSnowGlobals$exportenv))
+    tryCatch(eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv), 
+        error = function(e) e)
+})(quote(list(i = 1L)))
+where 9: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 10: doTryCatch(return(expr), name, parentenv, handler)
+where 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 14: doTryCatch(return(expr), name, parentenv, handler)
+where 15: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 16: tryCatchList(expr, classes, parentenv, handlers)
+where 17: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 18: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 19: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+  rank nrcoef 
+ FALSE  FALSE 
+ --- function --- 
+ --- function (body) search ---

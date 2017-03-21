@@ -1,0 +1,32 @@
+ --- srcref --- 
+ at /tmp/RtmpBAcrKi/R.INSTALL55f61be2ced/magic/R/magic.R#162: 
+ --- call (function) --- 
+arot(a, c(1, 3))
+ --- stacktrace ---
+where 1: arot(a, c(1, 3))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function (a, rights=1, pair=1:2) 
+{
+    d <- dim(a)
+    n <- length(d)
+    jj <- 1:n
+    jj[pair] <- shift(jj[pair],1)
+    rights <- rights%%4
+    if(rights==0){
+      return(a)
+    } else if (rights==1){
+      return(aperm(arev(a,pair[2]),jj))
+    } else if (rights==2){
+      return(arev(a,pair))
+    } else if (rights==3){
+      return(aperm(arev(a,pair[1]),jj))
+    } else {
+      stop("rights must be one of 0,1,2,3")
+    }
+}
+<environment: namespace:magic>
+ --- function (body) search ---
+Function arot in namespace magic has this body.

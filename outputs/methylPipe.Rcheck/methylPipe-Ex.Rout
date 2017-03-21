@@ -1,0 +1,15 @@
+ --- srcref --- 
+ at /tmp/RtmpkAeity/R.INSTALL30e235894784/methylPipe/R/Allfunctions.R#635: 
+ --- call (function) --- 
+NULL
+ --- stacktrace ---
+where 1: getCposDensity(GenoRanges, Cpos = Cpos, nbins = Nbins)
+where 2: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 3 at /tmp/RtmpkAeity/R.INSTALL30e235894784/methylPipe/R/Allfunctions.R#713: suppressWarnings(CposD <- getCposDensity(GenoRanges, Cpos = Cpos, 
+    nbins = Nbins))
+where 4: profileDNAmetBin(GenoRanges = GR_chr20, Sample = H1.db, mcCLASS = "mCG")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+ --- function (body) search ---

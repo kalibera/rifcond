@@ -1,0 +1,53 @@
+ --- srcref --- 
+ at /tmp/RtmpXAZ9eG/R.INSTALL1e0d3464923a2/rmutil/R/int.r#218: 
+ --- call (function) --- 
+romberg(g, a[, 1], b[, 1])
+ --- stacktrace ---
+where 1: romberg(g, a[, 1], b[, 1])
+where 2: int2(fn2, c(1, 2), c(2, 4))
+
+ --- value of length: 4 type: logical ---
+[1] FALSE FALSE FALSE FALSE
+ --- function --- 
+function(f, a=-Inf, b=Inf){
+	# invert function for infinite limits
+        ff <- function(x) f(1/x)/(x*x)
+        if(b==Inf){
+        	if(all(a==-Inf))
+        	# both limits infinite
+        		z <- int1(ff,rep(-1,len),rep(0,len))+
+				int1(f,rep(-1,len),rep(1,len))+
+				int1(ff,rep(0,len),rep(1,len))
+        	else {
+        	# only upper limit infinite, cut in 2 pieces about 0
+        		if(any(a>0)){
+        			if(any(a<=0))a1 <- ifelse(a>0,a,1)
+        			else a1 <- a
+        			z1 <- int1(ff,rep(0,len), 1/a1)}
+        		else z1 <- rep(0,len)
+        		if(any(a<=0)){
+        			if(any(a>0))a1 <- ifelse(a<=0,a,0)
+        			else a1 <- a
+        			z2 <- int1(f,a1,rep(1,len))+
+					int1(ff,rep(0,len),rep(1,len))}
+        		else z2 <- rep(0,len)
+        		z <- z1*(a>0)+z2*(a<=0)}}
+        else if(all(a==-Inf)){
+        # only lower limit infinite, cut in 2 pieces about 0
+        	if(any(b<0)){
+        		if(any(b>=0))b1 <- ifelse(b<0,b,1)
+        		else b1 <- b
+        		z1 <- int1(ff, 1/b1,rep(0,len))}
+        	else z1 <- rep(0,len)
+        	if(any(b>=0)){
+        		if(any(b<0))b1 <- ifelse(b>=0,b,0)
+        		else b1 <- b
+        		z2 <- int1(f,rep(-1,len), b1)+
+        			int1(ff,rep(-1,len),rep(0,len))}
+        	else z2 <- rep(0,len)
+        	z <- z1*(b<0)+z2*(b>=0)}
+        else z <- int1(f, a, b)
+        z}
+<bytecode: 0x6ee05b8>
+<environment: 0x326bb20>
+ --- function (body) search ---

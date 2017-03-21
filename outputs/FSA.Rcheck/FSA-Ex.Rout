@@ -1,0 +1,56 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /tmp/Rtmpv9adw4/R.INSTALL1d63276e6ef41/FSA/R/residPlot.R#480: suppressWarnings(if (!class(object) %in% c("nls", "nlme")) {
+    switch(resid.type, raw = {
+        r <- object$mdl$residuals
+    }, standardized = {
+        r <- stats::rstandard(object$mdl)
+    }, studentized = {
+        r <- stats::rstudent(object$mdl)
+    })
+} else if (class(object) == "nls") {
+    r <- stats::residuals(object)
+    if (resid.type == "studentized") 
+        STOP("resid.type= cannot be 'studentized' for NLS objects.  Try resid.type='standardized'.")
+    else if (resid.type == "standardized") {
+        r <- (r - mean(r))/summary(object)$sigma
+    }
+} else {
+    if (resid.type == "studentized") 
+        STOP("resid.type= cannot be 'studentized' for NLME objects.  Try resid.type='standardized'.")
+    else if (resid.type == "standardized") {
+        r <- stats::residuals(object, type = "pearson")
+    }
+    else {
+        r <- stats::residuals(object, type = "response")
+    }
+})
+where 3 at /tmp/Rtmpv9adw4/R.INSTALL1d63276e6ef41/FSA/R/residPlot.R#256: iHndlResidType(object, match.arg(resid.type), ylab)
+where 4 at /tmp/Rtmpv9adw4/R.INSTALL1d63276e6ef41/FSA/R/residPlot.R#186: iResidPlotIVR2(object, legend, cex.leg, box.lty.leg, ...)
+where 5 at /tmp/Rtmpv9adw4/R.INSTALL1d63276e6ef41/FSA/R/residPlot.R#137: residPlot.IVR(object, ...)
+where 6 at /tmp/Rtmpv9adw4/R.INSTALL1d63276e6ef41/FSA/R/residPlot.R#145: residPlot(object, ...)
+where 7 at /tmp/Rtmpv9adw4/R.INSTALL1d63276e6ef41/FSA/R/residPlot.R#137: residPlot.lm(lm1)
+where 8: residPlot(lm1)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x8f22768>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

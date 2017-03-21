@@ -1,0 +1,277 @@
+ --- srcref --- 
+ at /tmp/RtmpDeLMZ0/R.INSTALL239bc236f7291/fabia/R/fabia.R#1504: 
+ --- call (function) --- 
+plotBicluster(rEx, p = 1)
+ --- stacktrace ---
+where 1: plotBicluster(rEx, p = 1)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function --- 
+function(r,p,opp=FALSE,zlim=NULL,title=NULL,which=c(1, 2)){
+
+
+
+        if (missing(r)) {
+            stop("r (= the result of extractBic) is missing. Stopped.")
+        }
+        if (missing(p)) {
+            stop("The bicluster to plot is missing. Stopped.")
+        }
+
+        if (is(r) == "Factorization") {
+            stop("First argument is of the class Factorization but must be the result of the function extractBic() (a list). Stopped.")
+        }
+
+
+
+
+
+
+        x <- r$X
+        if (!is.matrix(x)) {
+            x <- as.matrix(x)
+        }
+
+        if (!is.numeric(x)) {
+            stop("Data matrix X must be numeric. Stopped.")
+        }
+        if (!is.numeric(r$np)) {
+            stop("Number of biclusters must be numeric. Stopped.")
+        }
+
+
+        if (p>r$np) {
+            stop("Bicluster number is too large. Stopped.")
+        }
+
+        if ((nrow(x)<2)||(ncol(x)<2)) {
+            stop("Data matrix X too small or missing. Stopped.")
+        }
+
+
+     devAskNewPage(ask = FALSE)
+
+   if (length(which) > 1 && dev.interactive()) {
+        devAskNewPage(ask = TRUE)
+    }
+
+   showf <- c(FALSE, FALSE)
+    showf[which] <- TRUE
+
+
+
+
+     n <- nrow(x)
+
+     np <- r$np
+
+     l <- ncol(x)
+
+     if (!opp) {
+         if (r$bic[[p]][1]<1) {
+            stop("No genes in bicluster. Stopped.")
+         }
+         if (r$bic[[p]][2]<1) {
+            stop("No samples in bicluster. Stopped.")
+         }
+
+        observations <- unlist(r$bic[p,3])
+         samples <- unlist(r$bic[p,5])
+     } else {
+         if (r$bicopp[[p]][1]<1) {
+            stop("No genes in bicluster. Stopped.")
+         }
+         if (r$bicopp[[p]][2]<1) {
+            stop("No samples in bicluster. Stopped.")
+         }
+         observations <- unlist(r$bicopp[p,3])
+         samples <- unlist(r$bicopp[p,5])
+     }
+
+     if (length(observations)<1) {
+         stop("No genes in bicluster. Stopped.")
+     }
+
+     if (length(samples)<1) {
+         stop("No samples in bicluster. Stopped.")
+     }
+
+     min <- min(x)
+     max <- max(x)
+
+   if( !is.null(zlim) ){
+       min <- zlim[1]
+       max <- zlim[2]
+    }
+
+    yLabels <- rownames(x)
+    xLabels <- colnames(x)
+
+
+     if( is.null(title) ){
+     title <- c()
+    }
+
+
+
+ # Reverse Y axis
+ reverse <- n : 1
+ yLabels <- yLabels[reverse]
+ x <- x[reverse,]
+
+     obs <- match(observations,yLabels)
+     samp <- match(samples,xLabels)
+
+    ybl <- length(obs)
+    if (ybl == 0) {
+      obs <- match(observations,as.character(n:1))
+      ybl <- length(obs)
+
+    }
+    if (ybl == 0) {
+      obs <- match(observations,c(n:1))
+      ybl <- length(obs)
+
+    }
+
+    xbl <- length(samp)
+    if (xbl == 0) {
+      samp <- match(samples,as.character(1:l))
+      xbl <- length(samp)
+
+    }
+    if (xbl == 0) {
+      samp <- match(samples,c(1:l))
+      xbl <- length(samp)
+
+    }
+
+
+
+    pmL <- diag(n)
+    for (i in 1:ybl){
+        ii <- n-i+1
+        pmL[ii,ii] <- 0
+        pmL[ii,obs[i]] <- 1
+        pmL[obs[i],obs[i]] <- 0
+        pmL[obs[i],ii] <- 1
+        tmp <- yLabels[ii]
+        yLabels[ii] <- yLabels[obs[i]]
+        yLabels[obs[i]] <- tmp
+    }
+
+    pmZ <- diag(l)
+    for (i in 1:xbl){
+        pmZ[i,i] <- 0
+        pmZ[i,samp[i]] <- 1
+        pmZ[samp[i],samp[i]] <- 0
+        pmZ[samp[i],i] <- 1
+        tmp <- xLabels[i]
+        xLabels[i] <- xLabels[samp[i]]
+        xLabels[samp[i]] <- tmp
+   }
+
+    x <- pmL%*%x%*%pmZ
+
+    rownames(x) <-  yLabels
+    colnames(x) <-  xLabels
+
+
+    if (n>100)
+    {
+        lll <- 12
+
+        yl <- c(1,round(n*(1:lll)/lll))
+
+        yll <- rep("",n)
+
+        yll[yl] <- rownames(x)[yl]
+
+        yLabels <- yll
+    }
+    for (i in 1:ybl){
+        ii <- n-i+1
+        yLabels[ii] <- rownames(x)[ii]
+    }
+
+if (showf[1]){
+
+ layout(matrix(data=c(2,1), nrow=1, ncol=2), widths=c(7,1), heights=c(1,1))
+
+ # Red and green range from 0 to 1 while Blue ranges from 1 to 0
+ ColorRamp <- rgb( seq(0,1,length=256),  # Red
+                   seq(0,1,length=256),  # Green
+                   seq(1,0,length=256))  # Blue
+ ColorLevels <- seq(min, max, length=length(ColorRamp))
+
+ # Color Scale
+ par(mar = c(3,2,2.5,1))
+ image(1, ColorLevels,
+      matrix(data=ColorLevels, ncol=length(ColorLevels),nrow=1),
+      col=ColorRamp,
+      xlab="",ylab="",
+      xaxt="n")
+
+
+
+
+ # Data Map
+ par(mar = c(3,5,2.5,1))
+ image(1:length(xLabels), 1:length(yLabels), t(x), col=ColorRamp, xlab="",
+ ylab="", axes=FALSE, zlim=c(min,max))
+ if( !is.null(title) ){
+    title(main=title)
+ }
+axis(BELOW<-1, at=1:length(xLabels), labels=xLabels, cex.axis=0.7)
+ axis(LEFT <-2, at=1:length(yLabels), labels=yLabels, las= HORIZONTAL<-1,
+ cex.axis=0.7)
+
+#rect(xleft, ybottom, xright, ytop, density = NULL, angle = 45,
+#     col = NA, border = NULL, lty = par("lty"), lwd = par("lwd"),
+#     ...)
+
+rect(xleft=0.6, ybottom= n-ybl, xright=xbl+1, ytop=n+0.3,lwd=3,border="red")
+
+layout(1)
+
+}
+
+
+if (showf[2]){
+
+layout(matrix(data=c(2,1), nrow=1, ncol=2), widths=c(7,1), heights=c(1,1))
+
+ ColorRamp <- rgb( seq(0,1,length=256),  # Red
+                   seq(0,1,length=256),  # Green
+                   seq(1,0,length=256))  # Blue
+ ColorLevels <- seq(min, max, length=length(ColorRamp))
+
+# Color Scale
+ par(mar = c(3,2,2.5,1))
+ image(1, ColorLevels,
+      matrix(data=ColorLevels, ncol=length(ColorLevels),nrow=1),
+      col=ColorRamp,
+      xlab="",ylab="",
+      xaxt="n")
+
+
+ # Data Map
+ par(mar = c(3,5,2.5,1))
+ image(1:xbl, 1:ybl, t(x[(n-ybl+1):n,1:xbl]), col=ColorRamp, xlab="",
+ ylab="", axes=FALSE, zlim=c(min,max))
+ if( !is.null(title) ){
+    title(main=title)
+ }
+axis(BELOW<-1, at=1:xbl, labels=xLabels[1:xbl], cex.axis=0.7)
+ axis(LEFT <-2, at=1:ybl, labels=yLabels[(n-ybl+1):n], las= HORIZONTAL<-1,
+ cex.axis=0.7)
+
+ layout(1)
+
+}
+devAskNewPage(ask = FALSE)
+}
+<environment: namespace:fabia>
+ --- function (body) search ---
+Function plotBicluster in namespace fabia has this body.

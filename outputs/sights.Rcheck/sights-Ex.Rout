@@ -1,0 +1,37 @@
+ --- srcref --- 
+: 
+ --- call (function) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /tmp/RtmpL16oBa/R.INSTALL199807a1223bb/sights/R/plotHist.R#51: suppressWarnings(if (!grepl("val", colnames(plotMatrix), ignore.case = TRUE)) {
+    plotValues = "values"
+} else {
+    if (grepl("p", colnames(plotMatrix), ignore.case = TRUE)) {
+        plotValues = "p-values"
+    }
+    else if (grepl("q", colnames(plotMatrix), ignore.case = TRUE)) {
+        plotValues = "q-values"
+    }
+})
+where 3: plotHist(plotMatrix = ex_testMatrix, plotCols = c(5, 10), plotName = "Example", 
+    colNames = c("Set_A", "Set_B"))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function --- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x5abab30>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.

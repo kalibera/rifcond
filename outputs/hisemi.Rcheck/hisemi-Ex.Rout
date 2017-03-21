@@ -1,0 +1,27 @@
+ --- srcref --- 
+ at ../../../../R/src/library/stats/R/distn.R#289: 
+ --- call (function) --- 
+rt(G, df, ncp.i)
+ --- stacktrace ---
+where 1: rt(G, df, ncp.i)
+
+ --- value of length: 100 type: logical ---
+  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE
+ --- function --- 
+function(n, df, ncp) {
+    if(missing(ncp)) .Call(C_rt, n, df)
+    else if(is.na(ncp)) { warning("NAs produced"); rep(NaN, n) }
+    else rnorm(n, ncp)/sqrt(rchisq(n, df)/df)
+}
+<bytecode: 0xdd0a7a8>
+<environment: namespace:stats>
+ --- function (body) search ---
+Function rt in namespace stats has this body.
