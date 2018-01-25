@@ -1,10 +1,76 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "wle"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('wle')
+Loading required package: circular
+
+Attaching package: ‘circular’
+
+The following objects are masked from ‘package:stats’:
+
+    sd, var
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("anova.wle.glm.root")
+> ### * anova.wle.glm.root
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: anova.wle.glm.root
+> ### Title: Robust Analysis of Deviance for Generalized Linear Model Fits
+> ### Aliases: anova.wle.glm.root anova.wleglmlist
+> ### Keywords: robust models regression
+> 
+> ### ** Examples
+> 
+> ## --- Continuing the Example from  '?wle.glm':
+> ## Don't show: 
+> require(utils)
+> example("wle.glm", echo = FALSE)
+  treatment outcome counts
+1         1       1     18
+2         1       2     17
+3         1       3     15
+4         2       1     20
+5         2       2     10
+6         2       3     20
+7         3       1     25
+8         3       2     13
+9         3       3     12
+Warning in predict.lm(object, newdata, se.fit, scale = 1, type = ifelse(type ==  :
+  calling predict.lm(<fake-lm-object>) ...
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmptqfTqb/R.INSTALL22edd30cc3893/wle/R/anova.wle.glm.R#16: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpjbvreN/R.INSTALLc2ed63a55d0b/wle/R/anova.wle.glm.R#16: 
+ --- if/while statement is in package --- 
+wle
+ --- call (currently evaluated) --- 
 anova.wle.glm.root(extractRoot(wle.glm.D93))
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: anova.wle.glm.root(extractRoot(wle.glm.D93))
-where 2 at /tmp/RtmplHt5Uq/Rex149a95f40109a#16: anova(extractRoot(wle.glm.D93))
+where 2 at /var/scratch2/tomas/tmp/RtmpBj7gUF/Rex42d25c6d1ae4#16: anova(extractRoot(wle.glm.D93))
 where 3: eval(ei, envir)
 where 4: eval(ei, envir)
 where 5: withVisible(eval(ei, envir))
@@ -16,7 +82,7 @@ where 7: example("wle.glm", echo = FALSE)
 
  --- value of length: 3 type: logical ---
 [1] FALSE  TRUE  TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(object, ..., dispersion=NULL, test=NULL) {
     warnings('Hey Claudio: remember to finish this function before to release the package!')
     if (class(object)!='wle.glm.root')
@@ -118,3 +184,5 @@ function(object, ..., dispersion=NULL, test=NULL) {
 <environment: namespace:wle>
  --- function (body) search ---
 Function anova.wle.glm.root in namespace wle has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

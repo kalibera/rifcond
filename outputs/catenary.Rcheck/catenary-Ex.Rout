@@ -1,14 +1,180 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "catenary"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('catenary')
+
+Attaching package: ‘catenary’
+
+The following object is masked from ‘package:methods’:
+
+    Summary
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("L")
+> ### * L
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: L
+> ### Title: Get length for catenary
+> ### Aliases: L L,catenary-method
+> 
+> ### ** Examples
+> 
+> tmp <- catenary(c1=1,c2=2,lambda=3,x0=0,x1=3)
+> L(tmp)
+[1] 4.802062
+> 
+> 
+> 
+> cleanEx()
+> nameEx("catenary-class")
+> ### * catenary-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: catenary-class
+> ### Title: Create a class for catenary
+> ### Aliases: catenary-class
+> 
+> ### ** Examples
+> 
+> getSlots("catenary")
+          c1           c2       lambda    endpoints            L 
+   "numeric"    "numeric"    "numeric" "data.frame"    "numeric" 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("catenary")
+> ### * catenary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: catenary
+> ### Title: Creates a catenary object
+> ### Aliases: catenary catenary-package
+> 
+> ### ** Examples
+> 
+> cat1 <- catenary()
+> plot(cat1)
+> cat2 <- catenary(c1=1,c2=2,lambda=3,x0=0,x1=4)
+> plot(cat2)
+> x <- c(-1,1)
+> y <- c(2,2)
+> endpoints <- data.frame(x=x,y=y)
+> cat3 <- catenary(endpoints=endpoints,L=5)
+Optim worked
+uniroot worked
+> plot(cat3)
+> cat4 <- catenary(endpoints=endpoints,type='natural')
+Optim worked
+> plot(cat4)
+> cat5 <- catenary(endpoints=endpoints,type='max')
+Optim worked
+> plot(cat5)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("f")
+> ### * f
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: f
+> ### Title: Returns catenary value for given x
+> ### Aliases: f
+> ### Keywords: internal
+> 
+> ### ** Examples
+> 
+> f(0,1,2,3)
+[1] 6.762196
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitCat")
+> ### * fitCat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitCat
+> ### Title: Get catenary parameters for given endpoints and length
+> ### Aliases: fitCat
+> ### Keywords: internal
+> 
+> ### ** Examples
+> 
+> x <- c(-1,1)
+> y <- c(2,2)
+> endpoints <- data.frame(x=x,y=y)
+> L <- 3
+> fitCat(endpoints,L)
+Optim worked
+uniroot worked
+       c1        c2    lambda 
+0.6164752 0.0000000 0.3782635 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitCatEndPts")
+> ### * fitCatEndPts
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitCatEndPts
+> ### Title: Get catenary parameters for given endpoints and length
+> ### Aliases: fitCatEndPts
+> ### Keywords: internal
+> 
+> ### ** Examples
+> 
+> x <- c(-1,1)
+> y <- c(2,2)
+> endpoints <- data.frame(x=x,y=y)
+> L <- 3
+> fitCatEndPts(endpoints,L)
+Optim worked
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpITattD/R.INSTALL6854b335038/catenary/R/fitCatEndPts.R#21: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpOG4SMe/R.INSTALL41047b78c57e/catenary/R/fitCatEndPts.R#21: 
+ --- if/while statement is in package --- 
+catenary
+ --- call (currently evaluated) --- 
 fitCatEndPts(endpoints, L)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: fitCatEndPts(endpoints, L)
 
  --- value of length: 2 type: logical ---
   min   max 
 FALSE  TRUE 
- --- function --- 
+ --- function (currently evaluated)--- 
 function(endpoints,L){
   if(L < minmaxLength(endpoints)){
     stop("Not possible: length is too short")
@@ -40,3 +206,5 @@ function(endpoints,L){
 <environment: namespace:catenary>
  --- function (body) search ---
 Function fitCatEndPts in namespace catenary has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

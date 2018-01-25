@@ -1,0 +1,61 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "support"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('support')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("sp")
+> ### * sp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sp
+> ### Title: Generating support points using difference-of-convex programming
+> ### Aliases: sp
+> 
+> ### ** Examples
+> 
+>   ## Don't show: 
+>     #Generate 25 support points for the 2-d i.i.d. N(0,1) distribution
+>     n <- 25 #number of points
+>     p <- 2 #dimension
+>     des <- sp(n,p,dist.str=rep("normal",p))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpsqv5Xa/R.INSTALLb3917867b2a3/support/R/sp_fns.R#57: 
+ --- if/while statement is in package --- 
+support
+ --- call (currently evaluated) --- 
+NULL
+ --- R stacktrace ---
+where 1: sp(n, p, dist.str = rep("normal", p))
+
+ --- value of length: 4 type: logical ---
+      [,1]  [,2]
+[1,] FALSE FALSE
+[2,]  TRUE  TRUE
+ --- function (currently evaluated)--- 
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

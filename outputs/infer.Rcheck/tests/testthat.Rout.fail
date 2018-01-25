@@ -1,0 +1,254 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(infer)
+> 
+> test_check("infer")
+── 1. Error: chi-square matches chisq.test value (@test-calculate.R#156)  ──────
+there is no package called 'broom'
+1: calculate(gen_iris8, stat = "Chisq") at testthat/test-calculate.R:156
+2: x %>% dplyr::group_by(replicate) %>% dplyr::do(broom::tidy(stats::chisq.test(table(.[[as.character(attr(x, 
+       "response"))]], .[[as.character(attr(x, "explanatory"))]])))) %>% dplyr::ungroup() %>% 
+       dplyr::transmute(replicate = as.factor(replicate), stat = statistic) at /var/scratch2/tomas/tmp/RtmpfadpNM/R.INSTALLe0ff30341db0/infer/R/calculate.R:216
+3: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env)) at /var/scratch2/tomas/tmp/Rtmpcg3WKw/R.INSTALL61574ac774a2/magrittr/R/pipe.R:44
+4: eval(quote(`_fseq`(`_lhs`)), env, env) at /var/scratch2/tomas/tmp/Rtmpcg3WKw/R.INSTALL61574ac774a2/magrittr/R/pipe.R:44
+5: eval(quote(`_fseq`(`_lhs`)), env, env)
+6: `_fseq`(`_lhs`)
+7: freduce(value, `_function_list`) at /var/scratch2/tomas/tmp/Rtmpcg3WKw/R.INSTALL61574ac774a2/magrittr/R/pipe.R:28
+8: function_list[[i]](value) at /var/scratch2/tomas/tmp/Rtmpcg3WKw/R.INSTALL61574ac774a2/magrittr/R/freduce.R:17
+9: dplyr::do(., broom::tidy(stats::chisq.test(table(.[[as.character(attr(x, "response"))]], 
+       .[[as.character(attr(x, "explanatory"))]]))))
+10: do.grouped_df(., broom::tidy(stats::chisq.test(table(.[[as.character(attr(x, "response"))]], 
+       .[[as.character(attr(x, "explanatory"))]])))) at /var/scratch2/tomas/tmp/RtmpJ0Wo5A/R.INSTALLf29278b8027c/dplyr/R/do.r:84
+11: overscope_eval_next(overscope, args[[j]]) at /var/scratch2/tomas/tmp/RtmpJ0Wo5A/R.INSTALLf29278b8027c/dplyr/R/grouped-df.r:220
+12: broom::tidy
+13: getExportedValue(pkg, name)
+14: asNamespace(ns)
+15: getNamespace(ns)
+16: tryCatch(loadNamespace(name), error = function(e) stop(e))
+17: tryCatchList(expr, classes, parentenv, handlers)
+18: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+19: value[[3L]](cond)
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpfadpNM/R.INSTALLe0ff30341db0/infer/R/hypothesize.R#26: 
+ --- if/while statement is in package --- 
+infer
+ --- call (currently evaluated) --- 
+hypothesize(., null = c("point", "independence"), mu = 3)
+ --- R stacktrace ---
+where 1: hypothesize(., null = c("point", "independence"), mu = 3)
+where 2: function_list[[k]](value)
+where 3: withVisible(function_list[[k]](value))
+where 4 at /var/scratch2/tomas/tmp/Rtmpcg3WKw/R.INSTALL61574ac774a2/magrittr/R/pipe.R#28: freduce(value, `_function_list`)
+where 5: `_fseq`(`_lhs`)
+where 6: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 7: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 8: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+where 9: mtcars_s %>% hypothesize(null = c("point", "independence"), mu = 3)
+where 10 at /var/scratch2/tomas/tmp/RtmpBSpEFw/R.INSTALLd6806e63e92c/rlang/R/eval.R#66: .Call(rlang_eval, expr, env)
+where 11: eval_bare(get_expr(quo), get_env(quo))
+where 12 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/capture-condition.R#78: withCallingHandlers(code, warning = function(condition) {
+    out$push(condition)
+    invokeRestart("muffleWarning")
+})
+where 13 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 14 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expect-output.R#161: quasi_capture(enquo(object), capture_warnings, label = label)
+where 15 at testthat/test-hypothesize.R#24: expect_warning(mtcars_s %>% hypothesize(null = c("point", "independence"), 
+    mu = 3))
+where 16: eval(code, test_env)
+where 17: eval(code, test_env)
+where 18: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 19: doTryCatch(return(expr), name, parentenv, handler)
+where 20: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 21: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 22: doTryCatch(return(expr), name, parentenv, handler)
+where 23: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 24: tryCatchList(expr, classes, parentenv, handlers)
+where 25: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 26 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 27 at testthat/test-hypothesize.R#10: test_that("hypothesize arguments function", {
+    mtcars_f <- dplyr::mutate(mtcars, cyl = factor(cyl))
+    mtcars_s <- mtcars_f %>% specify(response = mpg)
+    matrix1 <- matrix(data = NA, nrow = 3, ncol = 3)
+    expect_error(hypothesize(matrix1))
+    expect_error(hypothesize(mtcars_s, null = NA))
+    expect_error(hypothesize(mtcars_s))
+    expect_error(mtcars_s %>% hypothesize(null = "point", mean = 3))
+    expect_error(mtcars_s %>% hypothesize(null = "independence"))
+    expect_error(mtcars_s %>% hypothesize(null = "point"))
+    expect_warning(mtcars_s %>% hypothesize(null = c("point", 
+        "independence"), mu = 3))
+    expect_error(mtcars %>% dplyr::select(vs) %>% hypothesize(null = "point", 
+        mu = 1))
+    expect_error(mtcars %>% specify(response = vs) %>% hypothesize(null = "point", 
+        mu = 1))
+    expect_error(mtcars %>% specify(response = vs) %>% hypothesize(null = "point", 
+        p = 1.1))
+    expect_error(mtcars %>% specify(response = vs) %>% hypothesize(null = "point", 
+        p = -23))
+    expect_error(mtcars_s %>% hypothesize(null = "point", p = c(`4` = 0.2, 
+        `6` = 0.25, `8` = 0.25)))
+    expect_error(mtcars_s %>% hypothesize(null = "point", p = 0.2))
+    expect_warning(mtcars %>% specify(mpg ~ vs) %>% hypothesize(null = "independence", 
+        p = 0.5))
+    expect_error(mtcars_s %>% hypothesize())
+})
+where 28: eval(code, test_env)
+where 29: eval(code, test_env)
+where 30: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 31: doTryCatch(return(expr), name, parentenv, handler)
+where 32: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 33: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 34: doTryCatch(return(expr), name, parentenv, handler)
+where 35: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 36: tryCatchList(expr, classes, parentenv, handlers)
+where 37: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 38: test_code(NULL, exprs, env)
+where 39: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 40 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 41: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 42: FUN(X[[i]], ...)
+where 43: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 44 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 45 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 46 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 47 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 48 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 49: test_check("infer")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(x, null, ...) {
+  
+  # error: x is not a dataframe
+  if (!sum(class(x) %in% c("data.frame", "tbl", "tbl_df", "grouped_df"))) {
+    stop("x must be a data.frame or tibble")
+  }
+  
+  # error: null not found
+  if (!(null %in% c("independence", "point"))) {
+    stop("Choice of null is not supported. Check `?hypothesize` for options.")
+  }
+  
+  #  if (length(null) != 1) {
+  #    stop(paste0('Choose between either `"independence"` or `"point"`',
+  #                 'for `null` argument.')
+  #  }
+  
+  if(is.null(attr(x, "response"))){
+    stop(paste("The response variable is not set.",
+               "Make sure to `specify()` it first."))
+  }
+  
+  if(null == "independence" & is.null(attr(x, "explanatory"))){
+    stop(paste0('Please `specify()` an explanatory and a response variable',
+                'when testing \n',
+                'a null hypothesis of `"independence"`.'))
+  }
+  
+  attr(x, "null") <- null
+  
+  dots <- list(...)
+  
+  if( (null == "point") & (length(dots) == 0) ){
+    stop(paste("Provide a parameter and a value to check such as `mu = 30`",
+               "for the point hypothesis."))
+  }
+  
+  if((null == "independence") & (length(dots) > 0)) {
+    warning(paste("Parameter values are not specified when testing that two",
+                  "variables are independent."))
+  }
+  
+  if ((length(dots) > 0) && (null == "point")) {
+    params <- parse_params(dots, x)
+    attr(x, "params") <- params
+  }
+  
+  # Check one proportion test set up correctly
+  if(null == "point"){
+    if(is.factor(x[[as.character(attr(x, "response"))]])){
+      if(!any(grepl("p", attr(attr(x, "params"), "names"))))
+        stop(paste('Testing one categorical variable requires `p`",
+                   "to be used as a parameter.'))
+    }
+  }
+  
+  # Check one numeric test set up correctly
+  if(null == "point"){
+    if(!is.factor(x[[as.character(attr(x, "response"))]])
+       & !any(grepl("mu|med|sigma", attr(attr(x, "params"), "names"))))
+      stop(paste('Testing one numerical variable requires one of',
+                 '`mu`, `med`, or `sd` to be used as a parameter.'))
+  }
+  
+  return(as.tbl(x))
+}
+<bytecode: 0x8b7bd28>
+<environment: namespace:infer>
+ --- function (body) search ---
+Function hypothesize in namespace infer has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

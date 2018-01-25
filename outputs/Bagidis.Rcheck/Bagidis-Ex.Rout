@@ -1,13 +1,553 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Bagidis"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('Bagidis')
+Loading required package: abind
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BD.plot")
+> ### * BD.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BD.plot
+> ### Title: B-D representation of the Bottom Up Unbalanced Haar Wavelet
+> ###   Expansion of a series
+> ### Aliases: BD.plot
+> 
+> ### ** Examples
+> 
+>  x= c(1,7,3,0,-2,6,4,0,2)
+>  BD.plot(x)
+>  
+> 
+> 
+> cleanEx()
+> nameEx("BUUHWE")
+> ### * BUUHWE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BUUHWE
+> ### Title: Bottom Up Unbalanced Haar Wavelet Expansion
+> ### Aliases: BUUHWE Breakpoints Details
+> 
+> ### ** Examples
+> 
+> x= c(1,7,3,0,-2,6,4,0,2)
+> BUUHWE(x)
+$detail
+[1]  7.000000  2.828427 -4.618802  4.000000 -3.265986  2.828427 -1.414214
+[8]  1.414214  1.414214
+
+$basis
+                  new.vect   new.vect new.vect   new.vect   new.vect   new.vect
+ [1,] 0.3333333  0.4714045  0.0000000      0.0  0.8164966  0.0000000  0.0000000
+ [2,] 0.3333333  0.4714045  0.0000000      0.0 -0.4082483  0.7071068  0.0000000
+ [3,] 0.3333333  0.4714045  0.0000000      0.0 -0.4082483 -0.7071068  0.0000000
+ [4,] 0.3333333 -0.2357023  0.5773503      0.0  0.0000000  0.0000000  0.0000000
+ [5,] 0.3333333 -0.2357023  0.5773503      0.0  0.0000000  0.0000000  0.0000000
+ [6,] 0.3333333 -0.2357023 -0.2886751      0.5  0.0000000  0.0000000  0.0000000
+ [7,] 0.3333333 -0.2357023 -0.2886751      0.5  0.0000000  0.0000000  0.0000000
+ [8,] 0.3333333 -0.2357023 -0.2886751     -0.5  0.0000000  0.0000000  0.7071068
+ [9,] 0.3333333 -0.2357023 -0.2886751     -0.5  0.0000000  0.0000000 -0.7071068
+        new.vect   new.vect
+ [1,]  0.0000000  0.0000000
+ [2,]  0.0000000  0.0000000
+ [3,]  0.0000000  0.0000000
+ [4,]  0.0000000  0.7071068
+ [5,]  0.0000000 -0.7071068
+ [6,]  0.7071068  0.0000000
+ [7,] -0.7071068  0.0000000
+ [8,]  0.0000000  0.0000000
+ [9,]  0.0000000  0.0000000
+
+$split.abs
+[1] NA  3  5  7  1  2  8  6  4
+
+$series
+[1]  1  7  3  0 -2  6  4  0  2
+
+> Breakpoints(list(BUUHWE(x)))
+     [,1]
+[1,]    3
+[2,]    5
+[3,]    7
+[4,]    1
+[5,]    2
+[6,]    8
+[7,]    6
+[8,]    4
+> y= c(1,7,5,5,-2,1,4,0,2)
+> Breakpoints(list(BUUHWE(x),BUUHWE(y)))
+     [,1] [,2]
+[1,]    3    4
+[2,]    5    1
+[3,]    7    6
+[4,]    1    7
+[5,]    2    5
+[6,]    8    2
+[7,]    6    8
+[8,]    4    3
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BUUHWE.plot")
+> ### * BUUHWE.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BUUHWE.plot
+> ### Title: Graphical representation of the Bottom Up Unbalanced Haar
+> ###   Wavelet Expansion of a series.
+> ### Aliases: BUUHWE.plot
+> 
+> ### ** Examples
+> 
+> x = c(0,0,1,0,0, 3, 5, 0, 0)
+> BUUHWE.plot(BUUHWE(x))
+> BUUHWE.plot(BUUHWE(x), Color= FALSE)     
+> 
+> 
+> cleanEx()
+> nameEx("BUUHWE_2D")
+> ### * BUUHWE_2D
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BUUHWE_2D
+> ### Title: Two-dimensional Bottom-Up Unbalanced Haar Wavelet Expansion of
+> ###   an image
+> ### Aliases: BUUHWE_2D SHAH Signature_2D
+> 
+> ### ** Examples
+> 
+> im = rbind(c(1,2,3),c(2,7,8),c(1,0,0))
+> BUUHWE_2D(im)
+$d
+[1] 3 3
+
+$decomp.hist
+, , 1
+
+          [,1]       [,2]
+[1,] 6.0000000  9.0000000
+[2,] 0.7071068 -0.7071068
+[3,] 0.0000000  0.0000000
+
+, , 2
+
+           [,1]       [,2]
+[1,]  1.0000000  2.0000000
+[2,]  0.7071068 -0.7071068
+[3,] -0.7071068  0.0000000
+
+, , 3
+
+          [,1]       [,2]
+[1,] 1.0000000  3.0000000
+[2,] 0.5773503 -0.8164966
+[3,] 0.4082483  0.0000000
+
+, , 4
+
+           [,1]       [,2]
+[1,]  1.0000000  4.0000000
+[2,]  0.5000000 -0.8660254
+[3,] -0.5773503  0.0000000
+
+, , 5
+
+           [,1]       [,2]
+[1,]  5.0000000  8.0000000
+[2,]  0.7071068 -0.7071068
+[3,] -0.7071068  0.0000000
+
+, , 6
+
+           [,1]       [,2]
+[1,]  1.0000000  7.0000000
+[2,]  0.4472136 -0.8944272
+[3,] -1.3416408  0.0000000
+
+, , 7
+
+          [,1]       [,2]
+[1,] 1.0000000  6.0000000
+[2,] 0.5345225 -0.8451543
+[3,] 2.1514115  0.0000000
+
+, , 8
+
+           [,1]       [,2]
+[1,]  1.0000000  5.0000000
+[2,]  0.4714045 -0.8819171
+[3,] -7.7505760  0.0000000
+
+
+> SHAH(im)
+$d
+[1] 3 3
+
+$decomp.hist
+, , 1
+
+          [,1]       [,2]
+[1,] 6.0000000  9.0000000
+[2,] 0.7071068 -0.7071068
+[3,] 0.0000000  0.0000000
+
+, , 2
+
+           [,1]       [,2]
+[1,]  1.0000000  2.0000000
+[2,]  0.7071068 -0.7071068
+[3,] -0.7071068  0.0000000
+
+, , 3
+
+          [,1]       [,2]
+[1,] 1.0000000  3.0000000
+[2,] 0.5773503 -0.8164966
+[3,] 0.4082483  0.0000000
+
+, , 4
+
+           [,1]       [,2]
+[1,]  1.0000000  4.0000000
+[2,]  0.5000000 -0.8660254
+[3,] -0.5773503  0.0000000
+
+, , 5
+
+           [,1]       [,2]
+[1,]  5.0000000  8.0000000
+[2,]  0.7071068 -0.7071068
+[3,] -0.7071068  0.0000000
+
+, , 6
+
+           [,1]       [,2]
+[1,]  1.0000000  7.0000000
+[2,]  0.4472136 -0.8944272
+[3,] -1.3416408  0.0000000
+
+, , 7
+
+          [,1]       [,2]
+[1,] 1.0000000  6.0000000
+[2,] 0.5345225 -0.8451543
+[3,] 2.1514115  0.0000000
+
+, , 8
+
+           [,1]       [,2]
+[1,]  1.0000000  5.0000000
+[2,]  0.4714045 -0.8819171
+[3,] -7.7505760  0.0000000
+
+
+> Signature_2D(SHAH(im))
+  x1 y1 x2 y2      coeff       abs
+1  1  1  2  2 -7.7505760 7.7505760
+2  1  1  3  2  2.1514115 2.1514115
+3  1  1  1  3 -1.3416408 1.3416408
+4  2  2  2  3 -0.7071068 0.7071068
+5  1  1  1  2 -0.5773503 0.5773503
+6  1  1  3  1  0.4082483 0.4082483
+7  1  1  2  1 -0.7071068 0.7071068
+8  3  2  3  3  0.0000000 0.0000000
+> 
+> SHAH_Stepwise(im)$details
+[1]  0.0000000 -0.7071068  0.4082483 -0.5773503 -0.7071068 -1.3416408  2.1514115
+[8] -7.7505760
+> Signature_2D(SHAH(im))
+  x1 y1 x2 y2      coeff       abs
+1  1  1  2  2 -7.7505760 7.7505760
+2  1  1  3  2  2.1514115 2.1514115
+3  1  1  1  3 -1.3416408 1.3416408
+4  2  2  2  3 -0.7071068 0.7071068
+5  1  1  1  2 -0.5773503 0.5773503
+6  1  1  3  1  0.4082483 0.4082483
+7  1  1  2  1 -0.7071068 0.7071068
+8  3  2  3  3  0.0000000 0.0000000
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BUUHWE_2D.plot")
+> ### * BUUHWE_2D.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BUUHWE_2D.plot
+> ### Title: Graphical representation of the 2D-BUUHWE (or SHAH) of an image
+> ### Aliases: BUUHWE_2D.plot SHAH.plot BUUHWE_2D_Stepwise SHAH_Stepwise
+> 
+> ### ** Examples
+> 
+> im = rbind(c(1,2,3), c(5,3,2), c(1,1,2))
+> im2 = rbind(c(1,1,5), c(5,5,2), c(1,0,0))
+> 
+> SHAH(im)
+$d
+[1] 3 3
+
+$decomp.hist
+, , 1
+
+          [,1]       [,2]
+[1,] 8.0000000  9.0000000
+[2,] 0.7071068 -0.7071068
+[3,] 0.0000000  0.0000000
+
+, , 2
+
+          [,1]       [,2]
+[1,] 3.0000000  6.0000000
+[2,] 0.7071068 -0.7071068
+[3,] 0.0000000  0.0000000
+
+, , 3
+
+           [,1]       [,2]
+[1,]  4.0000000  5.0000000
+[2,]  0.7071068 -0.7071068
+[3,] -0.7071068  0.0000000
+
+, , 4
+
+           [,1]       [,2]
+[1,]  4.0000000  7.0000000
+[2,]  0.5773503 -0.8164966
+[3,] -0.4082483  0.0000000
+
+, , 5
+
+          [,1]       [,2]
+[1,] 4.0000000  8.0000000
+[2,] 0.6324555 -0.7745967
+[3,] 0.7302967  0.0000000
+
+, , 6
+
+           [,1]          [,2]
+[1,]  1.0000000  4.000000e+00
+[2,]  0.9128709 -4.082483e-01
+[3,] -1.2780193  1.110223e-16
+
+, , 7
+
+         [,1]       [,2]
+[1,] 1.000000  3.0000000
+[2,] 0.500000 -0.8660254
+[3,] 1.428869  0.0000000
+
+, , 8
+
+           [,1]      [,2]
+[1,]  1.0000000  2.000000
+[2,]  0.3333333 -0.942809
+[3,] -2.9462783  0.000000
+
+
+> SHAH_Stepwise(im)
+$basis
+, , 1
+
+     [,1] [,2]       [,3]
+[1,]    0    0  0.0000000
+[2,]    0    0  0.7071068
+[3,]    0    0 -0.7071068
+
+, , 2
+
+          [,1]       [,2] [,3]
+[1,] 0.0000000  0.0000000    0
+[2,] 0.0000000  0.0000000    0
+[3,] 0.7071068 -0.7071068    0
+
+, , 3
+
+     [,1]       [,2] [,3]
+[1,]    0  0.7071068    0
+[2,]    0 -0.7071068    0
+[3,]    0  0.0000000    0
+
+, , 4
+
+     [,1]      [,2]       [,3]
+[1,]    0 0.4082483 -0.8164966
+[2,]    0 0.4082483  0.0000000
+[3,]    0 0.0000000  0.0000000
+
+, , 5
+
+     [,1]      [,2]       [,3]
+[1,]    0 0.3651484  0.3651484
+[2,]    0 0.3651484 -0.5477226
+[3,]    0 0.0000000 -0.5477226
+
+, , 6
+
+          [,1]       [,2]       [,3]
+[1,] 0.9128709 -0.1825742 -0.1825742
+[2,] 0.0000000 -0.1825742 -0.1825742
+[3,] 0.0000000  0.0000000 -0.1825742
+
+, , 7
+
+           [,1]       [,2]      [,3]
+[1,]  0.2041241  0.2041241 0.2041241
+[2,]  0.0000000  0.2041241 0.2041241
+[3,] -0.6123724 -0.6123724 0.2041241
+
+, , 8
+
+           [,1]      [,2]      [,3]
+[1,]  0.1178511 0.1178511 0.1178511
+[2,] -0.9428090 0.1178511 0.1178511
+[3,]  0.1178511 0.1178511 0.1178511
+
+
+$details
+[1]  0.0000000  0.0000000 -0.7071068 -0.4082483  0.7302967 -1.2780193  1.4288690
+[8] -2.9462783
+
+$d0
+[1] 6.666667
+
+$im
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    5    3    2
+[3,]    1    1    2
+
+$labels.hist
+$labels.hist[[1]]
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+
+$labels.hist[[2]]
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    8
+
+$labels.hist[[3]]
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    3    8
+
+$labels.hist[[4]]
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    4    8
+[3,]    3    3    8
+
+$labels.hist[[5]]
+     [,1] [,2] [,3]
+[1,]    1    4    4
+[2,]    2    4    8
+[3,]    3    3    8
+
+$labels.hist[[6]]
+     [,1] [,2] [,3]
+[1,]    1    4    4
+[2,]    2    4    4
+[3,]    3    3    4
+
+$labels.hist[[7]]
+     [,1] [,2] [,3]
+[1,]    1    1    1
+[2,]    2    1    1
+[3,]    3    3    1
+
+$labels.hist[[8]]
+     [,1] [,2] [,3]
+[1,]    1    1    1
+[2,]    2    1    1
+[3,]    1    1    1
+
+
+> 
+> SHAH.plot(SHAH(im))
+> 
+> SHAH.plot(SHAH(im),Evol=FALSE)
+> 
+> SHAH_Stepwise(im)$details
+[1]  0.0000000  0.0000000 -0.7071068 -0.4082483  0.7302967 -1.2780193  1.4288690
+[8] -2.9462783
+> Signature_2D(SHAH(im))
+  x1 y1 x2 y2      coeff       abs
+1  1  1  2  1 -2.9462783 2.9462783
+2  1  1  3  1  1.4288690 1.4288690
+3  1  1  1  2 -1.2780193 1.2780193
+4  1  2  2  3  0.7302967 0.7302967
+5  1  2  1  3 -0.4082483 0.4082483
+6  1  2  2  2 -0.7071068 0.7071068
+7  3  1  3  2  0.0000000 0.0000000
+8  2  3  3  3  0.0000000 0.0000000
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("semimetric.BAGIDIS")
+> ### * semimetric.BAGIDIS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: semimetric.BAGIDIS
+> ### Title: Computing the BAGIDIS semidistance between series
+> ### Aliases: semimetric.BAGIDIS semimetric.BAGIDIS.BD semimetric.BAGIDIS.TS
+> ###   BAGIDIS.dist.BD BAGIDIS.dist
+> 
+> ### ** Examples
+> 
+> x= 1:10
+> y=2:11
+> A=rbind(x,y)
+> semimetric.BAGIDIS(A)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpvl932J/R.INSTALL2b44933b83a21/Bagidis/R/semimetric.BAGIDIS.r#159: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmpr3CiPT/R.INSTALL14152b96dc1e/Bagidis/R/semimetric.BAGIDIS.r#159: 
+ --- if/while statement is in package --- 
+Bagidis
+ --- call (currently evaluated) --- 
 semimetric.BAGIDIS(A)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: semimetric.BAGIDIS(A)
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(DATA1,
                              DATA2=DATA1,
                              p = 2, 
@@ -242,3 +782,5 @@ return(out)
 <environment: namespace:Bagidis>
  --- function (body) search ---
 Function semimetric.BAGIDIS in namespace Bagidis has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

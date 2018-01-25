@@ -1,22 +1,124 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "wtest"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('wtest')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("hf.calculation")
+> ### * hf.calculation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hf.calculation
+> ### Title: Parameters calculation for adjustment of W-test
+> ### Aliases: hf.calculation
+> 
+> ### ** Examples
+> 
+> data(mydata)
+> 
+> # Please note that parameter B is recommended to be greater than 400. 
+> hf1<-hf.calculation(data = mydata, w.order = 1, B = 100)
+> hf2<-hf.calculation(data = mydata, w.order = 2, B = 80)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("maf")
+> ### * maf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: maf
+> ### Title: Minor allele frequency
+> ### Aliases: maf
+> 
+> ### ** Examples
+> 
+> data(mydata)
+> result<-maf(mydata, which.marker=10)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("odds.ratio")
+> ### * odds.ratio
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: odds.ratio
+> ### Title: Odds ratio
+> ### Aliases: odds.ratio
+> 
+> ### ** Examples
+> 
+> data(mydata)
+> data(phenotype)
+> y<-as.numeric(phenotype)
+> result <- odds.ratio(mydata,y,w.order=2,which.pair=c(4,8))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("w.diagnosis")
+> ### * w.diagnosis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: w.diagnosis
+> ### Title: Plots for w values diagnosis
+> ### Aliases: w.diagnosis
+> 
+> ### ** Examples
+> 
+> data(mydata)
+> # Please note that parameter B is recommended to be greater than 400.
+> hf1<-hf.calculation(data = mydata, w.order = 1, B = 100)
+> hf2<-hf.calculation(data = mydata, w.order = 2, B = 50)
+> w.diagnosis(mydata, w.order = 1, n.rep = 100, hf1 = hf1, main=NULL, xlab=NULL, ylab=NULL)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
 : 
- --- call (function) --- 
+ --- if/while statement is in package --- 
+wtest
+ --- call (currently evaluated) --- 
 withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
-where 2 at /tmp/RtmpZUbUEk/R.INSTALL255afa79970c/wtest/R/w.diagnosis.R#54: suppressWarnings(if (hf1 == "default.hf1") {
+where 2 at /var/scratch2/tomas/tmp/Rtmp5DCLN9/R.INSTALL62bc9f802c5/wtest/R/w.diagnosis.R#55: suppressWarnings(if (hf1 == "default.hf1") {
     hf1 = array(c(0.5, 0.667, 1, 2), dim = c(2, 2))
 } else {
     hf1 = hf1[, 2:3]
 })
-where 3: w.diagnosis(mydata, w.order = 1, n.rep = 200, hf1 = hf1, main = NULL, 
+where 3: w.diagnosis(mydata, w.order = 1, n.rep = 100, hf1 = hf1, main = NULL, 
     xlab = NULL, ylab = NULL)
 
  --- value of length: 6 type: logical ---
          k     h     f
 [1,] FALSE FALSE FALSE
 [2,] FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (expr, ...) 
 {
     handlers <- list(...)
@@ -28,7 +130,9 @@ function (expr, ...)
         TRUE))
     expr
 }
-<bytecode: 0x7c83240>
+<bytecode: 0xd24b00>
 <environment: namespace:base>
  --- function (body) search ---
 Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,0 +1,345 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "imager"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('imager')
+Loading required package: plyr
+Loading required package: magrittr
+
+Attaching package: ‘imager’
+
+The following object is masked from ‘package:magrittr’:
+
+    add
+
+The following object is masked from ‘package:plyr’:
+
+    liply
+
+The following objects are masked from ‘package:stats’:
+
+    convolve, spectrum
+
+The following object is masked from ‘package:graphics’:
+
+    frame
+
+The following object is masked from ‘package:base’:
+
+    save.image
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("FFT")
+> ### * FFT
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: FFT
+> ### Title: Compute the Discrete Fourier Transform of an image
+> ### Aliases: FFT
+> 
+> ### ** Examples
+> 
+> 
+> im <- as.cimg(function(x,y) sin(x/5)+cos(x/4)*sin(y/2),128,128)
+> ff <- FFT(im)
+> plot(ff$real,main="Real part of the transform")
+> plot(ff$imag,main="Imaginary part of the transform")
+> sqrt(ff$real^2+ff$imag^2) %>% plot(main="Power spectrum")
+> #Check that we do get our image back
+> check <- FFT(ff$real,ff$imag,inverse=TRUE)$real #Should be the same as original
+> mean((check-im)^2)
+[1] 5.096845e-32
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("add.colour")
+> ### * add.colour
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: add.colour
+> ### Title: Add colour channels to a grayscale image or pixel set
+> ### Aliases: add.colour add.color
+> 
+> ### ** Examples
+> 
+> grayscale(boats) #No more colour channels
+Image. Width: 256 pix Height: 384 pix Depth: 1 Colour channels: 1 
+> add.colour(grayscale(boats)) #Image has depth = 3 (but contains only grays)
+Image. Width: 256 pix Height: 384 pix Depth: 1 Colour channels: 3 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.cimg")
+> ### * as.cimg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.cimg
+> ### Title: Convert to cimg object
+> ### Aliases: as.cimg as.cimg.numeric as.cimg.logical as.cimg.double
+> ###   as.cimg.cimg as.cimg.vector as.cimg.matrix
+> 
+> ### ** Examples
+> 
+> as.cimg(1:100,x=10,y=10) #10x10, grayscale image
+Image. Width: 10 pix Height: 10 pix Depth: 1 Colour channels: 1 
+> as.cimg(rep(1:100,3),x=10,y=10,cc=3) #10x10 RGB
+Image. Width: 10 pix Height: 10 pix Depth: 1 Colour channels: 3 
+> as.cimg(1:100,dim=c(10,10,1,1))
+Image. Width: 10 pix Height: 10 pix Depth: 1 Colour channels: 1 
+> as.cimg(1:100) #Guesses dimensions, warning is issued
+Warning in as.cimg.vector(obj, ...) :
+  Guessing input is a square 2D image
+Image. Width: 10 pix Height: 10 pix Depth: 1 Colour channels: 1 
+> as.cimg(rep(1:100,3)) #Guesses dimensions, warning is issued
+Warning in as.cimg.vector(obj, ...) :
+  Guessing input is a square 2D RGB image
+Image. Width: 10 pix Height: 10 pix Depth: 1 Colour channels: 3 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.cimg.array")
+> ### * as.cimg.array
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.cimg.array
+> ### Title: Turn an numeric array into a cimg object
+> ### Aliases: as.cimg.array
+> 
+> ### ** Examples
+> 
+> as.cimg(array(1:9,c(3,3)))
+Image. Width: 3 pix Height: 3 pix Depth: 1 Colour channels: 1 
+> as.cimg(array(1,c(10,10,3))) #Guesses colour image
+Warning in as.cimg.array(array(1, c(10, 10, 3))) :
+  Assuming third dimension corresponds to colour
+Image. Width: 10 pix Height: 10 pix Depth: 1 Colour channels: 3 
+> as.cimg(array(1:9,c(10,10,4))) #Guesses video
+Warning in as.cimg.array(array(1:9, c(10, 10, 4))) :
+  Assuming third dimension corresponds to time/depth
+Image. Width: 10 pix Height: 10 pix Depth: 4 Colour channels: 1 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.cimg.data.frame")
+> ### * as.cimg.data.frame
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.cimg.data.frame
+> ### Title: Create an image from a data.frame
+> ### Aliases: as.cimg.data.frame
+> 
+> ### ** Examples
+> 
+> #Create a data.frame with columns x,y and value
+> df <- expand.grid(x=1:10,y=1:10) %>% mutate(value=x*y)
+> #Convert to cimg object (2D, grayscale image of size 10*10
+> as.cimg(df,dims=c(10,10,1,1)) %>% plot
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.cimg.function")
+> ### * as.cimg.function
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.cimg.function
+> ### Title: Create an image by sampling a function
+> ### Aliases: as.cimg.function
+> 
+> ### ** Examples
+> 
+> im = as.cimg(function(x,y) cos(sin(x*y/100)),100,100)
+> plot(im)
+> #The following is just a rectangle at the center of the image 
+> im = as.cimg(function(x,y) (abs(x) < .1)*(abs(y) < .1) ,100,100,standardise=TRUE)
+> plot(im)
+> #Since coordinates are standardised the rectangle scales with the size of the image
+> im = as.cimg(function(x,y) (abs(x) < .1)*(abs(y) < .1) ,200,200,standardise=TRUE)
+> plot(im)
+> #A Gaussian mask around the center
+> im = as.cimg(function(x,y) dnorm(x,sd=.1)*dnorm(y,sd=.3) ,dim=dim(boats),standardise=TRUE)
+> im = im/max(im)
+> 
+> plot(im*boats)
+> #A Gaussian mask for just the red channel
+> fun = function(x,y,cc) ifelse(cc==1,dnorm(x,sd=.1)*dnorm(y,sd=.3),0)
+> im = as.cimg(fun,dim=dim(boats),standardise=TRUE)
+> plot(im*boats)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.cimg.raster")
+> ### * as.cimg.raster
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.cimg.raster
+> ### Title: Convert a raster object to a cimg object
+> ### Aliases: as.cimg.raster
+> 
+> ### ** Examples
+> 
+> rst <- as.raster(matrix((1:4)/4,2,2))
+> as.cimg(rst) %>% plot(int=FALSE)
+> all.equal(rst,as.raster(as.cimg(rst)))
+[1] "3 string mismatches"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.data.frame.cimg")
+> ### * as.data.frame.cimg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.data.frame.cimg
+> ### Title: Convert a pixel image to a data.frame
+> ### Aliases: as.data.frame.cimg
+> 
+> ### ** Examples
+> 
+> 
+> #First five pixels
+> as.data.frame(boats) %>% head(5)
+  x y cc     value
+1 1 1  1 0.3882353
+2 2 1  1 0.3858633
+3 3 1  1 0.3849406
+4 4 1  1 0.3852481
+5 5 1  1 0.3860388
+> #Wide format along colour axis
+> as.data.frame(boats,wide="c") %>% head(5)
+  x y       c.1       c.2       c.3
+1 1 1 0.3882353 0.3882353 0.3882353
+2 2 1 0.3858633 0.3858633 0.3858633
+3 3 1 0.3849406 0.3849406 0.3849406
+4 4 1 0.3852481 0.3852481 0.3852481
+5 5 1 0.3860388 0.3860388 0.3860388
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.data.frame.imlist")
+> ### * as.data.frame.imlist
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.data.frame.imlist
+> ### Title: Convert image list to data.frame
+> ### Aliases: as.data.frame.imlist
+> 
+> ### ** Examples
+> 
+> #Transform the image gradient into a data.frame
+> gr <- imgradient(boats,"xy") %>% setNames(c("dx","dy")) %>% as.data.frame
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp9M7hgB/R.INSTALL598fa77902e/imager/R/coordinates.R#42: 
+ --- if/while statement is in package --- 
+imager
+ --- call (currently evaluated) --- 
+pixel.grid(x, ...)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmp9M7hgB/R.INSTALL598fa77902e/imager/R/conversions.R#36: pixel.grid(x, ...)
+where 2: as.data.frame.cimg(., ...)
+where 3: as.data.frame(., ...)
+where 4: .f(.x[[i]], ...)
+where 5 at /var/scratch2/tomas/tmp/Rtmp0KJetQ/R.INSTALL19702aacaf62/purrr/R/map.R#104: .Call(map_impl, environment(), ".x", ".f", "list")
+where 6 at /var/scratch2/tomas/tmp/Rtmp0KJetQ/R.INSTALL19702aacaf62/purrr/R/map.R#168: map(.x, .f, ...)
+where 7 at /var/scratch2/tomas/tmp/Rtmp9M7hgB/R.INSTALL598fa77902e/imager/R/imglist.R#124: map_df(x, ~as.data.frame(., ...), .id = index)
+where 8: as.data.frame.imlist(.)
+where 9: as.data.frame(.)
+where 10: function_list[[k]](value)
+where 11: withVisible(function_list[[k]](value))
+where 12 at /var/scratch2/tomas/tmp/Rtmpcg3WKw/R.INSTALL61574ac774a2/magrittr/R/pipe.R#28: freduce(value, `_function_list`)
+where 13: `_fseq`(`_lhs`)
+where 14: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 15: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 16: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+where 17: imgradient(boats, "xy") %>% setNames(c("dx", "dy")) %>% as.data.frame
+
+ --- value of length: 294912 type: double ---
+Image. Width: 256 pix Height: 384 pix Depth: 1 Colour channels: 3 
+ --- function (currently evaluated)--- 
+function(im,standardise=FALSE,drop.unused=TRUE,dim=NULL)
+    {
+        if (!missing(im))
+            {
+                d <- dim(im)
+
+            }
+        else if (!is.null(dim))
+        {
+            if (!is.vector(dim) | length(dim) != 4)
+                {
+                    stop('Argument dim must be a vector of length 4')
+                }
+            else
+            {
+                d <- dim
+            }
+        }
+        else
+        {
+            stop('You must provide either an image or a vector of dimensions')
+        }
+        if (standardise)
+            {
+                dy <- d[2]/d[1]
+                dz <- d[3]/d[1]
+                res <- expand.grid(x=seq(-.5,.5,l=d[1]),y=seq(dy/2,-dy/2,l=d[2]),z=seq(-dz/2,dz/2,l=d[3]),cc=1:d[4])
+            }
+        else
+            {
+                res <- expand.grid(x=1:d[1],y=1:d[2],z=1:d[3],cc=1:d[4])
+            }
+        if (drop.unused)
+            {
+                res[,d > 1,drop=FALSE]
+            }
+        else
+            {
+                res
+            }
+    }
+<bytecode: 0x2d885d0>
+<environment: namespace:imager>
+ --- function (body) search ---
+Function pixel.grid in namespace imager has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

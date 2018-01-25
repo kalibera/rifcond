@@ -1,0 +1,155 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "AR"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('AR')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("AR.Sim")
+> ### * AR.Sim
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AR.Sim
+> ### Title: Graphical Visualization for Accept-Reject Method
+> ### Aliases: AR.Sim
+> ### Keywords: DISTRIB AR AR.Sim Simulation Accept-Reject method
+> ###   optimization
+> 
+> ### ** Examples
+> 
+> # Example 1: 
+> data = AR.Sim( n = 150, 
++          f_X = function(y){dbeta(y,2.7,6.3)},
++          Y.dist = "unif", Y.dist.par = c(0,1),
++          Rej.Num = TRUE,
++          Rej.Rate = TRUE,
++          Acc.Rate = FALSE
++          ) 
+[1] Optimal c = 2.67
+[1] The numbers of Rejections = 246
+[1] Ratio of Rejections = 0.621
+> 
+> # QQ-plot
+> q <- qbeta(ppoints(100), 2.7, 6.3)
+> qqplot(q, data, cex=0.6, xlab="Quantiles of Beta(2.7,6.3)", 
++        ylab="Empirical Quantiles of simulated data")
+> abline(0, 1, col=2)
+> 
+> 
+> # ------------------------------------------------------
+> # Example 2: From Page 54 of (Robert and Casella, 2009)
+> f_X = function(x) dbeta(x,2.7,6.3)
+> Simulation1 <- AR.Sim(n=300, f_X, Y.dist = "unif", Y.dist.par = c(0,1)) 
+[1] Optimal c = 2.67
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp174ePb/R.INSTALL63d1943df0e/AR/R/AR.Sim.R#65: 
+ --- if/while statement is in package --- 
+AR
+ --- call (currently evaluated) --- 
+AR.Sim(n = 300, f_X, Y.dist = "unif", Y.dist.par = c(0, 1))
+ --- R stacktrace ---
+where 1: AR.Sim(n = 300, f_X, Y.dist = "unif", Y.dist.par = c(0, 1))
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function (currently evaluated)--- 
+function(n, f_X, Y.dist, Y.dist.par, xlim=c(0,1), S_X=xlim, Rej.Num=c("TRUE","FALSE"), Rej.Rate=c("TRUE","FALSE"), Acc.Rate=c("TRUE","FALSE") ){
+options(warn=-1)
+x = c()
+k = 0  # Countur
+f_Y <- function(x) pdf(T.dist=Y.dist, T.dist.par=Y.dist.par, x)  # pdf is a function from DISTRIB Package
+c = optimize(f=function(x) f_X(x)/f_Y(x), interval=S_X, maximum=T)$objective
+c.max = optimize(f=function(x) f_X(x)/f_Y(x), interval=S_X, maximum=T)$maximum
+max.f_X = optimize(f_X, interval=S_X, maximum=T)$objective  #Is need for ylim in figures
+max.f_Y = optimize(f_Y, interval=S_X, maximum=T)$objective  #Is need for ylim in figures
+print( noquote(paste("Optimal c =", round(c,3)) ) )
+
+par(mfrow=c(3,1), oma=c(1.5, 4, 1.3, 0), mar=rep(1.2, 4), cex=.9, las=1)
+curve(f_X(x), col=1, lwd=2, lty=1, xlim=xlim, ylim=c(0, .1+ max(c, max.f_X, max.f_Y)))
+curve(f_Y(x), col="coral1", lwd=2, lty=1, add=T)
+curve(f_X(x)/f_Y(x), lwd=2, lty=1, col=4, add=T)
+abline(h=c, v=c.max, col=4, lty=3)
+
+curve(dunif(x) , xlim=xlim, ylim=c(0,1.1), lwd=2)
+curve(f_X(x)/(c*f_Y(x)) , xlim=xlim, col=4, lty=2, lwd=2, add=T)
+
+Y <- U <- c()  #For drow Fig 3
+
+while( length(x) < n ) {
+  k = k + 1
+  u = runif(1)
+  y = rd(1, T.dist=Y.dist, T.dist.par=Y.dist.par)  # rd is a function from DISTRIB Package
+  Y = c(Y,y)  #Only for drow Fig 3
+  U = c(U,u)  #Only for drow Fig 3
+  if( u <= f_X(y)/(c*f_Y(y)) ) 
+    { x = c(x,y) 
+    points(y, u , type="p", pch=20, col=3, add=T)
+    }
+   else
+     { 
+     points(y, u , type="p", pch=20, col=2, add=T)
+     }
+  }
+
+curve(c * f_Y(x) , col="coral1", xlim=xlim, ylim=c(0, .02+ max(max.f_X, c*max.f_Y)), lty=2, lwd=2)
+curve( f_X(x) , xlim=xlim, col=1, lty=2, lwd=2, add=T)
+points(Y, U*c*f_Y(Y) , type="p", pch=20, add=T,  
+       col = 3*(U <= f_X(Y)/(c*f_Y(Y))) + 2*(U > f_X(Y)/(c*f_Y(Y)))  )
+title("Graphical Presentation to Acceptance-Rejection Method          ", outer=TRUE)
+par(mfcol=c(1,1))    #Reset display
+
+#mtext("y", side=1, padj=3, outer=F)  #For xlab
+
+mtext("f_X(x)       ", font=4, col=1, side=2, padj=-19, outer=T)  #For ylab of Fig 1
+mtext("f_Y(x)       ", font=4, col="coral1", side=2, padj=-17, outer=T)  #For ylab of Fig 1
+mtext("f_X(x)       ", font=4, col=4, side=2, padj=-14, outer=T)  #For ylab of Fig 1
+mtext("---------       ", font=4, col=4, side=2, padj=-13, outer=T)  #For ylab of Fig 1
+mtext("f_Y(x)       ", font=4, col=4, side=2, padj=-12, outer=T)  #For ylab of Fig 1
+
+mtext("f_U(y)       ", font=4, col=1, side=2, padj=-2, outer=T)  #For ylab of Fig 2
+mtext("f_X(y)       ", font=4, col=4, side=2, padj=1, outer=T)  #For ylab of Fig 2
+mtext("----------      ", font=4, col=4, side=2, padj=2, outer=T)  #For ylab of Fig 1
+mtext("c. f_Y(y)   ", font=4, col=4, side=2, padj=3, outer=T)  #For ylab of Fig 1
+
+mtext("c. f_Y(y)    ", font=4, col="coral1", side=2, padj=14, outer=T)  #For ylab of Fig 3
+mtext("f_X(y)       ", font=4, col=1, side=2, padj=16, outer=T)  #For ylab of Fig 3
+
+mtext("Points  (y ,  u. c. f_Y(y))                     Points  (y , u)               Computing the optimum c", 4, 0, outer=F, las=0)  #For ylab in right side
+
+if(Rej.Num != "FALSE")  
+   print( noquote(paste("The numbers of Rejections =", k-n ) ) )
+if(Rej.Rate != "FALSE") 
+   print( noquote(paste("Ratio of Rejections =", round((k-n)/k, 3) ) ) )
+if(Acc.Rate != "FALSE")  
+   print( noquote(paste("Ratio of Acceptance =", 1-round((k-n)/k, 3) ) ) )
+Sim.data <- x
+return(Sim.data)
+}
+<bytecode: 0x5172e28>
+<environment: namespace:AR>
+ --- function (body) search ---
+Function AR.Sim in namespace AR has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

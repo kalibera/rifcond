@@ -1,0 +1,2762 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(lmvar)
+> 
+> test_check("lmvar")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(6:10), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xb0dc248>
+<environment: 0xaf33288>
+ --- function (body) search ---
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(1:5), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xacc7248>
+<environment: 0xab1e288>
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+── 1. Error: print.cvlmvar works correctly (@test_cross_validations.R#158)  ────
+error reading from connection
+1: cv.lmvar(fit, max_cores = 2) at testthat/test_cross_validations.R:158
+2: parallel::parLapply(cl, 1:k, function(i) {
+       foldrows = is.element(1:length(y), selected_obs[i, ])
+       if (is.null(X_mu)) {
+           XX = NULL
+           XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+       }
+       else {
+           XX = X_mu[!foldrows, ]
+           XX = matrix_as_matrix(XX, colnames(X_mu))
+           XX = make_matrix_full_rank(XX)
+           XX_predict = X_mu[foldrows, colnames(XX)]
+           XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+       }
+       if (is.null(X_sigma)) {
+           XX_sigma = NULL
+           XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+       }
+       else {
+           XX_sigma = X_sigma[!foldrows, ]
+           XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+           XX_sigma = make_matrix_full_rank(XX_sigma)
+           XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+           XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, colnames(XX_sigma))
+       }
+       fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+           intercept_sigma = intercept_sigma, sigma_min = sigma_min, slvr_options = slvr_options, 
+           control = control), error = function(e) {
+           outlist = list(error = e, warning = NULL, y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma, 
+               intercept_mu = intercept_mu, intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+               slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+           class(outlist) = "error_fit"
+           return(outlist)
+       }, warning = function(w) {
+           outlist = list(error = NULL, warning = w, y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma, 
+               intercept_mu = intercept_mu, intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+               slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+           class(outlist) = "error_fit"
+           return(outlist)
+       })
+       if (class(fit) == "error_fit") {
+           return(fit)
+       }
+       predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, log = FALSE)
+       mu_not_log = predictions[, "mu"]
+       sigma_not_log = predictions[, "sigma"]
+       if (log) {
+           predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, log = log)
+           mu = predictions[, "mu"]
+           sigma = predictions[, "sigma"]
+       }
+       else {
+           mu = mu_not_log
+           sigma = sigma_not_log
+       }
+       if (log) {
+           mae = abs(exp(y[foldrows]) - mu)
+       }
+       else {
+           mae = abs(y[foldrows] - mu)
+       }
+       mse = mae^2
+       excluded_foldrows = excluded_rows[foldrows]
+       mae = mae[!excluded_foldrows]
+       mse = mse[!excluded_foldrows]
+       if (ks_test) {
+           z = (y[foldrows] - mu_not_log)/sigma_not_log
+           ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+               warning(w)
+               dup = duplicated(z)
+               if (sum(dup) > 0) {
+                   dup = which(dup)[1]
+                   dup = which(z == z[dup])
+                   dup = which(foldrows)[dup]
+                   ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                   outlist = list(warning = w, duplicates = dup, statistic = ks$statistic, 
+                     p.value = ks$p.value)
+                   class(outlist) = "error_ks"
+                   return(outlist)
+               }
+           })
+       }
+       if (isFunc) {
+           rows = foldrows & !excluded_rows
+           f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, ], object$X_sigma[rows, 
+               ]), error = function(e) {
+               outlist = list(error = e)
+               class(outlist) = "error_func"
+               return(outlist)
+           })
+       }
+       outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+       if (ks_test) {
+           outlist$ks = ks
+       }
+       if (isFunc) {
+           outlist$fun = f_user
+       }
+       return(outlist)
+   }) at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R:289
+3: do.call(c, clusterApply(cl, x = splitList(X, length(cl)), fun = lapply, fun, ...), 
+       quote = TRUE) at ../../../../R/src/library/parallel/R/clusterApply.R:171
+4: clusterApply(cl, x = splitList(X, length(cl)), fun = lapply, fun, ...) at ../../../../R/src/library/parallel/R/clusterApply.R:171
+5: staticClusterApply(cl, fun, length(x), argfun) at ../../../../R/src/library/parallel/R/clusterApply.R:84
+6: lapply(cl[1:jobs], recvResult) at ../../../../R/src/library/parallel/R/clusterApply.R:32
+7: FUN(X[[i]], ...)
+8: recvData(con) at ../../../../R/src/library/parallel/R/snow.R:188
+9: recvData.SOCKnode(con) at ../../../../R/src/library/parallel/R/snow.R:65
+10: unserialize(node$con) at ../../../../R/src/library/parallel/R/snowSOCK.R:108
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(6:10), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xbe6b950>
+<environment: 0xbcc3288>
+ --- function (body) search ---
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(1:5), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xc05bdb8>
+<environment: 0xbeab2a0>
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+── 2. Failure: cv.lmvar works with class Matrix (@test_cross_validations.R#175) 
+`capture.output(cv.lmvar(fit_Matrix, max_cores = 2))` threw an error.
+Message: error reading from connection
+Class:   simpleError/error/condition
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(6:10), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xb21a590>
+<environment: 0xb06f288>
+ --- function (body) search ---
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(1:5), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xadcb590>
+<environment: 0xac20288>
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+── 3. Error: cv.lmvar error handling works (@test_cross_validations.R#275)  ────
+error reading from connection
+1: expect_warning(cv.lmvar(fit, fun = error_function, max_cores = 2)) at testthat/test_cross_validations.R:275
+2: quasi_capture(enquo(object), capture_warnings, label = label) at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expect-output.R:161
+3: capture(act$val <- eval_bare(get_expr(quo), get_env(quo))) at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expectation.R:99
+4: withCallingHandlers(code, warning = function(condition) {
+       out$push(condition)
+       invokeRestart("muffleWarning")
+   }) at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/capture-condition.R:78
+5: eval_bare(get_expr(quo), get_env(quo))
+6: cv.lmvar(fit, fun = error_function, max_cores = 2)
+7: parallel::parLapply(cl, 1:k, function(i) {
+       foldrows = is.element(1:length(y), selected_obs[i, ])
+       if (is.null(X_mu)) {
+           XX = NULL
+           XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+       }
+       else {
+           XX = X_mu[!foldrows, ]
+           XX = matrix_as_matrix(XX, colnames(X_mu))
+           XX = make_matrix_full_rank(XX)
+           XX_predict = X_mu[foldrows, colnames(XX)]
+           XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+       }
+       if (is.null(X_sigma)) {
+           XX_sigma = NULL
+           XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+       }
+       else {
+           XX_sigma = X_sigma[!foldrows, ]
+           XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+           XX_sigma = make_matrix_full_rank(XX_sigma)
+           XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+           XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, colnames(XX_sigma))
+       }
+       fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+           intercept_sigma = intercept_sigma, sigma_min = sigma_min, slvr_options = slvr_options, 
+           control = control), error = function(e) {
+           outlist = list(error = e, warning = NULL, y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma, 
+               intercept_mu = intercept_mu, intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+               slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+           class(outlist) = "error_fit"
+           return(outlist)
+       }, warning = function(w) {
+           outlist = list(error = NULL, warning = w, y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma, 
+               intercept_mu = intercept_mu, intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+               slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+           class(outlist) = "error_fit"
+           return(outlist)
+       })
+       if (class(fit) == "error_fit") {
+           return(fit)
+       }
+       predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, log = FALSE)
+       mu_not_log = predictions[, "mu"]
+       sigma_not_log = predictions[, "sigma"]
+       if (log) {
+           predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, log = log)
+           mu = predictions[, "mu"]
+           sigma = predictions[, "sigma"]
+       }
+       else {
+           mu = mu_not_log
+           sigma = sigma_not_log
+       }
+       if (log) {
+           mae = abs(exp(y[foldrows]) - mu)
+       }
+       else {
+           mae = abs(y[foldrows] - mu)
+       }
+       mse = mae^2
+       excluded_foldrows = excluded_rows[foldrows]
+       mae = mae[!excluded_foldrows]
+       mse = mse[!excluded_foldrows]
+       if (ks_test) {
+           z = (y[foldrows] - mu_not_log)/sigma_not_log
+           ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+               warning(w)
+               dup = duplicated(z)
+               if (sum(dup) > 0) {
+                   dup = which(dup)[1]
+                   dup = which(z == z[dup])
+                   dup = which(foldrows)[dup]
+                   ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                   outlist = list(warning = w, duplicates = dup, statistic = ks$statistic, 
+                     p.value = ks$p.value)
+                   class(outlist) = "error_ks"
+                   return(outlist)
+               }
+           })
+       }
+       if (isFunc) {
+           rows = foldrows & !excluded_rows
+           f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, ], object$X_sigma[rows, 
+               ]), error = function(e) {
+               outlist = list(error = e)
+               class(outlist) = "error_func"
+               return(outlist)
+           })
+       }
+       outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+       if (ks_test) {
+           outlist$ks = ks
+       }
+       if (isFunc) {
+           outlist$fun = f_user
+       }
+       return(outlist)
+   }) at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R:289
+8: do.call(c, clusterApply(cl, x = splitList(X, length(cl)), fun = lapply, fun, ...), 
+       quote = TRUE) at ../../../../R/src/library/parallel/R/clusterApply.R:171
+9: clusterApply(cl, x = splitList(X, length(cl)), fun = lapply, fun, ...) at ../../../../R/src/library/parallel/R/clusterApply.R:171
+10: staticClusterApply(cl, fun, length(x), argfun) at ../../../../R/src/library/parallel/R/clusterApply.R:84
+11: lapply(cl[1:jobs], recvResult) at ../../../../R/src/library/parallel/R/clusterApply.R:32
+12: FUN(X[[i]], ...)
+13: recvData(con) at ../../../../R/src/library/parallel/R/snow.R:188
+14: recvData.SOCKnode(con) at ../../../../R/src/library/parallel/R/snow.R:65
+15: unserialize(node$con) at ../../../../R/src/library/parallel/R/snowSOCK.R:108
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(6:10), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xafcf280>
+<environment: 0xae26288>
+ --- function (body) search ---
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R#343: 
+ --- if/while statement is in package --- 
+lmvar
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(quote(1:5), quote(function (i) 
+{
+    foldrows = is.element(1:length(y), selected_obs[i, ])
+    if (is.null(X_mu)) {
+        XX = NULL
+        XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX = X_mu[!foldrows, ]
+        XX = matrix_as_matrix(XX, colnames(X_mu))
+        XX = make_matrix_full_rank(XX)
+        XX_predict = X_mu[foldrows, colnames(XX)]
+        XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+    }
+    if (is.null(X_sigma)) {
+        XX_sigma = NULL
+        XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+    } else {
+        XX_sigma = X_sigma[!foldrows, ]
+        XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+        XX_sigma = make_matrix_full_rank(XX_sigma)
+        XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+        XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, 
+            colnames(XX_sigma))
+    }
+    fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+        intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+        slvr_options = slvr_options, control = control), error = function(e) {
+        outlist = list(error = e, warning = NULL, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    }, warning = function(w) {
+        outlist = list(error = NULL, warning = w, y = y[!foldrows], 
+            X_mu = XX, X_sigma = XX_sigma, intercept_mu = intercept_mu, 
+            intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+            slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+        class(outlist) = "error_fit"
+        return(outlist)
+    })
+    if (class(fit) == "error_fit") {
+        return(fit)
+    }
+    predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+        log = FALSE)
+    mu_not_log = predictions[, "mu"]
+    sigma_not_log = predictions[, "sigma"]
+    if (log) {
+        predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, 
+            log = log)
+        mu = predictions[, "mu"]
+        sigma = predictions[, "sigma"]
+    } else {
+        mu = mu_not_log
+        sigma = sigma_not_log
+    }
+    if (log) {
+        mae = abs(exp(y[foldrows]) - mu)
+    } else {
+        mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+    if (ks_test) {
+        z = (y[foldrows] - mu_not_log)/sigma_not_log
+        ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+            warning(w)
+            dup = duplicated(z)
+            if (sum(dup) > 0) {
+                dup = which(dup)[1]
+                dup = which(z == z[dup])
+                dup = which(foldrows)[dup]
+                ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                outlist = list(warning = w, duplicates = dup, 
+                  statistic = ks$statistic, p.value = ks$p.value)
+                class(outlist) = "error_ks"
+                return(outlist)
+            }
+        })
+    }
+    if (isFunc) {
+        rows = foldrows & !excluded_rows
+        f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, 
+            ], object$X_sigma[rows, ]), error = function(e) {
+            outlist = list(error = e)
+            class(outlist) = "error_func"
+            return(outlist)
+        })
+    }
+    outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test) {
+        outlist$ks = ks
+    }
+    if (isFunc) {
+        outlist$fun = f_user
+    }
+    return(outlist)
+}))
+where 3: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 12: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 13: parallel:::.slaveRSOCK()
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(i){
+
+    # select elements from response vector
+    foldrows = is.element(1:length(y), selected_obs[i,])
+
+    # create corresponding model matrices
+    if (is.null(X_mu)){
+      XX = NULL
+      XX_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX = X_mu[!foldrows,]
+      XX = matrix_as_matrix( XX, colnames(X_mu))
+      XX = make_matrix_full_rank(XX)
+      XX_predict = X_mu[foldrows, colnames(XX)]
+      XX_predict = matrix_as_matrix( XX_predict, colnames(XX))
+    }
+
+    if (is.null(X_sigma)){
+      XX_sigma = NULL
+      XX_sigma_predict = matrix( 1, nrow = sum(foldrows), ncol = 1)
+    }
+    else {
+      XX_sigma = X_sigma[ !foldrows,]
+      XX_sigma = matrix_as_matrix( XX_sigma, colnames(X_sigma))
+      XX_sigma = make_matrix_full_rank(XX_sigma)
+      XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+      XX_sigma_predict = matrix_as_matrix( XX_sigma_predict, colnames(XX_sigma))
+    }
+
+    # perform fit on rows not in fold
+    fit = tryCatch( lmvar( y[!foldrows], XX, XX_sigma,
+                           intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                           sigma_min = sigma_min, slvr_options = slvr_options,
+                           control = control),
+
+                    error = function(e){
+                      outlist = list( error = e, warning = NULL,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    },
+                    warning = function(w){
+                      outlist = list( error = NULL, warning = w,
+                                      y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma,
+                                      intercept_mu = intercept_mu, intercept_sigma = intercept_sigma,
+                                      sigma_min = sigma_min, slvr_options = slvr_options, control = control,
+                                      training_rows = which(!foldrows))
+                      class(outlist) = "error_fit"
+                      return(outlist)
+                    })
+    if (class(fit) == "error_fit"){
+      return(fit)
+    }
+
+    # predict values for rows in fold
+    predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = FALSE)
+    mu_not_log = predictions[,"mu"]
+    sigma_not_log = predictions[,"sigma"]
+
+    if (log){
+      predictions = predict.lmvar( fit, XX_predict, XX_sigma_predict, log = log)
+      mu = predictions[,"mu"]
+      sigma = predictions[,"sigma"]
+    }
+    else {
+      mu = mu_not_log
+      sigma = sigma_not_log
+    }
+
+    # Calculate MAE and MSE for rows in fold
+    if (log){
+      mae = abs(exp(y[foldrows]) - mu)
+    }
+    else {
+      mae = abs(y[foldrows] - mu)
+    }
+    mse = mae^2
+
+    # Exclude rows
+    excluded_foldrows = excluded_rows[foldrows]
+    mae = mae[!excluded_foldrows]
+    mse = mse[!excluded_foldrows]
+
+    # Calculate Kolmogorov-Smirnov distance
+    if (ks_test){
+      z = (y[foldrows] - mu_not_log) / sigma_not_log
+      ks = tryCatch(stats::ks.test( z, "pnorm"),
+                    warning = function(w){
+                      warning(w)
+
+                      # Determine duplicates
+                      dup = duplicated(z)
+                      if (sum(dup) > 0){
+                        dup = which(dup)[1]
+                        dup = which(z == z[dup])
+
+                        # Convert duplicate indices to observation indices
+                        dup = which(foldrows)[dup]
+
+                        # Re-run KS-test
+                        ks = suppressWarnings(stats::ks.test( z, "pnorm"))
+
+                        # Return warning with duplicates
+                        outlist = list( warning = w, duplicates = dup,
+                                        statistic = ks$statistic, p.value = ks$p.value)
+                        class(outlist) = "error_ks"
+                        return(outlist)
+                      }
+                    })
+    }
+
+    # Calculate user-specified function
+    if (isFunc){
+      rows = foldrows & !excluded_rows
+      f_user = tryCatch(fun( fit, y[rows], object$X_mu[rows,], object$X_sigma[rows,]),
+                        error = function(e){
+                          outlist = list(error = e)
+                          class(outlist) = "error_func"
+                          return(outlist)
+                        })
+    }
+
+    # Return results
+    outlist = list( mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+    if (ks_test){
+      outlist$ks = ks
+    }
+    if (isFunc){
+      outlist$fun = f_user
+    }
+    return(outlist)
+  }
+<bytecode: 0xa800280>
+<environment: 0xa657288>
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+── 4. Error: cv.lmvar works with model matrix with one column (@test_cross_valid
+error reading from connection
+1: cv.lmvar(fit_test, seed = 3456, max_cores = 2) at testthat/test_cross_validations.R:307
+2: parallel::parLapply(cl, 1:k, function(i) {
+       foldrows = is.element(1:length(y), selected_obs[i, ])
+       if (is.null(X_mu)) {
+           XX = NULL
+           XX_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+       }
+       else {
+           XX = X_mu[!foldrows, ]
+           XX = matrix_as_matrix(XX, colnames(X_mu))
+           XX = make_matrix_full_rank(XX)
+           XX_predict = X_mu[foldrows, colnames(XX)]
+           XX_predict = matrix_as_matrix(XX_predict, colnames(XX))
+       }
+       if (is.null(X_sigma)) {
+           XX_sigma = NULL
+           XX_sigma_predict = matrix(1, nrow = sum(foldrows), ncol = 1)
+       }
+       else {
+           XX_sigma = X_sigma[!foldrows, ]
+           XX_sigma = matrix_as_matrix(XX_sigma, colnames(X_sigma))
+           XX_sigma = make_matrix_full_rank(XX_sigma)
+           XX_sigma_predict = X_sigma[foldrows, colnames(XX_sigma)]
+           XX_sigma_predict = matrix_as_matrix(XX_sigma_predict, colnames(XX_sigma))
+       }
+       fit = tryCatch(lmvar(y[!foldrows], XX, XX_sigma, intercept_mu = intercept_mu, 
+           intercept_sigma = intercept_sigma, sigma_min = sigma_min, slvr_options = slvr_options, 
+           control = control), error = function(e) {
+           outlist = list(error = e, warning = NULL, y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma, 
+               intercept_mu = intercept_mu, intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+               slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+           class(outlist) = "error_fit"
+           return(outlist)
+       }, warning = function(w) {
+           outlist = list(error = NULL, warning = w, y = y[!foldrows], X_mu = XX, X_sigma = XX_sigma, 
+               intercept_mu = intercept_mu, intercept_sigma = intercept_sigma, sigma_min = sigma_min, 
+               slvr_options = slvr_options, control = control, training_rows = which(!foldrows))
+           class(outlist) = "error_fit"
+           return(outlist)
+       })
+       if (class(fit) == "error_fit") {
+           return(fit)
+       }
+       predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, log = FALSE)
+       mu_not_log = predictions[, "mu"]
+       sigma_not_log = predictions[, "sigma"]
+       if (log) {
+           predictions = predict.lmvar(fit, XX_predict, XX_sigma_predict, log = log)
+           mu = predictions[, "mu"]
+           sigma = predictions[, "sigma"]
+       }
+       else {
+           mu = mu_not_log
+           sigma = sigma_not_log
+       }
+       if (log) {
+           mae = abs(exp(y[foldrows]) - mu)
+       }
+       else {
+           mae = abs(y[foldrows] - mu)
+       }
+       mse = mae^2
+       excluded_foldrows = excluded_rows[foldrows]
+       mae = mae[!excluded_foldrows]
+       mse = mse[!excluded_foldrows]
+       if (ks_test) {
+           z = (y[foldrows] - mu_not_log)/sigma_not_log
+           ks = tryCatch(stats::ks.test(z, "pnorm"), warning = function(w) {
+               warning(w)
+               dup = duplicated(z)
+               if (sum(dup) > 0) {
+                   dup = which(dup)[1]
+                   dup = which(z == z[dup])
+                   dup = which(foldrows)[dup]
+                   ks = suppressWarnings(stats::ks.test(z, "pnorm"))
+                   outlist = list(warning = w, duplicates = dup, statistic = ks$statistic, 
+                     p.value = ks$p.value)
+                   class(outlist) = "error_ks"
+                   return(outlist)
+               }
+           })
+       }
+       if (isFunc) {
+           rows = foldrows & !excluded_rows
+           f_user = tryCatch(fun(fit, y[rows], object$X_mu[rows, ], object$X_sigma[rows, 
+               ]), error = function(e) {
+               outlist = list(error = e)
+               class(outlist) = "error_func"
+               return(outlist)
+           })
+       }
+       outlist = list(mae = mean(mae), mse = mean(mse), mse_sqrt = sqrt(mean(mse)))
+       if (ks_test) {
+           outlist$ks = ks
+       }
+       if (isFunc) {
+           outlist$fun = f_user
+       }
+       return(outlist)
+   }) at /var/scratch2/tomas/tmp/RtmpDChCHF/R.INSTALL41f3c088a6/lmvar/R/cv.lmvar.R:289
+3: do.call(c, clusterApply(cl, x = splitList(X, length(cl)), fun = lapply, fun, ...), 
+       quote = TRUE) at ../../../../R/src/library/parallel/R/clusterApply.R:171
+4: clusterApply(cl, x = splitList(X, length(cl)), fun = lapply, fun, ...) at ../../../../R/src/library/parallel/R/clusterApply.R:171
+5: staticClusterApply(cl, fun, length(x), argfun) at ../../../../R/src/library/parallel/R/clusterApply.R:84
+6: lapply(cl[1:jobs], recvResult) at ../../../../R/src/library/parallel/R/clusterApply.R:32
+7: FUN(X[[i]], ...)
+8: recvData(con) at ../../../../R/src/library/parallel/R/snow.R:188
+9: recvData.SOCKnode(con) at ../../../../R/src/library/parallel/R/snow.R:65
+10: unserialize(node$con) at ../../../../R/src/library/parallel/R/snowSOCK.R:108
+
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+══ testthat results  ═══════════════════════════════════════════════════════════
+OK: 148 SKIPPED: 5 FAILED: 4
+1. Error: print.cvlmvar works correctly (@test_cross_validations.R#158) 
+2. Failure: cv.lmvar works with class Matrix (@test_cross_validations.R#175) 
+3. Error: cv.lmvar error handling works (@test_cross_validations.R#275) 
+4. Error: cv.lmvar works with model matrix with one column (@test_cross_validations.R#307) 
+
+Error: testthat unit tests failed
+In addition: Warning messages:
+1: In UseMethod("as.list") :
+  closing unused connection 5 (<-localhost:11372)
+2: In UseMethod("as.list") :
+  closing unused connection 4 (<-localhost:11372)
+3: In list(...) : closing unused connection 5 (<-localhost:11372)
+4: In list(...) : closing unused connection 4 (<-localhost:11372)
+5: In tryCatchList(expr, classes, parentenv, handlers) :
+  closing unused connection 6 (<-localhost:11372)
+6: In tryCatchList(expr, classes, parentenv, handlers) :
+  closing unused connection 5 (<-localhost:11372)
+7: In tryCatchList(expr, classes, parentenv, handlers) :
+  closing unused connection 4 (<-localhost:11372)
+8: In tryCatchList(expr, classes, parentenv, handlers) :
+  closing unused connection 3 (<-localhost:11372)
+Execution halted

@@ -1,0 +1,215 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(optmatch)
+Loading required package: survival
+The optmatch package has an academic license. Enter relaxinfo() for more information.
+> 
+> test_check("optmatch")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp5QcNBk/R.INSTALL1507594381c3/optmatch/R/InfinitySparseMatrix.R#491: 
+ --- if/while statement is in package --- 
+optmatch
+ --- call (currently evaluated) --- 
+sort.InfinitySparseMatrix(X, byCol = c(1, 1))
+ --- R stacktrace ---
+where 1: sort.InfinitySparseMatrix(X, byCol = c(1, 1))
+where 2: sort(X, byCol = c(1, 1))
+where 3 at /var/scratch2/tomas/tmp/RtmpBSpEFw/R.INSTALLd6806e63e92c/rlang/R/eval.R#66: .Call(rlang_eval, expr, env)
+where 4 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/capture-condition.R#36: eval_bare(get_expr(quo), get_env(quo))
+where 5: doTryCatch(return(expr), name, parentenv, handler)
+where 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 7: tryCatchList(expr, classes, parentenv, handlers)
+where 8 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/capture-condition.R#36: tryCatch({
+    code
+    NULL
+}, error = function(e) e)
+where 9 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 10 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expect-output.R#120: quasi_capture(enquo(object), capture_error, label = label)
+where 11: expect_error(sort(X, byCol = c(1, 1)))
+where 12 at /var/scratch2/tomas/tmp/RtmpBSpEFw/R.INSTALLd6806e63e92c/rlang/R/eval.R#66: .Call(rlang_eval, expr, env)
+where 13: eval_bare(get_expr(quo), get_env(quo))
+where 14 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/capture-condition.R#78: withCallingHandlers(code, warning = function(condition) {
+    out$push(condition)
+    invokeRestart("muffleWarning")
+})
+where 15 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 16 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expect-output.R#161: quasi_capture(enquo(object), capture_warnings, label = label)
+where 17 at testthat/test.InfinitySparseMatrix.R#424: expect_warning(expect_error(sort(X, byCol = c(1, 1))))
+where 18: eval(code, test_env)
+where 19: eval(code, test_env)
+where 20: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 21: doTryCatch(return(expr), name, parentenv, handler)
+where 22: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 23: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 24: doTryCatch(return(expr), name, parentenv, handler)
+where 25: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 26: tryCatchList(expr, classes, parentenv, handlers)
+where 27: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 28 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 29 at testthat/test.InfinitySparseMatrix.R#380: test_that("ISM sorting", {
+    X <- makeInfinitySparseMatrix(data = c(6, 5, 2, 3, 1), cols = c(2, 
+        1, 2, 1, 1), rows = c(3, 3, 1, 2, 1))
+    expect_is(X, "InfinitySparseMatrix")
+    expect_is(sort(X), "InfinitySparseMatrix")
+    expect_is(sort(X, byCol = TRUE), "InfinitySparseMatrix")
+    X.rows <- sort(X, byCol = FALSE)
+    X.cols <- sort(X, byCol = TRUE)
+    expect_identical(dim(X.cols), dim(X))
+    expect_identical(dim(X.rows), dim(X))
+    expect_identical(as.matrix(X.cols), as.matrix(X))
+    expect_identical(as.matrix(X.rows), as.matrix(X))
+    coordrc <- as.numeric(paste(attr(X, "rows"), attr(X, "cols"), 
+        sep = ""))
+    coordcr <- as.numeric(paste(attr(X, "cols"), attr(X, "rows"), 
+        sep = ""))
+    expect_true(is.unsorted(coordrc))
+    expect_true(is.unsorted(coordcr))
+    coordrc.sortcols <- as.numeric(paste(attr(X.cols, "rows"), 
+        attr(X.cols, "cols"), sep = ""))
+    coordcr.sortcols <- as.numeric(paste(attr(X.cols, "cols"), 
+        attr(X.cols, "rows"), sep = ""))
+    expect_true(is.unsorted(coordrc.sortcols))
+    expect_true(!is.unsorted(coordcr.sortcols))
+    coordrc.sortrows <- as.numeric(paste(attr(X.rows, "rows"), 
+        attr(X.rows, "cols"), sep = ""))
+    coordcr.sortrows <- as.numeric(paste(attr(X.rows, "cols"), 
+        attr(X.rows, "rows"), sep = ""))
+    expect_true(!is.unsorted(coordrc.sortrows))
+    expect_true(is.unsorted(coordcr.sortrows))
+    expect_silent(sort(X, byCol = 1))
+    expect_error(sort(X, byCol = "a"))
+    expect_warning(expect_error(sort(X, byCol = c(1, 1))))
+    X.rows <- sort(X, byCol = FALSE, decreasing = TRUE)
+    X.cols <- sort(X, byCol = TRUE, decreasing = TRUE)
+    expect_identical(as.matrix(X.rows), as.matrix(X))
+    expect_identical(as.matrix(X.cols), as.matrix(X))
+    coordrc.sortcols <- as.numeric(paste(attr(X.cols, "rows"), 
+        attr(X.cols, "cols"), sep = ""))
+    coordcr.sortcols <- as.numeric(paste(attr(X.cols, "cols"), 
+        attr(X.cols, "rows"), sep = ""))
+    expect_true(is.unsorted(coordrc.sortcols))
+    expect_true(!is.unsorted(rev(coordcr.sortcols)))
+    data(nuclearplants)
+    m <- match_on(pr ~ cost, data = nuclearplants, caliper = 1)
+    m.rows <- sort(m, byCol = FALSE)
+    m.cols <- sort(m, byCol = TRUE)
+    expect_identical(m, m.rows)
+    expect_identical(as.matrix(m), as.matrix(m.cols))
+    expect_false(identical(m, m.cols))
+    expect_identical(m, sort(m.cols))
+})
+where 30: eval(code, test_env)
+where 31: eval(code, test_env)
+where 32: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 33: doTryCatch(return(expr), name, parentenv, handler)
+where 34: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 35: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 36: doTryCatch(return(expr), name, parentenv, handler)
+where 37: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 38: tryCatchList(expr, classes, parentenv, handlers)
+where 39: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 40: test_code(NULL, exprs, env)
+where 41: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 42 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 43: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 44: FUN(X[[i]], ...)
+where 45: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 46 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 47 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 48 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 49 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 50 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 51: test_check("optmatch")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(x,
+                                      decreasing=FALSE,
+                                      ...,
+                                      byCol = FALSE) {
+  byCol <- as.logical(byCol)
+  if (is.na(byCol)) {
+    stop("byCol must be TRUE or FALSE.")
+  }
+
+  sorter <- order(attr(x, ifelse(byCol, "cols", "rows")),
+                  attr(x, ifelse(byCol, "rows", "cols")),
+                  decreasing=decreasing)
+
+  makeInfinitySparseMatrix(x[sorter],
+                           cols = attr(x, "cols")[sorter],
+                           rows = attr(x, "rows")[sorter],
+                           rownames = attr(x, "rownames"),
+                           colnames = attr(x, "colnames"),
+                           dimension = attr(x, "dimension"),
+                           call = attr(x, "call"))
+
+}
+<bytecode: 0x114d8cd8>
+<environment: namespace:optmatch>
+ --- function (body) search ---
+Function sort.InfinitySparseMatrix in namespace optmatch has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,13 +1,487 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "MassArray"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('MassArray')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("MassArray.example.data")
+> ### * MassArray.example.data
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MassArray.example.data
+> ### Title: MassArray Data object
+> ### Aliases: MassArray.example.data
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MassArrayData-class")
+> ### * MassArrayData-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MassArrayData-class
+> ### Title: Class "MassArrayData"
+> ### Aliases: MassArrayData-class $,MassArrayData-method
+> ###   $<-,MassArrayData-method [,MassArrayData-method
+> ###   initialize,MassArrayData-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> showClass("MassArrayData")
+Class "MassArrayData" [package "MassArray"]
+
+Slots:
+                                                                              
+Name:           sequence               chr             start               end
+Class:         character         character           integer           integer
+                                                                              
+Name:             strand           fwd.tag           rev.tag        fwd.primer
+Class:         character         character         character           numeric
+                                                                              
+Name:         rev.primer   lower.threshold   upper.threshold       fragments.T
+Class:           numeric           numeric           numeric              list
+                                                                              
+Name:        fragments.C           samples            groups          CpG.data
+Class:              list              list         character            matrix
+                        
+Name:  CpG.data.combined
+Class:            matrix
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MassArrayFragment-class")
+> ### * MassArrayFragment-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MassArrayFragment-class
+> ### Title: Class "MassArrayFragment"
+> ### Aliases: MassArrayFragment-class $,MassArrayFragment-method
+> ###   $<-,MassArrayFragment-method initialize,MassArrayFragment-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> showClass("MassArrayFragment")
+Class "MassArrayFragment" [package "MassArray"]
+
+Slots:
+                                                                  
+Name:                   ID          assay.name                name
+Class:             integer           character           character
+                                                                  
+Name:             sequence            position              length
+Class:           character             integer             integer
+                                                                  
+Name:                 CpGs                  MW          collisions
+Class:             integer             numeric             integer
+                                                                  
+Name:        collision.IDs       CG.collisions    CG.collision.IDs
+Class:                list             integer                list
+                                                                  
+Name:                 type           direction               extra
+Class:           character           character           character
+                                                                  
+Name:  bisulfite.converted           assayable  conversion.control
+Class:             logical             logical             logical
+                                                                  
+Name:             required             ignored              primer
+Class:             logical             logical             logical
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MassArrayPeak-class")
+> ### * MassArrayPeak-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MassArrayPeak-class
+> ### Title: Class "MassArrayPeak"
+> ### Aliases: MassArrayPeak-class $,MassArrayPeak-method
+> ###   $<-,MassArrayPeak-method initialize,MassArrayPeak-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> showClass("MassArrayPeak")
+Class "MassArrayPeak" [package "MassArray"]
+
+Slots:
+                                                                          
+Name:                ID   MW.theoretical        MW.actual      probability
+Class:          integer          numeric          numeric          numeric
+                                                                          
+Name:               SNR           height sample.intensity    ref.intensity
+Class:          numeric          numeric          numeric          numeric
+                                                                          
+Name:          sequence           adduct             type           charge
+Class:        character        character        character          integer
+                                                                          
+Name:        collisions       components          missing              new
+Class:          integer          integer          logical          logical
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MassArraySpectrum-class")
+> ### * MassArraySpectrum-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MassArraySpectrum-class
+> ### Title: Class "MassArraySpectrum"
+> ### Aliases: MassArraySpectrum-class $,MassArraySpectrum-method
+> ###   $<-,MassArraySpectrum-method initialize,MassArraySpectrum-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> showClass("MassArraySpectrum")
+Class "MassArraySpectrum" [package "MassArray"]
+
+Slots:
+                                                                  
+Name:               sample                 rxn              strand
+Class:           character           character           character
+                                                                  
+Name:                peaks  quality.conversion     quality.spectra
+Class:                list             numeric             numeric
+                                                                  
+Name:  quality.primerdimer quality.contaminant     quality.adducts
+Class:             numeric             numeric             numeric
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ampliconPrediction")
+> ### * ampliconPrediction
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ampliconPrediction
+> ### Title: Amplicon prediction
+> ### Aliases: ampliconPrediction
+> ### Keywords: graphs attribute character aplot
+> 
+> ### ** Examples
+> 
+> ampliconPrediction("TGGAACACCCAGCAAAGATCAAGCAGGAAAGGGCGCACGCAGCCTTCGTTGCTAACCTCCTCTGGACTCTGGTACCCCAGGCACCGCGAATGCTCCCCACCTCAGCCCCCTGACCTTTACCATCGCTGAAGCGGGCGTCGCTGATGTCTGCGGCGAGCCTGCCGACCAGCCCAGCTGCCCAGAGGAGCAGCCAGGCAAGGGCGCTGGCAGCCAGGACGCCGGAGCCCGACGCCCGAGAGGGGCGCGCGGAGCAAGCTGCGGTCACGGGAGGAACCTGAGCACGCAGAGCGTACCCCCACCTTCCACGGTGACCCGGACAGAACGCTCCTTGCGCTCCCACCCTAGGACCCCCTGTAACTCCAGGTTCCTGAGA")
+$summary
+   required summary    T+    C+    T-    C-
+1     FALSE    TRUE  TRUE FALSE FALSE FALSE
+2     FALSE   FALSE FALSE FALSE FALSE FALSE
+3     FALSE    TRUE  TRUE  TRUE FALSE  TRUE
+4     FALSE    TRUE  TRUE  TRUE  TRUE FALSE
+5     FALSE    TRUE  TRUE FALSE  TRUE  TRUE
+6     FALSE    TRUE  TRUE  TRUE FALSE FALSE
+7     FALSE    TRUE  TRUE FALSE  TRUE FALSE
+8     FALSE    TRUE  TRUE FALSE  TRUE FALSE
+9     FALSE    TRUE  TRUE FALSE FALSE FALSE
+10    FALSE    TRUE  TRUE FALSE  TRUE FALSE
+11    FALSE    TRUE  TRUE FALSE  TRUE FALSE
+12    FALSE    TRUE  TRUE FALSE  TRUE FALSE
+13    FALSE    TRUE  TRUE FALSE FALSE FALSE
+14    FALSE    TRUE  TRUE FALSE FALSE FALSE
+15    FALSE    TRUE  TRUE FALSE FALSE  TRUE
+16    FALSE    TRUE  TRUE FALSE FALSE FALSE
+17    FALSE    TRUE  TRUE FALSE FALSE FALSE
+18    FALSE    TRUE  TRUE FALSE FALSE  TRUE
+19    FALSE    TRUE  TRUE FALSE FALSE FALSE
+20    FALSE    TRUE  TRUE FALSE FALSE FALSE
+21    FALSE    TRUE  TRUE FALSE FALSE  TRUE
+22    FALSE    TRUE  TRUE FALSE  TRUE FALSE
+23    FALSE    TRUE  TRUE  TRUE  TRUE  TRUE
+24    FALSE    TRUE FALSE FALSE  TRUE FALSE
+25    FALSE    TRUE  TRUE FALSE  TRUE FALSE
+26    FALSE    TRUE  TRUE  TRUE  TRUE  TRUE
+27    FALSE    TRUE  TRUE  TRUE  TRUE FALSE
+28    FALSE    TRUE  TRUE FALSE  TRUE FALSE
+29    FALSE    TRUE  TRUE FALSE  TRUE FALSE
+
+$counts
+         summary  + T+ C+  - T- C-
+all           28 27 27  6 19 15  7
+required       0  0  0  0  0  0  0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("analyzeCpGs")
+> ### * analyzeCpGs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: analyzeCpGs
+> ### Title: Analyze CG methylation
+> ### Aliases: analyzeCpGs
+> ### Keywords: attribute arith
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> cpg.data <- analyzeCpGs(MassArray.example.data$fragments.T, MassArray.example.data$samples[[1]]$peaks, method="weighted")
+> barplot(cpg.data, xlab="CpG (Number)", ylim=c(0,1), ylab="Methylation (Percent)")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bisConvert")
+> ### * bisConvert
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bisConvert
+> ### Title: Bisulphite conversion
+> ### Aliases: bisConvert
+> ### Keywords: character
+> 
+> ### ** Examples
+> 
+> bisConvert("AAATTCGGAACCC")
+[1] "AAATTYGGAATTT"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calcMW")
+> ### * calcMW
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calcMW
+> ### Title: Calculate molecular weight
+> ### Aliases: calcMW
+> ### Keywords: character arith
+> 
+> ### ** Examples
+> 
+> calcMW("AAATCCC")
+[1] 2180.377
+> calcMW("AARTYCC")
+[1] 2197.361 2180.377 2213.360 2196.376
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calcMeth")
+> ### * calcMeth
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calcMeth
+> ### Title: Calculate percent methylation
+> ### Aliases: calcMeth
+> ### Keywords: arith manip
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> frags <- MassArray.example.data$fragments.T[[6]]$"MW"
+> peaks <- findPeaks(frags, unlist(lapply(MassArray.example.data$samples[[1]]$peaks, slot, "MW.actual")))
+> SNRs <- unlist(lapply(MassArray.example.data$samples[[1]]$peaks[peaks], slot, "SNR"))
+> frag.list <- list(1:3, 1:3, 1:3, 1:3)
+> calcMeth(SNRs, fragments=frag.list, method="weighted")
+         1          2          3 
+0.05819519 0.05819519 0.05819519 
+> calcMeth(SNRs, fragments=frag.list, method="proportion")
+       1        2        3 
+0.106167 0.106167 0.106167 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calcPercentAdduct")
+> ### * calcPercentAdduct
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calcPercentAdduct
+> ### Title: Calculate percent salt adducts
+> ### Aliases: calcPercentAdduct
+> ### Keywords: arith attribute
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> adduct.ratios <- calcPercentAdduct(MassArray.example.data$samples[[1]]$peaks)
+> median(adduct.ratios)
+[1] 0.1648997
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calcPercentConversion")
+> ### * calcPercentConversion
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calcPercentConversion
+> ### Title: Calculate percent conversion
+> ### Aliases: calcPercentConversion
+> ### Keywords: attribute arith
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> conversion.data <- calcPercentConversion(MassArray.example.data$fragments.T, MassArray.example.data$samples[[1]]$peaks)
+> mean(conversion.data)
+[1] 0.005864446
+> 
+> # NOTE: conversion control data may already be contained within a MassArrayData object; these data can be accessed and visualized by the following (or alternative) commands
+> conversion.data <- unlist(lapply(lapply(MassArray.example.data$samples, slot, "quality.conversion"), median, na.rm=TRUE))
+> barplot(conversion.data)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("combine")
+> ### * combine
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: combine
+> ### Title: Combine MassArrayData objects
+> ### Aliases: combine
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> samples(MassArray.example.data)
+[1] "A" "B"
+> combined.data <- combine(MassArray.example.data[2,], MassArray.example.data[1,])
+> samples(combined.data)
+[1] "B" "A"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("convControl")
+> ### * convControl
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: convControl
+> ### Title: Conversion control
+> ### Aliases: convControl
+> ### Keywords: manip character
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> MassArray.example.data$fragments.T[[54]]
+An object of class "MassArrayFragment"
+Slot "ID":
+[1] 54
+
+Slot "assay.name":
+[1] ""
+
+Slot "name":
+[1] ""
+
+Slot "sequence":
+[1] "ACACACAT"
+
+Slot "position":
+[1] 126
+
+Slot "length":
+[1] 8
+
+Slot "CpGs":
+[1] 0
+
+Slot "MW":
+[1] 2509.587
+
+Slot "collisions":
+[1] 0
+
+Slot "collision.IDs":
+[[1]]
+integer(0)
+
+
+Slot "CG.collisions":
+[1] 0
+
+Slot "CG.collision.IDs":
+list()
+
+Slot "type":
+[1] "T"
+
+Slot "direction":
+[1] "+"
+
+Slot "extra":
+[1] "5OH"
+
+Slot "bisulfite.converted":
+[1] TRUE
+
+Slot "assayable":
+[1] TRUE
+
+Slot "conversion.control":
+[1] FALSE
+
+Slot "required":
+[1] FALSE
+
+Slot "ignored":
+[1] FALSE
+
+Slot "primer":
+[1] FALSE
+
+> conversion.data <- convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpNoZhYB/R.INSTALL2657e32c84fcd/MassArray/R/convControl.R#26: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpeqiW0s/R.INSTALL70ca1603df66/MassArray/R/convControl.R#26: 
+ --- if/while statement is in package --- 
+MassArray
+ --- call (currently evaluated) --- 
 convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (sequence, fragmentation, multiple=FALSE) {
 	sequence <- toupper(sequence)
 	N <- nchar(sequence)
@@ -56,7 +530,9 @@ function (sequence, fragmentation, multiple=FALSE) {
 	}
 	return(fragmentation)
 }
-<bytecode: 0x8263158>
+<bytecode: 0x8415ef0>
 <environment: namespace:MassArray>
  --- function (body) search ---
 Function convControl in namespace MassArray has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

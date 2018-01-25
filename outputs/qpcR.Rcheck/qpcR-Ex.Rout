@@ -1,16 +1,85 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "qpcR"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('qpcR')
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("AICc")
+> ### * AICc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AICc
+> ### Title: Akaike's second-order corrected Information Criterion
+> ### Aliases: AICc
+> ### Keywords: models nonlinear
+> 
+> ### ** Examples
+> 
+> m1 <- pcrfit(reps, 1, 2, l5)
+> AICc(m1)
+[1] -103.189
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Cy0")
+> ### * Cy0
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Cy0
+> ### Title: Cy0 alternative to threshold cycles as in Guescini et al. (2008)
+> ### Aliases: Cy0
+> ### Keywords: models nonlinear
+> 
+> ### ** Examples
+> 
+> ## Single curve with plot.
+> m1 <- pcrfit(reps, 1, 2, l5)
+> Cy0(m1, plot = TRUE)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpw4qBbp/R.INSTALL132a9451c0ce9/qpcR/R/plot.pcrfit.r#21: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmppQw8tu/R.INSTALL37a646147703/qpcR/R/plot.pcrfit.r#21: 
+ --- if/while statement is in package --- 
+qpcR
+ --- call (currently evaluated) --- 
 plot.pcrfit(object, ...)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: plot.pcrfit(object, ...)
 where 2: plot(object, ...)
-where 3 at /tmp/Rtmpw4qBbp/R.INSTALL132a9451c0ce9/qpcR/R/Cy0.R#9: plot(object, ...)
+where 3 at /var/scratch2/tomas/tmp/RtmppQw8tu/R.INSTALL37a646147703/qpcR/R/Cy0.R#9: plot(object, ...)
 where 4: Cy0(m1, plot = TRUE)
 
  --- value of length: 2 type: logical ---
 [1] TRUE TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(
 x, 
 which = c("all", "single", "3D", "image"),
@@ -155,3 +224,5 @@ parSD = list(),
 <environment: namespace:qpcR>
  --- function (body) search ---
 Function plot.pcrfit in namespace qpcR has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

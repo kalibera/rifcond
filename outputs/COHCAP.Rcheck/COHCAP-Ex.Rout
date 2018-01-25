@@ -1,0 +1,513 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "COHCAP"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('COHCAP')
+Loading required package: WriteXLS
+Loading required package: COHCAPanno
+Loading required package: RColorBrewer
+Loading required package: gplots
+
+Attaching package: ‘gplots’
+
+The following object is masked from ‘package:stats’:
+
+    lowess
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("COHCAP.BSSeq.preprocess")
+> ### * COHCAP.BSSeq.preprocess
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.BSSeq.preprocess
+> ### Title: Preprocessing for Targeted BS-Seq data
+> ### Aliases: COHCAP.BSSeq.preprocess
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> bed.folder = file.path(dir,"BSSeq")
+> gene.table = file.path(dir,"GENCODE_Genes_truncated.bed")
+> targeted.regions = file.path(dir,"UCSC_CpG_Islands_truncated.bed")
+> 
+> output.folder = getwd()
+> annotation.file = file.path(output.folder,"COHCAP.targeted.BSSeq.anno.txt")
+> cohcap.inputfile = file.path(output.folder,"BS_Seq_combined.txt")
+> 
+> COHCAP.BSSeq.preprocess(bed.folder, cohcap.inputfile, gene.table,
++ 				targeted.regions,annotation.file)
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.annotate")
+> ### * COHCAP.annotate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.annotate
+> ### Title: Annotation for CpG Sites
+> ### Aliases: COHCAP.annotate
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> beta.file = file.path(dir,"GSE42308_truncated.txt")
+> project.folder = getwd()
+> project.name = "450k_test"
+> 
+> beta.table = COHCAP.annotate(beta.file, project.name, project.folder,
++ 				platform="450k-UCSC")
+[1] 173   7
+[1] 172   5
+[1] 172  11
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.avg.by.island")
+> ### * COHCAP.avg.by.island
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.avg.by.island
+> ### Title: CpG Island Differential Methylation Analysis (Average by Island
+> ###   Workflow).
+> ### Aliases: COHCAP.avg.by.island
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> beta.file = file.path(dir,"GSE42308_truncated.txt")
+> sample.file = file.path(dir,"sample_GSE42308.txt")
+> project.folder = getwd()
+> project.name = "450k_avg_by_island_test"
+> 
+> beta.table = COHCAP.annotate(beta.file, project.name, project.folder,
++ 				platform="450k-UCSC")
+[1] 173   7
+[1] 172   5
+[1] 172  11
+> filtered.sites = COHCAP.site(sample.file, beta.table, project.name,
++ 				project.folder, ref="parental")
+[1] "Reading Sample Description File...."
+[1] 172   6
+[1] 172   6
+[1] "Differential Methylation Stats for 2 Groups with Reference"
+[1] 172   5
+[1] 172  10
+
+[1] 172  10
+[1] 34 10
+[1] 34 10
+> island.list = COHCAP.avg.by.island(sample.file, filtered.sites,
++ 				beta.table, project.name, project.folder, ref="parental")
+[1] "Reading Sample Description File...."
+[1] 172   6
+[1] 172   6
+[1] "Group: mutant"   "Group: parental"
+[1] "Checking CpG Site Stats Table"
+[1] 34 10
+[1] 29 10
+[1] 5
+[1] "Average CpG Sites per CpG Island"
+[1] "Differential Methylation Stats for 2 Groups with Reference"
+[1] 4 8
+[1] 4 8
+[1] "There are 4 differentially methylated islands"
+[1] 4 8
+[1] 4 8
+[1] "Plotting Significant Islands Box-Plots.."
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.avg.by.site")
+> ### * COHCAP.avg.by.site
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.avg.by.site
+> ### Title: CpG Island Differential Methylation Analysis (Average by Site
+> ###   Workflow).
+> ### Aliases: COHCAP.avg.by.site
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> beta.file = file.path(dir,"GSE42308_truncated.txt")
+> sample.file = file.path(dir,"sample_GSE42308.txt")
+> project.folder = getwd()
+> project.name = "450k_avg_by_site_test"
+> 
+> beta.table = COHCAP.annotate(beta.file, project.name, project.folder,
++ 				platform="450k-UCSC")
+[1] 173   7
+[1] 172   5
+[1] 172  11
+> filtered.sites = COHCAP.site(sample.file, beta.table, project.name,
++ 				project.folder, ref="parental")
+[1] "Reading Sample Description File...."
+[1] 172   6
+[1] 172   6
+[1] "Differential Methylation Stats for 2 Groups with Reference"
+[1] 172   5
+[1] 172  10
+
+[1] 172  10
+[1] 34 10
+[1] 34 10
+> filtered.islands = COHCAP.avg.by.site(filtered.sites, project.name,
++ 				project.folder)
+[1] "Checking CpG Site Stats Table"
+[1] 34 10
+[1] 29 10
+[1] "Analyzing 5 CpG Islands..."
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.denovo")
+> ### * COHCAP.denovo
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.denovo
+> ### Title: De-Novo Identification of Differentially Methylated CpG Site
+> ###   Clusters
+> ### Aliases: COHCAP.denovo
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> beta.file = file.path(dir,"GSE42308_truncated.txt")
+> sample.file = file.path(dir,"sample_GSE42308.txt")
+> project.folder = getwd()
+> project.name = "450k_test"
+> 
+> beta.table = COHCAP.annotate(beta.file, project.name, project.folder,
++ 				platform="450k-UCSC")
+[1] 173   7
+[1] 172   5
+[1] 172  11
+> filtered.sites = COHCAP.site(sample.file, beta.table, project.name,
++ 				project.folder, ref="parental")
+[1] "Reading Sample Description File...."
+[1] 172   6
+[1] 172   6
+[1] "Differential Methylation Stats for 2 Groups with Reference"
+[1] 172   5
+[1] 172  10
+
+[1] 172  10
+[1] 34 10
+[1] 34 10
+> COHCAP.denovo(filtered.sites, project.name, project.folder)
+[1] 34 10
+[1] 34 10
+[1] "Checking for clusters on chr10"
+[1]  5 10
+[1] "Checking for clusters on chr17"
+[1] 10 10
+[1] "Checking for clusters on chr18"
+[1] 10 10
+[1] "Checking for clusters on chr2"
+[1]  9 10
+[1] 4 5
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.integrate.avg.by.island")
+> ### * COHCAP.integrate.avg.by.island
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.integrate.avg.by.island
+> ### Title: Integration with Gene Expression Data(Average by Island
+> ###   Workflow).
+> ### Aliases: COHCAP.integrate.avg.by.island
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> beta.file = file.path(dir,"GSE42308_truncated.txt")
+> sample.file = file.path(dir,"sample_GSE42308.txt")
+> project.folder = getwd()
+> expression.file = file.path(dir,"expression-Average_by_Island_truncated.txt")
+> project.name = "450k_avg_by_island_test"
+> 
+> beta.table = COHCAP.annotate(beta.file, project.name, project.folder,
++ 				platform="450k-UCSC")
+[1] 173   7
+[1] 172   5
+[1] 172  11
+> filtered.sites = COHCAP.site(sample.file, beta.table, project.name,
++ 				project.folder, ref="parental")
+[1] "Reading Sample Description File...."
+[1] 172   6
+[1] 172   6
+[1] "Differential Methylation Stats for 2 Groups with Reference"
+[1] 172   5
+[1] 172  10
+
+[1] 172  10
+[1] 34 10
+[1] 34 10
+> island.list = COHCAP.avg.by.island(sample.file, filtered.sites,
++ 				beta.table, project.name, project.folder, ref="parental")
+[1] "Reading Sample Description File...."
+[1] 172   6
+[1] 172   6
+[1] "Group: mutant"   "Group: parental"
+[1] "Checking CpG Site Stats Table"
+[1] 34 10
+[1] 29 10
+[1] 5
+[1] "Average CpG Sites per CpG Island"
+[1] "Differential Methylation Stats for 2 Groups with Reference"
+[1] 4 8
+[1] 4 8
+[1] "There are 4 differentially methylated islands"
+[1] 4 8
+[1] 4 8
+[1] "Plotting Significant Islands Box-Plots.."
+> COHCAP.integrate.avg.by.island(island.list, project.name,
++ 				project.folder, expression.file, sample.file)
+[1] 4 8
+[1] 4 8
+
+[1] 4
+[1] 1.777472e-06 1.706586e-06 2.418011e-06 2.014309e-07
+[1] 4
+[1] 4
+[1] "4 significant correlations"
+[1] "Plotting Correlated Genes...."
+[1]  4 14
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.integrate.avg.by.site")
+> ### * COHCAP.integrate.avg.by.site
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.integrate.avg.by.site
+> ### Title: Integration with Gene Expression Data(Average by Site Workflow).
+> ### Aliases: COHCAP.integrate.avg.by.site
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> beta.file = file.path(dir,"GSE42308_truncated.txt")
+> sample.file = file.path(dir,"sample_GSE42308.txt")
+> project.folder = getwd()
+> expression.file = file.path(dir,"expression-Average_by_Site_truncated.txt")
+> project.name = "450k_avg_by_site_test"
+> 
+> beta.table = COHCAP.annotate(beta.file, project.name, project.folder,
++ 				platform="450k-UCSC")
+[1] 173   7
+[1] 172   5
+[1] 172  11
+> filtered.sites = COHCAP.site(sample.file, beta.table, project.name,
++ 				project.folder, ref="parental")
+[1] "Reading Sample Description File...."
+[1] 172   6
+[1] 172   6
+[1] "Differential Methylation Stats for 2 Groups with Reference"
+[1] 172   5
+[1] 172  10
+
+[1] 172  10
+[1] 34 10
+[1] 34 10
+> filtered.islands = COHCAP.avg.by.site(filtered.sites, project.name,
++ 				project.folder)
+[1] "Checking CpG Site Stats Table"
+[1] 34 10
+[1] 29 10
+[1] "Analyzing 5 CpG Islands..."
+> COHCAP.integrate.avg.by.site(filtered.islands, project.name, project.folder,
++ 				expression.file)
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.qc")
+> ### * COHCAP.qc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.qc
+> ### Title: DNA Methylation Quality Control Statistics
+> ### Aliases: COHCAP.qc
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> beta.file = file.path(dir,"GSE42308_truncated.txt")
+> sample.file = file.path(dir,"sample_GSE42308.txt")
+> project.folder = getwd()
+> project.name = "450k_test"
+> 
+> beta.table = COHCAP.annotate(beta.file, project.name, project.folder,
++ 				platform="450k-UCSC")
+[1] 173   7
+[1] 172   5
+[1] 172  11
+> COHCAP.qc(sample.file, beta.table, project.name, project.folder)
+[1] 172   6
+[1] 172   6
+[1] "Group: mutant"   "Group: parental"
+[1] "Color: red"  "Color: blue"
+[1] "Calculating Sample Statistics..."
+[1] "Creating Sample Histogram..."
+[1] "Creating Dendrogram..."
+[1] "Creating PCA Plot..."
+pdf 
+  2 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("COHCAP.reformatFinalReport")
+> ### * COHCAP.reformatFinalReport
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: COHCAP.reformatFinalReport
+> ### Title: Prepare COHCAP beta file from Illumina GenomeStudio Final Report
+> ### Aliases: COHCAP.reformatFinalReport
+> 
+> ### ** Examples
+> 
+> library("COHCAP")
+> 
+> dir = system.file("extdata", package="COHCAP")
+> FinalReport = file.path(dir,"EPIC_DEMO.txt")
+> beta.file = "COHCAP_beta.txt"
+> sample.relabel.file = file.path(dir,"EPIC_DEMO_samples.txt")
+> 
+> COHCAP.reformatFinalReport(FinalReport, beta.file, renaming.file=sample.relabel.file)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpf4n9cK/R.INSTALLc84e4f386d12/COHCAP/R/COHCAP.reformatFinalReport.R#23: 
+ --- if/while statement is in package --- 
+COHCAP
+ --- call (currently evaluated) --- 
+COHCAP.reformatFinalReport(FinalReport, beta.file, renaming.file = sample.relabel.file)
+ --- R stacktrace ---
+where 1: COHCAP.reformatFinalReport(FinalReport, beta.file, renaming.file = sample.relabel.file)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function (currently evaluated)--- 
+function(FinalReport, beta.file, renaming.file=NULL, detection.pvalue.cutoff=0.01)
+{
+	input.table = read.table(FinalReport, header=T, sep="\t", skip=8)
+	probeID = input.table[,1]
+	#if(delete.last.column){
+	#	input.table = input.table[,-ncol(input.table)]
+	#}
+	#beta.mat = round(input.table[,seq(2,ncol(input.table),2)], digits=2)
+	#pvalue.mat = input.table[,seq(3,ncol(input.table),2)]
+	
+	beta.mat = round(input.table[,grep("AVG_Beta",colnames(input.table))], digits=2)
+	pvalue.mat = input.table[,grep("Detection.Pval",colnames(input.table))]
+	
+	rm(input.table)
+	
+	beta.names = colnames(beta.mat)
+	#beta.names = beta.names[grep("AVG_Beta",beta.names)]
+	beta.names = gsub(".AVG_Beta","",beta.names)
+	pval.names = colnames(pvalue.mat)
+	#pval.names = pval.names[grep("Detection.Pval",pval.names)]
+	pval.names = gsub(".Detection.Pval","",pval.names)
+	
+	if((length(beta.names)!= length(pval.names))&(beta.names != pval.names)){
+		print("Discordance between Beta matrix and Detection P-value matrix!")
+		print(paste("Beta names: ",beta.names,sep=""))
+		print(paste("P-value names: ",pval.names,sep=""))
+		print("If only last p-value is missing, consider setting 'delete.last.column=FALSE'")
+		stop()
+	}else{
+		filtered.beta.mat = beta.mat
+		filtered.beta.mat[pvalue.mat > detection.pvalue.cutoff] = NA
+		colnames(filtered.beta.mat)=beta.names
+		rm(beta.mat)
+		rm(pvalue.mat)
+		
+		if(!is.null(renaming.file)){
+			label.table = read.table(renaming.file,header=T, sep="\t")
+			chipID = as.character(label.table[,1])
+			if(length(grep("^\\d",chipID)) > 0){
+				print("Adding X to beginning of samples:")
+				print(chipID)
+				chipID[grep("^\\d",chipID)]=paste("X",chipID[grep("^\\d",chipID)],sep="")
+				print(chipID)
+			}
+			
+			new.labels = label.table[,2]
+			new.labels = new.labels[match(beta.names,chipID)]
+			names(new.labels)=beta.names
+			if(length(new.labels[is.na(new.labels)]) != 0){
+				print("Sample mapping issue:")
+				print(new.labels)
+				stop()
+			}else{
+				colnames(filtered.beta.mat)=new.labels
+			}
+			print("Add code to re-name samples")
+		}
+		
+		filtered.beta.mat = data.frame(SiteID = probeID, filtered.beta.mat)
+		write.table(filtered.beta.mat, beta.file, quote=F, row.names=F, sep="\t")
+	}#end else
+}
+<environment: namespace:COHCAP>
+ --- function (body) search ---
+Function COHCAP.reformatFinalReport in namespace COHCAP has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

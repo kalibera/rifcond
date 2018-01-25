@@ -1,13 +1,585 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "ic.infer"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('ic.infer')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("contr.diff")
+> ### * contr.diff
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: contr.diff
+> ### Title: Contrast function for factors with ordered values that yields
+> ###   increment coefficients
+> ### Aliases: contr.diff
+> ### Keywords: multivariate optimize
+> 
+> ### ** Examples
+> 
+> ## mu, Sigma and covariance matrix
+> means <- c(3,5,2,7)
+> ## contrast matrix
+> contr.diff(4)
+  2-1 3-2 4-3
+1   0   0   0
+2   1   0   0
+3   1   1   0
+4   1   1   1
+> ## design matrix
+> X <- cbind(rep(1,4),contr.diff(4))
+> ## estimated coefficients
+> solve(t(X)%*%X,t(X)%*%means)
+    [,1]
+       3
+2-1    2
+3-2   -3
+4-3    5
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ic.est")
+> ### * ic.est
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ic.est
+> ### Title: Functions for order-restricted estimates and printing thereof
+> ### Aliases: ic.est print.orest summary.orest
+> ### Keywords: multivariate optimize
+> 
+> ### ** Examples
+> 
+> ## different correlation structures
+> corr.plus <- matrix(c(1,0.9,0.9,1),2,2)
+> corr.null <- matrix(c(1,0,0,1),2,2)
+> corr.minus <- matrix(c(1,-0.9,-0.9,1),2,2)
+> ## unrestricted vectors
+> x1 <- c(1, -1)
+> x2 <- c(-1, -1)
+> x3 <- c(10, -1)
+> ## estimation under restriction non-negative orthant
+> ## or first element equal to 0, second non-negative
+> ice <- ic.est(x1, corr.plus, ui=diag(c(1,1)), ci=c(0,0))
+> ice
+
+Constrained estimate:
+ m1   m2  
+1.9  0.0  
+
+> summary(ice)
+Order-restricted estimated mean with restrictions of coefficients of 
+m1 m2 
+
+
+ Inequality restrictions:
+     m1 m2                   
+1:   1  0  %*%colnames  >=  0
+2: A 0  1  %*%colnames  >=  0
+
+ Note: Restrictions marked with A are active. 
+
+Restricted estimate: 
+R m1 R m2 
+ 1.9  0.0 
+
+ Note: Estimates marked with R are involved in restrictions. 
+> ice2 <-ic.est(x1, corr.plus, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+> summary(ice2)
+Order-restricted estimated mean with restrictions of coefficients of 
+m1 m2 
+
+
+ Restrictions:
+     m1 m2                   
+1: A 1  0  %*%colnames  ==  0
+2: A 0  1  %*%colnames  >=  0
+
+ Note: Restrictions marked with A are active. 
+
+Restricted estimate: 
+R m1 R m2 
+   0    0 
+
+ Note: Estimates marked with R are involved in restrictions. 
+> ic.est(x2, corr.plus, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x2, corr.plus, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x3, corr.plus, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+  m1    m2  
+10.9   0.0  
+
+> ic.est(x3, corr.plus, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x1, corr.null, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+m1  m2  
+ 1   0  
+
+> ic.est(x1, corr.null, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x2, corr.null, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x2, corr.null, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x3, corr.null, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+m1  m2  
+10   0  
+
+> ic.est(x3, corr.null, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x1, corr.minus, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+ m1   m2  
+0.1  0.0  
+
+> ic.est(x1, corr.minus, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x2, corr.minus, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x2, corr.minus, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   0  
+
+> ic.est(x3, corr.minus, ui=diag(c(1,1)), ci=c(0,0))
+
+Constrained estimate:
+ m1   m2  
+9.1  0.0  
+
+> ic.est(x3, corr.minus, ui=diag(c(1,1)), ci=c(0,0), meq=1)
+
+Constrained estimate:
+m1  m2  
+ 0   8  
+
+> ## estimation under one element restricted to being non-negative
+> ic.est(x3, corr.plus, ui=1, ci=0, index=1)
+
+Constrained estimate:
+m1  m2  
+10  -1  
+
+> ic.est(x3, corr.plus, ui=1, ci=0, index=2)
+
+Constrained estimate:
+  m1    m2  
+10.9   0.0  
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ic.infer-package")
+> ### * ic.infer-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ic.infer
+> ### Title: Package for inequality-constrained estimation and testing
+> ### Aliases: ic.infer ic.infer-package
+> ### Keywords: htest models regression multivariate
+> 
+> ### ** Examples
+> 
+> ## unrestricted linear model for grade point averages
+> limo <- lm(meanGPA~.-n, weights=n, data=grades)
+> summary(limo)
+
+Call:
+lm(formula = meanGPA ~ . - n, data = grades, weights = n)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2241 -0.4943 -0.1489  0.4328  1.7759 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.50087    0.23667   6.342 6.43e-08 ***
+HSR21-30    -0.12509    0.25402  -0.492 0.624560    
+HSR31-40    -0.02724    0.22793  -0.120 0.905333    
+HSR41-50     0.14890    0.21311   0.699 0.487964    
+HSR51-60     0.09467    0.20774   0.456 0.650588    
+HSR61-70     0.31290    0.20552   1.522 0.134190    
+HSR71-80     0.42903    0.20443   2.099 0.040918 *  
+HSR81-90     0.56119    0.20445   2.745 0.008388 ** 
+HSR>=91      0.97028    0.20430   4.749 1.76e-05 ***
+ACTC13-15    0.29372    0.16246   1.808 0.076621 .  
+ACTC16-18    0.45650    0.14554   3.137 0.002863 ** 
+ACTC19-21    0.53323    0.14015   3.805 0.000388 ***
+ACTC22-24    0.61932    0.13905   4.454 4.75e-05 ***
+ACTC25-27    0.66983    0.13964   4.797 1.49e-05 ***
+ACTC28-30    0.82226    0.14539   5.655 7.47e-07 ***
+ACTC31-33    0.92141    0.18459   4.992 7.65e-06 ***
+ACTC34-36    1.03886    0.49590   2.095 0.041267 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9512 on 50 degrees of freedom
+Multiple R-squared:  0.9076,	Adjusted R-squared:  0.878 
+F-statistic:  30.7 on 16 and 50 DF,  p-value: < 2.2e-16
+
+> ## restricted linear model with restrictions that better HSR ranking 
+> ## cannot deteriorate meanGPA
+> orlimo <- orlm(lm(meanGPA~.-n, weights=n, data=grades), index=2:9, 
++        ui=make.mon.ui(grades$HSR))
+> summary(orlimo, brief=TRUE)
+Order-restricted linear model with restrictions of coefficients of 
+HSR21-30 HSR31-40 HSR41-50 HSR51-60 HSR61-70 HSR71-80 HSR81-90 HSR>=91 
+
+
+Coefficients from order-restricted model: 
+  (Intercept)    R HSR21-30    R HSR31-40    R HSR41-50    R HSR51-60 
+   1.42444058    0.00000000    0.04917467    0.19180637    0.19180637 
+   R HSR61-70    R HSR71-80    R HSR81-90     R HSR>=91     ACTC13-15 
+   0.38920235    0.50550878    0.63772131    1.04688234    0.29495800 
+    ACTC16-18     ACTC19-21     ACTC22-24     ACTC25-27     ACTC28-30 
+   0.45714128    0.53311153    0.61918482    0.66944517    0.82221571 
+    ACTC31-33     ACTC34-36 
+   0.92090805    1.03867708 
+
+ Note: Coefficients marked with R are involved in restrictions. 
+
+
+Hypothesis tests ( 50 error degrees of freedom ): 
+Overall model test under the order restrictions: 
+       Test statistic: 0.9075074,   p-value: <0.0001
+
+Type 1 test: H0: all restrictions active(=) 
+         vs. H1: at least one restriction strictly true (>) 
+       Test statistic: 0.8131673,   p-value: <0.0001
+Type 2 test: H0: all restrictions true 
+         vs. H1: at least one restriction false 
+       Test statistic: 0.010742,   p-value: 0.9887
+Type 3 test: H0: at least one restriction false or active (=) 
+         vs. H1: all restrictions strictly true (>) 
+       Test statistic: -0.5481387,   p-value: 0.7070
+
+Type 3 test based on t-distribution (one-sided), 
+all other tests based on mixture of beta distributions
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ic.test")
+> ### * ic.test
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ic.test
+> ### Title: Function for testing inequality-related hypotheses for
+> ###   multivariate normal random variables
+> ### Aliases: ic.test print.ict summary.ict
+> ### Keywords: htest multivariate
+> 
+> ### ** Examples
+> 
+> corr.plus <- matrix(c(1,0.5,0.5,1),2,2)
+> corr.null <- matrix(c(1,0,0,1),2,2)
+> corr.minus <- matrix(c(1,-0.5,-0.5,1),2,2)
+> ## unrestricted vectors
+> x1 <- c(1, 1)
+> x2 <- c(-1, 1)
+> ict1 <- ic.test(ic.est(x1, corr.plus, ui=diag(c(1,1)), ci=c(0,0)))
+> ict1
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1           1.333          0.2952  
+
+> summary(ict1)
+Order-related hypothesis test: 
+
+Type 1 Test: 
+ H0: all restrictions active(=) 
+     vs. 
+ H1: at least one restriction strictly true (>) 
+Test statistic        p-value 
+         1.333         0.2952 
+
+Restricted estimate under H0:
+m1  m2  
+ 0   0  
+
+Restricted estimate under union of H0 and H1 :
+m1  m2  
+ 1   1  
+> ic.test(ic.est(x1, corr.plus, ui=diag(c(1,1)), ci=c(0,0)), s2=1, df.error=10)
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1          0.1176          0.3158  
+
+> ic.test(ic.est(x1, corr.minus, ui=diag(c(1,1)), ci=c(0,0)))
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1               4          0.0453  
+
+> ic.test(ic.est(x1, corr.minus, ui=diag(c(1,1)), ci=c(0,0)), s2=1, df.error=10)
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1          0.2857          0.0677  
+
+> ic.test(ic.est(x2, corr.plus, ui=diag(c(1,1)), ci=c(0,0)))
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1               3           0.116  
+
+> ic.test(ic.est(x2, corr.plus, ui=diag(c(1,1)), ci=c(0,0)), s2=1, df.error=10)
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1          0.2308          0.1467  
+
+> ic.test(ic.est(x2, corr.minus, ui=diag(c(1,1)), ci=c(0,0)))
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1          0.3333          0.4229  
+
+> ic.test(ic.est(x2, corr.minus, ui=diag(c(1,1)), ci=c(0,0)), s2=1, df.error=10)
+
+Order-related hypothesis test:
+  Test problem  Test statistic         p-value  
+             1         0.03226          0.4297  
+
+> 
+> ict2 <- ic.test(ic.est(x2, corr.plus, ui=diag(c(1,1)), ci=c(0,0)),TP=2)
+> summary(ict2)
+Order-related hypothesis test: 
+
+Type 2 Test: 
+ H0: all restrictions true(>=) 
+     vs. 
+ H1: at least one restriction violated (<) 
+Test statistic        p-value 
+             1         0.2597 
+
+Restricted estimate under H0:
+ m1   m2  
+0.0  1.5  
+
+Unrestricted estimate:
+m1  m2  
+-1   1  
+> ict3 <- ic.test(ic.est(x1, corr.plus, ui=diag(c(1,1)), ci=c(0,0)),TP=3)
+> summary(ict3)
+Order-related hypothesis test: 
+
+Type 3 Test: 
+ H0: at least one restriction not strictly true (<=) 
+         vs. 
+ H1: all restrictions strictly true (>) 
+Test statistic        p-value 
+             1         0.1587 
+
+Unrestricted estimate:
+m1  m2  
+ 1   1  
+> 
+> ict11 <- ic.test(ic.est(x1, corr.plus, ui=c(1,1), ci=0),TP=11, ui0.11 =c(1,0))
+> summary(ict11)
+Order-related hypothesis test: 
+
+Type 11 Test:  
+ H0: all original restrictions active plus additional equality restrictions 
+     vs. 
+ H1: original restrictions hold 
+Test statistic        p-value 
+         1.333         0.3808 
+
+Restricted estimate under union of H0 and H1 :
+m1  m2  
+ 1   1  
+
+Restricted estimate under H0:
+m1  m2  
+ 0   0  
+> 
+> ## larger example
+> corr.plus <- diag(1,8)
+> for (i in 1:7)
++    for (j in (i+1):8)
++      corr.plus[i,j] <- corr.plus[j,i] <- 0.5
+> u <- rbind(rep(1,6), c(-1,-1,-1,1,1,1), c(-1,0,1,0,0,0), c(0,0,0,-1,0,1))
+> ice <- ic.est(c(rep(1,4),rep(4,4)), corr.plus, ui=u, ci=rep(0,4), index=2:7, meq = 1)
+> ict1 <- ic.test(ice,TP=1)
+> summary(ict1)
+Order-related hypothesis test: 
+
+Type 1 Test: 
+ H0: all restrictions active(=) 
+     vs. 
+ H1: at least one restriction strictly true (>) 
+Test statistic        p-value 
+            27        <0.0001 
+
+Restricted estimate under H0:
+    m1      m2      m3      m4      m5      m6      m7      m8  
+-1.143   0.000   0.000   0.000   0.000   0.000   0.000   1.857  
+
+Restricted estimate under union of H0 and H1 :
+    m1      m2      m3      m4      m5      m6      m7      m8  
+-1.143  -1.500  -1.500  -1.500   1.500   1.500   1.500   1.857  
+> ict2 <- ic.test(ice,TP=2)
+> summary(ict2)
+Order-related hypothesis test: 
+
+Type 2 Test: 
+ H0: all restrictions true(>=) 
+     vs. 
+ H1: at least one restriction violated (<) 
+Test statistic        p-value 
+         10.71         0.0107 
+
+Restricted estimate under H0:
+    m1      m2      m3      m4      m5      m6      m7      m8  
+-1.143  -1.500  -1.500  -1.500   1.500   1.500   1.500   1.857  
+
+Unrestricted estimate:
+m1  m2  m3  m4  m5  m6  m7  m8  
+ 1   1   1   1   4   4   4   4  
+> ict11 <- ic.test(ice,TP=11)
+> summary(ict11,digits=3)
+Order-related hypothesis test: 
+
+Type 11 Test:  
+ H0: all original restrictions active plus additional equality restrictions 
+     vs. 
+ H1: original restrictions hold 
+Test statistic        p-value 
+          36.4        <0.0001 
+
+Restricted estimate under union of H0 and H1 :
+   m1     m2     m3     m4     m5     m6     m7     m8  
+-1.14  -1.50  -1.50  -1.50   1.50   1.50   1.50   1.86  
+
+Restricted estimate under H0:
+m1  m2  m3  m4  m5  m6  m7  m8  
+ 0   0   0   0   0   0   0   0  
+> ice <- ic.est(c(rep(1,4),rep(4,4)), corr.plus, ui=u, ci=rep(0,4), index=2:7)
+> ict3 <- ic.test(ice, TP=3)
+> summary(ict3)
+Order-related hypothesis test: 
+
+Type 3 Test: 
+ H0: at least one restriction not strictly true (<=) 
+         vs. 
+ H1: all restrictions strictly true (>) 
+Test statistic        p-value 
+             0            0.5 
+
+Unrestricted estimate:
+m1  m2  m3  m4  m5  m6  m7  m8  
+ 1   1   1   1   4   4   4   4  
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ic.weights")
+> ### * ic.weights
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ic.weights
+> ### Title: functions for calculating the distributions of normal
+> ###   distribution order-related likelihood ratio tests
+> ### Aliases: ic.weights pbetabar pchibar
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> z <- 0.5
+> corr <- matrix(c(1,0.9,0.9,1),2,2)
+> print(wt.plus <- ic.weights(corr))
+         2          1          0 
+0.42821685 0.50000000 0.07178315 
+> T <- c(z,z)
+> 1-pchibar(T,2:0,wt.plus)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpDNjfJc/R.INSTALL1944d6f80d403/ic.infer/R/pchibar.R#4: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpbB6d9m/R.INSTALL342235555e05/ic.infer/R/pchibar.R#4: 
+ --- if/while statement is in package --- 
+ic.infer
+ --- call (currently evaluated) --- 
 pchibar(T, 2:0, wt.plus)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: pchibar(T, 2:0, wt.plus)
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (x, df, wt) 
 {
     ## acknowlegment: taken from package ibdreg
@@ -22,3 +594,5 @@ function (x, df, wt)
 <environment: namespace:ic.infer>
  --- function (body) search ---
 Function pchibar in namespace ic.infer has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,6 +1,139 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "stargazer"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('stargazer')
+
+Please cite as: 
+
+ Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+ R package version 5.2.1. https://CRAN.R-project.org/package=stargazer 
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("stargazer")
+> ### * stargazer
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: stargazer
+> ### Title: stargazer
+> ### Aliases: stargazer stargazer-package
+> ### Keywords: package models regression nonlinear univar interface
+> ###   programming IO
+> 
+> ### ** Examples
+> 
+> ## create summary statistics table for 'attitude' data frame
+> stargazer(attitude)
+
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Wed, Jan 24, 2018 - 10:23:04 PM
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+\hline \\[-1.8ex] 
+rating & 30 & 64.633 & 12.173 & 40 & 85 \\ 
+complaints & 30 & 66.600 & 13.315 & 37 & 90 \\ 
+privileges & 30 & 53.133 & 12.235 & 30 & 83 \\ 
+learning & 30 & 56.367 & 11.737 & 34 & 75 \\ 
+raises & 30 & 64.633 & 10.397 & 43 & 88 \\ 
+critical & 30 & 74.767 & 9.895 & 49 & 92 \\ 
+advance & 30 & 42.933 & 10.289 & 25 & 72 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+> 
+> ## list the content of the data frame 'attitude'
+> stargazer(attitude, summary=FALSE)
+
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Wed, Jan 24, 2018 - 10:23:38 PM
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & rating & complaints & privileges & learning & raises & critical & advance \\ 
+\hline \\[-1.8ex] 
+1 & $43$ & $51$ & $30$ & $39$ & $61$ & $92$ & $45$ \\ 
+2 & $63$ & $64$ & $51$ & $54$ & $63$ & $73$ & $47$ \\ 
+3 & $71$ & $70$ & $68$ & $69$ & $76$ & $86$ & $48$ \\ 
+4 & $61$ & $63$ & $45$ & $47$ & $54$ & $84$ & $35$ \\ 
+5 & $81$ & $78$ & $56$ & $66$ & $71$ & $83$ & $47$ \\ 
+6 & $43$ & $55$ & $49$ & $44$ & $54$ & $49$ & $34$ \\ 
+7 & $58$ & $67$ & $42$ & $56$ & $66$ & $68$ & $35$ \\ 
+8 & $71$ & $75$ & $50$ & $55$ & $70$ & $66$ & $41$ \\ 
+9 & $72$ & $82$ & $72$ & $67$ & $71$ & $83$ & $31$ \\ 
+10 & $67$ & $61$ & $45$ & $47$ & $62$ & $80$ & $41$ \\ 
+11 & $64$ & $53$ & $53$ & $58$ & $58$ & $67$ & $34$ \\ 
+12 & $67$ & $60$ & $47$ & $39$ & $59$ & $74$ & $41$ \\ 
+13 & $69$ & $62$ & $57$ & $42$ & $55$ & $63$ & $25$ \\ 
+14 & $68$ & $83$ & $83$ & $45$ & $59$ & $77$ & $35$ \\ 
+15 & $77$ & $77$ & $54$ & $72$ & $79$ & $77$ & $46$ \\ 
+16 & $81$ & $90$ & $50$ & $72$ & $60$ & $54$ & $36$ \\ 
+17 & $74$ & $85$ & $64$ & $69$ & $79$ & $79$ & $63$ \\ 
+18 & $65$ & $60$ & $65$ & $75$ & $55$ & $80$ & $60$ \\ 
+19 & $65$ & $70$ & $46$ & $57$ & $75$ & $85$ & $46$ \\ 
+20 & $50$ & $58$ & $68$ & $54$ & $64$ & $78$ & $52$ \\ 
+21 & $50$ & $40$ & $33$ & $34$ & $43$ & $64$ & $33$ \\ 
+22 & $64$ & $61$ & $52$ & $62$ & $66$ & $80$ & $41$ \\ 
+23 & $53$ & $66$ & $52$ & $50$ & $63$ & $80$ & $37$ \\ 
+24 & $40$ & $37$ & $42$ & $58$ & $50$ & $57$ & $49$ \\ 
+25 & $63$ & $54$ & $42$ & $48$ & $66$ & $75$ & $33$ \\ 
+26 & $66$ & $77$ & $66$ & $63$ & $88$ & $76$ & $72$ \\ 
+27 & $78$ & $75$ & $58$ & $74$ & $80$ & $78$ & $49$ \\ 
+28 & $48$ & $57$ & $44$ & $45$ & $51$ & $83$ & $38$ \\ 
+29 & $85$ & $85$ & $71$ & $71$ & $77$ & $74$ & $55$ \\ 
+30 & $82$ & $82$ & $39$ & $59$ & $64$ & $78$ & $39$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+> 
+> ##  2 OLS models
+> linear.1 <- lm(rating ~ complaints + privileges + learning 
++                         + raises + critical, data=attitude)
+> 
+> linear.2 <- lm(rating ~ complaints + privileges + learning, data=attitude)
+> 
+> ## create an indicator dependent variable, and run a probit model
+>  
+> attitude$high.rating <- (attitude$rating > 70)
+> probit.model <- glm(high.rating ~ learning + critical + advance, data=attitude,
++                     family = binomial(link = "probit"))
+>  
+> stargazer(linear.1, linear.2, probit.model, title="Regression Results")
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpuyWv0J/R.INSTALL22b4114eea973/stargazer/R/stargazer-internal.R#5981: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpaSRAIW/R.INSTALL3ac24d0c5f02/stargazer/R/stargazer-internal.R#5981: 
+ --- if/while statement is in package --- 
+stargazer
+ --- call (currently evaluated) --- 
 .stargazer.wrap(..., type = type, title = title, style = style, 
     summary = summary, out = out, out.header = out.header, column.labels = column.labels, 
     column.separate = column.separate, covariate.labels = covariate.labels, 
@@ -30,7 +163,7 @@
     summary.logical = summary.logical, summary.stat = summary.stat, 
     nobs = nobs, mean.sd = mean.sd, min.max = min.max, median = median, 
     iqr = iqr, warn = save.warn.option)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: .stargazer.wrap(..., type = type, title = title, style = style, 
     summary = summary, out = out, out.header = out.header, column.labels = column.labels, 
     column.separate = column.separate, covariate.labels = covariate.labels, 
@@ -64,7 +197,7 @@ where 2: stargazer(linear.1, linear.2, probit.model, title = "Regression Results
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(..., type, title, style, summary, out, out.header, covariate.labels, column.labels, column.separate, 
            dep.var.caption, dep.var.labels, dep.var.labels.include, align, coef, se, t, p, t.auto, 
            p.auto, ci, ci.custom, ci.level, ci.separator, add.lines, apply.coef, apply.se, apply.t, apply.p, apply.ci,
@@ -7147,7 +7280,9 @@ function(..., type, title, style, summary, out, out.header, covariate.labels, co
     options(warn=warn)
     return(invisible(invisible.output))
 }
-<bytecode: 0x73b1fd8>
+<bytecode: 0x72331a8>
 <environment: namespace:stargazer>
  --- function (body) search ---
 Function .stargazer.wrap in namespace stargazer has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

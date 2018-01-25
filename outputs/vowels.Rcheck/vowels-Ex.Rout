@@ -1,14 +1,60 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "vowels"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('vowels')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("compute.means")
+> ### * compute.means
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compute.means
+> ### Title: Compute the Formant Means (or Medians or Standard Deviations) of
+> ###   a Data Frame of Vowel Data
+> ### Aliases: compute.means compute.medians compute.sds
+> ### Keywords: methods
+> 
+> ### ** Examples
+>  
+> data(ohiovowels)
+> means <- compute.means(ohiovowels)
+> vowelplot(means, color="vowels", labels="vowels")
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpejRzXZ/R.INSTALL251b115fef738/vowels/R/vowels.R#797: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmp9LiHkY/R.INSTALL5d351ecca08/vowels/R/vowels.R#797: 
+ --- if/while statement is in package --- 
+vowels
+ --- call (currently evaluated) --- 
 vowelplot(means, color = "vowels", labels = "vowels")
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: vowelplot(means, color = "vowels", labels = "vowels")
 
  --- value of length: 25 type: logical ---
  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 [16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(vowels, speaker = NA, color = NA, color.choice = NA, shape="speakers", shape.choice = NA, size = NA, labels = "none", leg="speakers", a.size = NA, l.size = NA, title = "", subtitle = NA, xlim = NA, ylim = NA) {
   
   ltext<-NA
@@ -104,3 +150,5 @@ function(vowels, speaker = NA, color = NA, color.choice = NA, shape="speakers", 
 <environment: namespace:vowels>
  --- function (body) search ---
 Function vowelplot in namespace vowels has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

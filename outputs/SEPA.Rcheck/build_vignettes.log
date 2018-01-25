@@ -1,0 +1,109 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp6zyPQY/R.INSTALLc2617c3a6ffa/SEPA/R/truetimevisualize.R#28: 
+ --- if/while statement is in package --- 
+SEPA
+ --- call (currently evaluated) --- 
+FUN(X[[i]], ...)
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: lapply(X = X, FUN = FUN, ...)
+where 3 at /var/scratch2/tomas/tmp/Rtmp6zyPQY/R.INSTALLc2617c3a6ffa/SEPA/R/truetimevisualize.R#27: sapply(1:length(levels(truetime)), function(i) {
+    if (mode == "mean") {
+        mean(e[truetime == levels(truetime)[i]])
+    }
+    else {
+        median(e[truetime == levels(truetime)[i]])
+    }
+})
+where 4: FUN(X[[i]], ...)
+where 5: lapply(X = X, FUN = FUN, ...)
+where 6: sapply(gene, function(singlegene) {
+    e <- expr[singlegene, names(truetime)]
+    sapply(1:length(levels(truetime)), function(i) {
+        if (mode == "mean") {
+            mean(e[truetime == levels(truetime)[i]])
+        }
+        else {
+            median(e[truetime == levels(truetime)[i]])
+        }
+    })
+})
+where 7 at /var/scratch2/tomas/tmp/Rtmp6zyPQY/R.INSTALLc2617c3a6ffa/SEPA/R/truetimevisualize.R#25: as.vector(sapply(gene, function(singlegene) {
+    e <- expr[singlegene, names(truetime)]
+    sapply(1:length(levels(truetime)), function(i) {
+        if (mode == "mean") {
+            mean(e[truetime == levels(truetime)[i]])
+        }
+        else {
+            median(e[truetime == levels(truetime)[i]])
+        }
+    })
+}))
+where 8: truetimevisualize(HSMMdata, truetime, "ENSG00000122180.4")
+where 9: eval(expr, envir, enclos)
+where 10: eval(expr, envir, enclos)
+where 11: withVisible(eval(expr, envir, enclos))
+where 12: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 13: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 14: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 15: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 16 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 17: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 18: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 19: block_exec(params)
+where 20 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#6: call_block(x)
+where 21 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#3: process_group.block(group)
+where 22: process_group(group)
+where 23 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 24 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#258: process_file(text, output)
+where 25 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#40: (if (grepl("\\.[Rr]md$", file)) knit2html_v1 else if (grepl("\\.[Rr]rst$", 
+    file)) knit2pandoc else knit)(file, encoding = encoding, 
+    quiet = quiet, envir = globalenv())
+where 26: engine$weave(file, quiet = quiet, encoding = enc)
+where 27: doTryCatch(return(expr), name, parentenv, handler)
+where 28: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 29: tryCatchList(expr, classes, parentenv, handlers)
+where 30: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 31: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/SEPA.Rcheck/vign_test/SEPA")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function (currently evaluated)--- 
+function(i) {
+                  if (mode == "mean") {
+                        mean(e[truetime==levels(truetime)[i]])      
+                  } else {
+                        median(e[truetime==levels(truetime)[i]])
+                  }                  
+            }
+<environment: 0x166d2820>
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

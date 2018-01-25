@@ -1,13 +1,75 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "speciesgeocodeR"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('speciesgeocodeR')
+Loading required package: maps
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("CalcRange")
+> ### * CalcRange
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: CalcRange
+> ### Title: Calculate the Extent of Occurrence
+> ### Aliases: CalcRange
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> data(lemurs)
+> CalcRange(lemurs)
+Warning in CalcRange(lemurs) :
+  177 points were excluded due to duplicated coordinate
+Warning in CalcRange(lemurs) :
+  the following species have less than 3 occurrence, values set to NA:
+ Daubentonia madagascariensis
+ Eulemur collaris
+ Eulemur rufifrons
+ Eulemur rufus
+ Eulemur sanfordi
+ Lepilemur septentrionalis
+ Microcebus griseorufus
+ Microcebus lehilahytsara
+ Microcebus ravelobensis
+ Propithecus candidus
+ Propithecus coronatus
+ Propithecus deckenii
+ Propithecus tattersalli
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpnf9XrK/R.INSTALL23ac423d3e98/speciesgeocodeR/R/CalcRange.R#31: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpTGeeHM/R.INSTALLaf09489d496a/speciesgeocodeR/R/CalcRange.R#31: 
+ --- if/while statement is in package --- 
+speciesgeocodeR
+ --- call (currently evaluated) --- 
 CalcRange(lemurs)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: CalcRange(lemurs)
 
  --- value of length: 2 type: logical ---
 [1]  TRUE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(x, mode = "EOO", value = c("area", "shape")) {
     if (class(x) == "spgeoOUT"){
       dat1 <- data.frame(identifier = x$identifier_in, x$species_coordinates_in)
@@ -54,3 +116,5 @@ function(x, mode = "EOO", value = c("area", "shape")) {
 <environment: namespace:speciesgeocodeR>
  --- function (body) search ---
 Function CalcRange in namespace speciesgeocodeR has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

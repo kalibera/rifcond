@@ -1,8 +1,1578 @@
- --- srcref --- 
- at /tmp/RtmpwwgF2q/R.INSTALL132c325998b22/gtools/R/smartbind.R#155: 
- --- call (function) --- 
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "gtools"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('gtools')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ASCIIfy")
+> ### * ASCIIfy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ASCIIfy
+> ### Title: Convert Characters to ASCII
+> ### Aliases: ASCIIfy
+> ### Keywords: utilites character
+> 
+> ### ** Examples
+> 
+> cities <- c("S\u00e3o Paulo", "Reykjav\u00edk")
+> print(cities)
+[1] "São Paulo" "Reykjavík"
+> ASCIIfy(cities, 1)
+[1] "S\\xe3o Paulo" "Reykjav\\xedk"
+> ASCIIfy(cities, 2)
+[1] "S\\u00e3o Paulo" "Reykjav\\u00edk"
+> 
+> athens <- "\u0391\u03b8\u03ae\u03bd\u03b1"
+> print(athens)
+[1] "Αθήνα"
+> ASCIIfy(athens)
+[1] "\\u0391\\u03b8\\u03ae\\u03bd\\u03b1"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("asc")
+> ### * asc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: asc
+> ### Title: Convert between characters and ASCII codes
+> ### Aliases: asc chr
+> ### Keywords: character programming
+> 
+> ### ** Examples
+> 
+>   ## ascii codes for lowercase letters
+>   asc(letters)
+  a   b   c   d   e   f   g   h   i   j   k   l   m   n   o   p   q   r   s   t 
+ 97  98  99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 
+  u   v   w   x   y   z 
+117 118 119 120 121 122 
+> 
+>   ## uppercase letters from ascii codes
+>   chr(65:90)
+ [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+[20] "T" "U" "V" "W" "X" "Y" "Z"
+> 
+>   ## works on muti-character strings
+>   ( tmp <- asc('hello!') )
+     hello!
+[1,]    104
+[2,]    101
+[3,]    108
+[4,]    108
+[5,]    111
+[6,]     33
+>   chr(tmp)
+[1] "h" "e" "l" "l" "o" "!"
+> 
+>   ## Use 'simplify=FALSE' to return the result as a list
+>   ( tmp <- asc('hello!', simplify=FALSE) )
+$`hello!`
+[1] 104 101 108 108 111  33
+
+>   chr(tmp)
+  hello! 
+"hello!" 
+> 
+>   ## When simplify=FALSE the results can be...
+>   asc( c('a', 'e', 'i', 'o', 'u', 'y' ) ) # a vector
+  a   e   i   o   u   y 
+ 97 101 105 111 117 121 
+>   asc( c('ae', 'io', 'uy' ) )             # or a matrix
+      ae  io  uy
+[1,]  97 105 117
+[2,] 101 111 121
+> 
+>   ## When simplify=TRUE the results are always a list...
+>   asc( c('a', 'e', 'i', 'o', 'u', 'y' ), simplify=FALSE )
+$a
+[1] 97
+
+$e
+[1] 101
+
+$i
+[1] 105
+
+$o
+[1] 111
+
+$u
+[1] 117
+
+$y
+[1] 121
+
+>   asc( c('ae', 'io', 'uy' ), simplify=FALSE)
+$ae
+[1]  97 101
+
+$io
+[1] 105 111
+
+$uy
+[1] 117 121
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ask")
+> ### * ask
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ask
+> ### Title: Display a prompt and collect the user's response
+> ### Aliases: ask
+> ### Keywords: IO
+> 
+> ### ** Examples
+> 
+> 
+> # use default prompt
+> ask()
+Press <RETURN> to continue: 
+[1] ""
+> silly <- function()
++ {
++    age <- ask("How old aroe you? ")
++    age <- as.numeric(age)
++    cat("In 10 years you will be", age+10, "years old!\n")
++ }
+>    
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binsearch")
+> ### * binsearch
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binsearch
+> ### Title: Binary Search
+> ### Aliases: binsearch
+> ### Keywords: optimize programming
+> 
+> ### ** Examples
+> 
+> 
+> ### Toy examples
+> 
+> # search for x=10
+> binsearch( function(x) x-10, range=c(0,20) )
+$call
+binsearch(fun = function(x) x - 10, range = c(0, 20))
+
+$numiter
+[1] 1
+
+$flag
+[1] "Found"
+
+$where
+[1] 10
+
+$value
+[1] 0
+
+> 
+> # search for x=10.1
+> binsearch( function(x) x-10.1, range=c(0,20) )
+$call
+binsearch(fun = function(x) x - 10.1, range = c(0, 20))
+
+$numiter
+[1] 5
+
+$flag
+[1] "Between Elements"
+
+$where
+[1] 10 11
+
+$value
+[1] -0.1  0.9
+
+> 
+> ### Classical toy example
+> 
+> # binary search for the index of 'M' among the sorted letters
+> fun <- function(X) ifelse(LETTERS[X] > 'M', 1,
++                           ifelse(LETTERS[X] < 'M', -1, 0 ) )
+> 
+> binsearch( fun, range=1:26 ) 
+$call
+binsearch(fun = fun, range = 1:26)
+
+$numiter
+[1] 5
+
+$flag
+[1] "Found"
+
+$where
+[1] 13
+
+$value
+[1] 0
+
+> # returns $where=13
+> LETTERS[13]
+[1] "M"
+> 
+> ### Substantive example, from genetics
+> ## Not run: 
+> ##D library(genetics)
+> ##D # Determine the necessary sample size to detect all alleles with
+> ##D # frequency 0.07 or greater with probability 0.95.
+> ##D power.fun <- function(N) 1 - gregorius(N=N, freq=0.07)$missprob
+> ##D 
+> ##D binsearch( power.fun, range=c(0,100), target=0.95 )
+> ##D 
+> ##D # equivalent to
+> ##D gregorius( freq=0.07, missprob=0.05)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("checkRVersion")
+> ### * checkRVersion
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: checkRVersion
+> ### Title: Check if a newer version of R is available
+> ### Aliases: checkRVersion
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> 
+> checkRVersion()
+The latest version of R is installed: 3.4.3
+> 
+> ver <- checkRVersion()
+The latest version of R is installed: 3.4.3
+> print(ver)
 NULL
- --- stacktrace ---
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("combinations")
+> ### * combinations
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: combinations
+> ### Title: Enumerate the Combinations or Permutations of the Elements of a
+> ###   Vector
+> ### Aliases: combinations permutations
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> combinations(3,2,letters[1:3])
+     [,1] [,2]
+[1,] "a"  "b" 
+[2,] "a"  "c" 
+[3,] "b"  "c" 
+> combinations(3,2,letters[1:3],repeats=TRUE)
+     [,1] [,2]
+[1,] "a"  "a" 
+[2,] "a"  "b" 
+[3,] "a"  "c" 
+[4,] "b"  "b" 
+[5,] "b"  "c" 
+[6,] "c"  "c" 
+> 
+> permutations(3,2,letters[1:3])
+     [,1] [,2]
+[1,] "a"  "b" 
+[2,] "a"  "c" 
+[3,] "b"  "a" 
+[4,] "b"  "c" 
+[5,] "c"  "a" 
+[6,] "c"  "b" 
+> permutations(3,2,letters[1:3],repeats=TRUE)
+      [,1] [,2]
+ [1,] "a"  "a" 
+ [2,] "a"  "b" 
+ [3,] "a"  "c" 
+ [4,] "b"  "a" 
+ [5,] "b"  "b" 
+ [6,] "b"  "c" 
+ [7,] "c"  "a" 
+ [8,] "c"  "b" 
+ [9,] "c"  "c" 
+> 
+> # To use large 'n', you need to change the default recusion limit
+> options(expressions=1e5)
+> cmat <- combinations(300,2)
+> dim(cmat) # 44850 by 2 
+[1] 44850     2
+> 
+> 
+> 
+> cleanEx()
+> nameEx("defmacro")
+> ### * defmacro
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: defmacro
+> ### Title: Define a macro
+> ### Aliases: defmacro strmacro
+> ### Keywords: programming
+> 
+> ### ** Examples
+> 
+> ####
+> # macro for replacing a specified missing value indicator with NA
+> # within a dataframe
+> ###
+> setNA <- defmacro(df, var, values,
++                   expr={
++                          df$var[df$var %in% values] <- NA
++                        })
+> 
+> # create example data using 999 as a missing value indicator
+> d <- data.frame(
++    Grp=c("Trt", "Ctl", "Ctl", "Trt", "Ctl", "Ctl", "Trt", "Ctl", "Trt", "Ctl"),
++    V1=c(1, 2, 3, 4, 5, 6, 999, 8,   9,  10),
++    V2=c(1, 1, 1, 1, 1, 2, 999, 2, 999, 999)
++                )
+> d
+   Grp  V1  V2
+1  Trt   1   1
+2  Ctl   2   1
+3  Ctl   3   1
+4  Trt   4   1
+5  Ctl   5   1
+6  Ctl   6   2
+7  Trt 999 999
+8  Ctl   8   2
+9  Trt   9 999
+10 Ctl  10 999
+> 
+> # Try it out
+> setNA(d, V1, 999)
+> setNA(d, V2, 999)
+> d
+   Grp V1 V2
+1  Trt  1  1
+2  Ctl  2  1
+3  Ctl  3  1
+4  Trt  4  1
+5  Ctl  5  1
+6  Ctl  6  2
+7  Trt NA NA
+8  Ctl  8  2
+9  Trt  9 NA
+10 Ctl 10 NA
+> 
+> 
+> ###
+> # Expression macro
+> ###
+> plot.d <- defmacro( df, var, DOTS, col="red", title="", expr=
++   plot( df$var ~ df$Grp, type="b", col=col, main=title, ... )
++ )
+> 
+> plot.d( d, V1)
+> plot.d( d, V1, col="blue" )
+> plot.d( d, V1, lwd=4)  # use optional 'DOTS' argument
+> 
+> ###
+> # String macro (note the quoted text in the calls below)
+> # 
+> # This style of macro can be useful when you are reading
+> # function arguments from a text file
+> ###
+> plot.s <- strmacro( DF, VAR, COL="'red'", TITLE="''", DOTS="", expr=
++   plot( DF$VAR ~ DF$Grp, type="b", col=COL, main=TITLE, DOTS)
++ )
+> 
+> plot.s( "d", "V1")
+> plot.s( DF="d", VAR="V1", COL='"blue"' ) 
+> plot.s( "d", "V1", DOTS='lwd=4')  # use optional 'DOTS' argument
+> 
+> 
+> 
+> #######
+> # Create a macro that defines new functions
+> ######
+> plot.sf <- defmacro(type='b', col='black',
++                     title=deparse(substitute(x)), DOTS, expr=
++   function(x,y) plot( x,y, type=type, col=col, main=title, ...)
++ )
+> 
+> plot.red  <- plot.sf(col='red',title='Red is more Fun!')
+> plot.blue <- plot.sf(col='blue',title="Blue is Best!", lty=2)
+> 
+> plot.red(1:100,rnorm(100))
+> plot.blue(1:100,rnorm(100))
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dirichlet")
+> ### * dirichlet
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rdirichlet
+> ### Title: Functions for the Dirichlet Distribution
+> ### Aliases: rdirichlet ddirichlet
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> 
+>   x <- rdirichlet(20, c(1,1,1) )
+> 
+>   ddirichlet(x, c(1,1,1) )
+ [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("foldchange")
+> ### * foldchange
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: foldchange
+> ### Title: Compute fold-change or convert between log-ratio and
+> ###   fold-change.
+> ### Aliases: foldchange logratio2foldchange foldchange2logratio
+> ### Keywords: math
+> 
+> ### ** Examples
+> 
+> 
+>   a <- 1:21
+>   b <- 21:1
+> 
+>   f <- foldchange(a,b)
+> 
+>   cbind(a,b,f)
+       a  b          f
+ [1,]  1 21 -21.000000
+ [2,]  2 20 -10.000000
+ [3,]  3 19  -6.333333
+ [4,]  4 18  -4.500000
+ [5,]  5 17  -3.400000
+ [6,]  6 16  -2.666667
+ [7,]  7 15  -2.142857
+ [8,]  8 14  -1.750000
+ [9,]  9 13  -1.444444
+[10,] 10 12  -1.200000
+[11,] 11 11   1.000000
+[12,] 12 10   1.200000
+[13,] 13  9   1.444444
+[14,] 14  8   1.750000
+[15,] 15  7   2.142857
+[16,] 16  6   2.666667
+[17,] 17  5   3.400000
+[18,] 18  4   4.500000
+[19,] 19  3   6.333333
+[20,] 20  2  10.000000
+[21,] 21  1  21.000000
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getDependencies")
+> ### * getDependencies
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getDependencies
+> ### Title: Get package dependencies
+> ### Aliases: getDependencies
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## A locally installed package
+> getDependencies("MASS", installed=TRUE, available=FALSE)
+character(0)
+> 
+> ## Not run: 
+> ##D ## A package on CRAN
+> ##D getDependencies("gregmisc", installed=FALSE, available=TRUE)
+> ## End(Not run)
+> 
+> ## Show base and recommended dependencies
+> getDependencies("MASS", available=FALSE, base=TRUE, recommended=TRUE)
+[1] "grDevices" "graphics"  "stats"     "utils"     "methods"  
+> 
+> ## Not run: 
+> ##D ## Download the set of packages necessary to support a local package
+> ##D deps <- getDependencies("MyLocalPackage", available=FALSE)
+> ##D download.packages(deps, destdir="./R_Packages")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("invalid")
+> ### * invalid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: invalid
+> ### Title: Test if a value is missing, empty, or contains only NA or NULL
+> ###   values
+> ### Aliases: invalid
+> ### Keywords: programming
+> 
+> ### ** Examples
+> 
+> 
+> invalid(NA)
+[1] TRUE
+> invalid()
+[1] TRUE
+> invalid(c(NA,NA,NULL,NA))
+[1] TRUE
+> 
+> invalid(list(a=1,b=NULL))
+[1] FALSE
+> 
+> # example use in a function
+> myplot <- function(x,y) {
++                 if(invalid(y)) {
++                         y <- x
++                         x <- 1:length(y)
++                 }
++                 plot(x,y)
++         }
+> myplot(1:10)
+> myplot(1:10,NA)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("keywords")
+> ### * keywords
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: keywords
+> ### Title: List valid keywords for R man pages
+> ### Aliases: keywords
+> ### Keywords: documentation
+> 
+> ### ** Examples
+> 
+> ## Show all valid R keywords
+> keywords()
+GROUPED Keywords
+----------------
+
+Graphics
+	aplot		&	Add to Existing Plot / internal plot
+	dplot		&	Computations Related to Plotting
+	hplot		&	High-Level Plots
+	iplot		&	Interacting with Plots
+	color		&	Color, Palettes etc
+	dynamic		&	Dynamic Graphics
+	device		&	Graphical Devices
+
+Basics
+	sysdata		&	Basic System Variables		[!= S]
+	datasets	&	Datasets available by data(.)	[!= S]
+	data		&	Environments, Scoping, Packages [~= S]
+	manip		&	Data Manipulation
+	attribute	&	Data Attributes
+	classes		&	Data Types (not OO)
+	    & character	&	Character Data ("String") Operations
+	    & complex	&	Complex Numbers
+	    & category	&	Categorical Data
+	    & NA	&	Missing Values			[!= S]
+	list		&	Lists
+	chron		&	Dates and Times
+	package		&	Package Summaries
+
+Mathematics
+	array		&	Matrices and Arrays
+	      & algebra &	Linear Algebra
+	arith		&	Basic Arithmetic and Sorting	[!= S]
+	math		&	Mathematical Calculus etc.	[!= S]
+	logic		&	Logical Operators
+	optimize	&	Optimization
+	symbolmath	&	"Symbolic Math", as polynomials, fractions
+	graphs		&	Graphs, (not graphics), e.g. dendrograms
+
+Programming, Input/Ouput, and Miscellaneous
+
+	programming	&	Programming
+	     & interface&	Interfaces to Other Languages
+	IO		&	Input/output
+	     & file	&	Files
+	     & connection&	Connections
+	     & database	&	Interfaces to databases
+	iteration	&	Looping and Iteration
+	methods		&	Methods and Generic Functions
+	print		&	Printing
+	error		&	Error Handling
+
+	environment	&	Session Environment
+	internal	&	Internal Objects (not part of API)
+	utilities	&	Utilities
+	misc		&	Miscellaneous
+	documentation	&	Documentation
+	debugging	&	Debugging Tools
+
+Statistics
+
+	datagen		&	Functions for generating data sets
+	distribution	&	Probability Distributions and Random Numbers
+	univar		&	simple univariate statistics  [!= S]
+	htest		&	Statistical Inference
+	models		&	Statistical Models
+	    & regression&	Regression
+	    & &nonlinear&	Non-linear Regression (only?)
+	robust		&	Robust/Resistant Techniques
+	design		&	Designed Experiments
+	multivariate	&	Multivariate Techniques
+	ts		&	Time Series
+	survival	&	Survival Analysis
+	nonparametric	&	Nonparametric Statistics [w/o 'smooth']
+	smooth		&	Curve (and Surface) Smoothing
+	     & loess	&	Loess Objects
+	cluster		&	Clustering
+	tree		&	Regression and Classification Trees
+	survey		&	Complex survey samples
+
+
+MASS (2, 1997)
+--------------
+
+add the following keywords :
+
+	classif		&	Classification	['class' package]
+	spatial		&	Spatial Statistics ['spatial' package]
+	neural		&	Neural Networks ['nnet'	 package]
+
+> 
+> ## Show keywords associated with the 'merge' function
+> keywords(merge)
+ [1] "data"         "manip1"       "manip2"       "manip3"       "chron"       
+ [6] "array"        "IO"           "methods1"     "methods2"     "methods3"    
+[11] "methods4"     "distribution" "spatial1"     "spatial2"    
+> keywords("merge")
+ [1] "data"         "manip1"       "manip2"       "manip3"       "chron"       
+ [6] "array"        "IO"           "methods1"     "methods2"     "methods3"    
+[11] "methods4"     "distribution" "spatial1"     "spatial2"    
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lastAdd")
+> ### * lastAdd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lastAdd
+> ### Title: Non-destructively construct a .Last function to be executed when
+> ###   R exits.
+> ### Aliases: lastAdd
+> ### Keywords: programming
+> 
+> ### ** Examples
+> 
+> 
+> ## Print a couple of cute messages when R exits.
+> helloWorld <- function() cat("\nHello World!\n")
+> byeWorld <- function() cat("\nGoodbye World!\n")
+> 
+> .Last <- lastAdd(byeWorld)
+> .Last <- lastAdd(helloWorld)
+> 
+> ## Don't show: 
+> .Last()
+
+Hello World!
+
+Goodbye World!
+> ## End(Don't show)
+> ## Not run: 
+> ##D q("no")
+> ##D 
+> ##D ## Should yield:
+> ##D ##
+> ##D ##   Save workspace image? [y/n/c]: n
+> ##D ##
+> ##D ##   Hello World!
+> ##D ##
+> ##D ##   Goodbye World!
+> ##D ##
+> ##D ##   Process R finished at Tue Nov 22 10:28:55 2005
+> ## End(Not run)
+> 
+> ## Unix-flavour example: send Rplots.ps to printer on exit.
+> myLast <- function()
++ {
++   cat("Now sending PostScript graphics to the printer:\n")
++   system("lpr Rplots.ps")
++   cat("bye bye...\n")
++ }
+> .Last <- lastAdd(myLast)
+> ## Don't show: 
+> .Last()
+Now sending PostScript graphics to the printer:
+lpr: Error - unable to access "Rplots.ps" - No such file or directory
+bye bye...
+
+Hello World!
+
+Goodbye World!
+> ## End(Don't show)
+> ## Not run: 
+> ##D quit("yes")
+> ##D 
+> ##D ## Should yield:
+> ##D ##
+> ##D ##  Now sending PostScript graphics to the printer:
+> ##D ##  lpr: job 1341 queued
+> ##D ##  bye bye...
+> ##D ##
+> ##D ##   Process R finished at Tue Nov 22 10:28:55 2005
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("loadedPackages")
+> ### * loadedPackages
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: loadedPackages
+> ### Title: Provide Name, Version, and Path of Loaded Package Namespaces
+> ### Aliases: loadedPackages
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+>   loadedPackages()
+               Name Version
+gtools       gtools   3.5.0
+stats         stats   3.5.0
+graphics   graphics   3.5.0
+grDevices grDevices   3.5.0
+utils         utils   3.5.0
+datasets   datasets   3.5.0
+methods     methods   3.5.0
+base           base   3.5.0
+compiler   compiler   3.5.0
+tools         tools   3.5.0
+                                                                  Path
+gtools                 /var/scratch2/tomas/test/mine/R-ifc4/lib/gtools
+stats         /var/scratch2/tomas/test/mine/R-ifc4/build/library/stats
+graphics   /var/scratch2/tomas/test/mine/R-ifc4/build/library/graphics
+grDevices /var/scratch2/tomas/test/mine/R-ifc4/build/library/grDevices
+utils         /var/scratch2/tomas/test/mine/R-ifc4/build/library/utils
+datasets   /var/scratch2/tomas/test/mine/R-ifc4/build/library/datasets
+methods     /var/scratch2/tomas/test/mine/R-ifc4/build/library/methods
+base           /var/scratch2/tomas/test/mine/R-ifc4/build/library/base
+compiler   /var/scratch2/tomas/test/mine/R-ifc4/build/library/compiler
+tools         /var/scratch2/tomas/test/mine/R-ifc4/build/library/tools
+          SearchPath
+gtools             1
+stats              2
+graphics           3
+grDevices          4
+utils              5
+datasets           6
+methods            7
+base               8
+compiler           -
+tools              -
+               Name Version
+gtools       gtools   3.5.0
+stats         stats   3.5.0
+graphics   graphics   3.5.0
+grDevices grDevices   3.5.0
+utils         utils   3.5.0
+datasets   datasets   3.5.0
+methods     methods   3.5.0
+base           base   3.5.0
+compiler   compiler   3.5.0
+tools         tools   3.5.0
+                                                                  Path
+gtools                 /var/scratch2/tomas/test/mine/R-ifc4/lib/gtools
+stats         /var/scratch2/tomas/test/mine/R-ifc4/build/library/stats
+graphics   /var/scratch2/tomas/test/mine/R-ifc4/build/library/graphics
+grDevices /var/scratch2/tomas/test/mine/R-ifc4/build/library/grDevices
+utils         /var/scratch2/tomas/test/mine/R-ifc4/build/library/utils
+datasets   /var/scratch2/tomas/test/mine/R-ifc4/build/library/datasets
+methods     /var/scratch2/tomas/test/mine/R-ifc4/build/library/methods
+base           /var/scratch2/tomas/test/mine/R-ifc4/build/library/base
+compiler   /var/scratch2/tomas/test/mine/R-ifc4/build/library/compiler
+tools         /var/scratch2/tomas/test/mine/R-ifc4/build/library/tools
+          SearchPath
+gtools             1
+stats              2
+graphics           3
+grDevices          4
+utils              5
+datasets           6
+methods            7
+base               8
+compiler           -
+tools              -
+> 
+> 
+> 
+> cleanEx()
+> nameEx("logit")
+> ### * logit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: logit
+> ### Title: Generalized logit and inverse logit function
+> ### Aliases: logit inv.logit
+> ### Keywords: math
+> 
+> ### ** Examples
+> 
+> 
+>   x <- seq(0,10, by=0.25)
+>   xt <- logit(x, min=0, max=10)
+>   cbind(x,xt)
+          x         xt
+ [1,]  0.00       -Inf
+ [2,]  0.25 -3.6635616
+ [3,]  0.50 -2.9444390
+ [4,]  0.75 -2.5123056
+ [5,]  1.00 -2.1972246
+ [6,]  1.25 -1.9459101
+ [7,]  1.50 -1.7346011
+ [8,]  1.75 -1.5505974
+ [9,]  2.00 -1.3862944
+[10,]  2.25 -1.2367626
+[11,]  2.50 -1.0986123
+[12,]  2.75 -0.9694006
+[13,]  3.00 -0.8472979
+[14,]  3.25 -0.7308875
+[15,]  3.50 -0.6190392
+[16,]  3.75 -0.5108256
+[17,]  4.00 -0.4054651
+[18,]  4.25 -0.3022809
+[19,]  4.50 -0.2006707
+[20,]  4.75 -0.1000835
+[21,]  5.00  0.0000000
+[22,]  5.25  0.1000835
+[23,]  5.50  0.2006707
+[24,]  5.75  0.3022809
+[25,]  6.00  0.4054651
+[26,]  6.25  0.5108256
+[27,]  6.50  0.6190392
+[28,]  6.75  0.7308875
+[29,]  7.00  0.8472979
+[30,]  7.25  0.9694006
+[31,]  7.50  1.0986123
+[32,]  7.75  1.2367626
+[33,]  8.00  1.3862944
+[34,]  8.25  1.5505974
+[35,]  8.50  1.7346011
+[36,]  8.75  1.9459101
+[37,]  9.00  2.1972246
+[38,]  9.25  2.5123056
+[39,]  9.50  2.9444390
+[40,]  9.75  3.6635616
+[41,] 10.00        Inf
+> 
+>   y <- inv.logit(xt, min=0, max=10)
+>   cbind(x,xt,y)  
+          x         xt     y
+ [1,]  0.00       -Inf  0.00
+ [2,]  0.25 -3.6635616  0.25
+ [3,]  0.50 -2.9444390  0.50
+ [4,]  0.75 -2.5123056  0.75
+ [5,]  1.00 -2.1972246  1.00
+ [6,]  1.25 -1.9459101  1.25
+ [7,]  1.50 -1.7346011  1.50
+ [8,]  1.75 -1.5505974  1.75
+ [9,]  2.00 -1.3862944  2.00
+[10,]  2.25 -1.2367626  2.25
+[11,]  2.50 -1.0986123  2.50
+[12,]  2.75 -0.9694006  2.75
+[13,]  3.00 -0.8472979  3.00
+[14,]  3.25 -0.7308875  3.25
+[15,]  3.50 -0.6190392  3.50
+[16,]  3.75 -0.5108256  3.75
+[17,]  4.00 -0.4054651  4.00
+[18,]  4.25 -0.3022809  4.25
+[19,]  4.50 -0.2006707  4.50
+[20,]  4.75 -0.1000835  4.75
+[21,]  5.00  0.0000000  5.00
+[22,]  5.25  0.1000835  5.25
+[23,]  5.50  0.2006707  5.50
+[24,]  5.75  0.3022809  5.75
+[25,]  6.00  0.4054651  6.00
+[26,]  6.25  0.5108256  6.25
+[27,]  6.50  0.6190392  6.50
+[28,]  6.75  0.7308875  6.75
+[29,]  7.00  0.8472979  7.00
+[30,]  7.25  0.9694006  7.25
+[31,]  7.50  1.0986123  7.50
+[32,]  7.75  1.2367626  7.75
+[33,]  8.00  1.3862944  8.00
+[34,]  8.25  1.5505974  8.25
+[35,]  8.50  1.7346011  8.50
+[36,]  8.75  1.9459101  8.75
+[37,]  9.00  2.1972246  9.00
+[38,]  9.25  2.5123056  9.25
+[39,]  9.50  2.9444390  9.50
+[40,]  9.75  3.6635616  9.75
+[41,] 10.00        Inf 10.00
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mixedsort")
+> ### * mixedsort
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mixedsort
+> ### Title: Order or Sort strings with embedded numbers so that the numbers
+> ###   are in the correct order
+> ### Aliases: mixedsort mixedorder
+> ### Keywords: univar manip
+> 
+> ### ** Examples
+> 
+> ## compound & dose labels
+> Treatment <- c("Control", "Asprin 10mg/day", "Asprin 50mg/day",
++                "Asprin 100mg/day", "Acetomycin 100mg/day",
++                "Acetomycin 1000mg/day")
+> 
+> ## ordinary sort puts the dosages in the wrong order
+> sort(Treatment)
+[1] "Acetomycin 1000mg/day" "Acetomycin 100mg/day"  "Asprin 100mg/day"     
+[4] "Asprin 10mg/day"       "Asprin 50mg/day"       "Control"              
+> 
+> ## but mixedsort does the 'right' thing
+> mixedsort(Treatment)
+[1] "Acetomycin 100mg/day"  "Acetomycin 1000mg/day" "Asprin 10mg/day"      
+[4] "Asprin 50mg/day"       "Asprin 100mg/day"      "Control"              
+> 
+> ## Here is a more complex example
+> x <- rev(c("AA 0.50 ml", "AA 1.5 ml", "AA 500 ml", "AA 1500 ml",
++            "EXP 1", "AA 1e3 ml", "A A A", "1 2 3 A", "NA", NA, "1e2",
++            "", "-", "1A", "1 A", "100", "100A", "Inf"))
+> 
+> mixedorder(x)
+ [1]  7 11  4  5  3  8  2  1  6 12 18 17 16 13 15 14 10  9
+> 
+> mixedsort(x)  # Notice that plain numbers, including 'Inf' show up
+ [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+ [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
+[11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
+[16] "EXP 1"      "NA"         NA          
+>               # before strings, NAs at the end, and blanks at the
+>               # beginning .
+> 
+> 
+> mixedsort(x, na.last=TRUE)  # default
+ [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+ [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
+[11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
+[16] "EXP 1"      "NA"         NA          
+> mixedsort(x, na.last=FALSE) # push NAs to the front
+ [1] NA           ""           "1 2 3 A"    "1 A"        "1A"        
+ [6] "100"        "1e2"        "100A"       "Inf"        "-"         
+[11] "A A A"      "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml" 
+[16] "AA 1500 ml" "EXP 1"      "NA"        
+> 
+> 
+> mixedsort(x, blank.last=FALSE) # default
+ [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+ [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
+[11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
+[16] "EXP 1"      "NA"         NA          
+> mixedsort(x, blank.last=TRUE)  # push blanks to the end
+ [1] "1 2 3 A"    "1 A"        "1A"         "100"        "1e2"       
+ [6] "100A"       "Inf"        "-"          "A A A"      "AA 0.50 ml"
+[11] "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml" "EXP 1"     
+[16] "NA"         ""           NA          
+> 
+> mixedsort(x, decreasing=FALSE) # default
+ [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+ [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
+[11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
+[16] "EXP 1"      "NA"         NA          
+> mixedsort(x, decreasing=TRUE)  # reverse sort order
+ [1] NA           "NA"         "EXP 1"      "AA 1500 ml" "AA 1e3 ml" 
+ [6] "AA 500 ml"  "AA 1.5 ml"  "AA 0.50 ml" "A A A"      "-"         
+[11] "Inf"        "100A"       "1e2"        "100"        "1A"        
+[16] "1 A"        "1 2 3 A"    ""          
+> 
+> ## Roman numerals
+> chapters <- c("V. Non Sequiturs", "II. More Nonsense",
++               "I. Nonsense", "IV. Nonesensical Citations",
++               "III. Utter Nonsense")
+> mixedsort(chapters, numeric.type="roman" )
+[1] "I. Nonsense"                "II. More Nonsense"         
+[3] "III. Utter Nonsense"        "IV. Nonesensical Citations"
+[5] "V. Non Sequiturs"          
+> 
+> ## Lower-case Roman numerals
+> vals <- c("xix", "xii", "mcv", "iii", "iv", "dcclxxii",   "cdxcii",
++           "dcxcviii",   "dcvi",   "cci")
+> (ordered <- mixedsort(vals, numeric.type="roman", roman.case="lower"))
+ [1] "iii"      "iv"       "xii"      "xix"      "cci"      "cdxcii"  
+ [7] "dcvi"     "dcxcviii" "dcclxxii" "mcv"     
+> roman2int(ordered)
+     III       IV      XII      XIX      CCI   CDXCII     DCVI DCXCVIII 
+       3        4       12       19      201      492      606      698 
+DCCLXXII      MCV 
+     772     1105 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("na.replace")
+> ### * na.replace
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: na.replace
+> ### Title: Replace Missing Values
+> ### Aliases: na.replace
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+>    x <- c(1,2,3,NA,6,7,8,NA,NA)
+>    na.replace(x, '999')
+[1] "1"   "2"   "3"   "999" "6"   "7"   "8"   "999" "999"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("oddeven")
+> ### * oddeven
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: odd
+> ### Title: Detect odd/even integers
+> ### Aliases: odd even
+> ### Keywords: arith
+> 
+> ### ** Examples
+> 
+> 
+> odd(4)
+[1] FALSE
+> even(4)
+[1] TRUE
+> 
+> odd(1:10)
+ [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE
+> even(1:10)
+ [1] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("permute")
+> ### * permute
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: permute
+> ### Title: Randomly Permute the Elements of a Vector
+> ### Aliases: permute
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+>   x <- 1:10
+>   permute(x)
+ [1]  3  4  5  7  2  8  9  6 10  1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("quantcut")
+> ### * quantcut
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: quantcut
+> ### Title: Create a Factor Variable Using the Quantiles of a Continuous
+> ###   Variable
+> ### Aliases: quantcut
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> 
+>   ## create example data
+>   ## Don't show: 
+>   set.seed(1234)
+>   
+> ## End(Don't show)
+>   x <- rnorm(1000)
+> 
+>   ## cut into quartiles
+>   quartiles <- quantcut( x )
+>   table(quartiles)
+quartiles
+   [-3.4,-0.673] (-0.673,-0.0398]  (-0.0398,0.616]      (0.616,3.2] 
+             250              250              250              250 
+> 
+>   ## cut into deciles
+>   deciles.1 <- quantcut( x, 10 )
+>   table(deciles.1)
+deciles.1
+    [-3.4,-1.21]   (-1.21,-0.849]  (-0.849,-0.538]  (-0.538,-0.285] 
+             100              100              100              100 
+(-0.285,-0.0398]  (-0.0398,0.193]    (0.193,0.466]    (0.466,0.761] 
+             100              100              100              100 
+    (0.761,1.33]       (1.33,3.2] 
+             100              100 
+>   # or equivalently
+>   deciles.2 <- quantcut( x, seq(0,1,by=0.1) )
+> 
+>   ## Don't show: 
+>     stopifnot(identical(deciles.1, deciles.2))
+>   
+> ## End(Don't show)
+> 
+>   ## show handling of 'tied' quantiles.
+>   x <- round(x)  # discretize to create ties
+>   stem(x)        # display the ties
+
+  The decimal point is at the |
+
+  -3 | 0000000000000
+  -2 | 
+  -2 | 000000000000000000000000000000000000000000000000
+  -1 | 
+  -1 | 00000000000000000000000000000000000000000000000000000000000000000000+181
+  -0 | 
+  -0 | 
+   0 | 00000000000000000000000000000000000000000000000000000000000000000000+310
+   0 | 
+   1 | 00000000000000000000000000000000000000000000000000000000000000000000+140
+   1 | 
+   2 | 000000000000000000000000000000000000000000000000000000000000000
+   2 | 
+   3 | 00000
+
+>   deciles <- quantcut( x, 10 )
+> 
+>   table(deciles) # note that there are only 5 groups (not 10)
+deciles
+[-3,-1)      -1       0       1   (1,3] 
+     61     261     390     220      68 
+>                  # due to duplicates
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("roman2int")
+> ### * roman2int
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: roman2int
+> ### Title: Convert Roman Numerals to Integers
+> ### Aliases: roman2int
+> ### Keywords: arith
+> 
+> ### ** Examples
+> 
+> roman2int( c('I', 'V', 'X', 'C', 'L', 'D', 'M' )  )
+   I    V    X    C    L    D    M 
+   1    5   10  100   50  500 1000 
+> 
+> # works regardless of case
+> roman2int( 'MMXVI' )
+MMXVI 
+ 2016 
+> roman2int( 'mmxvi' )
+MMXVI 
+ 2016 
+> 
+> # works beyond R's limit of 3899
+> val.3899 <- 'MMMDCCCXCIX'
+> val.3900 <- 'MMMCM'
+> val.4000 <- 'MMMM'
+> as.numeric(as.roman( val.3899 ))
+[1] 3899
+> as.numeric(as.roman( val.3900 ))
+[1] NA
+> as.numeric(as.roman( val.4000 ))
+[1] NA
+> 
+> roman2int(val.3899)
+MMMDCCCXCIX 
+       3899 
+> roman2int(val.3900)
+MMMCM 
+ 3900 
+> roman2int(val.4000)
+MMMM 
+4000 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("running")
+> ### * running
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: running
+> ### Title: Apply a Function Over Adjacent Subsets of a Vector
+> ### Aliases: running
+> ### Keywords: misc
+> 
+> ### ** Examples
+> 
+> 
+> # show effect of pad
+> running(1:20, width=5)
+  1:5   2:6   3:7   4:8   5:9  6:10  7:11  8:12  9:13 10:14 11:15 12:16 13:17 
+    3     4     5     6     7     8     9    10    11    12    13    14    15 
+14:18 15:19 16:20 
+   16    17    18 
+> running(1:20, width=5, pad=TRUE)
+  1:1   1:2   1:3   1:4   1:5   2:6   3:7   4:8   5:9  6:10  7:11  8:12  9:13 
+   NA    NA    NA    NA     3     4     5     6     7     8     9    10    11 
+10:14 11:15 12:16 13:17 14:18 15:19 16:20 
+   12    13    14    15    16    17    18 
+> 
+> # show effect of align
+> running(1:20, width=5, align="left", pad=TRUE)
+  1:5   2:6   3:7   4:8   5:9  6:10  7:11  8:12  9:13 10:14 11:15 12:16 13:17 
+    3     4     5     6     7     8     9    10    11    12    13    14    15 
+14:18 15:19 16:20 17:20 18:20 19:20 20:20 
+   16    17    18    NA    NA    NA    NA 
+> running(1:20, width=5, align="center", pad=TRUE)
+  1:1   1:2   1:3   1:4   1:5   2:6   3:7   4:8   5:9  6:10  7:11  8:12  9:13 
+   NA    NA    NA    NA     3     4     5     6     7     8     9    10    11 
+10:14 11:15 12:16 13:17 14:18 15:19 16:20 17:20 18:20 19:20 20:20 
+   12    13    14    15    16    17    18    NA    NA    NA    NA 
+> running(1:20, width=5, align="right", pad=TRUE)
+  1:1   1:2   1:3   1:4   1:5   2:6   3:7   4:8   5:9  6:10  7:11  8:12  9:13 
+   NA    NA    NA    NA     3     4     5     6     7     8     9    10    11 
+10:14 11:15 12:16 13:17 14:18 15:19 16:20 
+   12    13    14    15    16    17    18 
+> 
+> # show effect of simplify
+> running(1:20, width=5, fun=function(x) x )  # matrix
+     1:5 2:6 3:7 4:8 5:9 6:10 7:11 8:12 9:13 10:14 11:15 12:16 13:17 14:18
+[1,]   1   2   3   4   5    6    7    8    9    10    11    12    13    14
+[2,]   2   3   4   5   6    7    8    9   10    11    12    13    14    15
+[3,]   3   4   5   6   7    8    9   10   11    12    13    14    15    16
+[4,]   4   5   6   7   8    9   10   11   12    13    14    15    16    17
+[5,]   5   6   7   8   9   10   11   12   13    14    15    16    17    18
+     15:19 16:20
+[1,]    15    16
+[2,]    16    17
+[3,]    17    18
+[4,]    18    19
+[5,]    19    20
+> running(1:20, width=5, fun=function(x) x, simplify=FALSE) # list
+$`1:5`
+[1] 1 2 3 4 5
+
+$`2:6`
+[1] 2 3 4 5 6
+
+$`3:7`
+[1] 3 4 5 6 7
+
+$`4:8`
+[1] 4 5 6 7 8
+
+$`5:9`
+[1] 5 6 7 8 9
+
+$`6:10`
+[1]  6  7  8  9 10
+
+$`7:11`
+[1]  7  8  9 10 11
+
+$`8:12`
+[1]  8  9 10 11 12
+
+$`9:13`
+[1]  9 10 11 12 13
+
+$`10:14`
+[1] 10 11 12 13 14
+
+$`11:15`
+[1] 11 12 13 14 15
+
+$`12:16`
+[1] 12 13 14 15 16
+
+$`13:17`
+[1] 13 14 15 16 17
+
+$`14:18`
+[1] 14 15 16 17 18
+
+$`15:19`
+[1] 15 16 17 18 19
+
+$`16:20`
+[1] 16 17 18 19 20
+
+> 
+> # show effect of by
+> running(1:20, width=5)       # normal
+  1:5   2:6   3:7   4:8   5:9  6:10  7:11  8:12  9:13 10:14 11:15 12:16 13:17 
+    3     4     5     6     7     8     9    10    11    12    13    14    15 
+14:18 15:19 16:20 
+   16    17    18 
+> running(1:20, width=5, by=5) # non-overlapping
+  1:5  6:10 11:15 16:20 
+    3     8    13    18 
+> running(1:20, width=5, by=2) # starting every 2nd
+  1:5   3:7   5:9  7:11  9:13 11:15 13:17 15:19 
+    3     5     7     9    11    13    15    17 
+> 
+> 
+> # Use 'pad' to ensure correct length of vector, also show the effect
+> # of allow.fewer.
+> par(mfrow=c(2,1))
+> plot(1:20, running(1:20, width=5, allow.fewer=FALSE, pad=TRUE), type="b")
+> plot(1:20, running(1:20, width=5, allow.fewer=TRUE,  pad=TRUE), type="b")
+> par(mfrow=c(1,1))
+> 
+> # plot running mean and central 2 standard deviation range
+> # estimated by *last* 40 observations
+> dat <- rnorm(500, sd=1 + (1:500)/500 )
+> plot(dat)
+> sdfun <- function(x,sign=1) mean(x) + sign * sqrt(var(x))
+> lines(running(dat, width=51, pad=TRUE, fun=mean), col="blue")
+> lines(running(dat, width=51, pad=TRUE, fun=sdfun, sign=-1), col="red")
+> lines(running(dat, width=51, pad=TRUE, fun=sdfun, sign= 1), col="red")
+> 
+> 
+> # plot running correlation estimated by last 40 observations (red)
+> # against the true local correlation (blue)
+> sd.Y <- seq(0,1,length=500)
+> 
+> X <- rnorm(500, sd=1)
+> Y <- rnorm(500, sd=sd.Y)
+> 
+> plot(running(X,X+Y,width=20,fun=cor,pad=TRUE),col="red",type="s")
+> 
+> r <- 1 / sqrt(1 + sd.Y^2) # true cor of (X,X+Y)
+> lines(r,type="l",col="blue")
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("scat")
+> ### * scat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scat
+> ### Title: Display debugging text
+> ### Aliases: scat
+> ### Keywords: print
+> 
+> ### ** Examples
+> 
+> options(DEBUG=NULL) # makee sure DEBUG isn't set
+> scat("Not displayed")
+> 
+> options(DEBUG=TRUE)
+> scat("This will be displayed immediately (even in R BATCH output \n")
+### This will be displayed immediately (even in R BATCH output 
+ ###
+> scat("files), provided options()$DEBUG is TRUE.")
+### files), provided options()$DEBUG is TRUE. ###
+> 
+> 
+> 
+> cleanEx()
+> nameEx("setTCPNoDelay")
+> ### * setTCPNoDelay
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: setTCPNoDelay
+> ### Title: Modify the TCP\_NODELAY ('de-Nagle') flag for socket objects
+> ### Aliases: setTCPNoDelay
+> ### Keywords: programming misc utilities
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D    s <- make.socket(host='www.r-project.org', port=80)
+> ##D    setTCPNoDelay(s, value=TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("smartbind")
+> ### * smartbind
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: smartbind
+> ### Title: Efficient rbind of data frames, even if the column names don't
+> ###   match
+> ### Aliases: smartbind
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> 
+>   df1 <- data.frame(A=1:10, B=LETTERS[1:10], C=rnorm(10) )
+>   df2 <- data.frame(A=11:20, D=rnorm(10), E=letters[1:10] )
+> 
+>   # rbind would fail
+> ## Not run: 
+> ##D   rbind(df1, df2)
+> ##D   # Error in match.names(clabs, names(xi)) : names do not match previous
+> ##D   # names:
+> ##D   #	D, E
+> ## End(Not run)
+>   # but smartbind combines them, appropriately creating NA entries
+>   smartbind(df1, df2)
+      A    B          C           D    E
+1:1   1    A -0.6264538          NA <NA>
+1:2   2    B  0.1836433          NA <NA>
+1:3   3    C -0.8356286          NA <NA>
+1:4   4    D  1.5952808          NA <NA>
+1:5   5    E  0.3295078          NA <NA>
+1:6   6    F -0.8204684          NA <NA>
+1:7   7    G  0.4874291          NA <NA>
+1:8   8    H  0.7383247          NA <NA>
+1:9   9    I  0.5757814          NA <NA>
+1:10 10    J -0.3053884          NA <NA>
+2:1  11 <NA>         NA  1.51178117    a
+2:2  12 <NA>         NA  0.38984324    b
+2:3  13 <NA>         NA -0.62124058    c
+2:4  14 <NA>         NA -2.21469989    d
+2:5  15 <NA>         NA  1.12493092    e
+2:6  16 <NA>         NA -0.04493361    f
+2:7  17 <NA>         NA -0.01619026    g
+2:8  18 <NA>         NA  0.94383621    h
+2:9  19 <NA>         NA  0.82122120    i
+2:10 20 <NA>         NA  0.59390132    j
+> 
+>   # specify fill=0 to put 0 into the missing row entries
+>   smartbind(df1, df2, fill=0)
+      A    B          C           D    E
+1:1   1    A -0.6264538  0.00000000 <NA>
+1:2   2    B  0.1836433  0.00000000 <NA>
+1:3   3    C -0.8356286  0.00000000 <NA>
+1:4   4    D  1.5952808  0.00000000 <NA>
+1:5   5    E  0.3295078  0.00000000 <NA>
+1:6   6    F -0.8204684  0.00000000 <NA>
+1:7   7    G  0.4874291  0.00000000 <NA>
+1:8   8    H  0.7383247  0.00000000 <NA>
+1:9   9    I  0.5757814  0.00000000 <NA>
+1:10 10    J -0.3053884  0.00000000 <NA>
+2:1  11 <NA>  0.0000000  1.51178117    a
+2:2  12 <NA>  0.0000000  0.38984324    b
+2:3  13 <NA>  0.0000000 -0.62124058    c
+2:4  14 <NA>  0.0000000 -2.21469989    d
+2:5  15 <NA>  0.0000000  1.12493092    e
+2:6  16 <NA>  0.0000000 -0.04493361    f
+2:7  17 <NA>  0.0000000 -0.01619026    g
+2:8  18 <NA>  0.0000000  0.94383621    h
+2:9  19 <NA>  0.0000000  0.82122120    i
+2:10 20 <NA>  0.0000000  0.59390132    j
+> 
+> ## Don't show: 
+>   n=10 # number of data frames to create
+>   s=10 # number of rows in each data frame
+> 
+>   # create a bunch of column names
+>   names <- LETTERS[2:5]
+> 
+>   # create a list 'Z' containing 'n' data frames, each with 3 columns
+>   # and 's' rows.  The first column is always named 'A', but the other
+>   # two have a names randomly selected from 'names'
+> 
+>   Z <- list()
+>   for(i in 1:n)
++     {
++       X <- data.frame(A=sample(letters,s,replace=TRUE),
++                       B=letters[1:s],
++                       C=rnorm(s) )
++       colnames(X) <- c("A",sample(names,2,replace=FALSE))
++       Z[[i]] <- X
++     }
+> 
+>   # Error in match.names(clabs, names(xi)) : names do not match
+>   # previous names: E
+> 
+>   # But smartbind will 'do the right thing'
+>   df <- do.call("smartbind",Z)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpWABZi1/R.INSTALL35ed782daba/gtools/R/smartbind.R#155: 
+ --- if/while statement is in package --- 
+gtools
+ --- call (currently evaluated) --- 
+NULL
+ --- R stacktrace ---
 where 1: smartbind(list(A = c(9L, 5L, 8L, 4L, 3L, 8L, 1L, 2L, 7L, 6L), 
     C = 1:10, D = c(-0.0561287395290008, -0.155795506705329, 
     -1.47075238389927, -0.47815005510862, 0.417941560199702, 
@@ -48,5 +1618,7 @@ where 2: do.call("smartbind", Z)
 
  --- value of length: 9 type: logical ---
 [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
  --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

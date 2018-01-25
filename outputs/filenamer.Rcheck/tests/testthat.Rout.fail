@@ -1,0 +1,206 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(filenamer)
+> 
+> test_check("filenamer")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpmGg6rm/R.INSTALL1c3e70fc1308/filenamer/R/filename.R#205: 
+ --- if/while statement is in package --- 
+filenamer
+ --- call (currently evaluated) --- 
+as.filename.character("data_norm_qc_20090225T153912.sorted.csv")
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpmGg6rm/R.INSTALL1c3e70fc1308/filenamer/R/filename.R#125: as.filename.character("data_norm_qc_20090225T153912.sorted.csv")
+where 2 at testthat/test_filename.R#32: as.filename("data_norm_qc_20090225T153912.sorted.csv")
+where 3: eval(code, test_env)
+where 4: eval(code, test_env)
+where 5: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 6: doTryCatch(return(expr), name, parentenv, handler)
+where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 8: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 9: doTryCatch(return(expr), name, parentenv, handler)
+where 10: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 11: tryCatchList(expr, classes, parentenv, handlers)
+where 12: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 13 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 14 at testthat/test_filename.R#26: test_that("filename is converted from character correctly", {
+    fn <- as.filename("data_raw_2011-01-01.txt")
+    expect_that(fn$fstem, equals("data"))
+    expect_that(fn$tag, equals("raw"))
+    expect_that(fn$ext, equals("txt"))
+    expect_that(fn$date, equals("2011-01-01"))
+    fn2 <- as.filename("data_norm_qc_20090225T153912.sorted.csv")
+    expect_that(fn2$fstem, equals("data"))
+    expect_that(fn2$tag, equals(c("norm", "qc")))
+    expect_that(fn2$ext, equals(c("sorted", "csv")))
+    expect_that(fn2$date, equals("20090225"))
+    expect_that(fn2$time, equals("153912"))
+})
+where 15: eval(code, test_env)
+where 16 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#152: eval(code, test_env)
+where 17: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 18: doTryCatch(return(expr), name, parentenv, handler)
+where 19: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 20: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 21: doTryCatch(return(expr), name, parentenv, handler)
+where 22: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 23: tryCatchList(expr, classes, parentenv, handlers)
+where 24 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 25 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 26 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 27 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 28 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 29: FUN(X[[i]], ...)
+where 30: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 31 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 32 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 33 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 34 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 35 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 36: test_check("filenamer")
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function (currently evaluated)--- 
+function(
+  x, tag.char=NULL, ...
+) {
+	tag.char <- .get_tag_char(tag.char);
+	ext.char <- .get_ext_char();
+
+	fn <- filename("");
+	fn$date <- NA;
+	fn$time <- NA;
+
+	# split path into character vectors
+	y <- strsplit(x, .Platform$file.sep, fixed=TRUE)[[1]];
+	if (substr(x, nchar(x), nchar(x)) == .Platform$file.sep) {
+		# filepath ends with "/": target is a directory (file name is empty)
+		fn$path <- y;
+		x <- "";
+	} else {
+		# target is a file
+		if (length(y) > 1) {
+			fn$path <- y[1:(length(y)-1)];
+			# proceed with the last part (file name)
+			x <- y[length(y)];
+		} else {
+			# file name has no filepath
+			fn$path <- NULL;
+		}
+	}
+
+	if (nchar(x) == 0) return(fn);
+
+	# split file name by the tag character
+	# x[1] is the file stem
+	# of the remaining elements of x, all but the final is a file name tag
+	# the last element of x will need to be split further
+	x <- strsplit(x, tag.char, fixed=TRUE)[[1]];
+
+	if (length(x) > 1) {
+		# tag are found
+		fn$fstem <- x[1];
+		if (length(x) > 2) {
+			# add all but the final tag, which will be added later
+			fn$tag <- x[2:(length(x)-1)];
+		}
+		
+	}
+
+	# split the last element of x by the extension character
+	# last[1] could be a date stamp, date-time stamp, or a file name tag
+	last <- strsplit(x[length(x)], ext.char, fixed=TRUE)[[1]];
+
+	if (.grepl_date(last[1])) {
+		# first token matches date format
+		fn$date <- last[1];
+	} else if (.grepl_datetime(last[1])) {
+		# first token matches date-time format
+		fn <- .set_fdatetime(fn, last[1]);
+	} else if (length(x) == 1) {
+		# no tags are found, and first token is neither date nor timestmp: 
+		# use token as file name stem
+		fn$fstem <- last[1];
+	} else {
+		# first token is the final tag: append it
+		fn$tag <- c(fn$tag, last[1]);
+	}
+
+	if (length(last) > 1) {
+		# all remaining elements of `last` are extensions
+		ext <- last[2:length(last)];
+		if (ext != "") {
+			fn$ext <- ext;
+		}
+	}
+
+	fn
+}
+<bytecode: 0x7a490a0>
+<environment: namespace:filenamer>
+ --- function (body) search ---
+Function as.filename.character in namespace filenamer has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

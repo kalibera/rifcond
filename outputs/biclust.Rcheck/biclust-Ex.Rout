@@ -1,15 +1,765 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "biclust"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('biclust')
+Loading required package: MASS
+Loading required package: grid
+Loading required package: colorspace
+Loading required package: lattice
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BCBimax")
+> ### * BCBimax
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BCBimax
+> ### Title: The Bimax Bicluster algorithm
+> ### Aliases: BCBimax Bimax BCBimax-class biclust,matrix,BCBimax-method
+> ###   BCrepBimax repBimax BCrepBimax-class biclust,matrix,BCrepBimax-method
+> ### Keywords: cluster classif
+> 
+> ### ** Examples
+> 
+>  test <- matrix(rnorm(5000), 100, 50)
+>  test[11:20,11:20] <- rnorm(100, 3, 0.1)
+>  loma <- binarize(test,2)
+>  res <- biclust(x=loma, method=BCBimax(), minr=4, minc=4, number=10)
+>  res
+
+An object of class Biclust 
+
+call:
+	biclust(x = loma, method = BCBimax(), minr = 4, minc = 4, number = 10)
+
+There was one cluster found with
+  10 Rows and  10 columns
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BCCC")
+> ### * BCCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BCCC
+> ### Title: The CC Bicluster algorithm
+> ### Aliases: BCCC CC BCCC-class biclust,matrix,BCCC-method
+> ### Keywords: cluster classif
+> 
+> ### ** Examples
+> 
+> test <- matrix(rbinom(400, 50, 0.4), 20, 20)
+> res <- biclust(test, method=BCCC(), delta=1.5,  alpha=1, number=10)
+> res
+
+An object of class Biclust 
+
+call:
+	biclust(x = test, method = BCCC(), delta = 1.5, alpha = 1, number = 10)
+
+Number of Clusters found:  3 
+
+First  3  Cluster sizes:
+                   BC 1 BC 2 BC 3
+Number of Rows:       9    5    5
+Number of Columns:    5    6    5
+
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BCPlaid")
+> ### * BCPlaid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BCPlaid
+> ### Title: The Plaid Model Bicluster algorithm
+> ### Aliases: BCPlaid plaid 'plaid model' BCPlaid BCPlaid-class 'turner
+> ###   biclustering' biclust,matrix,BCPlaid-method
+> ### Keywords: cluster classif models
+> 
+> ### ** Examples
+> 
+>   #Random matrix with embedded bicluster
+>   test <- matrix(rnorm(5000),100,50)
+>   test[11:20,11:20] <- rnorm(100,3,0.3)
+>   res<-biclust(test, method=BCPlaid())
+layer: 0 
+ 398.522
+layer: 1 
+[1]  0 10 10
+[1] 30 10 10
+[1] 31 10 10
+[1] 60 10 10
+[1] 1
+[1] 461.6017   0.0000   0.0000   0.0000
+back fitting 2 times
+layer: 2 
+[1]  0 47 22
+[1]  1 41 21
+[1]  2 39 20
+[1] 30 39 20
+[1] 31  0 20
+[1] 32
+[1] 0 0 0 0
+     
+Layer Rows Cols  Df     SS    MS Convergence Rows Released Cols Released
+    0  100   50 149 164.12  1.10          NA            NA            NA
+    1   10   10  19 849.64 44.72           1             0             0
+>   res
+
+An object of class Biclust 
+
+call:
+	biclust(x = test, method = BCPlaid())
+
+There was one cluster found with
+  10 Rows and  10 columns
+
+> 
+>   #microarray matrix
+>   data(BicatYeast)
+>   res<-biclust(BicatYeast, method=BCPlaid(), verbose=FALSE)
+>   res
+
+An object of class Biclust 
+
+call:
+	biclust(x = BicatYeast, method = BCPlaid(), verbose = FALSE)
+
+Number of Clusters found:  9 
+
+First  5  Cluster sizes:
+                   BC 1 BC 2 BC 3 BC 4 BC 5
+Number of Rows:      23   29   24   16  112
+Number of Columns:    7    8   11    3    2
+
+
+>   
+> 
+> 
+> cleanEx()
+> nameEx("BCSpectral")
+> ### * BCSpectral
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BCSpectral
+> ### Title: The Spectral Bicluster algorithm
+> ### Aliases: BCSpectral spectral 'spectral biclustering' 'Kluger
+> ###   biclustering' BCSpectral-class biclust,matrix,BCSpectral-method
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   #Random matrix with embedded bicluster  
+>   test <- matrix(rnorm(5000),100,50)
+>   test[11:20,11:20] <- rnorm(100,10,0.1)
+>   res1 <- biclust(test, method=BCSpectral(), numberOfEigenvalues=1)
+>   res1
+
+An object of class Biclust 
+
+call:
+	biclust(x = test, method = BCSpectral(), numberOfEigenvalues = 1)
+
+There was one cluster found with
+  10 Rows and  10 columns
+
+>   
+> 
+> 
+> cleanEx()
+> nameEx("BCXmotifs")
+> ### * BCXmotifs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BCXmotifs
+> ### Title: The Xmotifs Bicluster algorithm
+> ### Aliases: BCXmotifs BCXmotifs-class Xmotif
+> ###   biclust,matrix,BCXmotifs-method
+> ### Keywords: cluster classif
+> 
+> ### ** Examples
+> 
+> data(BicatYeast)
+> x<-discretize(BicatYeast)
+> res <- biclust(x, method=BCXmotifs(), ns=20, nd=20, sd=5, alpha=0.01, number=10)
+> res
+
+An object of class Biclust 
+
+call:
+	biclust(x = x, method = BCXmotifs(), ns = 20, nd = 20, sd = 5, 
+	    alpha = 0.01, number = 10)
+
+Number of Clusters found:  10 
+
+First  5  Cluster sizes:
+                   BC 1 BC 2 BC 3 BC 4 BC 5
+Number of Rows:     159   93   53   37   11
+Number of Columns:    6    7    6    6   15
+
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ChiaKaruturi")
+> ### * ChiaKaruturi
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ChiaKaruturi
+> ### Title: Chia and Karuturi Function
+> ### Aliases: ChiaKaruturi
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+> #---simulate dataset with 1 bicluster ---#
+> xmat<-matrix(rnorm(20*50,0,0.25),50,50) # background noise only 
+> rowSize <- 20 #number of rows in a bicluster 
+> colSize <- 10 #number of columns in a bicluster
+> a1<-rnorm(rowSize,1,0.1) #sample row effect from N(0,0.1) #adding a coherent values bicluster:
+> b1<-rnorm((colSize),2,0.25)  #sample column effect from N(0,0.05)
+> mu<-0.01 #constant value signal
+>  for ( i in 1 : rowSize){
++  	for(j in 1: (colSize)){
++  		xmat[i,j] <- xmat[i,j] + mu + a1[i] + b1[j] 	
++  	}
++  }
+>  #--obtain a bicluster by running an algorithm---# 
+> plaidmab <- biclust(x=xmat, method=BCPlaid(), cluster="b", fit.model = y ~ m + a+ b,  
++ background = TRUE, row.release = 0.6, col.release = 0.7, shuffle = 50, back.fit = 5, 
++ max.layers = 1, iter.startup = 100, iter.layer = 100, verbose = TRUE)
+layer: 0 
+ 953.5101
+layer: 1 
+[1]  0 20 10
+[1] 100  20  10
+[1] 101  20  10
+[1] 200  20  10
+[1] 1
+ [1] 424.551297   0.000000   0.000000   0.000000   0.000000   0.000000
+ [7]   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+[13]   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+[19]   7.009197   0.000000   0.000000   0.000000   0.000000   7.955373
+[25]   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+[31]   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+[37]   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+[43]   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+[49]   0.000000   0.000000   0.000000
+back fitting 5 times
+     
+Layer Rows Cols Df      SS    MS Convergence Rows Released Cols Released
+    0   50   50 99   12.08  0.12          NA            NA            NA
+    1   20   10 29 1760.76 60.72           1             0             0
+> 
+> #Get Chia and Karuturi scores:
+> ChiaKaruturi(x=xmat, bicResult = plaidmab, number = 1)
+   Tscore1  Bscore1     Tscore2      Bscore2  SBscore      TSscore
+1 9.074859 9.099778 0.001705985 -0.001500309 6.657003 -0.002739139
+> 
+> 
+> 
+> cleanEx()
+> nameEx("biclust-method")
+> ### * biclust-method
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: biclust
+> ### Title: The biclust Method
+> ### Aliases: biclust biclust-method biclust,matrix,BiclustMethod-method
+> ###   biclust,matrix,function-method biclust,matrix,character-method
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+> test <- matrix(rbinom(400, 50, 0.4), 20, 20)
+> res1 <- biclust(test, method=BCCC(), delta=1.5,  alpha=1, number=10)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("biclustbarchart")
+> ### * biclustbarchart
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: biclustbarchart
+> ### Title: Bicluster Barchart
+> ### Aliases: biclustbarchart
+> ### Keywords: hplot cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(1)
+>   x=matrix(rnorm(900),30,30)
+>   x[1:5,1:5]=rnorm(25,3,0.3)
+>   x[11:15,11:15]=rnorm(25,-3,0.3)
+>   x[21:25,21:25]=rnorm(25,6,0.3)
+>   colnames(x)<-paste("Var.",1:30)
+>   bics <- biclust(x,BCPlaid(), back.fit = 2, shuffle = 3, fit.model = ~m
++ + a + b, iter.startup = 5, iter.layer = 30,  verbose = TRUE)  
+layer: 0 
+ 436.0833
+layer: 1 
+[1] 0 5 5
+[1] 30  5  5
+[1] 31  5  5
+[1] 60  5  5
+[1] 1
+[1] 437.8929   0.0000   0.0000   0.0000
+back fitting 2 times
+layer: 2 
+[1] 0 5 5
+[1]  1  9 12
+[1]  2 10  9
+[1] 3 8 7
+[1] 4 7 6
+[1] 30  7  6
+[1] 31  5  6
+[1] 32  5  5
+[1] 33  5  5
+[1] 60  5  5
+[1] 5
+[1] 113.3975   0.0000   0.0000   0.0000
+back fitting 2 times
+layer: 3 
+[1] 0 6 5
+[1] 30  6  5
+[1] 31  5  5
+[1] 32  5  5
+[1] 33  5  5
+[1] 60  5  5
+[1] 1
+[1] 112.1011   0.0000   0.0000   0.0000
+back fitting 2 times
+layer: 4 
+[1]  0 15 12
+[1]  1 14 11
+[1]  2 14 10
+[1]  3 13  9
+[1]  4 15  9
+[1] 30 15  9
+[1] 31  0  9
+[1] 32
+[1] 0 0 0 0
+     
+Layer Rows Cols Df     SS    MS Convergence Rows Released Cols Released
+    0   30   30 59  69.55  1.18          NA            NA            NA
+    1    5    5  9 897.09 99.68           1             0             0
+    2    5    5  9 244.29 27.14           1             2             1
+    3    5    5  9 219.44 24.38           1             1             0
+>   biclustbarchart(x,bics, col="#A3E0D8")
+>   ord<-bicorder(bics, cols=TRUE, rev=TRUE)
+>   biclustbarchart(x,bics,which=ord)
+>   
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bicluster")
+> ### * bicluster
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bicluster
+> ### Title: Extract Bilcuster
+> ### Aliases: bicluster biclusternumber
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+> 
+>   s2=matrix(rnorm(400),20,20)
+>   s2[12:16,12:16]=rnorm(25,3,0.3)
+>   set.seed(1)
+>   bics <- biclust(s2,BCPlaid(), back.fit = 2, shuffle = 3, fit.model = ~m + a + b,
++   iter.startup = 5, iter.layer = 30,  verbose = TRUE)
+layer: 0 
+ 121.3558
+layer: 1 
+[1] 0 5 6
+[1] 30  5  6
+[1] 31  5  6
+[1] 32  5  5
+[1] 33  5  5
+[1] 60  5  5
+[1] 1
+[1] 80.29648  0.00000  0.00000  0.00000
+back fitting 2 times
+layer: 2 
+[1]  0  8 10
+[1] 1 8 9
+[1] 30  8  9
+[1] 31  0  9
+[1] 32
+[1] 0 0 0 0
+     
+Layer Rows Cols Df     SS    MS Convergence Rows Released Cols Released
+    0   20   20 39  35.89  0.92          NA            NA            NA
+    1    5    5  9 211.97 23.55           1             0             1
+>   bicluster(s2, bics)
+$Bicluster1
+         [,1]     [,2]     [,3]     [,4]     [,5]
+[1,] 3.322332 2.887303 2.883550 3.157086 3.430521
+[2,] 3.568696 2.890011 3.195761 3.305326 2.786889
+[3,] 2.819101 2.911297 3.337432 2.924651 2.980480
+[4,] 2.882740 3.432546 2.768367 2.571002 2.472159
+[5,] 2.875133 2.790739 2.847574 3.512736 3.170917
+
+>   biclusternumber(bics)
+$Bicluster1
+$Bicluster1$Rows
+[1] 12 13 14 15 16
+
+$Bicluster1$Cols
+[1] 12 13 14 15 16
+
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bimax.grid")
+> ### * bimax.grid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bimax.grid
+> ### Title: Parameter Grid for BCBimax Biclustering
+> ### Aliases: bimax.grid
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+> bimax.grid()
+[[1]]
+[[1]]$method
+[1] "BCBimax"
+
+[[1]]$minr
+[1] 10
+
+[[1]]$minc
+[1] 10
+
+[[1]]$number
+[1] 10
+
+attr(,"out.attrs")
+attr(,"out.attrs")$dim
+method   minr   minc number 
+     1      2      2      1 
+
+attr(,"out.attrs")$dimnames
+attr(,"out.attrs")$dimnames$method
+[1] "method=BCBimax"
+
+attr(,"out.attrs")$dimnames$minr
+[1] "minr=10" "minr=11"
+
+attr(,"out.attrs")$dimnames$minc
+[1] "minc=10" "minc=11"
+
+attr(,"out.attrs")$dimnames$number
+[1] "number=10"
+
+
+
+[[2]]
+[[2]]$method
+[1] "BCBimax"
+
+[[2]]$minr
+[1] 11
+
+[[2]]$minc
+[1] 10
+
+[[2]]$number
+[1] 10
+
+attr(,"out.attrs")
+attr(,"out.attrs")$dim
+method   minr   minc number 
+     1      2      2      1 
+
+attr(,"out.attrs")$dimnames
+attr(,"out.attrs")$dimnames$method
+[1] "method=BCBimax"
+
+attr(,"out.attrs")$dimnames$minr
+[1] "minr=10" "minr=11"
+
+attr(,"out.attrs")$dimnames$minc
+[1] "minc=10" "minc=11"
+
+attr(,"out.attrs")$dimnames$number
+[1] "number=10"
+
+
+
+[[3]]
+[[3]]$method
+[1] "BCBimax"
+
+[[3]]$minr
+[1] 10
+
+[[3]]$minc
+[1] 11
+
+[[3]]$number
+[1] 10
+
+attr(,"out.attrs")
+attr(,"out.attrs")$dim
+method   minr   minc number 
+     1      2      2      1 
+
+attr(,"out.attrs")$dimnames
+attr(,"out.attrs")$dimnames$method
+[1] "method=BCBimax"
+
+attr(,"out.attrs")$dimnames$minr
+[1] "minr=10" "minr=11"
+
+attr(,"out.attrs")$dimnames$minc
+[1] "minc=10" "minc=11"
+
+attr(,"out.attrs")$dimnames$number
+[1] "number=10"
+
+
+
+[[4]]
+[[4]]$method
+[1] "BCBimax"
+
+[[4]]$minr
+[1] 11
+
+[[4]]$minc
+[1] 11
+
+[[4]]$number
+[1] 10
+
+attr(,"out.attrs")
+attr(,"out.attrs")$dim
+method   minr   minc number 
+     1      2      2      1 
+
+attr(,"out.attrs")$dimnames
+attr(,"out.attrs")$dimnames$method
+[1] "method=BCBimax"
+
+attr(,"out.attrs")$dimnames$minr
+[1] "minr=10" "minr=11"
+
+attr(,"out.attrs")$dimnames$minc
+[1] "minc=10" "minc=11"
+
+attr(,"out.attrs")$dimnames$number
+[1] "number=10"
+
+
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binarize")
+> ### * binarize
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binarize
+> ### Title: Binarize
+> ### Aliases: binarize binarizeByPercentage densityOnes
+> ### Keywords: manip array
+> 
+> ### ** Examples
+> 
+>   data(BicatYeast)
+>   m1=binarize(BicatYeast)
+[1] "Threshold:  0.3969381"
+>   m2=binarize(BicatYeast, 0.2)
+>   m3=binarizeByPercentage(BicatYeast, 5)
+[1] "Threshold applied is  1.6969381"
+>   densityOnes(m3)
+[1] 4.813637
+>   densityOnes(m2)
+[1] 48.28859
+>   densityOnes(m1)
+[1] 28.06183
+>   drawHeatmap(BicatYeast)
+>   drawHeatmap(m1)
+>   drawHeatmap(m2)
+>   drawHeatmap(m3)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bubbleplot")
+> ### * bubbleplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bubbleplot
+> ### Title: Bubbleplot
+> ### Aliases: bubbleplot 'bubble plot' 'star graph'
+> ### Keywords: hplot cluster
+> 
+> ### ** Examples
+> 
+>   
+>   #Simplified yeast microarray data
+>   ## Not run: 
+> ##D  
+> ##D   data(BicatYeast)
+> ##D   set.seed(1)
+> ##D   bics1 <- biclust(BicatYeast,BCPlaid(), back.fit = 2, shuffle = 3, fit.model = ~m + a + b,
+> ##D   row.release = 0.7, col.release = 0.7,
+> ##D   verbose = FALSE, max.layers = 10, iter.startup = 5,
+> ##D   iter.layer = 30)
+> ##D   bubbleplot(BicatYeast,bics1, showLabels=TRUE)
+> ##D 
+> ##D   loma=binarize(BicatYeast,2)
+> ##D   bics2=biclust(loma,BCBimax(), minr=4, minc=4, number=10)
+> ##D   bubbleplot(BicatYeast,bics1,bics2)
+> ##D   
+> ## End(Not run)
+>   
+> 
+> 
+> cleanEx()
+> nameEx("clustmember")
+> ### * clustmember
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: biclustmember
+> ### Title: Bicluster Membership Graph
+> ### Aliases: clustmember biclustmember bicorder
+> ### Keywords: hplot cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(1)
+>   x=matrix(rnorm(900),30,30)
+>   x[1:5,1:5]=rnorm(25,3,0.3)
+>   x[11:15,11:15]=rnorm(25,-3,0.3)
+>   x[21:25,21:25]=rnorm(25,6,0.3)
+>   colnames(x)<-paste("Var.",1:30)
+>   bics <- biclust(x,BCPlaid(), back.fit = 2, shuffle = 3, fit.model = ~m + a + b,
++   iter.startup = 5, iter.layer = 30,  verbose = TRUE)
+layer: 0 
+ 436.0833
+layer: 1 
+[1] 0 5 5
+[1] 30  5  5
+[1] 31  5  5
+[1] 60  5  5
+[1] 1
+[1] 437.8929   0.0000   0.0000   0.0000
+back fitting 2 times
+layer: 2 
+[1] 0 5 5
+[1]  1  9 12
+[1]  2 10  9
+[1] 3 8 7
+[1] 4 7 6
+[1] 30  7  6
+[1] 31  5  6
+[1] 32  5  5
+[1] 33  5  5
+[1] 60  5  5
+[1] 5
+[1] 113.3975   0.0000   0.0000   0.0000
+back fitting 2 times
+layer: 3 
+[1] 0 6 5
+[1] 30  6  5
+[1] 31  5  5
+[1] 32  5  5
+[1] 33  5  5
+[1] 60  5  5
+[1] 1
+[1] 112.1011   0.0000   0.0000   0.0000
+back fitting 2 times
+layer: 4 
+[1]  0 15 12
+[1]  1 14 11
+[1]  2 14 10
+[1]  3 13  9
+[1]  4 15  9
+[1] 30 15  9
+[1] 31  0  9
+[1] 32
+[1] 0 0 0 0
+     
+Layer Rows Cols Df     SS    MS Convergence Rows Released Cols Released
+    0   30   30 59  69.55  1.18          NA            NA            NA
+    1    5    5  9 897.09 99.68           1             0             0
+    2    5    5  9 244.29 27.14           1             2             1
+    3    5    5  9 219.44 24.38           1             1             0
+>   
+>   biclustmember(bics,x)
+>   
+>   ord<-bicorder(bics, cols=TRUE, rev=TRUE)
+>   
+>   biclustmember(bics,x,which=ord)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpItWjyq/R.INSTALL148de83ad002/biclust/R/clustmember.r#97: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpImUWBB/R.INSTALLbebe558aa88d/biclust/R/clustmember.r#97: 
+ --- if/while statement is in package --- 
+biclust
+ --- call (currently evaluated) --- 
 biclustmember(bics, x, which = ord)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: biclustmember(bics, x, which = ord)
 
  --- value of length: 30 type: logical ---
  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [25] FALSE FALSE FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(bicResult,x,mid=T,cl_label="",which=NA,main="BiCluster Membership Graph",xlab="Cluster",color=diverge_hcl(101, h = c(0, 130)),...)
 {
 minx<-min(x)
@@ -89,7 +839,9 @@ axis(4, at = yticks, labels = colnames(x)[which], tick = F,las=2,...)
 
 title(main=main,xlab=xlab,...)
 }
-<bytecode: 0xfc8a600>
+<bytecode: 0xb5d0350>
 <environment: namespace:biclust>
  --- function (body) search ---
 Function biclustmember in namespace biclust has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

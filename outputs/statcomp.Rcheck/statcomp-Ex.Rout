@@ -1,8 +1,95 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "statcomp"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('statcomp')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("MPR_complexity")
+> ### * MPR_complexity
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MPR_complexity
+> ### Title: A function to compute the MPR-complexity
+> ### Aliases: MPR_complexity
+> 
+> ### ** Examples
+> 
+> x = arima.sim(model=list(ar = 0.3), n = 10^4)
+> opd = ordinal_pattern_distribution(x = x, ndemb = 6)
+> MPR_complexity(opd)
+[1] 0.03714999
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fis")
+> ### * fis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fis
+> ### Title: A (low-level) function to compute the Fisher-information
+> ### Aliases: fis
+> 
+> ### ** Examples
+> 
+> x = arima.sim(model=list(ar = 0.3), n = 10^4)
+> opd = ordinal_pattern_distribution(x = x, ndemb = 6)
+> fis(opd = opd)
+[1] 0.02471475
+> 
+> 
+> 
+> cleanEx()
+> nameEx("global_complexity")
+> ### * global_complexity
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: global_complexity
+> ### Title: A function to compute global information and complexity measures
+> ###   for time series
+> ### Aliases: global_complexity
+> 
+> ### ** Examples
+> 
+> x = arima.sim(model=list(ar = 0.3), n = 10^4)
+> global_complexity(x = x, ndemb = 6)
+        PE    MPR_Cjs  nforbiden 
+0.98413890 0.03714999 0.00000000 
+> # or:
+> opd = ordinal_pattern_distribution(x = x, ndemb = 6)
+> global_complexity(opd = opd, ndemb = 6)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmp2AcaJQ/R.INSTALL21d554d523d15/statcomp/R/complexity_measures.R#134: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmp8oRmeH/R.INSTALLb2654b43ce3f/statcomp/R/complexity_measures.R#134: 
+ --- if/while statement is in package --- 
+statcomp
+ --- call (currently evaluated) --- 
 global_complexity(opd = opd, ndemb = 6)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: global_complexity(opd = opd, ndemb = 6)
 
  --- value of length: 720 type: logical ---
@@ -66,7 +153,7 @@ where 1: global_complexity(opd = opd, ndemb = 6)
 [685] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [697] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [709] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(x = NA, opd = NA, ndemb) {
   # if no ordinal pattern distribution is specified:
   if (is.na(opd))  opd = ordinal_pattern_distribution(x=x, ndemb = ndemb)
@@ -85,3 +172,5 @@ function(x = NA, opd = NA, ndemb) {
 <environment: namespace:statcomp>
  --- function (body) search ---
 Function global_complexity in namespace statcomp has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

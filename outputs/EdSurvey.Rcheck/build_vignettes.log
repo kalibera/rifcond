@@ -1,0 +1,96 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpeiAfqh/R.INSTALL33b82d3d79b3/EdSurvey/R/getPlausibleValue.R#20: 
+ --- if/while statement is in package --- 
+EdSurvey
+ --- call (currently evaluated) --- 
+getPlausibleValue(varnames[hpv], sdf)
+ --- R stacktrace ---
+where 1: getPlausibleValue(varnames[hpv], sdf)
+where 2: getData(data, getV, includeNaLabel = TRUE, addAttributes = TRUE, 
+    returnJKreplicates = TRUE, drop = FALSE, schoolMergeVarStudent = schoolMergeVarStudent, 
+    schoolMergeVarSchool = schoolMergeVarSchool, omittedLevels = omittedLevels, 
+    recode = recode, dropUnusedLevels = TRUE)
+where 3: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 4: suppressWarnings(lsdf <- getData(data, getV, includeNaLabel = TRUE, 
+    addAttributes = TRUE, returnJKreplicates = TRUE, drop = FALSE, 
+    schoolMergeVarStudent = schoolMergeVarStudent, schoolMergeVarSchool = schoolMergeVarSchool, 
+    omittedLevels = omittedLevels, recode = recode, dropUnusedLevels = TRUE))
+where 5: cor.sdf(x = "num_oper", y = "algebra", data = sdf, method = "Pearson")
+where 6: eval(expr, envir, enclos)
+where 7: eval(expr, envir, enclos)
+where 8: withVisible(eval(expr, envir, enclos))
+where 9: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 10: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 11: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 12: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 13 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 14: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 15: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 16: block_exec(params)
+where 17 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#6: call_block(x)
+where 18 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#3: process_group.block(group)
+where 19: process_group(group)
+where 20 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 21 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#258: process_file(text, output)
+where 22 at /var/scratch2/tomas/tmp/RtmpiFnhvf/R.INSTALL2032429d4002/rmarkdown/R/render.R#486: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 23 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 24 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 25: engine$weave(file, quiet = quiet, encoding = enc)
+where 26: doTryCatch(return(expr), name, parentenv, handler)
+where 27: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 28: tryCatchList(expr, classes, parentenv, handlers)
+where 29: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 30: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/EdSurvey.Rcheck/vign_test/EdSurvey")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(var, data) {
+  checkDataClass(data, c("edsurvey.data.frame", "light.edsurvey.data.frame", "edsurvey.data.frame.list"))
+  
+  if(!hasPlausibleValue(var, data)) {
+    stop("The ", sQuote("var"), " argument level of ", dQuote(var), " does not have plausible values.")
+  }
+  if (inherits(data, c("edsurvey.data.frame"))) {
+    # data is an edsurvey.data.frame, so plausible value is returned in data$pvvars[var]
+    pvi <- data$pvvars[var]
+  } else {
+    # data is a light.edsurvey.data.frame, so plausible value is returned in
+    # attributes(data)$pvvars[var]
+    pvi <- attributes(data)$pvvars[var]
+  }
+  unname(unlist(pvi))
+}
+<environment: namespace:EdSurvey>
+ --- function (body) search ---
+Function getPlausibleValue in namespace EdSurvey has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

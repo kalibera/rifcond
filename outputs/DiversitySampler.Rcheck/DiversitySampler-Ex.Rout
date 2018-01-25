@@ -1,13 +1,76 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "DiversitySampler"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('DiversitySampler')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Gd")
+> ### * Gd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Gd
+> ### Title: Genetic Evenness Index
+> ### Aliases: Gd
+> ### Keywords: iteration datagen
+> 
+> ### ** Examples
+> 
+> x=rpois(25,10)
+> Gd(x)
+[1] 0.9961304
+> 
+> 
+> 
+> cleanEx()
+> nameEx("H.sampler")
+> ### * H.sampler
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: H.sampler
+> ### Title: Shannon's Diversity Re-sampler
+> ### Aliases: H.sampler
+> ### Keywords: iteration datagen
+> 
+> ### ** Examples
+> 
+> x=array(round(runif(100,1,10)),c(10,10))
+> H.sampler(x,n=1:10,nit=10,base=exp(1))
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmp1nmlMT/R.INSTALL104585e99bc9b/DiversitySampler/R/H.sampler.R#6: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmp8iIl4G/R.INSTALLb583e454106/DiversitySampler/R/H.sampler.R#6: 
+ --- if/while statement is in package --- 
+DiversitySampler
+ --- call (currently evaluated) --- 
 H.sampler(x, n = 1:10, nit = 10, base = exp(1))
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: H.sampler(x, n = 1:10, nit = 10, base = exp(1))
 
  --- value of length: 10 type: logical ---
  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (x = "community matrix (spp=col,obs=row)", n = "sample size vector", 
     nit = "number of iterations to use", base = exp(1), corr = FALSE, p = NULL, method = "Shannon") 
 {
@@ -61,3 +124,5 @@ function (x = "community matrix (spp=col,obs=row)", n = "sample size vector",
 <environment: namespace:DiversitySampler>
  --- function (body) search ---
 Function H.sampler in namespace DiversitySampler has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

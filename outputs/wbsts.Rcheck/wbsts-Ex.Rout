@@ -1,15 +1,124 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "wbsts"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('wbsts')
+Loading required package: mvtnorm
+Loading required package: wmtsa
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("cr.rand.max.inner.prod")
+> ### * cr.rand.max.inner.prod
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cr.rand.max.inner.prod
+> ### Title: The value that maximises the random CUSUM statistic across all
+> ###   the scales
+> ### Aliases: cr.rand.max.inner.prod
+> 
+> ### ** Examples
+>  
+> cps=seq(from=1000,to=2000,by=200)
+> y=sim.pw.arma(N =3000,sd_u = c(1,1.5,1,1.5,1,1.5,1),
++ b.slope=rep(0.99,7),b.slope2 = rep(0.,7), mac = rep(0.,7),br.loc = cps)[[2]]
+> z=ews.trans(y,scales=c(11,9,8,7,6))
+> out=cr.rand.max.inner.prod(z, Ts = length(y),C_i = tau.fun(y), 
++ epp = rep(32,5), M = 2000, cstar = 0.75, Plot = 1)
+> abline(v=cps,col="red")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ews.trans")
+> ### * ews.trans
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ews.trans
+> ### Title: Computation of the Evolutionary Wavelet Spectrum (EWS)
+> ### Aliases: ews.trans
+> 
+> ### ** Examples
+> 
+> ews=ews.trans(rnorm(1000),c(9,8,7))
+> barplot(ews[,1])
+> 
+> 
+> 
+> cleanEx()
+> nameEx("finner.prod.iter")
+> ### * finner.prod.iter
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: finner.prod.iter
+> ### Title: A fast implementation of the CUSUM statistic
+> ### Aliases: finner.prod.iter
+> 
+> ### ** Examples
+>  
+> cps=seq(from=1000,to=2000,by=200)
+> y=sim.pw.arma(N =3000,sd_u = c(1,1.5,1,1.5,1,1.5,1),
++ b.slope=rep(0.99,7),b.slope2 = rep(0.,7), mac = rep(0.,7),br.loc = cps)[[2]]
+> z=ews.trans(y,scales=c(11,9,8,7,6))
+> ts.plot(abs(finner.prod.iter(z[10:2990,2])))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.thres.ar")
+> ### * get.thres.ar
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.thres.ar
+> ### Title: Selection of thresholds by fitting an AR(p) model
+> ### Aliases: get.thres.ar
+> 
+> ### ** Examples
+> 
+> cps=seq(from=100,to=1200,by=350)
+> y=sim.pw.arma(N =1200,sd_u = c(1,1.5,1,1.5,1),
++ b.slope=rep(0.99,5),b.slope2 = rep(0.,5), mac = rep(0.,5),br.loc = cps)[[2]]
+> C_i=get.thres.ar(y=y, q=.95, r=100, scales=NULL)
+> wbs.lsw(y,M=1, C_i = C_i)$cp.aft
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
 : 
- --- call (function) --- 
+ --- if/while statement is in package --- 
+wbsts
+ --- call (currently evaluated) --- 
 withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
-where 2 at /tmp/Rtmpif363M/R.INSTALL3e0e50fbe233/wbsts/R/wbs.lsw.R#25: suppressWarnings(if (is.na(OUT)) OUT = NULL)
+where 2 at /var/scratch2/tomas/tmp/Rtmphcrpbo/R.INSTALLc3415f4ff5cb/wbsts/R/wbs.lsw.R#25: suppressWarnings(if (is.na(OUT)) OUT = NULL)
 where 3: wbs.lsw(y, M = 1, C_i = C_i)
 
  --- value of length: 3 type: logical ---
 [1] FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (expr, ...) 
 {
     handlers <- list(...)
@@ -21,7 +130,9 @@ function (expr, ...)
         TRUE))
     expr
 }
-<bytecode: 0x8a2d490>
+<bytecode: 0x2234b00>
 <environment: namespace:base>
  --- function (body) search ---
 Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,0 +1,222 @@
+Loading required package: Rcpp
+Loading required package: igraph
+
+Attaching package: ‘igraph’
+
+The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+
+The following object is masked from ‘package:base’:
+
+    union
+
+Loading required package: MCL
+Loading required package: linkcomm
+Loading required package: RColorBrewer
+
+Welcome to linkcomm version 1.0-11
+
+For a step-by-step guide to using linkcomm functions:
+   > vignette(topic = "linkcomm", package = "linkcomm")
+To run an interactive demo:
+   > demo(topic = "linkcomm", package = "linkcomm")
+To cite, see:
+   > citation("linkcomm")
+NOTE: To use linkcomm, you require read and write permissions in the current directory (see: help("getwd"), help("setwd"))
+
+Warning in graph.data.frame(input, directed = FALSE) :
+  In `d' `NA' elements were replaced with string "NA"
+Warning in `[<-.factor`(`*tmp*`, thisvar, value = "NA") :
+  invalid factor level, NA generated
+Warning in `[<-.factor`(`*tmp*`, thisvar, value = "NA") :
+  invalid factor level, NA generated
+Warning in graph.data.frame(edgelist, directed = FALSE) :
+  In `d' `NA' elements were replaced with string "NA"
+Warning in `[<-.factor`(`*tmp*`, thisvar, value = "NA") :
+  invalid factor level, NA generated
+Warning in `[<-.factor`(`*tmp*`, thisvar, value = "NA") :
+  invalid factor level, NA generated
+Warning in location(g3, species = c("human"), vertex.size = 3, vertex.label.cex = 0.5,  :
+  There are some 'NA' values in graph attribute 'category'!
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpEEQgH4/R.INSTALL7278225f0f85/ProNet/R/visualization.R#39: 
+ --- if/while statement is in package --- 
+ProNet
+ --- call (currently evaluated) --- 
+visualization(graph = graph, layout = layout, node.fill.color = color, 
+    ...)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpEEQgH4/R.INSTALL7278225f0f85/ProNet/R/clustering.R#46: visualization(graph = graph, layout = layout, node.fill.color = color, 
+    ...)
+where 2: cluster(g3, method = "FN")
+where 3: eval(expr, .GlobalEnv)
+where 4: eval(expr, .GlobalEnv)
+where 5: withVisible(eval(expr, .GlobalEnv))
+where 6: doTryCatch(return(expr), name, parentenv, handler)
+where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 8: tryCatchList(expr, classes, parentenv, handlers)
+where 9: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && identical(getOption("show.error.messages"), 
+        TRUE)) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 10: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 11: evalFunc(ce, options)
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13: tryCatch(evalFunc(ce, options), finally = {
+    cat("\n")
+    sink()
+})
+where 14: driver$runcode(drobj, chunk, chunkopts)
+where 15 at ../../../../R/src/library/tools/R/Vignettes.R#1150: utils::Sweave(...)
+where 16: engine$weave(file, quiet = quiet, encoding = enc)
+where 17: doTryCatch(return(expr), name, parentenv, handler)
+where 18: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 19: tryCatchList(expr, classes, parentenv, handlers)
+where 20: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 21: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/ProNet.Rcheck/vign_test/ProNet")
+
+ --- value of length: 7 type: logical ---
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+ --- function (currently evaluated)--- 
+function(graph,
+                        layout=c("reingold.tilford","circle","random","fruchterman.reingold","sphere","kamada.kawai","lgl"),
+                        node.fill.color="SkyBlue2",node.border.color="Black",
+                        node.shape=c("circle","square","sphere","csquare","rectangle","crectangle","vrectangle","none","pie","raster"),
+                        node.size=15,node.label="name",node.label.color=1,
+                        node.label.size=0.8,node.label.position=0,edge.shape=1,
+                        edge.width=1,edge.color="gray1",...)
+{
+	if(!is.igraph(graph)){
+    stop("Not an igraph object")
+	}
+	if(missing(layout)){
+    layout<-layout.fruchterman.reingold(graph)
+	}else if(is.function(layout)){
+    layout<-layout(graph)
+	}else if(layout %in% c("reingold.tilford","circle","random","fruchterman.reingold","sphere","kamada.kawai","lgl")){
+		layout<-eval(parse(text=paste("layout.",layout,"(graph)",sep="")))
+	}
+	layout<-layout.norm(layout,-1,1,-1,1)
+
+	############################################
+	## node.fill.color
+	if(is.character(node.fill.color) & length(node.fill.color)==1){
+		Expression<-get.vertex.attribute(graph,node.fill.color)
+		if(!is.null(Expression)){
+			node.fill.color<-Expression2color(Expression)
+		}
+	}
+	############################################
+	## node.size
+	if(is.character(node.size) & length(node.size)==1){
+		attrib<-get.vertex.attribute(graph,node.size)
+		if(!is.null(attrib)){
+			node.size<-attrib2Vs(attrib,method="unif",Vmax=15,Vmin=3)
+		}
+	}
+	############################################
+	## edge.width
+	if(is.character(edge.width) & length(edge.width)==1){
+		attrib<-get.edge.attribute(graph,edge.width)
+		if(!is.null(attrib)){
+			edge.width<-attrib2E(attrib,method="unif",Emax=6,Emin=1)
+		}
+	}	
+	############################################
+	## edge.color
+	if(is.character(edge.color) & length(edge.color)==1){
+		attrib<-get.edge.attribute(graph,edge.color)
+		if(!is.null(attrib)){
+			edge.color<-Expression2color(attrib)
+		}
+	}
+	############################################
+	## node.label
+	if(is.character(node.label) & length(node.label)==1){
+		attrib<-get.vertex.attribute(graph,node.label)
+		if(!is.null(attrib)){
+			node.label<-attrib
+		}
+	}
+	############################################
+	## node.label.position
+	if(is.character(node.label.position) & length(node.label.position)==1){
+		attrib<-get.vertex.attribute(node.label.position)
+		if(!is.null(attrib)){
+			node.label<-attrib2Vs(attrib,method="unif",Vmax=1,Vmin=-1)
+		}
+	}
+	############################################
+	## edge.shape	
+	if(is.character(edge.shape) & length(edge.shape)==1){
+		attrib<-get.vertex.attribute(edge.shape)
+		if(!is.null(attrib)){
+			edge.shape<-attrib2Vs(attrib,method="unif",Vmax=6,Vmin=0)
+		}
+	}
+	###################################################
+	##	node shape
+	node.shape<-match.arg(node.shape)
+	
+	if(any(is.na(node.shape))){
+		if(is.numeric(node.shape)){
+			plot(graph,layout=layout,vertex.size=0,edge.lty=edge.shape,
+           edge.width=edge.width,vertex.label=NULL,rescale=FALSE,...)
+
+      par(new=T)
+			points(layout,type="p",cex=node.size,col=node.border.color,pch=node.shape,bg=node.fill.color)
+
+			par(new=T)
+			plot(graph,layout=layout,vertex.size=0,vertex.label.color=node.label.color,
+           vertex.label.cex=node.label.size,vertex.label.dist=node.label.position,
+           edge.lty=0,vertex.label=node.label,rescale=FALSE,...)
+      
+			return(invisible(NULL))
+		}
+	}
+  
+	plot(graph,layout=layout,vertex.color=node.fill.color,vertex.frame.color=node.border.color,
+       vertex.shape=node.shape,vertex.size=node.size,vertex.label.color=node.label.color,
+       vertex.label.cex=node.label.size,vertex.label.dist=node.label.position,
+       edge.lty=edge.shape,edge.width=edge.width,vertex.label=node.label,
+       edge.color=edge.color,...)
+  
+	invisible(NULL)
+}
+<bytecode: 0x13ff3b08>
+<environment: namespace:ProNet>
+ --- function (body) search ---
+Function visualization in namespace ProNet has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

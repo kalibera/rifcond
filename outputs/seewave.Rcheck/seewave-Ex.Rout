@@ -1,9 +1,80 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "seewave"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('seewave')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ACI")
+> ### * ACI
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ACI
+> ### Title: Acoustic Complexity Index
+> ### Aliases: ACI
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> data(tico)
+> ACI(tico)
+[1] 270.7595
+> ## dividing the sound sample into 4 windows of equal duration
+> ACI(tico, nbwindows=4)
+[1] 972.6139
+> ## selection of a frequency band
+> ACI(tico, flim=c(2,6))
+[1] 113.1731
+> 
+> 
+> 
+> cleanEx()
+> nameEx("AR")
+> ### * AR
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AR
+> ### Title: Acoustic Richness index
+> ### Aliases: AR
+> ### Keywords: ts index
+> 
+> ### ** Examples
+> 
+> ## input as R objects
+> data(orni)
+> data(tico)
+> AR(orni, tico)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmps2qVzf/R.INSTALL1a455c6dc0f4/seewave/R/seewave.r#6685: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpdDky1l/R.INSTALLa4d84b7da189/seewave/R/seewave.r#6685: 
+ --- if/while statement is in package --- 
+seewave
+ --- call (currently evaluated) --- 
 th(env.norm)
- --- stacktrace ---
-where 1 at /tmp/Rtmps2qVzf/R.INSTALL1a455c6dc0f4/seewave/R/seewave.r#333: th(env.norm)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpdDky1l/R.INSTALLa4d84b7da189/seewave/R/seewave.r#333: th(env.norm)
 where 2: AR(orni, tico)
 
  --- value of length: 15842 type: logical ---
@@ -15850,7 +15921,7 @@ where 2: AR(orni, tico)
 [15840,] FALSE
 [15841,] FALSE
 [15842,] FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(
              env
              )
@@ -15881,3 +15952,5 @@ function(
 <environment: namespace:seewave>
  --- function (body) search ---
 Function th in namespace seewave has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

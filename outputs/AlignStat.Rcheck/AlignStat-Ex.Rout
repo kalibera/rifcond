@@ -1,14 +1,164 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "AlignStat"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('AlignStat')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("compare_alignments")
+> ### * compare_alignments
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compare_alignments
+> ### Title: Compare alternative multiple sequence alignments
+> ### Aliases: compare_alignments
+> 
+> ### ** Examples
+> 
+> data(reference_alignment)
+> data(comparison_alignment)
+> PAC <- compare_alignments(reference_alignment,comparison_alignment)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot_SP_summary")
+> ### * plot_SP_summary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot_SP_summary
+> ### Title: A line plot summary of sum of pairs score between two multiple
+> ###   sequence alignments
+> ### Aliases: plot_SP_summary
+> 
+> ### ** Examples
+> 
+> data(reference_alignment)
+> data(comparison_alignment)
+> PAC <- compare_alignments(reference_alignment, comparison_alignment, SP=TRUE)
+> plot_SP_summary(PAC)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot_dissimilarity_matrix")
+> ### * plot_dissimilarity_matrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot_dissimilarity_matrix
+> ### Title: A heatmap plot of the dissimilarity matrix of two multiple
+> ###   sequence alignments
+> ### Aliases: plot_dissimilarity_matrix
+> 
+> ### ** Examples
+> 
+> data(reference_alignment)
+> data(comparison_alignment)
+> PAC <- compare_alignments(reference_alignment,comparison_alignment)
+> plot_dissimilarity_matrix(PAC)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot_dissimilarity_summary")
+> ### * plot_dissimilarity_summary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot_dissimilarity_summary
+> ### Title: An area plot summary of the different causes of column
+> ###   dissimilarity between two multiple sequence alignments
+> ### Aliases: plot_dissimilarity_summary
+> 
+> ### ** Examples
+> 
+> data(reference_alignment)
+> data(comparison_alignment)
+> PAC <- compare_alignments(reference_alignment, comparison_alignment)
+> plot_dissimilarity_summary(PAC, stack=TRUE)
+Warning: Ignoring unknown aesthetics: data, ymax
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot_similarity_heatmap")
+> ### * plot_similarity_heatmap
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot_similarity_heatmap
+> ### Title: A heatmap plot of the column identities between two multiple
+> ###   sequence alignments
+> ### Aliases: plot_similarity_heatmap
+> 
+> ### ** Examples
+> 
+> data(reference_alignment)
+> data(comparison_alignment)
+> PAC <- compare_alignments(reference_alignment,comparison_alignment)
+> plot_similarity_heatmap(PAC)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot_similarity_summary")
+> ### * plot_similarity_summary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot_similarity_summary
+> ### Title: A line plot summary of column similarity between two multiple
+> ###   sequence alignments
+> ### Aliases: plot_similarity_summary
+> 
+> ### ** Examples
+> 
+> data(reference_alignment)
+> data(comparison_alignment)
+> PAC <- compare_alignments(reference_alignment, comparison_alignment, CS=TRUE)
+> plot_similarity_summary(PAC, CS=TRUE, cys=TRUE)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpkn2Ig3/R.INSTALL5789677ebf57/AlignStat/R/Plots.R#131: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpU2F2mU/R.INSTALL3bb820478cd2/AlignStat/R/Plots.R#131: 
+ --- if/while statement is in package --- 
+AlignStat
+ --- call (currently evaluated) --- 
 plot_similarity_summary(PAC, CS = TRUE, cys = TRUE)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: plot_similarity_summary(PAC, CS = TRUE, cys = TRUE)
 
  --- value of length: 2 type: logical ---
 columnwise.column.score            column.score 
                    TRUE                    TRUE 
- --- function --- 
+ --- function (currently evaluated)--- 
 function(x, scale=TRUE, CS=FALSE, cys=FALSE, display=TRUE){
   
   identity       <- x$results_R[1,]
@@ -59,3 +209,5 @@ function(x, scale=TRUE, CS=FALSE, cys=FALSE, display=TRUE){
 <environment: namespace:AlignStat>
  --- function (body) search ---
 Function plot_similarity_summary in namespace AlignStat has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

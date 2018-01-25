@@ -1,9 +1,54 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "dynOmics"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('dynOmics')
+Loading required package: ggplot2
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("associateData-methods")
+> ### * associateData-methods
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: associateData
+> ### Title: Identify associations of trajectories within a data set or
+> ###   across two data sets
+> ### Aliases: associateData
+> 
+> ### ** Examples
+> 
+> data(SmallExampleMetabTransc)
+> associations <- associateData(Metabolites[,1],Transcripts[,1:50])
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpmcqKkd/R.INSTALL758d3646b748/dynOmics/R/associateData-method.R#154: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpDMaQ5b/R.INSTALL4b874c7c7cd7/dynOmics/R/associateData-method.R#154: 
+ --- if/while statement is in package --- 
+dynOmics
+ --- call (currently evaluated) --- 
 get.delay(new.data1, new.data2)
- --- stacktrace ---
-where 1 at /tmp/RtmpmcqKkd/R.INSTALL758d3646b748/dynOmics/R/associateData-method.R#125: get.delay(new.data1, new.data2)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpDMaQ5b/R.INSTALL4b874c7c7cd7/dynOmics/R/associateData-method.R#125: get.delay(new.data1, new.data2)
 where 2: FUN(X[[i]], ...)
 where 3: fun(quote(1L), quote(function (i) 
 {
@@ -30,16 +75,16 @@ where 3: fun(quote(1L), quote(function (i)
     }
     return(m)
 }))
-where 4 at /tmp/RtmpVylxdX/R.INSTALL21f7f1e28f627/snow/R/snow.R#8: do.call("fun", lapply(args, enquote))
+where 4 at /var/scratch2/tomas/tmp/RtmpXRW8tZ/R.INSTALL2a89496a869b/snow/R/snow.R#8: do.call("fun", lapply(args, enquote))
 where 5: docall(msg$data$fun, msg$data$args)
 where 6: doTryCatch(return(expr), name, parentenv, handler)
 where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 8: tryCatchList(expr, classes, parentenv, handlers)
-where 9 at /tmp/RtmpVylxdX/R.INSTALL21f7f1e28f627/snow/R/snow.R#60: tryCatch(docall(msg$data$fun, msg$data$args), error = handler)
+where 9 at /var/scratch2/tomas/tmp/RtmpXRW8tZ/R.INSTALL2a89496a869b/snow/R/snow.R#60: tryCatch(docall(msg$data$fun, msg$data$args), error = handler)
 where 10: doTryCatch(return(expr), name, parentenv, handler)
 where 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 12: tryCatchList(expr, classes, parentenv, handlers)
-where 13 at /tmp/RtmpVylxdX/R.INSTALL21f7f1e28f627/snow/R/snow.R#41: tryCatch({
+where 13 at /var/scratch2/tomas/tmp/RtmpXRW8tZ/R.INSTALL2a89496a869b/snow/R/snow.R#41: tryCatch({
     msg <- recvData(master)
     cat(paste("Type:", msg$type, "\n"))
     if (msg$type == "DONE") {
@@ -148,7 +193,7 @@ where 20: local({
        TRUE        TRUE        TRUE        TRUE        TRUE        TRUE 
      method   data.name    conf.int 
        TRUE        TRUE        TRUE 
- --- function --- 
+ --- function (currently evaluated)--- 
 function(x,y) {
   cord <- cor.test(x,y)
   if(abs(cord$estimate)!=1 & !is.na(cord)){
@@ -241,3 +286,8 @@ function(x,y) {
 <environment: namespace:dynOmics>
  --- function (body) search ---
 Function get.delay in namespace dynOmics has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+Error in unserialize(node$con) : error reading from connection
+Calls: associateData ... FUN -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted

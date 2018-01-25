@@ -1,13 +1,63 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "as.color"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('as.color')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("as.color")
+> ### * as.color
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.color
+> ### Title: Create a unique set of colors that matched the unique set of
+> ###   inputs from a single vector.
+> ### Aliases: as.color
+> 
+> ### ** Examples
+> 
+> #simple data frame with factors
+> n <- 100
+> f <- 5
+> x <- sort(rnorm(n, mean = 0, sd = 50)) + rnorm(n, mean = 0, sd = 30)
+> fact <- rep(letters[1:5], each=n/f)
+> #call to as.color, with char vector
+> colz <- as.color(fact, alpha = 1)
+[1] "colors chosen using 1414928891 as random seed"
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpr3bvir/R.INSTALLbfb1fdf4eb7/as.color/R/as.color.R#49: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpqgBafA/R.INSTALLcc7964c0709b/as.color/R/as.color.R#49: 
+ --- if/while statement is in package --- 
+as.color
+ --- call (currently evaluated) --- 
 as.color(fact, alpha = 1)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: as.color(fact, alpha = 1)
 
  --- value of length: 5 type: logical ---
 [1] TRUE TRUE TRUE TRUE TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(x, alpha, seed){
   
   #set random seed
@@ -50,3 +100,5 @@ function(x, alpha, seed){
 <environment: namespace:as.color>
  --- function (body) search ---
 Function as.color in namespace as.color has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

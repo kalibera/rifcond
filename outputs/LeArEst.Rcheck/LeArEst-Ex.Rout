@@ -1,0 +1,232 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "LeArEst"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('LeArEst')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("areaest")
+> ### * areaest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: areaest
+> ### Title: Performs area estimation of the numerically described object in
+> ###   plane.
+> ### Aliases: areaest
+> 
+> ### ** Examples
+> 
+> # load a data set representing the ellipse with additive Gaussian error,
+> # run area estimation on it, and plot the results
+> inputfile <- system.file("extdata", "ellipse_3_4_0.1_gauss.txt", package = "LeArEst")
+> inputdata <- read.table(inputfile)
+> area <- areaest(inputdata, error = "gauss", var.est = "ML", plot = TRUE)
+> 
+> # load a data set representing the ellipse with additive Laplacian error,
+> # run area estimation on it, and plot the results
+> inputfile <- system.file("extdata", "ellipse_3_4_0.1_laplace.txt", package = "LeArEst")
+> inputdata <- read.table(inputfile)
+> area <- areaest(inputdata, error = "laplace", var = 0.1, nrSlices = 5, plot = TRUE)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp9MDVrd/R.INSTALL61c915582b78/LeArEst/R/lengthest.R#65: 
+ --- if/while statement is in package --- 
+LeArEst
+ --- call (currently evaluated) --- 
+lengthest(data, error = error, var = var, conf.level = conf.level)
+ --- R stacktrace ---
+where 1: lengthest(data, error = error, var = var, conf.level = conf.level)
+where 2: areaest(inputdata, error = "laplace", var = 0.1, nrSlices = 5, 
+    plot = TRUE)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(x,
+                      error = c("laplace", "gauss", "student"),
+                      var = NULL,
+                      var.est = c("MM", "ML"),  #-- Safet origigi
+                      conf.level = 0.95) {
+  cl <- conf.level
+  c1 <- list(fnscale = -1)
+  m2 <- mean(x^2)
+  m4 <- mean(x^4)
+  error <- match.arg(error)
+
+  n <- length(x)
+
+  lower <- 0
+  start <- max(abs(x))
+  upper <- 2*start
+
+  options(warn = -1)
+
+  if (error == "laplace") {
+    if (is.null(var) & var.est == "ML") {
+      start = c(max(abs(x)),sd(x))
+      as.ml = optim(start, llik.l2, x = x, control = c1)[[1]]
+      a.ml <- as.ml[1]
+      l <- as.ml[2]
+    } else {
+      if (is.null(var) & var.est == "MM") {
+        l <- 1/sqrt(6)*sqrt(-2*m2 + sqrt(5*(m4 - m2^2)))
+        # l<-sqrt(-1)
+        if (is.na(l)) {
+          stop("MM estimate of error variance doesn't exist.
+  Try again using ML estimate or specific value for error variance.")
+          }
+        } else {
+          l <- sqrt(var/2)
+        }
+        a.ml <- optim(start, llik.l, x = x, l = l, method = "Brent",
+          lower = lower, upper = upper, control = c1)[[1]]
+    }
+    alfa <- a.ml/l
+    if (fun.cil(1e-06,a.ml,x,l,cl)*
+        fun.cil(a.ml,a.ml,x,l,cl)>0 ||
+        fun.cil(a.ml,a.ml,x,l,cl)*
+        fun.cil(1e+06,a.ml,x,l,cl)>0) {
+      method <- "ADMLE"
+      integral <- integrate(int.l, alfa = alfa, 0, alfa)[[1]] +
+                  (cosh(alfa))^2/sinh(alfa)*exp(-alfa)
+      avar.ml <- 1/(n*(-1/a.ml^2+1/(a.ml*l)*integral))
+      r <- qnorm(0.5*(1 + cl))*sqrt(avar.ml)
+      ci <- c(a.ml - r, a.ml + r)
+    } else {
+      method <- "ADLR"
+      l.int <- uniroot(fun.cil, ml = a.ml, x = x, l = l, cl = cl,
+                       lower = 1e-06, upper = a.ml)$root
+      r.int <- uniroot(fun.cil, ml = a.ml, x = x, l = l, cl = cl,
+                       lower = a.ml, upper = 1e+06)$root
+      ci <- c(l.int,r.int)
+    }
+    v <- 2*l^2
+    } else if (error == "gauss") {
+      if (is.null(var) & var.est == "ML") {
+        start = c(max(abs(x)),sd(x))
+        as.ml = optim(start, llik.n2, x = x, control = c1)[[1]]
+        a.ml <- as.ml[1]
+        s <- as.ml[2]
+      } else {
+        if (is.null(var) & var.est == "MM") {
+          s <- sqrt(mean(x^2)-sqrt(5/6*(3*(mean(x^2))^2-mean(x^4))))
+          if (is.na(s)) {
+            stop("MM estimate of error variance doesn't exist.
+  Try again using ML estimate or specific value for error variance.")
+          }
+          } else {
+            s <- sqrt(var)
+          }
+          a.ml <- optim(start, llik.n, x = x, s = s, method = "Brent",
+                        lower = lower, upper = upper, control = c1)[[1]]
+        }
+      alfa <- a.ml/s
+      if (fun.cin(1e-06,a.ml,x,s,cl)*
+          fun.cin(a.ml,a.ml,x,s,cl)>0 ||
+          fun.cin(a.ml,a.ml,x,s,cl)*
+          fun.cin(1e+06,a.ml,x,s,cl)>0) {
+        method <- "ADMLE"
+        integral <- integrate(int.n, alfa = alfa , 0, alfa  + 37.5)[[1]]
+        avar.ml <- 1/(n*(-1/a.ml^2 + 1/(a.ml*s)*integral))
+        r <- qnorm(0.5*(1 + cl))*sqrt(avar.ml)
+        ci <- c(a.ml - r, a.ml + r)
+      } else {
+        method <- "ADLR"
+        l.int <- uniroot(fun.cin, ml = a.ml, x = x, s = s, cl = cl,
+                         lower = 1e-06, upper = a.ml)$root
+        r.int <- uniroot(fun.cin, ml = a.ml, x = x, s = s, cl = cl,
+                         lower = a.ml, upper = 1e+06)$root
+        ci <- c(l.int,r.int)
+      }
+      v <- s^2
+      } else {
+        if (is.null(var) & var.est == "ML") {
+          start = c(max(abs(x)),sd(x))
+          as.ml = optim(start, llik.s2, x = x, control = c1)[[1]]
+          a.ml <- as.ml[1]
+          s <- as.ml[2]
+        } else {
+          if (is.null(var) & var.est == "MM") {
+            s <- 1/(2*sqrt(5))*sqrt(-3*m2 + sqrt(15*(2*m4 - 3*m2^2)))
+            if (is.na(s)) {
+              stop("MM estimate of error variance doesn't exist.
+  Try again using ML estimate or specific value for error variance.")
+              }
+            } else {
+              s <- sqrt(var*3/5)
+            }
+            a.ml <- optim(start, llik.s, x = x, s = s, method = "Brent",
+                          lower = lower, upper = upper, control = c1)[[1]]
+        }
+        alfa <- a.ml/s
+        if (fun.cis(1e-06,a.ml,x,s,cl)*
+            fun.cis(a.ml,a.ml,x,s,cl)>0 ||
+            fun.cis(a.ml,a.ml,x,s,cl)*
+            fun.cis(1e+06,a.ml,x,s,cl)>0) {
+          method <- "ADMLE"
+          integral <- integrate(int.s, alfa = alfa, 0, alfa + 200)[[1]]
+          avar.ml <- 1/(n*(-1/a.ml^2+1/(a.ml*s)*integral))
+          r <- qnorm(0.5*(1 + cl))*sqrt(avar.ml)
+          ci <- c(a.ml - r, a.ml + r)
+        } else {
+          method <- "ADLR"
+          l.int <- uniroot(fun.cis, ml = a.ml, x = x, s = s, cl = cl,
+                           lower = 1e-06, upper = a.ml)$root
+          r.int <- uniroot(fun.cis, ml = a.ml, x = x, s = s, cl = cl,
+                           lower = a.ml, upper = 1e+06)$root
+          ci <- c(l.int,r.int)
+        }
+        v <- s^2*5/3
+        }
+  if (!is.null(var)) {
+    names(v) <- "known error variance:"
+  } else if (var.est == "ML") {
+    names(v) <- "ML estimate for error variance:"
+  } else {
+    names(v) <- "MM estimate for error variance:"
+  }
+  if (method == "ADLR") {
+    method <- "Asymptotic distribution of LR statistic"
+  } else {
+    method <- "Asymptotic distribution of MLE"
+  }
+  names(a.ml) <- "MLE for radius (a) of uniform distr.:"
+
+  options(warn = 0)
+
+  out <- list(error.type = error,
+    radius = a.ml,
+    var.error = v,
+    conf.level = cl,
+    method = method,
+    conf.int = ci)
+
+  return(out)
+}
+<bytecode: 0x5cf37a0>
+<environment: namespace:LeArEst>
+ --- function (body) search ---
+Function lengthest in namespace LeArEst has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

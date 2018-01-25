@@ -1,14 +1,2414 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "rmutil"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('rmutil')
+
+Attaching package: ‘rmutil’
+
+The following object is masked from ‘package:stats’:
+
+    nobs
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BetaBinom")
+> ### * BetaBinom
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Beta Binomial
+> ### Title: Beta Binomial Distribution
+> ### Aliases: dbetabinom pbetabinom qbetabinom rbetabinom
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> # compute P(45 < y < 55) for y beta binomial(100,0.5,1.1)
+> sum(dbetabinom(46:54, 100, 0.5, 1.1))
+[1] 0.06091022
+> pbetabinom(54,100,0.5,1.1)-pbetabinom(45,100,0.5,1.1)
+[1] 0.06091022
+> pbetabinom(2,10,0.5,1.1)
+[1] 0.3334359
+> qbetabinom(0.33,10,0.5,1.1)
+[1] 2
+> rbetabinom(10,10,0.5,1.1)
+ [1]  2  3  6 10  1 10 10  7  7  0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BoxCox")
+> ### * BoxCox
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Box-Cox
+> ### Title: Box-Cox Distribution
+> ### Aliases: dboxcox pboxcox qboxcox rboxcox
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dboxcox(2, 5, 5, 2)
+[1] 0.1469364
+> pboxcox(2, 5, 5, 2)
+[1] 0.07817333
+> qboxcox(0.1, 5, 5, 2)
+[1] 2.132628
+> rboxcox(10, 5, 5, 2)
+ [1] 2.706344 2.938498 3.298951 3.997345 2.534083 3.965232 4.142740 3.450648
+ [9] 3.395488 1.876213
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Burr")
+> ### * Burr
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Burr
+> ### Title: Burr Distribution
+> ### Aliases: dburr pburr qburr rburr
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dburr(2, 5, 1, 2)
+[1] 0.1457726
+> pburr(2, 5, 1, 2)
+[1] 0.4897959
+> qburr(0.3, 5, 1, 2)
+[1] 0.976143
+> rburr(10, 5, 1, 2)
+ [1]  0.8341376  1.3100533  2.6503536 11.5031593  0.5960557 10.6855989
+ [7] 16.2574099  3.5850073  3.2101258  0.1620132
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Consul")
+> ### * Consul
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Consul
+> ### Title: Consul Distribution
+> ### Aliases: dconsul pconsul qconsul rconsul
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dconsul(5,10,0.9)
+[1] 0.02994202
+> pconsul(5,10,0.9)
+[1] 0.04885499
+> qconsul(0.08,10,0.9)
+[1] 6
+> rconsul(10,10,0.9)
+ [1]  8  9 10 14  8 14 15 11 11  6
+> 
+> 
+> 
+> cleanEx()
+> nameEx("DataMethods")
+> ### * DataMethods
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DataMethods
+> ### Title: Methods for response, tccov, tvcov, and repeated Data Objects
+> ### Aliases: DataMethods as.data.frame as.data.frame.repeated
+> ###   as.data.frame.response as.data.frame.tccov as.data.frame.tvcov
+> ###   as.matrix as.matrix.repeated as.matrix.response as.matrix.tccov
+> ###   as.matrix.tvcov coef.gnlm covariates covariates.tccov
+> ###   covariates.tvcov covariates.repeated covind covind.default delta
+> ###   delta.response delta.repeated description description.default
+> ###   description.repeated deviance.gnlm df.residual.gnlm formula
+> ###   formula.tccov formula.repeated names names.response names.tccov
+> ###   names.tvcov names.repeated nesting nesting.response nesting.repeated
+> ###   nobs nobs.default nobs.response nobs.tvcov nobs.data.frame
+> ###   plot.response plot.repeated print.response print.tccov print.tvcov
+> ###   print.repeated print.fmobj print.gnlm response response.response
+> ###   response.repeated resptype resptype.response resptype.repeated times
+> ###   times.default times.response transform transform.response
+> ###   transform.tccov transform.tvcov transform.repeated units
+> ###   units.default units.repeated vcov.gnlm weights weights.response
+> ###   weights.repeated weights.gnlm
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> # set up some data and create the objects
+> #
+> y <- matrix(rnorm(20),ncol=5)
+> tt <- c(1,3,6,10,15)
+> print(resp <- restovec(y, times=tt, units="m", type="duration"))
+               
+Name:  y       
+Type:  duration
+Units: m       
+Number of individuals:                 4 
+Total number of observations:          20 
+Number of observations per individual: 5 
+Mean response:                         0.1905239 
+Range of responses:                    -2.2147 1.595281 
+Mean time:                             7 
+Range of times:                        1 15 
+Mean total time:                       15 
+Range of total times:                  15 15 
+> x <- c(0,0,1,1)
+> x2 <- as.factor(c("a","b","a","b"))
+> tcc <- tcctomat(data.frame(x=x,x2=x2))
+> z <- matrix(rpois(20,5),ncol=5)
+> tvc <- tvctomat(z)
+> print(reps <- rmna(resp, tvcov=tvc, ccov=tcc))
+
+Response variable:
+               
+Name:  y       
+Type:  duration
+Units: m       
+Number of individuals:                 4 
+Total number of observations:          20 
+Number of observations per individual: 5 
+Mean response:                         0.1905239 
+Range of responses:                    -2.2147 1.595281 
+Mean time:                             7 
+Range of times:                        1 15 
+Mean total time:                       15 
+Range of total times:                  15 15 
+
+Inter-unit (time-constant) covariates:
+           
+Names: x x2
+Number of individuals:              4 
+
+Intra-unit (time-varying) covariates:
+        
+Names: z
+Number of individuals:                4 
+Number of observations:               20 
+Number of observations per individual:
+ 5 5 5 5 
+> #
+> plot(resp)
+> plot(reps)
+> plot(reps, nind=1:2)
+> plot(reps, ccov=c(0,1))
+> plot(reps, ccov="x2")
+> plot(reps, name="z", nind=3:4, pch=1:2)
+> plot(reps, name="z", ccov="x2")
+> #
+> response(resp)
+          1           2           3           4           5           6 
+-0.62645381  0.32950777  0.57578135 -0.62124058 -0.01619026  0.18364332 
+          7           8           9          10          11          12 
+-0.82046838 -0.30538839 -2.21469989  0.94383621 -0.83562861  0.48742905 
+         13          14          15          16          17          18 
+ 1.51178117  1.12493092  0.82122120  1.59528080  0.73832471  0.38984324 
+         19          20 
+-0.04493361  0.59390132 
+> response(transform(resp, y=1/y))
+          1           2           3           4           5           6 
+ -1.5962869   3.0348298   1.7367704  -1.6096824 -61.7655188   5.4453382 
+          7           8           9          10          11          12 
+ -1.2188160  -3.2745188  -0.4515284   1.0595059  -1.1967039   2.0515806 
+         13          14          15          16          17          18 
+  0.6614714   0.8889435   1.2176987   0.6268489   1.3544176   2.5651336 
+         19          20 
+-22.2550563   1.6837814 
+> response(reps)
+          1           2           3           4           5           6 
+-0.62645381  0.32950777  0.57578135 -0.62124058 -0.01619026  0.18364332 
+          7           8           9          10          11          12 
+-0.82046838 -0.30538839 -2.21469989  0.94383621 -0.83562861  0.48742905 
+         13          14          15          16          17          18 
+ 1.51178117  1.12493092  0.82122120  1.59528080  0.73832471  0.38984324 
+         19          20 
+-0.04493361  0.59390132 
+> response(reps, nind=2:3)
+         6          7          8          9         10         11         12 
+ 0.1836433 -0.8204684 -0.3053884 -2.2146999  0.9438362 -0.8356286  0.4874291 
+        13         14         15 
+ 1.5117812  1.1249309  0.8212212 
+> response(transform(reps,y=1/y))
+          1           2           3           4           5           6 
+ -1.5962869   3.0348298   1.7367704  -1.6096824 -61.7655188   5.4453382 
+          7           8           9          10          11          12 
+ -1.2188160  -3.2745188  -0.4515284   1.0595059  -1.1967039   2.0515806 
+         13          14          15          16          17          18 
+  0.6614714   0.8889435   1.2176987   0.6268489   1.3544176   2.5651336 
+         19          20 
+-22.2550563   1.6837814 
+> #
+> times(resp)
+ [1]  1  3  6 10 15  1  3  6 10 15  1  3  6 10 15  1  3  6 10 15
+> times(transform(resp,times=times-6))
+ [1] -5 -3  0  4  9 -5 -3  0  4  9 -5 -3  0  4  9 -5 -3  0  4  9
+> times(reps)
+ [1]  1  3  6 10 15  1  3  6 10 15  1  3  6 10 15  1  3  6 10 15
+> #
+> delta(resp)
+NULL
+> delta(reps)
+NULL
+> delta(transform(reps,y=1/y))
+[1] 1
+ [1]    2.5481318    9.2101918    3.0163714    2.5910773 3814.9793140
+ [6]   29.6517076    1.4855125   10.7224730    0.2038779    1.1225527
+[11]    1.4321002    4.2089831    0.4375444    0.7902205    1.4827902
+[16]    0.3929395    1.8344471    6.5799106  495.2875325    2.8351198
+> delta(transform(reps,y=1/y), nind=3)
+[1] 1
+[1] 1.4321002 4.2089831 0.4375444 0.7902205 1.4827902
+> #
+> nobs(resp)
+[1] 5 5 5 5
+> nobs(tvc)
+[1] 5 5 5 5
+> nobs(reps)
+[1] 5 5 5 5
+> #
+> units(resp)
+  y 
+"m" 
+> units(reps)
+$response
+  y 
+"m" 
+
+$ccov
+NULL
+
+$tvcov
+NULL
+
+> #
+> resptype(resp)
+         y 
+"duration" 
+> resptype(reps)
+         y 
+"duration" 
+> #
+> weights(resp)
+NULL
+> weights(reps)
+NULL
+> #
+> covariates(tcc)
+  x x2
+1 0  a
+2 0  b
+3 1  a
+4 1  b
+> covariates(tcc, nind=2:3)
+  x x2
+2 0  b
+3 1  a
+> covariates(tvc)
+ [1] 7 5 6 4 4 6 7 6 3 5 7 1 5 2 6 5 5 7 2 4
+> covariates(tvc, nind=3)
+[1] 7 1 5 2 6
+> covariates(reps)
+$ccov
+  x x2
+1 0  a
+2 0  b
+3 1  a
+4 1  b
+
+$tvcov
+ [1] 7 5 6 4 4 6 7 6 3 5 7 1 5 2 6 5 5 7 2 4
+
+> covariates(reps, nind=3)
+$ccov
+  x x2
+3 1  a
+
+$tvcov
+[1] 7 1 5 2 6
+
+> covariates(reps,names="x")
+[1] 0 0 1 1
+> covariates(reps,names="z")
+ [1] 7 5 6 4 4 6 7 6 3 5 7 1 5 2 6 5 5 7 2 4
+> #
+> names(tcc)
+[1] "x"  "x2"
+> names(tvc)
+[1] "z"
+> names(reps)
+$response
+[1] "y"
+
+$ccov
+[1] "x"  "x2"
+
+$tvcov
+[1] "z"
+
+> #
+> nesting(resp)
+ [1] 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4
+> nesting(reps)
+ [1] 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4
+> #
+> # because individuals are the only nesting, this is the same as
+> covind(resp)
+ [1] 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4
+> covind(reps)
+ [1] 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4
+> #
+> as.data.frame(resp)
+             y individuals times
+1  -0.62645381           1     1
+2   0.32950777           1     3
+3   0.57578135           1     6
+4  -0.62124058           1    10
+5  -0.01619026           1    15
+6   0.18364332           2     1
+7  -0.82046838           2     3
+8  -0.30538839           2     6
+9  -2.21469989           2    10
+10  0.94383621           2    15
+11 -0.83562861           3     1
+12  0.48742905           3     3
+13  1.51178117           3     6
+14  1.12493092           3    10
+15  0.82122120           3    15
+16  1.59528080           4     1
+17  0.73832471           4     3
+18  0.38984324           4     6
+19 -0.04493361           4    10
+20  0.59390132           4    15
+> as.data.frame(tcc)
+  x x2
+1 0  a
+2 0  b
+3 1  a
+4 1  b
+> as.data.frame(tvc)
+   z
+1  7
+2  5
+3  6
+4  4
+5  4
+6  6
+7  7
+8  6
+9  3
+10 5
+11 7
+12 1
+13 5
+14 2
+15 6
+16 5
+17 5
+18 7
+19 2
+20 4
+> as.data.frame(reps)
+             y individuals times x x2 z
+1  -0.62645381           1     1 0  a 7
+2   0.32950777           1     3 0  a 5
+3   0.57578135           1     6 0  a 6
+4  -0.62124058           1    10 0  a 4
+5  -0.01619026           1    15 0  a 4
+6   0.18364332           2     1 0  b 6
+7  -0.82046838           2     3 0  b 7
+8  -0.30538839           2     6 0  b 6
+9  -2.21469989           2    10 0  b 3
+10  0.94383621           2    15 0  b 5
+11 -0.83562861           3     1 1  a 7
+12  0.48742905           3     3 1  a 1
+13  1.51178117           3     6 1  a 5
+14  1.12493092           3    10 1  a 2
+15  0.82122120           3    15 1  a 6
+16  1.59528080           4     1 1  b 5
+17  0.73832471           4     3 1  b 5
+18  0.38984324           4     6 1  b 7
+19 -0.04493361           4    10 1  b 2
+20  0.59390132           4    15 1  b 4
+> #
+> # use in glm
+> rm(y,x,z)
+> glm(y~x+z, data=reps)
+
+Call:  glm(formula = y ~ x + z, data = reps)
+
+Coefficients:
+(Intercept)            x            z  
+   -0.38604      0.91727      0.02432  
+
+Degrees of Freedom: 19 Total (i.e. Null);  17 Residual
+Null Deviance:	    15.85 
+Residual Deviance: 11.8 	AIC: 54.21
+> 
+> 
+> 
+> cleanEx()
+> nameEx("DoubleBinom")
+> ### * DoubleBinom
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Double Binomial
+> ### Title: Double Binomial Distribution
+> ### Aliases: ddoublebinom pdoublebinom qdoublebinom rdoublebinom
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> # compute P(45 < y < 55) for y double binomial(100,0.5,1.1)
+> sum(ddoublebinom(46:54, 100, 0.5, 1.1))
+[1] 0.654904
+> pdoublebinom(54, 100, 0.5, 1.1)-pdoublebinom(45, 100, 0.5, 1.1)
+[1] 0.654904
+> pdoublebinom(2,10,0.5,1.1)
+[1] 0.04573311
+> qdoublebinom(0.05,10,0.5,1.1)
+[1] 3
+> rdoublebinom(10,10,0.5,1.1)
+ [1] 4 5 5 7 4 7 7 6 5 3
+> 
+> 
+> 
+> cleanEx()
+> nameEx("DoublePoisson")
+> ### * DoublePoisson
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DoublePoisson
+> ### Title: Double Poisson Distribution
+> ### Aliases: ddoublepois pdoublepois qdoublepois rdoublepois
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> ddoublepois(5,10,0.9)
+[1] 0.04179885
+> pdoublepois(5,10,0.9)
+[1] 0.07893019
+> qdoublepois(0.08,10,0.9)
+[1] 6
+> rdoublepois(10,10,0.9)
+ [1]  8  9 10 15  7 14 16 11 11  5
+> 
+> 
+> 
+> cleanEx()
+> nameEx("FormulaMethods")
+> ### * FormulaMethods
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: FormulaMethods
+> ### Title: Methods for formulafn Functions
+> ### Aliases: covariates.formulafn formula.formulafn model model.formulafn
+> ###   parameters parameters.formulafn print.formulafn
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> x1 <- rpois(20,2)
+> x2 <- rnorm(20)
+> #
+> # Wilkinson and Rogers formula with three parameters
+> fn1 <- finterp(~x1+x2)
+> fn1
+
+formula:
+~x1 + x2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  x2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> covariates(fn1)
+[1] "x1" "x2"
+> formula(fn1)
+~x1 + x2
+> model(fn1)
+[1] "(Intercept)" "x1"          "x2"         
+> parameters(fn1)
+[1] "p[1]" "p[2]" "p[3]"
+> #
+> # nonlinear formula with unknowns
+> fn2 <- finterp(~exp(b0+b1*x1+b2*x2))
+> fn2
+
+formula:
+~exp(b0 + b1 * x1 + b2 * x2)
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+exp(.p[1] + .p[2] * x1 + .p[3] * x2)
+
+covariates:
+x1  x2  
+
+parameters:
+b0  b1  b2  
+
+> covariates(fn2)
+[1] "x1" "x2"
+> formula(fn2)
+~exp(b0 + b1 * x1 + b2 * x2)
+> model(fn2)
+expression(exp(.p[1] + .p[2] * x1 + .p[3] * x2))
+> parameters(fn2)
+[1] "b0" "b1" "b2"
+> #
+> # function transformed by fnenvir
+> fn3 <- fnenvir(function(p) p[1]+p[2]*x1)
+> covariates(fn3)
+[1] "x1"
+> formula(fn3)
+NULL
+> model(fn3)
+expression(p[1] + p[2] * x1)
+> parameters(fn3)
+[1] "p[1]" "p[2]"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GExtVal")
+> ### * GExtVal
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Generalized Extreme Value
+> ### Title: Generalized Extreme Value Distribution
+> ### Aliases: dgextval pgextval qgextval rgextval
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dgextval(1, 2, 1, 2)
+[1] 0.9751786
+> pgextval(1, 2, 1, 2)
+[1] 0.8206259
+> qgextval(0.82, 2, 1, 2)
+[1] 0.9993586
+> rgextval(10, 2, 1, 2)
+ [1] 0.5185946 0.6181721 0.7845540 1.1046751 0.4507143 1.0908055 1.1660079
+ [8] 0.8561103 0.8301019 0.2486489
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GGamma")
+> ### * GGamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Generalized Gamma
+> ### Title: Generalized Gamma Distribution
+> ### Aliases: dggamma pggamma qggamma rggamma
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dggamma(2, 5, 4, 2)
+[1] 0.7670936
+> pggamma(2, 5, 4, 2)
+[1] 0.7470147
+> qggamma(0.75, 5, 4, 2)
+[1] 2.003905
+> rggamma(10, 5, 4, 2)
+ [1] 1.486347 1.600983 1.802516 2.282719 1.408377 2.257892 2.398577 1.896440
+ [9] 1.861644 1.158363
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GInvGauss")
+> ### * GInvGauss
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Generalized Inverse Gaussian
+> ### Title: Generalized Inverse Gaussian Distribution
+> ### Aliases: dginvgauss pginvgauss qginvgauss rginvgauss
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dginvgauss(10, 3, 1, 1)
+[1] 0.03358377
+> pginvgauss(10, 3, 1, 1)
+[1] 0.3796193
+> qginvgauss(0.4, 3, 1, 1)
+[1] 10.61648
+> rginvgauss(10, 3, 1, 1)
+ [1]  6.858291  9.778053 16.845364 44.686041  5.280223 42.847140 53.870007
+ [8] 21.051398 19.423008  2.054422
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GLogis")
+> ### * GLogis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Generalized Logistic
+> ### Title: Generalized Logistic Distribution
+> ### Aliases: dglogis pglogis qglogis rglogis
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dglogis(5, 5, 1, 2)
+[1] 0.1378322
+> pglogis(5, 5, 1, 2)
+[1] 0.25
+> qglogis(0.25, 5, 1, 2)
+[1] 5
+> rglogis(10, 5, 1, 2)
+ [1]  5.110860  5.811484  7.059749 10.458544  4.629354 10.259569 11.430097
+ [8]  7.664344  7.437969  2.993463
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GWeibull")
+> ### * GWeibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Generalized Weibull
+> ### Title: Generalized Weibull Distribution
+> ### Aliases: dgweibull pgweibull qgweibull rgweibull
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dgweibull(5, 1, 3, 2)
+[1] 0.1021344
+> pgweibull(5, 1, 3, 2)
+[1] 0.6579228
+> qgweibull(0.65, 1, 3, 2)
+[1] 4.923185
+> rgweibull(10, 1, 3, 2)
+ [1]  2.1725227  2.8249763  4.2424865  9.1727825  1.7885521  8.8599849
+ [7] 10.7206654  5.0282511  4.7275321  0.8573254
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GammaCount")
+> ### * GammaCount
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Gamma Count
+> ### Title: Gamma Count Distribution
+> ### Aliases: dgammacount pgammacount qgammacount rgammacount
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dgammacount(5,10,0.9)
+[1] 0.04049988
+> pgammacount(5,10,0.9)
+[1] 0.07567342
+> qgammacount(0.08,10,0.9)
+[1] 5
+> rgammacount(10,10,0.9)
+ [1]  7  8 10 14  7 14 15 11 10  5
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Hjorth")
+> ### * Hjorth
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Hjorth
+> ### Title: Hjorth Distribution
+> ### Aliases: dhjorth phjorth qhjorth rhjorth
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dhjorth(5, 5, 5, 2)
+[1] 0.04562707
+> phjorth(5, 5, 5, 2)
+[1] 0.8352356
+> qhjorth(0.8, 5, 5, 2)
+[1] 4.27787
+> rhjorth(10, 5, 5, 2)
+ [1] 0.23141999 0.43423490 1.33435612 6.92467666 0.15085003 6.61503914
+ [7] 8.34460876 2.16237237 1.82220903 0.03455476
+> 
+> 
+> 
+> cleanEx()
+> nameEx("InvGauss")
+> ### * InvGauss
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Inverse Gaussian
+> ### Title: Inverse Gaussian Distribution
+> ### Aliases: dinvgauss pinvgauss qinvgauss rinvgauss
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dinvgauss(5, 5, 1)
+[1] 0.03568248
+> pinvgauss(5, 5, 1)
+[1] 0.7768031
+> qinvgauss(0.8, 5, 1)
+[1] 5.719957
+> rinvgauss(10, 5, 1)
+ [1]  0.6621296  0.9614373  1.9756394 12.9449398  0.5217167 11.7790845
+ [7] 19.7930294  2.8311592  2.4742867  0.2620935
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Laplace")
+> ### * Laplace
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Laplace
+> ### Title: Laplace Distribution
+> ### Aliases: dlaplace plaplace qlaplace rlaplace
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dlaplace(5, 2, 1)
+[1] 0.02489353
+> plaplace(5, 2, 1)
+[1] 0.9751065
+> qlaplace(0.95, 2, 1)
+[1] 4.302585
+> rlaplace(10, 2, 1)
+ [1]  1.36703937  1.70461876  2.15748073  3.69508066  1.09208376  3.59346304
+ [7]  4.20138807  2.38801169  2.29871348 -0.09092692
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Levy")
+> ### * Levy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Levy
+> ### Title: Levy Distribution
+> ### Aliases: dlevy plevy qlevy rlevy
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dlevy(5, 2, 1)
+[1] 0.06498989
+> plevy(5, 2, 1)
+[1] 0.5637029
+> qlevy(0.6, 2, 1)
+[1] 5.636418
+> rlevy(10, 2, 1)
+ [1]   2.806579   3.255398   5.145331  77.222139   2.613439  63.326266
+ [7] 209.656046   7.193296   6.286986   2.286634
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MultBinom")
+> ### * MultBinom
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Multiplicative Binomial
+> ### Title: Multiplicative Binomial Distribution
+> ### Aliases: dmultbinom pmultbinom qmultbinom rmultbinom
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> # compute P(45 < y < 55) for y multiplicative binomial(100,0.5,1.1)
+> sum(dmultbinom(46:54, 100, 0.5, 1.1))
+[1] 0
+> pmultbinom(54, 100, 0.5, 1.1)-pmultbinom(45, 100, 0.5, 1.1)
+[1] NaN
+> pmultbinom(2,10,0.5,1.1)
+[1] 2.523619e-06
+> qmultbinom(0.025,10,0.5,1.1)
+[1] 5
+> rmultbinom(10,10,0.5,1.1)
+ [1] 6 6 6 7 6 7 7 7 7 5
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MultPoisson")
+> ### * MultPoisson
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MultPoisson
+> ### Title: Multiplicative Poisson Distribution
+> ### Aliases: dmultpois pmultpois qmultpois rmultpois
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dmultpois(5,10,0.9)
+[1] 0.2058613
+> pmultpois(5,10,0.9)
+[1] 0.8410281
+> qmultpois(0.85,10,0.9)
+[1] 6
+> rmultpois(10,10,0.9)
+ [1] 3 4 4 6 3 6 6 5 4 2
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Pareto")
+> ### * Pareto
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Pareto
+> ### Title: Pareto Distribution
+> ### Aliases: dpareto ppareto qpareto rpareto
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dpareto(5, 2, 2)
+[1] 0.02332362
+> ppareto(5, 2, 2)
+[1] 0.9183673
+> qpareto(0.9, 2, 2)
+[1] 4.324555
+> rpareto(10, 2, 2)
+ [1] 0.33365503 0.52402132 1.06014144 4.60126371 0.23842226 4.27423956
+ [7] 6.50296397 1.43400292 1.28405031 0.06480529
+> 
+> 
+> 
+> cleanEx()
+> nameEx("PowerExp")
+> ### * PowerExp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: PowerExponential
+> ### Title: Power Exponential Distribution
+> ### Aliases: dpowexp ppowexp qpowexp rpowexp
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dpowexp(5, 5, 1, 2)
+[1] 0.4638648
+> ppowexp(5, 5, 1, 2)
+[1] 0.5
+> qpowexp(0.5, 5, 1, 2)
+[1] 5
+> rpowexp(10, 5, 1, 2)
+ [1] 4.491076 4.724174 5.157067 5.949106 4.345129 5.918153 6.083263 5.347151
+ [9] 5.278502 3.943556
+> 
+> 
+> 
+> cleanEx()
+> nameEx("PvfPoisson")
+> ### * PvfPoisson
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: PvfPoisson
+> ### Title: Power Variance Function Poisson Distribution
+> ### Aliases: dpvfpois ppvfpois qpvfpois rpvfpois
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dpvfpois(5,10,0.9,0.5)
+[1] 0.05385228
+> ppvfpois(5,10,0.9,0.5)
+[1] 0.06052846
+> qpvfpois(0.85,10,0.9,0.5)
+[1] 15
+> rpvfpois(10,10,0.9,0.5)
+ [1]  8  9 11 16  8 16 18 12 12  6
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Simplex")
+> ### * Simplex
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Simplex
+> ### Title: Simplex Distribution
+> ### Aliases: dsimplex psimplex qsimplex rsimplex
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dsimplex(0.3, 0.5, 1)
+[1] 0.9032315
+> psimplex(0.3, 0.5, 1)
+[1] 0.0404278
+> qsimplex(0.1, 0.5, 1)
+[1] 0.3474447
+> rsimplex(10, 0.5, 1)
+ [1] 0.4226298 0.4593552 0.5229069 0.6577132 0.3977365 0.6515696 0.6852448
+ [8] 0.5515276 0.5410498 0.3203582
+> 
+> 
+> 
+> cleanEx()
+> nameEx("SkewLaplace")
+> ### * SkewLaplace
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: SkewLaplace
+> ### Title: Skew Laplace Distribution
+> ### Aliases: dskewlaplace pskewlaplace qskewlaplace rskewlaplace
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dskewlaplace(5, 2, 1, 0.5)
+[1] 0.08925206
+> pskewlaplace(5, 2, 1, 0.5)
+[1] 0.8214959
+> qskewlaplace(0.95, 2, 1, 0.5)
+[1] 7.545177
+> rskewlaplace(10, 2, 1, 0.5)
+ [1] 2.141665 2.310455 3.254969 6.330169 2.004187 6.126933 7.342783 3.716031
+ [9] 3.537434 1.412682
+> 
+> 
+> 
+> cleanEx()
+> nameEx("TwoSidedPower")
+> ### * TwoSidedPower
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Two-Sided Power
+> ### Title: Two-Sided Power Distribution
+> ### Aliases: dtwosidedpower ptwosidedpower qtwosidedpower rtwosidedpower
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> dtwosidedpower(0.3, 0.5, 3)
+[1] 1.08
+> ptwosidedpower(0.3, 0.5, 3)
+[1] 0.108
+> qtwosidedpower(0.1, 0.5, 3)
+[1] 0.2924018
+> rtwosidedpower(10, 0.5, 3)
+ [1] 0.4048923 0.4531158 0.5255698 0.7158276 0.3694330 0.7060370 0.7599584
+ [8] 0.5606612 0.5473872 0.2490447
+> 
+> 
+> 
+> cleanEx()
+> nameEx("contr.mean")
+> ### * contr.mean
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: contrast
+> ### Title: Contrast Matrix for Constraints about the Mean
+> ### Aliases: contr.mean
+> ### Keywords: design regression array
+> 
+> ### ** Examples
+> 
+> oldop <- options(contrasts=c("contr.sum","contra.poly"))
+> y <- rnorm(30)
+> x <- gl(3,10,labels=c("First","Second","Third"))
+> glm(y~x)
+
+Call:  glm(formula = y ~ x)
+
+Coefficients:
+(Intercept)           x1           x2  
+    0.08246      0.04974      0.16639  
+
+Degrees of Freedom: 29 Total (i.e. Null);  27 Residual
+Null Deviance:	    24.77 
+Residual Deviance: 24 	AIC: 86.44
+> options(contrasts=c("contr.mean","contra.poly"))
+> x <- gl(3,10,labels=c("First","Second","Third"))
+> glm(y~x)
+
+Call:  glm(formula = y ~ x)
+
+Coefficients:
+(Intercept)       xFirst      xSecond  
+    0.08246      0.04974      0.16639  
+
+Degrees of Freedom: 29 Total (i.e. Null);  27 Residual
+Null Deviance:	    24.77 
+Residual Deviance: 24 	AIC: 86.44
+> options(oldop)
+> 
+> 
+> 
+> base::options(contrasts = c(unordered = "contr.treatment",ordered = "contr.poly"))
+> cleanEx()
+> nameEx("dftorep")
+> ### * dftorep
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dftorep
+> ### Title: Transform a Dataframe to a repeated Object
+> ### Aliases: dftorep
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> y <- data.frame(y1=rpois(20,5),y2=rpois(20,5))
+> y[2,2] <- NA
+> idd <- c(rep(1,5),rep(2,10),rep(3,5))
+> tt <- c(1:5,1:10,1:5)
+> totals <- data.frame(tot1=rep(12,20),tot2=rep(12,20))
+> x2 <- c(rep(1,5),rep(2,10),rep(3,5))
+> df <- data.frame(y,id=idd,tt=tt,totals,x1=rnorm(20),x2=x2)
+> df
+   y1 y2 id tt tot1 tot2          x1 x2
+1   4  9  1  1   12   12  0.91897737  1
+2   4 NA  1  2   12   12  0.78213630  1
+3   5  6  1  3   12   12  0.07456498  1
+4   8  3  1  4   12   12 -1.98935170  1
+5   3  4  1  5   12   12  0.61982575  1
+6   8  4  2  1   12   12 -0.05612874  2
+7   9  1  2  2   12   12 -0.15579551  2
+8   6  4  2  3   12   12 -1.47075238  2
+9   6  8  2  4   12   12 -0.47815006  2
+10  2  4  2  5   12   12  0.41794156  2
+11  3  5  2  6   12   12  1.35867955  2
+12  3  5  2  7   12   12 -0.10278773  2
+13  6  5  2  8   12   12  0.38767161  2
+14  4  3  2  9   12   12 -0.05380504  2
+15  7  7  2 10   12   12 -1.37705956  2
+16  5  6  3  1   12   12 -0.41499456  3
+17  6  7  3  2   12   12 -0.39428995  3
+18 11  2  3  3   12   12 -0.05931340  3
+19  4  6  3  4   12   12  1.10002537  3
+20  7  4  3  5   12   12  0.76317575  3
+> dftorep(df,resp=c("y1","y2"),times="tt",id="id",totals=c("tot1","tot2"),
++ 	tvcov="x1",ccov="x2")
+
+Response variable:
+                      
+Names: y1      y2     
+Type:  nominal nominal
+Number of individuals:                 3 
+Total number of observations:          19 
+Number of observations per individual:
+ 4 10 5 
+Mean response:
+       y1        y2 
+0.4692982 0.4078947 
+
+Range of responses:
+             y1         y2
+lower 0.1666667 0.08333333
+upper 0.9166667 0.75000000
+
+Mean time:                             4.368421 
+Range of times:                        1 10 
+Mean total time:                       6.666667 
+Range of total times:                  5 10 
+
+Inter-unit (time-constant) covariates:
+         
+Names: x2
+Number of individuals:              3 
+
+Intra-unit (time-varying) covariates:
+         
+Names: x1
+Number of individuals:                3 
+Number of observations:               19 
+Number of observations per individual:
+ 4 10 5 
+> dftorep(df,resp=c("y1","y2"),times="tt",id="id",totals=c("tot1","tot2"),
++ 	tvcov="x1",ccov="x2",na.rm=FALSE)
+
+Response variable:
+                      
+Names: y1      y2     
+Type:  nominal nominal
+Number of individuals:                 3 
+Total number of observations:          20 
+Number of observations per individual:
+ 5 10 5 
+Mean response:
+       y1        y2 
+0.4625000 0.4078947 
+
+Range of responses:
+             y1         y2
+lower 0.1666667 0.08333333
+upper 0.9166667 0.75000000
+
+Number of NAs:                         1 
+Mean time:                             4.25 
+Range of times:                        1 10 
+Mean total time:                       6.666667 
+Range of total times:                  5 10 
+
+Inter-unit (time-constant) covariates:
+         
+Names: x2
+Number of individuals:              3 
+
+Intra-unit (time-varying) covariates:
+         
+Names: x1
+Number of individuals:                3 
+Number of observations:               20 
+Number of observations per individual:
+ 5 10 5 
+> # x1 is not a time-constant covariate
+> #dftorep(df,resp=c("y1","y2"),times="tt",id="id",ccov="x1",na.rm=FALSE)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("finterp")
+> ### * finterp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: finterp
+> ### Title: Formula Interpreter
+> ### Aliases: finterp finterp.data.frame finterp.default finterp.repeated
+> ###   finterp.tccov finterp.tvcov
+> ### Keywords: programming
+> 
+> ### ** Examples
+> 
+> x1 <- rpois(20,2)
+> x2 <- rnorm(20)
+> #
+> # Wilkinson and Rogers formula with three parameters
+> fn1 <- finterp(~x1+x2)
+> fn1
+
+formula:
+~x1 + x2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  x2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn1(rep(2,3))
+ [1]  7.02356234  4.77968647  4.75751884  5.57060023  6.24986184  9.91013278
+ [7]  9.96761947  7.88767242  7.64244239  3.18780264  5.83795474  5.56427260
+[13]  8.14912997  0.02129661  9.23965150  5.88774252  7.68840899 11.05849523
+[19]  3.04369989  8.83588312
+> # the same formula with unknowns
+> fn2 <- finterp(~b0+b1*x1+b2*x2)
+> fn2
+
+formula:
+~b0 + b1 * x1 + b2 * x2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * x1 + .p[3] * x2
+
+covariates:
+x1  x2  
+
+parameters:
+b0  b1  b2  
+
+> fn2(rep(2,3))
+ [1]  7.02356234  4.77968647  4.75751884  5.57060023  6.24986184  9.91013278
+ [7]  9.96761947  7.88767242  7.64244239  3.18780264  5.83795474  5.56427260
+[13]  8.14912997  0.02129661  9.23965150  5.88774252  7.68840899 11.05849523
+[19]  3.04369989  8.83588312
+> #
+> # nonlinear formulae with unknowns
+> # log link
+> fn2a <- finterp(~exp(b0+b1*x1+b2*x2))
+> fn2a
+
+formula:
+~exp(b0 + b1 * x1 + b2 * x2)
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+exp(.p[1] + .p[2] * x1 + .p[3] * x2)
+
+covariates:
+x1  x2  
+
+parameters:
+b0  b1  b2  
+
+> fn2a(rep(0.2,3))
+ [1] 2.018503 1.612795 1.609224 1.745533 1.868220 2.693963 2.709494 2.200682
+ [9] 2.147371 1.375449 1.792830 1.744429 2.258979 1.002132 2.519260 1.801779
+[17] 2.157264 3.021790 1.355771 2.419566
+> # parameters common to two functions
+> fn2b <- finterp(~c0+c1*exp(b0+b1*x1+b2*x2), .old=fn2a, .start=4)
+> fn2b
+
+formula:
+~c0 + c1 * exp(b0 + b1 * x1 + b2 * x2)
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[4] + .p[5] * exp(.p[1] + .p[2] * x1 + .p[3] * x2)
+
+covariates:
+x1  x2  
+
+new parameters:
+c0  c1  
+
+common parameters:
+b0  b1  b2  
+
+> # function returned also depends on values of another function
+> fn2c <- finterp(~fn2+c1*exp(b0+b1*x1+b2*x2), .old=fn2a,
++ 	.start=4, .args="fn2")
+> fn2c
+
+formula:
+~fn2 + c1 * exp(b0 + b1 * x1 + b2 * x2)
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+fn2 + .p[4] * exp(.p[1] + .p[2] * x1 + .p[3] * x2)
+
+covariates:
+x1  x2  
+
+new parameters:
+c1  
+
+common parameters:
+b0  b1  b2  
+
+> args(fn2c)
+function (.p, fn2) 
+NULL
+> fn2c(rep(0.2,4),fn2(rep(2,3)))
+ [1]  7.427263  5.102245  5.079364  5.919707  6.623506 10.448925 10.509518
+ [8]  8.327809  8.071917  3.462892  6.196521  5.913158  8.600926  0.221723
+[15]  9.743503  6.248098  8.119862 11.662853  3.314854  9.319796
+> #
+> # compartment model
+> times <- 1:20
+> # exp() parameters to ensure that they are positive
+> fn3 <- finterp(~exp(absorption-volume)/(exp(absorption)-
++ 	exp(elimination))*(exp(-exp(elimination)*times)-
++ 	exp(-exp(absorption)*times)))
+> fn3
+
+formula:
+~exp(absorption - volume)/(exp(absorption) - exp(elimination)) * 
+    (exp(-exp(elimination) * times) - exp(-exp(absorption) * 
+        times))
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+exp(.p[1] - .p[2])/(exp(.p[1]) - exp(.p[3])) * (exp(-exp(.p[3]) * 
+    .p[4]) - exp(-exp(.p[1]) * .p[4]))
+
+parameters:
+absorption  volume  elimination  times  
+
+> fn3(log(c(0.3,3,0.2)))
+[1] NA
+> # a more efficient way
+> # (note that parameters do not appear in the same order)
+> form <- ~{
++ 	ka <- exp(absorption)
++ 	ke <- exp(elimination)
++ 	ka*exp(-volume)/(ka-ke)*(exp(-ke*times)-exp(-ka*times))}
+> fn3a <- finterp(form)
+> fn3a(log(c(0.3,0.2,3)))
+[1] NA
+> #
+> # Poisson density
+> y <- rpois(20,5)
+> fn4 <- finterp(~mu^y*exp(-mu)/gamma(y+1))
+> fn4
+
+formula:
+~mu^y * exp(-mu)/gamma(y + 1)
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1]^y * exp(-.p[1])/gamma(y + 1)
+
+covariates:
+y  
+
+parameters:
+mu  
+
+> fn4(5)
+ [1] 0.06527804 0.17546737 0.17546737 0.17546737 0.14622281 0.14037390
+ [7] 0.17546737 0.10444486 0.08422434 0.06527804 0.17546737 0.10444486
+[13] 0.17546737 0.17546737 0.17546737 0.06527804 0.10444486 0.17546737
+[19] 0.10444486 0.03626558
+> dpois(y,5)
+ [1] 0.06527804 0.17546737 0.17546737 0.17546737 0.14622281 0.14037390
+ [7] 0.17546737 0.10444486 0.08422434 0.06527804 0.17546737 0.10444486
+[13] 0.17546737 0.17546737 0.17546737 0.06527804 0.10444486 0.17546737
+[19] 0.10444486 0.03626558
+> #
+> # Poisson likelihood
+> # mean parameter
+> fn5 <- finterp(~-y*log(mu)+mu+lgamma(y+1),.vector=FALSE)
+> fn5
+
+formula:
+~-y * log(mu) + mu + lgamma(y + 1)
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+-y * log(mu) + mu + lgamma(y + 1)
+
+covariates:
+y  
+
+parameters:
+mu  
+
+> likefn1 <- function(p) sum(fn5(mu=p))
+> nlm(likefn1,p=1)
+Warning in log(mu) : NaNs produced
+Warning in nlm(likefn1, p = 1) :
+  NA/Inf replaced by maximum positive value
+Warning in log(mu) : NaNs produced
+Warning in nlm(likefn1, p = 1) :
+  NA/Inf replaced by maximum positive value
+$minimum
+[1] 41.97967
+
+$estimate
+[1] 5.549995
+
+$gradient
+[1] -6.472986e-06
+
+$code
+[1] 1
+
+$iterations
+[1] 10
+
+> mean(y)
+[1] 5.55
+> # canonical parameter
+> fn5a <- finterp(~-y*theta+exp(theta)+lgamma(y+1),.vector=FALSE)
+> fn5a
+
+formula:
+~-y * theta + exp(theta) + lgamma(y + 1)
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+-y * theta + exp(theta) + lgamma(y + 1)
+
+covariates:
+y  
+
+parameters:
+theta  
+
+> likefn1a <- function(p) sum(fn5a(theta=p))
+> nlm(likefn1a,p=1)
+$minimum
+[1] 41.97967
+
+$estimate
+[1] 1.713798
+
+$gradient
+[1] 4.042362e-09
+
+$code
+[1] 1
+
+$iterations
+[1] 6
+
+> #
+> # likelihood for Poisson log linear regression
+> y <- rpois(20,fn2a(c(0.2,1,0.4)))
+> nlm(likefn1,p=1)
+Warning in log(mu) : NaNs produced
+Warning in nlm(likefn1, p = 1) :
+  NA/Inf replaced by maximum positive value
+Warning in log(mu) : NaNs produced
+Warning in nlm(likefn1, p = 1) :
+  NA/Inf replaced by maximum positive value
+Warning in log(mu) : NaNs produced
+Warning in nlm(likefn1, p = 1) :
+  NA/Inf replaced by maximum positive value
+$minimum
+[1] 619.2385
+
+$estimate
+[1] 30.64999
+
+$gradient
+[1] 6.724772e-06
+
+$code
+[1] 1
+
+$iterations
+[1] 12
+
+> mean(y)
+[1] 30.65
+> likefn2 <- function(p) sum(fn5(mu=fn2a(p)))
+> nlm(likefn2,p=c(1,0,0))
+Warning in nlm(likefn2, p = c(1, 0, 0)) :
+  NA/Inf replaced by maximum positive value
+$minimum
+[1] 50.19044
+
+$estimate
+[1] 0.1526976 1.0197003 0.4637884
+
+$gradient
+[1] -6.394885e-07 -2.522471e-06 -1.051603e-06
+
+$code
+[1] 1
+
+$iterations
+[1] 28
+
+> # or
+> likefn2a <- function(p) sum(fn5a(theta=fn2(p)))
+> nlm(likefn2a,p=c(1,0,0))
+Warning in nlm(likefn2a, p = c(1, 0, 0)) :
+  NA/Inf replaced by maximum positive value
+$minimum
+[1] 50.19044
+
+$estimate
+[1] 0.1526976 1.0197003 0.4637884
+
+$gradient
+[1] -6.750156e-07 -2.188000e-06 -9.521273e-07
+
+$code
+[1] 1
+
+$iterations
+[1] 28
+
+> #
+> # likelihood for Poisson nonlinear regression
+> y <- rpois(20,fn3(log(c(3,0.3,0.2))))
+Warning in rpois(20, fn3(log(c(3, 0.3, 0.2)))) : NAs produced
+> nlm(likefn1,p=1)
+Warning in nlm(likefn1, p = 1) :
+  NA/Inf replaced by maximum positive value
+Warning in nlm(likefn1, p = 1) :
+  NA/Inf replaced by maximum positive value
+$minimum
+[1] 1.797693e+308
+
+$estimate
+[1] 1
+
+$gradient
+[1] 0
+
+$code
+[1] 1
+
+$iterations
+[1] 0
+
+> mean(y)
+[1] NA
+> likefn3 <- function(p) sum(fn5(mu=fn3(p)))
+> nlm(likefn3,p=log(c(1,0.4,0.1)))
+Warning in nlm(likefn3, p = log(c(1, 0.4, 0.1))) :
+  NA/Inf replaced by maximum positive value
+Warning in nlm(likefn3, p = log(c(1, 0.4, 0.1))) :
+  NA/Inf replaced by maximum positive value
+Warning in nlm(likefn3, p = log(c(1, 0.4, 0.1))) :
+  NA/Inf replaced by maximum positive value
+Warning in nlm(likefn3, p = log(c(1, 0.4, 0.1))) :
+  NA/Inf replaced by maximum positive value
+$minimum
+[1] 1.797693e+308
+
+$estimate
+[1]  0.0000000 -0.9162907 -2.3025851
+
+$gradient
+[1] 0 0 0
+
+$code
+[1] 1
+
+$iterations
+[1] 0
+
+> #
+> # envir as data objects
+> y <- matrix(rnorm(20),ncol=5)
+> y[3,3] <- y[2,2] <- NA
+> x1 <- 1:4
+> x2 <- c("a","b","c","d")
+> resp <- restovec(y)
+> xx <- tcctomat(x1)
+> xx2 <- tcctomat(data.frame(x1,x2))
+> z1 <- matrix(rnorm(20),ncol=5)
+> z2 <- matrix(rnorm(20),ncol=5)
+> z3 <- matrix(rnorm(20),ncol=5)
+> zz <- tvctomat(z1)
+> zz <- tvctomat(z2,old=zz)
+> reps <- rmna(resp, ccov=xx, tvcov=zz)
+> reps2 <- rmna(resp, ccov=xx2, tvcov=zz)
+> rm(y, x1, x2 , z1, z2)
+> #
+> # repeated objects
+> #
+> # time-constant covariates
+> # Wilkinson and Rogers notation
+> form1 <- ~x1
+> print(fn1 <- finterp(form1, .envir=reps))
+
+formula:
+~x1
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  
+
+parameters:
+p[1]  p[2]  
+
+> fn1(2:3)
+ [1]  5  5  5  5  5  8  8  8  8 11 11 11 11 14 14 14 14 14
+> print(fn1a <- finterp(form1, .envir=xx))
+
+formula:
+~x1
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  
+
+parameters:
+p[1]  p[2]  
+
+> fn1a(2:3)
+[1]  5  8 11 14
+> form1b <- ~x1+x2
+> print(fn1b <- finterp(form1b, .envir=reps2))
+
+formula:
+~x1 + x2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  x2  
+
+parameters:
+p[1]  p[2]  p[3]  p[4]  p[5]  
+
+> fn1b(2:6)
+ [1]  5  5  5  5  5 12 12 12 12 16 16 16 16 20 20 20 20 20
+> print(fn1c <- finterp(form1b, .envir=xx2))
+
+formula:
+~x1 + x2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  x2  
+
+parameters:
+p[1]  p[2]  p[3]  p[4]  p[5]  
+
+> fn1c(2:6)
+[1]  5 12 16 20
+> # with unknown parameters
+> form2 <- ~a+b*x1
+> print(fn2 <- finterp(form2, .envir=reps))
+
+formula:
+~a + b * x1
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * reps$ccov$ccov[, 1][.i]
+
+covariates:
+x1  
+
+parameters:
+a  b  
+
+> fn2(2:3)
+ [1]  5  5  5  5  5  8  8  8  8 11 11 11 11 14 14 14 14 14
+> print(fn2a <- finterp(form2, .envir=xx))
+
+formula:
+~a + b * x1
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * xx$ccov[, 1]
+
+covariates:
+x1  
+
+parameters:
+a  b  
+
+> fn2a(2:3)
+[1]  5  8 11 14
+> #
+> # time-varying covariates
+> # Wilkinson and Rogers notation
+> form3 <- ~z1+z2
+> print(fn3 <- finterp(form3, .envir=reps))
+
+formula:
+~z1 + z2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+z1  z2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn3(2:4)
+ [1] -0.2897456  1.7629276 10.0680002  9.5300007  1.4978555 -2.6754265
+ [7]  8.0561294 -2.1705059  5.9309774 -1.6621654 -1.9385853  3.7770245
+[13]  2.1042276 -2.1874729  1.1635000  4.6467979 11.2103368 -3.1097481
+> print(fn3a <- finterp(form3, .envir=zz))
+
+formula:
+~z1 + z2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+z1  z2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn3a(2:4)
+ [1] -0.2897456  1.7629276 10.0680002  9.5300007  1.4978555 -2.6754265
+ [7]  1.8905744  8.0561294 -2.1705059  5.9309774 -1.6621654 -1.9385853
+[13]  4.7281451  3.7770245  2.1042276 -2.1874729  1.1635000  4.6467979
+[19] 11.2103368 -3.1097481
+> # with unknown parameters
+> form4 <- ~a+b*z1+c*z2
+> print(fn4 <- finterp(form4, .envir=reps))
+
+formula:
+~a + b * z1 + c * z2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * reps$tvcov$tvcov[, 1] + .p[3] * reps$tvcov$tvcov[, 
+    2]
+
+covariates:
+z1  z2  
+
+parameters:
+a  b  c  
+
+> fn4(2:4)
+ [1] -0.2897456  1.7629276 10.0680002  9.5300007  1.4978555 -2.6754265
+ [7]  8.0561294 -2.1705059  5.9309774 -1.6621654 -1.9385853  3.7770245
+[13]  2.1042276 -2.1874729  1.1635000  4.6467979 11.2103368 -3.1097481
+> print(fn4a <- finterp(form4, .envir=zz))
+
+formula:
+~a + b * z1 + c * z2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * zz$tvcov[, 1] + .p[3] * zz$tvcov[, 
+    2]
+
+covariates:
+z1  z2  
+
+parameters:
+a  b  c  
+
+> fn4a(2:4)
+ [1] -0.2897456  1.7629276 10.0680002  9.5300007  1.4978555 -2.6754265
+ [7]  1.8905744  8.0561294 -2.1705059  5.9309774 -1.6621654 -1.9385853
+[13]  4.7281451  3.7770245  2.1042276 -2.1874729  1.1635000  4.6467979
+[19] 11.2103368 -3.1097481
+> #
+> # note: lengths of x1 and z2 differ
+> # Wilkinson and Rogers notation
+> form5 <- ~x1+z2
+> print(fn5 <- finterp(form5, .envir=reps))
+
+formula:
+~x1 + z2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  z2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn5(2:4)
+ [1]  2.706938  5.168463 12.069149 11.728704  2.397215  3.101550 10.866830
+ [8]  5.457054  7.170477  9.106397 11.632115  9.153421  9.428768 11.518533
+[15] 11.381661 15.536741 19.729129 12.720029
+> # with unknown parameters
+> form6 <- ~a+b*x1+c*z2
+> print(fn6 <- finterp(form6, .envir=reps))
+
+formula:
+~a + b * x1 + c * z2
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * reps$ccov$ccov[, 1][.i] + .p[3] * 
+    reps$tvcov$tvcov[, 2]
+
+covariates:
+x1  z2  
+
+parameters:
+a  b  c  
+
+> fn6(2:4)
+ [1]  2.706938  5.168463 12.069149 11.728704  2.397215  3.101550 10.866830
+ [8]  5.457054  7.170477  9.106397 11.632115  9.153421  9.428768 11.518533
+[15] 11.381661 15.536741 19.729129 12.720029
+> #
+> # with times
+> # Wilkinson and Rogers notation
+> form7 <- ~x1+z2+times
+> print(fn7 <- finterp(form7, .envir=reps))
+
+formula:
+~x1 + z2 + times
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  z2  times  
+
+parameters:
+p[1]  p[2]  p[3]  p[4]  
+
+> fn7(2:5)
+ [1]  7.706938 15.168463 27.069149 31.728704 27.397215  8.101550 25.866830
+ [8] 25.457054 32.170477 14.106397 21.632115 29.153421 34.428768 16.518533
+[15] 21.381661 30.536741 39.729129 37.720029
+> form7a <- ~x1+x2+z2+times
+> print(fn7a <- finterp(form7a, .envir=reps2))
+
+formula:
+~x1 + x2 + z2 + times
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+covariates:
+x1  x2  z2  times  
+
+parameters:
+p[1]  p[2]  p[3]  p[4]  p[5]  p[6]  p[7]  
+
+> fn7a(2:8)
+ [1]  8.987142 21.294811 41.371011 48.775233 40.445126 11.427712 41.016952
+ [8] 39.549845 50.548335 20.686196 33.106201 44.768487 53.250344 23.657433
+[15] 31.417907 46.689298 62.025976 57.760050
+> # with unknown parameters
+> form8 <- ~a+b*x1+c*z2+e*times
+> print(fn8 <- finterp(form8, .envir=reps))
+
+formula:
+~a + b * x1 + c * z2 + e * times
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * reps$ccov$ccov[, 1][.i] + .p[3] * 
+    reps$tvcov$tvcov[, 2] + .p[4] * reps$response$times
+
+covariates:
+x1  z2  times  
+
+parameters:
+a  b  c  e  
+
+> fn8(2:5)
+ [1]  7.706938 15.168463 27.069149 31.728704 27.397215  8.101550 25.866830
+ [8] 25.457054 32.170477 14.106397 21.632115 29.153421 34.428768 16.518533
+[15] 21.381661 30.536741 39.729129 37.720029
+> #
+> # with a variable not in the data object
+> form9 <- ~a+b*z1+c*z2+e*z3
+> print(fn9 <- finterp(form9, .envir=reps))
+
+formula:
+~a + b * z1 + c * z2 + e * z3
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+.p[1] + .p[2] * reps$tvcov$tvcov[, 1] + .p[3] * reps$tvcov$tvcov[, 
+    2] + .p[4] * .p[5]
+
+covariates:
+z1  z2  
+
+parameters:
+a  b  c  e  z3  
+
+> fn9(2:5)
+ [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+> # z3 assumed to be an unknown parameter:
+> fn9(2:6)
+ [1] 29.71025 31.76293 40.06800 39.53000 31.49786 27.32457 38.05613 27.82949
+ [9] 35.93098 28.33783 28.06141 33.77702 32.10423 27.81253 31.16350 34.64680
+[17] 41.21034 26.89025
+> #
+> # multiline formula
+> form10 <- ~{
++ 	tmp <- exp(b)
++ 	a+tmp*z1+c*z2+d*times}
+> print(fn10 <- finterp(form10, .envir=reps))
+
+formula:
+~{
+    tmp <- exp(b)
+    a + tmp * z1 + c * z2 + d * times
+}
+attr(,".Environment")
+<environment: R_GlobalEnv>
+
+model function:
+{
+    tmp <- exp(.p[1])
+    .p[2] + tmp * reps$tvcov$tvcov[, 1] + .p[3] * reps$tvcov$tvcov[, 
+        2] + .p[4] * reps$response$times
+}
+
+covariates:
+z1  z2  times  
+
+parameters:
+b  a  c  d  
+
+> fn10(2:5)
+ [1]  5.715106 12.169621 27.529338 31.702312 30.571133  3.650862 28.722134
+ [8] 16.448343 38.895678  1.750394  2.374395 30.078424 30.555456  1.316608
+[15] 14.770363 22.270831 37.303409 17.287217
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fmobj")
+> ### * fmobj
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fmobj
+> ### Title: Object Finder
+> ### Aliases: fmobj
+> ### Keywords: programming
+> 
+> ### ** Examples
+> 
+> x1 <- rpois(20,2)
+> x2 <- rnorm(20)
+> x3 <- gl(2,10)
+> #
+> # W&R formula
+> fmobj(~x1+x2+x3)
+
+covariates:
+x1  x2  
+
+factors:
+x3  
+
+functions:
+~  +  
+
+> #
+> # formula with unknowns
+> fmobj(~b0+b1*x1+b2*x2)
+
+parameters:
+b0  b1  b2  
+
+covariates:
+x1  x2  
+
+functions:
+~  +  *  
+
+> #
+> # nonlinear formulae with unknowns
+> # log link
+> fmobj(~exp(b0+b1*x1+b2*x2))
+
+parameters:
+b0  b1  b2  
+
+covariates:
+x1  x2  
+
+functions:
+~  exp  +  *  
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fnenvir")
+> ### * fnenvir
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fnenvir
+> ### Title: Check Covariates and Parameters of a Function
+> ### Aliases: fnenvir fnenvir.data.frame fnenvir.default fnenvir.repeated
+> ###   fnenvir.tccov fnenvir.tvcov
+> ### Keywords: programming
+> 
+> ### ** Examples
+> 
+> fn <- function(p) a+b*x
+> fnenvir(fn)
+
+model function:
+a + b * x
+
+> fn <- function(p) a+p*x
+> fnenvir(fn)
+
+model function:
+a + p * x
+
+parameters:
+p  
+
+> x <- 1:4
+> fnenvir(fn)
+
+model function:
+a + p * x
+
+covariates:
+x  
+
+parameters:
+p  
+
+> fn <- function(p) p[1]+exp(p[2]*x)
+> fnenvir(fn)
+
+model function:
+p[1] + exp(p[2] * x)
+
+covariates:
+x  
+
+parameters:
+p[1]  p[2]  
+
+> #
+> y <- matrix(rnorm(20),ncol=5)
+> y[3,3] <- y[2,2] <- NA
+> resp <- restovec(y)
+> xx <- tcctomat(x)
+> z1 <- matrix(rnorm(20),ncol=5)
+> z2 <- matrix(rnorm(20),ncol=5)
+> z3 <- matrix(rnorm(20),ncol=5)
+> zz <- tvctomat(z1)
+> zz <- tvctomat(z2,old=zz)
+> reps <- rmna(resp, ccov=xx, tvcov=zz)
+> rm(y, x, z1, z2)
+> #
+> # repeated objects
+> func1 <- function(p) p[1]+p[2]*x+p[3]*z2
+> print(fn1 <- fnenvir(func1, .envir=reps))
+
+model function:
+p[1] + p[2] * reps$ccov$ccov[, 1][.i] + p[3] * reps$tvcov$tvcov[, 
+    2]
+
+covariates:
+x  z2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn1(2:4)
+ [1]  4.341906  2.244977  4.550615  6.364479  3.531114  6.986553 11.524431
+ [8]  3.482548  3.823461 13.787854 12.458328 16.732095 13.278879 16.226653
+[15] 17.074132 11.551894 21.921600 13.459782
+> #
+> # time-constant covariates
+> func2 <- function(p) p[1]+p[2]*x
+> print(fn2 <- fnenvir(func2, .envir=reps))
+
+model function:
+p[1] + p[2] * reps$ccov$ccov[, 1][.i]
+
+covariates:
+x  
+
+parameters:
+p[1]  p[2]  
+
+> fn2(2:3)
+ [1]  5  5  5  5  5  8  8  8  8 11 11 11 11 14 14 14 14 14
+> print(fn2a <- fnenvir(func2, .envir=xx))
+
+model function:
+p[1] + p[2] * xx$ccov[, 1]
+
+covariates:
+x  
+
+parameters:
+p[1]  p[2]  
+
+> fn2a(2:3)
+[1]  5  8 11 14
+> #
+> # time-varying covariates
+> func3 <- function(p) p[1]+p[2]*z1+p[3]*z2
+> print(fn3 <- fnenvir(func3, .envir=reps))
+
+model function:
+p[1] + p[2] * reps$tvcov$tvcov[, 1] + p[3] * reps$tvcov$tvcov[, 
+    2]
+
+covariates:
+z1  z2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn3(2:4)
+ [1]  4.0988377  1.1044545  0.1161650  4.5274936 -0.6517558  3.3329622
+ [7]  6.7782556 -2.6788675 -2.3544787  5.0115485  2.9909413  3.6009161
+[13]  7.5789546 -1.7414023  0.6618745 -0.7564688  8.6766159  3.7493088
+> print(fn3a <- fnenvir(func3, .envir=zz))
+
+model function:
+p[1] + p[2] * zz$tvcov[, 1] + p[3] * zz$tvcov[, 2]
+
+covariates:
+z1  z2  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn3a(2:4)
+ [1]  4.0988377  1.1044545  0.1161650  4.5274936 -0.6517558  3.3329622
+ [7] -0.9983668  6.7782556 -2.6788675 -2.3544787  5.0115485  2.9909413
+[13]  7.6684622  3.6009161  7.5789546 -1.7414023  0.6618745 -0.7564688
+[19]  8.6766159  3.7493088
+> # including times
+> func3b <- function(p) p[1]+p[2]*z1+p[3]*z2+p[4]*times
+> print(fn3b <- fnenvir(func3b, .envir=reps))
+
+model function:
+p[1] + p[2] * reps$tvcov$tvcov[, 1] + p[3] * reps$tvcov$tvcov[, 
+    2] + p[4] * reps$response$times
+
+covariates:
+z1  z2  times  
+
+parameters:
+p[1]  p[2]  p[3]  p[4]  
+
+> fn3b(2:5)
+ [1]  9.098838 11.104454 15.116165 24.527494 24.348244  8.332962 21.778256
+ [8] 17.321132 22.645521 10.011548 12.990941 23.600916 32.578955  3.258598
+[15] 10.661875 14.243531 28.676616 28.749309
+> #
+> # with typing error and a variable not in the data object
+> func4 <- function(p) p[1]+p2[2]*z1+p[3]*z2+p[4]*z3
+> print(fn4 <- fnenvir(func4, .envir=reps))
+
+model function:
+p[1] + p2[2] * reps$tvcov$tvcov[, 1] + p[3] * reps$tvcov$tvcov[, 
+    2] + p[4] * z3
+
+covariates:
+z1  z2  
+
+parameters:
+p[1]  p[3]  p[4]  
+
+> #
+> # first-order one-compartment model
+> # data objects for formulae
+> dose <- c(2,5)
+> dd <- tcctomat(dose)
+> times <- matrix(rep(1:20,2), nrow=2, byrow=TRUE)
+> tt <- tvctomat(times)
+> # vector covariates for functions
+> dose <- c(rep(2,20),rep(5,20))
+> times <- rep(1:20,2)
+> # functions
+> mu <- function(p) {
++ 	absorption <- exp(p[1])
++ 	elimination <- exp(p[2])
++ 	absorption*exp(-p[3])*dose/(absorption-elimination)*
++ 		(exp(-elimination*times)-exp(-absorption*times))}
+> shape <- function(p) exp(p[1]-p[2])*times*dose*exp(-exp(p[1])*times)
+> # response
+> conc <- matrix(rgamma(40,shape(log(c(0.1,0.4))),
++ 	scale=mu(log(c(1,0.3,0.2))))/shape(log(c(0.1,0.4))),ncol=20,byrow=TRUE)
+> conc[,2:20] <- conc[,2:20]+0.5*(conc[,1:19]-matrix(mu(log(c(1,0.3,0.2))),
++ 	ncol=20,byrow=TRUE)[,1:19])
+> conc <- restovec(ifelse(conc>0,conc,0.01))
+> reps <- rmna(conc, ccov=dd, tvcov=tt)
+> #
+> print(fn5 <- fnenvir(mu,.envir=reps))
+
+model function:
+{
+    absorption <- exp(p[1])
+    elimination <- exp(p[2])
+    absorption * exp(-p[3]) * reps$ccov$ccov[, 1][.i]/(absorption - 
+        elimination) * (exp(-elimination * reps$tvcov$tvcov[, 
+        1]) - exp(-absorption * reps$tvcov$tvcov[, 1]))
+}
+
+covariates:
+dose  times  
+
+parameters:
+p[1]  p[2]  p[3]  
+
+> fn5(c(0,-1.2,-1.6))
+ [1]  5.27413652  5.84275962  5.03703358  3.98965647  3.04868187  2.29136039
+ [7]  1.70852886  1.26900808  0.94075157  0.69674500  0.51578480  0.38173483
+[13]  0.28249100  0.20903663  0.15467771  0.11445292  0.08468821  0.06266391
+[19]  0.04636724  0.03430873 13.18534131 14.60689905 12.59258394  9.97414119
+[25]  7.62170468  5.72840098  4.27132216  3.17252020  2.35187892  1.74186251
+[31]  1.28946200  0.95433707  0.70622751  0.52259159  0.38669428  0.28613230
+[37]  0.21172051  0.15665976  0.11591810  0.08577182
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gauss.hermite")
+> ### * gauss.hermite
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gauss.hermite
+> ### Title: Calculate Gauss-Hermite Quadrature Points
+> ### Aliases: gauss.hermite
+> ### Keywords: math
+> 
+> ### ** Examples
+> 
+> gauss.hermite(10)
+          Points      Weights
+ [1,]  4.8594628 4.310653e-06
+ [2,]  3.5818235 7.580709e-04
+ [3,]  2.4843258 1.911158e-02
+ [4,]  1.4659891 1.354837e-01
+ [5,]  0.4849357 3.446423e-01
+ [6,] -0.4849357 3.446423e-01
+ [7,] -1.4659891 1.354837e-01
+ [8,] -2.4843258 1.911158e-02
+ [9,] -3.5818235 7.580709e-04
+[10,] -4.8594628 4.310653e-06
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gettvc")
+> ### * gettvc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gettvc
+> ### Title: Find the Most Recent Value of a Time-varying Covariate Before
+> ###   Each Observed Response
+> ### Aliases: gettvc
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D y <- matrix(rnorm(20), ncol=5)
+> ##D resp <- restovec(y, times=c(1,3,6,10,15))
+> ##D z <- matrix(rpois(20,5),ncol=5)
+> ##D z
+> ##D # create a new time-varying covariate object for the response
+> ##D newtvc <- gettvc(resp, tvcov=z, tvctimes=c(1,2,5,12,14))
+> ##D covariates(newtvc)
+> ##D # add another time-varying covariate to the object
+> ##D z2 <- matrix(rpois(20,5),ncol=5)
+> ##D z2
+> ##D newtvc2 <- gettvc(resp, tvcov=z2, tvctimes=c(0,4,5,12,16), oldtvc=newtvc)
+> ##D covariates(newtvc2)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("int")
+> ### * int
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: int
+> ### Title: Vectorized Numerical Integration
+> ### Aliases: int
+> ### Keywords: math
+> 
+> ### ** Examples
+> 
+> f <- function(x) sin(x)+cos(x)-x^2
+> int(f, a=0, b=2)
+[1] -0.3412224
+> int(f, a=0, b=2, type="TOMS614")
+[1] -0.341222
+> #
+> f <- function(x) exp(-(x-2)^2/2)/sqrt(2*pi)
+> int(f, a=0:3)
+[1] 0.9772582 0.8413531 0.5000000 0.1586552
+> int(f, a=0:3, d=2)
+[1] 0.9772498 0.8413447 0.5000000 0.1586552
+> 1-pnorm(0:3, 2)
+[1] 0.9772499 0.8413447 0.5000000 0.1586553
+> 
+> 
+> 
+> cleanEx()
+> nameEx("int2")
+> ### * int2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: int2
+> ### Title: Vectorized Two-dimensional Numerical Integration
+> ### Aliases: int2
+> ### Keywords: math
+> 
+> ### ** Examples
+> 
+> f <- function(x,y) sin(x)+cos(y)-x^2
+> int2(f, a=c(0,1), b=c(2,4))
+[1] -36.88422
+> #
+> fn1 <- function(x, y) x^2+y^2
+> fn2 <- function(x, y) (1:4)*x^2+(2:5)*y^2
+> int2(fn1, c(1,2), c(2,4))
+[1] 23.33333
+> int2(fn2, c(1,2), c(2,4))
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpXAZ9eG/R.INSTALL1e0d3464923a2/rmutil/R/int.r#218: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmpyx20FM/R.INSTALLdcba6f3a9f42/rmutil/R/int.r#218: 
+ --- if/while statement is in package --- 
+rmutil
+ --- call (currently evaluated) --- 
 romberg(g, a[, 1], b[, 1])
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: romberg(g, a[, 1], b[, 1])
 where 2: int2(fn2, c(1, 2), c(2, 4))
 
  --- value of length: 4 type: logical ---
 [1] FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(f, a=-Inf, b=Inf){
 	# invert function for infinite limits
         ff <- function(x) f(1/x)/(x*x)
@@ -48,6 +2448,8 @@ function(f, a=-Inf, b=Inf){
         	z <- z1*(b<0)+z2*(b>=0)}
         else z <- int1(f, a, b)
         z}
-<bytecode: 0x6ee05b8>
-<environment: 0x326bb20>
+<bytecode: 0x8025f00>
+<environment: 0x7bf98d0>
  --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

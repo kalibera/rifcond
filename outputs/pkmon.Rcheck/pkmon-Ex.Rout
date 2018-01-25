@@ -1,13 +1,93 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "pkmon"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('pkmon')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BaseNorm")
+> ### * BaseNorm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BaseNorm
+> ### Title: Normalized spline basis
+> ### Aliases: BaseNorm
+> 
+> ### ** Examples
+> 
+> # Computing 3-monotone splines with maximum support 8
+> Q=BaseNorm(3, 8)
+> matplot(Q, type="l", main="3-monotone splines with maximum support 8");
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Delta")
+> ### * Delta
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Delta
+> ### Title: Discrete laplacian
+> ### Aliases: Delta
+> 
+> ### ** Examples
+> 
+> p=dSpline(k=3, supp=20)
+> M=Delta(3, 20, p)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Spline")
+> ### * Spline
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Spline
+> ### Title: Random generation and distribution function of k-monotone
+> ###   densities
+> ### Aliases: rSpline dSpline rmixSpline dmixSpline
+> 
+> ### ** Examples
+> 
+> x=rSpline(n=100, 20, 3)
+> p=dSpline(20, 3)
+> xmix=rmixSpline(n=100, c(5, 20), 3, c(0.5, 0.5))
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpg30MYu/R.INSTALL19c054e687918/pkmon/R/Simul_kmon.R#110: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpX18c5s/R.INSTALLab2b6d0aa012/pkmon/R/Simul_kmon.R#110: 
+ --- if/while statement is in package --- 
+pkmon
+ --- call (currently evaluated) --- 
 rmixSpline(n = 100, c(5, 20), 3, c(0.5, 0.5))
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: rmixSpline(n = 100, c(5, 20), 3, c(0.5, 0.5))
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(n=1, supp, k, prob){
   # random generation for a mixture of splines
   #
@@ -46,3 +126,5 @@ function(n=1, supp, k, prob){
 <environment: namespace:pkmon>
  --- function (body) search ---
 Function rmixSpline in namespace pkmon has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

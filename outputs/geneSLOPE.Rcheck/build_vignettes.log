@@ -1,0 +1,151 @@
+Loading required package: SLOPE
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpaAneMe/R.INSTALL5341683cfe37/geneSLOPE/R/select_snps.R#34: 
+ --- if/while statement is in package --- 
+geneSLOPE
+ --- call (currently evaluated) --- 
+select_snps(clumping.result, fdr = 0.1)
+ --- R stacktrace ---
+where 1: select_snps(clumping.result, fdr = 0.1)
+where 2: eval(expr, envir, enclos)
+where 3: eval(expr, envir, enclos)
+where 4: withVisible(eval(expr, envir, enclos))
+where 5: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 6: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 7: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 8: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 9 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 10: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 11: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 12: block_exec(params)
+where 13 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#6: call_block(x)
+where 14 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#3: process_group.block(group)
+where 15: process_group(group)
+where 16 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 17 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#258: process_file(text, output)
+where 18 at /var/scratch2/tomas/tmp/RtmpiFnhvf/R.INSTALL2032429d4002/rmarkdown/R/render.R#486: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 19 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 20 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 21: engine$weave(file, quiet = quiet, encoding = enc)
+where 22: doTryCatch(return(expr), name, parentenv, handler)
+where 23: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 24: tryCatchList(expr, classes, parentenv, handlers)
+where 25: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 26: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/geneSLOPE.Rcheck/vign_test/geneSLOPE")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function (currently evaluated)--- 
+function(clumpingResult, fdr = 0.1, type=c("slope", "smt"),
+                        lambda="gaussian", sigma=NULL, verbose = TRUE){
+  if(fdr>=1 | fdr <= 0){
+    stop("FDR has to be within range (0,1)")
+  }
+  if(length(clumpingResult$y) != nrow(clumpingResult$X)){
+    stop("Length of y must match
+         number of rows in X")
+  }
+
+  if(type=="slope"){
+    lambda <- SLOPE::create_lambda(length(clumpingResult$y),
+                                   clumpingResult$numberOfSnps, fdr, "gaussian")
+    lambda <- lambda[1:ncol(clumpingResult$X)]
+    lambda_diffs <- diff(lambda)
+    if(any(lambda_diffs==0) & which.min(lambda_diffs==0)==1){
+      warning("All lambdas are equal. SLOPE does not guarantee
+            False Discovery Rate control")
+    }
+
+    if (is.null(sigma) && (nrow(clumpingResult$X) >= ncol(clumpingResult$X) + 30)) {
+      selected = NULL
+      repeat {
+        selected.prev = selected
+        sigma = c(sigma, estimate_noise(clumpingResult$X[, selected], clumpingResult$y))
+        result = SLOPE::SLOPE(clumpingResult$X, clumpingResult$y, fdr = fdr,
+                              lambda = lambda, sigma = tail(sigma, 1))
+        selected = result$selected
+        if (identical(selected, selected.prev))
+          break
+      }
+      sigma = tail(sigma, 1)
+    }
+
+    slopeResult <- SLOPE::SLOPE(X = clumpingResult$X, y = clumpingResult$y,
+                                fdr = fdr, lambda = lambda, sigma = sigma)
+
+    selectedSNPs <- unlist(clumpingResult$SNPnumber)[slopeResult$selected]
+    selected = slopeResult$selected
+    selectedSNPs <- sort(selectedSNPs)
+  } else if(type=="smt"){
+    repPVals = clumpingResult$pVals[clumpingResult$selectedSnpsNumbers]
+    numbClumps = length(clumpingResult$SNPclumps)
+    rejected <- which.min(repPVals<1:numbClumps/clumpingResult$numberOfSnps)-1
+    selectedSNPs <- unlist(clumpingResult$SNPnumber)[1:rejected]
+    selected = 1:rejected
+    selectedSNPs <- sort(selectedSNPs)
+  }
+
+
+  X_selected <- clumpingResult$X_all[,selectedSNPs]
+  if(length(selectedSNPs)==0) {
+    lm.fit.summary <- summary(lm(clumpingResult$y~1))
+  } else {
+    # refitting linear model
+    lm.fit.summary <- summary(lm(clumpingResult$y~scale(X_selected)))
+  }
+
+  result <- structure(
+    list( X = X_selected,
+          effects = lm.fit.summary$coefficients[-1,1],
+          R2 = lm.fit.summary$r.squared,
+          selectedSNPs = selectedSNPs,
+          selectedClumps = clumpingResult$SNPclumps[selected],
+          lambda = lambda,
+          y = clumpingResult$y,
+          clumpRepresentatives = clumpingResult$SNPnumber,
+          clumps = clumpingResult$SNPclumps,
+          X_info = clumpingResult$X_info,
+          X_clumps = clumpingResult$X,
+          X_all = clumpingResult$X_all,
+          selectedSnpsNumbers = clumpingResult$selectedSnpsNumbersScreening[selectedSNPs],
+          clumpingRepresentativesNumbers = clumpingResult$selectedSnpsNumbers,
+          screenedSNPsNumbers = clumpingResult$selectedSnpsNumbersScreening,
+          numberOfSnps = clumpingResult$numberOfSnps,
+          pValMax = clumpingResult$pValMax,
+          fdr = fdr),
+    class="selectionResult")
+  return(result)
+}
+<environment: namespace:geneSLOPE>
+ --- function (body) search ---
+Function select_snps in namespace geneSLOPE has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

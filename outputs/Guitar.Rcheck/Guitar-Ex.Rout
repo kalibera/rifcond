@@ -1,10 +1,189 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Guitar"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('Guitar')
+Loading required package: Rsamtools
+Loading required package: GenomeInfoDb
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
+    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomicRanges
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+Loading required package: GenomicFeatures
+Loading required package: AnnotationDbi
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: rtracklayer
+Loading required package: GenomicAlignments
+Loading required package: SummarizedExperiment
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following objects are masked from ‘package:Biobase’:
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: ‘DelayedArray’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following object is masked from ‘package:Biostrings’:
+
+    type
+
+The following objects are masked from ‘package:base’:
+
+    aperm, apply
+
+Loading required package: ggplot2
+Loading required package: grid
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BED12toGRangesList")
+> ### * BED12toGRangesList
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BED12toGRangesList
+> ### Title: BED12toGRangesList
+> ### Aliases: BED12toGRangesList
+> ### Keywords: bed12 GRangesList
+> 
+> ### ** Examples
+> 
+> bed12=system.file("extdata", "m6A_mm10_exomePeak_1000peaks_bed12.bed", package="Guitar")
+> m6A_HepG2 <- BED12toGRangesList(bed12) 
+[1] "Converting BED12 to GRangesList"
+[1] "It may take a few minutes"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Guitar-package")
+> ### * Guitar-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Guitar-package
+> ### Title: Guitar
+> ### Aliases: Guitar-package Guitar
+> 
+> ### ** Examples
+> 
+> 
+> # read genomic features
+> narrowPeak <- system.file(
++   "extdata", "m6A_hg19_1000peaks_macs2.narrowPeak", 
++   package="Guitar")
+> 
+> # bam imported as GAlignments
+> m6A_Bcell <- narrowPeaktoGRanges(narrowPeak) 
+> 
+> # generate a list of genomic features
+> m6A_Bcell_1 <- m6A_Bcell[1:300]
+> m6A_Bcell_2 <- m6A_Bcell[301:600]
+> m6A_Bcell_3 <- m6A_Bcell[601:900]
+> feature_hg19 <- list(m6A_Bcell_1, m6A_Bcell_2, m6A_Bcell_3) 
+> names(feature_hg19) <- c("m6A_1","m6A_2","m6A_3")
+> 
+> # Make Guitar coordiantes
+> txdb_file <- system.file("extdata", "hg19_toy.sqlite", 
++                          package="Guitar")
+> txdb <- loadDb(txdb_file)
+> gc_txdb <- makeGuitarCoordsFromTxDb(txdb,noBins =10)
+[1] "total 1932 transcripts extracted ..."
+[1] "total 1043 transcripts left after ambiguity filter ..."
+[1] "total 471 mRNAs left after component length filter ..."
+[1] "total 148 ncRNAs left after ncRNA length filter ..."
+[1] "Building Guitar Coordinates. It may take a few minutes ..."
+[1] "Guitar Coordinates Built ..."
+> 
+> 
+> # Plot
+> GuitarPlot(feature_hg19, 
++            GuitarCoordsFromTxDb = gc_txdb)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
 : 
- --- call (function) --- 
+ --- if/while statement is in package --- 
+Guitar
+ --- call (currently evaluated) --- 
 withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
-where 2 at /tmp/RtmpXK2QMR/R.INSTALL2bc913c11a19/Guitar/R/GuitarPlot2.R#17: suppressWarnings(if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & 
+where 2 at /var/scratch2/tomas/tmp/RtmpX8W0n6/R.INSTALLb8bd128eb6a6/Guitar/R/GuitarPlot2.R#17: suppressWarnings(if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & 
     is.na(genome)) {
     stop("Must provide at least one of the three: GuitarCoords, txdb or genome")
 })
@@ -2344,7 +2523,7 @@ where 3: GuitarPlot(feature_hg19, GuitarCoordsFromTxDb = gc_txdb)
 [27961] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [27973] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [27985] FALSE FALSE FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (expr, ...) 
 {
     handlers <- list(...)
@@ -2356,7 +2535,9 @@ function (expr, ...)
         TRUE))
     expr
 }
-<bytecode: 0xe09e588>
+<bytecode: 0x2949b00>
 <environment: namespace:base>
  --- function (body) search ---
 Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

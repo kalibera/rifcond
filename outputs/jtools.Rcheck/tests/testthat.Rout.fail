@@ -1,0 +1,181 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(jtools)
+> 
+> 
+> test_check("jtools")
+── 1. Error: (unknown) (@test-export-summs.R#30)  ──────────────────────────────
+there is no package called 'lme4'
+1: library(lme4, quietly = TRUE) at testthat/test-export-summs.R:30
+2: stop(txt, domain = NA)
+
+── 2. Error: (unknown) (@test-jsumm.R#40)  ─────────────────────────────────────
+there is no package called 'lme4'
+1: library(lme4, quietly = TRUE) at testthat/test-jsumm.R:40
+2: stop(txt, domain = NA)
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpbTXAEm/R.INSTALL60134144d986/jtools/R/gscale.R#285: 
+ --- if/while statement is in package --- 
+jtools
+ --- call (currently evaluated) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- R stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /var/scratch2/tomas/tmp/RtmpbTXAEm/R.INSTALL60134144d986/jtools/R/gscale.R#285: suppressWarnings({
+    if (wname %in% names(d)) {
+        weights <- d[[wname]]
+    }
+    else if (wname2 %in% names(d)) {
+        weights <- d[[wname2]]
+    }
+})
+where 3 at /var/scratch2/tomas/tmp/RtmpbTXAEm/R.INSTALL60134144d986/jtools/R/int_utils.R#377: gscale(x = vars, data = d, center.only = !scale, weights = weights, 
+    n.sd = n.sd)
+where 4 at /var/scratch2/tomas/tmp/RtmpbTXAEm/R.INSTALL60134144d986/jtools/R/int_utils.R#332: center_vals_non_survey(d, weights, facvars, fvars, pred, resp, 
+    modx, mod2, wname, offname, centered, scale, n.sd)
+where 5 at /var/scratch2/tomas/tmp/RtmpbTXAEm/R.INSTALL60134144d986/jtools/R/interact_plot.R#473: center_vals(d = d, weights = wts, facvars = facvars, fvars = fvars, 
+    pred = pred, resp = resp, modx = modx, survey = survey, design = design, 
+    mod2 = mod2, wname = wname, offname = offname, centered = centered, 
+    scale = scale, n.sd = n.sd)
+where 6: interact_plot(model = fit, pred = Murder, modx = Illiteracy, 
+    mod2 = HSGrad, centered = "all")
+where 7 at /var/scratch2/tomas/tmp/RtmpBSpEFw/R.INSTALLd6806e63e92c/rlang/R/eval.R#66: .Call(rlang_eval, expr, env)
+where 8: eval_bare(get_expr(quo), get_env(quo))
+where 9: withVisible(code)
+where 10: withCallingHandlers(withVisible(code), warning = handle_warning, 
+    message = handle_message)
+where 11: force(code)
+where 12 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/evaluate-promise.R#34: withr::with_output_sink(temp, withCallingHandlers(withVisible(code), 
+    warning = handle_warning, message = handle_message))
+where 13 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 14 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expect-output.R#174: quasi_capture(enquo(object), evaluate_promise)
+where 15 at testthat/test-misc.R#22: expect_silent(p <- interact_plot(model = fit, pred = Murder, 
+    modx = Illiteracy, mod2 = HSGrad, centered = "all"))
+where 16: eval(code, test_env)
+where 17: eval(code, test_env)
+where 18: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 19: doTryCatch(return(expr), name, parentenv, handler)
+where 20: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 21: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 22: doTryCatch(return(expr), name, parentenv, handler)
+where 23: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 24: tryCatchList(expr, classes, parentenv, handlers)
+where 25: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 26 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 27 at testthat/test-misc.R#21: test_that("interact_plot works for lm", {
+    expect_silent(p <- interact_plot(model = fit, pred = Murder, 
+        modx = Illiteracy, mod2 = HSGrad, centered = "all"))
+    expect_silent(print(p))
+    expect_silent(p <- interact_plot(model = fit, pred = Murder, 
+        modx = Illiteracy, mod2 = HSGrad, centered = "HSGrad"))
+    expect_silent(print(p))
+})
+where 28: eval(code, test_env)
+where 29: eval(code, test_env)
+where 30: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 31: doTryCatch(return(expr), name, parentenv, handler)
+where 32: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 33: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 34: doTryCatch(return(expr), name, parentenv, handler)
+where 35: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 36: tryCatchList(expr, classes, parentenv, handlers)
+where 37: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 38: test_code(NULL, exprs, env)
+where 39: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 40 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 41: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 42: FUN(X[[i]], ...)
+where 43: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 44 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 45 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 46 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 47 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 48 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 49: test_check("jtools")
+
+ --- value of length: 50 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[49] FALSE FALSE
+ --- function (currently evaluated)--- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x10462d8>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

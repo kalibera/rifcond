@@ -1,0 +1,874 @@
+
+> options(prompt = "R> ", useFancyQuotes = FALSE)
+
+> library("Formula")
+
+> f <- Formula(y ~ x11 + x12 | x21 + x22 | x31 + x32)
+
+> library("mhurdle")
+Loading required package: truncreg
+Loading required package: maxLik
+Loading required package: miscTools
+
+Please cite the 'maxLik' package as:
+Henningsen, Arne and Toomet, Ott (2011). maxLik: A package for maximum likelihood estimation in R. Computational Statistics 26(3), 443-458. DOI 10.1007/s00180-010-0217-1.
+
+If you have questions, suggestions, or comments regarding the 'maxLik' package, please use a forum or 'tracker' at maxLik's R-Forge site:
+https://r-forge.r-project.org/projects/maxlik/
+Loading required package: survival
+Loading required package: texreg
+Version:  1.36.23
+Date:     2017-03-03
+Author:   Philip Leifeld (University of Glasgow)
+
+Please cite the JSS article in your publications -- see citation("texreg").
+
+> data("Interview", package = "mhurdle")
+
+> head(Interview, 3)
+  month size  cu   income       linc      linc2 smsa    sex  race hispanic educ
+1     5    1 1.0 13.37900 -1.2753120 1.62642081  yes female white      yes    7
+2     4    4 2.5 72.40440  0.4132687 0.17079103  yes female white       no   13
+3     8    2 1.7 55.80412  0.1528493 0.02336291  yes female white       no   12
+  age age2 car     food    alcool  housing   apparel transport   health
+1  37 1369   0 1.733333 0.0000000 2.548000 0.0000000  0.000000 0.000000
+2 -11  121   1 5.216000 0.0000000 8.857600 0.2080000  2.667200 2.600000
+3  31  961   3 3.568628 0.5835294 6.316863 0.5976471  2.286275 2.257882
+  entertainment  perscare   reading education tobacco    miscexp  cashcont
+1         0.000 0.0000000 0.0000000         0       0 0.00000000 0.0000000
+2         1.344 0.0640000 0.0000000         0       0 0.00000000 0.0000000
+3         0.680 0.4941176 0.2988235         0       0 0.09411765 0.8117647
+  insurance     shows foodaway vacations
+1    0.0000 0.0000000 0.000000         0
+2    8.8912 0.0800000 3.136000         0
+3    0.0000 0.1176471 1.223529         0
+
+> mean(Interview$shows == 0)
+[1] 0.694
+
+> max(Interview$shows)
+[1] 6.844706
+
+> Sn <- mhurdle(vacations ~ 0 | I(car > 0) + size + 
++     linc + linc2 + age + age2, Interview, dist = "n", h2 = TRUE, 
++     corr = FALSE, method =  .... [TRUNCATED] 
+
+> Sbc <- update(Sn, dist = "bc")
+
+> Sln <- update(Sn, dist = "ln")
+
+> library(texreg)
+
+> texreg(list(Sn, Sbc, Sln), custom.model.names = c("normal tobit", 
++     "log-normal tobit", "box-cox tobit"), caption = "Estimation of one-equation ..." ... [TRUNCATED] 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c }
+\hline
+ & normal tobit & log-normal tobit & box-cox tobit \\
+\hline
+h2.(Intercept)      & $-12.99^{***}$ & $-2.08$  & $-2.30^{**}$ \\
+                    & $(1.54)$       & $(2.44)$ & $(0.72)$     \\
+h2.I(car $>$ 0)TRUE & $1.25$         & $0.24$   & $0.26$       \\
+                    & $(1.04)$       & $(0.23)$ & $(0.18)$     \\
+h2.size             & $1.05^{**}$    & $0.20$   & $0.21^{**}$  \\
+                    & $(0.40)$       & $(0.16)$ & $(0.08)$     \\
+h2.linc             & $5.35^{***}$   & $0.91$   & $0.97^{***}$ \\
+                    & $(0.74)$       & $(0.69)$ & $(0.21)$     \\
+h2.linc2            & $0.23$         & $-0.10$  & $-0.11$      \\
+                    & $(0.68)$       & $(0.16)$ & $(0.15)$     \\
+h2.age              & $-0.01$        & $-0.00$  & $-0.00$      \\
+                    & $(0.03)$       & $(0.01)$ & $(0.01)$     \\
+h2.age2             & $0.00$         & $0.00$   & $0.00$       \\
+                    & $(0.00)$       & $(0.00)$ & $(0.00)$     \\
+sd.sd               & $8.65^{***}$   & $1.50$   & $1.60^{***}$ \\
+                    & $(0.20)$       & $(1.12)$ & $(0.29)$     \\
+tr                  &                & $-0.03$  &              \\
+                    &                & $(0.32)$ &              \\
+pos                 &                & $1.05$   & $0.98^{**}$  \\
+                    &                & $(0.92)$ & $(0.31)$     \\
+\hline
+Num. obs.           & 1000           & 1000     & 1000         \\
+Log Likelihood      & -758.51        & -658.61  & -658.62      \\
+\hline
+\multicolumn{4}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+\end{tabular}
+\caption{Estimation of one-equation models}
+\label{tab:oneq}
+\end{center}
+\end{table}
+
+> Stn <- mhurdle(foodaway ~ size + smsa + age + age2 | 
++     linc + linc2, Interview, dist = "n", h2 = FALSE, corr = FALSE, 
++     method = "bhhh", p .... [TRUNCATED] 
+
+> Sbc <- update(Stn, dist = "bc")
+
+> Sln <- update(Stn, dist = "ln")
+
+> Slnd <- update(Sln, corr = TRUE)
+
+> coef(summary(Slnd), "corr")
+       Estimate Std. Error   t-value Pr(>|t|)
+corr -0.8735068 0.03420676 -25.53609        0
+
+> texreg(list(Stn, Sln, Sbc), custom.model.names = c("truncated-normal", 
++     "log-normal", "box-cox"), caption = "Estimation of single hurdle selec ..." ... [TRUNCATED] 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c }
+\hline
+ & truncated-normal & log-normal & box-cox \\
+\hline
+h1.(Intercept) & $0.64^{***}$ & $0.64^{***}$ & $0.64^{***}$ \\
+               & $(0.16)$     & $(0.16)$     & $(0.16)$     \\
+h1.size        & $0.02$       & $0.02$       & $0.02$       \\
+               & $(0.04)$     & $(0.04)$     & $(0.04)$     \\
+h1.smsayes     & $0.35^{**}$  & $0.35^{**}$  & $0.35^{**}$  \\
+               & $(0.13)$     & $(0.13)$     & $(0.13)$     \\
+h1.age         & $-0.01^{*}$  & $-0.01^{*}$  & $-0.01^{*}$  \\
+               & $(0.00)$     & $(0.00)$     & $(0.00)$     \\
+h1.age2        & $-0.00$      & $-0.00$      & $-0.00$      \\
+               & $(0.00)$     & $(0.00)$     & $(0.00)$     \\
+h2.(Intercept) & $-19.12^{*}$ & $0.12^{***}$ & $0.16^{***}$ \\
+               & $(9.33)$     & $(0.04)$     & $(0.04)$     \\
+h2.linc        & $20.30^{**}$ & $0.70^{***}$ & $0.72^{***}$ \\
+               & $(7.88)$     & $(0.05)$     & $(0.04)$     \\
+h2.linc2       & $-4.99$      & $-0.01$      & $0.01$       \\
+               & $(2.59)$     & $(0.05)$     & $(0.05)$     \\
+sd.sd          & $5.86^{***}$ & $0.86^{***}$ & $0.86^{***}$ \\
+               & $(1.23)$     & $(0.02)$     & $(0.02)$     \\
+tr             &              &              & $0.08^{**}$  \\
+               &              &              & $(0.03)$     \\
+\hline
+Num. obs.      & 1000         & 1000         & 1000         \\
+Log Likelihood & -1550.64     & -1505.17     & -1500.78     \\
+\hline
+\multicolumn{4}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+\end{tabular}
+\caption{Estimation of single hurdle selection models}
+\label{tab:sep}
+\end{center}
+\end{table}
+
+> ptobit <- mhurdle(apparel ~ 0 | linc + linc2 | factor(month) + 
++     smsa, Interview, corr = TRUE, dist = "ln", h2 = FALSE, method = "bhhh")
+
+> H3D <- mhurdle(shows ~ educ + size | linc + linc2 | 
++     age + age2 + smsa, Interview, dist = "ln", h2 = TRUE, corr = TRUE, 
++     method = "bhhh" .... [TRUNCATED] 
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpdYBn3R/R.INSTALL66335e304a8a/mhurdle/R/mhurdle.lnl.R#252: 
+ --- if/while statement is in package --- 
+mhurdle
+ --- call (currently evaluated) --- 
+mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y, 
+    gradient = TRUE, fitted = FALSE, dist = dist, corr = corr, 
+    robust = robust)
+ --- R stacktrace ---
+where 1: mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y, 
+    gradient = TRUE, fitted = FALSE, dist = dist, corr = corr, 
+    robust = robust)
+where 2: fnOrig(theta, ...)
+where 3: fn(start1, fixed = fixed, sumObs = TRUE, returnHessian = returnHessian, 
+    ...)
+where 4: maxNRCompute(fn = function (theta, fnOrig, gradOrig = NULL, hessOrig = NULL, 
+    fixed, sumObs = FALSE, returnHessian = TRUE, ...) 
+{
+    nParam <- length(theta)
+    f <- fnOrig(theta, ...)
+    if (any(is.na(f))) {
+        attr(f, "gradient") <- NA
+        attr(f, "hessian") <- NA
+        return(f)
+    }
+    gr <- attr(f, "gradient")
+    if (is.null(gr)) {
+        if (!is.null(gradOrig)) {
+            gr <- gradOrig(theta, ...)
+        }
+        else {
+            gr <- numericGradient(f = fnOrig, t0 = theta, fixed = fixed, 
+                ...)
+        }
+    }
+    if (is.matrix(gr)) {
+        activeGr <- gr[, !fixed]
+    }
+    else {
+        activeGr <- gr[!fixed]
+    }
+    if (any(is.na(activeGr))) {
+        attr(f, "gradient") <- gr
+        attr(f, "hessian") <- NA
+        return(f)
+    }
+    if (observationGradient(gr, length(theta))) {
+        gr <- as.matrix(gr)
+    }
+    if (is.null(dim(gr))) {
+        gr[fixed] <- NA
+    }
+    else {
+        gr[, fixed] <- NA
+    }
+    if (isTRUE(returnHessian)) {
+        h <- attr(f, "hessian")
+        if (is.null(h)) {
+            if (!is.null(hessOrig)) {
+                h <- as.matrix(hessOrig(theta, ...))
+            }
+            else {
+                llFunc <- function(theta, ...) {
+                  return(sum(fnOrig(theta, ...)))
+                }
+                if (!is.null(attr(f, "gradient"))) {
+                  gradFunc <- function(theta, ...) {
+                    return(sumGradients(attr(fnOrig(theta, ...), 
+                      "gradient"), nParam))
+                  }
+                }
+                else if (!is.null(gradOrig)) {
+                  gradFunc <- function(theta, ...) {
+                    return(sumGradients(gradOrig(theta, ...), 
+                      nParam))
+                  }
+                }
+                else {
+                  gradFunc <- NULL
+                }
+                h <- numericHessian(f = llFunc, grad = gradFunc, 
+                  t0 = theta, fixed = fixed, ...)
+            }
+        }
+        if ((dim(h)[1] != nParam) | (dim(h)[2] != nParam)) {
+            stop("Wrong hessian dimension.  Needed ", nParam, 
+                "x", nParam, " but supplied ", dim(h)[1], "x", 
+                dim(h)[2])
+        }
+        else {
+            h[fixed, ] <- NA
+            h[, fixed] <- NA
+        }
+    }
+    else if (tolower(returnHessian) == "bhhh") {
+        h <- NULL
+        if (is.null(dim(gr)) & any(is.na(gr[!fixed]))) {
+            h <- NA
+        }
+        else if (is.matrix(gr)) {
+            if (any(is.na(gr[, !fixed]))) {
+                h <- NA
+            }
+        }
+        if (is.null(h)) {
+            checkBhhhGrad(g = gr, theta = theta, analytic = (!is.null(attr(f, 
+                "gradient")) || !is.null(gradOrig)), fixed = fixed)
+            h <- -crossprod(gr)
+        }
+        attr(h, "type") = "BHHH"
+    }
+    else {
+        h <- NULL
+    }
+    if (sumObs) {
+        f <- sumKeepAttr(f)
+    }
+    if (sumObs) {
+        gr <- sumGradients(gr, nParam)
+    }
+    if (!is.null(gradOrig) && !is.null(attr(f, "gradient"))) {
+        attr(f, "gradBoth") <- TRUE
+    }
+    if (!is.null(hessOrig) && !is.null(attr(f, "hessian"))) {
+        attr(f, "hessBoth") <- TRUE
+    }
+    attr(f, "gradient") <- gr
+    attr(f, "hessian") <- h
+    return(f)
+}, fnOrig = function (param) 
+mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y, 
+    gradient = TRUE, fitted = FALSE, dist = dist, corr = corr, 
+    robust = robust), start = c(`h1.(Intercept)` = -3.00130203175718, 
+h1.educ = 0.149838957101748, h1.size = 0.170724376523513, `h2.(Intercept)` = 1.45512772640376, 
+h2.linc = 1.66238569259668, h2.linc2 = 0.919820821568856, `h3.(Intercept)` = -0.821454249837909, 
+h3.age = -0.0146865513422303, h3.age2 = -0.000321478650856463, 
+h3.smsayes = 0.424415688695236, sd = 1.17730457141603, corr12 = 0.158384440324536, 
+corr13 = 0.158384440324536, corr23 = 0.158384440324536, mu = 1
+), finalHessian = "BHHH", bhhhHessian = TRUE, fixed = c(`h1.(Intercept)` = FALSE, 
+h1.educ = FALSE, h1.size = FALSE, `h2.(Intercept)` = FALSE, h2.linc = FALSE, 
+h2.linc2 = FALSE, `h3.(Intercept)` = FALSE, h3.age = FALSE, h3.age2 = FALSE, 
+h3.smsayes = FALSE, sd = FALSE, corr12 = FALSE, corr13 = FALSE, 
+corr23 = FALSE, mu = FALSE), control = new("MaxControl", tol = 1e-08, 
+    reltol = 1.49011611938477e-08, gradtol = 1e-06, steptol = 1e-10, 
+    lambdatol = 1e-06, qrtol = 1e-10, qac = "stephalving", marquardt_lambda0 = 0.01, 
+    marquardt_lambdaStep = 2, marquardt_maxLambda = 1e+12, nm_alpha = 1, 
+    nm_beta = 0.5, nm_gamma = 2, sann_cand = NULL, sann_temp = 10, 
+    sann_tmax = 10L, sann_randomSeed = 123L, iterlim = 150L, 
+    printLevel = 0L))
+where 5: eval(as.call(cl))
+where 6: eval(as.call(cl))
+where 7: maxNR(fn = fn, grad = grad, hess = hess, start = start, finalHessian = finalHessian, 
+    bhhhHessian = TRUE, ...)
+where 8: maxRoutine(fn = logLik, grad = grad, hess = hess, start = start, 
+    constraints = constraints, ...)
+where 9: maxLik(f, start = start, ...)
+where 10: mhurdle.fit(start, X1, X2, X3, X4, y, gradient = TRUE, dist = dist, 
+    corr = corr, robust = robust, fitted = fitted, ...)
+where 11: mhurdle(shows ~ educ + size | linc + linc2 | age + age2 + smsa, 
+    Interview, dist = "ln", h2 = TRUE, corr = TRUE, method = "bhhh")
+where 12: eval(ei, envir)
+where 13: eval(ei, envir)
+where 14: withVisible(eval(ei, envir))
+where 15: source(output, echo = TRUE)
+where 16: doTryCatch(return(expr), name, parentenv, handler)
+where 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 18: tryCatchList(expr, classes, parentenv, handlers)
+where 19: tryCatch({
+    source(output, echo = TRUE)
+}, error = function(e) {
+    cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
+    stop(conditionMessage(e), call. = FALSE, domain = NA)
+})
+where 20: tools:::.run_one_vignette("mhurdle.rnw", "/var/scratch2/tomas/test/mine/R-ifc4/check/mhurdle.Rcheck/00_pkg_src/mhurdle/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-ifc4/check/mhurdle.Rcheck/00_pkg_src/mhurdle")
+
+ --- value of length: 1000 type: logical ---
+   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [217] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [229] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [241] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [253] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [265] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [277] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [289] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [301] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [313] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [325] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [337] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [349] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [361] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [373] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [385] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [397] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [409] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [421] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [433] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [445] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [457] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [469] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [481] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [493] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [505] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [517] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [529] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [541] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [553] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [565] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [577] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [589] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [601] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [613] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [625] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [637] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [649] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [661] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [673] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [685] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [697] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [709] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [721] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [733] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [745] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [757] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [769] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [781] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [793] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [805] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [817] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [829] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [841] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [853] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [865] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [877] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [889] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [901] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [913] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [925] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [937] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [949] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [961] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [973] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [985] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [997] FALSE FALSE FALSE FALSE
+ --- function (currently evaluated)--- 
+function(param, X1, X2, X3, X4, y, gradient = FALSE,
+                        fitted = FALSE, dist = NULL, corr = FALSE, robust = TRUE){
+#    otime <- proc.time()
+    if (robust){
+        frho <- function(x) atan(x) * 2 / pi
+        grho <- function(x) 2 / pi / (1 +  x ^ 2)
+        fmu <- function(x) exp(x)
+        gmu <- function(x) exp(x)
+        fsd <- function(x) exp(x)
+        gsd <- function(x) exp(x)
+    }
+    else{
+        frho <- function(x) x
+        grho <- function(x) rep(1, length(x))
+        fmu <- function(x) x
+        gmu <- function(x) 1
+        fsd <- function(x) x
+        gsd <- function(x) 1
+    }
+
+    N <- length(y)
+    
+    #  dummies for the existing equations hi and number of
+    #  coefficients Ki
+    h1 <- ! is.null(X1) ;  K1 <- ifelse(h1, ncol(X1), 0)
+    h3 <- ! is.null(X3) ;  K3 <- ifelse(h3, ncol(X3), 0)
+    h4 <- ! is.null(X4) ;  K4 <- ifelse(h4, ncol(X4), 0)
+    # KR is either 1 (h1 or h3) or 3 (h1 and h3)
+    KR <- ifelse(corr, h1 + h3 + h1 * h3, 0)
+    K2 <- ncol(X2)
+    # shape and scale parameters for box-cox and ihs transformations
+    if (dist %in% c("ln2", "bc", "bc2", "ihs")){
+        lambda <- param[K1 + K2 + K3 + 1 + K4 + KR + 1]
+        if (dist %in% c("bc2", "ln2")){
+            if (dist == "bc2") posmu <- K1 + K2 + K3 + 1 + K4 + KR + 2
+            else posmu <- K1 + K2 + K3 + 1 + K4 + KR + 1
+            mu <- fmu(param[posmu])
+            gradientmu <- gmu(param[posmu])
+        }
+        if (dist == "bc") mu <- 0
+    }
+    if (dist %in% c("bc", "bc2")) sgn <- sign(lambda) else sgn <- + 1
+    if (dist == "ln") mu <- 0
+    # equation 1
+    if (h1){
+        beta1 <- param[1:K1]
+        bX1 <- as.numeric(crossprod(t(X1), beta1))
+        Phi1 <- pnorm(bX1) ; phi1 <- dnorm(bX1)
+        Phi1 <- sanitize(Phi1, string = c("Phi1", "mhurdle.lnl"),
+                         verbal = FALSE, replace = TRUE)
+    }
+    else{
+        bX1 <- Inf ; beta1 <- NULL
+        Phi1 <- 1 ; phi1 <- 0;
+    }
+
+    # equation 2
+    beta2 <- param[(K1 + 1):(K1 + K2)]
+    bX2 <- as.numeric(crossprod(t(X2), beta2))
+
+    # equation 3
+    if (h3){
+        beta3 <- param[(K1 + K2 + 1):(K1 + K2 + K3)]
+        bX3 <- as.numeric(crossprod(t(X3), beta3))
+        Phi3 <- pnorm(bX3) ; phi3 <- dnorm(bX3)
+        Phi3 <- sanitize(Phi3, string = c("Phi3", "mhurdle.lnl"),
+                         verbal = FALSE, replace = TRUE)
+    }
+    else{
+        bX3 <- Inf ; beta3 <- NULL
+        Phi3 <- 1 ; phi3 <- 0
+    }
+
+    # standard deviation
+    sd <- param[K1 + K2 + K3 + 1]
+    gradientsd <- gsd(sd)
+    sd <- fsd(sd)
+    # equation 4
+    if (h4){
+        beta4 <- param[(K1 + K2 + K3 + 2):(K1 + K2 + K3 + K4 + 1)]
+        bX4 <- as.numeric(crossprod(t(X4), beta4))
+        pbX4 <- pnorm(bX4)
+        sigma <- sd * pbX4
+    }
+    else{
+        sigma <- sd
+        pbX4 <- 1
+    }
+
+    # correlation coefficients
+    if (corr){
+        posrho <- (K1 + K2 + K3 + K4 + 2):(K1 + K2 + K3 + K4 + 1 + KR)
+        rho <- param[posrho]
+        # In case of only one correlation coefficient, use the whole
+        # vector with only one non-null component
+        if (h1 & ! h3) rho <- c(rho, 0, 0)
+        if (! h1 & h3) rho <- c(0, 0, rho)
+        gradientrho <- grho(rho)
+        rho <- frho(rho)
+        if (h1 & h3){
+            # In case of a trivariate normal distribution, check the
+            # joint relation of the three coefficients
+            rho3 <- function(rho) rho[1] * rho[2] + c(-1, 1) *
+                sqrt(1 + rho[1] ^ 2 * rho[2] ^ 2 - rho[1] ^ 2 - rho[2] ^ 2)
+            if (rho[3] < rho3(rho)[1]) rho[3] <- rho3(rho)[1] + 1E-04 
+            if (rho[3] > rho3(rho)[2]) rho[3] <- rho3(rho)[2] - 1E-04
+        }
+    }
+    else rho <- rep(0, 3)
+    # Transformation of the dependent variable
+    Ty <- switch(dist,
+                 "ln"  = log2(y) + log(Phi3),
+                 "ln2" = log2(y * Phi3 + mu),
+                 "bc"  = (exp(lambda * log(y * Phi3)) - 1) / lambda,
+                 "bc2" = (exp(lambda * log(y * Phi3 + mu)) - 1) / lambda,
+                 "ihs" = log(lambda * y * Phi3 + sqrt(1 + (lambda  * y * Phi3) ^ 2)) / lambda,
+                 y * Phi3
+                 )
+    
+    # logarithm of the jacobian
+    lnJ <- switch(dist,
+                  "ln"  = - log2(y),
+                  "ln2" = log(Phi3) - log(mu + Phi3 * y),
+                  "bc"  = (lambda - 1) * log2(y) + lambda * log(Phi3),
+                  "bc2" = (lambda - 1) * log(Phi3 * y + mu) + log(Phi3),
+                  "ihs" = - 0.5 * log(1 + (lambda * Phi3 * y) ^ 2) + log(Phi3),
+                  log(Phi3)
+                  )
+    
+    # derivative of lnJ respective with lambda
+    lnJlb <- switch(dist,
+                    "bc"  = log2(y) + log(Phi3),
+                    "bc2" = log(Phi3 * y + mu),
+                    "ihs" = - lambda * y ^ 2 * Phi3 ^ 2 / (1 + (lambda * y * Phi3) ^ 2)
+                    )
+
+    # derivative of lnJ respective with mu
+    if (dist == "ln2") lnJmu <- - 1 / (mu + Phi3 * y)
+    if (dist == "bc2") lnJmu <- (lambda - 1) / (Phi3 * y + mu)
+    
+    # the  residual of the consumption equation
+    resid <- (Ty - bX2)
+    # problem with bc and lambda < 0, for y = 0, resid = -inf and
+    # log(dnorm(resid)) = -inf
+    resid[y == 0] <- 0
+
+
+    # The opposite of the correspondant z values are then computed
+
+    mzn <- + Inf
+    if (dist %in% c("bc", "bc2") && lambda > 0) mzn <- (1 / lambda + bX2) / sigma
+    if (dist == "tn") mzn <- - bX2 / sigma
+    # A verifier
+    if (dist == "tn") mzn <- bX2 / sigma
+
+    mzx <- - Inf
+    if (dist %in% c("bc", "bc2") && lambda < 0) mzx <- (1 / lambda + bX2) / sigma
+    
+    mz0 <- + Inf
+    if (dist == "bc2") mz0 <- ( - (mu ^ lambda - 1) / lambda + bX2) / sigma
+    if (dist == "bc" && lambda > 0)  mz0 <- (1 / lambda + bX2) / sigma
+    if (dist == "ln2") mz0 <- (bX2 - log(mu)) / sigma
+    if (dist %in% c("n", "tn")) mz0 <- bX2 / sigma
+    
+    
+    # compute the relevant bivariate and trivariate cumulative normals
+    if (h1) arg1 <- (bX1 + rho[1] * resid / sigma) / sqrt(1 - rho[1] ^ 2) else arg1 <- Inf
+    if (h3) arg3 <- (bX3 + rho[3] * resid / sigma) / sqrt(1 - rho[3] ^ 2) else arg3 <- Inf
+    Pr123A <- PHI3(bX1, mz0, bX3, rho)
+    Pr123B <- PHI3(bX1, mzx, bX3, rho)
+    
+    Pr13 <- PHI2(arg1, arg3,
+                 (rho[2] - rho[1] * rho[3]) / sqrt(1 - rho[1] ^ 2) / sqrt(1 - rho[3] ^ 2)
+                 )
+    Pr13$f <- sanitize(Pr13$f, string = c("Pr13", "mhurdle.ln"),
+                       verbal = FALSE, replace = TRUE)
+    # PI is the correction of the truncature
+    PI <- punorm(mzn) - punorm(mzx)
+    Pplus <- (Pr123A$f - Pr123B$f) / PI
+    Numerator <- PI - Pr123A$f + Pr123B$f
+    lnL.null <- log(Numerator) - log(PI)
+    lnL.null[y != 0] <- 0
+    lnL.pos <-
+        - log(sigma) +
+            dnorm(resid / sigma, log = TRUE) +
+                log(Pr13$f) +
+                    lnJ - log(PI)
+    lnL.pos[y == 0] <- 0    
+    lnL <- lnL.null * (y == 0) + lnL.pos * (y != 0)
+    
+    if (any(is.na(lnL) | is.infinite(lnL))){
+        warnings("infinite or missing values of lnLi")
+    }
+
+    if (gradient){
+        gradi <- c()
+        
+        # derivatives respective to beta1
+        if (h1){
+            lnL.beta1 <- (y == 0) * ( (- Pr123A$d1 + Pr123B$d1) / Numerator) +
+                (y != 0) * ( Pr13$d1 / sqrt(1 - rho[1] ^ 2) / Pr13$f)
+            gradi <- cbind(gradi, lnL.beta1 * X1)
+        }
+
+
+        # derivatives respective to beta2
+        PI2 <-  (dnorm(mzn) - dnorm(mzx) ) / sigma
+        lnL.beta2 <- (y == 0) * ( (PI2 - Pr123A$d2 / sigma + Pr123B$d2 / sigma) / Numerator -
+                                     PI2 / PI) +
+            (y != 0) * ( resid / sigma ^ 2 -
+                            ( Pr13$d1 * rho[1] / sigma / sqrt(1 - rho[1] ^ 2) +
+                                 Pr13$d2 * rho[3] / sigma / sqrt(1 - rho[3] ^ 2) ) / Pr13$f -
+                                     PI2 / PI)
+        gradi <- cbind(gradi, lnL.beta2 * X2)
+        
+        # derivatives respective to beta3
+        if (h3){
+            # derivative of T(Phi3 y) with bX3
+            Ty3 <- switch(dist,
+                          "ln" = mills(bX3),
+                          "ln2" = y * phi3 / (mu + y * Phi3),
+                          "bc" = exp(lambda * log(y * Phi3)) * mills(bX3),
+                          "bc2" = exp((lambda - 1) * log(y * Phi3 + mu)) * phi3 * y,
+                          "ihs" = y * phi3 / sqrt( 1 + (lambda * y * Phi3) ^ 2),
+                          y * phi3
+                          )
+            # derivative of lnJ with bX3
+            lnJ3 <- switch(dist,
+                           "ln" = 0,
+                           "ln2" = mills(bX3) - y * phi3 / (mu + y * Phi3),
+                           "bc" = lambda * mills(bX3),
+                           "bc2" = (lambda - 1) * phi3 * y / (Phi3 * y + mu) + mills(bX3),
+                           "ihs" = - phi3 * Phi3 * lambda ^ 2 * y ^ 2 /
+                               (1 + (lambda * y * Phi3) ^ 2) + mills(bX3),
+                           mills(bX3)
+                          )
+            
+            lnL.beta3 <- (y == 0) * (- Pr123A$d3 + Pr123B$d3) / Numerator + 
+                (y != 0) * (- resid / sigma ^ 2 * Ty3 +
+                                ( Pr13$d1 * Ty3 * rho[1] / sigma / sqrt(1 - rho[1] ^ 2) +
+                                     Pr13$d2 * (1 + Ty3 * rho[3] / sigma) /
+                                         sqrt(1 - rho[3] ^ 2) ) / Pr13$f +
+                                             lnJ3
+                            )
+            gradi <- cbind(gradi, lnL.beta3 * X3)
+        }
+        
+        # derivatives respective to sigma
+        # PI is only relevant for truncated normal and box-cox transformation
+        PIs <- 0
+        Pr123Bs <- 0
+        if (is.infinite(mz0)) Pr123As <- 0 else Pr123As <- Pr123A$d2 * (- mz0 / sigma)
+        if (dist == "tn" | (dist %in% c("bc", "bc2") && lambda > 0)) PIs <- PIs + dnorm(mzn) * (- mzn / sigma)
+        if (dist %in% c("bc", "bc2") && lambda < 0){
+            PIs <- PIs - dnorm(mzx) * (- mzx / sigma)
+            Pr123Bs <- Pr123B$d2 * (- mzx / sigma)
+        }
+        lnL.sigma <- (y == 0) * ( (PIs - Pr123As + Pr123Bs) / Numerator - PIs / PI) +
+            (y != 0) * (- 1 / sigma + resid ^ 2 / sigma ^ 3 +
+                            ( - Pr13$d1 * rho[1] * resid / sigma ^ 2 / sqrt(1 - rho[1] ^ 2) -
+                                 Pr13$d2 * rho[3] * resid / sigma ^ 2 /
+                                     sqrt(1 - rho[3] ^ 2))  / Pr13$f -
+                                         PIs / PI)
+        gradi <- cbind(gradi, sigma = lnL.sigma * pbX4  * gradientsd)
+        
+        # derivatives respective to beta4
+        if (!is.null(X4)){
+            gradi <- cbind(gradi,  lnL.sigma * sd * dnorm(bX4) * X4)
+        }
+        
+        # derivatives respective to rho
+        if (corr){
+            if (h1 & ! h3){
+                Pr123A$dr <- cbind(Pr123A$dr, 0, 0)
+                Pr123B$dr <- cbind(Pr123B$dr, 0, 0)
+            }
+            if (! h1 & h3){
+                Pr123A$dr <- cbind(0, 0, Pr123A$dr)
+                Pr123B$dr <- cbind(0, 0, Pr123B$dr)
+            }
+            if ( (h1 & h3) & !is.matrix(Pr123A$dr) ) Pr123A$dr <- cbind(0, Pr123A$dr, 0)
+
+            if (length(Pr123B$dr) == 1 && Pr123B$dr == 0) Pr123B$dr <- cbind(0, 0, 0)
+            lnL.rho <- c()
+            if (h1){
+                Drho12 <- (rho[1] * rho[2] - rho[3]) /
+                    (1 - rho[1] ^ 2) ^ 1.5  / sqrt(1 - rho[3] ^ 2)
+                lnL.rho12 <- (y == 0) * (- Pr123A$dr[, 1] + Pr123B$dr[, 1]) / Numerator  +
+                    (y != 0) * ( Pr13$d1 * (resid / sigma + rho[1] / (1 - rho[1] ^ 2) *
+                                                (bX1 + rho[1] * resid / sigma) ) /
+                                    (1 - rho[1] ^ 2) ^ 0.5 +
+                                        Pr13$dr * Drho12) / Pr13$f
+                lnL.rho <- cbind(lnL.rho, lnL.rho12 * gradientrho[1])
+            }
+            if (h1 & h3){
+                Drho13 <- 1 / sqrt(1 - rho[1] ^ 2) / sqrt(1 - rho[3] ^ 2)
+                lnL.rho13 <- (y == 0) * (- Pr123A$dr[, 2] + Pr123B$dr[, 2]) / Numerator  +
+                    (y != 0) * ( Pr13$dr * Drho13) / Pr13$f
+                lnL.rho <- cbind(lnL.rho, lnL.rho13 * gradientrho[2])
+            }
+            if (h3){
+                Drho23 <- (rho[3] * rho[2] - rho[1]) /
+                    (1 - rho[3] ^ 2) ^ 1.5  / sqrt(1 - rho[1] ^ 2)
+                lnL.rho23 <- (y == 0) * (- Pr123A$dr[, 3] + Pr123B$dr[, 3]) / Numerator  +
+                    (y != 0) * ( Pr13$d2 * (resid / sigma + rho[3] / (1 - rho[3] ^ 2) *
+                                                (bX3 + rho[3] * resid / sigma) ) /
+                                    (1 - rho[3] ^ 2) ^ 0.5 +
+                                        Pr13$dr * Drho23) / Pr13$f
+                lnL.rho <- cbind(lnL.rho, lnL.rho23 * gradientrho[3])
+            }
+            gradi <- cbind(gradi, lnL.rho)
+        }
+        # derivative respective to lambda
+        if (dist %in% c("bc", "bc2")){
+            Tylb <- (log(Phi3 * y + mu) * (Phi3 * y + mu) ^ lambda - Ty) / lambda
+            if (mu == 0) T0lb <- ( 1 / lambda ^ 2 * (lambda > 0) + 0 * (lambda < 0))
+            else T0lb <- (log(mu) * mu ^ lambda - (mu ^ lambda - 1) / lambda) / lambda
+            Tymaxlb <- 0 * (lambda > 0) + (1 / lambda ^ 2) * (lambda < 0)
+            PIl <- - sign(lambda) * dnorm( (bX2 + 1 / lambda) / sigma ) / (sigma * lambda ^ 2)
+            lnL.lambda <- vector(mode = "numeric", length = length(y))
+            
+            lnL.lambda[y == 0] <- ( (PIl - Pr123A$d2 * (- T0lb /  sigma) + Pr123B$d2 *
+                                         (- Tymaxlb / sigma)) / Numerator - PIl / PI)[y == 0]
+
+            
+            lnL.lambda[y > 0] <- ( (- resid / sigma ^ 2 +
+                                        (Pr13$d1 * rho[1] / sqrt(1 - rho[1] ^ 2) / sigma +
+                                             Pr13$d2 * rho[3] / sqrt(1 - rho[3] ^ 2) / sigma) / Pr13$f ) *
+                                      Tylb + lnJlb - PIl / PI)[y > 0]
+            gradi <- cbind(gradi, tr = lnL.lambda)
+        }
+
+        if (dist == "bc2"){
+            Tymu <- (Phi3 * y + mu) ^ (lambda - 1)
+            T0mu <- mu ^ (lambda - 1)
+            lnL.mu <- vector(mode = "numeric", length = length(y))
+            lnL.mu[y == 0] <- (- Pr123A$d2 * (- T0mu / sigma) / Numerator)[y == 0]
+            lnL.mu[y > 0] <- (( - resid / sigma ^ 2 +
+                                   (Pr13$d1 * rho[1] / sqrt(1 - rho[1] ^ 2) / sigma +
+                                        Pr13$d2 * rho[3] / sqrt(1 - rho[3] ^ 2) / sigma) / Pr13$f
+                               ) * Tymu + lnJmu)[y != 0]
+            gradi <- cbind(gradi, mu = lnL.mu * gradientmu)
+        }
+
+        if (dist == "ihs"){
+            Tylb <- (y * Phi3) / lambda / sqrt(1 + (lambda * y * Phi3) ^ 2) - Ty / lambda
+            lnL.lambda <- vector(mode = "numeric", length = length(y))
+            ## lnL.lambda[y != 0] <- (( -resid / sigma ^ 2 +  mills(z1$f) * rho1 / sigma / sqrt(1 - rho1 ^ 2) +
+            ##                             mills(z3$f) * rho3 / sigma / sqrt(1 - rho3 ^ 2) ) * Tylb + lnJlb)[y != 0]
+            lnL.lambda[y != 0]
+            gradi <- cbind(gradi, lnL.lambda)
+        }
+        
+        if (dist == "ln2"){
+            Tymu <- 1 / (mu + Phi3 * y)
+            T0mu <- 1 / mu
+            lnL.mu <- vector(mode = "numeric", length = length(y))
+            lnL.mu[y == 0] <- ( - Pr123A$d2 * (- T0mu / sigma ) / Numerator)[y == 0]
+            lnL.mu[y != 0] <- (( - resid / sigma ^ 2 +
+                                    (Pr13$d1 * rho[1] / sqrt(1 - rho[1] ^ 2) / sigma +
+                                         Pr13$d2 * rho[3] / sqrt(1 - rho[3] ^ 2) / sigma) / Pr13$f
+                                ) * Tymu + lnJmu)[y != 0]
+            gradi <- cbind(gradi, mu = lnL.mu * gradientmu)
+        }
+
+        if (any(is.na(gradi))) gradi[is.na(gradi)] <- 0
+        attr(lnL, "gradient") <- gradi
+    }
+    if (fitted){
+        if (dist %in% c("bc", "bc2")){
+            if (length(mzn) == 1) mzn <- rep(mzn, length(y))
+            if (length(mzx) == 1) mzx <- rep(mzx, length(y))
+            if (length(Phi3) == 1) Phi3 <- rep(Phi3, length(y))
+            if (length(Phi1) == 1) Phi1 <- rep(Phi1, length(y))
+            
+            resid <- function(z, index){
+                switch(dist,
+                       "ln"  = log2(z) + log(Phi3[index]),
+                       "ln2" = log2(z * Phi3[index] + mu),
+                       "bc"  = (exp(lambda * log(z * Phi3[index])) - 1) / lambda,
+                       "bc2" = (exp(lambda * log(z * Phi3[index] + mu)) - 1) / lambda,
+                       "ihs" = log(lambda * z * Phi3[index] + sqrt(1 + (lambda  * z * Phi3[index]) ^ 2)) / lambda,
+                       z * Phi3[index]
+                       ) - bX2[index]
+            }
+            lnJ <- function(z, index){
+                switch(dist,
+                       "ln"  = - log2(z),
+                       "ln2" = log(Phi3[index]) - log(mu + Phi3[index] * z),
+                       "bc"  = (lambda - 1) * log2(z) + lambda * log(Phi3[index]),
+                       "bc2" = (lambda - 1) * log(Phi3[index] * z + mu) + log(Phi3[index]),
+                       "ihs" = - 0.5 * log(1 + (lambda * Phi3[index] * z) ^ 2) + log(Phi3[index]),
+                       log(Phi3[index])
+                       )
+            }
+            
+            arg1 <- function(z, index) if (h1) (bX1[index] + rho[1] * resid(z, index) / sigma) / sqrt(1 - rho[1] ^ 2) else Inf
+            arg3 <- function(z, index) if (h3) (bX3[index] + rho[3] * resid(z, index) / sigma) / sqrt(1 - rho[3] ^ 2) else Inf
+            Pr13 <- function(z, index) PHI2(arg1(z, index), arg3(z, index),
+                                            (rho[2] - rho[1] * rho[3]) / sqrt(1 - rho[1] ^ 2) / sqrt(1 - rho[3] ^ 2))$f
+            # Pbnorm plante et pas PHI2        
+            PI <- function(index) punorm(mzn[index]) - punorm(mzx[index])
+            fplus <- function(z, index){
+                x <- z * exp(- log(sigma) + dnorm(resid(z, index) / sigma, log = TRUE) + log(Pr13(z, index)) + lnJ(z, index) - log(PI(index)))
+                x
+            }        
+            if (dist %in% c("bc", "bc2") && lambda < 0) maxint <- max(y) * 3
+            else maxint <- +Inf
+            E <- sapply(seq_len(length(y)), function(i) integrate(function(x) fplus(x, i), 0, maxint)$value)
+        }
+
+        if (dist %in% c("ln", "ln2")){
+            if (h1) arg1 <- bX1 + rho[1] * sigma else arg1 <- + Inf
+            if (h3) arg3 <- bX3 + rho[3] * sigma else arg3 <- + Inf
+            E <- exp(bX2 + 0.5 * sigma ^ 2) / Phi3 * ptnorm(arg1, mz0 + sigma, arg3, rho) / Pplus -
+                mu / Phi3
+        }
+        if (dist %in% c("n", "tn")){
+            phi2 <- dnorm(bX2 / sigma)
+            phi1 <- dnorm(bX1)
+            phi3 <- dnorm(bX3)
+            Pr13 <- pbnorm((bX1 - rho[1] * bX2 / sigma) / sqrt(1 - rho[1] ^ 2),
+                           (bX3 - rho[3] * bX2 / sigma) / sqrt(1 - rho[3] ^ 2),
+                           (rho[2] - rho[1] * rho[3]) / sqrt( (1 - rho[1] ^ 2) * (1 - rho[3] ^ 2)))
+            Pr23 <- pbnorm((bX2 / sigma - rho[1] * bX1) / sqrt(1 - rho[1] ^ 2),
+                           (bX3         - rho[2] * bX1) / sqrt(1 - rho[2] ^ 2),
+                           (rho[3] - rho[1] * rho[2]) / sqrt( (1 - rho[1] ^ 2) * (1 - rho[2] ^ 2)))
+            
+            Pr12 <- pbnorm((bX1         - rho[2] * bX3) / sqrt(1 - rho[2] ^ 2),
+                           (bX2 / sigma - rho[3] * bX3) / sqrt(1 - rho[3] ^ 2),
+                           (rho[1] - rho[2] * rho[3]) / sqrt(1 - rho[2] ^ 2) / sqrt(1 - rho[3] ^ 2)
+                           )
+            E <- bX2 / Phi3 + sigma / (Phi3 * Pplus) * (phi2 * Pr13 +
+                                                                rho[1] * phi1 * Pr23 / sqrt( (1 - rho[1] ^ 2) * (1 - rho[3] ^ 2)) +
+                                                                    rho[3] * phi3 * Pr12 / sqrt( (1 - rho[2] ^ 2) * (1 - rho[3] ^ 2)))
+
+            E <- bX2 / Phi3 + sigma / (Phi3 * Pplus) * (phi2 * Pr13 + rho[1] * phi1 * Pr23 + rho[3] * phi3 * Pr12)
+
+        }
+        attr(lnL, "fitted") <- cbind(zero = 1 - Pplus, 
+                                     pos = E / Pplus)
+    }
+    lnL
+}
+<bytecode: 0x1030fc20>
+<environment: namespace:mhurdle>
+ --- function (body) search ---
+Function mhurdle.lnl in namespace mhurdle has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

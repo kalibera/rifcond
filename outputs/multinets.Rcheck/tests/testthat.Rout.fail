@@ -1,0 +1,167 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(multinets)
+multinets was developed by Neylson Crepalde as an extension to 'igraph'
+> 
+> test_check("multinets")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpzgRsAr/R.INSTALLc8136c2cade/multinets/R/mode_transformation.R#49: 
+ --- if/while statement is in package --- 
+multinets
+ --- call (currently evaluated) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- R stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2: suppressWarnings({
+    if (!igraph::is_bipartite(x)) {
+        stop("Data is not bipartite")
+    }
+    else {
+        if (which == "both") {
+            new = igraph::bipartite_projection(x, which = "both")
+        }
+        if (which == "high") {
+            new = igraph::bipartite_projection(x, which = "true")
+        }
+        if (which == "low") {
+            new = igraph::bipartite_projection(x, which = "false")
+        }
+        return(new)
+    }
+})
+where 3: mode_transformation(igraph::upgrade_graph(g.bip))
+where 4 at /var/scratch2/tomas/tmp/RtmpBSpEFw/R.INSTALLd6806e63e92c/rlang/R/eval.R#66: .Call(rlang_eval, expr, env)
+where 5: eval_bare(get_expr(quo), get_env(quo))
+where 6: withVisible(code)
+where 7: withCallingHandlers(withVisible(code), warning = handle_warning, 
+    message = handle_message)
+where 8: force(code)
+where 9 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/evaluate-promise.R#34: withr::with_output_sink(temp, withCallingHandlers(withVisible(code), 
+    warning = handle_warning, message = handle_message))
+where 10 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 11 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expect-output.R#174: quasi_capture(enquo(object), evaluate_promise)
+where 12 at testthat/test-mode_transformation.R#10: expect_silent(mode_transformation(igraph::upgrade_graph(g.bip)))
+where 13: eval(code, test_env)
+where 14: eval(code, test_env)
+where 15: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 16: doTryCatch(return(expr), name, parentenv, handler)
+where 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 18: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 19: doTryCatch(return(expr), name, parentenv, handler)
+where 20: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 21: tryCatchList(expr, classes, parentenv, handlers)
+where 22: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 23 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 24 at testthat/test-mode_transformation.R#3: test_that("mode transformation responds properly to different objects", 
+    {
+        data("linked_sim")
+        data(g.bip, package = "sand")
+        data(rfid, package = "igraphdata")
+        expect_error(mode_transformation(linked_sim))
+        expect_error(mode_transformation(rfid))
+        expect_silent(mode_transformation(igraph::upgrade_graph(g.bip)))
+    })
+where 25: eval(code, test_env)
+where 26: eval(code, test_env)
+where 27: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 28: doTryCatch(return(expr), name, parentenv, handler)
+where 29: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 30: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 31: doTryCatch(return(expr), name, parentenv, handler)
+where 32: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 33: tryCatchList(expr, classes, parentenv, handlers)
+where 34: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 35: test_code(NULL, exprs, env)
+where 36: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 37 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 38: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 39: FUN(X[[i]], ...)
+where 40: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 41 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 42 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 43 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 44 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 45 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 46: test_check("multinets")
+
+ --- value of length: 3 type: logical ---
+[1]  TRUE FALSE FALSE
+ --- function (currently evaluated)--- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x10322d8>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

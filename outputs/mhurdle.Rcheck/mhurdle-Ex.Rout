@@ -1,11 +1,78 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "mhurdle"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('mhurdle')
+Loading required package: Formula
+Loading required package: truncreg
+Loading required package: maxLik
+Loading required package: miscTools
+
+Please cite the 'maxLik' package as:
+Henningsen, Arne and Toomet, Ott (2011). maxLik: A package for maximum likelihood estimation in R. Computational Statistics 26(3), 443-458. DOI 10.1007/s00180-010-0217-1.
+
+If you have questions, suggestions, or comments regarding the 'maxLik' package, please use a forum or 'tracker' at maxLik's R-Forge site:
+https://r-forge.r-project.org/projects/maxlik/
+Loading required package: survival
+Loading required package: texreg
+Version:  1.36.23
+Date:     2017-03-03
+Author:   Philip Leifeld (University of Glasgow)
+
+Please cite the JSS article in your publications -- see citation("texreg").
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("mhurdle")
+> ### * mhurdle
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mhurdle
+> ### Title: Estimation of limited dependent variable models
+> ### Aliases: mhurdle coef.mhurdle vcov.mhurdle logLik.mhurdle print.mhurdle
+> ###   summary.mhurdle print.summary.mhurdle predict.mhurdle update.mhurdle
+> ###   fitted.mhurdle
+> ### Keywords: regression
+> 
+> ### ** Examples
+> 
+> 
+> data("Interview", package = "mhurdle")
+> 
+> # independent double hurdle model
+> idhm <- mhurdle(vacations ~ car + size | linc + linc2 | 0, Interview,
++               dist = "ln", h2 = TRUE, method = "bfgs")
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpBQnfJk/R.INSTALL121806fb6f143/mhurdle/R/mhurdle.lnl.R#252: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpdYBn3R/R.INSTALL66335e304a8a/mhurdle/R/mhurdle.lnl.R#252: 
+ --- if/while statement is in package --- 
+mhurdle
+ --- call (currently evaluated) --- 
 mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y, 
     gradient = TRUE, fitted = FALSE, dist = dist, corr = corr, 
     robust = robust)
- --- stacktrace ---
-where 1 at /tmp/RtmpBQnfJk/R.INSTALL121806fb6f143/mhurdle/R/mhurdle.R#183: mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y, 
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpdYBn3R/R.INSTALL66335e304a8a/mhurdle/R/mhurdle.R#183: mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y, 
     gradient = TRUE, fitted = FALSE, dist = dist, corr = corr, 
     robust = robust)
 where 2: fnOrig(theta, ...)
@@ -15,15 +82,16 @@ mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y,
     robust = robust), gradOrig = ..2, hessOrig = ..3)
 where 4: eval(f, sys.frame(sys.parent()))
 where 5: eval(f, sys.frame(sys.parent()))
-where 6 at /tmp/RtmpPDMWlV/R.INSTALL2d85f4ffe52ff/maxLik/R/callWithoutSumt.R#3: callWithoutArgs(theta, fName = fName, args = names(formals(sumt)), 
+where 6 at /var/scratch2/tomas/tmp/RtmpfHFp0m/R.INSTALL6b5e50842fe7/maxLik/R/callWithoutSumt.R#3: callWithoutArgs(theta, fName = fName, args = names(formals(sumt)), 
     ...)
 where 7: (function (theta, fName, ...) 
 {
     return(callWithoutArgs(theta, fName = fName, args = names(formals(sumt)), 
         ...))
-})(theta = c(-1.4070096541196, 0.121459736879122, 0.100635820770412, 
-0.858821543188711, 3.4274172203972, 4.15061003332587, 1.82770613508635, 
-1), fName = "logLikFunc", fnOrig = function (param) 
+})(theta = c(`h1.(Intercept)` = -1.4070096541196, h1.car = 0.121459736879122, 
+h1.size = 0.100635820770412, `h2.(Intercept)` = 0.858821543188711, 
+h2.linc = 3.4274172203972, h2.linc2 = 4.15061003332587, sd = 1.82770613508635, 
+mu = 1), fName = "logLikFunc", fnOrig = function (param) 
 mhurdle.lnl(param, X1 = X1, X2 = X2, X3 = X3, X4 = X4, y = y, 
     gradient = TRUE, fitted = FALSE, dist = dist, corr = corr, 
     robust = robust), gradOrig = NULL, hessOrig = NULL)
@@ -33,8 +101,8 @@ where 9: maxOptim(fn = fn, grad = grad, hess = hess, start = start, method = "BF
     parscale = parscale, control = mControl, ...)
 where 10: maxRoutine(fn = logLik, grad = grad, hess = hess, start = start, 
     constraints = constraints, ...)
-where 11 at /tmp/RtmpBQnfJk/R.INSTALL121806fb6f143/mhurdle/R/mhurdle.R#203: maxLik(f, start = start, ...)
-where 12 at /tmp/RtmpBQnfJk/R.INSTALL121806fb6f143/mhurdle/R/mhurdle.R#110: mhurdle.fit(start, X1, X2, X3, X4, y, gradient = TRUE, dist = dist, 
+where 11 at /var/scratch2/tomas/tmp/RtmpdYBn3R/R.INSTALL66335e304a8a/mhurdle/R/mhurdle.R#203: maxLik(f, start = start, ...)
+where 12 at /var/scratch2/tomas/tmp/RtmpdYBn3R/R.INSTALL66335e304a8a/mhurdle/R/mhurdle.R#110: mhurdle.fit(start, X1, X2, X3, X4, y, gradient = TRUE, dist = dist, 
     corr = corr, robust = robust, fitted = fitted, ...)
 where 13: mhurdle(vacations ~ car + size | linc + linc2 | 0, Interview, 
     dist = "ln", h2 = TRUE, method = "bfgs")
@@ -124,7 +192,7 @@ where 13: mhurdle(vacations ~ car + size | linc + linc2 | 0, Interview,
  [973] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [985] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [997] FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(param, X1, X2, X3, X4, y, gradient = FALSE,
                         fitted = FALSE, dist = NULL, corr = FALSE, robust = TRUE){
 #    otime <- proc.time()
@@ -572,3 +640,5 @@ function(param, X1, X2, X3, X4, y, gradient = FALSE,
 <environment: namespace:mhurdle>
  --- function (body) search ---
 Function mhurdle.lnl in namespace mhurdle has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

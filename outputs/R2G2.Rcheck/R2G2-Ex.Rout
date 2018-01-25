@@ -1,9 +1,137 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "R2G2"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('R2G2')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Axis2GE")
+> ### * Axis2GE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Axis2GE
+> ### Title: Adding a custom Y-axis in Google Earth.
+> ### Aliases: Axis2GE
+> 
+> ### ** Examples
+> 
+> # Producing an axis as an additional KML file
+> Axis2GE(coords = c(1,1),
++ 	maxVal = 6698, 
++ 	maxAlt = 1e5, 
++ 	lwd = 2, 
++ 	apnd = FALSE, 
++ 	goo = "Demo_Axis2GE.kml")
+> 
+> # Producing an axis, but storing the KML sections for later use
+> DemoAxis = Axis2GE(coords = c(1,1),
++ 		   maxVal = 6698, 
++ 		   maxAlt = 1e5, 
++ 		   lwd = 2, 
++ 		   apnd = TRUE)
+> attributes(DemoAxis) #check out the contents of the obtained list
+$names
+[1] "bloc1" "bloc2"
+
+> DemoAxis$bloc1 #get the styles section
+[1] "\t<Style id=\"ZStyle\">\n\t\t<LineStyle>\n\t\t\t<width>2</width>\n\t\t</LineStyle>\n\t\t<PolyStyle>\n\t\t\t<fill>0</fill>\n\t\t</PolyStyle>\n\t</Style>\n"
+[2] "\t<Style id=\"tickmark\">\n\t\t<IconStyle>\n\t\t\t<Icon></Icon>\n\t\t</IconStyle>\n\t</Style>"                                                            
+> DemoAxis$bloc2 #get the coordinates section
+ [1] "\t<Placemark>\n\t\t<name>Y-Axis</name>\n\t\t<styleUrl>#ZStyle</styleUrl>\n\t\t<Polygon>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n\t\t\t\t\t<coordinates>\n\t\t\t\t\t1,1,0\n\t\t\t\t\t1,1,1e+05\n\t\t\t\t\t</coordinates>\n\t\t\t\t</LinearRing>\n\t\t\t</outerBoundaryIs>\n\t\t</Polygon>\n\t</Placemark>\n"                            
+ [2] "\t<Placemark>\n\t\t<name>Y-Axis</name>\n\t\t<styleUrl>#ZStyle</styleUrl>\n\t\t<Polygon>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n\t\t\t\t\t<coordinates>\n\t\t\t\t\t1,1,14929.8297999403\n\t\t\t\t\t1.1,1,14929.8297999403\n\t\t\t\t\t</coordinates>\n\t\t\t\t</LinearRing>\n\t\t\t</outerBoundaryIs>\n\t\t</Polygon>\n\t</Placemark>\n"
+ [3] "\t<Placemark>\n\t\t<name>Y-Axis</name>\n\t\t<styleUrl>#ZStyle</styleUrl>\n\t\t<Polygon>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n\t\t\t\t\t<coordinates>\n\t\t\t\t\t1,1,29859.6595998806\n\t\t\t\t\t1.1,1,29859.6595998806\n\t\t\t\t\t</coordinates>\n\t\t\t\t</LinearRing>\n\t\t\t</outerBoundaryIs>\n\t\t</Polygon>\n\t</Placemark>\n"
+ [4] "\t<Placemark>\n\t\t<name>Y-Axis</name>\n\t\t<styleUrl>#ZStyle</styleUrl>\n\t\t<Polygon>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n\t\t\t\t\t<coordinates>\n\t\t\t\t\t1,1,44789.4893998208\n\t\t\t\t\t1.1,1,44789.4893998208\n\t\t\t\t\t</coordinates>\n\t\t\t\t</LinearRing>\n\t\t\t</outerBoundaryIs>\n\t\t</Polygon>\n\t</Placemark>\n"
+ [5] "\t<Placemark>\n\t\t<name>Y-Axis</name>\n\t\t<styleUrl>#ZStyle</styleUrl>\n\t\t<Polygon>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n\t\t\t\t\t<coordinates>\n\t\t\t\t\t1,1,59719.3191997611\n\t\t\t\t\t1.1,1,59719.3191997611\n\t\t\t\t\t</coordinates>\n\t\t\t\t</LinearRing>\n\t\t\t</outerBoundaryIs>\n\t\t</Polygon>\n\t</Placemark>\n"
+ [6] "\t<Placemark>\n\t\t<name>Y-Axis</name>\n\t\t<styleUrl>#ZStyle</styleUrl>\n\t\t<Polygon>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n\t\t\t\t\t<coordinates>\n\t\t\t\t\t1,1,74649.1489997014\n\t\t\t\t\t1.1,1,74649.1489997014\n\t\t\t\t\t</coordinates>\n\t\t\t\t</LinearRing>\n\t\t\t</outerBoundaryIs>\n\t\t</Polygon>\n\t</Placemark>\n"
+ [7] "\t<Placemark>\n\t\t<name>Y-Axis</name>\n\t\t<styleUrl>#ZStyle</styleUrl>\n\t\t<Polygon>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n\t\t\t\t\t<coordinates>\n\t\t\t\t\t1,1,89578.9787996417\n\t\t\t\t\t1.1,1,89578.9787996417\n\t\t\t\t\t</coordinates>\n\t\t\t\t</LinearRing>\n\t\t\t</outerBoundaryIs>\n\t\t</Polygon>\n\t</Placemark>\n"
+ [8] "\t<Placemark>\n\t\t<name>1000</name>\n\t\t<styleUrl>#tickmark</styleUrl>\n\t\t<Point>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t\t<coordinates>1,1,14929.8297999403</coordinates>\n\t\t</Point>\n\t</Placemark>"                                                                                                                                                                                                                                
+ [9] "\t<Placemark>\n\t\t<name>2000</name>\n\t\t<styleUrl>#tickmark</styleUrl>\n\t\t<Point>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t\t<coordinates>1,1,29859.6595998806</coordinates>\n\t\t</Point>\n\t</Placemark>"                                                                                                                                                                                                                                
+[10] "\t<Placemark>\n\t\t<name>3000</name>\n\t\t<styleUrl>#tickmark</styleUrl>\n\t\t<Point>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t\t<coordinates>1,1,44789.4893998208</coordinates>\n\t\t</Point>\n\t</Placemark>"                                                                                                                                                                                                                                
+[11] "\t<Placemark>\n\t\t<name>4000</name>\n\t\t<styleUrl>#tickmark</styleUrl>\n\t\t<Point>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t\t<coordinates>1,1,59719.3191997611</coordinates>\n\t\t</Point>\n\t</Placemark>"                                                                                                                                                                                                                                
+[12] "\t<Placemark>\n\t\t<name>5000</name>\n\t\t<styleUrl>#tickmark</styleUrl>\n\t\t<Point>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t\t<coordinates>1,1,74649.1489997014</coordinates>\n\t\t</Point>\n\t</Placemark>"                                                                                                                                                                                                                                
+[13] "\t<Placemark>\n\t\t<name>6000</name>\n\t\t<styleUrl>#tickmark</styleUrl>\n\t\t<Point>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t\t<coordinates>1,1,89578.9787996417</coordinates>\n\t\t</Point>\n\t</Placemark>"                                                                                                                                                                                                                                
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Dots2GE")
+> ### * Dots2GE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Dots2GE
+> ### Title: Automated placement of observations, as dots, in Google Earth
+> ### Aliases: Dots2GE
+> ### Keywords: Google Earth points
+> 
+> ### ** Examples
+> 
+> labels = c("A","B","C","D","E","F") 
+> coords = cbind(1:6, 1:6)
+> Dots2GE(coords, labels, goo = "Dots2GE_V1.kml")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Hist2GE")
+> ### * Hist2GE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Hist2GE
+> ### Title: Producing 3D histograms in Google Earth
+> ### Aliases: Hist2GE
+> ### Keywords: google earth histogram
+> 
+> ### ** Examples
+> 
+> ###Using Hist2GE: the easy way
+> #Produce fake species occurrences
+> coords = cbind(rnorm(210, 6.32, 5), rnorm(210, 46.75, 5))
+> coords = coords[order(coords[,1]), ]
+> species = rep(c("sp1", "sp2", "sp3"), each = 70)
+> 
+> #Choose grid
+> data(grid10000) # choose among grid50, grid500, grid5000, grid1000, grid20000
+> grid = grid10000
+> 
+> Hist2GE(coords = coords, 
++ 	species = species,
++ 	grid = grid, 
++ 	goo = "Jura", 
++ 	nedges = 6,
++ 	orient = 45,
++ 	maxAlt = 1e5)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmp1qu6I5/R.INSTALL1aaa12a9bd8b/R2G2/R/Hist2GE.R#4: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpuqvCGe/R.INSTALLbdb4169b7f3a/R2G2/R/Hist2GE.R#4: 
+ --- if/while statement is in package --- 
+R2G2
+ --- call (currently evaluated) --- 
 Hist2GE(coords = coords, species = species, grid = grid, goo = "Jura", 
     nedges = 6, orient = 45, maxAlt = 1e+05)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: Hist2GE(coords = coords, species = species, grid = grid, goo = "Jura", 
     nedges = 6, orient = 45, maxAlt = 1e+05)
 
@@ -26,7 +154,7 @@ where 1: Hist2GE(coords = coords, species = species, grid = grid, goo = "Jura",
 [181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [205] FALSE FALSE FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(coords, species = 0, grid, goo, nedges, orient, maxAlt = 1e5, colors = "auto", ...){
   ## Prepare input data
   if(species == 0 | length(species) == 0 | length(species) < nrow(coords)) species = rep("nospecies", nrow(coords))
@@ -161,3 +289,5 @@ function(coords, species = 0, grid, goo, nedges, orient, maxAlt = 1e5, colors = 
 <environment: namespace:R2G2>
  --- function (body) search ---
 Function Hist2GE in namespace R2G2 has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

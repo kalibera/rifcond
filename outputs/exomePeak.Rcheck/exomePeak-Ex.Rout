@@ -1,12 +1,251 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "exomePeak"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('exomePeak')
+Loading required package: Rsamtools
+Loading required package: GenomeInfoDb
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
+    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomicRanges
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+Loading required package: GenomicFeatures
+Loading required package: AnnotationDbi
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: rtracklayer
+Loading required package: GenomicAlignments
+Loading required package: SummarizedExperiment
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following objects are masked from ‘package:Biobase’:
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: ‘DelayedArray’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following object is masked from ‘package:Biostrings’:
+
+    type
+
+The following objects are masked from ‘package:base’:
+
+    aperm, apply
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("RMT")
+> ### * RMT
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: RMT
+> ### Title: Extract a combinatorial RNA methylome from multiple biological
+> ###   conditions or replicates.
+> ### Aliases: RMT
+> ### Keywords: MeRIP-Seq
+> 
+> ### ** Examples
+> 
+> # the RESPECT R-package has two main functions:
+> # 1. exome-based peak
+> # 2. compute reads counts, rpkm and fold change
+> # please feel free to contact liulian19860905@163.com for any questions
+> 
+> # load library and specify the parameters
+> gene_anno_gtf <- system.file("extdata", "example.gtf", package="exomePeak")
+> f1 <- system.file("extdata", "IP1.bam", package="exomePeak")
+> f2 <- system.file("extdata", "IP2.bam", package="exomePeak")
+> f3 <- system.file("extdata", "IP3.bam", package="exomePeak")
+> f4 <- system.file("extdata", "IP4.bam", package="exomePeak")
+> ip_bam <- c(f1,f2,f3,f4)
+> f1 <- system.file("extdata", "Input1.bam", package="exomePeak")
+> f2 <- system.file("extdata", "Input2.bam", package="exomePeak")
+> f3 <- system.file("extdata", "Input3.bam", package="exomePeak")
+> input_bam <- c(f1,f2,f3)
+> input2bam <- list(4)
+> input2bam[[1]] <- c(1,2) # the 1st ip sample uses the 1st & 2nd input samples as control
+> input2bam[[2]] <- c(1,2) # the 2nd ip sample uses the 1st & 2nd input samples as control
+> input2bam[[3]] <- c(1,2) # the 3rd ip sample uses the 1st & 2nd input samples as control
+> input2bam[[4]] <- c(3)   # the 4th ip sample uses the 3rd input sample as control
+> 
+> # Extract the combinatorial RNA methylome
+> # unfortunately, this function has not been optimized for parallel processing.
+> # This part will take a really long time on real data
+> RMT(INPUT_BAM=input_bam, IP_BAM=ip_bam, INPUT2IP=input2bam, GENE_ANNO_GTF=gene_anno_gtf)
+[1] "Processing IP sample 1"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "2 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "15 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_1"
+[1] "15 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_1"
+[1] "Processing IP sample 2"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "2 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "19 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_2"
+[1] "19 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_2"
+[1] "Processing IP sample 3"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "2 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "14 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_3"
+[1] "14 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_3"
+[1] "Processing IP sample 4"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "1 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "5 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_4"
+[1] "5 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-ifc4/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_4"
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmppFW3co/R.INSTALL2bba64efddc3d/exomePeak/R/RMT.R#119: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmpjgow7x/R.INSTALLb7c76fb7cfcc/exomePeak/R/RMT.R#119: 
+ --- if/while statement is in package --- 
+exomePeak
+ --- call (currently evaluated) --- 
 NULL
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: RMT(INPUT_BAM = input_bam, IP_BAM = ip_bam, INPUT2IP = input2bam, 
     GENE_ANNO_GTF = gene_anno_gtf)
 
  --- value of length: 4 type: logical ---
 [1] FALSE  TRUE FALSE  TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
  --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

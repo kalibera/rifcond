@@ -1,13 +1,1933 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "MCPAN"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('MCPAN')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("HCD")
+> ### * HCD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: HCD
+> ### Title: Hell Creek Dinosaur Data
+> ### Aliases: HCD
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> 
+> data(HCD)
+> str(HCD)
+'data.frame':	3 obs. of  9 variables:
+ $ Level: Factor w/ 3 levels "Lower","Middle",..: 3 2 1
+ $ Cr   : int  50 53 19
+ $ Ha   : int  29 51 7
+ $ Hy   : int  3 2 1
+ $ Pa   : int  0 0 0
+ $ Ty   : int  3 3 2
+ $ Or   : int  4 8 0
+ $ Sa   : int  1 6 3
+ $ Dr   : int  0 0 0
+> HCD
+   Level Cr Ha Hy Pa Ty Or Sa Dr
+1  Upper 50 29  3  0  3  4  1  0
+2 Middle 53 51  2  0  3  8  6  0
+3  Lower 19  7  1  0  2  0  3  0
+> 
+> mat<-as.matrix(HCD[,-c(1)])
+> 
+> rownames(mat)<-HCD$Level
+> 
+> mosaicplot(mat, las=1)
+> 
+> estSimpsonf(X=HCD[,-c(1)], f=HCD$Level)
+$estimate
+    Lower    Middle     Upper 
+0.6048387 0.6401439 0.5897628 
+
+$varest
+       Lower       Middle        Upper 
+0.0064696035 0.0006253136 0.0014393560 
+
+$table
+       Cr Ha Hy Pa Ty Or Sa Dr
+Lower  19  7  1  0  2  0  3  0
+Middle 53 51  2  0  3  8  6  0
+Upper  50 29  3  0  3  4  1  0
+
+> 
+> estShannonf(X=HCD[,-c(1)], f=HCD$Level)
+$estimate
+   Lower   Middle    Upper 
+1.254866 1.238877 1.145481 
+
+$estraw
+   Lower   Middle    Upper 
+1.145491 1.210422 1.106592 
+
+$estHBCo0
+   Lower   Middle    Upper 
+1.207991 1.230747 1.134370 
+
+$varest
+      Lower      Middle       Upper 
+0.022987521 0.005728593 0.008974520 
+
+$table
+       Cr Ha Hy Pa Ty Or Sa Dr
+Lower  19  7  1  0  2  0  3  0
+Middle 53 51  2  0  3  8  6  0
+Upper  50 29  3  0  3  4  1  0
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MCPAN-package")
+> ### * MCPAN-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MCPAN-package
+> ### Title: Multiple comparison procedures based on normal approximation and
+> ###   extensions.
+> ### Aliases: MCPAN-package MCPAN
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> 
+> 
+> # # # 1)
+> # Simultaneous confidence intervals 
+> # for 2xk tables of binomial data: 
+> # binomRDtest, binomRDci
+> 
+> # Difference of proportions
+> 
+> binomRDci(x=c(2,6,4,13), n=c(34,33,36,34),
++  names=c("Placebo", "50", "75", "150"),
++  type="Dunnett", method="ADD1")
+Simultaneous 95 percent Add-1 -confidence intervals 
+ for the difference of proportions (RD) 
+              estimate   lower  upper
+50 - Placebo    0.1230 -0.0709 0.3104
+75 - Placebo    0.0523 -0.1141 0.2144
+150 - Placebo   0.3235  0.0932 0.5354
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> # Odds ratios:
+> 
+> binomORci(x=c(2,6,4,13), n=c(34,33,36,34),
++  names=c("Placebo", "50", "75", "150"),
++  type="Dunnett")
+Simultaneous 95 percent-confidence intervals 
+ for the odds ratio (OR) 
+              estimate  lower   upper
+50 / Placebo    3.5556 0.5002 25.2736
+75 / Placebo    2.0000 0.2544 15.7253
+150 / Placebo   9.9048 1.5533 63.1577
+  
+where the odds is defined: p(success)/(1-p(success)) 
+  
+> 
+> 
+> # # # 
+> # Simultaneous confidence intervals for comparing a treatment
+> # (trt) to 3 controls (Var1-Var3) in terms of differences of
+> # Simpson indices for a community comprising 33 species.
+> 
+> PSM <-
++ as.data.frame(structure(c(0, 0, 2, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 
++ 2, 1, 1, 1, 0, 1, 2, 50, 25, 29, 42, 1, 1, 0, 3, 14, 6, 6, 24, 
++ 64, 56, 121, 98, 1, 1, 1, 4, 410, 357, 586, 588, 16, 29, 21, 
++ 38, 1, 1, 1, 1, 7, 12, 7, 11, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 4, 
++ 1, 4, 3, 11, 4, 0, 0, 1, 0, 0, 1, 5, 0, 0, 0, 1, 1, 0, 0, 1, 
++ 0, 30, 31, 10, 42, 0, 0, 1, 0, 7, 8, 10, 13, 111, 125, 112, 73, 
++ 2, 1, 0, 0, 67, 64, 81, 102, 0, 0, 1, 0, 0, 0, 0, 1, 21, 20, 
++ 14, 24, 0, 1, 0, 0), .Dim = c(4L, 33L), .Dimnames = list(c("Trt", 
++ "Var1", "Var2", "Var3"), c("Sp1", "Sp2", "Sp3", "Sp4", "Sp5", "Sp6", 
++ "Sp7", "Sp8", "Sp9", "Sp10", "Sp11", "Sp12", "Sp13", "Sp14", 
++ "Sp15", "Sp16", "Sp17", "Sp18", "Sp19", "Sp20", "Sp21", "Sp22", 
++ "Sp23", "Sp24", "Sp25", "Sp26", "Sp27", "Sp28", "Sp29", "Sp30", 
++ "Sp31", "Sp32", "Sp33"))))
+> 
+> fvar<-factor(row.names(PSM), levels=row.names(PSM))
+> 
+> Simpsonci(X=PSM, f=fvar)
+Simultaneous 95 percent-confidence intervals 
+ for differences of Simpson indices 
+           estimate   lower   upper
+Var1 - Trt   0.0236 -0.0257  0.0730
+Var2 - Trt  -0.0620 -0.1127 -0.0113
+Var3 - Trt  -0.0319 -0.0819  0.0181
+> 
+> # The complete data is available in package simboot.
+> 
+> # # #
+> # Simultaneous confidence intervals for ratios of expected values
+> # under lognormal assumption
+> 
+> x <- rlnorm(n=40, meanlog=rep(c(0,0.1,1,1), each=10), sdlog=rep(c(0.2,0.2,0.5,0.5), each=10))
+> f <- as.factor(rep(LETTERS[1:4], each=10))
+> 
+> lnrci(x=x, f=f, type="Tukey", method="GPQ", B=10000)
+$estimate
+          [,1]
+B / A 1.104698
+C / A 2.747670
+D / A 4.018456
+C / B 2.487258
+D / B 3.637605
+D / C 1.462496
+
+$conf.int
+         lower    upper
+[1,] 0.9052813 1.346843
+[2,] 2.0105040 4.370960
+[3,] 2.5847043 9.346130
+[4,] 1.8158156 3.967626
+[5,] 2.3184065 8.357777
+[6,] 0.8051217 3.438010
+attr(,"k")
+[1] 9500
+attr(,"N")
+[1] 10000
+
+$conf.level
+[1] 0.95
+
+$alternative
+[1] "two.sided"
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("SCSrank")
+> ### * SCSrank
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: SCSrank
+> ### Title: Compute a rectangular simultaneous confidence set from a sample
+> ###   of a joint empirical distribution.
+> ### Aliases: SCSrank
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> x <- cbind(rnorm(1000,1,2), rnorm(1000,0,2), rnorm(1000,0,0.5), rnorm(1000,2,1))
+> dim(x)
+[1] 1000    4
+> cm <- rbind(c(-1,1,0,0), c(-1,0,1,0), c(-1, 0,0,1))
+> xd <- t(apply(x, 1, function(x){crossprod(t(cm), matrix(x))}))
+> pairs(xd)
+> 
+> SCSrank(xd, conf.level=0.9)
+$conf.int
+         lower    upper
+[1,] -6.615969 4.945119
+[2,] -5.151253 3.271674
+[3,] -3.653208 5.695848
+attr(,"k")
+[1] 900
+attr(,"N")
+[1] 1000
+
+$conf.level
+[1] 0.9
+
+$alternative
+[1] "two.sided"
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Shannonci")
+> ### * Shannonci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Shannonci
+> ### Title: Confidence intervals for multiple contrasts of Shannon indices
+> ### Aliases: Shannonci
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> 
+> data(HCD)
+> 
+> HCDcounts<-HCD[,-1]
+> HCDf<-HCD[,1]
+> 
+> # Comparison to the confidence bounds shown in
+> # Fritsch and Hsu (1999), Table 5, "Standard normal".
+> 
+> cmat<-rbind(
++ "HM-HU"=c(0,1,-1),
++ "HL-HM"=c(1,-1,0),
++ "HL-HU"=c(1,0,-1)
++ )
+> 
+> Shannonci(X=HCDcounts, f=HCDf, cmat=cmat,
++  alternative = "two.sided", conf.level = 0.9, dist = "N")
+Local 90 percent-confidence intervals 
+ for differences of Shannon indices 
+      estimate   lower  upper
+HM-HU   0.0934 -0.1061 0.2928
+HL-HM   0.0160 -0.2627 0.2947
+HL-HU   0.1094 -0.1847 0.4035
+> 
+> # Note, that the calculated confidence intervals
+> # differ from those published by Fritsch and Hsu (1999),
+> # whenever Lower is involved.
+> 
+> 
+> 
+> # Comparison to the lower cretaceous,
+> # unadjusted confidence intervals:
+> 
+> Shannonci(X=HCDcounts, f=HCDf, type = "Dunnett",
++  alternative = "greater", conf.level = 0.9, dist = "N")
+Local 90 percent-confidence intervals 
+ for differences of Shannon indices 
+               estimate   lower upper
+Middle - Lower  -0.0160 -0.2332   Inf
+Upper - Lower   -0.1094 -0.3385   Inf
+> 
+> # Stepwise comparison between the strata,
+> # unadjusted confidence intervals:
+> 
+> ShannonS<-Shannonci(X=HCDcounts, f=HCDf, type = "Sequen",
++  alternative = "greater", conf.level = 0.9, dist = "N")
+> 
+> 
+> ShannonS
+Local 90 percent-confidence intervals 
+ for differences of Shannon indices 
+               estimate   lower upper
+Middle - Lower  -0.0160 -0.2332   Inf
+Upper - Middle  -0.0934 -0.2488   Inf
+> 
+> summary(ShannonS)
+
+ Data: 
+       Cr Ha Hy Pa Ty Or Sa Dr
+Lower  19  7  1  0  2  0  3  0
+Middle 53 51  2  0  3  8  6  0
+Upper  50 29  3  0  3  4  1  0
+
+ Summary statistics: 
+                                        Lower   Middle  Upper
+Total number of individuals            32.000 123.0000 90.000
+Shannon index, bias corrected estimate  1.255   1.2389  1.145
+Shannon index, raw estimate             1.145   1.2104  1.107
+Variance estimate                       0.023   0.0057  0.009
+
+ Contrast matrix: 
+
+	 Multiple Comparisons of Means: Sequen Contrasts
+
+               Lower Middle Upper
+Middle - Lower    -1      1     0
+Upper - Middle     0     -1     1
+
+Local 90 percent-confidence intervals 
+ for differences of Shannon indices 
+               estimate   lower upper
+Middle - Lower  -0.0160 -0.2332   Inf
+Upper - Middle  -0.0934 -0.2488   Inf
+> 
+> plot(ShannonS)
+> 
+> 
+> # A trend test based on multiple contrasts:
+> 
+> cmatTREND<-rbind(
++ "U-LM"=c(-0.5,-0.5,1),
++ "MU-L"=c(-1,0.5,0.5),
++ "U-L"=c(-1,0,1)
++ )
+> 
+> TrendCI<-Shannonci(X=HCDcounts, f=HCDf, cmat=cmatTREND,
++  alternative = "greater", conf.level = 0.95, dist = "MVN")
+> TrendCI
+Simultaneous 95 percent-confidence intervals 
+ for differences of Shannon indices 
+     estimate   lower upper
+U-LM  -0.1014 -0.3418   Inf
+MU-L  -0.0627 -0.3716   Inf
+U-L   -0.1094 -0.4476   Inf
+> 
+> plot(TrendCI)
+> 
+> 
+> 
+>   
+> 
+> 
+> cleanEx()
+> nameEx("Simpsonci")
+> ### * Simpsonci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Simpsonci
+> ### Title: Confidence intervals for differences of Simpson indices
+> ### Aliases: Simpsonci
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> data(HCD)
+> 
+> HCDcounts<-HCD[,-1]
+> HCDf<-HCD[,1]
+> 
+> # Rogers and Hsu (2001), Table 2:
+> # All pair wise comparisons:
+> 
+> Simpsonci(X=HCDcounts, f=HCDf, type = "Tukey",
++  conf.level = 0.95, dist = "MVN")
+Simultaneous 95 percent-confidence intervals 
+ for differences of Simpson indices 
+               estimate   lower  upper
+Middle - Lower   0.0353 -0.1597 0.2303
+Upper - Lower   -0.0151 -0.2209 0.1908
+Upper - Middle  -0.0504 -0.1556 0.0548
+> 
+> # Rogers and Hsu (2001), Table 3:
+> # Comparison to the lower cretaceous:
+> 
+> Simpsonci(X=HCDcounts, f=HCDf, type = "Dunnett",
++  alternative = "less", conf.level = 0.95, dist = "MVN")
+Simultaneous 95 percent-confidence intervals 
+ for differences of Simpson indices 
+               estimate lower  upper
+Middle - Lower   0.0353  -Inf 0.1885
+Upper - Lower   -0.0151  -Inf 0.1466
+> 
+> 
+> # Note, that the confidence bounds here differ
+> # from the bounds in Rogers and Hsu (2001) 
+> # in the second digit, whenever the group Upper
+> # is involved in the comparison.
+> 
+> 
+> # Stepwise comparison between the strata:
+> 
+> SimpsonS<-Simpsonci(X=HCDcounts, f=HCDf, type = "Sequen",
++  alternative = "greater", conf.level = 0.95, dist = "MVN")
+> 
+> SimpsonS
+Simultaneous 95 percent-confidence intervals 
+ for differences of Simpson indices 
+               estimate   lower upper
+Middle - Lower   0.0353 -0.1296   Inf
+Upper - Middle  -0.0504 -0.1393   Inf
+> summary(SimpsonS)
+
+ Data: 
+       Cr Ha Hy Pa Ty Or Sa Dr
+Lower  19  7  1  0  2  0  3  0
+Middle 53 51  2  0  3  8  6  0
+Upper  50 29  3  0  3  4  1  0
+
+ Summary statistics: 
+                              Lower   Middle   Upper
+Total number of individuals 32.0000 123.0000 90.0000
+Estimated Simpson index      0.6048   0.6401  0.5898
+Variance estimate            0.0065   0.0006  0.0014
+
+ Contrast matrix: 
+
+	 Multiple Comparisons of Means: Sequen Contrasts
+
+               Lower Middle Upper
+Middle - Lower    -1      1     0
+Upper - Middle     0     -1     1
+
+Simultaneous 95 percent-confidence intervals 
+ for differences of Simpson indices 
+               estimate   lower upper
+Middle - Lower   0.0353 -0.1296   Inf
+Upper - Middle  -0.0504 -0.1393   Inf
+> 
+> plot(SimpsonS)
+> 
+> # # # Hell Creek Dinosaur data:
+> # Is there a downward trend in biodiversity during the 
+> # Creataceous period?
+> 
+> # A trend test based on multiple contrasts:
+> 
+> cmatTREND<-rbind(
++ "U-LM"=c(-0.5,-0.5,1),
++ "MU-L"=c(-1,0.5,0.5),
++ "U-L"=c(-1,0,1)
++ )
+> 
+> TrendCI<-Simpsonci(X=HCDcounts, f=HCDf, cmat=cmatTREND, 
++  alternative = "greater", conf.level = 0.95, dist = "MVN")
+> TrendCI
+Simultaneous 95 percent-confidence intervals 
+ for differences of Simpson indices 
+     estimate   lower upper
+U-LM  -0.0327 -0.1377   Inf
+MU-L   0.0101 -0.1446   Inf
+U-L   -0.0151 -0.1797   Inf
+> 
+> plot(TrendCI)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binomORci")
+> ### * binomORci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binomORci
+> ### Title: Simultaneous confidence intervals for odds ratios
+> ### Aliases: binomORci binomORci.default binomORci.formula binomORci.table
+> ###   binomORci.matrix
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> data(liarozole)
+> 
+> table(liarozole)
+        Treatment
+Improved Dose150 Dose50 Dose75 Placebo
+       n      21     27     32      32
+       y      13      6      4       2
+> 
+> # Comparison to the control group "Placebo",
+> # which is the fourth group in alpha-numeric
+> # order:
+> 
+> ORlia<-binomORci(Improved ~ Treatment,
++  data=liarozole, success="y", type="Dunnett", base=4)
+> ORlia
+Simultaneous 95 percent-confidence intervals 
+ for the odds ratio (OR) 
+                  estimate  lower   upper
+Dose150 / Placebo   9.9048 1.5560 63.0489
+Dose50 / Placebo    3.5556 0.5011 25.2276
+Dose75 / Placebo    2.0000 0.2549 15.6952
+  
+where the odds is defined: p(y)/(1-p(y)) 
+  
+> summary(ORlia)
+Summary statistics: 
+                            Dose150  Dose50  Dose75 Placebo
+number of y                 13.0000  6.0000  4.0000  2.0000
+number of trials            34.0000 33.0000 36.0000 34.0000
+estimated probability of y   0.3824  0.1818  0.1111  0.0588
+
+ Contrast matrix on the level of the logit link: 
+
+	 Multiple Comparisons of Means: Dunnett Contrasts
+
+                  Dose150 Dose50 Dose75 Placebo
+Dose150 - Placebo       1      0      0      -1
+Dose50 - Placebo        0      1      0      -1
+Dose75 - Placebo        0      0      1      -1
+
+ The estimated correlation matrix of the contrasts is: 
+       [,1]   [,2]   [,3]
+[1,] 1.0000 0.7652 0.7278
+[2,] 0.7652 1.0000 0.6875
+[3,] 0.7278 0.6875 1.0000
+
+Simultaneous 95 percent-confidence intervals 
+ for the odds ratio (OR) 
+                  estimate  lower   upper
+Dose150 / Placebo   9.9048 1.5560 63.0489
+Dose50 / Placebo    3.5556 0.5011 25.2276
+Dose75 / Placebo    2.0000 0.2549 15.6952
+  
+where the odds is defined: p(y)/(1-p(y)) 
+  
+> plot(ORlia)
+> 
+> # if data are available as table:
+> 
+> tab<-table(liarozole)
+> tab
+        Treatment
+Improved Dose150 Dose50 Dose75 Placebo
+       n      21     27     32      32
+       y      13      6      4       2
+> ORlia2<-binomORci(tab, success="y", type="Dunnett", base=4)
+> ORlia2
+Simultaneous 95 percent-confidence intervals 
+ for the odds ratio (OR) 
+                  estimate  lower   upper
+Dose150 / Placebo   9.9048 1.5558 63.0556
+Dose50 / Placebo    3.5556 0.5011 25.2304
+Dose75 / Placebo    2.0000 0.2548 15.6970
+  
+where the odds is defined: p(y)/(1-p(y)) 
+  
+> 
+> plot(ORlia2, lines=1, lineslty=3)
+> 
+> 
+> ############################
+> 
+> #  Performance for extreme cases
+> 
+> # method="GLM" (the default)
+> 
+> test1<-binomORci(x=c(0,1,5,20), n=c(20,20,20,20), names=c("A","B","C","D"))
+> test1
+Simultaneous 95 percent-confidence intervals 
+ for the odds ratio (OR) 
+          estimate lower upper
+B / A 8.037023e+09     0   Inf
+C / A 5.090115e+10     0   Inf
+D / A 2.331830e+22     0   Inf
+  
+where the odds is defined: p(success)/(1-p(success)) 
+  
+> plot(test1)
+> 
+> # adjusted Woolf interval
+> 
+> test2<-binomORci(x=c(0,1,5,20), n=c(20,20,20,20), names=c("A","B","C","D"), method="Woolf")
+Warning in restrictboundsOR(x = x, n = n, cmat = cmat, conf.int = conf.int) :
+  0 occured in the data and the risk ratio might not be defined
+> test2
+Simultaneous 95 percent-confidence intervals 
+ for the odds ratio (OR) 
+       estimate   lower upper
+B / A    3.1538  0.0699   Inf
+C / A   14.5484  0.4528   Inf
+D / A 1681.0000 16.2965   Inf
+  
+where the odds is defined: p(success)/(1-p(success)) 
+  
+> plot(test2)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binomRDci")
+> ### * binomRDci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binomRDci
+> ### Title: Simultaneous confidence intervals for contrasts of independent
+> ###   binomial proportions (in a oneway layout)
+> ### Aliases: binomRDci binomRDci.default binomRDci.table binomRDci.matrix
+> ###   binomRDci.formula
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> ###############################################################
+> 
+> ### Example 1 Tables 1,7,8 in Schaarschmidt et al. (2008):  ###
+> 
+> ###############################################################
+> 
+> # Number of patients under observation: 
+> n <- c(29, 24, 25, 24, 46)
+> 
+> # Number of patients with complete response:
+> cr <- c(7, 11, 10, 12, 21)
+> 
+> # (Optional) names for the treatments
+> dn <- c("0.3_1.0", "3", "10", "30", "90")
+> 
+> # Assume we aim to infer an increasing trend with increasing dosage,
+> # Using the changepoint contrasts (Table 7, Schaarschmidt et al., 2008)
+> 
+> # The results in Table 8 can be reproduced by calling:
+> 
+> binomRDci(n=n, x=cr, names=dn, alternative="greater",
++  method="ADD2", type="Changepoint")
+Simultaneous 95 percent Add-2 -confidence intervals 
+ for the difference of proportions (RD) 
+    estimate   lower upper
+C 1   0.2124  0.0063   Inf
+C 2   0.1130 -0.0635   Inf
+C 3   0.1125 -0.0618   Inf
+C 4   0.0644 -0.1231   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> binomRDci(n=n, x=cr, names=dn, alternative="greater",
++  method="ADD1", type="Changepoint")
+Simultaneous 95 percent Add-1 -confidence intervals 
+ for the difference of proportions (RD) 
+    estimate   lower upper
+C 1   0.2124  0.0112   Inf
+C 2   0.1130 -0.0622   Inf
+C 3   0.1125 -0.0602   Inf
+C 4   0.0644 -0.1228   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> binomRDci(n=n, x=cr, names=dn, alternative="greater", 
++  method="Wald", type="Changepoint")
+Simultaneous 95 percent Wald -confidence intervals 
+ for the difference of proportions (RD) 
+    estimate   lower upper
+C 1   0.2124  0.0166   Inf
+C 2   0.1130 -0.0607   Inf
+C 3   0.1125 -0.0584   Inf
+C 4   0.0644 -0.1223   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> ##############################################################
+> 
+> ### Example 2, Tables 2,9,10 in Schaarschmidt et al. 2008  ###
+> 
+> ##############################################################
+> 
+> # Data (Table 2)
+> 
+> # animals under risk
+> n<-c(30,30,30,30)
+> 
+> # animals showing cancer
+> cancer<-c(20,14,27,19)
+> 
+> # short names for the treatments
+> trtn<-c("HFaFi","LFaFi","HFaNFi","LFaNFi")
+> 
+> 
+> # User-defined contrast matrix (Table 9),
+> # columns of the contrast matrix 
+> 
+> cmat<-rbind(
++ "Fiber - No Fiber"=c( 0.5, 0.5,-0.5,-0.5),
++ "Low Fat - High Fat"=c(-0.5, 0.5,-0.5, 0.5),
++ "Interaction Fat:Fiber"=c(   1,  -1,   -1,  1))
+> 
+> cmat
+                      [,1] [,2] [,3] [,4]
+Fiber - No Fiber       0.5  0.5 -0.5 -0.5
+Low Fat - High Fat    -0.5  0.5 -0.5  0.5
+Interaction Fat:Fiber  1.0 -1.0 -1.0  1.0
+> 
+> # The results in Table 10 can be reproduced by calling:
+> 
+> # simultaneous CI using the add-2 adjustment
+> 
+> sci<-binomRDci(x=cancer, n=n, names=trtn, method="ADD2",
++  cmat=cmat, dist="MVN")
+> 
+> sci
+Simultaneous 95 percent Add-2 -confidence intervals 
+ for the difference of proportions (RD) 
+                      estimate   lower   upper
+Fiber - No Fiber       -0.2000 -0.3782  0.0032
+Low Fat - High Fat     -0.2333 -0.4094 -0.0281
+Interaction Fat:Fiber  -0.0667 -0.4438  0.3188
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> # marginal CI using the basic Wald formula
+> 
+> ci<-binomRDci(x=cancer, n=n, names=trtn, method="Wald",
++  cmat=cmat, dist="N")
+> 
+> ci
+Local 95 percent Wald -confidence intervals 
+ for the difference of proportions (RD) 
+                      estimate   lower   upper
+Fiber - No Fiber       -0.2000 -0.3594 -0.0406
+Low Fat - High Fat     -0.2333 -0.3927 -0.0740
+Interaction Fat:Fiber  -0.0667 -0.3854  0.2521
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> 
+> # check, whether the intended contrasts have been defined:
+> 
+> summary(sci)
+Summary statistics: 
+                                HFaFi   LFaFi HFaNFi  LFaNFi
+number of successes           20.0000 14.0000   27.0 19.0000
+number of trials              30.0000 30.0000   30.0 30.0000
+estimated success probability  0.6667  0.4667    0.9  0.6333
+
+ Contrast matrix: 
+                      HFaFi LFaFi HFaNFi LFaNFi
+Fiber - No Fiber        0.5   0.5   -0.5   -0.5
+Low Fat - High Fat     -0.5   0.5   -0.5    0.5
+Interaction Fat:Fiber   1.0  -1.0   -1.0    1.0
+
+ The estimated correlation matrix of the contrasts is: 
+        [,1]    [,2]    [,3]
+[1,]  1.0000 -0.1241 -0.1814
+[2,] -0.1241  1.0000 -0.1599
+[3,] -0.1814 -0.1599  1.0000
+
+Simultaneous 95 percent Add-2 -confidence intervals 
+ for the difference of proportions (RD) 
+                      estimate   lower   upper
+Fiber - No Fiber       -0.2000 -0.3782  0.0032
+Low Fat - High Fat     -0.2333 -0.4094 -0.0281
+Interaction Fat:Fiber  -0.0667 -0.4438  0.3188
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> # plot the result:
+> 
+> plot(sci, lines=0, lineslty=3)
+> 
+> 
+> ##########################################
+> 
+> 
+> # In simple cases, counts of successes
+> # and number of trials can be just typed:
+> 
+> ntrials <- c(40,20,20,20)
+> xsuccesses <- c(1,2,2,4)
+> names(xsuccesses) <- LETTERS[1:4]
+> ex1D<-binomRDci(x=xsuccesses, n=ntrials, method="ADD1",
++  type="Dunnett")
+> ex1D
+Simultaneous 95 percent Add-1 -confidence intervals 
+ for the difference of proportions (RD) 
+      estimate  lower  upper
+B - A    0.075 -0.100 0.2650
+C - A    0.075 -0.100 0.2650
+D - A    0.175 -0.047 0.4024
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> ex1W<-binomRDci(x=xsuccesses, n=ntrials, method="ADD1",
++  type="Williams", alternative="greater")
+> ex1W
+Simultaneous 95 percent Add-1 -confidence intervals 
+ for the difference of proportions (RD) 
+    estimate   lower upper
+C 1   0.1750 -0.0052   Inf
+C 2   0.1250  0.0056   Inf
+C 3   0.1083  0.0104   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> # results can be plotted:
+> plot(ex1D, main="Comparisons to control group A", lines=0, linescol="red", lineslwd=2)
+> 
+> # summary gives a more detailed print out:
+> summary(ex1W)
+Summary statistics: 
+                                   A    B    C    D
+number of successes            1.000  2.0  2.0  4.0
+number of trials              40.000 20.0 20.0 20.0
+estimated success probability  0.025  0.1  0.1  0.2
+
+ Contrast matrix: 
+
+	 Multiple Comparisons of Means: Williams Contrasts
+
+     A      B      C      D
+C 1 -1 0.0000 0.0000 1.0000
+C 2 -1 0.0000 0.5000 0.5000
+C 3 -1 0.3333 0.3333 0.3333
+
+ The estimated correlation matrix of the contrasts is: 
+       [,1]   [,2]   [,3]
+[1,] 1.0000 0.8057 0.7010
+[2,] 0.8057 1.0000 0.8829
+[3,] 0.7010 0.8829 1.0000
+
+Simultaneous 95 percent Add-1 -confidence intervals 
+ for the difference of proportions (RD) 
+    estimate   lower upper
+C 1   0.1750 -0.0052   Inf
+C 2   0.1250  0.0056   Inf
+C 3   0.1083  0.0104   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> # if data are represented as dichotomous variable
+> # in a data.frame one can make use of table:
+> 
+> 
+> #################################
+> 
+> data(liarozole)
+> 
+> head(liarozole)
+  Improved Treatment
+1        y   Placebo
+2        y   Placebo
+3        n   Placebo
+4        n   Placebo
+5        n   Placebo
+6        n   Placebo
+> 
+> binomRDci(Improved ~ Treatment, data=liarozole,
++  type="Tukey")
+Simultaneous 95 percent Wald -confidence intervals 
+ for the difference of proportions (RD) 
+                  estimate   lower  upper
+Dose50 - Dose150    0.2005 -0.0730 0.4740
+Dose75 - Dose150    0.2712  0.0197 0.5228
+Placebo - Dose150   0.3235  0.0869 0.5602
+Dose75 - Dose50     0.0707 -0.1469 0.2883
+Placebo - Dose50    0.1230 -0.0772 0.3232
+Placebo - Dose75    0.0523 -0.1167 0.2213
+  
+where proportions are the probabilities to observe n 
+  
+> 
+> # here, it might be important to define which level of the
+> # variable 'Improved' is to be considered as success
+> 
+> binomRDci(Improved ~ Treatment, data=liarozole,
++  type="Dunnett", success="y", base=4)
+Simultaneous 95 percent Wald -confidence intervals 
+ for the difference of proportions (RD) 
+                  estimate   lower   upper
+Dose50 - Dose150   -0.2005 -0.4458  0.0447
+Dose75 - Dose150   -0.2712 -0.4968 -0.0457
+Placebo - Dose150  -0.3235 -0.5357 -0.1114
+  
+where proportions are the probabilities to observe y 
+  
+> 
+> # If data are available as a named kx2-contigency table:
+> 
+> tab<-table(liarozole)
+> tab
+        Treatment
+Improved Dose150 Dose50 Dose75 Placebo
+       n      21     27     32      32
+       y      13      6      4       2
+> 
+> # Comparison to the control group "Placebo",
+> # which is the fourth group in alpha-numeric order:
+> 
+> CIs<-binomRDci(tab, type="Dunnett", success="y", base=4)
+> 
+> plot(CIs, lines=0)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binomRDtest")
+> ### * binomRDtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binomRDtest
+> ### Title: Simultaneous test for contrasts of independent binomial
+> ###   proportions (in a oneway layout)
+> ### Aliases: binomRDtest binomRDtest.default binomRDtest.table
+> ###   binomRDtest.matrix binomRDtest.formula
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> ntrials <- c(40,20,20,20)
+> xsuccesses <- c(1,2,2,4)
+> names(xsuccesses) <- LETTERS[1:4]
+> binomRDtest(x=xsuccesses, n=ntrials, method="ADD1",
++  type="Dunnett")
+Union intersection test using Add-1  variance estimator: 
+P-value of the maximum test: 
+[1] 0.1661
+  
+      estimate testat p.val.adj
+B - A    0.075 1.0778    0.6245
+C - A    0.075 1.0778    0.6245
+D - A    0.175 1.8860    0.1661
+  
+where proportions are the probability of the event success 
+  
+> 
+> binomRDtest(x=xsuccesses, n=ntrials, method="ADD1",
++  type="Williams", alternative="greater")
+Union intersection test using Add-1  variance estimator: 
+P-value of the maximum test: 
+[1] 0.0327
+  
+    estimate testat p.val.adj
+C 1   0.1750 1.8860    0.0566
+C 2   0.1250 2.0284    0.0415
+C 3   0.1083 2.1355    0.0327
+  
+where proportions are the probability of the event success 
+  
+> 
+> binomRDtest(x=xsuccesses, n=ntrials, method="ADD2",
++  type="Williams", alternative="greater")
+Union intersection test using Add-2  variance estimator: 
+P-value of the maximum test: 
+[1] 0.034
+  
+    estimate testat p.val.adj
+C 1   0.1750 1.8872    0.0562
+C 2   0.1250 2.0200    0.0424
+C 3   0.1083 2.1190    0.0340
+  
+where proportions are the probability of the event success 
+  
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binomRRci")
+> ### * binomRRci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binomRRci
+> ### Title: Simultaneous confidence intervals for ratios of independent
+> ###   binomial proportions
+> ### Aliases: binomRRci binomRRci.default binomRRci.table binomRRci.matrix
+> ###   binomRRci.formula
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> # In simple cases, counts of successes
+> # and number of trials can be just typed:
+> 
+> ntrials <- c(40,20,20,20)
+> xsuccesses <- c(1,2,2,4)
+> names(xsuccesses) <- LETTERS[1:4]
+> ex1D<-binomRRci(x=xsuccesses, n=ntrials,
++  type="Dunnett")
+> ex1D
+Simultaneous 95 percent-confidence intervals 
+ for the ratio of proportions (RR), based on a crude normal approximation 
+      estimate  lower   upper
+B / A   3.2927 0.3326 32.5948
+C / A   3.2927 0.3326 32.5948
+D / A   5.9268 0.7425 47.3071
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> ex1W<-binomRRci(x=xsuccesses, n=ntrials,
++  type="Williams", alternative="greater")
+> ex1W
+Simultaneous 95 percent-confidence intervals 
+ for the ratio of proportions (RR), based on a crude normal approximation 
+    estimate  lower upper
+C 1   5.9268 1.1234   Inf
+C 2   4.4176 0.8747   Inf
+C 3   4.0054 0.8221   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> # results can be plotted:
+> plot(ex1D, main="Comparisons to control group A")
+> 
+> # summary gives a more detailed print out:
+> summary(ex1W)
+Summary statistics: 
+                                   A    B    C    D
+number of successes            1.000  2.0  2.0  4.0
+number of trials              40.000 20.0 20.0 20.0
+estimated success probability  0.025  0.1  0.1  0.2
+
+ Contrast matrix: 
+
+	 Multiple Comparisons of Means: Williams Contrasts
+
+     A      B      C      D
+C 1 -1 0.0000 0.0000 1.0000
+C 2 -1 0.0000 0.5000 0.5000
+C 3 -1 0.3333 0.3333 0.3333
+
+ The estimated correlation matrix of the contrasts is: 
+       [,1]   [,2]   [,3]
+[1,] 1.0000 0.9178 0.9013
+[2,] 0.9178 1.0000 0.9648
+[3,] 0.9013 0.9648 1.0000
+
+Simultaneous 95 percent-confidence intervals 
+ for the ratio of proportions (RR), based on a crude normal approximation 
+    estimate  lower upper
+C 1   5.9268 1.1234   Inf
+C 2   4.4176 0.8747   Inf
+C 3   4.0054 0.8221   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> # if data are represented as dichotomous variable
+> # in a data.frame one can make use of table:
+> 
+> 
+> data(liarozole)
+> 
+> head(liarozole)
+  Improved Treatment
+1        y   Placebo
+2        y   Placebo
+3        n   Placebo
+4        n   Placebo
+5        n   Placebo
+6        n   Placebo
+> 
+> # here, it might be important to define which level of the
+> # variable 'Improved' is to be considered as success
+> 
+> binomRRci(Improved ~ Treatment, data=liarozole,
++  type="Dunnett", success="y", base=4, alternative="greater")
+Simultaneous 95 percent-confidence intervals 
+ for the ratio of proportions (RR), based on a crude normal approximation 
+                  estimate  lower upper
+Dose150 / Placebo   5.4000 1.5139   Inf
+Dose50 / Placebo    2.6776 0.6689   Inf
+Dose75 / Placebo    1.7014 0.3862   Inf
+  
+where proportions are the probabilities to observe y 
+  
+> 
+> # If data are available as a named kx2-contigency table:
+> 
+> tab<-table(liarozole)
+> tab
+        Treatment
+Improved Dose150 Dose50 Dose75 Placebo
+       n      21     27     32      32
+       y      13      6      4       2
+> 
+> binomRRci(tab, type="Dunnett", success="y", base=4, alternative="greater")
+Simultaneous 95 percent-confidence intervals 
+ for the ratio of proportions (RR), based on a crude normal approximation 
+                  estimate  lower upper
+Dose150 / Placebo   5.4000 1.5150   Inf
+Dose50 / Placebo    2.6776 0.6694   Inf
+Dose75 / Placebo    1.7014 0.3865   Inf
+  
+where proportions are the probabilities to observe y 
+  
+> 
+> 
+> # Performance for extreme cases:
+> 
+> 
+> binomRRci(x=c(0,0,20,5),n=c(20,20,20,20),names=c("A","B","C","D"),
++  type="Dunnett", alternative="greater")
+Warning in binomRRci.default(x = c(0, 0, 20, 5), n = c(20, 20, 20, 20),  :
+  Normal approximation might be inappropriate
+Warning in restrictbounds(x = x, cmat = cmat, conf.int = conf.int) :
+  0 occured in the data and the risk ratio might not be defined
+Simultaneous 95 percent-confidence intervals 
+ for the ratio of proportions (RR), based on a crude normal approximation 
+      estimate  lower upper
+B / A        1 0.0000   Inf
+C / A       41 2.7817   Inf
+D / A       11 0.6819   Inf
+  
+where proportions are the probabilities to observe success 
+  
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binomest")
+> ### * binomest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binomest
+> ### Title: Only for internal use.
+> ### Aliases: binomest binomest.default binomest.formula binomest.table
+> ### Keywords: internal
+> 
+> ### ** Examples
+> 
+> 
+> # if data are available as counts:
+> 
+> nsuccess<-c(1,2,6,8)
+> ntrials<-c(20,20,20,20)
+> binomest(x=nsuccess, n=ntrials)
+$Y
+1 2 3 4 
+1 2 6 8 
+
+$n
+ 1  2  3  4 
+20 20 20 20 
+
+$estimate
+   1    2    3    4 
+0.05 0.10 0.30 0.40 
+
+$estp
+   1    2    3    4 
+0.05 0.10 0.30 0.40 
+
+$varp
+       1        2        3        4 
+0.002375 0.004500 0.010500 0.012000 
+
+$varcor
+       1        2        3        4 
+0.002375 0.004500 0.010500 0.012000 
+
+$names
+[1] "1" "2" "3" "4"
+
+$success
+[1] "success"
+
+> 
+> binomest(x=nsuccess, n=ntrials,
++  names=c("Control", "A", "B", "C"))
+$Y
+Control       A       B       C 
+      1       2       6       8 
+
+$n
+Control       A       B       C 
+     20      20      20      20 
+
+$estimate
+Control       A       B       C 
+   0.05    0.10    0.30    0.40 
+
+$estp
+Control       A       B       C 
+   0.05    0.10    0.30    0.40 
+
+$varp
+ Control        A        B        C 
+0.002375 0.004500 0.010500 0.012000 
+
+$varcor
+ Control        A        B        C 
+0.002375 0.004500 0.010500 0.012000 
+
+$names
+[1] "Control" "A"       "B"       "C"      
+
+$success
+[1] "success"
+
+> 
+> # if data are available as data.frame
+> # with categorical response variable
+> # and factor as grouping variable 
+> 
+> data(liarozole)
+> binomest(Improved ~ Treatment, data=liarozole)
+$Y
+Dose150  Dose50  Dose75 Placebo 
+     21      27      32      32 
+
+$n
+Dose150  Dose50  Dose75 Placebo 
+     34      33      36      34 
+
+$estimate
+  Dose150    Dose50    Dose75   Placebo 
+0.6176471 0.8181818 0.8888889 0.9411765 
+
+$estp
+  Dose150    Dose50    Dose75   Placebo 
+0.6176471 0.8181818 0.8888889 0.9411765 
+
+$varp
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$varcor
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$names
+[1] "Dose150" "Dose50"  "Dose75"  "Placebo"
+
+$success
+[1] "n"
+
+> binomest(Improved ~ Treatment, data=liarozole, success="y")
+$Y
+Dose150  Dose50  Dose75 Placebo 
+     13       6       4       2 
+
+$n
+Dose150  Dose50  Dose75 Placebo 
+     34      33      36      34 
+
+$estimate
+   Dose150     Dose50     Dose75    Placebo 
+0.38235294 0.18181818 0.11111111 0.05882353 
+
+$estp
+   Dose150     Dose50     Dose75    Placebo 
+0.38235294 0.18181818 0.11111111 0.05882353 
+
+$varp
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$varcor
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$names
+[1] "Dose150" "Dose50"  "Dose75"  "Placebo"
+
+$success
+[1] "y"
+
+> 
+> # if data are available as table
+> # and factor as grouping variable 
+> 
+> data(liarozole)
+> tab<-table(liarozole)
+> 
+> binomest(tab)
+$Y
+Dose150  Dose50  Dose75 Placebo 
+     21      27      32      32 
+
+$n
+Dose150  Dose50  Dose75 Placebo 
+     34      33      36      34 
+
+$estimate
+  Dose150    Dose50    Dose75   Placebo 
+0.6176471 0.8181818 0.8888889 0.9411765 
+
+$estp
+  Dose150    Dose50    Dose75   Placebo 
+0.6176471 0.8181818 0.8888889 0.9411765 
+
+$varp
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$varcor
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$names
+[1] "Dose150" "Dose50"  "Dose75"  "Placebo"
+
+$success
+[1] "n"
+
+> binomest(tab, success="y")
+$Y
+Dose150  Dose50  Dose75 Placebo 
+     13       6       4       2 
+
+$n
+Dose150  Dose50  Dose75 Placebo 
+     34      33      36      34 
+
+$estimate
+   Dose150     Dose50     Dose75    Placebo 
+0.38235294 0.18181818 0.11111111 0.05882353 
+
+$estp
+   Dose150     Dose50     Dose75    Placebo 
+0.38235294 0.18181818 0.11111111 0.05882353 
+
+$varp
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$varcor
+    Dose150      Dose50      Dose75     Placebo 
+0.006945858 0.004507889 0.002743484 0.001628333 
+
+$names
+[1] "Dose150" "Dose50"  "Dose75"  "Placebo"
+
+$success
+[1] "y"
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bronch")
+> ### * bronch
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bronch
+> ### Title: Rodent bronchial carcinoma data
+> ### Aliases: bronch
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(bronch)
+> # raw tumour counts:
+> 
+> table(bronch[c("group","Y")])
+     Y
+group FALSE TRUE
+    0    46    4
+    1    41    9
+    2    39   11
+    3    43    7
+> 
+> # groupwise times of death:
+> 
+> boxplot(time ~ group, data=bronch, horizontal=TRUE)
+> 
+> # Using poly3estf, we can produce the
+> # summary statistics as presented in 
+> # Table 6.6, page 239, of Piegorsch and Bailer (1997):
+> 
+> poly3estf(status=bronch$Y, time=bronch$time, f=bronch$group)
+Raw and poly-3-adjusted sample estimates:
+                        0       1       2       3
+x                  4.0000  9.0000 11.0000  7.0000
+n                 50.0000 50.0000 50.0000 50.0000
+adjusted n        41.8368 40.9661 38.4904 22.8135
+adjusted estimate  0.0956  0.2197  0.2858  0.3068
+  
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("estShannonf")
+> ### * estShannonf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estShannonf
+> ### Title: Estimate the Shannon-Wiener index
+> ### Aliases: estShannonf
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> data(HCD)
+> HCD
+   Level Cr Ha Hy Pa Ty Or Sa Dr
+1  Upper 50 29  3  0  3  4  1  0
+2 Middle 53 51  2  0  3  8  6  0
+3  Lower 19  7  1  0  2  0  3  0
+> 
+> # Groupwise point estimates:
+> 
+> est<-estShannonf(X=HCD[,-1], f=HCD[,1])
+> 
+> est
+$estimate
+   Lower   Middle    Upper 
+1.254866 1.238877 1.145481 
+
+$estraw
+   Lower   Middle    Upper 
+1.145491 1.210422 1.106592 
+
+$estHBCo0
+   Lower   Middle    Upper 
+1.207991 1.230747 1.134370 
+
+$varest
+      Lower      Middle       Upper 
+0.022987521 0.005728593 0.008974520 
+
+$table
+       Cr Ha Hy Pa Ty Or Sa Dr
+Lower  19  7  1  0  2  0  3  0
+Middle 53 51  2  0  3  8  6  0
+Upper  50 29  3  0  3  4  1  0
+
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("estSimpsonf")
+> ### * estSimpsonf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estSimpsonf
+> ### Title: Estimate the Simpson index from several samples
+> ### Aliases: estSimpsonf
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> # Here, the estimates for the Hell Creek Dinosaur 
+> # example are compared to the estimates in 
+> # Tables 2 and 3 of Rogers and Hsu (2001).
+> 
+> data(HCD)
+> HCD
+   Level Cr Ha Hy Pa Ty Or Sa Dr
+1  Upper 50 29  3  0  3  4  1  0
+2 Middle 53 51  2  0  3  8  6  0
+3  Lower 19  7  1  0  2  0  3  0
+> 
+> # Groupwise point estimates:
+> 
+> est<-estSimpsonf(X=HCD[,-1], f=HCD[,1])
+> 
+> est
+$estimate
+    Lower    Middle     Upper 
+0.6048387 0.6401439 0.5897628 
+
+$varest
+       Lower       Middle        Upper 
+0.0064696035 0.0006253136 0.0014393560 
+
+$table
+       Cr Ha Hy Pa Ty Or Sa Dr
+Lower  19  7  1  0  2  0  3  0
+Middle 53 51  2  0  3  8  6  0
+Upper  50 29  3  0  3  4  1  0
+
+> 
+> # Table 2:
+> 
+> 
+> cmat<-rbind(
++ "lower-middle"=c(1,-1,0),
++ "lower-upper"=c(1, 0,-1),
++ "middle-upper"=c(0,1,-1))
+> 
+> 
+> # the point estimates:
+> 
+> # cmat %*% est$estimate
+> crossprod(t(cmat), est$estimate)
+                    [,1]
+lower-middle -0.03530523
+lower-upper   0.01507591
+middle-upper  0.05038115
+> 
+> 
+> # the standard errors:
+> # sqrt(diag(cmat %*% diag(est$varest) %*% t(cmat)))
+> 
+> sqrt(diag(crossprod(t(cmat), crossprod(diag(est$varest), t(cmat)) ) ))
+lower-middle  lower-upper middle-upper 
+  0.08423133   0.08893233   0.04543864 
+> 
+> 
+> # Table 3:
+> 
+> cmat<-rbind(
++ "middle-lower"=c(-1,1,0),
++ "upper-lower"=c(-1,0,1))
+> 
+> # cmat %*% est$estimate
+> crossprod(t(cmat), est$estimate)
+                    [,1]
+middle-lower  0.03530523
+upper-lower  -0.01507591
+> 
+> 
+> # sqrt(diag(cmat %*% diag(est$varest) %*% t(cmat)))
+> 
+> sqrt(diag(crossprod(t(cmat), crossprod(diag(est$varest), t(cmat)) ) ))
+middle-lower  upper-lower 
+  0.08423133   0.08893233 
+> 
+> # Note, that the point estimates are exactly
+> # the same as in Rogers and Hsu (2001),
+> # but the variance estimates are not, whenever
+> # the Upper group is involved.
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("liarozole")
+> ### * liarozole
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: liarozole
+> ### Title: Marked improvement of psoriasis after application of liarozole
+> ### Aliases: liarozole
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(liarozole)
+> head(liarozole)
+  Improved Treatment
+1        y   Placebo
+2        y   Placebo
+3        n   Placebo
+4        n   Placebo
+5        n   Placebo
+6        n   Placebo
+> # create a contingency table:
+> 
+> table(liarozole)
+        Treatment
+Improved Dose150 Dose50 Dose75 Placebo
+       n      21     27     32      32
+       y      13      6      4       2
+> 
+> 
+> # the order of the groups is alpha-numeric,
+> # and "y" for success is of higher order than
+> # to change the order:
+> 
+> liarozole$Treatment<-factor(liarozole$Treatment,
++  levels=c("Placebo", "Dose50", "Dose75", "Dose150"))
+> 
+> liarozole$Improved<-factor(liarozole$Improved,
++  levels=c("y", "n"))
+> 
+> 
+> tab<-table(liarozole)
+> tab
+        Treatment
+Improved Placebo Dose50 Dose75 Dose150
+       y       2      6      4      13
+       n      32     27     32      21
+> 
+> # Approximate simultaneous confidence intervals
+> # for the differences  pDose-pPlacebo:
+> 
+> LCI<-binomRDci(tab, type="Dunnett", 
++ alternative="greater", method="ADD1")
+> 
+> LCI
+Simultaneous 95 percent Add-1 -confidence intervals 
+ for the difference of proportions (RD) 
+                  estimate   lower upper
+Dose50 - Placebo    0.1230 -0.0486   Inf
+Dose75 - Placebo    0.0523 -0.0948   Inf
+Dose150 - Placebo   0.3235  0.1191   Inf
+  
+where proportions are the probabilities to observe y 
+  
+> 
+> plot(LCI, main="Proportion of patients
++  with marked improvement")
+> 
+> # Perform a test on increasing trend 
+> # vs. the placebo group:
+> 
+> Ltest<-binomRDtest(tab, type="Williams", 
++ alternative="greater", method="ADD1")
+> 
+> summary(Ltest)
+Summary statistics: 
+                              Placebo  Dose50  Dose75 Dose150
+number of successes            2.0000  6.0000  4.0000 13.0000
+number of trials              34.0000 33.0000 36.0000 34.0000
+estimated success probability  0.0588  0.1818  0.1111  0.3824
+
+ Contrast matrix: 
+
+	 Multiple Comparisons of Means: Williams Contrasts
+
+    Placebo Dose50 Dose75 Dose150
+C 1      -1 0.0000 0.0000  1.0000
+C 2      -1 0.0000 0.5143  0.4857
+C 3      -1 0.3204 0.3495  0.3301
+
+Union intersection test using Add-1  variance estimator: 
+P-value of the maximum test: 
+[1] 7e-04
+  
+    estimate testat p.val.adj
+C 1   0.3235 3.3763    0.0007
+C 2   0.1840 2.7357    0.0070
+C 3   0.1645 2.7172    0.0065
+  
+where proportions are the probability of the event y 
+  
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lnrci")
+> ### * lnrci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lnrci
+> ### Title: Simultaneous confidence intervals for expected values assuming
+> ###   lognormal distribution.
+> ### Aliases: lnrci lndci
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> x <- rlnorm(n=100, meanlog=rep(c(0,0.1,1,1), each=25), sdlog=0.5)
+> f <- as.factor(rep(LETTERS[1:4], each=25))
+> boxplot(x~f)
+> 
+> lndci(x=x, f=f, type="Dunnett", method="GPQ", B=20000)
+$estimate
+            [,1]
+B - A -0.0200582
+C - A  2.2062976
+D - A  1.8445294
+
+$conf.int
+         lower     upper
+[1,] -0.478349 0.3428698
+[2,]  1.325562 3.6281310
+[3,]  1.170807 2.7652729
+attr(,"k")
+[1] 19000
+attr(,"N")
+[1] 20000
+
+$conf.level
+[1] 0.95
+
+$alternative
+[1] "two.sided"
+
+> lndci(x=x, f=f, type="Dunnett", method="AN")
+$estimate
+            [,1]
+B - A -0.0200582
+C - A  2.2062976
+D - A  1.8445294
+
+$conf.int
+           lower     upper
+B - A -0.3675241 0.3274077
+C - A  1.2218706 3.1907246
+D - A  1.1668583 2.5222006
+
+$alternative
+[1] "two.sided"
+
+$conf.level
+[1] 0.95
+
+$quantile
+[1] 2.378781
+attr(,"dist")
+[1] "MVN"
+
+$corrmat
+          [,1]      [,2]      [,3]
+[1,] 1.0000000 0.2335809 0.3393140
+[2,] 0.2335809 1.0000000 0.1197652
+[3,] 0.3393140 0.1197652 1.0000000
+
+$dist
+[1] "MVN"
+
+> 
+> lnrci(x=x, f=f, type="Tukey", method="GPQ", B=20000)
+$estimate
+           [,1]
+B / A 0.9834567
+C / A 2.8196763
+D / A 2.5213026
+C / B 2.8671077
+D / B 2.5637149
+D / C 0.8941816
+
+$conf.int
+         lower    upper
+[1,] 0.6875262 1.356217
+[2,] 1.8683420 4.487380
+[3,] 1.7284864 3.574331
+[4,] 2.0263712 4.384139
+[5,] 1.8850760 3.538079
+[6,] 0.5791242 1.309560
+attr(,"k")
+[1] 19000
+attr(,"N")
+[1] 20000
+
+$conf.level
+[1] 0.95
+
+$alternative
+[1] "two.sided"
+
+> lnrci(x=x, f=f, type="Tukey", method="AN")
+$estimate
+           [,1]
+B / A 0.9834567
+C / A 2.8196763
+D / A 2.5213026
+C / B 2.8671077
+D / B 2.5637149
+D / C 0.8941816
+
+$conf.int
+          lower    upper
+B / A 0.7211124 1.341243
+C / A 1.9113901 4.159577
+D / A 1.8095265 3.513056
+C / B 2.0234396 4.062541
+D / B 1.9309921 3.403760
+D / C 0.6190545 1.291584
+
+$alternative
+[1] "two.sided"
+
+$conf.level
+[1] 0.95
+
+$quantile
+[1] 2.560864
+attr(,"dist")
+[1] "MVN"
+
+$corrmat
+           [,1]       [,2]      [,3]       [,4]       [,5]       [,6]
+[1,]  1.0000000  0.5221422 0.6119926 -0.3078128 -0.3784947  0.0000000
+[2,]  0.5221422  1.0000000 0.4884065  0.6507275  0.0000000 -0.6167315
+[3,]  0.6119926  0.4884065 1.0000000  0.0000000  0.5003901  0.3856848
+[4,] -0.3078128  0.6507275 0.0000000  1.0000000  0.3369789 -0.6880243
+[5,] -0.3784947  0.0000000 0.5003901  0.3369789  1.0000000  0.4513942
+[6,]  0.0000000 -0.6167315 0.3856848 -0.6880243  0.4513942  1.0000000
+
+$dist
+[1] "MVN"
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("methyl")
+> ### * methyl
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: methyl
+> ### Title: NTP bioassay data: effect of methyleugenol on skin fibroma
+> ### Aliases: methyl
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(methyl)
+> # raw tumour proportions:
+> table(methyl[c("group", "tumour")])
+     tumour
+group  0  1
+    0 49  1
+    1 41  9
+    2 42  8
+    3 45  5
+> 
+> # time of death:
+> boxplot(death~group, data=methyl, horizontal=TRUE)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mosaicplot.Shannonci")
+> ### * mosaicplot.Shannonci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mosaicdiv
+> ### Title: Mosaicplot for the data in Shannonci and Simpsonci
+> ### Aliases: mosaicdiv
+> ### Keywords: hplot
+> 
+> ### ** Examples
+> 
+> 
+> data(HCD)
+> 
+> HCDFam <- HCD[,-1]
+> 
+> SCI<-Simpsonci(X=HCDFam, f=HCD[,1])
+> 
+> mosaicdiv(SCI, decreasing=TRUE, col=rainbow(n=8))
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpg4kUSe/R.INSTALL1205d77966e1d/MCPAN/R/mosaicShannonSimpson.R#5: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpVPG54z/R.INSTALL24ec733df844/MCPAN/R/mosaicShannonSimpson.R#5: 
+ --- if/while statement is in package --- 
+MCPAN
+ --- call (currently evaluated) --- 
 mosaicdiv(SCI, decreasing = TRUE, col = rainbow(n = 8))
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: mosaicdiv(SCI, decreasing = TRUE, col = rainbow(n = 8))
 
  --- value of length: 2 type: logical ---
 [1] FALSE  TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(x, decreasing=NULL, ...)
 {
 if(!class(x)%in%c("Shannonci","Simpsonci")){warning("This is a convenience function for objects of class 'Shannonci' or 'Simpsonci'!")}
@@ -55,3 +1975,5 @@ do.call("mosaicplot", aargs)
 <environment: namespace:MCPAN>
  --- function (body) search ---
 Function mosaicdiv in namespace MCPAN has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,10 +1,190 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "vitality"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('vitality')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("vitality.4p")
+> ### * vitality.4p
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: vitality.4p
+> ### Title: Fitting routine for the 2-process, 4-parameter vitality model
+> ###   (no childhood hook).
+> ### Aliases: vitality.4p
+> 
+> ### ** Examples
+> 
+> data(swedish_females)
+> swe <- swedish_females
+> initial_age <- 20 # Could be adjusted
+> time <- initial_age:max(swedish_females$age)
+> survival_fraction <- swe$lx / swe$lx[1]
+> survival_fraction <- survival_fraction[time] # when first element <1 data is adjusted
+> sample_size <- swe$Lx[initial_age] #sample size
+> 
+> results.4par <- vitality.4p(time = time,
++                             sdata = survival_fraction,
++                             #init.params=FALSE,
++                             init.params=c(0.012, 0.01, 0.1, 0.1),
++                             lower = c(0, 0, 0, 0), upper = c(100,50,1,50),
++                             rc.data = TRUE, 
++                             se = sample_size, 
++                             datatype = "CUM", 
++                             ttol = 1e-06,
++                             pplot = TRUE,
++                             Iplot = TRUE,
++                             Mplot = TRUE,
++                             tlab = "years",
++                             silent = FALSE)
+                      rsk    
+[1,] "Initial r"      "0.012"
+[2,] "initial s"      "0.01" 
+[3,] "initial lambda" "0.1"  
+[4,] "initial beta"   "0.1"  
+Warning in nlminb(start = rsk, objective = logLikelihood.4p, lower = lower,  :
+  NA/NaN function evaluation
+Warning in nlminb(start = rsk, objective = logLikelihood.4p, lower = lower,  :
+  NA/NaN function evaluation
+     [,1]                           [,2]                 
+[1,] "estimated r"                  "0.0104720788600492" 
+[2,] "estimated s"                  "0.00769381248811434"
+[3,] "estimated lambda"             "0.147910425934361"  
+[4,] "estimated beta"               "0.108353549812955"  
+[5,] "minimum -loglikelihood value" "3.74526359685208"   
+                     s.e.                  
+[1,] "sd for r"      "1.9570328643684e-05" 
+[2,] "sd for s"      "7.54580901422932e-05"
+[3,] "sd for lambda" "0.00507488778293214" 
+[4,] "sd for beta"   "0.000820922381960018"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("vitality.6p")
+> ### * vitality.6p
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: vitality.6p
+> ### Title: Fitting routine for the 2-process, 6-parameter vitality model
+> ###   (with childhood hook).
+> ### Aliases: vitality.6p
+> 
+> ### ** Examples
+> 
+> data(swedish_females)
+> swe <- swedish_females
+> initial_age <- 0 
+> time <- swedish_females$age
+> survival_fraction <- swe$lx / swe$lx[1]
+> sample_size <- swe$Lx[1] #sample size
+> 
+> results.6par <- vitality.6p(time = time,
++                             sdata = survival_fraction,
++                             #init.params=FALSE,
++                             init.params=c(0.012, 0.01, 0.1, 0.1, 0.1, 1),
++                             lower = c(0, 0, 0, 0, 0, 0), upper = c(100,50,1,50,50,50),
++                             rc.data = TRUE, 
++                             se=FALSE,
++                             #se = sample_size, 
++                             datatype = "CUM", 
++                             ttol = 1e-06,
++                             pplot = TRUE,
++                             Iplot = TRUE,
++                             Mplot = TRUE,
++                             tlab = "years",
++                             silent = FALSE)
+                      rsk    
+[1,] "Initial r"      "0.012"
+[2,] "Initial s"      "0.01" 
+[3,] "Initial lambda" "0.1"  
+[4,] "Initial beta"   "0.1"  
+[5,] "Initial gamma"  "0.1"  
+[6,] "Initial alpha"  "1"    
+Warning in nlminb(start = rsk, objective = logLikelihood.6p, lower = lower,  :
+  NA/NaN function evaluation
+Warning in nlminb(start = rsk, objective = logLikelihood.6p, lower = lower,  :
+  NA/NaN function evaluation
+Warning in nlminb(start = rsk, objective = logLikelihood.6p, lower = lower,  :
+  NA/NaN function evaluation
+Warning in nlminb(start = rsk, objective = logLikelihood.6p, lower = lower,  :
+  NA/NaN function evaluation
+     [,1]                           [,2]                 
+[1,] "estimated r"                  "0.0106766993752509" 
+[2,] "estimated s"                  "0.00772310796722416"
+[3,] "estimated lambda"             "0.122995103866105"  
+[4,] "estimated beta"               "0.11525919001918"   
+[5,] "estimated gamma"              "0.00764930434357127"
+[6,] "estimated alpha"              "2.55022414571299"   
+[7,] "minimum -loglikelihood value" "3.78556654614674"   
+> 
+> 
+> 
+> cleanEx()
+> nameEx("vitality")
+> ### * vitality
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: vitality
+> ### Title: Fitting routines for the Vitality family of mortality models.
+> ### Aliases: vitality vitality-package
+> 
+> ### ** Examples
+> 
+> # vitality.k
+> data(daphnia)
+> time <- daphnia$days
+> survival_fraction <- daphnia$lx
+> 
+> results.modk <- vitality.k(time = time,
++                            sdata = survival_fraction,
++                            rc.data=TRUE, 
++                            se=FALSE,
++                            gfit=FALSE, 
++                            datatype="CUM", 
++                            ttol=.000001, 
++                            init.params=FALSE, 
++                            lower=c(0,-1,0), upper=c(100,50,50), 
++                            pplot=TRUE, 
++                            tlab="days", 
++                            lplot=TRUE, 
++                            cplot=TRUE, 
++                            Iplot=TRUE, 
++                            silent=TRUE)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpss6NEE/R.INSTALL2518b427012d4/vitality/R/vitality.k.R#459: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpE45lTo/R.INSTALL5c4d500a09ec/vitality/R/vitality.k.R#459: 
+ --- if/while statement is in package --- 
+vitality
+ --- call (currently evaluated) --- 
 plotting.k(r.final, s.final, k.final, mlv, time, sfract, x1, 
     x2, Ni, pplot, tlab, lplot, cplot, Iplot, gfit, rc.data)
- --- stacktrace ---
-where 1 at /tmp/Rtmpss6NEE/R.INSTALL2518b427012d4/vitality/R/vitality.k.R#259: plotting.k(r.final, s.final, k.final, mlv, time, sfract, x1, 
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpE45lTo/R.INSTALL5c4d500a09ec/vitality/R/vitality.k.R#259: plotting.k(r.final, s.final, k.final, mlv, time, sfract, x1, 
     x2, Ni, pplot, tlab, lplot, cplot, Iplot, gfit, rc.data)
 where 2: vitality.k(time = time, sdata = survival_fraction, rc.data = TRUE, 
     se = FALSE, gfit = FALSE, datatype = "CUM", ttol = 1e-06, 
@@ -15,7 +195,7 @@ where 2: vitality.k(time = time, sdata = survival_fraction, rc.data = TRUE,
  --- value of length: 28 type: logical ---
  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 [16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(r.final,s.final,k.final,mlv,time,sfract,x1,x2,Ni,pplot,tlab,lplot,cplot,Iplot,gfit,rc.data){
   #  Function to provide plotting and goodness of fit computations
   #
@@ -209,3 +389,5 @@ function(r.final,s.final,k.final,mlv,time,sfract,x1,x2,Ni,pplot,tlab,lplot,cplot
 <environment: namespace:vitality>
  --- function (body) search ---
 Function plotting.k in namespace vitality has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

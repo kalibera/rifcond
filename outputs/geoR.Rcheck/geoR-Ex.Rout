@@ -1,13 +1,5288 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "geoR"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('geoR')
+--------------------------------------------------------------
+ Analysis of Geostatistical Data
+ For an Introduction to geoR go to http://www.leg.ufpr.br/geoR
+ geoR version 1.7-5.2 (built on 2016-05-02) is now loaded
+--------------------------------------------------------------
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BoxCox")
+> ### * BoxCox
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: boxcox
+> ### Title: The Box-Cox Transformed Normal Distribution
+> ### Aliases: rboxcox dboxcox
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> ## Simulating data
+> simul <- rboxcox(100, lambda=0.5, mean=10, sd=2)
+> ##
+> ## Comparing models with different lambdas,
+> ## zero  means and unit variances
+> curve(dboxcox(x, lambda=-1), 0, 8)
+> for(lambda in seq(-.5, 1.5, by=0.5))
++   curve(dboxcox(x, lambda), 0, 8, add = TRUE)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("InvChisquare")
+> ### * InvChisquare
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: InvChisquare
+> ### Title: The (Scaled) Inverse Chi-Squared Distribution
+> ### Aliases: dinvchisq rinvchisq
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> set.seed(1234); rinvchisq(5, df=2)
+[1] 46.6089469  0.6693449  0.6358670  4.2780663  0.5423825
+> set.seed(1234); 1/rchisq(5, df=2)
+[1] 46.6089469  0.6693449  0.6358670  4.2780663  0.5423825
+> 
+> set.seed(1234); rinvchisq(5, df=2, scale=5)
+[1] 466.089469   6.693449   6.358670  42.780663   5.423825
+> set.seed(1234); 5*2/rchisq(5, df=2)
+[1] 466.089469   6.693449   6.358670  42.780663   5.423825
+> 
+> ## inverse Chi-squared is a particular case
+> x <- 1:10
+> all.equal(dinvchisq(x, df=2), dinvchisq(x, df=2, scale=1/2))
+[1] TRUE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Ksat")
+> ### * Ksat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Ksat
+> ### Title: Saturated Hydraulic Conductivity
+> ### Aliases: Ksat
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> summary(Ksat)
+Number of data points: 32 
+
+Coordinates summary
+       x   y
+min  2.5 0.8
+max 21.0 9.1
+
+Distance summary
+      min       max 
+ 0.509902 18.552897 
+
+Borders summary
+       x  y
+min  0.0  0
+max 22.5 13
+
+Data summary
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0200000 0.0922500 0.3050000 0.8720625 1.1425000 4.3000000 
+> plot(Ksat, border=borders)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("SIC")
+> ### * SIC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: SIC
+> ### Title: Spatial Interpolation Comparison data
+> ### Aliases: sic SIC sic.100 sic.367 sic.all sic.some sic.borders
+> ### Keywords: datasets spatial
+> 
+> ### ** Examples
+> 
+> points(sic.100, borders=sic.borders)
+> points(sic.all, borders=sic.borders)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.geodata")
+> ### * as.geodata
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.geodata
+> ### Title: Converts an Object to the Class "geodata"
+> ### Aliases: as.geodata geodata as.geodata.default
+> ###   as.geodata.SpatialPointsDataFrame as.data.frame.geodata
+> ###   as.geodata.geodata.frame is.geodata
+> ### Keywords: spatial classes manip
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ## converting the data-set "topo" from the package MASS (VR's bundle)
+> ##D ## to the geodata format:
+> ##D if(require(MASS)){
+> ##D topo
+> ##D topogeo <- as.geodata(topo)
+> ##D names(topogeo)
+> ##D topogeo
+> ##D }
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("boxcox.geodata")
+> ### * boxcox.geodata
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: boxcox.geodata
+> ### Title: Box-Cox transformation for geodata objects
+> ### Aliases: boxcox.geodata
+> ### Keywords: regression models hplot
+> 
+> ### ** Examples
+> 
+> if(require(MASS)){
++ boxcox(wolfcamp)
++ 
++ data(ca20)
++ boxcox(ca20, trend = ~altitude)
++ }
+Loading required package: MASS
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:MASS’
+
+> nameEx("boxcoxfit")
+> ### * boxcoxfit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: boxcoxfit
+> ### Title: Parameter Estimation for the Box-Cox Transformation
+> ### Aliases: boxcoxfit print.boxcoxfit plot.boxcoxfit lines.boxcoxfit
+> ###   .negloglik.boxcox
+> ### Keywords: regression models hplot
+> 
+> ### ** Examples
+> 
+> set.seed(384)
+> ## Simulating data
+> simul <- rboxcox(100, lambda=0.5, mean=10, sd=2)
+> ## Finding the ML estimates
+> ml <- boxcoxfit(simul)
+> ml
+Fitted parameters:
+   lambda      beta   sigmasq 
+0.3438593 6.8416274 1.5070038 
+
+Convergence code returned by optim: 0
+> ## Ploting histogram and fitted model
+> plot(ml)
+> ##
+> ## Comparing models with different lambdas,
+> ## zero  means and unit variances
+> curve(dboxcox(x, lambda=-1), 0, 8)
+> for(lambda in seq(-.5, 1.5, by=0.5))
++   curve(dboxcox(x, lambda), 0, 8, add = TRUE)
+> ##
+> ## Another example, now estimating lambda2
+> ##
+> simul <- rboxcox(100, lambda=0.5, mean=10, sd=2)
+> ml <- boxcoxfit(simul, lambda2 = TRUE)
+> ml
+Fitted parameters:
+   lambda   lambda2      beta   sigmasq 
+0.1563259 0.0000000 4.8151127 0.4351898 
+
+Convergence code returned by optim: 0
+> plot(ml)
+> ##
+> ## An example with a regression model
+> ##
+> boxcoxfit(object = trees[,3], xmat = trees[,1:2])
+Fitted parameters:
+    lambda      beta0      beta1      beta2    sigmasq 
+ 0.3065760 -2.7915276  0.4144820  0.0401038  0.0466829 
+
+Convergence code returned by optim: 0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("camg")
+> ### * camg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: camg
+> ### Title: Calcium and magnesium content in soil samples
+> ### Aliases: camg
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> plot(camg[-(1:2),])
+> mg20 <- as.geodata(camg, data.col=6)
+> plot(mg20)
+> points(mg20)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coords.aniso")
+> ### * coords.aniso
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coords.aniso
+> ### Title: Geometric Anisotropy Correction
+> ### Aliases: coords.aniso
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> op <- par(no.readonly = TRUE)
+> par(mfrow=c(3,2))
+> par(mar=c(2.5,0,0,0))
+> par(mgp=c(2,.5,0))
+> par(pty="s")
+> ## Defining a set of coordinates
+> coords <- expand.grid(seq(-1, 1, l=3), seq(-1, 1, l=5))
+> plot(c(-1.5, 1.5), c(-1.5, 1.5), xlab="", ylab="", type="n")
+> text(coords[,1], coords[,2], 1:nrow(coords))
+> ## Transforming coordinates according to some anisotropy parameters
+> coordsA <- coords.aniso(coords, aniso.pars=c(0, 2))
+> plot(c(-1.5, 1.5), c(-1.5, 1.5), xlab="", ylab="", type="n")
+> text(coordsA[,1], coordsA[,2], 1:nrow(coords))
+> ##
+> coordsB <- coords.aniso(coords, aniso.pars=c(pi/2, 2))
+> plot(c(-1.5, 1.5), c(-1.5, 1.5), xlab="", ylab="", type="n")
+> text(coordsB[,1], coordsB[,2], 1:nrow(coords))
+> ##
+> coordsC <- coords.aniso(coords, aniso.pars=c(pi/4, 2))
+> plot(c(-1.5, 1.5), c(-1.5, 1.5), xlab="", ylab="", type="n")
+> text(coordsC[,1], coordsC[,2], 1:nrow(coords))
+> ##
+> coordsD <- coords.aniso(coords, aniso.pars=c(3*pi/4, 2))
+> plot(c(-1.5, 1.5), c(-1.5, 1.5), xlab="", ylab="", type="n")
+> text(coordsD[,1], coordsD[,2], 1:nrow(coords))
+> ##
+> coordsE <- coords.aniso(coords, aniso.pars=c(0, 5))
+> plot(c(-1.5, 1.5), c(-1.5, 1.5), xlab="", ylab="", type="n")
+> text(coordsE[,1], coordsE[,2], 1:nrow(coords))
+> ##
+> par(op)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("coords2coords")
+> ### * coords2coords
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coords2coords
+> ### Title: Operations on Coordinates
+> ### Aliases: coords2coords zoom.coords zoom.coords.default
+> ###   zoom.coords.geodata rect.coords
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> foo <- matrix(c(4,6,6,4,2,2,4,4), nc=2)
+> foo1 <- zoom.coords(foo, 2)
+> foo1
+     [,1] [,2]
+[1,]    3    1
+[2,]    7    1
+[3,]    7    5
+[4,]    3    5
+> foo2 <- coords2coords(foo, c(6,10), c(6,10))
+> foo2
+     [,1] [,2]
+[1,]    6    6
+[2,]   10    6
+[3,]   10   10
+[4,]    6   10
+> plot(1:10, 1:10, type="n")
+> polygon(foo)
+> polygon(foo1, lty=2)
+> polygon(foo2, lwd=2)
+> arrows(foo[,1], foo[,2],foo1[,1],foo1[,2], lty=2)
+> arrows(foo[,1], foo[,2],foo2[,1],foo2[,2])
+> legend("topleft", 
++        c("foo", "foo1 (zoom.coords)", "foo2 (coords2coords)"), lty=c(1,2,1), lwd=c(1,1,2))
+> 
+> ## "zooming" part of The Gambia map
+> gb <- gambia.borders/1000
+> gd <- gambia[,1:2]/1000
+> plot(gb, ty="l", asp=1, xlab="W-E (kilometres)", ylab="N-S (kilometres)")
+> points(gd, pch=19, cex=0.5)
+> r1b <- gb[gb[,1] < 420,]
+> rc1 <- rect.coords(r1b, lty=2)
+> 
+> r1bn <- zoom.coords(r1b, 1.8, xoff=90, yoff=-90)
+> rc2 <- rect.coords(r1bn, xz=1.05)
+> segments(rc1[c(1,3),1],rc1[c(1,3),2],rc2[c(1,3),1],rc2[c(1,3),2], lty=3)
+> 
+> lines(r1bn)
+> r1d <- gd[gd[,1] < 420,]
+> r1dn <- zoom.coords(r1d, 1.7, xlim.o=range(r1b[,1],na.rm=TRUE), ylim.o=range(r1b[,2], na.rm=TRUE), 
++                     xoff=90, yoff=-90)
+> points(r1dn, pch=19, cex=0.5)
+> text(450,1340, "Western Region", cex=1.5)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cov.spatial")
+> ### * cov.spatial
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cov.spatial
+> ### Title: Computes Value of the Covariance Function
+> ### Aliases: cov.spatial .cor.number .check.cov.model geoRCovModels
+> ### Keywords: spatial models
+> 
+> ### ** Examples
+> 
+> #
+> # Variogram models with the same "practical" range:
+> #
+> v.f <- function(x, ...){1-cov.spatial(x, ...)}
+> #
+> curve(v.f(x, cov.pars=c(1, .2)), from = 0, to = 1,
++       xlab = "distance", ylab = expression(gamma(h)),
++       main = "variograms with equivalent \"practical range\"")
+> curve(v.f(x, cov.pars = c(1, .6), cov.model = "sph"), 0, 1,
++       add = TRUE, lty = 2)
+> curve(v.f(x, cov.pars = c(1, .6/sqrt(3)), cov.model = "gau"),
++       0, 1, add = TRUE, lwd = 2)
+> legend("topleft", c("exponential", "spherical", "gaussian"),
++        lty=c(1,2,1), lwd=c(1,1,2))
+> #
+> # Matern models with equivalent "practical range"
+> # and varying smoothness parameter
+> #
+> curve(v.f(x, cov.pars = c(1, 0.25), kappa = 0.5),from = 0, to = 1,
++       xlab = "distance", ylab = expression(gamma(h)), lty = 2,
++       main = "models with equivalent \"practical\" range")
+> curve(v.f(x, cov.pars = c(1, 0.188), kappa = 1),from = 0, to = 1,
++       add = TRUE)      
+> curve(v.f(x, cov.pars = c(1, 0.14), kappa = 2),from = 0, to = 1,
++       add = TRUE, lwd=2, lty=2)      
+> curve(v.f(x, cov.pars = c(1, 0.117), kappa = 2),from = 0, to = 1,
++       add = TRUE, lwd=2)      
+> legend("bottomright",
++        expression(list(kappa == 0.5, phi == 0.250), 
++          list(kappa == 1, phi == 0.188), list(kappa == 2, phi == 0.140),
++          list(kappa == 3, phi == 0.117)), lty=c(2,1,2,1), lwd=c(1,1,2,2))
+> # plotting a nested variogram model
+> curve(v.f(x, cov.pars = rbind(c(.4, .2), c(.6,.3)),
++           cov.model = c("sph","exp")), 0, 1, ylab='nested model')
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dup.coords")
+> ### * dup.coords
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dup.coords
+> ### Title: Locates duplicated coordinates
+> ### Aliases: dup.coords dup.coords.default dup.coords.geodata
+> ###   duplicated.geodata
+> ### Keywords: spatial manip
+> 
+> ### ** Examples
+> 
+> ## simulating data
+> dt <- grf(30, cov.p=c(1, .3)) 
+grf: simulation(s) on randomly chosen locations with  30  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=1, phi=0.3)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> ## "forcing" some duplicated locations
+> dt$coords[4,] <- dt$coords[14,] <- dt$coords[24,] <- dt$coords[2,]
+> dt$coords[17,] <- dt$coords[23,] <- dt$coords[8,]
+> ## output of the method for geodata
+> dup.coords(dt)
+   dup         x         y        data
+2    1 0.3721239 0.5995658  0.71761591
+4    1 0.3721239 0.5995658  0.14324927
+14   1 0.3721239 0.5995658  1.13254761
+24   1 0.3721239 0.5995658 -0.06760558
+8    2 0.6607978 0.1079436  0.23796724
+17   2 0.6607978 0.1079436  0.42743109
+23   2 0.6607978 0.1079436  0.66162909
+> ## which is the same as a method for duplicated()
+> duplicated(dt)
+   dup         x         y        data
+2    1 0.3721239 0.5995658  0.71761591
+4    1 0.3721239 0.5995658  0.14324927
+14   1 0.3721239 0.5995658  1.13254761
+24   1 0.3721239 0.5995658 -0.06760558
+8    2 0.6607978 0.1079436  0.23796724
+17   2 0.6607978 0.1079436  0.42743109
+23   2 0.6607978 0.1079436  0.66162909
+> ## the default method:
+> dup.coords(dt$coords)
+[[1]]
+[1]  2  4 14 24
+
+[[2]]
+[1]  8 17 23
+
+attr(,"class")
+[1] "duplicated.coords"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("elevation")
+> ### * elevation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: elevation
+> ### Title: Surface Elevations
+> ### Aliases: elevation
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> summary(elevation)
+Number of data points: 52 
+
+Coordinates summary
+      x   y
+min 0.2 0.0
+max 6.3 6.2
+
+Distance summary
+     min      max 
+0.200000 8.275869 
+
+Data summary
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+690.0000 787.5000 830.0000 827.0769 873.0000 960.0000 
+> plot(elevation)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gambia")
+> ### * gambia
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gambia
+> ### Title: Gambia Malaria Data
+> ### Aliases: gambia gambia.borders gambia.map
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> plot(gambia.borders, type="l", asp=1)
+> points(gambia[,1:2], pch=19)
+> # a built-in function for a zoomed map
+> gambia.map()
+> # Building a "village-level" data frame
+> ind <- paste("x",gambia[,1], "y", gambia[,2], sep="")
+> village <- gambia[!duplicated(ind),c(1:2,7:8)]
+> village$prev <- as.vector(tapply(gambia$pos, ind, mean))
+> plot(village$green, village$prev)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("grf")
+> ### * grf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: grf
+> ### Title: Simulation of Gaussian Random Fields
+> ### Aliases: grf geoR2RF .grf.aux1 grfclass lines.grf
+> ### Keywords: spatial datagen
+> 
+> ### ** Examples
+> 
+> sim1 <- grf(100, cov.pars = c(1, .25))
+grf: simulation(s) on randomly chosen locations with  100  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=1, phi=0.25)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> # a display of simulated locations and values
+> points(sim1)   
+> # empirical and theoretical variograms
+> plot(sim1)
+variog: computing omnidirectional variogram
+> ## alternative way
+> plot(variog(sim1, max.dist=1))
+variog: computing omnidirectional variogram
+> lines.variomodel(sim1)
+> #
+> # a "smallish" simulation
+> sim2 <- grf(441, grid = "reg", cov.pars = c(1, .25)) 
+grf: generating grid  21  *  21  with  441  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=1, phi=0.25)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> image(sim2)
+> ##
+> ## 1-D simulations using the same seed and different noise/signal ratios
+> ##
+> set.seed(234)
+> sim11 <- grf(100, ny=1, cov.pars=c(1, 0.25), nug=0)
+simulations in 1D
+grf: simulation(s) on randomly chosen locations with  100  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=1, phi=0.25)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> set.seed(234)
+> sim12 <- grf(100, ny=1, cov.pars=c(0.75, 0.25), nug=0.25)
+simulations in 1D
+grf: simulation(s) on randomly chosen locations with  100  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0.25 
+grf: covariance model 1 is: exponential(sigmasq=0.75, phi=0.25)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> set.seed(234)
+> sim13 <- grf(100, ny=1, cov.pars=c(0.5, 0.25), nug=0.5)
+simulations in 1D
+grf: simulation(s) on randomly chosen locations with  100  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0.5 
+grf: covariance model 1 is: exponential(sigmasq=0.5, phi=0.25)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> ##
+> par.ori <- par(no.readonly = TRUE)
+> par(mfrow=c(3,1), mar=c(3,3,.5,.5))
+> yl <- range(c(sim11$data, sim12$data, sim13$data))
+> image(sim11, type="l", ylim=yl)
+> image(sim12, type="l", ylim=yl)
+> image(sim13, type="l", ylim=yl)
+> par(par.ori)
+> 
+> ## simulating within borders
+> data(parana)
+> pr1 <- grf(100, cov.pars=c(200, 40), borders=parana$borders, mean=500)
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=200, phi=40)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> points(pr1)
+> pr1 <- grf(100, grid="reg", cov.pars=c(200, 40), borders=parana$borders)
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=200, phi=40)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> points(pr1)
+> pr1 <- grf(100, grid="reg", nx=10, ny=5, cov.pars=c(200, 40), borders=parana$borders)
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=200, phi=40)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> points(pr1)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("head")
+> ### * head
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: head
+> ### Title: Head observations in a regional confined aquifer
+> ### Aliases: head
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> summary(head)
+Number of data points: 29 
+
+Coordinates summary
+        x     y
+min  4.32  3.38
+max 16.27 11.41
+
+Distance summary
+      min       max 
+ 0.254951 12.197713 
+
+Data summary
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+ 584.000  676.000  782.000  830.069  998.000 1202.000 
+> plot(head)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hist.krige.bayes")
+> ### * hist.krige.bayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hist.krige.bayes
+> ### Title: Plots Sample from Posterior Distributions
+> ### Aliases: hist.krige.bayes
+> ### Keywords: spatial dplot
+> 
+> ### ** Examples
+> 
+> ## See documentation for krige.bayes()
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hoef")
+> ### * hoef
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hoef
+> ### Title: Data for spatial analysis of experiments
+> ### Aliases: hoef
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> hoef.geo <- as.geodata(hoef, covar.col=4)
+> summary(hoef)
+       x1          x2         dat        trat        ut       
+ Min.   :1   Min.   :1   Min.   :16.00   1:5   Min.   :20.00  
+ 1st Qu.:2   1st Qu.:2   1st Qu.:21.00   2:5   1st Qu.:23.00  
+ Median :3   Median :3   Median :24.00   3:5   Median :24.00  
+ Mean   :3   Mean   :3   Mean   :24.88   4:5   Mean   :24.08  
+ 3rd Qu.:4   3rd Qu.:4   3rd Qu.:29.00   5:5   3rd Qu.:25.00  
+ Max.   :5   Max.   :5   Max.   :32.00         Max.   :32.00  
+> summary(hoef.geo)
+Number of data points: 25 
+
+Coordinates summary
+    x1 x2
+min  1  1
+max  5  5
+
+Distance summary
+     min      max 
+1.000000 5.656854 
+
+Data summary
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  16.00   21.00   24.00   24.88   29.00   32.00 
+
+Covariates summary
+ trat 
+ 1:5  
+ 2:5  
+ 3:5  
+ 4:5  
+ 5:5  
+> points(hoef.geo, cex.min=2, cex.max=2, pt.div="quintiles")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("image.grf")
+> ### * image.grf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: image.grf
+> ### Title: Image, Contour or Perspective Plot of Simulated Gaussian Random
+> ###   Field
+> ### Aliases: image.grf contour.grf persp.grf .geoR_fullGrid
+> ### Keywords: spatial dplot
+> 
+> ### ** Examples
+> 
+> # generating 4 simulations of a Gaussian random field
+> sim <- grf(441, grid="reg", cov.pars=c(1, .25), nsim=4)
+grf: generating grid  21  *  21  with  441  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=1, phi=0.25)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 4 
+> op <- par(no.readonly = TRUE)
+> par(mfrow=c(2,2), mar=c(3,3,1,1), mgp = c(2,1,0))
+> for (i in 1:4)
++   image(sim, sim.n=i)
+> par(op)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("image.krige.bayes")
+> ### * image.krige.bayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: image.krige.bayes
+> ### Title: Plots Results of the Predictive Distribution
+> ### Aliases: image.krige.bayes contour.krige.bayes persp.krige.bayes
+> ###   .prepare.graph.krige.bayes
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> #See examples in the documentation for the function krige.bayes().
+> 
+> 
+> 
+> cleanEx()
+> nameEx("image.kriging")
+> ### * image.kriging
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: image.kriging
+> ### Title: Image or Perspective Plot with Kriging Results
+> ### Aliases: image.kriging contour.kriging persp.kriging
+> ###   .prepare.graph.kriging plot.1d
+> ### Keywords: spatial dplot
+> 
+> ### ** Examples
+> 
+> loci <- expand.grid(seq(0,1,l=51), seq(0,1,l=51))
+> kc <- krige.conv(s100, loc=loci,
++                  krige=krige.control(cov.pars=c(1, .25)))
+krige.conv: model with constant mean
+krige.conv: Kriging performed using global neighbourhood 
+> image(kc)
+> contour(kc)
+> image(kc)
+> contour(kc, add=TRUE, nlev=21)
+> persp(kc, theta=20, phi=20)
+> contour(kc, filled=TRUE)
+> contour(kc, filled=TRUE, color=terrain.colors)
+> contour(kc, filled=TRUE, col=gray(seq(1,0,l=21)))
+> # adding data locations
+> image(kc, coords.data=s100$coords)
+> contour(kc,filled=TRUE,coords.data=s100$coords,color=terrain.colors)
+> #
+> # now dealing with borders
+> #
+> bor <- matrix(c(.4,.1,.3,.9,.9,.7,.9,.7,.3,.2,.5,.8),
++               ncol=2)
+> # plotting just inside borders
+> image(kc, borders=bor)
+> contour(kc, borders=bor)
+> image(kc, borders=bor)
+> contour(kc, borders=bor, add=TRUE)
+> contour(kc, borders=bor, filled=TRUE, color=terrain.colors)
+> # kriging just inside borders
+> kc1 <- krige.conv(s100, loc=loci,
++                  krige=krige.control(cov.pars=c(1, .25)),
++                  borders=bor)
+krige.conv: results will be returned only for prediction locations inside the borders
+krige.conv: model with constant mean
+krige.conv: Kriging performed using global neighbourhood 
+> image(kc1)
+> contour(kc1)
+> # avoiding the borders 
+> image(kc1, borders=NULL)
+> contour(kc1, borders=NULL)
+> 
+> op <- par(no.readonly = TRUE)
+> par(mfrow=c(1,2), mar=c(3,3,0,0), mgp=c(1.5, .8,0))
+> image(kc)
+> image(kc, val=sqrt(kc$krige.var))
+> 
+> # different ways to add the legends and pass arguments:
+> image(kc, ylim=c(-0.2, 1), x.leg=c(0,1), y.leg=c(-0.2, -0.1))
+> image(kc, val=kc$krige.var, ylim=c(-0.2, 1))
+> legend.krige(y.leg=c(-0.2,-0.1), x.leg=c(0,1), val=sqrt(kc$krige.var))
+> 
+> image(kc, ylim=c(-0.2, 1), x.leg=c(0,1), y.leg=c(-0.2, -0.1), cex=1.5)
+> image(kc, ylim=c(-0.2, 1), x.leg=c(0,1), y.leg=c(-0.2, -0.1), offset.leg=0.5)
+Warning in plot.window(...) : "offset.leg" is not a graphical parameter
+Warning in plot.xy(xy, type, ...) :
+  "offset.leg" is not a graphical parameter
+Warning in axis(side = side, at = at, labels = labels, ...) :
+  "offset.leg" is not a graphical parameter
+Warning in axis(side = side, at = at, labels = labels, ...) :
+  "offset.leg" is not a graphical parameter
+Warning in box(...) : "offset.leg" is not a graphical parameter
+Warning in title(...) : "offset.leg" is not a graphical parameter
+> 
+> image(kc, xlim=c(0, 1.2))
+> legend.krige(x.leg=c(1.05,1.1), y.leg=c(0,1), kc$pred, vert=TRUE)
+> image(kc, xlim=c(0, 1.2))
+> legend.krige(x.leg=c(1.05,1.1), y.leg=c(0,1),kc$pred, vert=TRUE, off=1.5, cex=1.5)
+> 
+> par(op)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("isaaks")
+> ### * isaaks
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: isaaks
+> ### Title: Data from Isaaks and Srisvastava's book
+> ### Aliases: isaaks
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> isaaks
+$coords
+     [,1] [,2]
+[1,]   61  139
+[2,]   63  140
+[3,]   64  129
+[4,]   68  128
+[5,]   71  140
+[6,]   73  141
+[7,]   75  128
+
+$data
+[1] 477 696 227 646 606 791 783
+
+$x0
+     [,1] [,2]
+[1,]   65  137
+
+attr(,"class")
+[1] "geodata"
+> summary(isaaks)
+Number of data points: 7 
+
+Coordinates summary
+    Coord.X Coord.Y
+min      61     128
+max      75     141
+
+Distance summary
+      min       max 
+ 2.236068 17.804494 
+
+Data summary
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+227.0000 541.5000 646.0000 603.7143 739.5000 791.0000 
+
+Other elements in the geodata object
+[1] "x0"
+> plot(isaaks$coords, asp=1, type="n")
+> text(isaaks$coords, as.character(isaaks$data))
+> points(isaaks$x0, pch="?", cex=2, col=2)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("jitterDupCoords")
+> ### * jitterDupCoords
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: jitterDupCoords
+> ### Title: Jitters (duplicated) coordinates.
+> ### Aliases: jitterDupCoords jitterDupCoords.default
+> ###   jitterDupCoords.geodata jitter2d
+> ### Keywords: spatial manip
+> 
+> ### ** Examples
+> 
+> ## simulating data
+> dt <- grf(30, cov.p=c(1, .3)) 
+grf: simulation(s) on randomly chosen locations with  30  points
+grf: process with  1  covariance structure(s)
+grf: nugget effect is: tausq= 0 
+grf: covariance model 1 is: exponential(sigmasq=1, phi=0.3)
+grf: decomposition algorithm used is:  cholesky 
+grf: End of simulation procedure. Number of realizations: 1 
+> dt$coords <- round(dt$coords, dig=2)
+> ## "forcing" some duplicated locations
+> dt$coords[4,] <- dt$coords[14,] <- dt$coords[24,] <- dt$coords[2,]
+> dt$coords[17,] <- dt$coords[23,] <- dt$coords[8,]
+> 
+> ## jittering a matrix of duplicated coordinates
+> dt$coords[c(2,4,14,24),]
+        x   y
+[1,] 0.37 0.6
+[2,] 0.37 0.6
+[3,] 0.37 0.6
+[4,] 0.37 0.6
+> jitter2d(dt$coords[c(2,4,14,24),], max=0.01)
+             x         y
+[1,] 0.3612590 0.6002421
+[2,] 0.3631359 0.6006772
+[3,] 0.3733707 0.6064584
+[4,] 0.3700000 0.6000000
+> 
+> ## jittering only the duplicated locations and comparing with original
+> cbind(dt$coords, jitterDupCoords(dt$coords, max=0.01))
+         x    y         x         y
+ [1,] 0.27 0.48 0.2700000 0.4800000
+ [2,] 0.37 0.60 0.3700000 0.6000000
+ [3,] 0.57 0.49 0.5700000 0.4900000
+ [4,] 0.37 0.60 0.3704514 0.6033458
+ [5,] 0.20 0.83 0.2000000 0.8300000
+ [6,] 0.90 0.67 0.9000000 0.6700000
+ [7,] 0.94 0.79 0.9400000 0.7900000
+ [8,] 0.66 0.11 0.6539760 0.1057327
+ [9,] 0.63 0.72 0.6300000 0.7200000
+[10,] 0.06 0.41 0.0600000 0.4100000
+[11,] 0.21 0.82 0.2100000 0.8200000
+[12,] 0.18 0.65 0.1800000 0.6500000
+[13,] 0.69 0.78 0.6900000 0.7800000
+[14,] 0.37 0.60 0.3677552 0.5984597
+[15,] 0.77 0.53 0.7700000 0.5300000
+[16,] 0.50 0.79 0.5000000 0.7900000
+[17,] 0.66 0.11 0.6507898 0.1062930
+[18,] 0.99 0.48 0.9900000 0.4800000
+[19,] 0.38 0.73 0.3800000 0.7300000
+[20,] 0.78 0.69 0.7800000 0.6900000
+[21,] 0.93 0.48 0.9300000 0.4800000
+[22,] 0.21 0.86 0.2100000 0.8600000
+[23,] 0.66 0.11 0.6600000 0.1100000
+[24,] 0.37 0.60 0.3627745 0.5963257
+[25,] 0.27 0.07 0.2700000 0.0700000
+[26,] 0.39 0.10 0.3900000 0.1000000
+[27,] 0.01 0.32 0.0100000 0.3200000
+[28,] 0.38 0.52 0.3800000 0.5200000
+[29,] 0.87 0.66 0.8700000 0.6600000
+[30,] 0.34 0.41 0.3400000 0.4100000
+> 
+> ## creating a now geodata object jittering the duplicated locations of the original one:
+> dup.coords(dt)
+   dup    x    y        data
+2    1 0.37 0.60  0.71761591
+4    1 0.37 0.60  0.14324927
+14   1 0.37 0.60  1.13254761
+24   1 0.37 0.60 -0.06760558
+8    2 0.66 0.11  0.23796724
+17   2 0.66 0.11  0.42743109
+23   2 0.66 0.11  0.66162909
+> dt1 <- jitterDupCoords(dt, max=0.01)
+> dup.coords(dt1)
+NULL
+> 
+> 
+> 
+> cleanEx()
+> nameEx("kattegat")
+> ### * kattegat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: kattegat
+> ### Title: Kattegat basin salinity data
+> ### Aliases: kattegat
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> plot(c(550,770),c(6150,6420),type="n",xlab="X UTM",ylab="Y UTM")
+> points(kattegat, add=TRUE)
+> lapply(kattegat$dk, lines, lwd=2)
+$dk1
+NULL
+
+$dk2
+NULL
+
+$dk3
+NULL
+
+$dk4
+NULL
+
+$dk5
+NULL
+
+$dk6
+NULL
+
+$dk7
+NULL
+
+$dk8
+NULL
+
+$dk9
+NULL
+
+$dk10
+NULL
+
+$dk11
+NULL
+
+$dk12
+NULL
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("krige.bayes")
+> ### * krige.bayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: krige.bayes
+> ### Title: Bayesian Analysis for Gaussian Geostatistical Models
+> ### Aliases: krige.bayes model.control prior.control post2prior
+> ###   print.krige.bayes print.posterior.krige.bayes
+> ### Keywords: spatial models
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # generating a simulated data-set
+> ##D ex.data <- grf(70, cov.pars=c(10, .15), cov.model="matern", kappa=2)
+> ##D #
+> ##D # defining the grid of prediction locations:
+> ##D ex.grid <- as.matrix(expand.grid(seq(0,1,l=21), seq(0,1,l=21)))
+> ##D #
+> ##D # computing posterior and predictive distributions
+> ##D # (warning: the next command can be time demanding)
+> ##D ex.bayes <- krige.bayes(ex.data, loc=ex.grid,
+> ##D                  model = model.control(cov.m="matern", kappa=2),
+> ##D                  prior = prior.control(phi.discrete=seq(0, 0.7, l=51),
+> ##D                              phi.prior="reciprocal"))
+> ##D #
+> ##D # Prior and posterior for the parameter phi
+> ##D plot(ex.bayes, type="h", tausq.rel = FALSE, col=c("red", "blue"))
+> ##D #
+> ##D # Plot histograms with samples from the posterior
+> ##D par(mfrow=c(3,1))
+> ##D hist(ex.bayes)
+> ##D par(mfrow=c(1,1))
+> ##D 
+> ##D # Plotting empirical variograms and some Bayesian estimates:
+> ##D # Empirical variogram
+> ##D plot(variog(ex.data, max.dist = 1), ylim=c(0, 15))
+> ##D # Since ex.data is a simulated data we can plot the line with the "true" model 
+> ##D lines.variomodel(ex.data, lwd=2)
+> ##D # adding lines with summaries of the posterior of the binned variogram
+> ##D lines(ex.bayes, summ = mean, lwd=1, lty=2)
+> ##D lines(ex.bayes, summ = median, lwd=2, lty=2)
+> ##D # adding line with summary of the posterior of the parameters
+> ##D lines(ex.bayes, summary = "mode", post = "parameters")
+> ##D 
+> ##D # Plotting again the empirical variogram
+> ##D plot(variog(ex.data, max.dist=1), ylim=c(0, 15))
+> ##D # and adding lines with median and quantiles estimates
+> ##D my.summary <- function(x){quantile(x, prob = c(0.05, 0.5, 0.95))}
+> ##D lines(ex.bayes, summ = my.summary, ty="l", lty=c(2,1,2), col=1)
+> ##D 
+> ##D # Plotting some prediction results
+> ##D op <- par(no.readonly = TRUE)
+> ##D par(mfrow=c(2,2), mar=c(4,4,2.5,0.5), mgp = c(2,1,0))
+> ##D image(ex.bayes, main="predicted values")
+> ##D image(ex.bayes, val="variance", main="prediction variance")
+> ##D image(ex.bayes, val= "simulation", number.col=1,
+> ##D       main="a simulation from the \npredictive distribution")
+> ##D image(ex.bayes, val= "simulation", number.col=2,
+> ##D       main="another simulation from \nthe predictive distribution")
+> ##D #
+> ##D par(op)
+> ## End(Not run)
+> ##
+> ## For a extended list of exemples of the usage of krige.bayes()
+> ## see http://www.leg.ufpr.br/geoR/tutorials/examples.krige.bayes.R
+> ##
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("krige.conv")
+> ### * krige.conv
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: krige.conv
+> ### Title: Spatial Prediction - Conventional Kriging
+> ### Aliases: krige.conv krige.control
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Defining a prediction grid
+> ##D loci <- expand.grid(seq(0,1,l=21), seq(0,1,l=21))
+> ##D # predicting by ordinary kriging
+> ##D kc <- krige.conv(s100, loc=loci,
+> ##D                  krige=krige.control(cov.pars=c(1, .25)))
+> ##D # mapping point estimates and variances
+> ##D par.ori <- par(no.readonly = TRUE)
+> ##D par(mfrow=c(1,2), mar=c(3.5,3.5,1,0), mgp=c(1.5,.5,0))
+> ##D image(kc, main="kriging estimates")
+> ##D image(kc, val=sqrt(kc$krige.var), main="kriging std. errors")
+> ##D # Now setting the output to simulate from the predictive
+> ##D # (obtaining conditional simulations),
+> ##D # and to compute quantile and probability estimators
+> ##D s.out <- output.control(n.predictive = 1000, quant=0.9, thres=2)
+> ##D set.seed(123)
+> ##D kc <- krige.conv(s100, loc = loci,
+> ##D          krige = krige.control(cov.pars = c(1,.25)),
+> ##D          output = s.out)
+> ##D par(mfrow=c(2,2))
+> ##D image(kc, val=kc$simul[,1], main="a cond. simul.")
+> ##D image(kc, val=kc$simul[,1], main="another cond. simul.")
+> ##D image(kc, val=(1 - kc$prob), main="Map of P(Y > 2)")
+> ##D image(kc, val=kc$quant, main="Map of y s.t. P(Y < y) = 0.9")
+> ##D par(par.ori)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("krweights")
+> ### * krweights
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: krweights
+> ### Title: Computes kriging weights
+> ### Aliases: krweights
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> ## Figure 8.4 in Webster and Oliver (2001), see help(wo)
+> attach(wo)
+> par(mfrow=c(2,2))
+> plot(c(-10,130), c(-10,130), ty="n", asp=1)
+> points(rbind(coords, x1))
+> KC1 <- krige.control(cov.pars=c(0.382,90.53))
+> w1 <- krweights(wo$coords, loc=x1, krige=KC1)
+> text(coords[,1], 5+coords[,2], round(w1, dig=3))
+> ##
+> plot(c(-10,130), c(-10,130), ty="n", asp=1)
+> points(rbind(coords, x1))
+> KC2 <- krige.control(cov.pars=c(0.282,90.53), nug=0.1)
+> w2 <- krweights(wo$coords, loc=x1, krige=KC2)
+> text(coords[,1], 5+coords[,2], round(w2, dig=3))
+> ##
+> plot(c(-10,130), c(-10,130), ty="n", asp=1)
+> points(rbind(coords, x1))
+> KC3 <- krige.control(cov.pars=c(0.082,90.53), nug=0.3)
+> w3 <- krweights(wo$coords, loc=x1, krige=KC3)
+> text(coords[,1], 5+coords[,2], round(w3, dig=3))
+> ##
+> plot(c(-10,130), c(-10,130), ty="n", asp=1)
+> points(rbind(coords, x1))
+> KC4 <- krige.control(cov.pars=c(0,90.53), nug=0.382, micro=0.382)
+> w4 <- krweights(wo$coords, loc=x1, krige=KC4)
+> text(coords[,1], 5+coords[,2], round(w4, dig=3))
+> ##
+> ## SK vs OK
+> ##
+> plot(c(-10,130), c(-10,130), ty="n", asp=1)
+> points(rbind(coords, x1))
+> KC5 <- krige.control(cov.pars=c(0.382,50))
+> w5 <- krweights(wo$coords, loc=x1, krige=KC5)
+> KC6 <- krige.control(type="sk", beta=2, cov.pars=c(0.382,50))
+> w6 <- krweights(wo$coords, loc=x1, krige=KC6)
+> text(coords[,1],  5+coords[,2], round(w5, dig=3))
+> text(coords[,1], -5+coords[,2], round(w6, dig=3))
+> ##
+> plot(c(-10,130), c(-10,130), ty="n", asp=1)
+> points(rbind(coords, x1))
+> KC7 <- krige.control(cov.pars=c(0.382,0))
+> w7 <- krweights(wo$coords, loc=x1, krige=KC7)
+> KC8 <- krige.control(type="sk", beta=2, cov.pars=c(0.382,0))
+> w8 <- krweights(wo$coords, loc=x1, krige=KC8)
+> text(coords[,1],  5+coords[,2], round(w7, dig=3))
+> text(coords[,1], -5+coords[,2], round(w8, dig=3))
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+
+detaching ‘wo’
+
+> nameEx("ksline")
+> ### * ksline
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ksline
+> ### Title: Spatial Prediction - Conventional Kriging
+> ### Aliases: ksline .ksline.aux.1
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> loci <- expand.grid(seq(0,1,l=31), seq(0,1,l=31))
+> kc <- ksline(s100, loc=loci, cov.pars=c(1, .25))
+ksline: kriging location:  1 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  101 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  201 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  301 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  401 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  501 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  601 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  701 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  801 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  901 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+ksline: kriging location:  961 out of 961 
+Warning in data - ml :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Kriging performed using global neighbourhood 
+> par(mfrow=c(1,2))
+> image(kc, main="kriging estimates")
+> image(kc, val=sqrt(kc$krige.var), main="kriging std. errors")
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("landim1")
+> ### * landim1
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: landim1
+> ### Title: Data from Landim's book
+> ### Aliases: landim1
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(landim)
+Warning in data(landim) : data set ‘landim’ not found
+> plot(as.geodata(landim1, data.col=3))
+> plot(as.geodata(landim1, data.col=4))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("legend.krige")
+> ### * legend.krige
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: legend.krige
+> ### Title: Add a legend to a image with kriging results
+> ### Aliases: legend.krige
+> ### Keywords: spatial aplot
+> 
+> ### ** Examples
+> 
+> # See examples in the documentation for image.kriging
+> 
+> 
+> 
+> cleanEx()
+> nameEx("likfit")
+> ### * likfit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: likfit
+> ### Title: Likelihood Based Parameter Estimation for Gaussian Random Fields
+> ### Aliases: likfit logLik.likGRF resid.likGRF residuals.likGRF
+> ###   fitted.likGRF likfit likfit.limits .negloglik.GRF logLik.likGRF
+> ###   check.parameters.values
+> ### Keywords: spatial models
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ml <- likfit(s100, ini=c(0.5, 0.5), fix.nug = TRUE)
+> ##D ml
+> ##D summary(ml)
+> ##D reml <- likfit(s100, ini=c(0.5, 0.5), fix.nug = TRUE, lik.met = "REML")
+> ##D summary(reml)
+> ##D plot(variog(s100))
+> ##D lines(ml)
+> ##D lines(reml, lty = 2)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("likfitBGCCM")
+> ### * likfitBGCCM
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: likfitBGCCM
+> ### Title: Fits the bivariate Gaussian common component geostatistical
+> ###   model
+> ### Aliases: likfitBGCCM .negloglikBGCCM loglikBGCCM .naiveLL.BGCCM
+> ### Keywords: spatial models
+> 
+> ### ** Examples
+> 
+> # see http://www.leg.ufpr.br/geoR/tutorials/CCM.R
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lines.krige.bayes")
+> ### * lines.krige.bayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lines.variomodel.krige.bayes
+> ### Title: Adds a Bayesian Estimate of the Variogram to a Plot
+> ### Aliases: lines.variomodel.krige.bayes
+> ### Keywords: spatial aplot
+> 
+> ### ** Examples
+> 
+> #See examples in the documentation of the function krige.bayes().
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lines.variogram.envelope")
+> ### * lines.variogram.envelope
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lines.variogram.envelope
+> ### Title: Adds Envelopes Lines to a Variogram Plot
+> ### Aliases: lines.variogram.envelope
+> ### Keywords: spatial aplot
+> 
+> ### ** Examples
+> 
+> s100.vario <- variog(s100, max.dist = 1)
+variog: computing omnidirectional variogram
+> s100.ml <- likfit(s100, ini=c(.5, .5))
+---------------------------------------------------------------
+likfit: likelihood maximisation using the function optim.
+likfit: Use control() to pass additional
+         arguments for the maximisation function.
+        For further details see documentation for optim.
+likfit: It is highly advisable to run this function several
+        times with different initial values for the parameters.
+likfit: WARNING: This step can be time demanding!
+---------------------------------------------------------------
+likfit: end of numerical maximisation.
+> s100.mod.env <- variog.model.env(s100, obj.variog = s100.vario,
++    model = s100.ml) 
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpyXFw4U/R.INSTALL2bf1c54e32b46/geoR/R/variofit.R#658: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpDQUxCb/R.INSTALL4b5e68073b7d/geoR/R/variofit.R#658: 
+ --- if/while statement is in package --- 
+geoR
+ --- call (currently evaluated) --- 
 variog.model.env(s100, obj.variog = s100.vario, model = s100.ml)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: variog.model.env(s100, obj.variog = s100.vario, model = s100.ml)
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(geodata, coords = geodata$coords, obj.variog,
            model.pars, nsim = 99, save.sim = FALSE, messages) 
 {
@@ -114,3 +5389,5 @@ function(geodata, coords = geodata$coords, obj.variog,
 <environment: namespace:geoR>
  --- function (body) search ---
 Function variog.model.env in namespace geoR has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

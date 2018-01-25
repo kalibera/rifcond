@@ -1,13 +1,112 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "MPV"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('MPV')
+
+Attaching package: ‘MPV’
+
+The following object is masked from ‘package:datasets’:
+
+    stackloss
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("GFplot")
+> ### * GFplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GFplot
+> ### Title: Graphical F Plot for Significance in Regression
+> ### Aliases: GFplot
+> ### Keywords: graphics
+> 
+> ### ** Examples
+> 
+> # Example 1
+> X <- p4.18[,-4]
+> y <- p4.18[,4]
+> GFplot(X, y, type="hist", includeIntercept=FALSE)
+> title("Evidence of Regression in the Jojoba Oil Data")
+> # Example 2
+> set.seed(4571)
+> Z <- matrix(rnorm(400), ncol=10)
+> A <- matrix(rnorm(81), ncol=9)
+> simdata <- data.frame(Z[,1], crossprod(t(Z[,-1]),A))
+> names(simdata) <- c("y", paste("x", 1:9, sep=""))
+> GFplot(simdata[,-1], simdata[,1], type="hist", includeIntercept=FALSE)
+> title("Evidence of Regression in Simulated Data Set")
+> # Example 3
+> GFplot(table.b1[,-1], table.b1[,1], type="hist", includeIntercept=FALSE)
+> title("Evidence of Regression in NFL Data Set")
+> # An example where stepwise AIC selects the complement
+> # of the set of variables that are actually in the true model:
+> X <- pathoeg[,-10]
+> y <- pathoeg[,10]
+> par(mfrow=c(2,2))
+> GFplot(X, y)
+> GFplot(X, y, sortTrt=TRUE)
+> GFplot(X, y, type="QQ")
+> GFplot(X, y, sortTrt=TRUE, type="QQ")
+> X <- table.b1[,-1]  # NFL data
+> y <- table.b1[,1]
+> GFplot(X, y)
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("GRegplot")
+> ### * GRegplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GRegplot
+> ### Title: Graphical Regression Plot
+> ### Aliases: GRegplot
+> ### Keywords: graphics
+> 
+> ### ** Examples
+> 
+> # Example 1
+> X <- p4.18[,-4]
+> y <- p4.18[,4]
+> GRegplot(X, y, includeIntercept=FALSE)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpA9wauO/R.INSTALL1733414cddb8e/MPV/R/GRegplot.R#22: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpLXYe4m/R.INSTALL7591664866bf/MPV/R/GRegplot.R#22: 
+ --- if/while statement is in package --- 
+MPV
+ --- call (currently evaluated) --- 
 GRegplot(X, y, includeIntercept = FALSE)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: GRegplot(X, y, includeIntercept = FALSE)
 
  --- value of length: 2 type: logical ---
 [1]  TRUE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(X, y, sortTrt = FALSE, includeIntercept = TRUE, type=c("hist", "dot")) 
     {
     Qy.out <- GFplot(X, y, plotIt = FALSE, sortTrt, type = "hist", includeIntercept, 
@@ -41,3 +140,5 @@ labels)
 <environment: namespace:MPV>
  --- function (body) search ---
 Function GRegplot in namespace MPV has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

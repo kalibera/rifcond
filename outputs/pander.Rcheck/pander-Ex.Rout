@@ -1,15 +1,3006 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "pander"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('pander')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Pandoc-class")
+> ### * Pandoc-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Pandoc-class
+> ### Title: Reporting with Pandoc
+> ### Aliases: Pandoc-class Pandoc
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ## Initialize a new Pandoc object
+> ##D myReport <- Pandoc$new()
+> ##D 
+> ##D ## Add author, title and date of document
+> ##D myReport$author <- 'Anonymous'
+> ##D myReport$title  <- 'Demo'
+> ##D 
+> ##D ## Or it could be done while initializing
+> ##D myReport <- Pandoc$new('Anonymous', 'Demo')
+> ##D 
+> ##D ## Add some free text
+> ##D myReport$add.paragraph('Hello there, this is a really short tutorial!')
+> ##D 
+> ##D ## Add maybe a header for later stuff
+> ##D myReport$add.paragraph('# Showing some raw R objects below')
+> ##D 
+> ##D ## Adding a short matrix
+> ##D myReport$add(matrix(5,5,5))
+> ##D 
+> ##D ## Or a table with even # TODO: caption
+> ##D myReport$add.paragraph('Hello table:')
+> ##D myReport$add(table(mtcars$am, mtcars$gear))
+> ##D 
+> ##D ## Or a "large" data frame which barely fits on a page
+> ##D myReport$add(mtcars)
+> ##D 
+> ##D ## And a simple linear model with Anova tables
+> ##D ml <- with(lm(mpg ~ hp + wt), data = mtcars)
+> ##D myReport$add(ml)
+> ##D myReport$add(anova(ml))
+> ##D myReport$add(aov(ml))
+> ##D 
+> ##D ## And do some principal component analysis at last
+> ##D myReport$add(prcomp(USArrests))
+> ##D 
+> ##D ## Sorry, I did not show how Pandoc deals with plots:
+> ##D myReport$add(plot(1:10)) # TODO: caption
+> ##D 
+> ##D ## Want to see the report? Just print it:
+> ##D myReport
+> ##D 
+> ##D ## Exporting to PDF (default)
+> ##D myReport$export()
+> ##D 
+> ##D ## Or to docx in tempdir:
+> ##D myReport$format <- 'docx'
+> ##D myReport$export(tempfile())
+> ##D 
+> ##D ## You do not want to see the generated report after generation?
+> ##D myReport$export(open = FALSE)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Pandoc.brew")
+> ### * Pandoc.brew
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Pandoc.brew
+> ### Title: Brew in pandoc format
+> ### Aliases: Pandoc.brew
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D text <- paste('# Header', '',
+> ##D   'What a lovely list:\n<%=as.list(runif(10))%>',
+> ##D   'A wide table:\n<%=mtcars[1:3, ]%>',
+> ##D   'And a nice chart:\n\n<%=plot(1:10)%>', sep = '\n')
+> ##D Pandoc.brew(text = text)
+> ##D Pandoc.brew(text = text, output = tempfile(), convert = 'html')
+> ##D Pandoc.brew(text = text, output = tempfile(), convert = 'pdf')
+> ##D 
+> ##D ## pi is awesome
+> ##D Pandoc.brew(text='<%for (i in 1:5) {%>\n Pi has a lot (<%=i%>) of power: <%=pi^i%><%}%>')
+> ##D 
+> ##D ## package bundled examples
+> ##D Pandoc.brew(system.file('examples/minimal.brew', package='pander'))
+> ##D Pandoc.brew(system.file('examples/minimal.brew', package='pander'),
+> ##D   output = tempfile(), convert = 'html')
+> ##D Pandoc.brew(system.file('examples/short-code-long-report.brew', package='pander'))
+> ##D Pandoc.brew(system.file('examples/short-code-long-report.brew', package='pander'),
+> ##D   output = tempfile(), convert = 'html')
+> ##D 
+> ##D ## brew returning R objects
+> ##D str(Pandoc.brew(text='Pi equals to <%=pi%>.
+> ##D And here are some random data:\n<%=runif(10)%>'))
+> ##D 
+> ##D str(Pandoc.brew(text='# Header <%=1%>\nPi is <%=pi%> which is smaller then <%=2%>.
+> ##D foo\nbar\n <%=3%>\n<%=mtcars[1:2,]%>'))
+> ##D 
+> ##D str(Pandoc.brew(text='<%for (i in 1:5) {%>
+> ##D Pi has a lot (<%=i%>) of power: <%=pi^i%><%}%>'))
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Pandoc.convert")
+> ### * Pandoc.convert
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Pandoc.convert
+> ### Title: Converts Pandoc to other format
+> ### Aliases: Pandoc.convert
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D Pandoc.convert(text = c('# Demo', 'with a paragraph'))
+> ##D Pandoc.convert('http://rapporter.github.io/pander/minimal.md')
+> ##D # Note: the generated HTML is not showing images with relative path from the above file.
+> ##D # Based on that `pdf`, `docx` etc. formats would not work! If you want to convert an
+> ##D # online markdown file to other formats with this function, please pre-process the file
+> ##D # to have absolute paths instead.
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("emphasize.rows")
+> ### * emphasize.rows
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: emphasize.rows
+> ### Title: Emphasize rows/columns/cells
+> ### Aliases: emphasize.rows emphasize.cols emphasize.cells
+> ###   emphasize.strong.rows emphasize.strong.cols emphasize.strong.cells
+> ###   emphasize.italics.rows emphasize.italics.cols emphasize.italics.cells
+> ###   emphasize.verbatim.rows emphasize.verbatim.cols
+> ###   emphasize.verbatim.cells
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D n <- data.frame(x = c(1,1,1,1,1), y = c(0,1,0,1,0))
+> ##D emphasize.cols(1)
+> ##D emphasize.rows(1)
+> ##D pandoc.table(n)
+> ##D 
+> ##D emphasize.strong.cells(which(n == 1, arr.ind = TRUE))
+> ##D pander(n)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("eval.msgs")
+> ### * eval.msgs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: eval.msgs
+> ### Title: Evaluate with messages
+> ### Aliases: eval.msgs
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D eval.msgs('1:5')
+> ##D eval.msgs('x <- 1:5')
+> ##D eval.msgs('lm(mtcars$hp ~ mtcars$wt)')
+> ##D 
+> ##D ## plots
+> ##D eval.msgs('plot(runif(100))')
+> ##D eval.msgs('histogram(runif(100))')
+> ##D 
+> ##D ## error handling
+> ##D eval.msgs('runiff(23)')
+> ##D eval.msgs('runif is a nice function')
+> ##D eval.msgs('no.R.object.like.that')
+> ##D 
+> ##D ## messages
+> ##D eval.msgs(c('message("FOO")', '1:2'))
+> ##D eval.msgs(c('warning("FOO")', '1:2'))
+> ##D eval.msgs(c('message("FOO");message("FOO");warning("FOO")', '1:2'))
+> ##D eval.msgs('warning("d");warning("f");1')
+> ##D 
+> ##D ## stdout
+> ##D eval.msgs('cat("writing to console")')
+> ##D eval.msgs('cat("writing to console");1:4')
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("evals")
+> ### * evals
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: evals
+> ### Title: Evaluate and Process R Code
+> ### Aliases: evals
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # parsing several lines of R code
+> ##D txt <- readLines(textConnection('x <- rnorm(100)
+> ##D   runif(10)
+> ##D   warning('Lorem ipsum foo-bar-foo!')
+> ##D   plot(1:10)
+> ##D   qplot(rating, data = movies, geom = 'histogram')
+> ##D   y <- round(runif(100))
+> ##D   cor.test(x, y)
+> ##D   crl <- cor.test(runif(10), runif(10))
+> ##D   table(mtcars$am, mtcars$cyl)
+> ##D   ggplot(mtcars) + geom_point(aes(x = hp, y = mpg))'))
+> ##D evals(txt)
+> ##D 
+> ##D ## parsing a list of commands
+> ##D txt <- list('df <- mtcars',
+> ##D  c('plot(mtcars$hp, pch = 19)','text(mtcars$hp, label = rownames(mtcars), pos = 4)'),
+> ##D  'ggplot(mtcars) + geom_point(aes(x = hp, y = mpg))')
+> ##D evals(txt)
+> ##D 
+> ##D ## the same commands in one string but also evaluating the `plot` with `text`
+> ##D ## (note the leading '+' on the beginning of `text...` line)
+> ##D txt <- 'df <- mtcars
+> ##D  plot(mtcars$hp, pch = 19)
+> ##D  +text(mtcars$hp, label = rownames(mtcars), pos = 4)
+> ##D  ggplot(mtcars) + geom_point(aes(x = hp, y = mpg))'
+> ##D evals(txt)
+> ##D ## but it would fail without parsing
+> ##D evals(txt, parse = FALSE)
+> ##D 
+> ##D ## handling messages
+> ##D evals('message(20)')
+> ##D evals('message(20);message(20)', parse = FALSE)
+> ##D 
+> ##D ## adding a caption to a plot
+> ##D evals('set.caption("FOO"); plot(1:10)')
+> ##D ## `plot` is started with a `+` to eval the codes in the same chunk
+> ##D ## (no extra chunk with NULL result)
+> ##D evals('set.caption("FOO"); +plot(1:10)')
+> ##D 
+> ##D ## handling warnings
+> ##D evals('chisq.test(mtcars$gear, mtcars$hp)')
+> ##D evals(list(c('chisq.test(mtcars$gear, mtcars$am)', 'pi',
+> ##D   'chisq.test(mtcars$gear, mtcars$hp)')), parse = FALSE)
+> ##D evals(c('chisq.test(mtcars$gear, mtcars$am)',
+> ##D   'pi',
+> ##D   'chisq.test(mtcars$gear, mtcars$hp)'))
+> ##D 
+> ##D ## handling errors
+> ##D evals('runiff(20)')
+> ##D evals('Old MacDonald had a farm\...')
+> ##D evals('## Some comment')
+> ##D evals(c('runiff(20)', 'Old MacDonald had a farm?'))
+> ##D evals(list(c('runiff(20)', 'Old MacDonald had a farm?')), parse = FALSE)
+> ##D evals(c('mean(1:10)', 'no.R.function()'))
+> ##D evals(list(c('mean(1:10)', 'no.R.function()')), parse = FALSE)
+> ##D evals(c('no.R.object', 'no.R.function()', 'very.mixed.up(stuff)'))
+> ##D evals(list(c('no.R.object', 'no.R.function()', 'very.mixed.up(stuff)')), parse = FALSE)
+> ##D evals(c('no.R.object', 'Old MacDonald had a farm\...', 'pi'))
+> ##D evals('no.R.object;Old MacDonald had a farm\...;pi', parse = FALSE)
+> ##D evals(list(c('no.R.object', 'Old MacDonald had a farm\...', 'pi')), parse = FALSE)
+> ##D 
+> ##D ## graph options
+> ##D evals('plot(1:10)')
+> ##D evals('plot(1:10);plot(2:20)')
+> ##D evals('plot(1:10)', graph.output = 'jpg')
+> ##D evals('plot(1:10)', height = 800)
+> ##D evals('plot(1:10)', height = 800, hi.res = TRUE)
+> ##D evals('plot(1:10)', graph.output = 'pdf', hi.res = TRUE)
+> ##D evals('plot(1:10)', res = 30)
+> ##D evals('plot(1:10)', graph.name = 'myplot')
+> ##D evals(list('plot(1:10)', 'plot(2:20)'), graph.name = 'myplots-%d')
+> ##D evals('plot(1:10)', graph.env = TRUE)
+> ##D evals('x <- runif(100);plot(x)', graph.env = TRUE)
+> ##D evals(c('plot(1:10)', 'plot(2:20)'), graph.env = TRUE)
+> ##D evals(c('x <- runif(100)', 'plot(x)','y <- runif(100)', 'plot(y)'), graph.env = TRUE)
+> ##D evals(list(
+> ##D     c('x <- runif(100)', 'plot(x)'),
+> ##D     c('y <- runif(100)', 'plot(y)')),
+> ##D   graph.env = TRUE, parse = FALSE)
+> ##D evals('plot(1:10)', graph.recordplot = TRUE)
+> ##D ## unprinted lattice plot
+> ##D evals('histogram(mtcars$hp)', graph.recordplot = TRUE)
+> ##D 
+> ##D ## caching
+> ##D system.time(evals('plot(mtcars)'))
+> ##D system.time(evals('plot(mtcars)'))                # running again to see the speed-up :)
+> ##D system.time(evals('plot(mtcars)', cache = FALSE)) # cache disabled
+> ##D 
+> ##D ## caching mechanism does check what's inside a variable:
+> ##D x <- mtcars
+> ##D evals('plot(x)')
+> ##D x <- cbind(mtcars, mtcars)
+> ##D evals('plot(x)')
+> ##D x <- mtcars
+> ##D system.time(evals('plot(x)'))
+> ##D 
+> ##D ## stress your CPU - only once!
+> ##D evals('x <- sapply(rep(mtcars$hp, 1e3), mean)')   # run it again!
+> ##D 
+> ##D ## play with cache
+> ##D require(lattice)
+> ##D evals('histogram(rep(mtcars$hp, 1e5))')
+> ##D ## nor run the below call
+> ##D ## that would return the cached version of the above call :)
+> ##D f <- histogram
+> ##D g <- rep
+> ##D A <- mtcars$hp
+> ##D B <- 1e5
+> ##D evals('f(g(A, B))')#'
+> ##D 
+> ##D ## or switch off cache globally:
+> ##D evalsOptions('cache', FALSE)
+> ##D ## and switch on later
+> ##D evalsOptions('cache', TRUE)
+> ##D 
+> ##D ## evaluate assignments inside call to evals
+> ##D ## changes to environments are cached properly and retreived
+> ##D evalsOptions('cache.time', 0)
+> ##D x <- 2
+> ##D evals('x <- x^2')[[1]]$result
+> ##D evals('x <- x^2; x + 1')[[2]]$result
+> ##D evalsOptions('cache.time', 0.1)
+> ##D 
+> ##D ## returning only a few classes
+> ##D txt <- readLines(textConnection('rnorm(100)
+> ##D   list(x = 10:1, y = 'Godzilla!')
+> ##D   c(1,2,3)
+> ##D    matrix(0,3,5)'))
+> ##D evals(txt, classes = 'numeric')
+> ##D evals(txt, classes = c('numeric', 'list'))
+> ##D 
+> ##D ## hooks
+> ##D txt <- 'runif(1:4); matrix(runif(25), 5, 5); 1:5'
+> ##D hooks <- list('numeric' = round, 'matrix' = pander_return)
+> ##D evals(txt, hooks = hooks)
+> ##D ## using pander's default hook
+> ##D evals(txt, hooks = list('default' = pander_return))
+> ##D evals('22/7', hooks = list('numeric' = round))
+> ##D evals('matrix(runif(25), 5, 5)', hooks = list('matrix' = round))
+> ##D 
+> ##D ## setting default hook
+> ##D evals(c('runif(10)', 'matrix(runif(9), 3, 3)'),
+> ##D   hooks = list('default'=round))
+> ##D ## round all values except for matrices
+> ##D evals(c('runif(10)', 'matrix(runif(9), 3, 3)'),
+> ##D   hooks = list(matrix = 'print', 'default' = round))
+> ##D 
+> ##D # advanced hooks
+> ##D hooks <- list('numeric' = list(round, 2), 'matrix' = list(round, 1))
+> ##D evals(txt, hooks = hooks)
+> ##D 
+> ##D # return only returned values
+> ##D evals(txt, output = 'result')
+> ##D 
+> ##D # return only messages (for checking syntax errors etc.)
+> ##D evals(txt, output = 'msg')
+> ##D 
+> ##D # check the length of returned values and do not return looong R objects
+> ##D evals('runif(10)', length = 5)
+> ##D 
+> ##D # note the following will not be filtered!
+> ##D evals('matrix(1,1,1)', length = 1)
+> ##D 
+> ##D # if you do not want to let such things be eval-ed in the middle of a string
+> ##D # use it with other filters :)
+> ##D evals('matrix(1,1,1)', length = 1, classes = 'numeric')
+> ##D 
+> ##D # hooks & filtering
+> ##D evals('matrix(5,5,5)',
+> ##D   hooks = list('matrix' = pander_return),
+> ##D   output = 'result')
+> ##D 
+> ##D # eval-ing chunks in given environment
+> ##D myenv <- new.env()
+> ##D evals('x <- c(0,10)', env = myenv)
+> ##D evals('mean(x)', env = myenv)
+> ##D rm(myenv)
+> ##D # note: if you had not specified 'myenv', the second 'evals' would have failed
+> ##D evals('x <- c(0,10)')
+> ##D evals('mean(x)')
+> ##D 
+> ##D # log
+> ##D x <- evals('1:10', log = 'foo')
+> ##D # trace log
+> ##D evalsOptions('cache.time', 0)
+> ##D x <- evals('1:10', log = 'foo')
+> ##D x <- evals('1:10', log = 'foo')
+> ##D # log to file
+> ##D t <- tempfile()
+> ##D flog.appender(appender.file(t), name = 'evals')
+> ##D x <- evals('1:10', log = 'evals')
+> ##D readLines(t)
+> ##D # permanent log for all events
+> ##D evalsOptions('log', 'evals')
+> ##D flog.threshold(TRACE, 'evals')
+> ##D evals('foo')
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("evalsOptions")
+> ### * evalsOptions
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: evalsOptions
+> ### Title: Querying/setting evals option
+> ### Aliases: evalsOptions
+> 
+> ### ** Examples
+> 
+> evalsOptions()
+$parse
+[1] TRUE
+
+$cache
+[1] TRUE
+
+$cache.mode
+[1] "environment"
+
+$cache.dir
+[1] ".cache"
+
+$cache.time
+[1] 0.1
+
+$cache.copy.images
+[1] FALSE
+
+$classes
+NULL
+
+$hooks
+NULL
+
+$length
+[1] Inf
+
+$output
+[1] "all"
+
+$graph.unify
+[1] FALSE
+
+$graph.name
+[1] "%t"
+
+$graph.dir
+[1] "plots"
+
+$graph.output
+[1] "png"
+
+$width
+[1] 480
+
+$height
+[1] 480
+
+$res
+[1] 72
+
+$hi.res
+[1] FALSE
+
+$hi.res.width
+[1] 960
+
+$graph.env
+[1] FALSE
+
+$graph.recordplot
+[1] FALSE
+
+$graph.RDS
+[1] FALSE
+
+$log
+NULL
+
+> evalsOptions('cache')
+[1] TRUE
+> evalsOptions('cache', FALSE)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("multitable")
+> ### * multitable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: multitable
+> ### Title: Create a multitable used for rendering objects from rms package
+> ### Aliases: multitable
+> ### Keywords: internal
+> 
+> ### ** Examples
+> 
+> pander:::multitable(list(list(a=1, b=2),list(c=3, d=4)))
+     [,1]    [,2]   
+[1,] "**a**" "**c**"
+[2,] "1"     "3"    
+[3,] "**b**" "**d**"
+[4,] "2"     "4"    
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p")
+> ### * p
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p
+> ### Title: Inline Printing
+> ### Aliases: p
+> 
+> ### ** Examples
+> 
+> p(c('fee', 'fi', 'foo', 'fam'))
+[1] "_fee_, _fi_, _foo_ and _fam_"
+> # [1] '_fee_, _fi_, _foo_ and _fam_'
+> p(1:3, wrap = '')
+[1] "1, 2 and 3"
+> # [1] '1, 2 and 3'
+> p(LETTERS[1:5], copula = 'and the letter')
+[1] "_A_, _B_, _C_, _D_and the letter_E_"
+> # [1] '_A_, _B_, _C_, _D_ and the letter _E_'
+> p(c('Thelma', 'Louise'), wrap = '', copula = '&')
+[1] "Thelma&Louise"
+> # [1] 'Thelma & Louise'
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pander")
+> ### * pander
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pander
+> ### Title: Generic pander method
+> ### Aliases: pander
+> 
+> ### ** Examples
+> 
+> 
+> ## Vectors
+> pander(1:10)
+_1_, _2_, _3_, _4_, _5_, _6_, _7_, _8_, _9_ and _10_> pander(letters)
+_a_, _b_, _c_, _d_, _e_, _f_, _g_, _h_, _i_, _j_, _k_, _l_, _m_, _n_, _o_, _p_, _q_, _r_, _s_, _t_, _u_, _v_, _w_, _x_, _y_ and _z_> pander(mtcars$am)
+_1_, _1_, _1_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _0_, _1_, _1_, _1_, _0_, _0_, _0_, _0_, _0_, _1_, _1_, _1_, _1_, _1_, _1_ and _1_> pander(factor(mtcars$am))
+_2_, _2_, _2_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _1_, _2_, _2_, _2_, _1_, _1_, _1_, _1_, _1_, _2_, _2_, _2_, _2_, _2_, _2_ and _2_> 
+> ## Lists
+> pander(list(1, 2, 3, c(1, 2)))
+
+
+  * _1_
+  * _2_
+  * _3_
+  * _1_ and _2_
+
+<!-- end of list -->
+
+
+> pander(list(a = 1, b = 2, c = table(mtcars$am)))
+
+
+  * **a**: _1_
+  * **b**: _2_
+  * **c**:
+
+    ---------
+     0    1
+    ---- ----
+     19   13
+    ---------
+
+
+<!-- end of list -->
+
+
+> pander(list(1, 2, 3, list(1, 2)))
+
+
+  * _1_
+  * _2_
+  * _3_
+  *
+
+      * _1_
+      * _2_
+
+
+<!-- end of list -->
+
+
+> pander(list(a = 1, 2, 3, list(1, 2)))
+
+
+  * **a**: _1_
+  * _2_
+  * _3_
+  *
+
+      * _1_
+      * _2_
+
+
+<!-- end of list -->
+
+
+> pander(list('FOO', letters[1:3], list(1:5), table(mtcars$gear), list('FOOBAR', list('a', 'b'))))
+
+
+  * FOO
+  * _a_, _b_ and _c_
+  *
+
+      * _1_, _2_, _3_, _4_ and _5_
+
+  *
+
+    -------------
+     3    4    5
+    ---- ---- ---
+     15   12   5
+    -------------
+
+  *
+
+      * FOOBAR
+      *
+
+              * a
+              * b
+
+
+
+<!-- end of list -->
+
+
+> pander(list(a = 1, b = 2, c = table(mtcars$am), x = list(myname = 1, 2), 56))
+
+
+  * **a**: _1_
+  * **b**: _2_
+  * **c**:
+
+    ---------
+     0    1
+    ---- ----
+     19   13
+    ---------
+
+  * **x**:
+
+      * **myname**: _1_
+      * _2_
+
+  * _56_
+
+<!-- end of list -->
+
+
+> pander(unclass(chisq.test(table(mtcars$am, mtcars$gear))))
+Warning in chisq.test(table(mtcars$am, mtcars$gear)) :
+  Chi-squared approximation may be incorrect
+
+
+  * **statistic**:
+
+    -----------
+     X-squared
+    -----------
+       20.94
+    -----------
+
+  * **parameter**:
+
+    ----
+     df
+    ----
+     2
+    ----
+
+  * **p.value**: _2.831e-05_
+  * **method**: Pearson's Chi-squared test
+  * **data.name**: table(mtcars$am, mtcars$gear)
+  * **observed**:
+
+    ---------------------
+     &nbsp;   3    4   5
+    -------- ---- --- ---
+     **0**    15   4   0
+
+     **1**    0    8   5
+    ---------------------
+
+  * **expected**:
+
+    --------------------------------
+     &nbsp;     3       4       5
+    -------- ------- ------- -------
+     **0**    8.906   7.125   2.969
+
+     **1**    6.094   4.875   2.031
+    --------------------------------
+
+  * **residuals**:
+
+    -----------------------------------
+     &nbsp;     3        4        5
+    -------- -------- -------- --------
+     **0**    2.042    -1.171   -1.723
+
+     **1**    -2.469   1.415    2.083
+    -----------------------------------
+
+  * **stdres**:
+
+    -----------------------------------
+     &nbsp;     3        4        5
+    -------- -------- -------- --------
+     **0**    4.395    -2.323   -2.943
+
+     **1**    -4.395   2.323    2.943
+    -----------------------------------
+
+
+<!-- end of list -->
+
+
+> 
+> ## Arrays
+> pander(mtcars)
+
+--------------------------------------------------------------------------------
+         &nbsp;            mpg    cyl   disp    hp    drat    wt     qsec    vs 
+------------------------- ------ ----- ------- ----- ------ ------- ------- ----
+      **Mazda RX4**         21     6     160    110   3.9    2.62    16.46   0  
+
+    **Mazda RX4 Wag**       21     6     160    110   3.9    2.875   17.02   0  
+
+     **Datsun 710**        22.8    4     108    93    3.85   2.32    18.61   1  
+
+   **Hornet 4 Drive**      21.4    6     258    110   3.08   3.215   19.44   1  
+
+  **Hornet Sportabout**    18.7    8     360    175   3.15   3.44    17.02   0  
+
+       **Valiant**         18.1    6     225    105   2.76   3.46    20.22   1  
+
+     **Duster 360**        14.3    8     360    245   3.21   3.57    15.84   0  
+
+      **Merc 240D**        24.4    4    146.7   62    3.69   3.19     20     1  
+
+      **Merc 230**         22.8    4    140.8   95    3.92   3.15    22.9    1  
+
+      **Merc 280**         19.2    6    167.6   123   3.92   3.44    18.3    1  
+
+      **Merc 280C**        17.8    6    167.6   123   3.92   3.44    18.9    1  
+
+     **Merc 450SE**        16.4    8    275.8   180   3.07   4.07    17.4    0  
+
+     **Merc 450SL**        17.3    8    275.8   180   3.07   3.73    17.6    0  
+
+     **Merc 450SLC**       15.2    8    275.8   180   3.07   3.78     18     0  
+
+ **Cadillac Fleetwood**    10.4    8     472    205   2.93   5.25    17.98   0  
+
+ **Lincoln Continental**   10.4    8     460    215    3     5.424   17.82   0  
+
+  **Chrysler Imperial**    14.7    8     440    230   3.23   5.345   17.42   0  
+
+      **Fiat 128**         32.4    4    78.7    66    4.08    2.2    19.47   1  
+
+     **Honda Civic**       30.4    4    75.7    52    4.93   1.615   18.52   1  
+
+   **Toyota Corolla**      33.9    4    71.1    65    4.22   1.835   19.9    1  
+
+    **Toyota Corona**      21.5    4    120.1   97    3.7    2.465   20.01   1  
+
+  **Dodge Challenger**     15.5    8     318    150   2.76   3.52    16.87   0  
+
+     **AMC Javelin**       15.2    8     304    150   3.15   3.435   17.3    0  
+
+     **Camaro Z28**        13.3    8     350    245   3.73   3.84    15.41   0  
+
+  **Pontiac Firebird**     19.2    8     400    175   3.08   3.845   17.05   0  
+
+      **Fiat X1-9**        27.3    4     79     66    4.08   1.935   18.9    1  
+
+    **Porsche 914-2**       26     4    120.3   91    4.43   2.14    16.7    0  
+
+    **Lotus Europa**       30.4    4    95.1    113   3.77   1.513   16.9    1  
+
+   **Ford Pantera L**      15.8    8     351    264   4.22   3.17    14.5    0  
+
+    **Ferrari Dino**       19.7    6     145    175   3.62   2.77    15.5    0  
+
+    **Maserati Bora**       15     8     301    335   3.54   3.57    14.6    0  
+
+     **Volvo 142E**        21.4    4     121    109   4.11   2.78    18.6    1  
+--------------------------------------------------------------------------------
+
+Table: Table continues below
+
+ 
+--------------------------------------------
+         &nbsp;            am   gear   carb 
+------------------------- ---- ------ ------
+      **Mazda RX4**        1     4      4   
+
+    **Mazda RX4 Wag**      1     4      4   
+
+     **Datsun 710**        1     4      1   
+
+   **Hornet 4 Drive**      0     3      1   
+
+  **Hornet Sportabout**    0     3      2   
+
+       **Valiant**         0     3      1   
+
+     **Duster 360**        0     3      4   
+
+      **Merc 240D**        0     4      2   
+
+      **Merc 230**         0     4      2   
+
+      **Merc 280**         0     4      4   
+
+      **Merc 280C**        0     4      4   
+
+     **Merc 450SE**        0     3      3   
+
+     **Merc 450SL**        0     3      3   
+
+     **Merc 450SLC**       0     3      3   
+
+ **Cadillac Fleetwood**    0     3      4   
+
+ **Lincoln Continental**   0     3      4   
+
+  **Chrysler Imperial**    0     3      4   
+
+      **Fiat 128**         1     4      1   
+
+     **Honda Civic**       1     4      2   
+
+   **Toyota Corolla**      1     4      1   
+
+    **Toyota Corona**      0     3      1   
+
+  **Dodge Challenger**     0     3      2   
+
+     **AMC Javelin**       0     3      2   
+
+     **Camaro Z28**        0     3      4   
+
+  **Pontiac Firebird**     0     3      2   
+
+      **Fiat X1-9**        1     4      1   
+
+    **Porsche 914-2**      1     5      2   
+
+    **Lotus Europa**       1     5      2   
+
+   **Ford Pantera L**      1     5      4   
+
+    **Ferrari Dino**       1     5      6   
+
+    **Maserati Bora**      1     5      8   
+
+     **Volvo 142E**        1     4      2   
+--------------------------------------------
+
+> pander(table(mtcars$am))
+
+---------
+ 0    1  
+---- ----
+ 19   13 
+---------
+
+> pander(table(mtcars$am, mtcars$gear))
+
+---------------------
+ &nbsp;   3    4   5 
+-------- ---- --- ---
+ **0**    15   4   0 
+
+ **1**    0    8   5 
+---------------------
+
+> 
+> ## Tests
+> pander(ks.test(runif(50), runif(50)))
+
+---------------------------------------------------
+ Test statistic   P value   Alternative hypothesis 
+---------------- --------- ------------------------
+      0.18        0.3959          two-sided        
+---------------------------------------------------
+
+Table: Two-sample Kolmogorov-Smirnov test: `runif(50)` and `runif(50)`
+
+> pander(chisq.test(table(mtcars$am, mtcars$gear)))
+Warning in chisq.test(table(mtcars$am, mtcars$gear)) :
+  Chi-squared approximation may be incorrect
+
+---------------------------------------
+ Test statistic   df       P value     
+---------------- ---- -----------------
+     20.94        2    2.831e-05 * * * 
+---------------------------------------
+
+Table: Pearson's Chi-squared test: `table(mtcars$am, mtcars$gear)`
+
+> pander(t.test(extra ~ group, data = sleep))
+
+-----------------------------------------------------------------------------
+ Test statistic    df     P value   Alternative hypothesis   mean in group 1 
+---------------- ------- --------- ------------------------ -----------------
+     -1.861       17.78   0.07939         two.sided               0.75       
+-----------------------------------------------------------------------------
+
+Table: Welch Two Sample t-test: `extra` by `group` (continued below)
+
+ 
+-----------------
+ mean in group 2 
+-----------------
+      2.33       
+-----------------
+
+> 
+> ## Models
+> ml <- with(lm(mpg ~ hp + wt), data = mtcars)
+> pander(ml)
+
+---------------------------------------------------------------
+     &nbsp;        Estimate   Std. Error   t value   Pr(>|t|)  
+----------------- ---------- ------------ --------- -----------
+ **(Intercept)**    37.23       1.599       23.28    2.565e-20 
+
+     **hp**        -0.03177    0.00903     -3.519    0.001451  
+
+     **wt**         -3.878      0.6327     -6.129    1.12e-06  
+---------------------------------------------------------------
+
+Table: Fitting linear model: mpg ~ hp + wt
+
+> pander(anova(ml))
+
+-------------------------------------------------------------
+    &nbsp;       Df   Sum Sq   Mean Sq   F value    Pr(>F)   
+--------------- ---- -------- --------- --------- -----------
+    **hp**       1    678.4     678.4     100.9    5.987e-11 
+
+    **wt**       1    252.6     252.6     37.56    1.12e-06  
+
+ **Residuals**   29    195      6.726      NA         NA     
+-------------------------------------------------------------
+
+Table: Analysis of Variance Table
+
+> pander(aov(ml))
+
+-------------------------------------------------------------
+    &nbsp;       Df   Sum Sq   Mean Sq   F value    Pr(>F)   
+--------------- ---- -------- --------- --------- -----------
+    **hp**       1    678.4     678.4     100.9    5.987e-11 
+
+    **wt**       1    252.6     252.6     37.56    1.12e-06  
+
+ **Residuals**   29    195      6.726      NA         NA     
+-------------------------------------------------------------
+
+Table: Analysis of Variance Model
+
+> ## Dobson (1990) Page 93: Randomized Controlled Trial (examples from: ?glm)
+> counts <- c(18, 17, 15, 20, 10, 20, 25, 13, 12)
+> outcome <- gl(3, 1, 9)
+> treatment <- gl(3, 3)
+> m <- glm(counts ~ outcome + treatment, family = poisson())
+> pander(m)
+
+------------------------------------------------------------------
+     &nbsp;        Estimate    Std. Error    z value    Pr(>|z|)  
+----------------- ----------- ------------ ----------- -----------
+ **(Intercept)**     3.045       0.1709       17.81     5.427e-71 
+
+  **outcome2**      -0.4543      0.2022      -2.247      0.02465  
+
+  **outcome3**      -0.293       0.1927       -1.52      0.1285   
+
+ **treatment2**    1.338e-15      0.2       6.69e-15        1     
+
+ **treatment3**    1.421e-15      0.2       7.105e-15       1     
+------------------------------------------------------------------
+
+Table: Fitting generalized (poisson/log) linear model: counts ~ outcome + treatment
+
+> pander(anova(m))
+
+---------------------------------------------------------
+    &nbsp;       Df   Deviance    Resid. Df   Resid. Dev 
+--------------- ---- ----------- ----------- ------------
+   **NULL**      NA      NA           8         10.58    
+
+  **outcome**    2      5.452         6         5.129    
+
+ **treatment**   2    2.665e-15       4         5.129    
+---------------------------------------------------------
+
+Table: Analysis of Deviance Table
+
+> pander(aov(m))
+
+-----------------------------------------------------------------
+    &nbsp;       Df    Sum Sq      Mean Sq     F value    Pr(>F) 
+--------------- ---- ----------- ----------- ----------- --------
+  **outcome**    2      92.67       46.33       2.224     0.2242 
+
+ **treatment**   2    8.382e-31   4.191e-31   2.012e-32     1    
+
+ **Residuals**   4      83.33       20.83        NA         NA   
+-----------------------------------------------------------------
+
+Table: Analysis of Variance Model
+
+> ## overwriting labels
+> pander(lm(Sepal.Width ~ Species, data = iris), covariate.labels = c('Versicolor', 'Virginica'))
+
+---------------------------------------------------------------------
+        &nbsp;          Estimate   Std. Error   t value    Pr(>|t|)  
+---------------------- ---------- ------------ --------- ------------
+    **Versicolor**       3.428      0.04804      71.36    5.708e-116 
+
+    **Virginica**        -0.658     0.06794     -9.685    1.832e-17  
+
+ **Speciesvirginica**    -0.454     0.06794     -6.683    4.539e-10  
+---------------------------------------------------------------------
+
+Table: Fitting linear model: Sepal.Width ~ Species
+
+> 
+> ## Prcomp
+> pander(prcomp(USArrests))
+
+---------------------------------------------------------
+    &nbsp;        PC1       PC2        PC3        PC4    
+-------------- --------- ---------- ---------- ----------
+  **Murder**    0.0417    -0.04482   0.07989    -0.9949  
+
+ **Assault**    0.9952    -0.05876   -0.06757   0.03894  
+
+ **UrbanPop**   0.04634    0.9769    -0.2005    -0.05817 
+
+   **Rape**     0.07516    0.2007     0.9741    0.07233  
+---------------------------------------------------------
+
+Table: Principal Components Analysis
+
+> 
+> ## Others
+> pander(density(runif(10)))
+
+--------------------------------------------
+   &nbsp;      Coordinates   Density values 
+------------- ------------- ----------------
+  **Min.**       -0.3263        0.003566    
+
+ **1st Qu.**     0.1174          0.1204     
+
+ **Median**       0.561          0.5876     
+
+  **Mean**        0.561          0.5628     
+
+ **3rd Qu.**      1.005          1.004      
+
+  **Max.**        1.448          1.125      
+--------------------------------------------
+
+Table: Kernel density of *runif(10)* (bandwidth: 0.151891)
+
+> pander(density(mtcars$hp))
+
+--------------------------------------------
+   &nbsp;      Coordinates   Density values 
+------------- ------------- ----------------
+  **Min.**       -32.12          5e-06      
+
+ **1st Qu.**      80.69        0.0004068    
+
+ **Median**       193.5         0.001665    
+
+  **Mean**        193.5         0.002214    
+
+ **3rd Qu.**      306.3         0.00409     
+
+  **Max.**        419.1         0.006051    
+--------------------------------------------
+
+Table: Kernel density of *mtcars$hp* (bandwidth: 28.04104)
+
+> 
+> ## default method
+> x <- chisq.test(table(mtcars$am, mtcars$gear))
+Warning in chisq.test(table(mtcars$am, mtcars$gear)) :
+  Chi-squared approximation may be incorrect
+> class(x) <- 'I heave never heard of!'
+> pander(x)
+Warning in pander.default(x) :
+  No pander.method for "I heave never heard of!", reverting to default.
+
+
+  * **statistic**:
+
+    -----------
+     X-squared
+    -----------
+       20.94
+    -----------
+
+  * **parameter**:
+
+    ----
+     df
+    ----
+     2
+    ----
+
+  * **p.value**: _2.831e-05_
+  * **method**: Pearson's Chi-squared test
+  * **data.name**: table(mtcars$am, mtcars$gear)
+  * **observed**:
+
+    ---------------------
+     &nbsp;   3    4   5
+    -------- ---- --- ---
+     **0**    15   4   0
+
+     **1**    0    8   5
+    ---------------------
+
+  * **expected**:
+
+    --------------------------------
+     &nbsp;     3       4       5
+    -------- ------- ------- -------
+     **0**    8.906   7.125   2.969
+
+     **1**    6.094   4.875   2.031
+    --------------------------------
+
+  * **residuals**:
+
+    -----------------------------------
+     &nbsp;     3        4        5
+    -------- -------- -------- --------
+     **0**    2.042    -1.171   -1.723
+
+     **1**    -2.469   1.415    2.083
+    -----------------------------------
+
+  * **stdres**:
+
+    -----------------------------------
+     &nbsp;     3        4        5
+    -------- -------- -------- --------
+     **0**    4.395    -2.323   -2.943
+
+     **1**    -4.395   2.323    2.943
+    -----------------------------------
+
+
+<!-- end of list -->
+
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("panderOptions")
+> ### * panderOptions
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: panderOptions
+> ### Title: Querying/setting pander option
+> ### Aliases: panderOptions
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D panderOptions()
+> ##D panderOptions('digits')
+> ##D panderOptions('digits', 5)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.date.return")
+> ### * pandoc.date.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.date.return
+> ### Title: Dates
+> ### Aliases: pandoc.date.return pandoc.date
+> 
+> ### ** Examples
+> 
+> pandoc.date(Sys.Date())
+2018/01/24 12:00:00 AM> pandoc.date(Sys.Date() - 1:10)
+_2018/01/23 12:00:00 AM_, _2018/01/22 12:00:00 AM_, _2018/01/21 12:00:00 AM_, _2018/01/20 12:00:00 AM_, _2018/01/19 12:00:00 AM_, _2018/01/18 12:00:00 AM_, _2018/01/17 12:00:00 AM_, _2018/01/16 12:00:00 AM_, _2018/01/15 12:00:00 AM_ and _2018/01/14 12:00:00 AM_> pandoc.date(Sys.Date() - 1:10, inline = FALSE)
+
+* 2018/01/23 12:00:00 AM 
+* 2018/01/22 12:00:00 AM 
+* 2018/01/21 12:00:00 AM 
+* 2018/01/20 12:00:00 AM 
+* 2018/01/19 12:00:00 AM 
+* 2018/01/18 12:00:00 AM 
+* 2018/01/17 12:00:00 AM 
+* 2018/01/16 12:00:00 AM 
+* 2018/01/15 12:00:00 AM 
+* 2018/01/14 12:00:00 AM 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.emphasis.return")
+> ### * pandoc.emphasis.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.emphasis.return
+> ### Title: Emphasis
+> ### Aliases: pandoc.emphasis.return pandoc.emphasis
+> 
+> ### ** Examples
+> 
+> pandoc.emphasis('FOO')
+*FOO*> pandoc.emphasis(c('FOO', '*FOO*'))
+*FOO* *FOO*> pandoc.emphasis.return('FOO')
+[1] "*FOO*"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.footnote.return")
+> ### * pandoc.footnote.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.footnote.return
+> ### Title: Footnote
+> ### Aliases: pandoc.footnote.return pandoc.footnote
+> 
+> ### ** Examples
+> 
+> pandoc.footnote('Automatically numbered footnote, right?')
+^[Automatically numbered footnote, right?]> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.formula.return")
+> ### * pandoc.formula.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.formula.return
+> ### Title: Formulas
+> ### Aliases: pandoc.formula.return pandoc.formula
+> 
+> ### ** Examples
+> 
+> pandoc.formula(y ~ x)
+y ~ x> pandoc.formula(formula(paste('y ~ ', paste0('x', 1:12, collapse = ' + '))))
+y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 + x12> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.header.return")
+> ### * pandoc.header.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.header.return
+> ### Title: Create header
+> ### Aliases: pandoc.header.return pandoc.header
+> 
+> ### ** Examples
+> 
+> pandoc.header('Foo!', 4)
+
+#### Foo!
+> pandoc.header('Foo!', 2, 'setext')
+
+Foo!
+----
+> pandoc.header('Foo **bar**!', 1, 'setext')
+
+Foo **bar**!
+============
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.image.return")
+> ### * pandoc.image.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.image.return
+> ### Title: Create pandoc image tags
+> ### Aliases: pandoc.image.return pandoc.image
+> 
+> ### ** Examples
+> 
+> pandoc.image('foo.png')
+![](foo.png)> pandoc.image('foo.png', 'Nice image, huh?')
+![Nice image, huh?](foo.png)> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.indent")
+> ### * pandoc.indent
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.indent
+> ### Title: Indent text
+> ### Aliases: pandoc.indent
+> 
+> ### ** Examples
+> 
+> pandoc.indent('FOO', 1)
+[1] "    FOO"
+> pandoc.indent(pandoc.table.return(table(mtcars$gear)), 2)
+[1] "\n        -------------\n         3    4    5\n        ---- ---- ---\n         15   12   5\n        -------------\n\n"
+> cat(pandoc.indent(pandoc.table.return(table(mtcars$gear)), 3))
+
+            -------------
+             3    4    5
+            ---- ---- ---
+             15   12   5
+            -------------
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.link.return")
+> ### * pandoc.link.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.link.return
+> ### Title: Create pandoc link Pandoc's markdown format link.
+> ### Aliases: pandoc.link.return pandoc.link
+> 
+> ### ** Examples
+> 
+> pandoc.link('http://r-project.org')
+[http://r-project.org](http://r-project.org)> pandoc.link('http://r-project.org', 'R')
+[R](http://r-project.org)> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.list.return")
+> ### * pandoc.list.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.list.return
+> ### Title: Create a list
+> ### Aliases: pandoc.list.return pandoc.list
+> 
+> ### ** Examples
+> 
+> ## basic lists
+> pandoc.list(letters[1:5])
+
+* a 
+* b 
+* c 
+* d 
+* e 
+
+<!-- end of list -->
+
+> pandoc.list(letters[1:5])
+
+* a 
+* b 
+* c 
+* d 
+* e 
+
+<!-- end of list -->
+
+> pandoc.list(letters[1:5], 'ordered')
+
+1. a 
+2. b 
+3. c 
+4. d 
+5. e 
+
+<!-- end of list -->
+
+> pandoc.list(letters[1:5], 'roman')
+
+I. a 
+II. b 
+III. c 
+IV. d 
+V. e 
+
+<!-- end of list -->
+
+> pandoc.list(letters[1:5], loose = TRUE)
+
+* a 
+
+* b 
+
+* c 
+
+* d 
+
+* e 
+<!-- end of list -->
+
+> 
+> ## nested lists
+> l <- list("First list element",
++   rep.int('sub element', 5),
++   "Second element",
++   list('F', 'B', 'I', c('phone', 'pad', 'talics')))
+> pandoc.list(l)
+
+* First list element 
+    * sub element 
+    * sub element 
+    * sub element 
+    * sub element 
+    * sub element  
+* Second element 
+    * F 
+    * B 
+    * I 
+        * phone 
+        * pad 
+        * talics   
+
+<!-- end of list -->
+
+> pandoc.list(l, loose = TRUE)
+
+* First list element 
+
+    * sub element 
+
+    * sub element 
+
+    * sub element 
+
+    * sub element 
+
+    * sub element 
+ 
+
+* Second element 
+
+    * F 
+
+    * B 
+
+    * I 
+
+        * phone 
+
+        * pad 
+
+        * talics 
+ 
+ 
+<!-- end of list -->
+
+> pandoc.list(l, 'roman')
+
+I. First list element 
+    I. sub element 
+    II. sub element 
+    III. sub element 
+    IV. sub element 
+    V. sub element  
+II. Second element 
+    I. F 
+    II. B 
+    III. I 
+        I. phone 
+        II. pad 
+        III. talics   
+
+<!-- end of list -->
+
+> 
+> ## complex nested lists
+> pandoc.list(list('one', as.list(2)))
+
+* one 
+    * 2  
+
+<!-- end of list -->
+
+> pandoc.list(list('one', list('two')))
+
+* one 
+    * two  
+
+<!-- end of list -->
+
+> pandoc.list(list('one', list(2:3)))
+
+* one 
+        * 2 
+        * 3   
+
+<!-- end of list -->
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.p.return")
+> ### * pandoc.p.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.p.return
+> ### Title: Paragraphs
+> ### Aliases: pandoc.p.return pandoc.p
+> 
+> ### ** Examples
+> 
+> pandoc.p('FOO')
+
+
+FOO
+
+> pandoc.p(c('Lorem', 'ipsum', 'lorem ipsum'))
+
+
+Lorem
+ipsum
+lorem ipsum
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.strikeout.return")
+> ### * pandoc.strikeout.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.strikeout.return
+> ### Title: Add strikeout
+> ### Aliases: pandoc.strikeout.return pandoc.strikeout
+> 
+> ### ** Examples
+> 
+> pandoc.strikeout('FOO')
+~~FOO~~> pandoc.strikeout(c('FOO', '~~FOO~~'))
+~~FOO~~ ~~FOO~~> pandoc.strikeout.return('FOO')
+[1] "~~FOO~~"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.strong.return")
+> ### * pandoc.strong.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.strong.return
+> ### Title: Strong emphasis
+> ### Aliases: pandoc.strong.return pandoc.strong
+> 
+> ### ** Examples
+> 
+> pandoc.strong('FOO')
+**FOO**> pandoc.strong(c('FOO', '**FOO**'))
+**FOO** **FOO**> pandoc.strong.return('FOO')
+[1] "**FOO**"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.table.return")
+> ### * pandoc.table.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.table.return
+> ### Title: Create a table
+> ### Aliases: pandoc.table.return pandoc.table
+> 
+> ### ** Examples
+> 
+> pandoc.table(mtcars)
+
+--------------------------------------------------------------------------------
+         &nbsp;            mpg    cyl   disp    hp    drat    wt     qsec    vs 
+------------------------- ------ ----- ------- ----- ------ ------- ------- ----
+      **Mazda RX4**         21     6     160    110   3.9    2.62    16.46   0  
+
+    **Mazda RX4 Wag**       21     6     160    110   3.9    2.875   17.02   0  
+
+     **Datsun 710**        22.8    4     108    93    3.85   2.32    18.61   1  
+
+   **Hornet 4 Drive**      21.4    6     258    110   3.08   3.215   19.44   1  
+
+  **Hornet Sportabout**    18.7    8     360    175   3.15   3.44    17.02   0  
+
+       **Valiant**         18.1    6     225    105   2.76   3.46    20.22   1  
+
+     **Duster 360**        14.3    8     360    245   3.21   3.57    15.84   0  
+
+      **Merc 240D**        24.4    4    146.7   62    3.69   3.19     20     1  
+
+      **Merc 230**         22.8    4    140.8   95    3.92   3.15    22.9    1  
+
+      **Merc 280**         19.2    6    167.6   123   3.92   3.44    18.3    1  
+
+      **Merc 280C**        17.8    6    167.6   123   3.92   3.44    18.9    1  
+
+     **Merc 450SE**        16.4    8    275.8   180   3.07   4.07    17.4    0  
+
+     **Merc 450SL**        17.3    8    275.8   180   3.07   3.73    17.6    0  
+
+     **Merc 450SLC**       15.2    8    275.8   180   3.07   3.78     18     0  
+
+ **Cadillac Fleetwood**    10.4    8     472    205   2.93   5.25    17.98   0  
+
+ **Lincoln Continental**   10.4    8     460    215    3     5.424   17.82   0  
+
+  **Chrysler Imperial**    14.7    8     440    230   3.23   5.345   17.42   0  
+
+      **Fiat 128**         32.4    4    78.7    66    4.08    2.2    19.47   1  
+
+     **Honda Civic**       30.4    4    75.7    52    4.93   1.615   18.52   1  
+
+   **Toyota Corolla**      33.9    4    71.1    65    4.22   1.835   19.9    1  
+
+    **Toyota Corona**      21.5    4    120.1   97    3.7    2.465   20.01   1  
+
+  **Dodge Challenger**     15.5    8     318    150   2.76   3.52    16.87   0  
+
+     **AMC Javelin**       15.2    8     304    150   3.15   3.435   17.3    0  
+
+     **Camaro Z28**        13.3    8     350    245   3.73   3.84    15.41   0  
+
+  **Pontiac Firebird**     19.2    8     400    175   3.08   3.845   17.05   0  
+
+      **Fiat X1-9**        27.3    4     79     66    4.08   1.935   18.9    1  
+
+    **Porsche 914-2**       26     4    120.3   91    4.43   2.14    16.7    0  
+
+    **Lotus Europa**       30.4    4    95.1    113   3.77   1.513   16.9    1  
+
+   **Ford Pantera L**      15.8    8     351    264   4.22   3.17    14.5    0  
+
+    **Ferrari Dino**       19.7    6     145    175   3.62   2.77    15.5    0  
+
+    **Maserati Bora**       15     8     301    335   3.54   3.57    14.6    0  
+
+     **Volvo 142E**        21.4    4     121    109   4.11   2.78    18.6    1  
+--------------------------------------------------------------------------------
+
+Table: Table continues below
+
+ 
+--------------------------------------------
+         &nbsp;            am   gear   carb 
+------------------------- ---- ------ ------
+      **Mazda RX4**        1     4      4   
+
+    **Mazda RX4 Wag**      1     4      4   
+
+     **Datsun 710**        1     4      1   
+
+   **Hornet 4 Drive**      0     3      1   
+
+  **Hornet Sportabout**    0     3      2   
+
+       **Valiant**         0     3      1   
+
+     **Duster 360**        0     3      4   
+
+      **Merc 240D**        0     4      2   
+
+      **Merc 230**         0     4      2   
+
+      **Merc 280**         0     4      4   
+
+      **Merc 280C**        0     4      4   
+
+     **Merc 450SE**        0     3      3   
+
+     **Merc 450SL**        0     3      3   
+
+     **Merc 450SLC**       0     3      3   
+
+ **Cadillac Fleetwood**    0     3      4   
+
+ **Lincoln Continental**   0     3      4   
+
+  **Chrysler Imperial**    0     3      4   
+
+      **Fiat 128**         1     4      1   
+
+     **Honda Civic**       1     4      2   
+
+   **Toyota Corolla**      1     4      1   
+
+    **Toyota Corona**      0     3      1   
+
+  **Dodge Challenger**     0     3      2   
+
+     **AMC Javelin**       0     3      2   
+
+     **Camaro Z28**        0     3      4   
+
+  **Pontiac Firebird**     0     3      2   
+
+      **Fiat X1-9**        1     4      1   
+
+    **Porsche 914-2**      1     5      2   
+
+    **Lotus Europa**       1     5      2   
+
+   **Ford Pantera L**      1     5      4   
+
+    **Ferrari Dino**       1     5      6   
+
+    **Maserati Bora**      1     5      8   
+
+     **Volvo 142E**        1     4      2   
+--------------------------------------------
+
+> 
+> # caption
+> pandoc.table(mtcars, 'Motor Trend Car Road Tests')
+
+--------------------------------------------------------------------------------
+         &nbsp;            mpg    cyl   disp    hp    drat    wt     qsec    vs 
+------------------------- ------ ----- ------- ----- ------ ------- ------- ----
+      **Mazda RX4**         21     6     160    110   3.9    2.62    16.46   0  
+
+    **Mazda RX4 Wag**       21     6     160    110   3.9    2.875   17.02   0  
+
+     **Datsun 710**        22.8    4     108    93    3.85   2.32    18.61   1  
+
+   **Hornet 4 Drive**      21.4    6     258    110   3.08   3.215   19.44   1  
+
+  **Hornet Sportabout**    18.7    8     360    175   3.15   3.44    17.02   0  
+
+       **Valiant**         18.1    6     225    105   2.76   3.46    20.22   1  
+
+     **Duster 360**        14.3    8     360    245   3.21   3.57    15.84   0  
+
+      **Merc 240D**        24.4    4    146.7   62    3.69   3.19     20     1  
+
+      **Merc 230**         22.8    4    140.8   95    3.92   3.15    22.9    1  
+
+      **Merc 280**         19.2    6    167.6   123   3.92   3.44    18.3    1  
+
+      **Merc 280C**        17.8    6    167.6   123   3.92   3.44    18.9    1  
+
+     **Merc 450SE**        16.4    8    275.8   180   3.07   4.07    17.4    0  
+
+     **Merc 450SL**        17.3    8    275.8   180   3.07   3.73    17.6    0  
+
+     **Merc 450SLC**       15.2    8    275.8   180   3.07   3.78     18     0  
+
+ **Cadillac Fleetwood**    10.4    8     472    205   2.93   5.25    17.98   0  
+
+ **Lincoln Continental**   10.4    8     460    215    3     5.424   17.82   0  
+
+  **Chrysler Imperial**    14.7    8     440    230   3.23   5.345   17.42   0  
+
+      **Fiat 128**         32.4    4    78.7    66    4.08    2.2    19.47   1  
+
+     **Honda Civic**       30.4    4    75.7    52    4.93   1.615   18.52   1  
+
+   **Toyota Corolla**      33.9    4    71.1    65    4.22   1.835   19.9    1  
+
+    **Toyota Corona**      21.5    4    120.1   97    3.7    2.465   20.01   1  
+
+  **Dodge Challenger**     15.5    8     318    150   2.76   3.52    16.87   0  
+
+     **AMC Javelin**       15.2    8     304    150   3.15   3.435   17.3    0  
+
+     **Camaro Z28**        13.3    8     350    245   3.73   3.84    15.41   0  
+
+  **Pontiac Firebird**     19.2    8     400    175   3.08   3.845   17.05   0  
+
+      **Fiat X1-9**        27.3    4     79     66    4.08   1.935   18.9    1  
+
+    **Porsche 914-2**       26     4    120.3   91    4.43   2.14    16.7    0  
+
+    **Lotus Europa**       30.4    4    95.1    113   3.77   1.513   16.9    1  
+
+   **Ford Pantera L**      15.8    8     351    264   4.22   3.17    14.5    0  
+
+    **Ferrari Dino**       19.7    6     145    175   3.62   2.77    15.5    0  
+
+    **Maserati Bora**       15     8     301    335   3.54   3.57    14.6    0  
+
+     **Volvo 142E**        21.4    4     121    109   4.11   2.78    18.6    1  
+--------------------------------------------------------------------------------
+
+Table: Motor Trend Car Road Tests (continued below)
+
+ 
+--------------------------------------------
+         &nbsp;            am   gear   carb 
+------------------------- ---- ------ ------
+      **Mazda RX4**        1     4      4   
+
+    **Mazda RX4 Wag**      1     4      4   
+
+     **Datsun 710**        1     4      1   
+
+   **Hornet 4 Drive**      0     3      1   
+
+  **Hornet Sportabout**    0     3      2   
+
+       **Valiant**         0     3      1   
+
+     **Duster 360**        0     3      4   
+
+      **Merc 240D**        0     4      2   
+
+      **Merc 230**         0     4      2   
+
+      **Merc 280**         0     4      4   
+
+      **Merc 280C**        0     4      4   
+
+     **Merc 450SE**        0     3      3   
+
+     **Merc 450SL**        0     3      3   
+
+     **Merc 450SLC**       0     3      3   
+
+ **Cadillac Fleetwood**    0     3      4   
+
+ **Lincoln Continental**   0     3      4   
+
+  **Chrysler Imperial**    0     3      4   
+
+      **Fiat 128**         1     4      1   
+
+     **Honda Civic**       1     4      2   
+
+   **Toyota Corolla**      1     4      1   
+
+    **Toyota Corona**      0     3      1   
+
+  **Dodge Challenger**     0     3      2   
+
+     **AMC Javelin**       0     3      2   
+
+     **Camaro Z28**        0     3      4   
+
+  **Pontiac Firebird**     0     3      2   
+
+      **Fiat X1-9**        1     4      1   
+
+    **Porsche 914-2**      1     5      2   
+
+    **Lotus Europa**       1     5      2   
+
+   **Ford Pantera L**      1     5      4   
+
+    **Ferrari Dino**       1     5      6   
+
+    **Maserati Bora**      1     5      8   
+
+     **Volvo 142E**        1     4      2   
+--------------------------------------------
+
+> 
+> # other input/output formats
+> pandoc.table(mtcars[, 1:3], decimal.mark = ',')
+
+----------------------------------------------
+         &nbsp;            mpg    cyl   disp  
+------------------------- ------ ----- -------
+      **Mazda RX4**         21     6     160  
+
+    **Mazda RX4 Wag**       21     6     160  
+
+     **Datsun 710**        22,8    4     108  
+
+   **Hornet 4 Drive**      21,4    6     258  
+
+  **Hornet Sportabout**    18,7    8     360  
+
+       **Valiant**         18,1    6     225  
+
+     **Duster 360**        14,3    8     360  
+
+      **Merc 240D**        24,4    4    146,7 
+
+      **Merc 230**         22,8    4    140,8 
+
+      **Merc 280**         19,2    6    167,6 
+
+      **Merc 280C**        17,8    6    167,6 
+
+     **Merc 450SE**        16,4    8    275,8 
+
+     **Merc 450SL**        17,3    8    275,8 
+
+     **Merc 450SLC**       15,2    8    275,8 
+
+ **Cadillac Fleetwood**    10,4    8     472  
+
+ **Lincoln Continental**   10,4    8     460  
+
+  **Chrysler Imperial**    14,7    8     440  
+
+      **Fiat 128**         32,4    4    78,7  
+
+     **Honda Civic**       30,4    4    75,7  
+
+   **Toyota Corolla**      33,9    4    71,1  
+
+    **Toyota Corona**      21,5    4    120,1 
+
+  **Dodge Challenger**     15,5    8     318  
+
+     **AMC Javelin**       15,2    8     304  
+
+     **Camaro Z28**        13,3    8     350  
+
+  **Pontiac Firebird**     19,2    8     400  
+
+      **Fiat X1-9**        27,3    4     79   
+
+    **Porsche 914-2**       26     4    120,3 
+
+    **Lotus Europa**       30,4    4    95,1  
+
+   **Ford Pantera L**      15,8    8     351  
+
+    **Ferrari Dino**       19,7    6     145  
+
+    **Maserati Bora**       15     8     301  
+
+     **Volvo 142E**        21,4    4     121  
+----------------------------------------------
+
+> pandoc.table(mtcars[, 1:3], decimal.mark = ',', justify = 'right')
+
+----------------------------------------------
+                   &nbsp;    mpg   cyl    disp
+------------------------- ------ ----- -------
+            **Mazda RX4**     21     6     160
+
+        **Mazda RX4 Wag**     21     6     160
+
+           **Datsun 710**   22,8     4     108
+
+       **Hornet 4 Drive**   21,4     6     258
+
+    **Hornet Sportabout**   18,7     8     360
+
+              **Valiant**   18,1     6     225
+
+           **Duster 360**   14,3     8     360
+
+            **Merc 240D**   24,4     4   146,7
+
+             **Merc 230**   22,8     4   140,8
+
+             **Merc 280**   19,2     6   167,6
+
+            **Merc 280C**   17,8     6   167,6
+
+           **Merc 450SE**   16,4     8   275,8
+
+           **Merc 450SL**   17,3     8   275,8
+
+          **Merc 450SLC**   15,2     8   275,8
+
+   **Cadillac Fleetwood**   10,4     8     472
+
+  **Lincoln Continental**   10,4     8     460
+
+    **Chrysler Imperial**   14,7     8     440
+
+             **Fiat 128**   32,4     4    78,7
+
+          **Honda Civic**   30,4     4    75,7
+
+       **Toyota Corolla**   33,9     4    71,1
+
+        **Toyota Corona**   21,5     4   120,1
+
+     **Dodge Challenger**   15,5     8     318
+
+          **AMC Javelin**   15,2     8     304
+
+           **Camaro Z28**   13,3     8     350
+
+     **Pontiac Firebird**   19,2     8     400
+
+            **Fiat X1-9**   27,3     4      79
+
+        **Porsche 914-2**     26     4   120,3
+
+         **Lotus Europa**   30,4     4    95,1
+
+       **Ford Pantera L**   15,8     8     351
+
+         **Ferrari Dino**   19,7     6     145
+
+        **Maserati Bora**     15     8     301
+
+           **Volvo 142E**   21,4     4     121
+----------------------------------------------
+
+> pandoc.table(matrix(sample(1:1000, 25), 5, 5))
+
+----- ----- ----- ----- -----
+ 266   894   204   491   917 
+
+ 372   940   175   707   208 
+
+ 572   657   679   976   638 
+
+ 906   625   380   374   123 
+
+ 201   62    760   763   261 
+----- ----- ----- ----- -----
+
+> pandoc.table(matrix(runif(25), 5, 5))
+
+--------- -------- -------- -------- ---------
+ 0.3861    0.4821   0.6685   0.8209   0.7894  
+
+ 0.01339   0.5996   0.7942   0.6471   0.02333 
+
+ 0.3824    0.4935   0.1079   0.7829   0.4772  
+
+ 0.8697    0.1862   0.7237   0.553    0.7323  
+
+ 0.3403    0.8274   0.4113   0.5297   0.6927  
+--------- -------- -------- -------- ---------
+
+> pandoc.table(matrix(runif(25), 5, 5), digits = 5)
+
+---------- ---------- --------- ---------- ---------
+ 0.47762    0.099466   0.91288   0.25802    0.33907 
+
+ 0.86121    0.31627    0.2936    0.47855    0.83944 
+
+  0.4381    0.51863    0.45907   0.76631    0.34668 
+
+  0.2448    0.66201    0.33239   0.084247   0.33377 
+
+ 0.070679   0.40683    0.65087   0.87532    0.47635 
+---------- ---------- --------- ---------- ---------
+
+> pandoc.table(matrix(runif(25),5,5), round = 1)
+
+----- ----- ----- ----- -----
+ 0.9   0.4   0.2   0.2   0.8 
+
+ 0.9   0.7   0.7   0.1   0.5 
+
+ 0.4   0.4   0.1   0.6   0.4 
+
+ 0.8   0.3   0.2   0.9   0.8 
+
+  1    0.8   0.1   0.8   0.6 
+----- ----- ----- ----- -----
+
+> pandoc.table(table(mtcars$am))
+
+---------
+ 0    1  
+---- ----
+ 19   13 
+---------
+
+> pandoc.table(table(mtcars$am, mtcars$gear))
+
+---------------------
+ &nbsp;   3    4   5 
+-------- ---- --- ---
+ **0**    15   4   0 
+
+ **1**    0    8   5 
+---------------------
+
+> pandoc.table(table(state.division, state.region))
+
+-------------------------------------------------------------------
+         &nbsp;           Northeast   South   North Central   West 
+------------------------ ----------- ------- --------------- ------
+    **New England**           6         0           0          0   
+
+  **Middle Atlantic**         3         0           0          0   
+
+   **South Atlantic**         0         8           0          0   
+
+ **East South Central**       0         4           0          0   
+
+ **West South Central**       0         4           0          0   
+
+ **East North Central**       0         0           5          0   
+
+ **West North Central**       0         0           7          0   
+
+      **Mountain**            0         0           0          8   
+
+      **Pacific**             0         0           0          5   
+-------------------------------------------------------------------
+
+> pandoc.table(table(state.division, state.region), justify = 'centre')
+
+-------------------------------------------------------------------
+         &nbsp;           Northeast   South   North Central   West 
+------------------------ ----------- ------- --------------- ------
+    **New England**           6         0           0          0   
+
+  **Middle Atlantic**         3         0           0          0   
+
+   **South Atlantic**         0         8           0          0   
+
+ **East South Central**       0         4           0          0   
+
+ **West South Central**       0         4           0          0   
+
+ **East North Central**       0         0           5          0   
+
+ **West North Central**       0         0           7          0   
+
+      **Mountain**            0         0           0          8   
+
+      **Pacific**             0         0           0          5   
+-------------------------------------------------------------------
+
+> 
+> m <- data.frame(a = c(1, -500, 10320, 23, 77),
++   b = runif(5),
++   c = c('a', 'bb', 'ccc', 'dddd', 'eeeee'))
+> pandoc.table(m)
+
+------------------------
+   a       b        c   
+------- -------- -------
+   1     0.6547     a   
+
+ -500    0.3532    bb   
+
+ 10320   0.2703    ccc  
+
+  23     0.9927   dddd  
+
+  77     0.6335   eeeee 
+------------------------
+
+> pandoc.table(m, justify = c('right', 'left', 'centre'))
+
+------------------------
+      a b           c   
+------- -------- -------
+      1 0.6547      a   
+
+   -500 0.3532     bb   
+
+  10320 0.2703     ccc  
+
+     23 0.9927    dddd  
+
+     77 0.6335    eeeee 
+------------------------
+
+> pandoc.table(m, justify = 'rlc') # Same as upper statement
+
+------------------------
+      a b           c   
+------- -------- -------
+      1 0.6547      a   
+
+   -500 0.3532     bb   
+
+  10320 0.2703     ccc  
+
+     23 0.9927    dddd  
+
+     77 0.6335    eeeee 
+------------------------
+
+> 
+> ## splitting up too wide tables
+> pandoc.table(mtcars)
+
+--------------------------------------------------------------------------------
+         &nbsp;            mpg    cyl   disp    hp    drat    wt     qsec    vs 
+------------------------- ------ ----- ------- ----- ------ ------- ------- ----
+      **Mazda RX4**         21     6     160    110   3.9    2.62    16.46   0  
+
+    **Mazda RX4 Wag**       21     6     160    110   3.9    2.875   17.02   0  
+
+     **Datsun 710**        22.8    4     108    93    3.85   2.32    18.61   1  
+
+   **Hornet 4 Drive**      21.4    6     258    110   3.08   3.215   19.44   1  
+
+  **Hornet Sportabout**    18.7    8     360    175   3.15   3.44    17.02   0  
+
+       **Valiant**         18.1    6     225    105   2.76   3.46    20.22   1  
+
+     **Duster 360**        14.3    8     360    245   3.21   3.57    15.84   0  
+
+      **Merc 240D**        24.4    4    146.7   62    3.69   3.19     20     1  
+
+      **Merc 230**         22.8    4    140.8   95    3.92   3.15    22.9    1  
+
+      **Merc 280**         19.2    6    167.6   123   3.92   3.44    18.3    1  
+
+      **Merc 280C**        17.8    6    167.6   123   3.92   3.44    18.9    1  
+
+     **Merc 450SE**        16.4    8    275.8   180   3.07   4.07    17.4    0  
+
+     **Merc 450SL**        17.3    8    275.8   180   3.07   3.73    17.6    0  
+
+     **Merc 450SLC**       15.2    8    275.8   180   3.07   3.78     18     0  
+
+ **Cadillac Fleetwood**    10.4    8     472    205   2.93   5.25    17.98   0  
+
+ **Lincoln Continental**   10.4    8     460    215    3     5.424   17.82   0  
+
+  **Chrysler Imperial**    14.7    8     440    230   3.23   5.345   17.42   0  
+
+      **Fiat 128**         32.4    4    78.7    66    4.08    2.2    19.47   1  
+
+     **Honda Civic**       30.4    4    75.7    52    4.93   1.615   18.52   1  
+
+   **Toyota Corolla**      33.9    4    71.1    65    4.22   1.835   19.9    1  
+
+    **Toyota Corona**      21.5    4    120.1   97    3.7    2.465   20.01   1  
+
+  **Dodge Challenger**     15.5    8     318    150   2.76   3.52    16.87   0  
+
+     **AMC Javelin**       15.2    8     304    150   3.15   3.435   17.3    0  
+
+     **Camaro Z28**        13.3    8     350    245   3.73   3.84    15.41   0  
+
+  **Pontiac Firebird**     19.2    8     400    175   3.08   3.845   17.05   0  
+
+      **Fiat X1-9**        27.3    4     79     66    4.08   1.935   18.9    1  
+
+    **Porsche 914-2**       26     4    120.3   91    4.43   2.14    16.7    0  
+
+    **Lotus Europa**       30.4    4    95.1    113   3.77   1.513   16.9    1  
+
+   **Ford Pantera L**      15.8    8     351    264   4.22   3.17    14.5    0  
+
+    **Ferrari Dino**       19.7    6     145    175   3.62   2.77    15.5    0  
+
+    **Maserati Bora**       15     8     301    335   3.54   3.57    14.6    0  
+
+     **Volvo 142E**        21.4    4     121    109   4.11   2.78    18.6    1  
+--------------------------------------------------------------------------------
+
+Table: Table continues below
+
+ 
+--------------------------------------------
+         &nbsp;            am   gear   carb 
+------------------------- ---- ------ ------
+      **Mazda RX4**        1     4      4   
+
+    **Mazda RX4 Wag**      1     4      4   
+
+     **Datsun 710**        1     4      1   
+
+   **Hornet 4 Drive**      0     3      1   
+
+  **Hornet Sportabout**    0     3      2   
+
+       **Valiant**         0     3      1   
+
+     **Duster 360**        0     3      4   
+
+      **Merc 240D**        0     4      2   
+
+      **Merc 230**         0     4      2   
+
+      **Merc 280**         0     4      4   
+
+      **Merc 280C**        0     4      4   
+
+     **Merc 450SE**        0     3      3   
+
+     **Merc 450SL**        0     3      3   
+
+     **Merc 450SLC**       0     3      3   
+
+ **Cadillac Fleetwood**    0     3      4   
+
+ **Lincoln Continental**   0     3      4   
+
+  **Chrysler Imperial**    0     3      4   
+
+      **Fiat 128**         1     4      1   
+
+     **Honda Civic**       1     4      2   
+
+   **Toyota Corolla**      1     4      1   
+
+    **Toyota Corona**      0     3      1   
+
+  **Dodge Challenger**     0     3      2   
+
+     **AMC Javelin**       0     3      2   
+
+     **Camaro Z28**        0     3      4   
+
+  **Pontiac Firebird**     0     3      2   
+
+      **Fiat X1-9**        1     4      1   
+
+    **Porsche 914-2**      1     5      2   
+
+    **Lotus Europa**       1     5      2   
+
+   **Ford Pantera L**      1     5      4   
+
+    **Ferrari Dino**       1     5      6   
+
+    **Maserati Bora**      1     5      8   
+
+     **Volvo 142E**        1     4      2   
+--------------------------------------------
+
+> pandoc.table(mtcars, caption = 'Only once after the first part!')
+
+--------------------------------------------------------------------------------
+         &nbsp;            mpg    cyl   disp    hp    drat    wt     qsec    vs 
+------------------------- ------ ----- ------- ----- ------ ------- ------- ----
+      **Mazda RX4**         21     6     160    110   3.9    2.62    16.46   0  
+
+    **Mazda RX4 Wag**       21     6     160    110   3.9    2.875   17.02   0  
+
+     **Datsun 710**        22.8    4     108    93    3.85   2.32    18.61   1  
+
+   **Hornet 4 Drive**      21.4    6     258    110   3.08   3.215   19.44   1  
+
+  **Hornet Sportabout**    18.7    8     360    175   3.15   3.44    17.02   0  
+
+       **Valiant**         18.1    6     225    105   2.76   3.46    20.22   1  
+
+     **Duster 360**        14.3    8     360    245   3.21   3.57    15.84   0  
+
+      **Merc 240D**        24.4    4    146.7   62    3.69   3.19     20     1  
+
+      **Merc 230**         22.8    4    140.8   95    3.92   3.15    22.9    1  
+
+      **Merc 280**         19.2    6    167.6   123   3.92   3.44    18.3    1  
+
+      **Merc 280C**        17.8    6    167.6   123   3.92   3.44    18.9    1  
+
+     **Merc 450SE**        16.4    8    275.8   180   3.07   4.07    17.4    0  
+
+     **Merc 450SL**        17.3    8    275.8   180   3.07   3.73    17.6    0  
+
+     **Merc 450SLC**       15.2    8    275.8   180   3.07   3.78     18     0  
+
+ **Cadillac Fleetwood**    10.4    8     472    205   2.93   5.25    17.98   0  
+
+ **Lincoln Continental**   10.4    8     460    215    3     5.424   17.82   0  
+
+  **Chrysler Imperial**    14.7    8     440    230   3.23   5.345   17.42   0  
+
+      **Fiat 128**         32.4    4    78.7    66    4.08    2.2    19.47   1  
+
+     **Honda Civic**       30.4    4    75.7    52    4.93   1.615   18.52   1  
+
+   **Toyota Corolla**      33.9    4    71.1    65    4.22   1.835   19.9    1  
+
+    **Toyota Corona**      21.5    4    120.1   97    3.7    2.465   20.01   1  
+
+  **Dodge Challenger**     15.5    8     318    150   2.76   3.52    16.87   0  
+
+     **AMC Javelin**       15.2    8     304    150   3.15   3.435   17.3    0  
+
+     **Camaro Z28**        13.3    8     350    245   3.73   3.84    15.41   0  
+
+  **Pontiac Firebird**     19.2    8     400    175   3.08   3.845   17.05   0  
+
+      **Fiat X1-9**        27.3    4     79     66    4.08   1.935   18.9    1  
+
+    **Porsche 914-2**       26     4    120.3   91    4.43   2.14    16.7    0  
+
+    **Lotus Europa**       30.4    4    95.1    113   3.77   1.513   16.9    1  
+
+   **Ford Pantera L**      15.8    8     351    264   4.22   3.17    14.5    0  
+
+    **Ferrari Dino**       19.7    6     145    175   3.62   2.77    15.5    0  
+
+    **Maserati Bora**       15     8     301    335   3.54   3.57    14.6    0  
+
+     **Volvo 142E**        21.4    4     121    109   4.11   2.78    18.6    1  
+--------------------------------------------------------------------------------
+
+Table: Only once after the first part! (continued below)
+
+ 
+--------------------------------------------
+         &nbsp;            am   gear   carb 
+------------------------- ---- ------ ------
+      **Mazda RX4**        1     4      4   
+
+    **Mazda RX4 Wag**      1     4      4   
+
+     **Datsun 710**        1     4      1   
+
+   **Hornet 4 Drive**      0     3      1   
+
+  **Hornet Sportabout**    0     3      2   
+
+       **Valiant**         0     3      1   
+
+     **Duster 360**        0     3      4   
+
+      **Merc 240D**        0     4      2   
+
+      **Merc 230**         0     4      2   
+
+      **Merc 280**         0     4      4   
+
+      **Merc 280C**        0     4      4   
+
+     **Merc 450SE**        0     3      3   
+
+     **Merc 450SL**        0     3      3   
+
+     **Merc 450SLC**       0     3      3   
+
+ **Cadillac Fleetwood**    0     3      4   
+
+ **Lincoln Continental**   0     3      4   
+
+  **Chrysler Imperial**    0     3      4   
+
+      **Fiat 128**         1     4      1   
+
+     **Honda Civic**       1     4      2   
+
+   **Toyota Corolla**      1     4      1   
+
+    **Toyota Corona**      0     3      1   
+
+  **Dodge Challenger**     0     3      2   
+
+     **AMC Javelin**       0     3      2   
+
+     **Camaro Z28**        0     3      4   
+
+  **Pontiac Firebird**     0     3      2   
+
+      **Fiat X1-9**        1     4      1   
+
+    **Porsche 914-2**      1     5      2   
+
+    **Lotus Europa**       1     5      2   
+
+   **Ford Pantera L**      1     5      4   
+
+    **Ferrari Dino**       1     5      6   
+
+    **Maserati Bora**      1     5      8   
+
+     **Volvo 142E**        1     4      2   
+--------------------------------------------
+
+> 
+> ## tables with line breaks in cells
+> ## NOTE: line breaks are removed from table content in case keep.line.breaks is set to FALSE
+> ## and added automatically based on "split.cells" parameter!
+> t <- data.frame(a = c('hundreds\nof\nmouses', '3 cats'), b=c('FOO is nice', 'BAR\nBAR2'))
+> pandoc.table(t)
+
+----------------------------------
+         a                 b      
+-------------------- -------------
+ hundreds of mouses   FOO is nice 
+
+       3 cats          BAR BAR2   
+----------------------------------
+
+> pandoc.table(t, split.cells = 5)
+
+-----------------
+    a        b   
+---------- ------
+ hundreds   FOO  
+    of       is  
+  mouses    nice 
+
+    3       BAR  
+   cats     BAR2 
+-----------------
+
+> 
+> ## exporting tables in other Pandoc styles
+> pandoc.table(m)
+
+------------------------
+   a       b        c   
+------- -------- -------
+   1     0.6547     a   
+
+ -500    0.3532    bb   
+
+ 10320   0.2703    ccc  
+
+  23     0.9927   dddd  
+
+  77     0.6335   eeeee 
+------------------------
+
+> pandoc.table(m, style = "grid")
+
+
++-------+--------+-------+
+|   a   |   b    |   c   |
++=======+========+=======+
+|   1   | 0.6547 |   a   |
++-------+--------+-------+
+| -500  | 0.3532 |  bb   |
++-------+--------+-------+
+| 10320 | 0.2703 |  ccc  |
++-------+--------+-------+
+|  23   | 0.9927 | dddd  |
++-------+--------+-------+
+|  77   | 0.6335 | eeeee |
++-------+--------+-------+
+
+> pandoc.table(m, style = "simple")
+
+
+   a       b        c   
+------- -------- -------
+   1     0.6547     a   
+ -500    0.3532    bb   
+ 10320   0.2703    ccc  
+  23     0.9927   dddd  
+  77     0.6335   eeeee 
+
+> pandoc.table(t, style = "grid")
+
+
++--------------------+-------------+
+|         a          |      b      |
++====================+=============+
+| hundreds of mouses | FOO is nice |
++--------------------+-------------+
+|       3 cats       |  BAR BAR2   |
++--------------------+-------------+
+
+> pandoc.table(t, style = "grid", split.cells = 5)
+
+
++----------+------+
+|    a     |  b   |
++==========+======+
+| hundreds | FOO  |
+|    of    |  is  |
+|  mouses  | nice |
++----------+------+
+|    3     | BAR  |
+|   cats   | BAR2 |
++----------+------+
+
+> tryCatch(pandoc.table(t, style = "simple", split.cells = 5),
++   error = function(e) 'Yeah, no newline support in simple tables')
+[1] "Yeah, no newline support in simple tables"
+> 
+> ## highlight cells
+> t <- mtcars[1:3, 1:5]
+> pandoc.table(t$mpg, emphasize.italics.cells = 1)
+
+------ ---- ------
+ *21*   21   22.8 
+
+------ ---- ------
+
+> pandoc.table(t$mpg, emphasize.strong.cells = 1)
+
+-------- ---- ------
+ **21**   21   22.8 
+
+-------- ---- ------
+
+> pandoc.table(t$mpg, emphasize.italics.cells = 1, emphasize.strong.cells = 1)
+
+---------- ---- ------
+ ***21***   21   22.8 
+
+---------- ---- ------
+
+> pandoc.table(t$mpg, emphasize.italics.cells = 1:2)
+
+------ ------ ------
+ *21*   *21*   22.8 
+
+------ ------ ------
+
+> pandoc.table(t$mpg, emphasize.strong.cells = 1:2)
+
+-------- -------- ------
+ **21**   **21**   22.8 
+
+-------- -------- ------
+
+> pandoc.table(t, emphasize.italics.cells = which(t > 20, arr.ind = TRUE))
+
+---------------------------------------------------------
+      &nbsp;          mpg     cyl   disp     hp     drat 
+------------------- -------- ----- ------- ------- ------
+   **Mazda RX4**      *21*     6    *160*   *110*   3.9  
+
+ **Mazda RX4 Wag**    *21*     6    *160*   *110*   3.9  
+
+  **Datsun 710**     *22.8*    4    *108*   *93*    3.85 
+---------------------------------------------------------
+
+> pandoc.table(t, emphasize.italics.cells = which(t == 6, arr.ind = TRUE))
+
+----------------------------------------------------
+      &nbsp;         mpg    cyl   disp   hp    drat 
+------------------- ------ ----- ------ ----- ------
+   **Mazda RX4**      21    *6*   160    110   3.9  
+
+ **Mazda RX4 Wag**    21    *6*   160    110   3.9  
+
+  **Datsun 710**     22.8    4    108    93    3.85 
+----------------------------------------------------
+
+> pandoc.table(t, emphasize.verbatim.cells = which(t == 6, arr.ind = TRUE))
+
+----------------------------------------------------
+      &nbsp;         mpg    cyl   disp   hp    drat 
+------------------- ------ ----- ------ ----- ------
+   **Mazda RX4**      21    `6`   160    110   3.9  
+
+ **Mazda RX4 Wag**    21    `6`   160    110   3.9  
+
+  **Datsun 710**     22.8    4    108    93    3.85 
+----------------------------------------------------
+
+> pandoc.table(t, emphasize.verbatim.cells = which(t == 6, arr.ind = TRUE),
++  emphasize.italics.rows = 1)
+
+----------------------------------------------------------
+      &nbsp;         mpg     cyl    disp     hp     drat  
+------------------- ------ ------- ------- ------- -------
+   **Mazda RX4**     *21*   *`6`*   *160*   *110*   *3.9* 
+
+ **Mazda RX4 Wag**    21     `6`     160     110     3.9  
+
+  **Datsun 710**     22.8     4      108     93     3.85  
+----------------------------------------------------------
+
+> ## with helpers
+> emphasize.cols(1)
+> emphasize.rows(1)
+> pandoc.table(t)
+
+----------------------------------------------------------
+      &nbsp;          mpg     cyl   disp     hp     drat  
+------------------- -------- ----- ------- ------- -------
+   **Mazda RX4**      *21*    *6*   *160*   *110*   *3.9* 
+
+ **Mazda RX4 Wag**    *21*     6     160     110     3.9  
+
+  **Datsun 710**     *22.8*    4     108     93     3.85  
+----------------------------------------------------------
+
+> 
+> emphasize.strong.cells(which(t > 20, arr.ind = TRUE))
+> pandoc.table(t)
+
+---------------------------------------------------------------
+      &nbsp;           mpg      cyl    disp       hp      drat 
+------------------- ---------- ----- --------- --------- ------
+   **Mazda RX4**      **21**     6    **160**   **110**   3.9  
+
+ **Mazda RX4 Wag**    **21**     6    **160**   **110**   3.9  
+
+  **Datsun 710**     **22.8**    4    **108**   **93**    3.85 
+---------------------------------------------------------------
+
+> 
+> ### plain.ascii
+> pandoc.table(mtcars[1:3, 1:3], plain.ascii = TRUE)
+
+---------------------------------------
+                     mpg    cyl   disp 
+------------------- ------ ----- ------
+     Mazda RX4        21     6    160  
+
+   Mazda RX4 Wag      21     6    160  
+
+    Datsun 710       22.8    4    108  
+---------------------------------------
+
+> 
+> ### keep.line.breaks
+> x <- data.frame(a="Pandoc\nPackage")
+> pandoc.table(x)
+
+----------------
+       a        
+----------------
+ Pandoc Package 
+----------------
+
+> pandoc.table(x, keep.line.breaks = TRUE)
+
+---------
+    a    
+---------
+ Pandoc  
+ Package 
+---------
+
+> 
+> ## split.cells
+> x <- data.frame(a = "foo bar", b = "foo bar")
+> pandoc.table(x, split.cells = 4)
+
+-----------
+  a     b  
+----- -----
+ foo   foo 
+ bar   bar 
+-----------
+
+> pandoc.table(x, split.cells = 7)
+
+-------------------
+    a         b    
+--------- ---------
+ foo bar   foo bar 
+-------------------
+
+> pandoc.table(x, split.cells = c(4, 7))
+
+---------------
+  a       b    
+----- ---------
+ foo   foo bar 
+ bar           
+---------------
+
+> pandoc.table(x, split.cells = c("20%", "80%"), split.tables = 30)
+
+---------------
+  a       b    
+----- ---------
+ foo   foo bar 
+ bar           
+---------------
+
+> 
+> y <- c("aa aa aa", "aaa aaa", "a a a a a", "aaaaa", "bbbb bbbb bbbb", "bb bbb bbbb")
+> y <- matrix(y, ncol = 3, nrow = 2)
+> rownames(y) <- c("rowname one", "rowname two")
+> colnames(y) <- c("colname one", "colname two", "colname three")
+> pandoc.table(y, split.cells = 2)
+
+-----------------------------------------
+  &nbsp;     colname   colname   colname 
+               one       two      three  
+----------- --------- --------- ---------
+ **rowname     aa         a       bbbb   
+   one**       aa         a       bbbb   
+               aa         a       bbbb   
+                          a              
+                          a              
+
+ **rowname     aaa      aaaaa      bb    
+   two**       aaa                 bbb   
+                                  bbbb   
+-----------------------------------------
+
+> pandoc.table(y, split.cells = 6)
+
+-----------------------------------------
+  &nbsp;     colname   colname   colname 
+               one       two      three  
+----------- --------- --------- ---------
+ **rowname    aa aa     a a a     bbbb   
+   one**       aa        a a      bbbb   
+                                  bbbb   
+
+ **rowname     aaa      aaaaa    bb bbb  
+   two**       aaa                bbbb   
+-----------------------------------------
+
+> pandoc.table(y, split.cells = c(2, 6, 10))
+
+-------------------------------------------------
+     &nbsp;        colname   colname    colname  
+                     one       two       three   
+----------------- --------- --------- -----------
+ **rowname one**     aa       a a a    bbbb bbbb 
+                     aa        a a       bbbb    
+                     aa                          
+
+ **rowname two**     aaa      aaaaa     bb bbb   
+                     aaa                 bbbb    
+-------------------------------------------------
+
+> pandoc.table(y, split.cells = c(2, Inf, Inf))
+
+----------------------------------------------------------
+     &nbsp;        colname   colname two   colname three  
+                     one                                  
+----------------- --------- ------------- ----------------
+ **rowname one**     aa       a a a a a    bbbb bbbb bbbb 
+                     aa                                   
+                     aa                                   
+
+ **rowname two**     aaa        aaaaa       bb bbb bbbb   
+                     aaa                                  
+----------------------------------------------------------
+
+> 
+> ## first value used for rownames
+> pander(y, split.cells = c(5, 2, Inf, Inf))
+
+----------------------------------------------------
+  &nbsp;     colname   colname two   colname three  
+               one                                  
+----------- --------- ------------- ----------------
+ **rowname     aa       a a a a a    bbbb bbbb bbbb 
+   one**       aa                                   
+               aa                                   
+
+ **rowname     aaa        aaaaa       bb bbb bbbb   
+   two**       aaa                                  
+----------------------------------------------------
+
+> pandoc.table(y, split.cells = c(5, 2, Inf, 5, 3, 10))
+
+---------------------------------------------
+  &nbsp;     colname   colname two   colname 
+               one                    three  
+----------- --------- ------------- ---------
+ **rowname     aa       a a a a a     bbbb   
+   one**       aa                     bbbb   
+               aa                     bbbb   
+
+ **rowname     aaa        aaaaa        bb    
+   two**       aaa                     bbb   
+                                      bbbb   
+---------------------------------------------
+
+> 
+> ## when not enough reverting to default values
+> pandoc.table(y, split.cells = c(5, 2))
+Warning in split.large.cells(t) :
+  length of split.cells vector is smaller than data. Default value will be used for other cells
+Warning in split.large.cells(t.colnames) :
+  length of split.cells vector is smaller than data. Default value will be used for other cells
+
+------------------------------------------------------
+     &nbsp;        colname   colname   colname three  
+                     one       two                    
+----------------- --------- --------- ----------------
+ **rowname one**    aa aa       a      bbbb bbbb bbbb 
+                     aa         a                     
+                                a                     
+                                a                     
+                                a                     
+
+ **rowname two**     aaa      aaaaa     bb bbb bbbb   
+                     aaa                              
+------------------------------------------------------
+
+> 
+> ## split.cells with hyphenation
+> x <- data.frame(a = "Can be also supplied as a vector, for each cell separately",
++        b = "Can be also supplied as a vector, for each cell separately")
+> pandoc.table(x, split.cells = 10, use.hyphening = TRUE)
+
+-------------------------
+     a            b      
+------------ ------------
+ Can be al-   Can be al- 
+  so sup-      so sup-   
+ plied as a   plied as a 
+  vector,      vector,   
+  for each     for each  
+ cell sepa-   cell sepa- 
+   rately       rately   
+-------------------------
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pandoc.title.return")
+> ### * pandoc.title.return
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pandoc.title.return
+> ### Title: Create title block
+> ### Aliases: pandoc.title.return pandoc.title
+> 
+> ### ** Examples
+> 
+> pandoc.title('Tom', 'Render pandoc in R', '2012-05-16')
+% Render  pandoc  in  R
+% Tom
+% 2012-05-16
+> pandoc.title(c('Tom', 'Jerry'), 'Render pandoc in R', '2012-05-16')
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmp0DLOxD/R.INSTALL3b104a050191/pander/R/pandoc.R#346: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpgysKfz/R.INSTALL80d6ca96004/pander/R/pandoc.R#346: 
+ --- if/while statement is in package --- 
+pander
+ --- call (currently evaluated) --- 
 pandoc.title.return(...)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: pandoc.title.return(...)
-where 2 at /tmp/Rtmp0DLOxD/R.INSTALL3b104a050191/pander/R/pandoc.R#383: cat(pandoc.title.return(...))
+where 2 at /var/scratch2/tomas/tmp/RtmpgysKfz/R.INSTALL80d6ca96004/pander/R/pandoc.R#383: cat(pandoc.title.return(...))
 where 3: pandoc.title(c("Tom", "Jerry"), "Render pandoc in R", "2012-05-16")
 
  --- value of length: 2 type: logical ---
 [1] TRUE TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(author = '', title = '', date = '') {
 
     if (author == '' && title == '' && date != '') {
@@ -25,24 +3016,24 @@ function(author = '', title = '', date = '') {
 
     ## formatting result
     if (title == '') {
-        # author
+        ## author
         res <- paste0('%\n', author)
     } else {
         if (date == '') {
             if (author == '') {
-                # title
+                ## title
                 res <- title
             } else {
-                # author & title
+                ## author and title
                 res <- paste(title, author, sep = '\n')
             }
         } else {
             date <- paste0('% ', gsub('\n', ' ', date)[1])
             if (author == '') {
-                # title & date
+                ## title and date
                 res <- paste(title, '%', date, sep = '\n')
             } else {
-                # author & title & date
+                ## author, title and date
                 res <- paste(title, author, date, sep = '\n')
             }
         }
@@ -54,3 +3045,5 @@ function(author = '', title = '', date = '') {
 <environment: namespace:pander>
  --- function (body) search ---
 Function pandoc.title.return in namespace pander has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,0 +1,153 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library("testthat")
+> test_check("diagis")
+Loading required package: diagis
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpZ4W2F3/R.INSTALL49a35f4f2597/diagis/R/means.R#111: 
+ --- if/while statement is in package --- 
+diagis
+ --- call (currently evaluated) --- 
+running_mean.numeric(1, 1:2)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpZ4W2F3/R.INSTALL49a35f4f2597/diagis/R/means.R#87: running_mean.numeric(1, 1:2)
+where 2: running_mean(1, 1:2)
+where 3 at /var/scratch2/tomas/tmp/RtmpBSpEFw/R.INSTALLd6806e63e92c/rlang/R/eval.R#66: .Call(rlang_eval, expr, env)
+where 4: eval_bare(get_expr(quo), get_env(quo))
+where 5 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/capture-condition.R#78: withCallingHandlers(code, warning = function(condition) {
+    out$push(condition)
+    invokeRestart("muffleWarning")
+})
+where 6 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 7 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/expect-output.R#161: quasi_capture(enquo(object), capture_warnings, label = label)
+where 8 at testthat/test-mean.R#17: expect_warning(running_mean(1, 1:2))
+where 9: eval(code, test_env)
+where 10: eval(code, test_env)
+where 11: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 12: doTryCatch(return(expr), name, parentenv, handler)
+where 13: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 14: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 15: doTryCatch(return(expr), name, parentenv, handler)
+where 16: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 17: tryCatchList(expr, classes, parentenv, handlers)
+where 18: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 19 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 20 at testthat/test-mean.R#3: test_that("scalar means work", {
+    set.seed(123)
+    x <- rnorm(10)
+    w <- runif(10)
+    expect_equal(weighted_mean(x, w), weighted.mean(x, w))
+    expect_equal(running_weighted_mean(x, w)[1:2], c(x[1], weighted.mean(x[1:2], 
+        w[1:2])))
+    expect_equal(running_mean(x)[1:2], c(x[1], mean(x[1:2])))
+    expect_error(weighted_mean(1))
+    expect_error(weighted_mean(1, 1:2))
+    expect_error(weighted_mean(1, "a"))
+    expect_error(weighted_mean("a", 1))
+    expect_warning(running_mean(1, 1:2))
+    expect_error(running_mean(1, "a"))
+    expect_error(running_mean("a"))
+    expect_error(running_weighted_mean(1))
+    expect_error(running_weighted_mean(1, 1:2))
+    expect_error(running_weighted_mean(1, "a"))
+    expect_error(running_weighted_mean("a", 1))
+})
+where 21: eval(code, test_env)
+where 22: eval(code, test_env)
+where 23: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 24: doTryCatch(return(expr), name, parentenv, handler)
+where 25: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 26: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 27: doTryCatch(return(expr), name, parentenv, handler)
+where 28: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 29: tryCatchList(expr, classes, parentenv, handlers)
+where 30: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 31: test_code(NULL, exprs, env)
+where 32: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 33 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 34: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 35: FUN(X[[i]], ...)
+where 36: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 37 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 38 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 39 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 40 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 41 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 42: test_check("diagis")
+
+ --- value of length: 2 type: integer ---
+[1] 1 2
+ --- function (currently evaluated)--- 
+function(x, na.rm = FALSE) {
+  if (na.rm) {
+    ind <- !is.na(x)
+    arma_running_mean(x[ind])
+  } else {
+    arma_running_mean(x)
+  }
+}
+<environment: namespace:diagis>
+ --- function (body) search ---
+Function running_mean.numeric in namespace diagis has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

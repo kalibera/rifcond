@@ -1,0 +1,906 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "exams"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('exams')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("exams")
+> ### * exams
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams
+> ### Title: Generation of Simple Exams
+> ### Aliases: exams print.exams_metainfo
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> library("exams")
+> options(device.ask.default = FALSE)
+> 
+> ## define an exams (= list of exercises)
+> myexam <- list(
++   "boxplots",
++   c("tstat", "ttest", "confint"),
++   c("regression", "anova"),
++   "scatterplot",
++   "relfreq"
++ )
+> 
+> if(interactive()) {
++ ## compile a single random exam (displayed on screen)
++ sol <- exams(myexam)
++ sol
++ }
+> 
+> ## generate multiple exams (stored in output directory)
+> odir <- tempfile()
+> sol <- exams(myexam, n = 3, dir = odir, template = c("exam", "solution"))
+Warning in exams(myexam, n = 3, dir = odir, template = c("exam", "solution")) :
+  The template exam.tex has been adapted to exams2pdf() and is not fully
+  compatible with exams() anymore. Template oexam.tex used instead.
+Warning in exams(myexam, n = 3, dir = odir, template = c("exam", "solution")) :
+  The template solution.tex has been adapted to exams2pdf() and is not
+  fully compatible with exams() anymore. Template osolution.tex used
+  instead.
+> sol
+
+exam1
+    1. Parallel boxplots: cd
+    2. t statistic: 38.612 (38.602--38.622)
+    3. Prediction: 256.159 (256.149--256.169)
+    4. Scatterplot: be
+    5. Relative frequencies: be
+
+exam2
+    1. Parallel boxplots: abd
+    2. 2-sample t-test: c
+    3. Analysis of variance: ad
+    4. Scatterplot: bd
+    5. Relative frequencies: b
+
+exam3
+    1. Parallel boxplots: abcd
+    2. t statistic: 40.412 (40.402--40.422)
+    3. Prediction: 160.071 (160.061--160.081)
+    4. Scatterplot: a
+    5. Relative frequencies: cd
+
+> 
+> ## inspect solution for a particular exam
+> print(sol, 3)
+
+exam3
+    1. Parallel boxplots: abcd
+    2. t statistic: 40.412 (40.402--40.422)
+    3. Prediction: 160.071 (160.061--160.081)
+    4. Scatterplot: a
+    5. Relative frequencies: cd
+
+> 
+> if(interactive()) {
++ ## modify control argument for printing
++ mymchoice.control <- list(mchoice.print = list(True = LETTERS[1:5], False = "_"))
++ sol <- exams("boxplots", template = "solution",
++   control = mymchoice.control)
++ sol
++ }
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2arsnova")
+> ### * exams2arsnova
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2arsnova
+> ### Title: Generation of Exam/Quiz Sessions in ARSnova Format
+> ### Aliases: exams2arsnova make_exams_write_arsnova
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> library("exams")
+> options(device.ask.default = FALSE)
+> 
+> ## Not run: 
+> ##D ## exams2arsnova can either create text files with JSON data
+> ##D exams2arsnova("tstat2")
+> ##D 
+> ##D ## or directly post this to an active ARSnova session (for which the
+> ##D ## server URL, the 8-digit session key, and the JSESSIONID cookie are needed)
+> ##D exams2arsnova("tstat2", url = "https://arsnova.eu/api",
+> ##D   sessionkey = "49061284", jsessionid = "A5BEFDA4141816BB425F2204A602E4B3")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2blackboard")
+> ### * exams2blackboard
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2blackboard
+> ### Title: Generation of Exams in Blackboard Format
+> ### Aliases: exams2blackboard make_itembody_blackboard
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> library("exams")
+> options(device.ask.default = FALSE)
+> 
+> ## define an exams (= list of exercises)
+> myexam <- list(
++   "boxplots",
++   "ttest",
++   "anova",
++   "scatterplot",
++   "relfreq"
++ )
+> 
+> ## output directory
+> mydir <- tempdir()
+> 
+> ## generate .zip with Blackboard exam in temporary directory
+> exams2blackboard(myexam, n = 3, dir = mydir)
+Loading required namespace: tth
+Loading required namespace: base64enc
+  adding: res00001.dat (deflated 69%)
+  adding: res00002.dat (deflated 92%)
+  adding: res00003.dat (deflated 68%)
+  adding: res00004.dat (deflated 36%)
+  adding: res00005.dat (deflated 92%)
+  adding: res00006.dat (deflated 91%)
+  adding: imsmanifest.xml (deflated 67%)
+  adding: .bb-package-info (stored 0%)
+  adding: ../ (stored 0%)
+  adding: ../blackboard/ (stored 0%)
+  adding: ../blackboard/res00001.dat (deflated 69%)
+  adding: ../blackboard/res00002.dat (deflated 92%)
+  adding: ../blackboard/res00003.dat (deflated 68%)
+  adding: ../blackboard/res00004.dat (deflated 36%)
+  adding: ../blackboard/res00005.dat (deflated 92%)
+  adding: ../blackboard/res00006.dat (deflated 91%)
+  adding: ../blackboard/imsmanifest.xml (deflated 67%)
+  adding: ../blackboard/.bb-package-info (stored 0%)
+> dir(mydir)
+[1] "blackboard.zip"   "filebd8c40c6471e" "filebd8c4ec48acc" "filebd8c5fc667e5"
+[5] "filebd8c68aa9b1d" "filebd8c71cd5c3f"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2html")
+> ### * exams2html
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2html
+> ### Title: Generation of Exams in HTML Format
+> ### Aliases: exams2html make_exams_write_html make_exercise_transform_html
+> ###   make_exercise_transform_pandoc
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> options(device.ask.default = FALSE)
+> 
+> if(interactive()) {
++ ## compile a single random exam (displayed in the browser)
++ exams2html(list(
++   "boxplots",
++   c("tstat", "ttest", "confint"),
++   c("regression", "anova"),
++   "scatterplot",
++   "relfreq"
++ ))
++ 
++ ## examples with different locales (UTF-8, ISO-8859-15)
++ ## using special characters (Euro and Pound symbol, German umlaut)
++ if(!identical(Sys.getlocale(), "C")) {
++ ## UTF-8
++ exams2html("currency8", encoding = "utf8", template = "plain8")
++ 
++ ## ISO Latin 9 (aka ISO-8859-15)
++ exams2html("currency9", encoding = "latin9", template = "plain9")
++ }
++ 
++ 
++ ## various versions of displaying mathematical formulae
++ 
++ ## via MathML (displayed correctly in MathML-aware browsers, e.g. Firefox)
++ exams2html("tstat")
++ 
++ ## via MathML + MathJax (should work in all major browsers,
++ ## note the display options you get when right-clicking on the formulas
++ ## in the browser)
++ exams2html("tstat", mathjax = TRUE)
++ 
++ ## via plain HTML (works in all browsers but with inferior formatting)
++ exams2html("tstat", converter = "tth")
++ 
++ ## via HTML with embedded picture (works in all browsers but
++ ## is slow and requires LaTeX and ImageMagick)
++ ## Not run: 
++ ##D exams2html("tstat", converter = "tex2image")
++ ## End(Not run)
++ }
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2lops")
+> ### * exams2lops
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2lops
+> ### Title: Generation of Exams in LOPS Exam Server Format (WU Wien)
+> ### Aliases: exams2lops make_exams_write_lops
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ## output directory
+> ##D mydir <- tempdir()
+> ##D 
+> ##D ## generate the exam
+> ##D exams2lops(c("scatterplot", "boxplots"), dir = mydir)
+> ##D dir(mydir)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2moodle")
+> ### * exams2moodle
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2moodle
+> ### Title: Generation of Exams in Moodle XML Format
+> ### Aliases: exams2moodle make_question_moodle make_question_moodle23
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> library("exams")
+> options(device.ask.default = FALSE)
+> 
+> ## define an exams (= list of exercises)
+> myexam <- list(
++   "boxplots",
++   c("tstat", "ttest", "confint"),
++   c("regression", "anova"),
++   c("scatterplot", "boxhist"),
++   "relfreq"
++ )
+> 
+> ## output directory
+> mydir <- tempdir()
+> 
+> ## generate moodle quiz in temporary directory
+> ## using a few customization options
+> exams2moodle(myexam, n = 3, dir = mydir,
++   num = list(solution = FALSE),
++   mchoice = list(shuffle = TRUE)
++ )
+> dir(mydir)
+ [1] "blackboard.zip"   "filebd8c15ae6762" "filebd8c31854dca" "filebd8c40c6471e"
+ [5] "filebd8c4ec48acc" "filebd8c5fc667e5" "filebd8c68aa9b1d" "filebd8c71cd5c3f"
+ [9] "filebd8c7cb88168" "moodlequiz.xml"  
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2nops")
+> ### * exams2nops
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2nops
+> ### Title: Generation of Written Exams for Automatic Evaluation
+> ### Aliases: exams2nops make_nops_template
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> library("exams")
+> options(device.ask.default = FALSE)
+> 
+> ## define an exam (= list of exercises)
+> myexam <- list(
++   "tstat2.Rnw",
++   "ttest.Rnw",
++   "relfreq.Rnw",
++   "anova.Rnw",
++   c("boxplots.Rnw", "scatterplot.Rnw"),
++   "cholesky.Rnw"
++ )
+> 
+> if(interactive()) {
++ ## compile a single random exam (displayed on screen)
++ exams2nops(myexam, duplex = FALSE, language = "de")
++ }
+> 
+> ## create multiple exams on the disk (in a
+> ## temporary directory)
+> mydir <- tempdir()
+> 
+> ## generate NOPS exam in temporary directory
+> set.seed(403)
+> ex1 <- exams2nops(myexam, n = 2, dir = mydir)
+> dir(mydir)
+ [1] "blackboard.zip"   "filebd8c13bd5b6c" "filebd8c15ae6762" "filebd8c1cf560d9"
+ [5] "filebd8c2d95cf00" "filebd8c2e96f314" "filebd8c31854dca" "filebd8c40c6471e"
+ [9] "filebd8c4ec48acc" "filebd8c5fc667e5" "filebd8c68aa9b1d" "filebd8c71cd5c3f"
+[13] "filebd8c761a032b" "filebd8c7b8f9a4a" "filebd8c7cb88168" "metainfo.rds"    
+[17] "moodlequiz.xml"   "nops.tex"         "nops1.pdf"        "nops2.pdf"       
+> 
+> ## use a few customization options: different
+> ## university/logo and language/title
+> ## with a replacement sheet but for non-duplex printing
+> set.seed(403)
+> ex2 <- exams2nops(myexam, n = 2,
++   institution = "Universit\"at Innsbruck",
++   name = "uibk", logo = "uibk-logo-bw.png",
++   title = "Klausur", language = "de",
++   replacement = TRUE, duplex = FALSE)
+> dir(mydir)
+ [1] "blackboard.zip"   "filebd8c13bd5b6c" "filebd8c1553b11f" "filebd8c15ae6762"
+ [5] "filebd8c1cbf7f0f" "filebd8c1cf560d9" "filebd8c2d95cf00" "filebd8c2e96f314"
+ [9] "filebd8c31854dca" "filebd8c3a918999" "filebd8c40c6471e" "filebd8c4ec48acc"
+[13] "filebd8c5fc667e5" "filebd8c66652ba7" "filebd8c68091878" "filebd8c68aa9b1d"
+[17] "filebd8c71cd5c3f" "filebd8c761a032b" "filebd8c7b8f9a4a" "filebd8c7cb88168"
+[21] "filebd8c987a1c1"  "metainfo.rds"     "moodlequiz.xml"   "nops.tex"        
+[25] "nops1.pdf"        "nops2.pdf"       
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2pandoc")
+> ### * exams2pandoc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2pandoc
+> ### Title: Generation of Exams via Pandoc
+> ### Aliases: exams2pandoc
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> options(device.ask.default = FALSE)
+> 
+> ## define an exams (= list of exercises)
+> myexam <- list(
++   "boxplots",
++   c("tstat", "ttest", "confint"),
++   c("regression", "anova"),
++   c("scatterplot", "boxhist"),
++   "relfreq"
++ )
+> 
+> ## output directory
+> mydir <- tempdir()
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2pdf")
+> ### * exams2pdf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2pdf
+> ### Title: Generation of Exams in PDF Format
+> ### Aliases: exams2pdf make_exams_write_pdf
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> options(device.ask.default = FALSE)
+> 
+> if(interactive()) {
++ ## compile a single random exam (displayed on screen)
++ exams2pdf(list(
++   "boxplots",
++   c("tstat", "ttest", "confint"),
++   c("regression", "anova"),
++   "scatterplot",
++   "relfreq"
++ ))
++ }
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2qti12")
+> ### * exams2qti12
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2qti12
+> ### Title: Generation of Exams in IMS QTI 1.2 and 2.1 Format
+> ### Aliases: exams2qti12 make_itembody_qti12 exams2qti21
+> ###   make_itembody_qti21 exams2qti make_itembody_qti exams2ilias
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> library("exams")
+> options(device.ask.default = FALSE)
+> 
+> ## define an exams (= list of exercises)
+> myexam <- list(
++   "boxplots",
++   c("tstat", "ttest", "confint"),
++   c("regression", "anova"),
++   c("scatterplot", "boxhist"),
++   "relfreq"
++ )
+> 
+> ## output directory
+> mydir <- tempdir()
+> 
+> ## generate .zip with QTI 1.2 exam in temporary directory
+> ## using a few customization options
+> exams2qti12(myexam, n = 3, dir = mydir,
++   maxattempts = 3,
++   num = list(digits = 1),
++   mchoice = list(shuffle = TRUE, enumerate = FALSE)
++ )
+  adding: media/ (stored 0%)
+  adding: media/supplements1/ (stored 0%)
+  adding: media/supplements1/boxhist.csv (deflated 48%)
+  adding: media/supplements2/ (stored 0%)
+  adding: media/supplements2/boxhist.csv (deflated 46%)
+  adding: qti.xml (deflated 64%)
+> dir(mydir)
+ [1] "blackboard.zip"   "filebd8c1317eef0" "filebd8c13bd5b6c" "filebd8c1553b11f"
+ [5] "filebd8c15ae6762" "filebd8c1cbf7f0f" "filebd8c1cf560d9" "filebd8c2d95cf00"
+ [9] "filebd8c2d9966c2" "filebd8c2e96f314" "filebd8c31854dca" "filebd8c3a918999"
+[13] "filebd8c40c6471e" "filebd8c4ec48acc" "filebd8c5eeee213" "filebd8c5fc667e5"
+[17] "filebd8c66652ba7" "filebd8c68091878" "filebd8c68aa9b1d" "filebd8c71cd5c3f"
+[21] "filebd8c761a032b" "filebd8c7b8f9a4a" "filebd8c7cb88168" "filebd8c987a1c1" 
+[25] "metainfo.rds"     "moodlequiz.xml"   "nops.tex"         "nops1.pdf"       
+[29] "nops2.pdf"        "qti12.zip"       
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams2tcexam")
+> ### * exams2tcexam
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams2tcexam
+> ### Title: Generation of Exams in TCExam Format
+> ### Aliases: exams2tcexam
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## load package and enforce par(ask = FALSE)
+> library("exams")
+> options(device.ask.default = FALSE)
+> 
+> ## Not run: 
+> ##D ## exams2tcexam creates a single XML file
+> ##D exams2tcexam("tstat2", n = 2)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams_eval")
+> ### * exams_eval
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams_eval
+> ### Title: Auxiliary Tools for Evaluating Exams
+> ### Aliases: exams_eval
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## binary evaluation policy with solutions being either correct
+> ## or wrong: partial = FALSE, negative = FALSE
+> ee <- exams_eval(partial = FALSE, negative = FALSE)
+> 
+> ## points that can be achieved are 0/1
+> ee$pointvec()
+pos neg 
+  1   0 
+> 
+> ## checkanswer() returns 1 for correct, -1 for incorrect and 0 for missing answer
+> ee$checkanswer(1.23, 1.23)
+[1] 1
+> ee$checkanswer(1.23, "1.23")
+[1] 1
+> ee$checkanswer(1.23, "1,23")
+[1] 1
+> ee$checkanswer(1.23, 1.24)
+[1] -1
+> ee$checkanswer(1.23, 1.24, tolerance = 0.01)
+[1] 1
+> ee$checkanswer(1.23, NA)
+[1] 0
+> ee$checkanswer(1.23, NULL)
+[1] 0
+> ee$checkanswer(1.23, "")
+[1] 0
+> 
+> ## similarly for logical (mchoice/schoice) answers
+> ## (which allows either string or logical specification)
+> ee$checkanswer("10000", "10000")
+[1] 1
+> ee$checkanswer(c(TRUE, FALSE, FALSE, FALSE, FALSE), c(TRUE, FALSE, FALSE, FALSE, FALSE))
+[1] 1
+> ee$checkanswer(c(TRUE, FALSE, FALSE, FALSE, FALSE), "10000")
+[1] 1
+> ee$checkanswer("10000", "01000")
+[1] -1
+> ee$checkanswer("10000", "11000")
+[1] -1
+> 
+> ## and analogously for strings
+> ee$checkanswer("foo", "foo")
+[1] 1
+> ee$checkanswer("foo", "bar")
+[1] -1
+> ee$checkanswer("foo", "")
+[1] NA
+> 
+> ## obtain points achieved
+> ee$pointsum("10000", "10000")
+[1] 1
+> ee$pointsum("10000", "01000")
+[1] 0
+> ee$pointsum("10000", "00000")
+[1] 0
+> ee$pointsum("10000", NA)
+[1] 0
+> 
+> ## ---------------------------------------------------------
+> ## evaluation policy with -25% penalty for wrong answers
+> ee <- exams_eval(partial = FALSE, negative = -0.25)
+> 
+> ## points that can be achieved are 1/-0.25 (or zero)
+> ee$pointvec()
+  pos   neg 
+ 1.00 -0.25 
+> 
+> ## obtain points achieved
+> ee$pointsum("10000", "10000")
+[1] 1
+> ee$pointsum("10000", "01000")
+[1] -0.25
+> ee$pointsum("10000", "00000")
+[1] 0
+> ee$pointsum("10000", NA)
+[1] 0
+> ee$pointsum(1.23, 1.23)
+[1] 1
+> ee$pointsum(1.23, 2.34)
+[1] -0.25
+> ee$pointsum(1.23, NA)
+[1] 0
+> ee$pointsum(1.23, 1.24)
+[1] -0.25
+> ee$pointsum(1.23, 1.24, tolerance = 0.1)
+[1] 1
+> 
+> ## ---------------------------------------------------------
+> ## default evaluation policy with partial points
+> ## (but without negative points overall)
+> ee <- exams_eval()
+> 
+> ## points that can be achieved are 1/3 (1/#true)
+> ## or -1/2 (1/#false)
+> ee$pointvec("10101")
+       pos        neg 
+ 0.3333333 -0.5000000 
+> 
+> ## obtain points achieved
+> ee$pointsum("10101", "10101")
+[1] 1
+> ee$pointsum("10101", "10100")
+[1] 0.6666667
+> ee$pointsum("10101", "11100")
+[1] 0.1666667
+> ee$pointsum("10101", "01010")
+[1] 0
+> ee$pointsum("10101", "00000")
+[1] 0
+> 
+> ## show individual answer check
+> ee$checkanswer("10101", "10101")
+[1] 1 0 1 0 1
+> ee$checkanswer("10101", "10100")
+[1] 1 0 1 0 0
+> ee$checkanswer("10101", "11100")
+[1]  1 -1  1  0  0
+> ee$checkanswer("10101", "01010")
+[1]  0 -1  0 -1  0
+> ee$checkanswer("10101", "00000")
+[1] 0 0 0 0 0
+> 
+> ## numeric/string answers are not affected by partial=TRUE
+> ee$checkanswer(1.23, 1.23)
+[1] 1
+> ee$pointsum(1.23, 1.23)
+[1] 1
+> ee$checkanswer(1.23, 2.34)
+[1] -1
+> ee$pointsum(1.23, 2.34)
+[1] 0
+> 
+> ## ---------------------------------------------------------
+> ## evaluation policy with partial points
+> ## (and with up to -25% negative points overall)
+> ee <- exams_eval(partial = TRUE, negative = -0.25)
+> 
+> ## points that can be achieved are 1/3 (1/#true)
+> ## or -1/2 (1/#false)
+> ee$pointvec("10101")
+       pos        neg 
+ 0.3333333 -0.5000000 
+> 
+> ## obtain points achieved
+> ee$pointsum("10101", "10101")
+[1] 1
+> ee$pointsum("10101", "01010")
+[1] -0.25
+> ee$pointsum("10101", "00000")
+[1] 0
+> 
+> ## show individual answer check
+> ee$checkanswer("10101", "10101")
+[1] 1 0 1 0 1
+> ee$checkanswer("10101", "10100")
+[1] 1 0 1 0 0
+> ee$checkanswer("10101", "11100")
+[1]  1 -1  1  0  0
+> ee$checkanswer("10101", "01010")
+[1]  0 -1  0 -1  0
+> ee$checkanswer("10101", "00000")
+[1] 0 0 0 0 0
+> 
+> ## numeric/string answers are not affected by partial=TRUE
+> ee$pointsum(1.23, 1.23)
+[1] 1
+> ee$pointsum(1.23, 2.34)
+[1] -0.25
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exams_skeleton")
+> ### * exams_skeleton
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exams_skeleton
+> ### Title: Generate Skeleton for Exams Directory/Script
+> ### Aliases: exams_skeleton exams.skeleton
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## output directory (replace this with "/path/to/your/directory")
+> mydir <- file.path(tempdir(), "myexam")
+> 
+> ## create exams skeleton with absolute paths in demo.R
+> exams_skeleton(dir = mydir, absolute = TRUE)
+> 
+> ## look at created files
+> dir(mydir)
+ [1] "demo-all.R"     "demo-arsnova.R" "demo-html.R"    "demo-moodle.R" 
+ [5] "demo-nops.R"    "demo-pdf.R"     "demo-qti.R"     "exercises"     
+ [9] "nops"           "templates"     
+> dir(mydir, recursive = TRUE)
+ [1] "demo-all.R"                   "demo-arsnova.R"              
+ [3] "demo-html.R"                  "demo-moodle.R"               
+ [5] "demo-nops.R"                  "demo-pdf.R"                  
+ [7] "demo-qti.R"                   "exercises/Rlogo.Rnw"         
+ [9] "exercises/anova.Rnw"          "exercises/boxhist.Rnw"       
+[11] "exercises/boxhist2.Rnw"       "exercises/boxplots.Rnw"      
+[13] "exercises/cholesky.Rnw"       "exercises/confint2.Rnw"      
+[15] "exercises/countrycodes.Rnw"   "exercises/currency1.Rnw"     
+[17] "exercises/currency8.Rnw"      "exercises/currency9.Rnw"     
+[19] "exercises/deriv.Rnw"          "exercises/deriv2.Rnw"        
+[21] "exercises/dist.Rnw"           "exercises/dist2.Rnw"         
+[23] "exercises/dist3.Rnw"          "exercises/essayreg.Rnw"      
+[25] "exercises/fourfold.Rnw"       "exercises/fourfold2.Rnw"     
+[27] "exercises/function.Rnw"       "exercises/gaussmarkov.Rnw"   
+[29] "exercises/hessian.Rnw"        "exercises/lagrange.Rnw"      
+[31] "exercises/lm.Rnw"             "exercises/regression.Rnw"    
+[33] "exercises/relfreq.Rnw"        "exercises/scatterplot.Rnw"   
+[35] "exercises/swisscapital.Rnw"   "exercises/switzerland.Rnw"   
+[37] "exercises/tstat.Rnw"          "exercises/tstat2.Rnw"        
+[39] "exercises/tstat_verbatim.Rnw" "exercises/ttest.Rnw"         
+[41] "templates/exam.tex"           "templates/plain.html"        
+[43] "templates/qti12.xml"          "templates/solution.tex"      
+> 
+> ## now open demo-all.R or any of the other demo-*.R scripts in your
+> ## favorite R code editor and run the examples...
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fmt")
+> ### * fmt
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fmt
+> ### Title: Auxiliary Formatting Functions
+> ### Aliases: fmt round2 toLatex.matrix char_with_braces num_to_tol num2tol
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## emulate how students round
+> ## (rather than using the round-to-even strategy R employs)
+> round2(c(0.005, 0.015), digits = 2)
+[1] 0.01 0.02
+> round(c(0.005, 0.015), digits = 2)
+[1] 0.00 0.02
+> 
+> ## this is also employed internally in the fmt() formatting function
+> fmt(c(0.005, 0.015))
+[1] "0.01" "0.02"
+> 
+> ## the main purpose of fmt() is that some numeric result can be displayed
+> ## both at high accuracy and then at the rounding that students should do
+> ## (e.g., with 2 or 3 digits)
+> sol <- runif(1)
+> fmt(sol, 6)
+[1] "0.265509"
+> fmt(sol, 2)
+[1] "0.27"
+> 
+> ## but fmt() also assures showing a very high numer of significant digits
+> ## (up to 12)
+> sol <- 123456 + sol
+> sol
+[1] 123456.3
+> fmt(sol, 6)
+[1] "123456.265509"
+> fmt(sol, 2)
+[1] "123456.27"
+> 
+> ## and fmt() also takes care of adding trailing zeros (if digits < 4)
+> fmt(1)
+[1] "1.00"
+> fmt(1, digits = 3)
+[1] "1.000"
+> fmt(1, digits = 6)
+[1] "1"
+> 
+> ## char_with_braces() is for adding parentheses, e.g., before constructing a sum
+> paste(char_with_braces(-2:2), collapse = " + ")
+[1] "(-2) + (-1) + 0 + 1 + 2"
+> 
+> ## for including a matrix in a LaTeX formula
+> x <- matrix(1:4, ncol = 2)
+> toLatex(x)
+[1] "\\\\left( \\\\begin{array}{rr} 1 & 3 \\\\\\\\ 2 & 4 \\\\end{array} \\\\right)"
+> toLatex(x, skip = TRUE)
+[1] "\\\\left( \\\\begin{array}{rr} 1 & 3 \\\\smallskip \\\\smallskip \\\\\\\\  2 & 4 \\\\end{array} \\\\right)"
+> 
+> ## compute absolute tolerances:
+> ## minimum is 0.01
+> num_to_tol(1)
+[1] 0.01
+> ## but can be larger for larger solutions
+> num_to_tol(100)
+[1] 0.02
+> 
+> 
+> 
+> cleanEx()
+> nameEx("include_supplement")
+> ### * include_supplement
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: include_supplement
+> ### Title: Copy (Static) Supplement Files for Inclusion in Exercises
+> ### Aliases: include_supplement
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## The "Rlogo" exercise uses a static image which is provided
+> ## within the "exams" package.
+> if(interactive()) {
++ exams2html("Rlogo.Rnw")
++ }
+> 
+> 
+> 
+> cleanEx()
+> nameEx("match_exams_call")
+> ### * match_exams_call
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: match_exams_call
+> ### Title: Query Last xexams/exams2xyz Call
+> ### Aliases: match_exams_call
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ## call exams2nops
+> tdir <- tempdir()
+> exams2nops("tstat2.Rnw", dir = tdir)
+> match_exams_call()
+[1] "exams2nops"
+> 
+> ## exams2nops called exams2pdf called xexams:
+> match_exams_call(which = NULL)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpFxJ0ra/R.INSTALL17df100275e9/exams/R/search_files.R#39: 
+ --- if/while statement is in package --- 
+exams
+ --- call (currently evaluated) --- 
+match_exams_call(which = NULL)
+ --- R stacktrace ---
+where 1: match_exams_call(which = NULL)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function (currently evaluated)--- 
+function(which = 1L, deparse = TRUE) {
+  if(getRversion() < "3.2.0") return("")
+  rval <- if(!deparse) .xexams_call else sapply(.xexams_call, function(x) deparse(x[[1L]]))
+  if(!is.null(which)) rval <- rval[[which]]
+  if(rval == "NULL") rval <- ""
+  return(rval)
+}
+<environment: namespace:exams>
+ --- function (body) search ---
+Function match_exams_call in namespace exams has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

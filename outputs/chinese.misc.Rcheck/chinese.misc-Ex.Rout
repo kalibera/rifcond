@@ -1,8 +1,459 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "chinese.misc"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('chinese.misc')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("DEFAULT_control1")
+> ### * DEFAULT_control1
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DEFAULT_control1
+> ### Title: A Default Value for corp_or_dtm 1
+> ### Aliases: DEFAULT_control1
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> require(tm)
+Loading required package: tm
+Loading required package: NLP
+> x <- c(
++   "Hello, what do you want to drink?", 
++   "drink a bottle of milk", 
++   "drink a cup of coffee", 
++   "drink some water")
+> dtm <- corp_or_dtm(x, from = "v", type = "dtm", control = DEFAULT_control1)
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:tm’, ‘package:NLP’
+
+> nameEx("DEFAULT_control2")
+> ### * DEFAULT_control2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DEFAULT_control2
+> ### Title: A Default Value for corp_or_dtm 2
+> ### Aliases: DEFAULT_control2
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> require(tm)
+Loading required package: tm
+Loading required package: NLP
+> x <- c(
++   "Hello, what do you want to drink?", 
++   "drink a bottle of milk", 
++   "drink a cup of coffee", 
++   "drink some water")
+> dtm <- corp_or_dtm(x, from = "v", type = "dtm", control = DEFAULT_control2)
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:tm’, ‘package:NLP’
+
+> nameEx("DEFAULT_cutter")
+> ### * DEFAULT_cutter
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DEFAULT_cutter
+> ### Title: A Default Cutter
+> ### Aliases: DEFAULT_cutter
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> require(jiebaR)
+Loading required package: jiebaR
+Loading required package: jiebaRD
+> x <- c("drink a bottle of milk", 
++   "drink a cup of coffee", 
++  "drink some water")
+> seg_file(x, from = "v")
+CHECKING ARGUMENTS
+SEG VECTOR AND RETURN VECTOR
+[1] "drink a bottle of milk" "drink a cup of coffee"  "drink some water"      
+> seg_file(x, from = "v", mycutter = DEFAULT_cutter)
+CHECKING ARGUMENTS
+SEG VECTOR AND RETURN VECTOR
+[1] "drink a bottle of milk" "drink a cup of coffee"  "drink some water"      
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:jiebaR’, ‘package:jiebaRD’
+
+> nameEx("as.character2")
+> ### * as.character2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.character2
+> ### Title: An Enhanced Version of as.character
+> ### Aliases: as.character2
+> 
+> ### ** Examples
+> 
+> as.character2(NULL, NULL)
+character(0)
+> # Try a list of NULLs
+> null_list <- list(a = NULL, b = NULL, c = NULL)
+> # Compare the different results of as.character 
+> # and as.character2. In fact, we usually 
+> # want the latter one.
+> as.character(null_list)
+[1] "NULL" "NULL" "NULL"
+> as.character2(null_list)
+character(0)
+> # Try a list with a data frame in it
+> df <- data.frame(matrix(c(66,77,NA,99), nrow = 2))
+> l <- list(a = 1:4, b = factor(c(10,20,NA, 30)), c = c('x', 'y', NA, 'z'), d = df)
+> as.character2(l)
+ [1] "1"  "2"  "3"  "4"  "10" "20" NA   "30" "x"  "y"  NA   "z"  "66" "77" NA  
+[16] "99"
+> # Try a list of lists
+> l2 <- list(l, l, cha = c('a', 'b', 'c'))
+> as.character2(l2)
+ [1] "1"  "2"  "3"  "4"  "10" "20" NA   "30" "x"  "y"  NA   "z"  "66" "77" NA  
+[16] "99" "1"  "2"  "3"  "4"  "10" "20" NA   "30" "x"  "y"  NA   "z"  "66" "77"
+[31] NA   "99" "a"  "b"  "c" 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.numeric2")
+> ### * as.numeric2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.numeric2
+> ### Title: An Enhanced Version of as.numeric
+> ### Aliases: as.numeric2
+> 
+> ### ** Examples
+> 
+> # Try to coerce data frame
+> a <- c(55, 66, 77, 88, 66, 77, 88)
+> b <- factor(a)
+> df <- data.frame(a, b)
+> as.numeric2(df, a*2)
+ [1]  55  66  77  88  66  77  88  55  66  77  88  66  77  88 110 132 154 176 132
+[20] 154 176
+> # Try a list
+> l <- list(a, a*2)
+> as.numeric2(l)
+ [1]  55  66  77  88  66  77  88 110 132 154 176 132 154 176
+> # Try a list of lists
+> l2 <- list(l, l)
+> as.numeric2(l2)
+ [1]  55  66  77  88  66  77  88 110 132 154 176 132 154 176  55  66  77  88  66
+[20]  77  88 110 132 154 176 132 154 176
+> 
+> 
+> 
+> cleanEx()
+> nameEx("chinese.misc-package")
+> ### * chinese.misc-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: chinese.misc-package
+> ### Title: Miscellaneous Tools for Chinese Text Mining and More
+> ### Aliases: chinese.misc-package chinese.misc
+> 
+> ### ** Examples
+> 
+> require(tm)
+Loading required package: tm
+Loading required package: NLP
+> # Since no Chinese character is allowed, here we 
+> # use English instead.
+> # Make a document term matrix in 1 step, few arguments have 
+> # to be modified by the user.
+> x <- c(
++   "Hello, what do you want to drink?", 
++   "drink a bottle of milk", 
++   "drink a cup of coffee", 
++   "drink some water", 
++   "hello, drink a cup of coffee")
+> dtm <- corp_or_dtm(x, from = "v", type = "dtm")
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> # Coerce list containing data frames and other lists
+> df <- data.frame(matrix(c(66, 77, NA, 99), nr = 2))
+> l <- list(a = 1:4, b = factor(c(10, 20, NA, 30)), c = c('x', 'y', NA, 'z'), d = df)
+> l2 <- list(l, l, cha = c('a', 'b', 'c'))
+> as.character2(l2)
+ [1] "1"  "2"  "3"  "4"  "10" "20" NA   "30" "x"  "y"  NA   "z"  "66" "77" NA  
+[16] "99" "1"  "2"  "3"  "4"  "10" "20" NA   "30" "x"  "y"  NA   "z"  "66" "77"
+[31] NA   "99" "a"  "b"  "c" 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:tm’, ‘package:NLP’
+
+> nameEx("corp_or_dtm")
+> ### * corp_or_dtm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: corp_or_dtm
+> ### Title: Create Corpus or Document Term Matrix with 1 Line
+> ### Aliases: corp_or_dtm
+> 
+> ### ** Examples
+> 
+> x <- c(
++   "Hello, what do you want to drink?", 
++   "drink a bottle of milk", 
++   "drink a cup of coffee", 
++   "drink some water")
+> # The simplest argument setting
+> dtm <- corp_or_dtm(x, from = "v", type = "dtm")
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> # Modify argument control to see what happens
+> dtm <- corp_or_dtm(x, from = "v", type="d", control = list(wordLengths = c(3, 20)))
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> tdm <- corp_or_dtm(x, from = "v", type = "T", stop_word = c("you", "to", "a", "of"))
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("create_ttm")
+> ### * create_ttm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create_ttm
+> ### Title: Create Term-Term Matrix (Term-Cooccurrence Matrix)
+> ### Aliases: create_ttm
+> 
+> ### ** Examples
+> 
+> x <- c(
++   "Hello, what do you want to drink?", 
++   "drink a bottle of milk", 
++   "drink a cup of coffee", 
++   "drink some water")
+> dtm <- corp_or_dtm(x, from = "v", type = "dtm")
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> ttm1 <- create_ttm(dtm)
+> ttm2 <- create_ttm(dtm, tomatrix = TRUE)
+> tdm <- t(dtm)
+> ttm3 <- create_ttm(tdm)
+> ttm_sparse <- ttm3[[1]]
+> ttm_ordinary <- as.matrix(ttm_sparse)
+> colnames(ttm_ordinary) <- ttm3[[2]]
+> rownames(ttm_ordinary) <- ttm3[[2]]
+> # You can also use Matrix::writeMM(ttm_sparse, filename) 
+> # to write it on your disk.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("csv2txt")
+> ### * csv2txt
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: csv2txt
+> ### Title: Write Texts in CSV into Many TXT/RTF Files
+> ### Aliases: csv2txt
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # First, we create a csv file
+> ##D x1 <- file.path(find.package("base"), "CITATION")
+> ##D x2 <- file.path(find.package("base"), "DESCRIPTION")
+> ##D txt2csv(x1, x2, must_txt = FALSE, csv = "x1x2csv.csv")
+> ##D # Now try to write files
+> ##D wd <- getwd()
+> ##D wd <- gsub("/$|\\\\$", "", wd)
+> ##D f <- paste(wd, "x1x2csv", sep="/")
+> ##D csv2txt(csv = "x1x2csv.csv", folder = f, which = 2, row.names = 1, ext = "")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dictionary_dtm")
+> ### * dictionary_dtm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dictionary_dtm
+> ### Title: Making DTM/TDM for Groups of Words
+> ### Aliases: dictionary_dtm
+> 
+> ### ** Examples
+> 
+> x <- c(
++   "Hello, what do you want to drink and eat?", 
++   "drink a bottle of milk", 
++   "drink a cup of coffee", 
++   "drink some water", 
++   "eat a cake", 
++   "eat a piece of pizza"
++ )
+> dtm <- corp_or_dtm(x, from = "v", type = "dtm")
+CHECKING ARGUMENTS
+PROCESSING CHARACTER VECTOR
+GENERATING CORPUS
+PROCESSING CORPUS
+MAKING DTM/TDM
+DONE
+> D1 <- list(
++   aa <- c("drink", "eat"),
++   bb <- c("cake", "pizza"),
++   cc <- c("cup", "bottle")
++ )
+> y1 <- dictionary_dtm(dtm, D1, return_dictionary = TRUE)
+CHECKING ARGUMENTS
+COMPUTING
+MAKING DTM
+DONE
+> #
+> # NA, duplicated words, non-existent words, 
+> # non-character elements do not affect the
+> # result.
+> D2 <-list(
++   has_na <- c("drink", "eat", NA),
++   this_is_factor <- factor(c("cake", "pizza")),
++   this_is_duplicated <- c("cup", "bottle", "cup", "bottle"), 
++   do_not_exist <- c("tiger", "dream")
++ )
+> y2 <- dictionary_dtm(dtm, D2, return_dictionary = TRUE)
+CHECKING ARGUMENTS
+---found NA in group 1
+COMPUTING
+MAKING DTM
+DONE
+> #
+> # You can read into a data.frame 
+> # dictionary from a csv file.
+> # Each column represents a group.
+> D3 <- data.frame(
++   aa <- c("drink", "eat", NA, NA),
++   bb <- c("cake", "pizza", NA, NA),
++   cc <- c("cup", "bottle", NA, NA),
++   dd <- c("do", "to", "of", "and")
++ )
+> y3 <- dictionary_dtm(dtm, D3, simple_sum = TRUE)
+CHECKING ARGUMENTS
+---found NA in group 1
+---found NA in group 2
+---found NA in group 3
+COMPUTING
+MAKING DTM
+DONE
+> #
+> # If it is a matrix:
+> mt <- t(as.matrix(dtm))
+> y4 <- dictionary_dtm(mt, D3, type = "t", return_dictionary = TRUE)
+CHECKING ARGUMENTS
+---found NA in group 1
+---found NA in group 2
+---found NA in group 3
+COMPUTING
+MAKING TDM
+DONE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dir_or_file")
+> ### * dir_or_file
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dir_or_file
+> ### Title: Collect Full Filenames from a Mix of Directories and Files
+> ### Aliases: dir_or_file
+> 
+> ### ** Examples
+> 
+> x1 <- find.package("base")
+> x2 <- find.package("utils")
+> all_file <- dir_or_file(x1, x2, special = "rds$")
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmp2HosQo/R.INSTALL15d2a4738c8bd/chinese.misc/R/aboutlocale.R#41: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpMI5UAm/R.INSTALL17e660743ac6/chinese.misc/R/aboutlocale.R#47: 
+ --- if/while statement is in package --- 
+chinese.misc
+ --- call (currently evaluated) --- 
 doTryCatch(return(expr), name, parentenv, handler)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: doTryCatch(return(expr), name, parentenv, handler)
 where 2: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 3: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
@@ -10,7 +461,7 @@ where 4: doTryCatch(return(expr), name, parentenv, handler)
 where 5: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
     names[nh], parentenv, handlers[[nh]])
 where 6: tryCatchList(expr, classes, parentenv, handlers)
-where 7 at /tmp/Rtmp2HosQo/R.INSTALL15d2a4738c8bd/chinese.misc/R/aboutlocale.R#37: tryCatch(expr = {
+where 7 at /var/scratch2/tomas/tmp/RtmpMI5UAm/R.INSTALL17e660743ac6/chinese.misc/R/aboutlocale.R#43: tryCatch(expr = {
     xx <- x
     de <- suppressWarnings(Ruchardet::detectEncoding(x))
     if (!de %in% c("UTF-8", "utf-8")) {
@@ -22,18 +473,20 @@ where 7 at /tmp/Rtmp2HosQo/R.INSTALL15d2a4738c8bd/chinese.misc/R/aboutlocale.R#3
 }, warning = function(w) {
     return(-999999)
 })
-where 8 at /tmp/Rtmp2HosQo/R.INSTALL15d2a4738c8bd/chinese.misc/R/dir_or_file.R#31: whetherencode(x)
+where 8 at /var/scratch2/tomas/tmp/RtmpMI5UAm/R.INSTALL17e660743ac6/chinese.misc/R/dir_or_file.R#31: whetherencode(x)
 where 9: dir_or_file(x1, x2, special = "rds$")
 
  --- value of length: 2 type: logical ---
 [1] TRUE TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (expr, name, parentenv, handler) 
 {
     .Internal(.addCondHands(name, list(handler), parentenv, environment(), 
         FALSE))
     expr
 }
-<bytecode: 0x195cf60>
-<environment: 0x6db3918>
+<bytecode: 0x10a9c28>
+<environment: 0x1469fd48>
  --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

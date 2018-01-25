@@ -1,16 +1,309 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "pathview"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('pathview')
+Loading required package: org.Hs.eg.db
+Loading required package: AnnotationDbi
+Loading required package: stats4
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
+    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max, which.min
+
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: IRanges
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+
+##############################################################################
+Pathview is an open source software package distributed under GNU General
+Public License version 3 (GPLv3). Details of GPLv3 is available at
+http://www.gnu.org/licenses/gpl-3.0.html. Particullary, users are required to
+formally cite the original Pathview paper (not just mention it) in publications
+or products. For details, do citation("pathview") within R.
+
+The pathview downloads and uses KEGG data. Non-academic uses may require a KEGG
+license agreement (details at http://www.kegg.jp/kegg/legal.html).
+##############################################################################
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("cpd.accs")
+> ### * cpd.accs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cpd.accs
+> ### Title: Mapping data between compound or gene IDs and KEGG accessions
+> ### Aliases: cpd.accs cpd.names kegg.met ko.ids rn.list gene.idtype.list
+> ###   gene.idtype.bods cpd.simtypes
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(cpd.accs)
+> data(rn.list)
+> names(rn.list)
+ [1] "Agricola citation"             "Beilstein Registry Number"    
+ [3] "CAS Registry Number"           "COMe accession"               
+ [5] "ChEMBL COMPOUND"               "DrugBank accession"           
+ [7] "Gmelin Registry Number"        "HMDB accession"               
+ [9] "KEGG COMPOUND accession"       "KEGG DRUG accession"          
+[11] "KEGG GLYCAN accession"         "LIPID MAPS instance accession"
+[13] "MetaCyc accession"             "MolBase accession"            
+[15] "PDB accession"                 "PDBeChem accession"           
+[17] "Patent accession"              "PubMed citation"              
+[19] "Reaxys Registry Number"        "UM-BBD compID"                
+[21] "Wikipedia accession"          
+> cpd.accs[rn.list[[1]][1:4],]
+      COMPOUND_ID     SOURCE              TYPE ACCESSION_NUMBER
+52416        6951 CiteXplore Agricola citation      IND87090432
+53021        9947 CiteXplore Agricola citation      IND92029567
+54590       39393 CiteXplore Agricola citation      IND43670552
+56989       60607 CiteXplore Agricola citation      IND44452872
+> lapply(rn.list[1:4], function(rn) cpd.accs[rn[1:4],])
+$`Agricola citation`
+      COMPOUND_ID     SOURCE              TYPE ACCESSION_NUMBER
+52416        6951 CiteXplore Agricola citation      IND87090432
+53021        9947 CiteXplore Agricola citation      IND92029567
+54590       39393 CiteXplore Agricola citation      IND43670552
+56989       60607 CiteXplore Agricola citation      IND44452872
+
+$`Beilstein Registry Number`
+      COMPOUND_ID    SOURCE                      TYPE ACCESSION_NUMBER
+10615        8357 Beilstein Beilstein Registry Number           239059
+10637        6911 Beilstein Beilstein Registry Number           163023
+10676        9501 Beilstein Beilstein Registry Number          1889693
+10681       17026 Beilstein Beilstein Registry Number          1915950
+
+$`CAS Registry Number`
+   COMPOUND_ID        SOURCE                TYPE ACCESSION_NUMBER
+3            7 KEGG COMPOUND CAS Registry Number         498-15-7
+6           14 KEGG COMPOUND CAS Registry Number         464-43-7
+9           20 KEGG COMPOUND CAS Registry Number        5794-03-6
+11          21 KEGG COMPOUND CAS Registry Number       27200-12-0
+
+$`COMe accession`
+      COMPOUND_ID SOURCE           TYPE ACCESSION_NUMBER
+10665       16027   COMe COMe accession        MOL000174
+10689       10617   COMe COMe accession        MOL000160
+11568       30314   COMe COMe accession        MOL000161
+13968        7517   COMe COMe accession        MOL000106
+
+> 
+> data(kegg.met)
+> head(kegg.met)
+     accession name               synonym
+[1,] "C00577"  "D-Glyceraldehyde" NA     
+[2,] "C02426"  "L-Glyceraldehyde" NA     
+[3,] "C01796"  "D-Erythrose"      "Ery"  
+[4,] "C06463"  "D-Threose"        "Tho"  
+[5,] "C00216"  "D-Arabinose"      "Ara"  
+[6,] "C00259"  "L-Arabinose"      NA     
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cpdidmap")
+> ### * cpdidmap
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cpdidmap
+> ### Title: Mapping between compound IDs and KEGG accessions
+> ### Aliases: cpdidmap cpd2kegg cpdkegg2name cpdname2kegg
+> ### Keywords: ~kwd1 ~kwd2
+> 
+> ### ** Examples
+> 
+> data(cpd.simtypes)
+> #generate simulated compound data named with non-KEGG ("CAS Registry Number")IDs
+> cpd.cas <- sim.mol.data(mol.type = "cpd", id.type = cpd.simtypes[2], 
++     nmol = 10000)
+Note: "CAS Registry Number" has only 4643 unique IDs!
+> #construct map between non-KEGG ID and KEGG ID ("KEGG COMPOUND accession")
+> id.map.cas <- cpdidmap(in.ids = names(cpd.cas), in.type = cpd.simtypes[2], 
++     out.type = "KEGG COMPOUND accession")
+Note: multiple compounds may map to a input ID, only the first one kept!
+> #Map molecular data onto standard KEGG IDs
+> cpd.kc <- mol.sum(mol.data = cpd.cas, id.map = id.map.cas)
+> #check the results
+> head(cpd.cas)
+  100-41-4 34368-04-2   147-73-9 81345-02-0   128-53-0 49620-06-6 
+ 0.8819997 -0.9403877  0.0603991 -1.5500459 -0.1533552 -0.7041051 
+> head(id.map.cas)
+     CAS Registry Number KEGG COMPOUND accession
+[1,] "100-41-4"          "C07111"               
+[2,] "34368-04-2"        "C06967"               
+[3,] "147-73-9"          "C00552"               
+[4,] "81345-02-0"        "C08375"               
+[5,] "128-53-0"          "C02441"               
+[6,] "49620-06-6"        "C10163"               
+> head(cpd.kc)
+             [,1]
+C00001 -0.4988513
+C00002 -0.4763579
+C00003 -0.3075580
+C00006 -0.8122160
+C00007 -1.0978318
+C00008 -0.8727800
+> 
+> #map KEGG ID to compound name
+> cpd.names=cpdkegg2name(in.ids=id.map.cas[,2])
+> head(cpd.names)
+     KEGG     NAME                            
+[1,] "C07111" "Ethylbenzene"                  
+[2,] "C06967" "Dobutamine"                    
+[3,] "C00552" "meso-Tartaric acid"            
+[4,] "C08375" "(Z,Z,Z)-3,6,9-Dodecatrien-1-ol"
+[5,] "C02441" "N-Ethylmaleimide"              
+[6,] "C10163" "Nitramine"                     
+> 
+> 
+> 
+> cleanEx()
+> nameEx("download.kegg")
+> ### * download.kegg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: download.kegg
+> ### Title: Download KEGG pathway graphs and associated KGML data
+> ### Aliases: download.kegg
+> ### Keywords: ~kwd1 ~kwd2
+> 
+> ### ** Examples
+> 
+> data(demo.paths)
+> sel.2paths=demo.paths$sel.paths[1:2]
+> download.kegg(pathway.id = sel.2paths, species = "hsa")
+Info: Downloading xml files for hsa04110, 1/2 pathways..
+Info: Downloading xml files for hsa00620, 2/2 pathways..
+Info: Downloading png files for hsa04110, 1/2 pathways..
+Info: Downloading png files for hsa00620, 2/2 pathways..
+ hsa04110  hsa00620 
+"succeed" "succeed" 
+> #pathway files should be downloaded into current working directory
+> 
+> 
+> 
+> cleanEx()
+> nameEx("eg2id")
+> ### * eg2id
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: eg2id
+> ### Title: Mapping between different gene ID and annotation types
+> ### Aliases: eg2id id2eg geneannot.map
+> ### Keywords: ~kwd1 ~kwd2
+> 
+> ### ** Examples
+> 
+> data(gene.idtype.list)
+> #generate simulated gene data named with non-KEGG/Entrez gene IDs
+> gene.ensprot <- sim.mol.data(mol.type = "gene", id.type = gene.idtype.list[4], 
++     nmol = 50000)
+Note: "ENSEMBLPROT" has only 24071 unique IDs!
+> #construct map between non-KEGG ID and KEGG ID (Entrez gene)
+> id.map.ensprot <- id2eg(ids = names(gene.ensprot), 
++     category = gene.idtype.list[4], org = "Hs")
+'select()' returned 1:many mapping between keys and columns
+> #Map molecular data onto Entrez Gene IDs
+> gene.entrez <- mol.sum(mol.data = gene.ensprot, id.map = id.map.ensprot)
+> #check the results
+> head(gene.ensprot)
+ENSP00000278422 ENSP00000458663 ENSP00000371844 ENSP00000484339 ENSP00000296220 
+      0.9127603      -0.4090441      -0.3521951       1.7388902      -0.1310930 
+ENSP00000464227 
+     -0.4164128 
+> head(id.map.ensprot)
+     ENSEMBLPROT       ENTREZID
+[1,] "ENSP00000278422" "51075" 
+[2,] "ENSP00000458663" "23152" 
+[3,] "ENSP00000371844" "253175"
+[4,] "ENSP00000484339" "2661"  
+[5,] "ENSP00000296220" "114885"
+[6,] "ENSP00000464227" "125150"
+> head(gene.entrez)
+                                                              [,1]
+10                                                      -0.5794612
+1000                                                     0.6116813
+10000                                                    1.1706802
+100008586; 2574; 2576; 2578; 2579; 26748; 26749; 729408 -1.5590037
+10002                                                    0.7790800
+100033411                                                0.5348955
+> 
+> #map Entrez Gene to Gene Symbol and Name
+> eg.symbname=eg2id(eg=id.map.ensprot[,2])
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpm272V6/R.INSTALL233a42259b312/pathview/R/geneannot.map.R#31: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpqJgyiV/R.INSTALL908ab555eaa/pathview/R/geneannot.map.R#31: 
+ --- if/while statement is in package --- 
+pathview
+ --- call (currently evaluated) --- 
 geneannot.map(in.ids = eg, in.type = "entrez", out.type = category, 
     org = org, pkg.name = pkg.name, ...)
- --- stacktrace ---
-where 1 at /tmp/Rtmpm272V6/R.INSTALL233a42259b312/pathview/R/eg2id.R#6: geneannot.map(in.ids = eg, in.type = "entrez", out.type = category, 
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpqJgyiV/R.INSTALL908ab555eaa/pathview/R/eg2id.R#6: geneannot.map(in.ids = eg, in.type = "entrez", out.type = category, 
     org = org, pkg.name = pkg.name, ...)
 where 2: eg2id(eg = id.map.ensprot[, 2])
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(in.ids, in.type, out.type, org="Hs", pkg.name=NULL, unique.map=TRUE, na.rm=TRUE, keep.order=TRUE){
   if(is.null(pkg.name)) {#pkg.name=paste("org", org, "eg.db", sep=".")
     data(bods)
@@ -101,7 +394,9 @@ function(in.ids, in.type, out.type, org="Hs", pkg.name=NULL, unique.map=TRUE, na
     return(res)
   }
 }
-<bytecode: 0x1ba05df8>
+<bytecode: 0x1a716a60>
 <environment: namespace:pathview>
  --- function (body) search ---
 Function geneannot.map in namespace pathview has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

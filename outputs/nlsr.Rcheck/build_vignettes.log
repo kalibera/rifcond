@@ -1,0 +1,212 @@
+Error in deriv.default(firstd, "x") : 
+  invalid expression in 'FindSubexprs'
+Error : object 'x' not found
+Error : object 'x' not found
+Loading required package: Ryacas
+
+Attaching package: 'Ryacas'
+
+The following object is masked from 'package:Deriv':
+
+    Simplify
+
+Error in D("~ log(x)", "x") : expression must not be type 'character'
+Error in D(~log(x), "x") : Function '`~`' is not in the derivatives table
+Error in D(interme, "x") : Function '`~`' is not in the derivatives table
+Error in deriv.default(interme, "x") : 
+  Function '`~`' is not in the derivatives table
+Error in D(expression(log(x, base = 3)), "x") : 
+  only single-argument calls to log() are supported;
+  maybe use log(x,a) = log(x)/log(a)
+Error in deriv.formula(~log(x, base = 3), "x") : 
+  only single-argument calls to log() are supported;
+  maybe use log(x,a) = log(x)/log(a)
+Error in deriv.default(expression(log(x, base = 3)), "x") : 
+  only single-argument calls to log() are supported;
+  maybe use log(x,a) = log(x)/log(a)
+Error in deriv3.default(expression(log(x, base = 3)), "x") : 
+  only single-argument calls to log() are supported;
+  maybe use log(x,a) = log(x)/log(a)
+Error in D(expression(abs(x)), "x") : 
+  Function 'abs' is not in the derivatives table
+Error in deriv.formula(~abs(x), "x") : 
+  Function 'abs' is not in the derivatives table
+Error in D(expression(sign(x)), "x") : 
+  Function 'sign' is not in the derivatives table
+Error in deriv.formula(~sign(x), "x") : 
+  Function 'sign' is not in the derivatives table
+Error in D(clxy2, "y") : expression must not be type 'character'
+Error in deriv.default(zzz, c("r1", "r2")) : 
+  Function '`[`' is not in the derivatives table
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#124: 
+ --- if/while statement is in package --- 
+nlsr
+ --- call (currently evaluated) --- 
+nlsDeriv(expr[[2]], name, derivEnv, do_substitute = FALSE, verbose = verbose, 
+    ...)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#115: nlsDeriv(expr[[2]], name, derivEnv, do_substitute = FALSE, verbose = verbose, 
+    ...)
+where 2 at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#115: Recurse(expr[[i]])
+where 3 at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#115: Recurse(expr[[i]])
+where 4 at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#166: Recurse(result)
+where 5 at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#115: nlsDeriv(expr[[2]], name, derivEnv, do_substitute = FALSE, verbose = verbose, 
+    ...)
+where 6 at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#115: Recurse(expr[[i]])
+where 7 at /var/scratch2/tomas/tmp/RtmpAmzppR/R.INSTALL1ac1d2a21fb/nlsr/R/derivs.R#166: Recurse(result)
+where 8: nlsr::nlsDeriv(zzz, c("r1", "r2"))
+where 9: doTryCatch(return(expr), name, parentenv, handler)
+where 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 11: tryCatchList(expr, classes, parentenv, handlers)
+where 12: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && identical(getOption("show.error.messages"), 
+        TRUE)) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 13: try(nlsr::nlsDeriv(zzz, c("r1", "r2")))
+where 14: eval(expr, envir, enclos)
+where 15: eval(expr, envir, enclos)
+where 16: withVisible(eval(expr, envir, enclos))
+where 17: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 18: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 19: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 20: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 21 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 22: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 23: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 24: block_exec(params)
+where 25 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#6: call_block(x)
+where 26 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#3: process_group.block(group)
+where 27: process_group(group)
+where 28: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 29: process_file(text, output)
+where 30: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 31 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 32 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 33: engine$weave(file, quiet = quiet, encoding = enc)
+where 34: doTryCatch(return(expr), name, parentenv, handler)
+where 35: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 36: tryCatchList(expr, classes, parentenv, handlers)
+where 37: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 38: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/nlsr.Rcheck/vign_test/nlsr")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function (currently evaluated)--- 
+function(expr, name, derivEnv = sysDerivs, do_substitute = FALSE, verbose = FALSE, ...) {
+    Recurse <- function(expr) {
+    	if (is.call(expr)) {
+    	    if (as.character(expr[[1]]) == "D")
+    	    	expr <- nlsDeriv(expr[[2]], name, derivEnv, do_substitute = FALSE, verbose = verbose, ...)
+    	    else
+    	    	for (i in seq_along(expr)[-1])
+    	    	    expr[[i]] <- Recurse(expr[[i]])
+    	}
+    	expr
+    }
+    expr <- dex(expr, do_substitute = do_substitute, verbose = verbose)
+    if (is.expression(expr))
+    	return(as.expression(lapply(expr, nlsDeriv, name = name, derivEnv = derivEnv, do_substitute = FALSE, verbose = verbose, ...)))
+    else if (is.numeric(expr) || is.logical(expr))
+    	return(0)
+    else if (is.call(expr)) {
+    	fn <- as.character(expr[[1]])
+	if (fn == "expression")
+	    return(as.expression(lapply(as.list(expr)[-1], nlsDeriv, name = name, derivEnv = derivEnv, do_substitute = FALSE, verbose = verbose, ...)))
+    	model <- derivEnv[[fn]]
+    	if (is.null(model))
+    	    stop("no derivative known for '", fn, "'")
+ 	if (missing(name) || verbose) {
+ 	    message(paste("Expr:", deparse(expr)))
+ 	    message(if (missing(name)) "Pattern for" else "Using pattern")
+ 	    message(paste("  ", deparse(model$expr), collapse = "\n"))
+ 	    message("is")
+ 	    message(paste("  ", deparse(model$deriv), collapse = "\n"))
+ 	    if (missing(name))
+ 	    	return(invisible(NULL))
+ 	}
+        args <- expr[-1]
+        argnames <- names(args)
+        if (is.null(argnames)) 
+            argnames <- rep("", length(args))
+        modelnames <- model$argnames
+        argnum <- pmatch(argnames, modelnames)
+        if (any(bad <- is.na(argnum) & argnames != ""))
+            stop("Argument names not matched: ", paste(argnames[bad], collapse = ", "))
+        unused <- setdiff(seq_along(modelnames), argnum)
+        nonamecount <- sum(is.na(argnum))
+        length(unused) <- nonamecount
+        argnum[which(is.na(argnum))] <- unused
+        default <- setdiff(seq_along(modelnames), argnum)
+        if (length(bad <- setdiff(model$required, argnum)))
+            stop("Missing required arguments: ", paste(modelnames[bad], collapse = ", "))
+        
+        # Now do the substitutions
+        subst <- list()
+        subst[argnum] <- as.list(args)
+        subst[default] <- as.list(model$expr[-1])[default]
+        names(subst) <- modelnames
+        result <- do.call(substitute, list(model$deriv, subst))
+        result <- Recurse(result)
+        nlsSimplify(result, verbose = verbose, ...)
+    } else if (is.name(expr))
+    	if (as.character(expr) == name)
+    	    return(1)
+    	else
+    	    return(0)        
+}
+<environment: namespace:nlsr>
+ --- function (body) search ---
+Function nlsDeriv in namespace nlsr has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

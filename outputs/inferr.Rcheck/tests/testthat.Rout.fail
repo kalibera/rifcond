@@ -1,0 +1,617 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(inferr)
+> 
+> test_check("inferr")
+                               ANOVA
+--------------------------------------------------------------------
+                   Sum of
+                  Squares     DF    Mean Square      F        Sig.
+--------------------------------------------------------------------
+Between Groups    824.785     2       412.392      39.699    0.0000
+Within Groups     301.263     29      10.388
+Total             1126.048    31
+--------------------------------------------------------------------
+
+                 Report
+----------------------------------------
+ Category     N      Mean     Std. Dev.
+----------------------------------------
+    4         11    26.664        4.510
+    6         7     19.743        1.454
+    8         14    15.100        2.560
+----------------------------------------
+
+Number of obs = 32        R-squared     = 0.7325
+Root MSE      = 3.2231    Adj R-squared = 0.714                               ANOVA                                 
+--------------------------------------------------------------------
+                   Sum of                                           
+                  Squares     DF    Mean Square      F        Sig.  
+--------------------------------------------------------------------
+Between Groups    824.785     2       412.392      39.699    0.0000 
+Within Groups     301.263     29      10.388                        
+Total             1126.048    31                                    
+--------------------------------------------------------------------
+
+                 Report                  
+----------------------------------------
+ Category     N      Mean     Std. Dev. 
+----------------------------------------
+    4         11    26.664        4.510 
+    6         7     19.743        1.454 
+    8         14    15.100        2.560 
+----------------------------------------
+
+Number of obs = 32        R-squared     = 0.7325 
+Root MSE      = 3.2231    Adj R-squared = 0.714 
+
+            Binomial Test
+ --------------------------------------
+  Group    N     Obs. Prop    Exp. Prop
+ --------------------------------------
+    0      24         0.75        0.500
+    1       8         0.25        0.500
+ --------------------------------------
+
+
+                Test Summary
+ -------------------------------------------
+  Tail             Prob             p-value
+ -------------------------------------------
+  Lower    Pr(k <= 8)                 0.0035
+  Upper    Pr(k >= 8)               0.998949
+  Two      Pr(k <= 8 or k >= 24)       0.007
+ -------------------------------------------            Binomial Test              
+ --------------------------------------
+  Group    N     Obs. Prop    Exp. Prop 
+ --------------------------------------
+    0      24         0.75        0.500 
+    1       8         0.25        0.500 
+ --------------------------------------
+
+
+                Test Summary                 
+ -------------------------------------------
+  Tail             Prob             p-value  
+ -------------------------------------------
+  Lower    Pr(k <= 8)                 0.0035 
+  Upper    Pr(k >= 8)               0.998949 
+  Two      Pr(k <= 8 or k >= 24)       0.007 
+ -------------------------------------------
+            Binomial Test
+ --------------------------------------
+  Group    N     Obs. Prop    Exp. Prop
+ --------------------------------------
+    0      12        0.375        0.500
+    1      20        0.625        0.500
+ --------------------------------------
+
+
+                 Test Summary
+ --------------------------------------------
+  Tail              Prob             p-value
+ --------------------------------------------
+  Lower    Pr(k <= 20)               0.944908
+  Upper    Pr(k >= 20)               0.107664
+  Two      Pr(k <= 11 or k >= 20)    0.162756
+ --------------------------------------------            Binomial Test              
+ --------------------------------------
+  Group    N     Obs. Prop    Exp. Prop 
+ --------------------------------------
+    0      12        0.375        0.500 
+    1      20        0.625        0.500 
+ --------------------------------------
+
+
+                 Test Summary                 
+ --------------------------------------------
+  Tail              Prob             p-value  
+ --------------------------------------------
+  Lower    Pr(k <= 20)               0.944908 
+  Upper    Pr(k >= 20)               0.107664 
+  Two      Pr(k <= 11 or k >= 20)    0.162756 
+ --------------------------------------------
+               Chi Square Statistics
+
+Statistics                     DF    Value      Prob
+----------------------------------------------------
+Chi-Square                     1    0.0470    0.8284
+Likelihood Ratio Chi-Square    1    0.0471    0.8282
+Continuity Adj. Chi-Square     1    0.0005    0.9822
+Mantel-Haenszel Chi-Square     1    0.0468    0.8287
+Phi Coefficient                     0.0153
+Contingency Coefficient             0.0153
+Cramer's V                          0.0153
+----------------------------------------------------               Chi Square Statistics                 
+
+Statistics                     DF    Value      Prob 
+----------------------------------------------------
+Chi-Square                     1    0.0470    0.8284
+Likelihood Ratio Chi-Square    1    0.0471    0.8282
+Continuity Adj. Chi-Square     1    0.0005    0.9822
+Mantel-Haenszel Chi-Square     1    0.0468    0.8287
+Phi Coefficient                     0.0153          
+Contingency Coefficient             0.0153          
+Cramer's V                          0.0153          
+----------------------------------------------------
+               Chi Square Statistics
+
+Statistics                     DF    Value      Prob
+----------------------------------------------------
+Chi-Square                     2    4.5765    0.1014
+Likelihood Ratio Chi-Square    2    4.6789    0.0964
+Phi Coefficient                     0.1513
+Contingency Coefficient             0.1496
+Cramer's V                          0.1513
+----------------------------------------------------               Chi Square Statistics                 
+
+Statistics                     DF    Value      Prob 
+----------------------------------------------------
+Chi-Square                     2    4.5765    0.1014
+Likelihood Ratio Chi-Square    2    4.6789    0.0964
+Phi Coefficient                     0.1513          
+Contingency Coefficient             0.1496          
+Cramer's V                          0.1513          
+----------------------------------------------------
+    Test Statistics
+-----------------------
+Chi-Square       5.0286
+DF                    3
+Pr > Chi Sq      0.1697
+Sample Size         200
+
+                         Variable: race)
+-----------------------------------------------------------------
+Category    Observed    Expected    % Deviation    Std. Residuals
+-----------------------------------------------------------------
+   1           24          20          20.00            0.89
+   2           11          20         -45.00           -2.01
+   3           20          20           0.00            0.00
+   4          145         140           3.57            0.42
+-----------------------------------------------------------------    Test Statistics     
+-----------------------
+Chi-Square       5.0286 
+DF                    3 
+Pr > Chi Sq      0.1697 
+Sample Size         200 
+
+                         Variable: race)                          
+-----------------------------------------------------------------
+Category    Observed    Expected    % Deviation    Std. Residuals 
+-----------------------------------------------------------------
+   1           24          20          20.00            0.89      
+   2           11          20         -45.00           -2.01      
+   3           20          20           0.00            0.00      
+   4          145         140           3.57            0.42      
+-----------------------------------------------------------------
+   Test Statistics
+----------------------
+N                   15
+Cochran's Q       4.75
+df                   2
+p value          0.093
+----------------------   Test Statistics     
+----------------------
+N                   15 
+Cochran's Q       4.75 
+df                   2 
+p value          0.093 
+----------------------
+                              Group Statistics
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval]
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267
+    1         109    54.991      0.779        8.134        53.447     56.535
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314
+-----------------------------------------------------------------------------
+
+                      Independent Samples Test
+                      ------------------------
+
+                  Ho: mean(0) - mean(1) = diff = 0
+                            Ha: diff < 0
+
+---------------------------------------------------------------------
+ Variable        Method        Variances    DF     t Value     P < t
+---------------------------------------------------------------------
+  write          Pooled          Equal      198    -3.7347    0.0001
+  write       Satterthwaite     Unequal     170    -3.6564    0.0002
+---------------------------------------------------------------------
+
+                Test for Equality of Variances
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188
+---------------------------------------------------------------                              Group Statistics                                
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval] 
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267   
+    1         109    54.991      0.779        8.134        53.447     56.535   
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096   
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314   
+-----------------------------------------------------------------------------
+
+                      Independent Samples Test                        
+                      ------------------------                        
+
+                  Ho: mean(0) - mean(1) = diff = 0                    
+                            Ha: diff < 0                              
+
+---------------------------------------------------------------------
+ Variable        Method        Variances    DF     t Value     P < t  
+---------------------------------------------------------------------
+  write          Pooled          Equal      198    -3.7347    0.0001  
+  write       Satterthwaite     Unequal     170    -3.6564    0.0002  
+---------------------------------------------------------------------
+
+                Test for Equality of Variances                  
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F  
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188 
+---------------------------------------------------------------                              Group Statistics
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval]
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267
+    1         109    54.991      0.779        8.134        53.447     56.535
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314
+-----------------------------------------------------------------------------
+
+                      Independent Samples Test
+                      ------------------------
+
+                  Ho: mean(0) - mean(1) = diff = 0
+                            Ha: diff > 0
+
+---------------------------------------------------------------------
+ Variable        Method        Variances    DF     t Value     P > t
+---------------------------------------------------------------------
+  write          Pooled          Equal      198    -3.7347    0.9999
+  write       Satterthwaite     Unequal     170    -3.6564    0.9998
+---------------------------------------------------------------------
+
+                Test for Equality of Variances
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188
+---------------------------------------------------------------                              Group Statistics                                
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval] 
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267   
+    1         109    54.991      0.779        8.134        53.447     56.535   
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096   
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314   
+-----------------------------------------------------------------------------
+
+                      Independent Samples Test                        
+                      ------------------------                        
+
+                  Ho: mean(0) - mean(1) = diff = 0                    
+                            Ha: diff > 0                              
+
+---------------------------------------------------------------------
+ Variable        Method        Variances    DF     t Value     P > t  
+---------------------------------------------------------------------
+  write          Pooled          Equal      198    -3.7347    0.9999  
+  write       Satterthwaite     Unequal     170    -3.6564    0.9998  
+---------------------------------------------------------------------
+
+                Test for Equality of Variances                  
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F  
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188 
+---------------------------------------------------------------                              Group Statistics
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval]
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267
+    1         109    54.991      0.779        8.134        53.447     56.535
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314
+-----------------------------------------------------------------------------
+
+                      Independent Samples Test
+                      ------------------------
+
+                  Ho: mean(0) - mean(1) = diff = 0
+                            Ha: diff ~= 0
+
+---------------------------------------------------------------------
+ Variable        Method        Variances    DF     t Value    P > |t|
+---------------------------------------------------------------------
+  write          Pooled          Equal      198    -3.7347    0.0002
+  write       Satterthwaite     Unequal     170    -3.6564    0.0003
+---------------------------------------------------------------------
+
+                Test for Equality of Variances
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188
+---------------------------------------------------------------                              Group Statistics                                
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval] 
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267   
+    1         109    54.991      0.779        8.134        53.447     56.535   
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096   
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314   
+-----------------------------------------------------------------------------
+
+                      Independent Samples Test                        
+                      ------------------------                        
+
+                  Ho: mean(0) - mean(1) = diff = 0                    
+                            Ha: diff ~= 0                             
+
+---------------------------------------------------------------------
+ Variable        Method        Variances    DF     t Value    P > |t| 
+---------------------------------------------------------------------
+  write          Pooled          Equal      198    -3.7347    0.0002  
+  write       Satterthwaite     Unequal     170    -3.6564    0.0003  
+---------------------------------------------------------------------
+
+                Test for Equality of Variances                  
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F  
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188 
+---------------------------------------------------------------                              Group Statistics
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval]
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267
+    1         109    54.991      0.779        8.134        53.447     56.535
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314
+-----------------------------------------------------------------------------
+
+                        Independent Samples Test
+                      ------------------------
+
+                    Ho: mean(0) - mean(1) = diff = 0
+
+      Ha: diff < 0            Ha: diff ~= 0             Ha: diff > 0
+
+                                  Pooled
+------------------------------------------------------------------------
+       t = -3.7347              t = -3.7347              t = -3.7347
+     P < t = 0.0001          P > |t| = 0.0002          P > t = 0.9999
+
+                              Satterthwaite
+------------------------------------------------------------------------
+       t = -3.6564              t = -3.6564              t = -3.6564
+     P < t = 0.0002          P > |t| = 0.0003          P > t = 0.9998
+
+
+                Test for Equality of Variances
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188
+---------------------------------------------------------------                              Group Statistics                                
+-----------------------------------------------------------------------------
+  Group       Obs     Mean     Std. Err.    Std. Dev.    [95% Conf. Interval] 
+-----------------------------------------------------------------------------
+    0          91    50.121      1.080       10.305        47.975     52.267   
+    1         109    54.991      0.779        8.134        53.447     56.535   
+-----------------------------------------------------------------------------
+ combined     200    52.775      0.67         9.479        51.454     54.096   
+-----------------------------------------------------------------------------
+   diff       200    -4.87       1.304        9.231        -7.426     -2.314   
+-----------------------------------------------------------------------------
+
+                        Independent Samples Test                         
+                      ------------------------                        
+
+                    Ho: mean(0) - mean(1) = diff = 0                     
+
+      Ha: diff < 0            Ha: diff ~= 0             Ha: diff > 0       
+
+                                  Pooled                                   
+------------------------------------------------------------------------
+       t = -3.7347              t = -3.7347              t = -3.7347       
+     P < t = 0.0001          P > |t| = 0.0002          P > t = 0.9999      
+
+                              Satterthwaite                                
+------------------------------------------------------------------------
+       t = -3.6564              t = -3.6564              t = -3.6564       
+     P < t = 0.0002          P > |t| = 0.0003          P > t = 0.9998      
+
+
+                Test for Equality of Variances                  
+---------------------------------------------------------------
+ Variable      Method     Num DF    Den DF    F Value    P > F  
+---------------------------------------------------------------
+  write       Folded F      90       108       1.605     0.0188 
+--------------------------------------------------------------- ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- if/while statement is in package --- 
+inferr
+ --- call (currently evaluated) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- R stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /var/scratch2/tomas/tmp/Rtmpjxn4rJ/R.INSTALL2eee58762cf9/inferr/R/infer-levene-test.R#70: suppressWarnings(if (is.na(group_var)) {
+    if (is.data.frame(variable)) {
+        z <- as.list(variable)
+    }
+    else {
+        z <- list(variable, ...)
+    }
+    ln <- z %>% map_int(length)
+    ly <- seq_len(length(z))
+    if (length(z) < 2) {
+        stop("Please specify at least two variables.", call. = FALSE)
+    }
+    out <- gvar(ln, ly)
+    variable <- unlist(z)
+    group_var <- unlist(out)
+} else {
+    if (length(variable) != length(group_var)) {
+        stop("Length of variable and group_var do not match.", 
+            call. = FALSE)
+    }
+})
+where 3 at /var/scratch2/tomas/tmp/Rtmpjxn4rJ/R.INSTALL2eee58762cf9/inferr/R/infer-levene-test.R#61: infer_levene_test.default(mtcars$mpg, group_var = mtcars$cyl)
+where 4 at testthat/test-levene.R#5: infer_levene_test(mtcars$mpg, group_var = mtcars$cyl)
+where 5: eval(code, test_env)
+where 6: eval(code, test_env)
+where 7: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 11: doTryCatch(return(expr), name, parentenv, handler)
+where 12: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 13: tryCatchList(expr, classes, parentenv, handlers)
+where 14: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 15 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 16 at testthat/test-levene.R#3: test_that("output from infer_levene_test matches the expected result", 
+    {
+        k <- infer_levene_test(mtcars$mpg, group_var = mtcars$cyl)
+        expect_equal(k$bf, 6.4843)
+        expect_equal(k$p_bf, 0.0047)
+        expect_equal(k$lev, 5.5071)
+        expect_equal(k$p_lev, 0.0094)
+        expect_equal(k$bft, 6.2047)
+        expect_equal(k$p_bft, 0.0057)
+        expect_equivalent(as.vector(k$avgs), c(26.66, 19.74, 
+            15.1))
+        expect_equivalent(as.vector(k$sds), c(4.51, 1.45, 2.56))
+        expect_equal(k$avg, 20.09)
+        expect_equal(k$sd, 6.03)
+        expect_equal(k$n, 32)
+        expect_equivalent(k$levs, c("4", "6", "8"))
+        expect_equal(k$n_df, 2)
+        expect_equal(k$d_df, 29)
+        expect_equivalent(as.vector(k$lens), c(11, 7, 14))
+    })
+where 17: eval(code, test_env)
+where 18: eval(code, test_env)
+where 19: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 20: doTryCatch(return(expr), name, parentenv, handler)
+where 21: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 22: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 23: doTryCatch(return(expr), name, parentenv, handler)
+where 24: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 25: tryCatchList(expr, classes, parentenv, handlers)
+where 26: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 27: test_code(NULL, exprs, env)
+where 28: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 29 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 30: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 31: FUN(X[[i]], ...)
+where 32: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 33 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 34 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 35 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 36 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 37 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 38: test_check("inferr")
+
+ --- value of length: 32 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function (currently evaluated)--- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x24fd2d8>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,0 +1,197 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "speaq"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('speaq')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("AddPlottingStuff")
+> ### * AddPlottingStuff
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AddPlottingStuff
+> ### Title: Add plotting variables
+> ### Aliases: AddPlottingStuff
+> 
+> ### ** Examples
+> 
+> subset <- GetWinedata.subset()
+> subset.spectra = as.matrix(subset$Spectra)
+> subset.ppm = as.numeric(subset$PPM)
+> 
+> test.peaks <- getWaveletPeaks(Y.spec=subset.spectra, 
++                               X.ppm=subset.ppm,
++                               nCPU = 2) # nCPU set to 2 for the vignette build
+[1] "detecting peaks"
+  |                                                                              |                                                                      |   0% ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpcMkDq5/R.INSTALL81f25051234e/speaq/R/getWaveletPeaks.R#202: 
+ --- if/while statement is in package --- 
+speaq
+ --- call (currently evaluated) --- 
+eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+ --- R stacktrace ---
+where 1: eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+where 2: eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+where 3: doTryCatch(return(expr), name, parentenv, handler)
+where 4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 5: tryCatchList(expr, classes, parentenv, handlers)
+where 6 at /var/scratch2/tomas/tmp/Rtmpefvvkw/R.INSTALL50e71e636ea/doSNOW/R/doSNOW.R#104: tryCatch(eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv), 
+    error = function(e) e)
+where 7: (function (args) 
+{
+    exportEnv <- .doSnowGlobals$exportenv
+    lapply(names(args), function(n) assign(n, args[[n]], pos = .doSnowGlobals$exportenv))
+    tryCatch(eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv), 
+        error = function(e) e)
+})(quote(list(Parcounter = 2L)))
+where 8: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 9: doTryCatch(return(expr), name, parentenv, handler)
+where 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 11: tryCatchList(expr, classes, parentenv, handlers)
+where 12: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 13: doTryCatch(return(expr), name, parentenv, handler)
+where 14: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 15: tryCatchList(expr, classes, parentenv, handlers)
+where 16: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 17: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 18: parallel:::.slaveRSOCK()
+
+ --- value of length: 10 type: logical ---
+      peakIndex
+1_107      TRUE
+1_121      TRUE
+1_202      TRUE
+1_222      TRUE
+1_242      TRUE
+1_258      TRUE
+1_286      TRUE
+1_300      TRUE
+1_314      TRUE
+1_370      TRUE
+ --- function (currently evaluated)--- 
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+  |                                                                              |=======================                                               |  33%Error in unserialize(socklist[[n]]) : error reading from connection
+Calls: getWaveletPeaks ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+Execution halted
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpcMkDq5/R.INSTALL81f25051234e/speaq/R/getWaveletPeaks.R#202: 
+ --- if/while statement is in package --- 
+speaq
+ --- call (currently evaluated) --- 
+eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+ --- R stacktrace ---
+where 1: eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+where 2: eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv)
+where 3: doTryCatch(return(expr), name, parentenv, handler)
+where 4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 5: tryCatchList(expr, classes, parentenv, handlers)
+where 6 at /var/scratch2/tomas/tmp/Rtmpefvvkw/R.INSTALL50e71e636ea/doSNOW/R/doSNOW.R#104: tryCatch(eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv), 
+    error = function(e) e)
+where 7: (function (args) 
+{
+    exportEnv <- .doSnowGlobals$exportenv
+    lapply(names(args), function(n) assign(n, args[[n]], pos = .doSnowGlobals$exportenv))
+    tryCatch(eval(.doSnowGlobals$expr, envir = .doSnowGlobals$exportenv), 
+        error = function(e) e)
+})(quote(list(Parcounter = 3L)))
+where 8: do.call(msg$data$fun, msg$data$args, quote = TRUE)
+where 9: doTryCatch(return(expr), name, parentenv, handler)
+where 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 11: tryCatchList(expr, classes, parentenv, handlers)
+where 12: tryCatch(do.call(msg$data$fun, msg$data$args, quote = TRUE), 
+    error = handler)
+where 13: doTryCatch(return(expr), name, parentenv, handler)
+where 14: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 15: tryCatchList(expr, classes, parentenv, handlers)
+where 16: tryCatch({
+    msg <- recvData(master)
+    if (msg$type == "DONE") {
+        closeNode(master)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        success <- TRUE
+        handler <- function(e) {
+            success <<- FALSE
+            structure(conditionMessage(e), class = c("snow-try-error", 
+                "try-error"))
+        }
+        t1 <- proc.time()
+        value <- tryCatch(do.call(msg$data$fun, msg$data$args, 
+            quote = TRUE), error = handler)
+        t2 <- proc.time()
+        value <- list(type = "VALUE", value = value, success = success, 
+            time = t2 - t1, tag = msg$data$tag)
+        msg <- NULL
+        sendData(master, value)
+        value <- NULL
+    }
+}, interrupt = function(e) NULL)
+where 17: slaveLoop(makeSOCKmaster(master, port, timeout, useXDR))
+where 18: parallel:::.slaveRSOCK()
+
+ --- value of length: 10 type: logical ---
+      peakIndex
+1_108      TRUE
+1_121      TRUE
+1_187      TRUE
+1_205      TRUE
+1_223      TRUE
+1_241      TRUE
+1_256      TRUE
+1_289      TRUE
+1_315      TRUE
+1_369      TRUE
+ --- function (currently evaluated)--- 
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

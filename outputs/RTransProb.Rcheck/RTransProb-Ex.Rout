@@ -1,0 +1,374 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "RTransProb"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('RTransProb')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("POSIXTomatlab")
+> ### * POSIXTomatlab
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: POSIXTomatlab
+> ### Title: Convert between MATLAB datenum and R POSIXt
+> ### Aliases: POSIXTomatlab
+> 
+> ### ** Examples
+> 
+> 
+> POSIXTomatlab(as.POSIXlt(as.Date("2010-01-01")))
+[1] 734139
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("TransitionProb")
+> ### * TransitionProb
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: TransitionProb
+> ### Title: Estimation of credit transition probabilities
+> ### Aliases: TransitionProb
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D #Example 1:
+> ##D #When start date and end date are not specified, the entire dataset is used and the package
+> ##D #performs TTC calculations. Equally when snapshots and interval are not specified the defaults
+> ##D #are 1.
+> ##D snapshots <- 0
+> ##D interval <- 0
+> ##D startDate  <- 0
+> ##D endDate    <- 0
+> ##D Example1<-TransitionProb(data,startDate,endDate,'cohort', snapshots, interval)
+> ##D 
+> ##D 
+> ##D #Example 2:
+> ##D #using the duration method the time window of interest are specified 2-year period from the
+> ##D #beginning of 2000 to the beginning of 2002 snapshots and interval are not specified.
+> ##D snapshots <- 0
+> ##D interval <- 0
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2002-01-01"
+> ##D Example2<-TransitionProb(data,startDate, endDate,'duration', snapshots, interval)
+> ##D 
+> ##D 
+> ##D #Example 3:
+> ##D #using the cohort method the time window of interest are specified 5-year period from the
+> ##D #beginning of 2000 to the beginning of 2005 snapshots and interval are not specified.
+> ##D snapshots <- 0
+> ##D interval <- 0
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D Example3<-TransitionProb(data,startDate, endDate,'cohort', snapshots, interval)
+> ##D 
+> ##D 
+> ##D #Example 4:
+> ##D #assume that the time window of interest is the 5-year period from the beginning of 2000 to
+> ##D #the beginning of 2005. We want to estimate 1-year transition probabilities using quarterly
+> ##D #snapshots using cohort method.
+> ##D snapshots <- 4    #This uses quarterly transition matrices
+> ##D interval <- 1    #This gives a 1 year transition matrix
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D Example4<-TransitionProb(data,startDate, endDate,'cohort', snapshots, interval)
+> ##D 
+> ##D 
+> ##D #Example 5:
+> ##D #assume that the time window of interest is the 5-year period from the beginning of 2000 to
+> ##D #the beginning of 2005. We want to estimate a 2-year transition probabilities using quarterly
+> ##D #snapshots using cohort method.
+> ##D snapshots <- 4     #This uses quarterly transition matrices
+> ##D interval <- 2     #This gives a 2 years transition matrix
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D Example5<-TransitionProb(data,startDate, endDate,'cohort', snapshots, interval)
+> ##D 
+> ##D 
+> ##D #Example 6:
+> ##D #assume that the time window of interest is the 2-year period from the beginning of 2000 to
+> ##D #the beginning of 2005. We want to estimate 1-year transition probabilities using quarterly
+> ##D #snapshots using duration method.
+> ##D snapshots <- 4    #This uses quarterly transition matrices
+> ##D interval <- 1    #This gives a 1 year transition matrix
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2002-01-01"
+> ##D Example6<-TransitionProb(data,startDate, endDate,'duration', snapshots, interval)
+> ##D 
+> ##D 
+> ##D #Example 7:
+> ##D #assume that the time window of interest is the 5-year period from the beginning of 2000 to
+> ##D #the beginning of 2005. We want to estimate 1-year transition probabilities using monthly
+> ##D #snapshots using cohort method.
+> ##D snapshots <- 12    #This uses monthly transition matrices
+> ##D interval <- 1    #This gives a 1 year transition matrix
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D Example7<-TransitionProb(data,startDate, endDate,'cohort', snapshots, interval)
+> ##D 
+> ##D 
+> ##D #Example 8:
+> ##D #assume that the time window of interest is the 5-year period from the beginning of 2000 to
+> ##D #the beginning of 2005. We want to estimate 1-year transition probabilities using annual
+> ##D #snapshots using cohort method.
+> ##D snapshots <- 1    #This uses annual transition matrices
+> ##D interval <- 1    #This gives a 1 year transition matrix
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D Example8<-TransitionProb(data,startDate, endDate,'cohort', snapshots, interval)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cfdates")
+> ### * cfdates
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cfdates
+> ### Title: Create Date Squence
+> ### Aliases: cfdates
+> 
+> ### ** Examples
+> 
+> # Convert a date string to Matlab datenum format.
+> sdates <-  POSIXTomatlab(as.POSIXlt(as.Date("2000-01-01")))
+> edates <-  POSIXTomatlab(as.POSIXlt(as.Date("2002-01-01")))
+> 
+> cfdates(sdates, edates, 1)
+[1] 730486 730852 731217
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cohort.CI")
+> ### * cohort.CI
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cohort.CI
+> ### Title: Bootstrapped confidence intervals - Cohort
+> ### Aliases: cohort.CI
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D 
+> ##D #Set parameters to generate PIT transition matrices
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D method       <- "cohort"   
+> ##D snapshots <- 4  
+> ##D interval <-  .25 
+> ##D Example<-getPIT(data,startDate, endDate,method, snapshots, interval)
+> ##D 
+> ##D lstInit <- Example$lstInitVec[lapply(Example$lstInitVec,length)>0]
+> ##D lstCnt <- Example$lstCntMat[lapply(Example$lstCntMat,length)>0]
+> ##D ExampleTTC <- cohort.TTC(lstCnt,lstInit)
+> ##D 
+> ##D #use $ATMP from the cohort.TTC() as the input into the cohort.CI() function
+> ##D transMatrix    <- ExampleTTC$ATMP
+> ##D initCount      <- ExampleTTC$ACP[[1]][,1]
+> ##D sim            <- 1000
+> ##D tolerance_Cohort <-cohort.CI(transMatrix,initCount,sim)
+> ##D 
+> ##D 
+> ##D 
+> ##D Example 2:
+> ##D #Set parameters to generate PIT transition matrices
+> ##D startDate  <- "1997-01-01"
+> ##D endDate    <- "2002-01-01"
+> ##D method       <- "cohort"   
+> ##D snapshots <- 12  
+> ##D interval <-  1 
+> ##D Example<-getPIT(data,startDate, endDate,method, snapshots, interval)
+> ##D 
+> ##D lstInit <- Example$lstInitVec[lapply(Example$lstInitVec,length)>0]
+> ##D lstCnt <- Example$lstCntMat[lapply(Example$lstCntMat,length)>0]
+> ##D ExampleTTC <- cohort.TTC(lstCnt,lstInit)
+> ##D 
+> ##D #use $ATMP from the cohort.TTC() as the input into the cohort.CI() function
+> ##D transMatrix    <- ExampleTTC$ATMP
+> ##D initCount      <- ExampleTTC$ACP[[1]][,1]
+> ##D sim            <- 1000
+> ##D tolerance_Cohort <-cohort.CI(transMatrix,initCount,sim)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cohort.TTC")
+> ### * cohort.TTC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cohort.TTC
+> ### Title: Cohort - Data Weighting and "TTC" Calculation
+> ### Aliases: cohort.TTC
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D 
+> ##D #Set parameters
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D method       <- "cohort"   
+> ##D snapshots <- 4  
+> ##D interval <-  .25
+> ##D Example<-getPIT(data,startDate, endDate,method, snapshots, interval)
+> ##D 
+> ##D lstInit <- Example$lstInitVec[lapply(Example$lstInitVec,length)>0]
+> ##D lstCnt <- Example$lstCntMat[lapply(Example$lstCntMat,length)>0]
+> ##D ExampleTTC <- cohort.TTC(lstCnt,lstInit)
+> ##D  
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("duration.TTC")
+> ### * duration.TTC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: duration.TTC
+> ### Title: Duration - Data Weighting and "TTC" Calculation
+> ### Aliases: duration.TTC
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D 
+> ##D #Set parameters
+> ##D startDate  <- "2000-01-01"
+> ##D endDate    <- "2005-01-01"
+> ##D method       <- "duration"   
+> ##D snapshots <- 4
+> ##D interval <-  0
+> ##D Example1<-getPIT(data,startDate, endDate,method, snapshots, interval)
+> ##D 
+> ##D ExampleTTC1<-duration.TTC(Example1$lstCntMat,Example1$lstInitVec)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fromThresholds")
+> ### * fromThresholds
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fromThresholds
+> ### Title: Convert credit quality thresholds to probabilities.
+> ### Aliases: fromThresholds
+> 
+> ### ** Examples
+> 
+> 
+> rc <- c("AAA", "AA", "A", "BBB", "BB", "B", "CCC", "D")
+> t<- matrix(c(Inf,-1.3656,-2.1806,-3.0781,-3.5482,-4.1612,-4.2591,-4.8399,
++              Inf, 1.5712,-1.5217,-2.3028,-2.6872,-3.5256,-3.7324,-4.1972,
++              Inf, 2.6895, 1.3806,-1.2901,-2.3422,-2.8928,-3.0063,-3.7861,
++              Inf, 3.1004, 2.5623, 1.4479,-1.5211,-2.1407,-2.434,	-3.2814,
++              Inf, 3.4339, 2.6156, 2.4434, 1.4561,-1.4573,-1.9742,-2.4668,
++              Inf, 2.5852, 2.5586, 2.4218, 2.268,	 1.6737,-1.6194,-2.252,
++              Inf, 3.6953, 3.6362, 3.3406, 2.5019, 2.2394, 1.6263,-1.3853,
++              Inf, Inf,	   Inf,	   Inf,	   Inf,	   Inf,	   Inf,	   Inf
++ ), 8,8, dimnames = list(rc,rc), byrow=TRUE)
+> 
+> 
+> transmatrix <- fromThresholds(t)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpOX76rS/R.INSTALL9e6c5a022a36/RTransProb/R/fromThresholds.R#45: 
+ --- if/while statement is in package --- 
+RTransProb
+ --- call (currently evaluated) --- 
+fromThresholds(t)
+ --- R stacktrace ---
+where 1: fromThresholds(t)
+
+ --- value of length: 8 type: logical ---
+[1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function (currently evaluated)--- 
+function(thresh){
+
+  if (dim(thresh)[1] < 2 || dim(thresh)[2] < 2 || dim(thresh)[1] != dim(thresh)[2])
+    stop("Error: incorrect dimension of the matrix")
+
+  if (!(is.numeric(thresh))){
+    stop("Error: non-numeric input")
+  }
+
+  if(!(thresh[,1] %in% Inf)){
+    stop("Error: non 'Inf' in the first column")
+  }
+
+  tolmono = 1e-6;
+  for (i in 1:nrow(thresh)){
+    j1=min(which(thresh[i,]!=Inf))
+
+
+    if (!is.null(j1)){
+      j2=max(which(thresh[i,]!=Inf));
+
+      if (j2>j1){
+        diffTh = diff(as.vector(as.matrix(thresh[i,j1:j2])));
+
+        if (any(any(diffTh>tolmono))){
+
+        } else if (any(any(diffTh>0))){
+
+        }
+      }
+    }
+
+  }
+
+  # Get cum prob
+  cumprob =  stats::pnorm(t(apply(thresh,1,rev)))
+
+  # Get transition probabilities
+  trans = cumprob;
+  trans[,2:nrow(trans)] = t(diff(t(cumprob)))
+
+  # Flip and convert output matrix from decimal to percent
+  trans = t(apply(trans,1,rev))*100
+}
+<environment: namespace:RTransProb>
+ --- function (body) search ---
+Function fromThresholds in namespace RTransProb has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

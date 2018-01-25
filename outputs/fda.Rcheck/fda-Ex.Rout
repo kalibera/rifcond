@@ -1,16 +1,2965 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "fda"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('fda')
+Loading required package: splines
+Loading required package: Matrix
+
+Attaching package: ‘fda’
+
+The following object is masked from ‘package:graphics’:
+
+    matplot
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("AmpPhaseDecomp")
+> ### * AmpPhaseDecomp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AmpPhaseDecomp
+> ### Title: Decomposition for Amplitude and Phase Variation
+> ### Aliases: AmpPhaseDecomp
+> ### Keywords: smooth models
+> 
+> ### ** Examples
+> 
+> #See the analysis for the growth data in the examples.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("CRAN")
+> ### * CRAN
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: CRAN
+> ### Title: Test if running as CRAN
+> ### Aliases: CRAN
+> ### Keywords: environment
+> 
+> ### ** Examples
+> 
+> cran <- CRAN()
+> str(cran)
+ logi TRUE
+ - attr(*, "Sys.getenv")= 'Dlist' Named chr [1:120] "/usr/share/lmod/lmod/init/bash" "() {  eval $($LMOD_DIR/ml_cmd \"$@\")\n}" "() {  eval $($LMOD_CMD bash \"$@\") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)\n}" ".:/var/scratch2/tomas/test/mine/R-ifc4/build/share/texmf/bibtex/bib:" ...
+  ..- attr(*, "names")= chr [1:120] "BASH_ENV" "BASH_FUNC_ml%%" "BASH_FUNC_module%%" "BIBINPUTS" ...
+ - attr(*, "matches")= int [1:9] 112 113 114 115 116 117 118 119 120
+> gete <- attr(cran, 'Sys.getenv')
+> (ngete <- names(gete))
+  [1] "BASH_ENV"                             
+  [2] "BASH_FUNC_ml%%"                       
+  [3] "BASH_FUNC_module%%"                   
+  [4] "BIBINPUTS"                            
+  [5] "BSTINPUTS"                            
+  [6] "COBBLER_SERVER"                       
+  [7] "CVS_RSH"                              
+  [8] "DBUS_SESSION_BUS_ADDRESS"             
+  [9] "DISPLAY"                              
+ [10] "EDITOR"                               
+ [11] "HISTCONTROL"                          
+ [12] "HISTSIZE"                             
+ [13] "HOME"                                 
+ [14] "HOSTNAME"                             
+ [15] "KDEDIRS"                              
+ [16] "KNOTPLOT_HOME"                        
+ [17] "KRB5CCNAME"                           
+ [18] "LANG"                                 
+ [19] "LANGUAGE"                             
+ [20] "LC_COLLATE"                           
+ [21] "LD_LIBRARY_PATH"                      
+ [22] "LESSOPEN"                             
+ [23] "LMOD_CMD"                             
+ [24] "LMOD_DIR"                             
+ [25] "LMOD_FULL_SETTARG_SUPPORT"            
+ [26] "LMOD_PKG"                             
+ [27] "LMOD_SETTARG_CMD"                     
+ [28] "LMOD_VERSION"                         
+ [29] "LMOD_sys"                             
+ [30] "LN_S"                                 
+ [31] "LOADEDMODULES"                        
+ [32] "LOGNAME"                              
+ [33] "LS_COLORS"                            
+ [34] "MAIL"                                 
+ [35] "MAKE"                                 
+ [36] "MAKEFLAGS"                            
+ [37] "MAKELEVEL"                            
+ [38] "MANPATH"                              
+ [39] "MFLAGS"                               
+ [40] "MODULEPATH"                           
+ [41] "MODULEPATH_ROOT"                      
+ [42] "MODULESHOME"                          
+ [43] "OLDPWD"                               
+ [44] "PAGER"                                
+ [45] "PATH"                                 
+ [46] "PWD"                                  
+ [47] "QA_CHECK_JOBS"                        
+ [48] "QA_GIT_URL"                           
+ [49] "QA_HOME"                              
+ [50] "QA_HOME_RO"                           
+ [51] "QA_INSTALL_JOBS"                      
+ [52] "QA_SHARE"                             
+ [53] "QA_SHARE_RO"                          
+ [54] "QA_SVN_URL"                           
+ [55] "QTDIR"                                
+ [56] "QTINC"                                
+ [57] "QTLIB"                                
+ [58] "RINSTDIR"                             
+ [59] "R_ARCH"                               
+ [60] "R_BROWSER"                            
+ [61] "R_BZIPCMD"                            
+ [62] "R_CMD"                                
+ [63] "R_DEFAULT_PACKAGES"                   
+ [64] "R_DOC_DIR"                            
+ [65] "R_ENVIRON"                            
+ [66] "R_ENVIRON_USER"                       
+ [67] "R_GZIPCMD"                            
+ [68] "R_HOME"                               
+ [69] "R_INCLUDE_DIR"                        
+ [70] "R_KEEP_PKG_SOURCE"                    
+ [71] "R_LIBS"                               
+ [72] "R_LIBS_SITE"                          
+ [73] "R_LIBS_USER"                          
+ [74] "R_OSTYPE"                             
+ [75] "R_PAPERSIZE"                          
+ [76] "R_PAPERSIZE_USER"                     
+ [77] "R_PDFVIEWER"                          
+ [78] "R_PLATFORM"                           
+ [79] "R_PRINTCMD"                           
+ [80] "R_PROFILE"                            
+ [81] "R_PROFILE_USER"                       
+ [82] "R_RD4PDF"                             
+ [83] "R_SESSION_TMPDIR"                     
+ [84] "R_SHARE_DIR"                          
+ [85] "R_SYSTEM_ABI"                         
+ [86] "R_TEXI2DVICMD"                        
+ [87] "R_UNZIPCMD"                           
+ [88] "R_VERSION"                            
+ [89] "R_ZIPCMD"                             
+ [90] "SED"                                  
+ [91] "SHELL"                                
+ [92] "SHLVL"                                
+ [93] "SSH_ASKPASS"                          
+ [94] "SSH_CLIENT"                           
+ [95] "SSH_CONNECTION"                       
+ [96] "SSH_TTY"                              
+ [97] "STY"                                  
+ [98] "S_COLORS"                             
+ [99] "TAR"                                  
+[100] "TERM"                                 
+[101] "TERMCAP"                              
+[102] "TEXINPUTS"                            
+[103] "TMPDIR"                               
+[104] "USER"                                 
+[105] "WINDOW"                               
+[106] "XDG_RUNTIME_DIR"                      
+[107] "XDG_SESSION_ID"                       
+[108] "_LMFILES_"                            
+[109] "_ModuleTable001_"                     
+[110] "_ModuleTable002_"                     
+[111] "_ModuleTable_Sz_"                     
+[112] "_R_CHECK_FORCE_SUGGESTS_"             
+[113] "_R_CHECK_INTERNALS2_"                 
+[114] "_R_CHECK_LENGTH_1_CONDITION_"         
+[115] "_R_CHECK_LICENSE_"                    
+[116] "_R_CHECK_PACKAGE_NAME_"               
+[117] "_R_CHECK_PKG_SIZES_"                  
+[118] "_R_CHECK_SIZE_OF_TARBALL_"            
+[119] "_R_INSTALL_PACKAGES_ELAPSED_TIMEOUT_" 
+[120] "_R_SHLIB_BUILD_OBJECTS_SYMBOL_TABLES_"
+> 
+> iget <- grep('^_', names(gete))
+> gete[iget]
+_LMFILES_               /usr/share/modulefiles/python-sphinx/python2-sphinx
+_ModuleTable001_        X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXtbInB5dGhvbi1zcGhpbngiXT17WyJmbiJdPSIvdXNyL3NoYXJlL21vZHVsZWZpbGVzL3B5dGhvbi1zcGhpbngvcHl0aG9uMi1zcGhpbngiLFsiZnVsbE5hbWUiXT0icHl0aG9uLXNwaGlueC9weXRob24yLXNwaGlueCIsWyJsb2FkT3JkZXIiXT0xLHByb3BUPXt9LFsic3RhdHVzIl09ImFjdGl2ZSIsWyJ1c2VyTmFtZSJdPSJweXRob24tc3BoaW54Iix9LH0sbXBhdGhBPXsiL2V0Yy9tb2R1bGVmaWxlcyIsIi91c3Ivc2hhcmUvbW9kdWxlZmlsZXMiLCIvdXNyL3NoYXJlL21vZHVsZWZpbGVzL0xpbnV4
+_ModuleTable002_        IiwiL3Vzci9zaGFyZS9tb2R1bGVmaWxlcy9Db3JlIiwiL3Vzci9zaGFyZS9sbW9kL2xtb2QvbW9kdWxlZmlsZXMvQ29yZSIsfSxbInN5c3RlbUJhc2VNUEFUSCJdPSIvZXRjL21vZHVsZWZpbGVzOi91c3Ivc2hhcmUvbW9kdWxlZmlsZXM6L3Vzci9zaGFyZS9tb2R1bGVmaWxlcy9MaW51eDovdXNyL3NoYXJlL21vZHVsZWZpbGVzL0NvcmU6L3Vzci9zaGFyZS9sbW9kL2xtb2QvbW9kdWxlZmlsZXMvQ29yZSIsfQ=
+_ModuleTable_Sz_        2
+_R_CHECK_FORCE_SUGGESTS_
+                        false
+_R_CHECK_INTERNALS2_    1
+_R_CHECK_LENGTH_1_CONDITION_
+                        package:_R_CHECK_PACKAGE_NAME_
+_R_CHECK_LICENSE_       TRUE
+_R_CHECK_PACKAGE_NAME_
+                        fda
+_R_CHECK_PKG_SIZES_     false
+_R_CHECK_SIZE_OF_TARBALL_
+                        1086158
+_R_INSTALL_PACKAGES_ELAPSED_TIMEOUT_
+                        1000
+_R_SHLIB_BUILD_OBJECTS_SYMBOL_TABLES_
+                        TRUE
+> 
+> ## Not run: 
+> ##D if(CRAN()){
+> ##D   stop('CRAN')
+> ##D } else {
+> ##D   stop('NOT CRAN')
+> ##D }
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("CSTR")
+> ### * CSTR
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: CSTR
+> ### Title: Continuously Stirred Tank Reactor
+> ### Aliases: CSTR CSTR2in CSTR2 CSTRfn CSTRfitLS CSTRres CSTRsse
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ###
+> ###
+> ### 1.  lsoda(y, times, func=CSTR2, parms=...)
+> ###
+> ###
+> #  The system of two nonlinear equations has five forcing or
+> #  input functions.
+> #  These equations are taken from
+> #  Marlin, T. E. (2000) Process Control, 2nd Edition, McGraw Hill,
+> #  pages 899-902.
+> ##
+> ##  Set up the problem
+> ##
+> fitstruct <- list(V    = 1.0,#  volume in cubic meters
++                   Cp   = 1.0,#  concentration in cal/(g.K)
++                   rho  = 1.0,#  density in grams per cubic meter
++                   delH = -130.0,# cal/kmol
++                   Cpc  = 1.0,#  concentration in cal/(g.K)
++                   rhoc = 1.0,#  cal/kmol
++                   Tref = 350)#  reference temperature
+> #  store true values of known parameters
+> EoverRtru = 0.83301#   E/R in units K/1e4
+> kreftru   = 0.4610 #   reference value
+> atru      = 1.678#     a in units (cal/min)/K/1e6
+> btru      = 0.5#       dimensionless exponent
+> 
+> #% enter these parameter values into fitstruct
+> 
+> fitstruct[["kref"]]   = kreftru#
+> fitstruct[["EoverR"]] = EoverRtru#  kref = 0.4610
+> fitstruct[["a"]]      = atru#       a in units (cal/min)/K/1e6
+> fitstruct[["b"]]      = btru#       dimensionless exponent
+> 
+> Tlim  = 64#    reaction observed over interval [0, Tlim]
+> delta = 1/12#  observe every five seconds
+> tspan = seq(0, Tlim, delta)#
+> 
+> coolStepInput <- CSTR2in(tspan, 'all.cool.step')
+> 
+> #  set constants for ODE solver
+> 
+> #  cool condition solution
+> #  initial conditions
+> 
+> Cinit.cool = 1.5965#  initial concentration in kmol per cubic meter
+> Tinit.cool = 341.3754# initial temperature in deg K
+> yinit = c(Conc = Cinit.cool, Temp=Tinit.cool)
+> 
+> #  load cool input into fitstruct
+> 
+> fitstruct[["Tcin"]] = coolStepInput[, "Tcin"];
+> 
+> #  solve  differential equation with true parameter values
+> 
+> if (require(deSolve)) {
++ coolStepSoln <- lsoda(y=yinit, times=tspan, func=CSTR2,
++   parms=list(fitstruct=fitstruct, condition='all.cool.step', Tlim=Tlim) )
++ }
+Loading required package: deSolve
+> ###
+> ###
+> ### 2.  CSTRfn
+> ###
+> ###
+> 
+> # See the script in '~R\library\fda\scripts\CSTR\CSTR_demo.R'
+> #  for more examples.
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:deSolve’
+
+> nameEx("CanadianWeather")
+> ### * CanadianWeather
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: CanadianWeather
+> ### Title: Canadian average annual weather cycle
+> ### Aliases: CanadianWeather daily
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> ##
+> ## 1.  Plot (latitude & longitude) of stations by region
+> ##
+> with(CanadianWeather, plot(-coordinates[, 2], coordinates[, 1], type='n',
++                            xlab="West Longitude", ylab="North Latitude",
++                            axes=FALSE) )
+> Wlon <- pretty(CanadianWeather$coordinates[, 2])
+> axis(1, -Wlon, Wlon)
+> axis(2)
+> 
+> rgns <- 1:4
+> names(rgns) <- c('Arctic', 'Atlantic', 'Continental', 'Pacific')
+> Rgns <- rgns[CanadianWeather$region]
+> with(CanadianWeather, points(-coordinates[, 2], coordinates[, 1],
++                              col=Rgns, pch=Rgns) )
+> legend('topright', legend=names(rgns), col=rgns, pch=rgns)
+> 
+> ##
+> ## 2.  Plot dailyAv[, 'Temperature.C'] for 4 stations
+> ##
+> data(CanadianWeather)
+> # Expand the left margin to allow space for place names
+> op <- par(mar=c(5, 4, 4, 5)+.1)
+> # Plot
+> stations <- c("Pr. Rupert", "Montreal", "Edmonton", "Resolute")
+> matplot(day.5, CanadianWeather$dailyAv[, stations, "Temperature.C"],
++         type="l", axes=FALSE, xlab="", ylab="Mean Temperature (deg C)")
+> axis(2, las=1)
+> # Label the horizontal axis with the month names
+> axis(1, monthBegin.5, labels=FALSE)
+> axis(1, monthEnd.5, labels=FALSE)
+> axis(1, monthMid, monthLetters, tick=FALSE)
+> # Add the monthly averages
+> matpoints(monthMid, CanadianWeather$monthlyTemp[, stations])
+> # Add the names of the weather stations
+> mtext(stations, side=4,
++       at=CanadianWeather$dailyAv[365, stations, "Temperature.C"],
++      las=1)
+> # clean up
+> par(op)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("Data2fd")
+> ### * Data2fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Data2fd
+> ### Title: Create a functional data object from data
+> ### Aliases: Data2fd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ##
+> ## Simplest possible example:  constant function
+> ##
+> # 1 basis, order 1 = degree 0 = constant function
+> b1.1 <- create.bspline.basis(nbasis=1, norder=1)
+> # data values: 1 and 2, with a mean of 1.5
+> y12 <- 1:2
+> # smooth data, giving a constant function with value 1.5
+> fd1.1 <- Data2fd(y12, basisobj=b1.1)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 2 )
+> plot(fd1.1)
+[1] "done"
+> # now repeat the analysis with some smoothing, which moves the
+> # toward 0.
+> fd1.1.5 <- Data2fd(y12, basisobj=b1.1, lambda=0.5)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 2 )
+> #  values of the smooth:
+> # fd1.1.5 = sum(y12)/(n+lambda*integral(over arg=0 to 1 of 1))
+> #         = 3 / (2+0.5) = 1.2
+> eval.fd(seq(0, 1, .2), fd1.1.5)
+     [,1]
+[1,]  1.2
+[2,]  1.2
+[3,]  1.2
+[4,]  1.2
+[5,]  1.2
+[6,]  1.2
+> 
+> ##
+> ## step function smoothing
+> ##
+> sessionInfo()
+R Under development (unstable) (2018-01-22 r74151)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Fedora 26 (Twenty Six)
+
+Matrix products: default
+BLAS: /var/scratch2/tomas/test/mine/R-ifc4/build/lib/libRblas.so
+LAPACK: /var/scratch2/tomas/test/mine/R-ifc4/build/lib/libRlapack.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=C              
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] splines   stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+[1] fda_2.4.7     Matrix_1.2-12
+
+loaded via a namespace (and not attached):
+[1] compiler_3.5.0  deSolve_1.20    tools_3.5.0     grid_3.5.0     
+[5] lattice_0.20-35
+> find("crossprod")
+[1] "package:Matrix" "package:base"  
+> 
+> # 2 step basis functions: order 1 = degree 0 = step functions
+> b1.2 <- create.bspline.basis(nbasis=2, norder=1)
+> #  fit the data without smoothing
+> fd1.2 <- Data2fd(1:2, basisobj=b1.2)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 2 )
+> # plot the result:  A step function:  1 to 0.5, then 2
+> op <- par(mfrow=c(2,1))
+> plot(b1.2, main='bases')
+> plot(fd1.2, main='fit')
+[1] "done"
+> par(op)
+> 
+> ##
+> ## Simple oversmoothing
+> ##
+> # 3 step basis functions: order 1 = degree 0 = step functions
+> b1.3 <- create.bspline.basis(nbasis=3, norder=1)
+> #  smooth the data with smoothing
+> fd1.3.5 <- Data2fd(y12, basisobj=b1.3, lambda=0.5)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 2 )
+> #  plot the fit along with the points
+> plot(0:1, c(0, 2), type='n')
+> points(0:1, y12)
+> lines(fd1.3.5)
+> # Fit = penalized least squares with penalty =
+> #          = lambda * integral(0:1 of basis^2),
+> #            which shrinks the points towards 0.
+> # X1.3 = matrix(c(1,0, 0,0, 0,1), 2)
+> # XtX = crossprod(X1.3) = diag(c(1, 0, 1))
+> # penmat = diag(3)/3
+> #        = 3x3 matrix of integral(over arg=0:1 of basis[i]*basis[j])
+> # Xt.y = crossprod(X1.3, y12) = c(1, 0, 2)
+> # XtX + lambda*penmat = diag(c(7, 1, 7)/6
+> # so coef(fd1.3.5) = solve(XtX + lambda*penmat, Xt.y)
+> #                  = c(6/7, 0, 12/7)
+> 
+> ##
+> ## linear spline fit
+> ##
+> # 3 bases, order 2 = degree 1
+> b2.3 <- create.bspline.basis(norder=2, breaks=c(0, .5, 1))
+> # interpolate the values 0, 2, 1
+> fd2.3 <- Data2fd(c(0,2,1), basisobj=b2.3, lambda=0)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 3 )
+> #  display the coefficients
+> round(fd2.3$coefs, 4)
+        [,1]
+bspl2.1    0
+bspl2.2    2
+bspl2.3    1
+> # plot the results
+> op <- par(mfrow=c(2,1))
+> plot(b2.3, main='bases')
+> plot(fd2.3, main='fit')
+[1] "done"
+> par(op)
+> # apply some smoothing
+> fd2.3. <- Data2fd(c(0,2,1), basisobj=b2.3, lambda=1)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 3 )
+> op <- par(mfrow=c(2,1))
+> plot(b2.3, main='bases')
+> plot(fd2.3., main='fit', ylim=c(0,2))
+[1] "done"
+> par(op)
+> 
+> ##
+> ## quadratic spline fit
+> ##
+> # 4 bases, order 3 = degree 2 = continuous, bounded, locally quadratic
+> b3.4 <- create.bspline.basis(norder=3, breaks=c(0, .5, 1))
+> # fit values c(0,4,2,3) without interpolation
+> fd3.4 <- Data2fd(c(0,4,2,3), basisobj=b3.4, lambda=0)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 4 )
+> round(fd3.4$coefs, 4)
+          [,1]
+bspl3.1 0.0000
+bspl3.2 5.8125
+bspl3.3 0.5625
+bspl3.4 3.0000
+> op <- par(mfrow=c(2,1))
+> plot(b3.4)
+> plot(fd3.4)
+[1] "done"
+> points(c(0,1/3,2/3,1), c(0,4,2,3))
+> par(op)
+> #  try smoothing
+> fd3.4. <- Data2fd(c(0,4,2,3), basisobj=b3.4, lambda=1)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 4 )
+> round(fd3.4.$coef, 4)
+          [,1]
+bspl3.1 1.7699
+bspl3.2 2.3543
+bspl3.3 2.3876
+bspl3.4 2.5366
+> op <- par(mfrow=c(2,1))
+> plot(b3.4)
+> plot(fd3.4., ylim=c(0,4))
+[1] "done"
+> points(seq(0,1,len=4), c(0,4,2,3))
+> par(op)
+> 
+> ##
+> ##  Two simple Fourier examples
+> ##
+> gaitbasis3 <- create.fourier.basis(nbasis=5)
+> gaitfd3    <- Data2fd(gait, basisobj=gaitbasis3)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 20 )
+> plotfit.fd(gait, seq(0,1,len=20), gaitfd3)
+Multiple plots:  Click in the plot to advance to the next plot
+> #    set up the fourier basis
+> daybasis <- create.fourier.basis(c(0, 365), nbasis=65)
+> #  Make temperature fd object
+> #  Temperature data are in 12 by 365 matrix tempav
+> #    See analyses of weather data.
+> tempfd <- Data2fd(CanadianWeather$dailyAv[,,"Temperature.C"],
++                   day.5, daybasis)
+Swapping 'y' and 'argvals', because 'y' is  simpler,
+  and 'argvals' should be;  now  dim(argvals) =  365 ;  dim(y) =  365 x 35 
+> #  plot the temperature curves
+> par(mfrow=c(1,1))
+> plot(tempfd)
+[1] "done"
+> 
+> ##
+> ## argvals of class Date and POSIXct
+> ##
+> #  Date
+> invasion1 <- as.Date('1775-09-04')
+> invasion2 <- as.Date('1812-07-12')
+> earlyUS.Canada <- c(invasion1, invasion2)
+> BspInvasion <- create.bspline.basis(earlyUS.Canada)
+> 
+> earlyYears <- seq(invasion1, invasion2, length.out=7)
+> (earlyQuad <- (as.numeric(earlyYears-invasion1)/365.24)^2)
+[1]    0.00000   37.72515  150.90059  339.52633  603.60237  943.12870 1358.10532
+> fitQuad <- Data2fd(earlyYears, earlyQuad, BspInvasion)
+> 
+> # POSIXct
+> AmRev.ct <- as.POSIXct1970(c('1776-07-04', '1789-04-30'))
+> BspRev.ct <- create.bspline.basis(AmRev.ct)
+> AmRevYrs.ct <- seq(AmRev.ct[1], AmRev.ct[2], length.out=14)
+> (AmRevLin.ct <- as.numeric(AmRevYrs.ct-AmRev.ct[1]))
+ [1]         0  31123938  62247877  93371815 124495754 155619692 186743631
+ [8] 217867569 248991508 280115446 311239385 342363323 373487262 404611200
+> fitLin.ct <- Data2fd(AmRevYrs.ct, AmRevLin.ct, BspRev.ct)
+Warning in smooth.basis1(argvals, y, fdParobj, wtvec = wtvec, fdnames = fdnames,  :
+  lambda reduced to 8.63515607659642e-18 to prevent overflow
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("Eigen")
+> ### * Eigen
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Eigen
+> ### Title: Eigenanalysis preserving dimnames
+> ### Aliases: Eigen
+> ### Keywords: array
+> 
+> ### ** Examples
+> 
+> X <- matrix(1:4, 2, dimnames=list(LETTERS[1:2], letters[3:4]))
+> eigen(X)
+eigen() decomposition
+$values
+[1]  5.3722813 -0.3722813
+
+$vectors
+           [,1]       [,2]
+[1,] -0.5657675 -0.9093767
+[2,] -0.8245648  0.4159736
+
+> Eigen(X)
+eigen() decomposition
+$values
+         c          d 
+ 5.3722813 -0.3722813 
+
+$vectors
+           c          d
+A -0.5657675 -0.9093767
+B -0.8245648  0.4159736
+
+> Eigen(X, valuenames='eigval')
+eigen() decomposition
+$values
+   eigval1    eigval2 
+ 5.3722813 -0.3722813 
+
+$vectors
+     eigval1    eigval2
+A -0.5657675 -0.9093767
+B -0.8245648  0.4159736
+
+> 
+> Y <- matrix(1:4, 2, dimnames=list(letters[5:6], letters[5:6]))
+> Eigen(Y)
+eigen() decomposition
+$values
+         e          f 
+ 5.3722813 -0.3722813 
+
+$vectors
+           e          f
+e -0.5657675 -0.9093767
+f -0.8245648  0.4159736
+
+> 
+> Eigen(Y, symmetric=TRUE)
+eigen() decomposition
+$values
+ev1 ev2 
+  5   0 
+
+$vectors
+        ev1        ev2
+e 0.4472136 -0.8944272
+f 0.8944272  0.4472136
+
+> # only the lower triangle is used;
+> # the upper triangle is ignored.  
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Fperm.fd")
+> ### * Fperm.fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Fperm.fd
+> ### Title: Permutation F-test for functional linear regression.
+> ### Aliases: Fperm.fd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ##
+> ## 1.  yfdPar = vector
+> ##
+> annualprec <- log10(apply(
++     CanadianWeather$dailyAv[,,"Precipitation.mm"], 2,sum))
+> 
+> #  set up a smaller basis using only 40 Fourier basis functions
+> #  to save some computation time
+> 
+> smallnbasis <- 40
+> smallbasis  <- create.fourier.basis(c(0, 365), smallnbasis)
+Warning in create.fourier.basis(c(0, 365), smallnbasis) :
+  nbasis must be an odd integer; is 40;  will be increased by 1
+> tempfd      <- smooth.basis(day.5, CanadianWeather$dailyAv[,,"Temperature.C"],
++                        smallbasis)$fd
+> constantfd <- fd(matrix(1,1,35), create.constant.basis(c(0, 365)))
+> 
+> xfdlist <- vector("list",2)
+> xfdlist[[1]] <- constantfd
+> xfdlist[[2]] <- tempfd[1:35]
+> 
+> betalist   <- vector("list",2)
+> #  set up the first regression function as a constant
+> betabasis1 <- create.constant.basis(c(0, 365))
+> betafd1    <- fd(0, betabasis1)
+> betafdPar1 <- fdPar(betafd1)
+> betalist[[1]] <- betafdPar1
+> 
+> nbetabasis  <- 35
+> betabasis2  <- create.fourier.basis(c(0, 365), nbetabasis)
+> betafd2     <- fd(matrix(0,nbetabasis,1), betabasis2)
+> 
+> lambda        <- 10^12.5
+> harmaccelLfd365 <- vec2Lfd(c(0,(2*pi/365)^2,0), c(0, 365))
+> betafdPar2    <- fdPar(betafd2, harmaccelLfd365, lambda)
+> betalist[[2]] <- betafdPar2
+> 
+> # Should use the default nperm = 200
+> # but use 10 to save test time for illustration
+> F.res2 = Fperm.fd(annualprec, xfdlist, betalist, nperm=10)
+> 
+> ##
+> ## 2.  yfdpar = Functional data object (class fd)
+> ##
+> # The very simplest example is the equivalent of the permutation
+> # t-test on the growth data.
+> 
+> # First set up a basis system to hold the smooths
+> 
+> # cut this example to reduce test time on CRAN
+> if(!CRAN()){
++ 
++ Knots  <- growth$age
++ norder <- 6
++ nbasis <- length(Knots) + norder - 2
++ hgtbasis <- create.bspline.basis(range(Knots), nbasis, norder, Knots)
++ 
++ # Now smooth with a fourth-derivative penalty and a very small smoothing
++ # parameter
++ 
++ Lfdobj <- 4
++ lambda <- 1e-2
++ growfdPar <- fdPar(hgtbasis, Lfdobj, lambda)
++ 
++ hgtfd <- smooth.basis(growth$age,
++                       cbind(growth$hgtm,growth$hgtf),growfdPar)$fd
++ 
++ # Now set up factors for fRegress:
++ 
++ cbasis = create.constant.basis(range(Knots))
++ 
++ maleind = c(rep(1,ncol(growth$hgtm)),rep(0,ncol(growth$hgtf)))
++ 
++ constfd = fd( matrix(1,1,length(maleind)),cbasis)
++ maleindfd = fd( matrix(maleind,1,length(maleind)),cbasis)
++ 
++ xfdlist = list(constfd,maleindfd)
++ 
++ # The fdPar object for the coefficients and call Fperm.fd
++ 
++ betalist = list(fdPar(hgtbasis,2,1e-6),fdPar(hgtbasis,2,1e-6))
++ 
++ # Should use nperm = 200 or so,
++ # but use 10 to save test time
++ Fres = Fperm.fd(hgtfd,xfdlist,betalist,nperm=10)
++ }
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Lfd")
+> ### * Lfd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Lfd
+> ### Title: Define a Linear Differential Operator Object
+> ### Aliases: Lfd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> #  Set up the harmonic acceleration operator
+> dayrange  <- c(0,365)
+> Lbasis  <- create.constant.basis(dayrange,
++                   axes=list("axesIntervals"))
+> Lcoef   <- matrix(c(0,(2*pi/365)^2,0),1,3)
+> bfdobj  <- fd(Lcoef,Lbasis)
+> bwtlist <- fd2list(bfdobj)
+> harmaccelLfd <- Lfd(3, bwtlist)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MontrealTemp")
+> ### * MontrealTemp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MontrealTemp
+> ### Title: Montreal Daily Temperature
+> ### Aliases: MontrealTemp
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(MontrealTemp)
+> 
+> JanuaryThaw <- t(MontrealTemp[, 16:47])
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ReginaPrecip")
+> ### * ReginaPrecip
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ReginaPrecip
+> ### Title: Regina Daily Precipitation
+> ### Aliases: ReginaPrecip
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(ReginaPrecip)
+> hist(ReginaPrecip)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("StatSciChinese")
+> ### * StatSciChinese
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: StatSciChinese
+> ### Title: Statistical Science in Chinese
+> ### Aliases: StatSciChinese
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(StatSciChinese)
+> 
+> i <- 3
+> StatSci1 <- StatSciChinese[, i, ]
+> # Where does the pen leave the paper?
+> plot(StatSci1[, 3], type='l')
+> thresh <- quantile(StatSci1[, 3], .8)
+> abline(h=thresh)
+> 
+> sel1 <- (StatSci1[, 3] < thresh)
+> StatSci1[!sel1, 1:2] <- NA
+> plot(StatSci1[, 1:2], type='l')
+> 
+> mark <- seq(1, 601, 12)
+> points(StatSci1[mark, 1], StatSci1[mark, 2])
+> 
+> 
+> 
+> cleanEx()
+> nameEx("TaylorSpline")
+> ### * TaylorSpline
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: TaylorSpline
+> ### Title: Taylor representation of a B-Spline
+> ### Aliases: TaylorSpline TaylorSpline.fd TaylorSpline.fdPar
+> ###   TaylorSpline.fdSmooth
+> ### Keywords: smooth manip
+> 
+> ### ** Examples
+> 
+> ##
+> ## The simplest b-spline basis:  order 1, degree 0, zero interior knots:
+> ##       a single step function
+> ##
+> bspl1.1 <- create.bspline.basis(norder=1, breaks=0:1)
+> # ... jump to pi to check the code
+> fd.bspl1.1pi <- fd(pi, basisobj=bspl1.1)
+> bspl1.1pi <- TaylorSpline(fd.bspl1.1pi)
+> ## Don't show: 
+> bsp1.1ref <- list(knots=0:1, midpoints=0.5,
++   coef=array(pi, dim=rep(1, 3), dimnames=list(NULL, 'b0', 'reps 1')),
++   deriv=array(pi, dim=rep(1, 3), dimnames=list(NULL, 'D0', 'reps 1')) )
+> class(bsp1.1ref) <- "Taylor"
+> stopifnot(all.equal(bspl1.1pi, bsp1.1ref))
+> ## End(Don't show)
+> 
+> ##
+> ## Cubic spline:  4  basis functions
+> ##
+> bspl4 <- create.bspline.basis(nbasis=4)
+> plot(bspl4)
+> parab4.5 <- fd(c(3, -1, -1, 3)/3, bspl4)
+> # = 4*(x-.5)
+> TaylorSpline(parab4.5)
+$knots
+[1] 0 0 0 0 1 1 1 1
+
+$midpoints
+[1] 0.5
+
+$coef
+, , reps 1
+
+     b0 b1 b2 b3
+[1,]  0  0  4  0
+
+
+$deriv
+, , reps 1
+
+     D0 D1 D2 D3
+[1,]  0  0  8  0
+
+
+attr(,"class")
+[1] "Taylor"
+> 
+> ##
+> ## A more realistic example
+> ##
+> data(titanium)
+Warning in data(titanium) : data set ‘titanium’ not found
+> #  Cubic spline with 5 interior knots (6 segments)
+> # do not run this example on CRAN to save test time
+> #if(!CRAN()){
+> #titan10 <- with(titanium, curfit.free.knot(x, y))
+> #(titan10T <- TaylorSpline(titan10) )
+> #}
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("argvalsy.swap")
+> ### * argvalsy.swap
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: argvalsy.swap
+> ### Title: Swap argvals with y if the latter is simpler.
+> ### Aliases: argvalsy.swap
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ##
+> ## one argument:  y
+> ##
+> argvalsy.swap(1:5)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 5 )
+$argvals
+[1] 0.00 0.25 0.50 0.75 1.00
+
+$y
+[1] 1 2 3 4 5
+
+$basisobj
+$call
+basisfd(type = type, rangeval = rangeval, nbasis = nbasis, params = params, 
+    dropind = dropind, quadvals = quadvals, values = values, 
+    basisvalues = basisvalues)
+
+$type
+[1] "bspline"
+
+$rangeval
+[1] 0 1
+
+$nbasis
+[1] 4
+
+$params
+NULL
+
+$dropind
+NULL
+
+$quadvals
+NULL
+
+$values
+list()
+
+$basisvalues
+list()
+
+$names
+[1] "bspl4.1" "bspl4.2" "bspl4.3" "bspl4.4"
+
+attr(,"class")
+[1] "basisfd"
+
+> # warning ... 
+> 
+> ##
+> ## (argvals, y), same dimensions:  retain order 
+> ##
+> argy1 <- argvalsy.swap(seq(0, 1, .2), 1:6)
+> argy1a <- argvalsy.swap(1:6, seq(0, 1, .2))
+> 
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(argy1[[1]], argy1a[[2]]) &&
++ all.equal(argy1[[2]], argy1a[[1]])
++ # TRUE;  basisobj different 
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> # lengths do not match 
+> ## Not run: 
+> ##D argvalsy.swap(1:4, 1:5)
+> ## End(Not run) 
+> 
+> ##
+> ## two numeric arguments, different dimensions:  put simplest first 
+> ##
+> argy2 <- argvalsy.swap(seq(0, 1, .2), matrix(1:12, 6))
+> 
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(argy2,
++ argvalsy.swap(matrix(1:12, 6), seq(0, 1, .2)) )
++ # TRUE with a warning ... 
++ ## Don't show: 
++ )
+Swapping 'y' and 'argvals', because 'y' is  simpler,
+  and 'argvals' should be;  now  dim(argvals) =  6 ;  dim(y) =  6 x 2 
+> ## End(Don't show)
+> 
+> ## Not run: 
+> ##D argvalsy.swap(seq(0, 1, .2), matrix(1:12, 2))
+> ##D # ERROR:  first dimension does not match 
+> ## End(Not run)
+> 
+> ##
+> ## one numeric, one basisobj
+> ##
+> argy3 <- argvalsy.swap(1:6, b=4)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 6 )
+> # warning:  argvals assumed seq(0, 1, .2) 
+> 
+> argy3. <- argvalsy.swap(1:6, b=create.bspline.basis(breaks=0:1))
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 6 )
+> # warning:  argvals assumed seq(0, 1, .2) 
+> 
+> argy3.6 <- argvalsy.swap(seq(0, 1, .2), b=create.bspline.basis(breaks=1:3))
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 1 ,  3 , length= 6 )
+> # warning:  argvals assumed seq(1, 3 length=6)
+> 
+> ##
+> ## two numeric, one basisobj:  first matches basisobj
+> ##
+> #  OK 
+> argy3a <- argvalsy.swap(1:6, seq(0, 1, .2),
++               create.bspline.basis(breaks=c(1, 4, 8))) 
+> 
+> #  Swap (argvals, y) 
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(argy3a,
++ argvalsy.swap(seq(0, 1, .2), 1:6, 
++               create.bspline.basis(breaks=c(1, 4, 8))) )
++ # TRUE with a warning 
++ ## Don't show: 
++ )
+'argvals' is NOT contained in basisobj$rangeval , but 'y' is;  swapping 'argvals' and 'y'.
+> ## End(Don't show)
+> 
+> 
+> ## Not run: 
+> ##D # neither match basisobj:  error  
+> ##D argvalsy.swap(seq(0, 1, .2), 1:6, 
+> ##D               create.bspline.basis(breaks=1:3) ) 
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("arithmetic.fd")
+> ### * arithmetic.fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: arithmetic.fd
+> ### Title: Arithmetic on functional data ('fd') objects
+> ### Aliases: arithmetic.fd +.fd plus.fd -.fd minus.fd *.fd times.fd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ##
+> ## add a parabola to itself
+> ##
+> bspl4 <- create.bspline.basis(nbasis=4)
+> parab4.5 <- fd(c(3, -1, -1, 3)/3, bspl4)
+> 
+> coef2 <- matrix(c(6, -2, -2, 6)/3, 4)
+> dimnames(coef2) <- list(NULL, 'reps 1')
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(coef(parab4.5+parab4.5), coef2)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> ##
+> ## Same example with interior knots at 1/3 and 1/2
+> ##
+> bspl5.3 <- create.bspline.basis(breaks=c(0, 1/3, 1))
+> plot(bspl5.3)
+> x. <- seq(0, 1, .1)
+> para4.5.3 <- smooth.basis(x., 4*(x.-0.5)^2, fdParobj=bspl5.3)[['fd']]
+> plot(para4.5.3)
+[1] "done"
+> 
+> bspl5.2 <- create.bspline.basis(breaks=c(0, 1/2, 1))
+> plot(bspl5.2)
+> para4.5.2 <- smooth.basis(x., 4*(x.-0.5)^2, fdParobj=bspl5.2)[['fd']]
+> plot(para4.5.2)
+[1] "done"
+> 
+> #str(para4.5.3+para4.5.2)
+> 
+> coef2. <- matrix(0, 9, 1)
+> dimnames(coef2.) <- list(NULL, 'rep1')
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(coef(para4.5.3-para4.5.2), coef2.)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> ##
+> ## product
+> ##
+> quart <- para4.5.3*para4.5.2
+> 
+> # interior knots of the sum
+> # = union(interior knots of the summands);
+> # ditto for difference and product.
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(knots(quart), c(knots(para4.5.3), knots(para4.5.2)))
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> # norder(quart) = norder(para4.5.2)+norder(para4.5.3)-1 = 7
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ norder(quart) == (norder(para4.5.2)+norder(para4.5.3)-1)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> # para4.5.2 with knot at 0.5 and para4.5.3 with knot at 1/3
+> # both have (2 end points + 1 interior knot) + norder-2
+> #     = 5 basis functions
+> # quart has (2 end points + 2 interior knots)+norder-2
+> #     = 9 basis functions
+> # coefficients look strange because the knots are at
+> # (1/3, 1/2) and not symmetrical
+> 
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(as.numeric(coef(quart)),
++ 0.1*c(90, 50, 14, -10, 6, -2, -2, 30, 90)/9)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> plot(para4.5.3*para4.5.2) # quartic, not parabolic ...
+[1] "done"
+> 
+> ##
+> ## product with Fourier bases
+> ##
+> f3 <- fd(c(0,0,1), create.fourier.basis())
+> f3^2 # number of basis functions = 7?
+$coefs
+           reps 1
+[1,] 1.000000e+00
+[2,] 1.087629e-16
+[3,] 8.202279e-17
+[4,] 1.256307e-16
+[5,] 7.071068e-01
+
+$basis
+$call
+basisfd(type = type, rangeval = rangeval, nbasis = nbasis, params = params, 
+    dropind = dropind, quadvals = quadvals, values = values, 
+    basisvalues = basisvalues)
+
+$type
+[1] "fourier"
+
+$rangeval
+[1] 0 1
+
+$nbasis
+[1] 5
+
+$params
+[1] 1
+
+$dropind
+numeric(0)
+
+$quadvals
+NULL
+
+$values
+list()
+
+$basisvalues
+list()
+
+$names
+[1] "const" "sin1"  "cos1"  "sin2"  "cos2" 
+
+attr(,"class")
+[1] "basisfd"
+
+$fdnames
+$fdnames$args
+[1] "time"
+
+$fdnames$reps
+[1] "reps 1"
+
+$fdnames$funs
+[1] "values * values"
+
+
+attr(,"class")
+[1] "fd"
+> 
+> ##
+> ## fd+numeric
+> ##
+> coef1 <- matrix(c(6, 2, 2, 6)/3, 4)
+> dimnames(coef1) <- list(NULL, 'reps 1')
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(coef(parab4.5+1), coef1)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(1+parab4.5, parab4.5+1)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> ##
+> ## fd-numeric
+> ##
+> coefneg <- matrix(c(-3, 1, 1, -3)/3, 4)
+> dimnames(coefneg) <- list(NULL, 'reps 1')
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(coef(-parab4.5), coefneg)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> plot(parab4.5-1)
+[1] "done"
+> 
+> plot(1-parab4.5)
+[1] "done"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.POSIXct1970")
+> ### * as.POSIXct1970
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.POSIXct1970
+> ### Title: as.POXIXct for number of seconds since the start of 1970.
+> ### Aliases: as.POSIXct1970
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> sec <- c(0, 1, 60, 3600, 24*3600, 31*24*3600, 365*24*3600)
+> Sec <- as.POSIXct1970(sec)
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(sec, as.numeric(Sec))
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.array3")
+> ### * as.array3
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.array3
+> ### Title: Reshape a vector or array to have 3 dimensions.
+> ### Aliases: as.array3 as.array3
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ##
+> ## vector -> array 
+> ##
+> as.array3(c(a=1, b=2)) 
+, , 1
+
+  [,1]
+a    1
+b    2
+
+> 
+> ##
+> ## matrix -> array 
+> ##
+> as.array3(matrix(1:6, 2))
+, , 1
+
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+
+> as.array3(matrix(1:6, 2, dimnames=list(letters[1:2], LETTERS[3:5]))) 
+, , 1
+
+  C D E
+a 1 3 5
+b 2 4 6
+
+> 
+> ##
+> ## array -> array 
+> ##
+> as.array3(array(1:6, 1:3)) 
+, , 1
+
+     [,1] [,2]
+[1,]    1    2
+
+, , 2
+
+     [,1] [,2]
+[1,]    3    4
+
+, , 3
+
+     [,1] [,2]
+[1,]    5    6
+
+> 
+> ##
+> ## 4-d array 
+> ##
+> ## Not run: 
+> ##D as.array3(array(1:24, 1:4)) 
+> ##D Error in as.array3(array(1:24, 1:4)) : 
+> ##D   length(dim(array(1:24, 1:4)) = 4 > 3
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.fd")
+> ### * as.fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.fd
+> ### Title: Convert a spline object to class 'fd'
+> ### Aliases: as.fd as.fd.fdSmooth as.fd.function as.fd.smooth.spline
+> ### Keywords: smooth manip
+> 
+> ### ** Examples
+> 
+> ##
+> ## as.fd.fdSmooth
+> ##
+> girlGrowthSm <- with(growth, smooth.basisPar(argvals=age, y=hgtf,
++                                              lambda=0.1))
+> girlGrowth.fd <- as.fd(girlGrowthSm)
+> 
+> ##
+> ## as.fd.function(splinefun(...), ...)
+> ##
+> x2 <- 1:7
+> y2 <- sin((x2-0.5)*pi)
+> f <- splinefun(x2, y2)
+> fd. <- as.fd(f)
+> x. <- seq(1, 7, .02)
+> fx. <- f(x.)
+> fdx. <- eval.fd(x., fd.)
+> 
+> # range(y2, fx., fdx.) generates an error 2012.04.22
+> 
+> rfdx <- range(fdx.)
+> 
+> plot(range(x2), range(y2, fx., rfdx), type='n')
+> points(x2, y2)
+> lines(x., sin((x.-0.5)*pi), lty='dashed')
+> lines(x., f(x.), col='blue')
+> lines(x., eval.fd(x., fd.), col='red', lwd=3, lty='dashed')
+> # splinefun and as.fd(splineful(...)) are close
+> # but quite different from the actual function
+> # apart from the actual 7 points fitted,
+> # which are fitted exactly
+> # ... and there is no information in the data
+> # to support a better fit!
+> 
+> # Translate also a natural spline
+> fn <- splinefun(x2, y2, method='natural')
+> fn. <- as.fd(fn)
+> lines(x., fn(x.), lty='dotted', col='blue')
+> lines(x., eval.fd(x., fn.), col='green', lty='dotted', lwd=3)
+> 
+> ## Not run: 
+> ##D # Will NOT translate a periodic spline
+> ##D fp <- splinefun(x, y, method='periodic')
+> ##D as.fd(fp)
+> ##D #Error in as.fd.function(fp) :
+> ##D #  x (fp)  uses periodic B-splines, and as.fd is programmed
+> ##D #   to translate only B-splines with coincident boundary knots.
+> ##D 
+> ## End(Not run)
+> 
+> ##
+> ## as.fd.smooth.spline
+> ##
+> cars.spl <- with(cars, smooth.spline(speed, dist))
+> cars.fd <- as.fd(cars.spl)
+> 
+> plot(dist~speed, cars)
+> lines(cars.spl)
+> sp. <- with(cars, seq(min(speed), max(speed), len=101))
+> d. <- eval.fd(sp., cars.fd)
+> lines(sp., d., lty=2, col='red', lwd=3)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("axisIntervals")
+> ### * axisIntervals
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: axisIntervals
+> ### Title: Mark Intervals on a Plot Axis
+> ### Aliases: axisIntervals axesIntervals
+> ### Keywords: smooth hplot
+> 
+> ### ** Examples
+> 
+> daybasis65 <- create.fourier.basis(c(0, 365), 65)
+> 
+> daytempfd <- with(CanadianWeather, smooth.basis(
++        day.5,  dailyAv[,,"Temperature.C"], 
++        daybasis65, fdnames=list("Day", "Station", "Deg C"))$fd )
+> 
+> with(CanadianWeather, plotfit.fd(
++       dailyAv[,,"Temperature.C"], argvals=day.5,
++           daytempfd, index=1, titles=place, axes=FALSE) )
+> # Label the horizontal axis with the month names
+> axisIntervals(1)
+> axis(2)
+> # Depending on the physical size of the plot,
+> # axis labels may not all print.
+> # In that case, there are 2 options:
+> # (1) reduce 'cex.lab'.
+> # (2) Use different labels as illustrated by adding
+> #     such an axis to the top of this plot
+> 
+> with(CanadianWeather, plotfit.fd(
++       dailyAv[,,"Temperature.C"], argvals=day.5,
++           daytempfd, index=1, titles=place, axes=FALSE) )
+> # Label the horizontal axis with the month names
+> axesIntervals()
+> 
+> axisIntervals(3, labels=monthLetters, cex.lab=1.2, line=-0.5)
+> # 'line' argument here is passed to 'axis' via '...'
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("basisfd.product")
+> ### * basisfd.product
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: basisfd.product
+> ### Title: Product of two basisfd objects
+> ### Aliases: basisfd.product *.basisfd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+>   f1 <- create.fourier.basis()
+>   f1.2 <- f1*f1
+>   ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++   all.equal(f1.2, create.fourier.basis(nbasis=5))
++   ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bifd")
+> ### * bifd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bifd
+> ### Title: Create a bivariate functional data object
+> ### Aliases: bifd
+> ### Keywords: attribute
+> 
+> ### ** Examples
+> 
+> Bspl2 <- create.bspline.basis(nbasis=2, norder=1)
+> Bspl3 <- create.bspline.basis(nbasis=3, norder=2)
+> 
+> (bBspl2.3 <- bifd(array(1:6, dim=2:3), Bspl2, Bspl3))
+$coefs
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+
+$sbasis
+$call
+basisfd(type = type, rangeval = rangeval, nbasis = nbasis, params = params, 
+    dropind = dropind, quadvals = quadvals, values = values, 
+    basisvalues = basisvalues)
+
+$type
+[1] "bspline"
+
+$rangeval
+[1] 0 1
+
+$nbasis
+[1] 2
+
+$params
+[1] 0.5
+
+$dropind
+NULL
+
+$quadvals
+NULL
+
+$values
+list()
+
+$basisvalues
+list()
+
+$names
+[1] "bspl1.1" "bspl1.2"
+
+attr(,"class")
+[1] "basisfd"
+
+$tbasis
+$call
+basisfd(type = type, rangeval = rangeval, nbasis = nbasis, params = params, 
+    dropind = dropind, quadvals = quadvals, values = values, 
+    basisvalues = basisvalues)
+
+$type
+[1] "bspline"
+
+$rangeval
+[1] 0 1
+
+$nbasis
+[1] 3
+
+$params
+[1] 0.5
+
+$dropind
+NULL
+
+$quadvals
+NULL
+
+$values
+list()
+
+$basisvalues
+list()
+
+$names
+[1] "bspl2.1" "bspl2.2" "bspl2.3"
+
+attr(,"class")
+[1] "basisfd"
+
+$bifdnames
+$bifdnames$args
+[1] "time"
+
+$bifdnames$reps
+[1] "reps 1"
+
+$bifdnames$funs
+[1] "values"
+
+
+attr(,"class")
+[1] "bifd"
+> str(bBspl2.3)
+List of 4
+ $ coefs    : int [1:2, 1:3] 1 2 3 4 5 6
+ $ sbasis   :List of 10
+  ..$ call       : language basisfd(type = type, rangeval = rangeval, nbasis = nbasis, params = params,      dropind = dropind, quadvals = qu| __truncated__
+  ..$ type       : chr "bspline"
+  ..$ rangeval   : int [1:2] 0 1
+  ..$ nbasis     : num 2
+  ..$ params     : num 0.5
+  ..$ dropind    : NULL
+  ..$ quadvals   : NULL
+  ..$ values     : list()
+  ..$ basisvalues: list()
+  ..$ names      : chr [1:2] "bspl1.1" "bspl1.2"
+  ..- attr(*, "class")= chr "basisfd"
+ $ tbasis   :List of 10
+  ..$ call       : language basisfd(type = type, rangeval = rangeval, nbasis = nbasis, params = params,      dropind = dropind, quadvals = qu| __truncated__
+  ..$ type       : chr "bspline"
+  ..$ rangeval   : int [1:2] 0 1
+  ..$ nbasis     : num 3
+  ..$ params     : num 0.5
+  ..$ dropind    : NULL
+  ..$ quadvals   : NULL
+  ..$ values     : list()
+  ..$ basisvalues: list()
+  ..$ names      : chr [1:3] "bspl2.1" "bspl2.2" "bspl2.3"
+  ..- attr(*, "class")= chr "basisfd"
+ $ bifdnames:List of 3
+  ..$ args: chr "time"
+  ..$ reps: chr "reps 1"
+  ..$ funs: chr "values"
+ - attr(*, "class")= chr "bifd"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bifdPar")
+> ### * bifdPar
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bifdPar
+> ### Title: Define a Bivariate Functional Parameter Object
+> ### Aliases: bifdPar
+> ### Keywords: bivariate smooth
+> 
+> ### ** Examples
+> 
+> #See the prediction of precipitation using temperature as
+> #the independent variable in the analysis of the daily weather
+> #data, and the analysis of the Swedish mortality data.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bsplineS")
+> ### * bsplineS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bsplineS
+> ### Title: B-spline Basis Function Values
+> ### Aliases: bsplineS
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> # Minimal example:  A B-spline of order 1 (i.e., a step function)
+> # with 0 interior knots:
+> bS <- bsplineS(seq(0, 1, .2), 0:1, 1, 0)
+> 
+> # check
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(bS, matrix(1, 6))
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> #  set up break values at 0.0, 0.2,..., 0.8, 1.0.
+> breaks <- seq(0,1,0.2)
+> #  set up a set of 11 argument values
+> x <- seq(0,1,0.1)
+> #  the order willl be 4, and the number of basis functions
+> #  is equal to the number of interior break values (4 here)
+> #  plus the order, for a total here of 8.
+> norder <- 4
+> #  compute the 11 by 8 matrix of basis function values
+> basismat <- bsplineS(x, breaks, norder)
+> 
+> # use sparse Matrix representation to save memory
+> Basismat <- bsplineS(x, breaks, norder, returnMatrix=TRUE)
+> 
+> # check
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ class(Basismat)=='dgCMatrix'
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(basismat, as.matrix(Basismat))
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bsplinepen")
+> ### * bsplinepen
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bsplinepen
+> ### Title: B-Spline Penalty Matrix
+> ### Aliases: bsplinepen
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ##
+> ## bsplinepen with only one basis function
+> ##
+> bspl1.1 <- create.bspline.basis(nbasis=1, norder=1)
+> pen1.1 <- bsplinepen(bspl1.1, 0)
+> 
+> ##
+> ## bspline pen for a cubic spline with knots at seq(0, 1, .1)
+> ##
+> basisobj <- create.bspline.basis(c(0,1),13)
+> #  compute the 13 by 13 matrix of inner products of second derivatives
+> penmat <- bsplinepen(basisobj)
+> 
+> ##
+> ## with rng of class Date or POSIXct
+> ##
+> # Date
+> invasion1 <- as.Date('1775-09-04')
+> invasion2 <- as.Date('1812-07-12')
+> earlyUS.Canada <- c(invasion1, invasion2)
+> BspInvade1 <- create.bspline.basis(earlyUS.Canada)
+> Binvadmat <- bsplinepen(BspInvade1)
+> 
+> # POSIXct
+> AmRev.ct <- as.POSIXct1970(c('1776-07-04', '1789-04-30'))
+> BspRev1.ct <- create.bspline.basis(AmRev.ct)
+> Brevmat <- bsplinepen(BspRev1.ct)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cca.fd")
+> ### * cca.fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cca.fd
+> ### Title: Functional Canonical Correlation Analysis
+> ### Aliases: cca.fd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> #  Canonical correlation analysis of knee-hip curves
+> 
+> gaittime  <- (1:20)/21
+> gaitrange <- c(0,1)
+> gaitbasis <- create.fourier.basis(gaitrange,21)
+> lambda    <- 10^(-11.5)
+> harmaccelLfd <- vec2Lfd(c(0, 0, (2*pi)^2, 0))
+> 
+> gaitfdPar <- fdPar(gaitbasis, harmaccelLfd, lambda)
+> gaitfd <- smooth.basis(gaittime, gait, gaitfdPar)$fd
+> 
+> ccafdPar <- fdPar(gaitfd, harmaccelLfd, 1e-8)
+> ccafd0    <- cca.fd(gaitfd[,1], gaitfd[,2], ncan=3, ccafdPar, ccafdPar)
+> #  display the canonical correlations
+> round(ccafd0$ccacorr[1:6],3)
+[1] 0.888 0.778 0.377 0.219 0.132 0.003
+> #  compute a VARIMAX rotation of the canonical variables
+> ccafd <- varmx.cca.fd(ccafd0)
+> #  plot the canonical weight functions
+> plot.cca.fd(ccafd)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("center.fd")
+> ### * center.fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: center.fd
+> ### Title: Center Functional Data
+> ### Aliases: center.fd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> daytime    <- (1:365)-0.5
+> daybasis   <- create.fourier.basis(c(0,365), 365)
+> harmLcoef  <- c(0,(2*pi/365)^2,0)
+> harmLfd    <- vec2Lfd(harmLcoef, c(0,365))
+> templambda <- 0.01
+> tempfdPar  <- fdPar(daybasis, harmLfd, templambda)
+> 
+> # do not run on CRAN because it takes too long.
+> if(!CRAN()){
++ tempfd     <- smooth.basis(daytime,
++        CanadianWeather$dailyAv[,,"Temperature.C"], tempfdPar)$fd
++ 
++ tempctrfd  <- center.fd(tempfd)
++ 
++ plot(tempctrfd, xlab="Day", ylab="deg. C",
++      main = "Centered temperature curves")
++ }
+> 
+> 
+> 
+> cleanEx()
+> nameEx("checkDims3")
+> ### * checkDims3
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: checkDims3
+> ### Title: Compare dimensions and dimnames of arrays
+> ### Aliases: checkDim3 checkDims3
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> # Select the first two rows of y
+> stopifnot(all.equal(
++ checkDim3(1:2, 3:5),
++ list(x=array(1:2, c(2,1,1), list(c('x1','x2'), NULL, NULL)),
++      y=array(3:4, c(2,1,1), list(c('x1','x2'), NULL, NULL)) )
++ ))
+> 
+> # Select the first two rows of a matrix y
+> stopifnot(all.equal(
++ checkDim3(1:2, matrix(3:8, 3)),
++ list(x=array(1:2,         c(2,1,1), list(c('x1','x2'), NULL, NULL)),
++      y=array(c(3:4, 6:7), c(2,2,1), list(c('x1','x2'), NULL, NULL)) )
++ ))
+> 
+> # Select the first column of y
+> stopifnot(all.equal(
++ checkDim3(1:2, matrix(3:8, 3), 2, 2),
++ list(x=array(1:2,         c(2,1,1), list(NULL, 'x', NULL)),
++      y=array(3:5, c(3,1,1), list(NULL, 'x', NULL)) )
++ ))
+> 
+> # Select the first two rows and the first column of y
+> stopifnot(all.equal(
++ checkDims3(1:2, matrix(3:8, 3), 1:2, 1:2),
++ list(x=array(1:2, c(2,1,1), list(c('x1','x2'), 'x', NULL)),
++      y=array(3:4, c(2,1,1), list(c('x1','x2'), 'x', NULL)) )
++ ))
+> 
+> # Select the first 2 rows of y
+> x1 <- matrix(1:4, 2, dimnames=list(NULL, LETTERS[2:3]))
+> x1a <- x1. <- as.array3(x1)
+> dimnames(x1a)[[1]] <- c('x1', 'x2')
+> y1 <- matrix(11:19, 3, dimnames=list(NULL, LETTERS[1:3]))
+> y1a <- y1. <- as.array3(y1)
+> dimnames(y1a)[[1]] <- c('x1', 'x2', 'x3')
+> 
+> stopifnot(all.equal(
++ checkDim3(x1, y1),
++ list(x=x1a, y=y1a[1:2, , , drop=FALSE])
++ ))
+> 
+> # Select columns 2 & 3 of y
+> stopifnot(all.equal(
++ checkDim3(x1, y1, 2, 2),
++ list(x=x1., y=y1.[, 2:3, , drop=FALSE ])
++ ))
+> 
+> # Select the first 2 rows and  columns 2 & 3 of y
+> stopifnot(all.equal(
++ checkDims3(x1, y1, 1:2, 1:2),
++ list(x=x1a, y=y1a[1:2, 2:3, , drop=FALSE ])
++ ))
+> 
+> # y = columns 2 and 3 of x
+> x23 <- matrix(1:6, 2, dimnames=list(letters[2:3], letters[1:3]))
+> x23. <- as.array3(x23)
+> stopifnot(all.equal(
++ checkDim3(x23, xdim=1, ydim=2),
++ list(x=x23., y=x23.[, 2:3,, drop=FALSE ])
++ ))
+> 
+> # Transfer dimnames from y to x
+> x4a <- x4 <- matrix(1:4, 2)
+> y4 <- matrix(5:8, 2, dimnames=list(letters[1:2], letters[3:4]))
+> dimnames(x4a) <- dimnames(t(y4))
+> stopifnot(all.equal(
++ checkDims3(x4, y4, 1:2, 2:1),
++ list(x=as.array3(x4a), y=as.array3(y4))
++ ))
+> 
+> # as used in plotfit.fd
+> daybasis65 <- create.fourier.basis(c(0, 365), 65)
+> 
+> daytempfd <- with(CanadianWeather, smooth.basis(
++        day.5, dailyAv[,,"Temperature.C"], 
++        daybasis65, fdnames=list("Day", "Station", "Deg C"))$fd )
+> 
+> defaultNms <- with(daytempfd, c(fdnames[2], fdnames[3], x='x'))
+> subset <- checkDims3(CanadianWeather$dailyAv[, , "Temperature.C"],
++                daytempfd$coef, defaultNames=defaultNms)
+> # Problem:  dimnames(...)[[3]] = '1'
+> # Fix:
+> subset3 <- checkDims3(
++         CanadianWeather$dailyAv[, , "Temperature.C", drop=FALSE],
++                daytempfd$coef, defaultNames=defaultNms)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("checkLogicalInteger")
+> ### * checkLogicalInteger
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: checkLogicalInteger
+> ### Title: Does an argument satisfy required conditions?
+> ### Aliases: checkLogical checkNumeric checkLogicalInteger
+> ### Keywords: attribute utilities
+> 
+> ### ** Examples
+> 
+> ##
+> ## checkLogical
+> ##
+> checkLogical(NULL, length=3, warnOnly=TRUE)
+Warning: In checkLogical:  is.null(NULL)
+Warning: In checkLogical:  class(NULL) = NULL;  should be 'logical'
+Warning: In checkLogical:  length(NULL) = 0 !=  required length = 3
+[1] FALSE
+> checkLogical(c(FALSE, TRUE, TRUE), length=4, warnOnly=TRUE)
+Warning: In checkLogical:  length(c(FALSE, TRUE, TRUE)) = 3 !=  required length = 4
+[1] FALSE
+> checkLogical(c(FALSE, TRUE, TRUE), length=3)
+[1] TRUE
+> 
+> ##
+> ## checkNumeric
+> ##
+> checkNumeric(NULL, lower=1, upper=3)
+[1] TRUE
+> checkNumeric(1:3, 1, 3)
+[1] 1 2 3
+> checkNumeric(1:3, 1, 3, inclusion=FALSE, warnOnly=TRUE)
+Warning: In checkNumeric:  One low value:  1:3[1] = 1
+Warning: In checkNumeric:  One high value:  1:3[3] = 3
+[1] 1 2 3
+> checkNumeric(pi, 1, 4, integer=TRUE, warnOnly=TRUE)
+Warning: In checkNumeric:  One non-integer value:  pi[1] = 3.14159265358979
+[1] 3.141593
+> checkNumeric(c(1, 1), 1, 4, warnOnly=TRUE)
+Warning: In checkNumeric:  One repeated value in c(1, 1):  1
+[1] 1
+> checkNumeric(c(1, 1), 1, 4, unique=FALSE, warnOnly=TRUE)
+Warning: In checkNumeric:  One repeated value in c(1, 1):  1
+[1] 1
+> 
+> ##
+> ## checkLogicalInteger
+> ##
+> checkLogicalInteger(NULL, 3)
+[1] TRUE TRUE TRUE
+> checkLogicalInteger(c(FALSE, TRUE), warnOnly=TRUE) 
+[1] FALSE  TRUE
+> checkLogicalInteger(1:2, 3) 
+[1]  TRUE  TRUE FALSE
+> checkLogicalInteger(2, warnOnly=TRUE) 
+Warning: In checkLogicalInteger:  argument 'length.' is missing;  setting to max(x)
+[1] FALSE  TRUE
+> checkLogicalInteger(c(2, 4), 3, warnOnly=TRUE)
+Warning: In checkLogicalInteger:  One high value:  c(2, 4)[2] = 4
+[1] FALSE  TRUE FALSE  TRUE
+> 
+> ##
+> ## checkLogicalInteger names its calling function 
+> ## rather than itself as the location of error detection
+> ## if possible
+> ##
+> tstFun <- function(x, length., warnOnly=FALSE){
++    checkLogicalInteger(x, length., warnOnly) 
++ }
+> tstFun(NULL, 3)
+[1] TRUE TRUE TRUE
+> tstFun(4, 3, warnOnly=TRUE)
+Warning: In tstFun:  One high value:  x[1] = 4
+[1] FALSE FALSE FALSE  TRUE
+> 
+> tstFun2 <- function(x, length., warnOnly=FALSE){
++    tstFun(x, length., warnOnly)
++ }
+> tstFun2(4, 3, warnOnly=TRUE)
+Warning: In tstFun:  One high value:  x[1] = 4
+[1] FALSE FALSE FALSE  TRUE
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coef")
+> ### * coef
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coef.fd
+> ### Title: Extract functional coefficients
+> ### Aliases: coef.fd coef.fdPar coef.fdSmooth coef.Taylor coefficients.fd
+> ###   coefficients.fdPar coefficients.fdSmooth coefficients.Taylor
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> ##
+> ## coef.fd
+> ##
+> bspl1.1 <- create.bspline.basis(norder=1, breaks=0:1)
+> fd.bspl1.1 <- fd(0, basisobj=bspl1.1)
+> coef(fd.bspl1.1)
+     reps 1
+time      0
+> ## Don't show: 
+> stopifnot(all.equal(coef(fd.bspl1.1), coefficients(fd.bspl1.1)))
+> ## End(Don't show)
+> 
+> ##
+> ## coef.fdPar 
+> ##
+> rangeval <- c(-3,3)
+> #  set up some standard normal data
+> x <- rnorm(50)
+> #  make sure values within the range
+> x[x < -3] <- -2.99
+> x[x >  3] <-  2.99
+> #  set up basis for W(x)
+> basisobj <- create.bspline.basis(rangeval, 11)
+> #  set up initial value for Wfdobj
+> Wfd0 <- fd(matrix(0,11,1), basisobj)
+> WfdParobj <- fdPar(Wfd0)
+> 
+> coef(WfdParobj)
+      reps 1
+ [1,]      0
+ [2,]      0
+ [3,]      0
+ [4,]      0
+ [5,]      0
+ [6,]      0
+ [7,]      0
+ [8,]      0
+ [9,]      0
+[10,]      0
+[11,]      0
+> ## Don't show: 
+> stopifnot(all.equal(coef(WfdParobj), coefficients(WfdParobj)))
+> ## End(Don't show)
+> 
+> ##
+> ## coef.fdSmooth
+> ##
+> 
+> girlGrowthSm <- with(growth, smooth.basisPar(argvals=age, y=hgtf, 
++                                              lambda=0.1)$fd)
+> coef(girlGrowthSm)
+            girl01    girl02    girl03    girl04    girl05    girl06    girl07
+bspl4.1   77.06939  75.06050  78.93690  77.72843  76.70607  74.28170  68.31554
+bspl4.2   78.05326  76.29975  79.91748  78.73865  77.76338  75.33817  69.56219
+bspl4.3   80.02099  78.77826  81.87864  80.75909  79.87800  77.45110  72.05548
+bspl4.4   82.83676  82.42405  84.70525  83.78531  82.93961  80.49837  75.65237
+bspl4.5   85.44360  85.80622  87.29228  86.76227  85.80250  83.23404  79.00508
+bspl4.6   90.24890  91.54112  91.96794  92.37897  90.98332  88.03257  85.11001
+bspl4.7   96.30132  95.78237  97.80098  98.95582  96.44222  93.25003  92.11647
+bspl4.8  103.90786 102.09308 108.89708 106.50615 103.07996  99.72039  99.63333
+bspl4.9  110.81191 109.10228 116.60797 114.03482 110.01484 106.75305 105.96584
+bspl4.10 116.86654 115.75784 122.90088 120.71352 116.88993 113.25545 112.39533
+bspl4.11 122.22148 122.57420 128.02665 125.78237 123.29958 118.48833 117.38312
+bspl4.12 126.64287 127.27857 133.14825 130.15486 129.47871 123.30959 121.93059
+bspl4.13 130.41420 131.39546 137.86586 134.07562 133.32439 127.45181 125.45203
+bspl4.14 133.16799 134.72301 141.51762 137.09813 136.07395 130.49216 127.94553
+bspl4.15 135.90307 137.93435 145.23033 140.08656 138.72550 133.45633 130.29281
+bspl4.16 138.96936 140.79380 148.91668 142.93434 141.24369 136.48512 132.59381
+bspl4.17 142.64392 143.47108 152.45693 145.70598 143.96409 139.88544 134.96707
+bspl4.18 146.61539 146.30659 155.61595 148.56394 146.87554 143.78043 137.39884
+bspl4.19 150.20568 149.51890 158.04184 151.64522 149.97195 147.95834 139.77933
+bspl4.20 153.04684 152.98989 159.51554 154.96035 153.36426 152.04798 142.01086
+bspl4.21 155.04491 156.39887 160.21404 158.28965 157.13684 155.74857 144.17766
+bspl4.22 156.34802 159.32574 160.58138 161.21004 160.83951 158.78046 146.48885
+bspl4.23 157.19296 161.45223 160.98809 163.52155 163.86559 160.94258 149.15137
+bspl4.24 157.72693 162.84464 161.44474 165.13852 165.94998 162.36446 152.18793
+bspl4.25 158.04574 163.90691 161.71639 166.09304 167.19179 163.27667 155.22910
+bspl4.26 158.25634 164.80596 161.80070 166.63204 167.92818 163.81036 157.91958
+bspl4.27 158.43106 165.35910 161.83891 166.97275 168.36186 164.07969 160.06574
+bspl4.28 158.57927 165.69824 161.85595 167.20864 168.84839 164.24096 161.56288
+bspl4.29 158.67706 165.92598 161.83255 167.36408 169.27997 164.37339 162.48435
+bspl4.30 158.73692 166.04535 161.81292 167.46942 169.74977 164.51098 163.06982
+bspl4.31 158.80790 166.04949 161.92481 167.61034 169.99304 164.71993 163.52353
+bspl4.32 158.86305 166.03239 162.05989 167.72234 170.06770 164.84853 163.83443
+bspl4.33 158.89062 166.02383 162.12743 167.77834 170.10503 164.91283 163.98989
+            girl08    girl09    girl10    girl11    girl12    girl13    girl14
+bspl4.1   81.24728  77.57188  74.82784  71.14899  72.31992  68.91027  77.21031
+bspl4.2   82.63552  78.52727  75.91585  72.65345  73.26212  70.10261  78.27550
+bspl4.3   85.41202  80.43803  78.09188  75.66237  75.14652  72.48728  80.40589
+bspl4.4   89.46000  83.21483  81.33595  79.88685  77.98564  75.81269  83.52174
+bspl4.5   93.22874  85.85617  84.51060  83.60942  80.85781  78.83093  86.41677
+bspl4.6   99.97235  90.84067  90.61460  89.90501  86.64962  84.27898  91.58150
+bspl4.7  106.85776  96.82589  98.81445  95.52972  95.25581  90.59713  96.80490
+bspl4.8  114.70110 104.28555 107.98493 103.35899 102.82330  96.93864 104.43000
+bspl4.9  123.41187 111.49465 116.46321 110.14751 109.70410 102.56960 111.61024
+bspl4.10 130.73793 118.28535 124.62410 116.66952 116.03048 108.65996 118.68161
+bspl4.11 137.61631 124.24069 130.73926 122.66829 121.81774 113.91797 125.05921
+bspl4.12 143.22844 128.60889 135.33060 127.16469 126.69875 118.01929 129.59176
+bspl4.13 148.33644 132.19874 139.22931 130.58143 130.29608 121.07057 133.11219
+bspl4.14 152.45293 135.15891 142.24317 133.20429 132.91415 123.27505 135.83681
+bspl4.15 156.85125 138.30280 145.39352 135.79859 135.29764 125.48076 138.62500
+bspl4.16 161.52784 141.55943 148.76961 138.27607 137.57309 127.67880 141.39681
+bspl4.17 166.10712 145.08082 152.54678 140.57457 140.14251 129.76096 144.04441
+bspl4.18 170.19898 148.88956 156.72979 142.57412 143.25529 131.66963 146.48986
+bspl4.19 173.50597 152.72233 160.93038 144.37382 146.86950 133.55716 148.89183
+bspl4.20 175.89542 156.32386 164.59439 146.27176 150.64461 135.49329 151.55569
+bspl4.21 177.41835 159.33414 167.36648 148.57828 154.11973 137.46614 154.61750
+bspl4.22 178.43701 161.36153 169.20914 151.42890 156.96567 139.58962 157.93576
+bspl4.23 179.27078 162.55147 170.44538 154.74792 159.08468 142.11355 161.29369
+bspl4.24 180.10632 163.27194 171.38812 158.20096 160.57336 145.09229 164.29655
+bspl4.25 180.91641 163.79941 172.10471 161.24080 161.55376 148.09353 166.50645
+bspl4.26 181.54626 164.23563 172.59944 163.53012 162.16216 150.56491 167.90500
+bspl4.27 181.98311 164.45209 172.91696 165.08696 162.54511 152.19753 168.75980
+bspl4.28 182.32160 164.44651 173.13953 166.04432 162.81842 153.15109 169.32047
+bspl4.29 182.57294 164.32279 173.34798 166.55137 163.06438 153.72985 169.69815
+bspl4.30 182.73953 164.15127 173.57669 166.79572 163.22292 154.12728 169.89152
+bspl4.31 182.87524 163.98379 173.79580 166.95550 163.17175 154.41234 170.06497
+bspl4.32 183.03573 163.86609 173.93635 167.05636 163.09298 154.56631 170.20341
+bspl4.33 183.11598 163.80725 174.00663 167.10679 163.05359 154.64329 170.27263
+            girl15    girl16    girl17    girl18    girl19    girl20    girl21
+bspl4.1   74.50938  72.53588  70.30830  77.63275  74.31787  75.87592  74.81307
+bspl4.2   75.89760  73.62034  71.95899  79.15488  75.30020  77.09428  75.86430
+bspl4.3   78.67404  75.78925  75.26036  82.19915  77.26486  79.53099  77.96676
+bspl4.4   82.57162  78.95890  79.91425  86.51044  80.11531  82.84607  81.05592
+bspl4.5   85.86791  81.82432  83.93887  90.30264  82.92130  85.76644  83.94474
+bspl4.6   91.12966  86.84690  90.53325  96.65721  88.48357  91.02696  89.19934
+bspl4.7   95.00756  92.56309  95.61829 101.91303  95.71283  96.80216  95.36271
+bspl4.8   99.84447  98.50821 102.39215 108.81494 102.28124 106.00620 103.64827
+bspl4.9  107.05940 105.14131 109.23503 116.67353 110.07474 113.20317 111.99558
+bspl4.10 119.95590 110.59812 116.18560 124.80745 117.53478 119.16535 119.81302
+bspl4.11 127.77428 115.56178 122.75281 132.34116 122.91113 124.69132 127.43626
+bspl4.12 132.67850 118.89040 128.14920 137.32767 127.63405 129.65953 132.40139
+bspl4.13 136.44733 121.82940 132.37869 141.15286 131.44706 133.96824 136.51176
+bspl4.14 139.38990 124.05171 135.74744 144.00460 134.43371 137.31522 139.60574
+bspl4.15 142.55836 126.25655 139.53894 146.96653 137.82151 140.74165 142.76097
+bspl4.16 146.15318 128.59740 143.70695 150.26229 142.00903 144.05097 146.25756
+bspl4.17 150.21306 131.25374 147.95308 153.83780 146.95134 147.26892 150.22832
+bspl4.18 154.48836 134.21753 151.82900 157.50284 151.93497 150.62660 154.38528
+bspl4.19 158.66820 137.34955 154.89716 161.12631 156.17367 154.36484 158.49131
+bspl4.20 162.22616 140.57858 156.97701 164.33219 159.24266 158.11192 162.33829
+bspl4.21 164.68012 143.75127 158.22250 166.67361 161.11876 161.28824 165.53293
+bspl4.22 166.24529 146.62781 158.99010 168.09353 162.22399 163.79322 167.89501
+bspl4.23 167.34686 148.84096 159.45773 168.88488 162.99254 165.55584 169.37655
+bspl4.24 168.20002 150.37695 159.75317 169.35462 163.64872 166.79321 170.11929
+bspl4.25 168.76313 151.56187 159.96793 169.64563 164.19962 167.63706 170.44818
+bspl4.26 169.17995 152.57379 160.14384 169.86972 164.61333 168.30960 170.75031
+bspl4.27 169.54580 153.42445 160.24592 170.09563 164.88700 168.89740 171.10808
+bspl4.28 169.86669 154.19197 160.32478 170.30456 165.03030 169.36769 171.40443
+bspl4.29 170.10077 154.94125 160.37847 170.48672 165.09630 169.59041 171.52501
+bspl4.30 170.26589 155.62598 160.37930 170.63221 165.11631 169.65247 171.51152
+bspl4.31 170.39330 156.16179 160.33751 170.75536 165.13587 169.68627 171.40235
+bspl4.32 170.50761 156.44581 160.31123 170.80838 165.16541 169.73841 171.29506
+bspl4.33 170.56476 156.58782 160.29810 170.83489 165.18019 169.76447 171.24141
+            girl22    girl23    girl24    girl25    girl26    girl27    girl28
+bspl4.1   75.23237  73.18703  73.62171  76.35170  71.22546  75.35829  72.44833
+bspl4.2   76.19204  74.36315  74.67693  77.50877  72.21357  76.47768  73.96515
+bspl4.3   78.11138  76.71539  76.78737  79.82293  74.18979  78.71645  76.99881
+bspl4.4   80.93846  80.05828  79.79339  83.11421  77.10327  81.95613  81.33862
+bspl4.5   83.61437  83.09515  82.48625  86.10918  79.93359  85.06873  85.30963
+bspl4.6   88.55500  88.50098  87.14451  91.50358  85.27283  91.04294  92.32991
+bspl4.7   94.15621  94.31801  91.58053  97.74971  91.60426  98.19840  99.02652
+bspl4.8   99.03438 100.53092  96.97245 103.79709  96.77832 105.35192 106.21087
+bspl4.9  107.34778 107.93835 105.82777 110.52415 102.39911 113.57816 112.72738
+bspl4.10 115.05261 114.97787 114.63581 117.78767 108.65339 121.02985 118.65699
+bspl4.11 122.64153 121.31671 118.68696 126.30883 114.68102 126.36909 123.78503
+bspl4.12 127.33554 126.06212 122.14922 131.74816 119.50157 130.62832 127.84985
+bspl4.13 131.11499 129.51786 125.87993 136.09434 123.02571 134.20848 131.03567
+bspl4.14 134.23426 132.06266 128.68323 139.30642 125.50633 136.87949 133.35578
+bspl4.15 137.70772 134.79624 131.29063 142.44302 127.82984 139.42826 135.66525
+bspl4.16 141.48825 137.96169 133.93770 145.60890 130.15143 142.04775 138.33018
+bspl4.17 145.58011 141.71687 136.86347 148.84896 132.71439 145.00587 141.81105
+bspl4.18 149.81238 145.89463 140.20180 152.18150 135.64743 148.31528 145.98565
+bspl4.19 153.75974 150.09370 143.79623 155.54438 139.10919 151.90813 150.57341
+bspl4.20 156.91576 153.79012 147.30973 158.89225 142.96386 155.38841 154.97561
+bspl4.21 159.11419 156.69747 150.42681 162.37741 146.73230 158.24839 158.54045
+bspl4.22 160.49360 158.70611 152.90245 166.25822 149.87352 160.37409 161.07107
+bspl4.23 161.34544 159.89679 154.59171 170.36389 152.18680 161.86898 162.78550
+bspl4.24 161.95407 160.63802 155.63544 174.15399 153.80204 162.87535 163.98296
+bspl4.25 162.47272 161.14595 156.19434 177.07395 155.01105 163.55105 164.83853
+bspl4.26 162.88078 161.51283 156.48579 178.93302 155.93773 164.02862 165.49479
+bspl4.27 163.08981 161.80287 156.66498 179.91904 156.62601 164.41810 165.96268
+bspl4.28 163.20182 162.08021 156.80327 180.36043 157.12228 164.81207 166.29889
+bspl4.29 163.35179 162.28309 156.89929 180.42529 157.48047 165.15457 166.50920
+bspl4.30 163.53954 162.38998 156.95639 180.40962 157.75540 165.38526 166.62700
+bspl4.31 163.69224 162.42049 156.98694 180.59461 158.04362 165.52388 166.69343
+bspl4.32 163.77740 162.42194 157.03787 180.83660 158.26102 165.59315 166.71554
+bspl4.33 163.81998 162.42267 157.06333 180.95760 158.36971 165.62778 166.72660
+            girl29    girl30    girl31    girl32    girl33    girl34    girl35
+bspl4.1   70.56718  74.62945  79.21214  69.29372  73.80780  73.66986  76.15122
+bspl4.2   71.38489  75.86575  80.03718  70.58160  75.30642  74.94899  77.08619
+bspl4.3   73.02032  78.33836  81.68726  73.15736  78.30367  77.50726  78.95613
+bspl4.4   75.54110  81.94892  84.08236  76.97511  82.62645  81.17749  81.62804
+bspl4.5   78.08282  85.24998  86.36836  80.66205  86.60698  84.50098  84.15363
+bspl4.6   82.91335  90.93657  90.76898  87.52535  93.49227  90.30795  89.00943
+bspl4.7   88.50162  96.12419  96.95652  95.18344  99.11884  96.21997  95.99850
+bspl4.8   94.75296 103.49643 104.68677 104.25549 105.44621 103.71065 103.67714
+bspl4.9  100.12421 109.90871 111.56041 112.73886 113.22317 109.84093 111.45256
+bspl4.10 105.87222 116.58134 118.80064 120.60978 120.19596 115.80322 119.12899
+bspl4.11 112.38378 122.21362 124.41555 126.47668 126.21940 121.66066 126.14999
+bspl4.12 116.27306 126.55675 128.33234 132.07131 130.84573 126.62589 131.65967
+bspl4.13 119.27642 130.41323 131.54822 136.30676 134.84584 130.36401 135.57696
+bspl4.14 121.65984 133.20375 133.95733 139.43464 137.66585 133.05330 138.32562
+bspl4.15 124.23628 135.60429 136.38494 142.71193 140.08139 135.69981 141.00912
+bspl4.16 126.70283 137.90329 139.02680 146.26234 142.49503 138.56736 143.85817
+bspl4.17 129.10917 140.52993 141.92788 150.13775 145.20801 141.99897 147.05756
+bspl4.18 131.63893 143.71608 145.04563 154.11941 148.09038 146.01094 150.64641
+bspl4.19 134.31361 147.53959 148.25753 157.66924 150.96695 150.24995 154.38574
+bspl4.20 137.20083 151.67544 151.48940 160.31487 153.92571 154.05169 157.94720
+bspl4.21 140.43192 155.68407 154.71599 161.93574 157.07885 156.90553 161.05733
+bspl4.22 143.81557 159.18310 157.67639 162.73118 160.46596 158.80871 163.47768
+bspl4.23 146.96375 161.91625 160.02018 163.02785 163.85429 160.07461 165.16687
+bspl4.24 149.64302 163.80791 161.55489 163.09231 166.80339 161.01349 166.38871
+bspl4.25 151.76297 165.06249 162.60638 163.07971 169.02146 161.78548 167.29580
+bspl4.26 153.29591 166.00721 163.40757 163.04583 170.48976 162.44361 167.87044
+bspl4.27 154.38275 166.83074 163.98556 163.07628 171.44393 162.95777 168.16944
+bspl4.28 155.13742 167.48797 164.40449 163.18597 172.11451 163.27335 168.34396
+bspl4.29 155.63964 167.93002 164.77968 163.40296 172.61122 163.42987 168.48432
+bspl4.30 155.97495 168.16787 165.10496 163.62547 172.93687 163.53333 168.63300
+bspl4.31 156.21412 168.21749 165.28493 163.74688 173.24086 163.66344 168.85037
+bspl4.32 156.39086 168.18868 165.34384 163.76549 173.50099 163.78961 169.04427
+bspl4.33 156.47924 168.17428 165.37329 163.77479 173.63105 163.85269 169.14122
+            girl36    girl37    girl38    girl39    girl40    girl41    girl42
+bspl4.1   73.88750  69.50793  76.21054  73.64572  80.56316  72.66423  69.62097
+bspl4.2   74.94257  70.63504  77.23846  74.88135  81.28729  73.79825  70.63984
+bspl4.3   77.05270  72.88926  79.29431  77.35260  82.73555  76.06630  72.67756
+bspl4.4   80.09486  76.17561  82.32957  80.95859  84.81995  79.42710  75.63712
+bspl4.5   82.96401  79.24488  85.28556  84.35720  86.86573  82.66478  78.39303
+bspl4.6   88.36079  84.84902  90.90991  90.55042  91.06829  88.60325  83.47083
+bspl4.7   95.03312  91.34367  98.29745  97.79512  97.93778  94.96988  89.52744
+bspl4.8  102.37365  98.66928 107.41839 105.88402 105.78267 101.75963  94.87805
+bspl4.9  107.89978 106.19153 115.55956 112.86118 112.60485 108.70518 100.37414
+bspl4.10 114.64053 112.42049 123.91939 119.19819 119.57385 114.80541 106.86308
+bspl4.11 121.60279 118.10643 130.73631 124.82180 126.56600 120.41622 112.79613
+bspl4.12 126.11623 122.76751 136.47802 130.69185 132.49477 125.61532 117.06617
+bspl4.13 129.84461 126.72031 141.17345 135.37232 136.91662 130.04291 120.64466
+bspl4.14 132.59973 129.64649 144.68696 138.74261 140.01000 133.30561 123.33358
+bspl4.15 135.16651 132.36645 148.16819 141.90431 142.96864 136.40161 125.89451
+bspl4.16 137.68733 134.94727 151.74092 145.02913 146.27137 139.62490 128.42909
+bspl4.17 140.48103 137.40193 155.29964 148.41604 150.11453 143.11597 131.17633
+bspl4.18 143.70042 139.83563 158.81563 152.27299 154.24266 146.80335 134.29457
+bspl4.19 147.18337 142.35551 162.26948 156.43999 158.07278 150.42975 137.76942
+bspl4.20 150.71228 145.13120 165.51023 160.35118 161.15566 153.62137 141.39401
+bspl4.21 154.20578 148.33468 168.34442 163.56904 163.48178 156.18285 144.84351
+bspl4.22 157.44951 151.88477 170.65053 165.98651 165.25468 158.14833 147.71203
+bspl4.23 160.14894 155.33475 172.36154 167.70198 166.56595 159.57262 149.91036
+bspl4.24 162.18605 158.15280 173.59624 168.85195 167.40999 160.43783 151.47384
+bspl4.25 163.51961 160.14532 174.49571 169.56328 167.92108 161.00175 152.43214
+bspl4.26 164.27242 161.47467 175.02559 169.98924 168.29041 161.53771 152.97370
+bspl4.27 164.66372 162.38474 175.23385 170.26348 168.58732 162.07261 153.33359
+bspl4.28 164.89758 162.98845 175.32849 170.43967 168.78325 162.46148 153.69262
+bspl4.29 165.13119 163.35659 175.49888 170.51261 168.88651 162.62400 154.06479
+bspl4.30 165.39985 163.62347 175.75798 170.57397 168.94567 162.70015 154.34560
+bspl4.31 165.69254 163.87376 175.97670 170.70211 169.03533 162.81792 154.49357
+bspl4.32 165.89314 164.06875 176.05014 170.81337 169.12288 162.92025 154.53979
+bspl4.33 165.99343 164.16624 176.08685 170.86900 169.16666 162.97142 154.56290
+            girl43    girl44    girl45    girl46    girl47    girl48    girl49
+bspl4.1   76.52328  79.29344  75.31550  71.59103  72.60638  71.10626  74.93486
+bspl4.2   77.73444  80.19398  76.29931  72.53652  73.60764  72.01021  75.91990
+bspl4.3   80.15676  81.99505  78.26693  74.42751  75.61017  73.81811  77.88997
+bspl4.4   83.70848  84.55707  81.13781  77.21852  78.67546  76.52899  80.79276
+bspl4.5   87.07432  86.93803  83.80799  79.91546  81.76682  79.21948  83.60945
+bspl4.6   93.38924  91.43409  88.66150  85.08567  87.59335  84.41914  89.07237
+bspl4.7  101.55252  96.93740  94.30267  91.98971  93.42276  91.24078  96.63946
+bspl4.8  109.78226 104.96326 101.93636 100.45626  99.39500  95.73283 104.22317
+bspl4.9  116.39464 112.49146 110.07746 106.59548 105.74834 102.36862 110.91527
+bspl4.10 122.29990 119.53307 116.91199 114.13518 113.07900 109.99415 118.58419
+bspl4.11 128.64041 124.99560 122.02900 120.51418 118.87095 116.11962 125.31764
+bspl4.12 132.96846 130.07228 125.97168 125.71408 124.29742 120.03147 129.98673
+bspl4.13 136.82007 133.55010 129.27530 129.86027 128.17319 123.57436 133.41310
+bspl4.14 139.93928 136.02574 131.90079 132.91517 131.10650 126.65594 135.99555
+bspl4.15 143.37679 138.61774 134.74721 135.92848 134.35349 130.32325 138.73879
+bspl4.16 147.10496 141.26875 137.84067 139.15308 137.87789 134.17069 141.63797
+bspl4.17 151.31464 144.13694 141.34681 142.88724 141.64376 137.85105 144.73230
+bspl4.18 155.96517 147.24930 145.29448 146.88169 145.59248 141.33857 148.09782
+bspl4.19 160.53071 150.53579 149.56201 150.84890 149.57264 144.45885 151.83875
+bspl4.20 164.29672 154.07845 153.59301 154.40491 153.18570 147.06581 155.98379
+bspl4.21 166.92679 157.73624 156.80286 157.06528 155.89377 149.04673 160.42903
+bspl4.22 168.57529 160.99605 159.03672 158.77605 157.49039 150.33703 164.77827
+bspl4.23 169.56759 163.50738 160.58955 159.84947 158.38346 151.08262 168.61906
+bspl4.24 170.27165 165.20563 161.72727 160.51054 159.01444 151.49662 171.67198
+bspl4.25 170.90597 166.18633 162.44033 160.88328 159.52509 151.75792 173.79798
+bspl4.26 171.48906 166.68748 162.89860 161.13865 159.93917 151.95648 175.08611
+bspl4.27 171.91759 166.93909 163.27458 161.36794 160.39421 152.12293 175.80252
+bspl4.28 172.13414 167.11378 163.63469 161.61954 160.97021 152.34898 176.22482
+bspl4.29 172.22845 167.22634 163.95545 161.85230 161.47924 152.68529 176.56374
+bspl4.30 172.27306 167.28727 164.17817 162.00453 161.78455 153.09829 176.89136
+bspl4.31 172.31531 167.28491 164.19530 162.09098 161.81778 153.43184 177.20245
+bspl4.32 172.39623 167.25276 164.12805 162.11993 161.74697 153.59296 177.40483
+bspl4.33 172.43669 167.23669 164.09442 162.13441 161.71156 153.67351 177.50602
+            girl50    girl51    girl52    girl53    girl54
+bspl4.1   75.09534  77.96226  69.30029  79.77520  75.95304
+bspl4.2   76.02857  79.02999  70.90963  80.79028  77.03055
+bspl4.3   77.89505  81.16545  74.12830  82.82044  79.18556
+bspl4.4   80.66424  84.31203  78.84690  85.88517  82.44105
+bspl4.5   83.40520  87.33666  83.26695  88.95395  85.61913
+bspl4.6   88.81668  92.92011  91.07013  94.72938  91.57963
+bspl4.7   96.61792  98.60191  97.72858 100.26671  98.61869
+bspl4.8  104.86464 105.66816 104.39671 108.17419 106.80858
+bspl4.9  111.88791 112.29140 111.80793 116.25780 114.47003
+bspl4.10 118.01188 118.59484 118.70956 124.13382 122.06511
+bspl4.11 124.18043 124.32073 124.61888 131.18654 129.46616
+bspl4.12 129.15038 129.24138 128.77935 135.89295 134.25925
+bspl4.13 132.66781 132.89282 132.85670 139.40283 138.08503
+bspl4.14 135.37317 135.60714 135.76465 142.08300 141.13529
+bspl4.15 138.46856 138.42948 137.95837 144.97282 144.53279
+bspl4.16 141.72903 141.33571 139.94171 148.08676 147.95239
+bspl4.17 144.93453 144.37235 142.43936 151.42656 151.39833
+bspl4.18 147.96520 147.63914 145.39172 154.96349 154.92891
+bspl4.19 150.94442 151.22241 148.72028 158.46951 158.46185
+bspl4.20 154.17478 155.09366 152.27849 161.51871 161.62827
+bspl4.21 157.72606 159.13635 155.72163 163.81842 164.05830
+bspl4.22 161.25769 162.95616 158.63079 165.33374 165.62518
+bspl4.23 164.15059 166.03478 160.79633 166.17016 166.55909
+bspl4.24 165.97168 168.31310 162.24999 166.53241 167.19058
+bspl4.25 166.94789 169.85525 163.17644 166.76132 167.71438
+bspl4.26 167.51760 170.86238 163.80770 167.05998 168.10940
+bspl4.27 167.89399 171.57801 164.34171 167.41532 168.36344
+bspl4.28 168.18353 172.10343 164.86207 167.72747 168.48189
+bspl4.29 168.51827 172.48201 165.40308 168.01143 168.54409
+bspl4.30 168.91645 172.78346 165.91714 168.25371 168.66374
+bspl4.31 169.36026 173.11603 166.35843 168.43524 168.88746
+bspl4.32 169.65463 173.35678 166.65273 168.55005 169.06951
+bspl4.33 169.80181 173.47716 166.79988 168.60746 169.16053
+> ## Don't show: 
+> stopifnot(
++ all.equal(coef(girlGrowthSm), coefficients(girlGrowthSm)) 
++ )
+> ## End(Don't show)
+> 
+> ##
+> ## coef.Taylor 
+> ##
+> # coming soon.
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cor.fd")
+> ### * cor.fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cor.fd
+> ### Title: Correlation matrix from functional data object(s)
+> ### Aliases: cor.fd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> daybasis3 <- create.fourier.basis(c(0, 365))
+> daybasis5 <- create.fourier.basis(c(0, 365), 5)
+> tempfd3 <- with(CanadianWeather, smooth.basis(
++        day.5, dailyAv[,,"Temperature.C"], 
++        daybasis3, fdnames=list("Day", "Station", "Deg C"))$fd )
+> precfd5 <- with(CanadianWeather, smooth.basis(
++        day.5, dailyAv[,,"log10precip"], 
++        daybasis5, fdnames=list("Day", "Station", "Deg C"))$fd )
+> 
+> # Correlation matrix for a single functional data object
+> (tempCor3 <- cor.fd(seq(0, 356, length=4), tempfd3))
+          [,1]      [,2]      [,3]      [,4]
+[1,] 1.0000000 0.8484737 0.6795018 0.9997800
+[2,] 0.8484737 1.0000000 0.8692946 0.8427481
+[3,] 0.6795018 0.8692946 1.0000000 0.6823236
+[4,] 0.9997800 0.8427481 0.6823236 1.0000000
+> 
+> # Cross correlation matrix between two functional data objects 
+> # Compare with structure described above under 'value':
+> (tempPrecCor3.5 <- cor.fd(seq(0, 365, length=4), tempfd3,
++                           seq(0, 356, length=6), precfd5))
+          [,1]      [,2]      [,3]      [,4]      [,5]      [,6]
+[1,] 0.7965004 0.7695681 0.6939836 0.1940574 0.6045507 0.7929483
+[2,] 0.5669631 0.4975344 0.5667405 0.1943658 0.3203165 0.5616848
+[3,] 0.5866383 0.5850782 0.6984054 0.3760010 0.4338126 0.5814889
+[4,] 0.7965004 0.7695681 0.6939836 0.1940574 0.6045507 0.7929483
+> 
+> # The following produces contour and perspective plots
+> 
+> daybasis65 <- create.fourier.basis(rangeval=c(0, 365), nbasis=65)
+> daytempfd <- with(CanadianWeather, smooth.basis(
++        day.5, dailyAv[,,"Temperature.C"], 
++        daybasis65, fdnames=list("Day", "Station", "Deg C"))$fd )
+> dayprecfd <- with(CanadianWeather, smooth.basis(
++        day.5, dailyAv[,,"log10precip"], 
++        daybasis65, fdnames=list("Day", "Station", "log10(mm)"))$fd )
+> 
+> str(tempPrecCor <- cor.fd(weeks, daytempfd, weeks, dayprecfd))
+ num [1:53, 1:53] 0.819 0.828 0.765 0.759 0.806 ...
+> # dim(tempPrecCor)= c(53, 53)
+> 
+> op <- par(mfrow=c(1,2), pty="s")
+> contour(weeks, weeks, tempPrecCor, 
++         xlab="Average Daily Temperature",
++         ylab="Average Daily log10(precipitation)",
++         main=paste("Correlation function across locations\n",
++           "for Canadian Anual Temperature Cycle"),
++         cex.main=0.8, axes=FALSE)
+> axisIntervals(1, atTick1=seq(0, 365, length=5), atTick2=NA, 
++             atLabels=seq(1/8, 1, 1/4)*365,
++             labels=paste("Q", 1:4) )
+> axisIntervals(2, atTick1=seq(0, 365, length=5), atTick2=NA, 
++             atLabels=seq(1/8, 1, 1/4)*365,
++             labels=paste("Q", 1:4) )
+> persp(weeks, weeks, tempPrecCor,
++       xlab="Days", ylab="Days", zlab="Correlation")
+> mtext("Temperature-Precipitation Correlations", line=-4, outer=TRUE)
+> par(op)
+> 
+> # Correlations and cross correlations
+> # in a bivariate functional data object
+> gaitbasis5 <- create.fourier.basis(nbasis=5)
+> gaitfd5 <- Data2fd(gait, basisobj=gaitbasis5)
+'y' is missing, using 'argvals'
+'argvals' is missing;  using seq( 0 ,  1 , length= 20 )
+> 
+> gait.t3 <- (0:2)/2
+> (gaitCor3.5 <- cor.fd(gait.t3, gaitfd5))
+, , 1, 1
+
+          [,1]      [,2]      [,3]
+[1,] 1.0000000 0.5808137 1.0000000
+[2,] 0.5808137 1.0000000 0.5808137
+[3,] 1.0000000 0.5808137 1.0000000
+
+, , 1, 2
+
+           [,1]        [,2]       [,3]
+[1,]  0.5681446 -0.01490892  0.5681446
+[2,] -0.2124787  0.30578455 -0.2124787
+[3,]  0.5681446 -0.01490892  0.5681446
+
+, , 1, 3
+
+           [,1]       [,2]       [,3]
+[1,]  1.0000000 -0.1616793  1.0000000
+[2,] -0.1616793  1.0000000 -0.1616793
+[3,]  1.0000000 -0.1616793  1.0000000
+
+> # Check the answers with manual computations
+> gait3.5 <- eval.fd(gait.t3, gaitfd5)
+> all.equal(cor(t(gait3.5[,,1])), gaitCor3.5[,,,1])
+[1] TRUE
+> # TRUE
+> all.equal(cor(t(gait3.5[,,2])), gaitCor3.5[,,,3])
+[1] TRUE
+> # TRUE
+> all.equal(cor(t(gait3.5[,,2]), t(gait3.5[,,1])),
++                gaitCor3.5[,,,2])
+[1] TRUE
+> # TRUE
+> 
+> # NOTE:
+> dimnames(gaitCor3.5)[[4]]
+NULL
+> # [1] Hip-Hip
+> # [2] Knee-Hip 
+> # [3] Knee-Knee
+> # If [2] were "Hip-Knee", then
+> # gaitCor3.5[,,,2] would match 
+> # cor(t(gait3.5[,,1]), t(gait3.5[,,2]))
+> # *** It does NOT.  Instead, it matches:  
+> # cor(t(gait3.5[,,2]), t(gait3.5[,,1]))
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("create.bspline.basis")
+> ### * create.bspline.basis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create.bspline.basis
+> ### Title: Create a B-spline Basis
+> ### Aliases: create.bspline.basis create.bspline.irregular
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ##
+> ## The simplest basis currently available with this function:
+> ##
+> bspl1.1 <- create.bspline.basis(norder=1)
+> plot(bspl1.1)
+> # 1 basis function, order 1 = degree 0 = step function:
+> 
+> # should be the same as above:
+> b1.1 <- create.bspline.basis(0:1, nbasis=1, norder=1, breaks=0:1)
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(bspl1.1, b1.1)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> bspl2.2 <- create.bspline.basis(norder=2)
+> plot(bspl2.2)
+> 
+> bspl3.3 <- create.bspline.basis(norder=3)
+> plot(bspl3.3)
+> 
+> bspl4.4 <- create.bspline.basis()
+> plot(bspl4.4)
+> 
+> bspl1.2 <- create.bspline.basis(norder=1, breaks=c(0,.5, 1))
+> plot(bspl1.2)
+> # 2 bases, order 1 = degree 0 = step functions:
+> # (1) constant 1 between 0 and 0.5 and 0 otherwise
+> # (2) constant 1 between 0.5 and 1 and 0 otherwise.
+> 
+> bspl2.3 <- create.bspline.basis(norder=2, breaks=c(0,.5, 1))
+> plot(bspl2.3)
+> # 3 bases:  order 2 = degree 1 = linear
+> # (1) line from (0,1) down to (0.5, 0), 0 after
+> # (2) line from (0,0) up to (0.5, 1), then down to (1,0)
+> # (3) 0 to (0.5, 0) then up to (1,1).
+> 
+> bspl3.4 <- create.bspline.basis(norder=3, breaks=c(0,.5, 1))
+> plot(bspl3.4)
+> # 4 bases:  order 3 = degree 2 = parabolas.
+> # (1) (x-.5)^2 from 0 to .5, 0 after
+> # (2) 2*(x-1)^2 from .5 to 1, and a parabola
+> #     from (0,0 to (.5, .5) to match
+> # (3 & 4) = complements to (2 & 1).
+> 
+> bSpl4. <- create.bspline.basis(c(-1,1))
+> plot(bSpl4.)
+> # Same as bSpl4.23 but over (-1,1) rather than (0,1).
+> 
+> # set up the b-spline basis for the lip data, using 23 basis functions,
+> #   order 4 (cubic), and equally spaced knots.
+> #  There will be 23 - 4 = 19 interior knots at 0.05, ..., 0.95
+> lipbasis <- create.bspline.basis(c(0,1), 23)
+> plot(lipbasis)
+> 
+> bSpl.growth <- create.bspline.basis(growth$age)
+> # cubic spline (order 4)
+> 
+> bSpl.growth6 <- create.bspline.basis(growth$age,norder=6)
+> # quintic spline (order 6)
+> 
+> ##
+> ## irregular
+> ##
+> Time <- c(1:20, 41:60)
+> Birreg <- create.bspline.irregular(Time)
+> plot(Birreg)
+> 
+> # check
+> bks <- quantile(Time, seq(0, 1, length=4))
+> Bspi <- create.bspline.basis(c(1, 60), nbasis=round(sqrt(40)),
++           breaks=bks)
+> ## Don't show: 
+> stopifnot(
++ ## End(Don't show)
++ all.equal(Birreg, Bspi)
++ ## Don't show: 
++ )
+> ## End(Don't show)
+> 
+> ##
+> ## Nonnumeric rangeval
+> ##
+> # Date
+> July4.1776 <- as.Date('1776-07-04')
+> Apr30.1789 <- as.Date('1789-04-30')
+> AmRev <- c(July4.1776, Apr30.1789)
+> BspRevolution <- create.bspline.basis(AmRev)
+> 
+> # POSIXct
+> July4.1776ct <- as.POSIXct1970('1776-07-04')
+> Apr30.1789ct <- as.POSIXct1970('1789-04-30')
+> AmRev.ct <- c(July4.1776ct, Apr30.1789ct)
+> BspRev.ct <- create.bspline.basis(AmRev.ct)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("create.constant.basis")
+> ### * create.constant.basis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create.constant.basis
+> ### Title: Create a Constant Basis
+> ### Aliases: create.constant.basis
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> 
+> basisobj <- create.constant.basis(c(-1,1))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("create.exponential.basis")
+> ### * create.exponential.basis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create.exponential.basis
+> ### Title: Create an Exponential Basis
+> ### Aliases: create.exponential.basis
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> 
+> #  Create an exponential basis over interval [0,5]
+> #  with basis functions 1, exp(-t) and exp(-5t)
+> basisobj <- create.exponential.basis(c(0,5),3,c(0,-1,-5))
+> #  plot the basis
+> plot(basisobj)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("create.fourier.basis")
+> ### * create.fourier.basis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create.fourier.basis
+> ### Title: Create a Fourier Basis
+> ### Aliases: create.fourier.basis
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> # Create a minimal Fourier basis for annual data
+> #  using 3 basis functions
+> yearbasis3 <- create.fourier.basis(c(0,365),
++                     axes=list("axesIntervals") )
+> #  plot the basis
+> plot(yearbasis3)
+> 
+> # Identify the months with letters
+> plot(yearbasis3, axes=list('axesIntervals', labels=monthLetters))
+> 
+> # The same labels as part of the basis object
+> yearbasis3. <- create.fourier.basis(c(0,365),
++        axes=list("axesIntervals", labels=monthLetters) )
+> plot(yearbasis3.)
+> 
+> # set up the Fourier basis for the monthly temperature data,
+> #  using 9 basis functions with period 12 months.
+> monthbasis <- create.fourier.basis(c(0,12), 9, 12.0)
+> 
+> #  plot the basis
+> plot(monthbasis)
+> 
+> # Create a false Fourier basis using 1 basis function.
+> falseFourierBasis <- create.fourier.basis(nbasis=1)
+> #  plot the basis:  constant
+> plot(falseFourierBasis)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("create.monomial.basis")
+> ### * create.monomial.basis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create.monomial.basis
+> ### Title: Create a Monomial Basis
+> ### Aliases: create.monomial.basis
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> ##
+> ## simplest example: one constant 'basis function'
+> ##
+> m0 <- create.monomial.basis(nbasis=1)
+> plot(m0)
+> 
+> ##
+> ## Create a monomial basis over the interval [-1,1]
+> ##  consisting of the first three powers of t
+> ##
+> basisobj <- create.monomial.basis(c(-1,1), 5)
+> #  plot the basis
+> plot(basisobj)
+> 
+> ##
+> ## rangeval of class Date or POSIXct
+> ##
+> # Date
+> invasion1 <- as.Date('1775-09-04')
+> invasion2 <- as.Date('1812-07-12')
+> earlyUS.Canada <- c(invasion1, invasion2)
+> BspInvade1 <- create.monomial.basis(earlyUS.Canada)
+> 
+> # POSIXct
+> AmRev.ct <- as.POSIXct1970(c('1776-07-04', '1789-04-30'))
+> BspRev1.ct <- create.monomial.basis(AmRev.ct)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("create.polygonal.basis")
+> ### * create.polygonal.basis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create.polygonal.basis
+> ### Title: Create a Polygonal Basis
+> ### Aliases: create.polygonal.basis
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> #  Create a polygonal basis over the interval [0,1]
+> #  with break points at 0, 0.1, ..., 0.95, 1
+> (basisobj <- create.polygonal.basis(seq(0,1,0.1)))
+$call
+basisfd(type = type, rangeval = rangeval, nbasis = nbasis, params = argvals, 
+    dropind = dropind, quadvals = quadvals, values = values)
+
+$type
+[1] "polyg"
+
+$rangeval
+[1] 0 1
+
+$nbasis
+[1] 11
+
+$params
+ [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+
+$dropind
+NULL
+
+$quadvals
+NULL
+
+$values
+list()
+
+$basisvalues
+list()
+
+$names
+ [1] "polygon1"  "polygon2"  "polygon3"  "polygon4"  "polygon5"  "polygon6" 
+ [7] "polygon7"  "polygon8"  "polygon9"  "polygon10" "polygon11"
+
+attr(,"class")
+[1] "basisfd"
+> #  plot the basis
+> plot(basisobj)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("create.power.basis")
+> ### * create.power.basis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: create.power.basis
+> ### Title: Create a Power Basis Object
+> ### Aliases: create.power.basis
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> 
+> #  Create a power basis over the interval [1e-7,1]
+> #  with powers or exponents -1, -0.5, 0, 0.5 and 1
+> basisobj <- create.power.basis(c(1e-7,1), 5, seq(-1,1,0.5))
+> #  plot the basis
+> plot(basisobj)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dateAccessories")
+> ### * dateAccessories
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dateAccessories
+> ### Title: Numeric and character vectors to facilitate working with dates
+> ### Aliases: dateAccessories monthAccessories dayOfYear dayOfYearShifted
+> ###   day.5 daysPerMonth monthEnd monthEnd.5 monthBegin.5 monthMid
+> ###   monthLetters weeks
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> daybasis65 <- create.fourier.basis(c(0, 365), 65)
+> daytempfd <- with(CanadianWeather, smooth.basisPar(day.5,
++     dailyAv[,,"Temperature.C"], daybasis65)$fd )
+> plot(daytempfd, axes=FALSE)
+[1] "done"
+> axisIntervals(1)
+> # axisIntervals by default uses
+> # monthBegin.5, monthEnd.5, monthMid, and month.abb
+> axis(2)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("density.fd")
+> ### * density.fd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: density.fd
+> ### Title: Compute a Probability Density Function
+> ### Aliases: density.fd
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> 
+> #  set up range for density
+> rangeval <- c(-3,3)
+> #  set up some standard normal data
+> x <- rnorm(50)
+> #  make sure values within the range
+> x[x < -3] <- -2.99
+> x[x >  3] <-  2.99
+> #  set up basis for W(x)
+> basisobj <- create.bspline.basis(rangeval, 11)
+> #  set up initial value for Wfdobj
+> Wfd0 <- fd(matrix(0,11,1), basisobj)
+> WfdParobj <- fdPar(Wfd0)
+> #  estimate density
+> denslist <- density.fd(x, WfdParobj)
+Iteration  Criterion  Neg. Log L  Grad. Norm
+      0    89.587973 89.587973  4.604874
+      1    62.3490391 62.3490391  0.8397873
+      2    58.611230 58.611230  0.374036
+      3    57.8930196 57.8930196  0.1253422
+      4    57.6821675 57.6821675  0.1296681
+      5    57.4458456 57.4458456  0.1785299
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpt471MV/R.INSTALL17da648455bf7/fda/R/stepchk.R#42: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmpszcdjp/R.INSTALL18693fb9f128/fda/R/stepchk.R#42: 
+ --- if/while statement is in package --- 
+fda
+ --- call (currently evaluated) --- 
 stepchk(linemat[1, 5], cvec, deltac, limwrd, ind, climit, active, 
     dbgwrd)
- --- stacktrace ---
-where 1 at /tmp/Rtmpt471MV/R.INSTALL17da648455bf7/fda/R/density.fd.R#229: stepchk(linemat[1, 5], cvec, deltac, limwrd, ind, climit, active, 
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmpszcdjp/R.INSTALL18693fb9f128/fda/R/density.fd.R#229: stepchk(linemat[1, 5], cvec, deltac, limwrd, ind, climit, active, 
     dbgwrd)
 where 2: density.fd(x, WfdParobj)
 
  --- value of length: 2 type: double ---
 [1] 0 0
- --- function --- 
+ --- function (currently evaluated)--- 
 function(oldstep, cvec, deltac, limwrd, ind,
                     climit=50*c(-rep(1,ncvec), rep(1,ncvec)),
                     active=1:ncvec, dbgwrd){
@@ -56,7 +3005,9 @@ function(oldstep, cvec, deltac, limwrd, ind,
         } else limwrd <- FALSE
   return(list(newstep, ind, limwrd))
 }
-<bytecode: 0x1312ec18>
+<bytecode: 0xf058b28>
 <environment: namespace:fda>
  --- function (body) search ---
 Function stepchk in namespace fda has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

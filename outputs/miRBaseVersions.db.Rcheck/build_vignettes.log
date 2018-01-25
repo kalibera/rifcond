@@ -1,0 +1,103 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmphdJwqE/R.INSTALL66e11911a871/miRBaseVersions.db/R/zzz.R#205: 
+ --- if/while statement is in package --- 
+miRBaseVersions.db
+ --- call (currently evaluated) --- 
+.select(x, keys = keys, columns = columns, keytype = keytype)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmphdJwqE/R.INSTALL66e11911a871/miRBaseVersions.db/R/zzz.R#267: .select(x, keys = keys, columns = columns, keytype = keytype)
+where 2: .local(x, keys, columns, keytype, ...)
+where 3 at /var/scratch2/tomas/tmp/RtmpN0U74o/R.INSTALL3ac2a364fc9/AnnotationDbi/R/AllGenerics.R#86: select(miRBaseVersions.db, keys = "MIMAT0000092", keytype = "MIMAT", 
+    columns = c("ACCESSION", "NAME", "VERSION"))
+where 4: select(miRBaseVersions.db, keys = "MIMAT0000092", keytype = "MIMAT", 
+    columns = c("ACCESSION", "NAME", "VERSION"))
+where 5: eval(expr, envir, enclos)
+where 6: eval(expr, envir, enclos)
+where 7: withVisible(eval(expr, envir, enclos))
+where 8: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 9: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 10: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 11: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 12 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 13: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 14: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 15: block_exec(params)
+where 16 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#6: call_block(x)
+where 17 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#3: process_group.block(group)
+where 18: process_group(group)
+where 19 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 20 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#258: process_file(text, output)
+where 21 at /var/scratch2/tomas/tmp/RtmpiFnhvf/R.INSTALL2032429d4002/rmarkdown/R/render.R#486: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 22 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 23 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 24: engine$weave(file, quiet = quiet, encoding = enc)
+where 25: doTryCatch(return(expr), name, parentenv, handler)
+where 26: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 27: tryCatchList(expr, classes, parentenv, handlers)
+where 28: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 29: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/miRBaseVersions.db.Rcheck/vign_test/miRBaseVersions.db")
+
+ --- value of length: 3 type: logical ---
+[1] TRUE TRUE TRUE
+ --- function (currently evaluated)--- 
+function(x, keys, columns, keytype) {
+        ## translate keytype back to table name
+        tabNames = .getTableNames(x);
+        keytypeLC = tabNames[names(tabNames) %in% keytype];
+        if (length(keytypeLC) == 0) {
+            stop("Keytype not valid. Please check out 'keytypes'.");
+        }
+        ## Get columns
+        colsSQL = character();
+        colsLC = .getLCColnames(x);
+        if (columns != "*") {
+            colsUC = .cols(x);
+            cols = colsLC[colsUC %in% columns];
+            colsSQL = paste(cols, collapse = ", ");
+        } else {
+            colsSQL = "*";
+        }
+        ## get the connection
+        con = AnnotationDbi::dbconn(x);
+        sql = sprintf(paste("SELECT %s FROM %s",
+                            "WHERE UPPER(accession) IN ('%s')"),
+                colsSQL, keytypeLC,
+                paste(toupper(keys), collapse = "', '"));
+        ## Execute SQL statement
+        res = DBI::dbGetQuery(con, sql);
+        colnames(res) = toupper(colnames(res));
+        return(res)
+    }
+<bytecode: 0x10f8f4d0>
+<environment: 0xa7842e8>
+ --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,10 +1,257 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "RObsDat"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('RObsDat')
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("RObsDat-package")
+> ### * RObsDat-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: RObsDat-package
+> ### Title: R-Package to the observations Data Model from CUAHSI
+> ### Aliases: RObsDat-package RObsDat
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> 	example(addDataValues)
+
+addDtV> #connect to database
+addDtV> getDefaultDB()
+Loading required namespace: RSQLite
+
+addDtV> ## Not run: 
+addDtV> ##D #connect to postgreSQL database
+addDtV> ##D require("RObsDat")
+addDtV> ##D require("RPostgreSQL")
+addDtV> ##D m <- dbDriver("PostgreSQL")
+addDtV> ##D con <- dbConnect(m, user="a_user", password="secret", dbname="obsdat")
+addDtV> ##D sqhandler <-  new("odm1_1Ver", con=con)
+addDtV> ##D options(odm.handler=sqhandler)
+addDtV> ##D 
+addDtV> ##D #connect to MySQL database
+addDtV> ##D require("RObsDat")
+addDtV> ##D require("RMySQL")
+addDtV> ##D m <- dbDriver("MySQL")
+addDtV> ##D con <- dbConnect(m, user="a_user", password="secret", dbname="obsdat")
+addDtV> ##D sqhandler <-  new("odm1_1Ver", con=con)
+addDtV> ##D options(odm.handler=sqhandler)
+addDtV> ##D 
+addDtV> ##D #connect to SQLite database
+addDtV> ##D require("RObsDat")
+addDtV> ##D require("RSQLite")
+addDtV> ##D m <- dbDriver("SQLite")
+addDtV> ##D dbname = "database.db"
+addDtV> ##D con <- dbConnect(m, dbname = dbname)
+addDtV> ##D sqhandler <-  new("odm1_1Ver", con=con)
+addDtV> ##D options(odm.handler=sqhandler)
+addDtV> ##D 
+addDtV> ## End(Not run)
+addDtV> 
+addDtV> #Store metadata in database
+addDtV> addSite(Code="test", Name="Virtual test site", x=-5, y=46,
+addDtV+ 	LatLongDatum="WGS84", Elevation=1500, State="Germany")
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+
+addDtV> addVariable(Name="Distance", Unit="cm", ValueType="Field Observation",
+addDtV+ 	GeneralCategory="Instrumentation", Code="test_dist")
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+
+addDtV> addQualityControlLevel(ID=6,Code="test_ok", Definition="The default")
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+
+addDtV> addISOMetadata(TopicCategory="Unknown", Title="Testdata",
+addDtV+ 	Abstract="This data is created to test the functions of RObsDat")
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+
+addDtV> addSource(Organization="Your Org", SourceDescription="Madeup data", 
+addDtV+ 	SourceLink="RObsDat Documentation", ContactName="Yourself",
+addDtV+ 	Metadata="Testdata")
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+
+addDtV> library(xts)
+
+addDtV> library(spacetime)
+
+addDtV> example.data <- xts(1:40, seq(as.POSIXct("2014-01-01", tz="UTC"), 
+addDtV+ 		as.POSIXct("2014-02-09", tz="UTC"), length.out=40))
+
+addDtV> example.data[40] <- 30
+
+addDtV> example.data[35] <- 22
+
+addDtV> addDataValues(example.data[1:20], Site="Virtual test site", Variable="test_dist",  
+addDtV+ 	Source="Madeup", QualityControlLevel="test_ok")
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Importing column  1 out of 1 
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+
+addDtV> #Avoid duplicates automatically
+addDtV> example.data[15] <- 30
+
+addDtV> addDataValues(example.data, Site="Virtual test site", Variable="test_dist",  
+addDtV+ 	Source="Madeup", QualityControlLevel="test_ok")
+Importing column  1 out of 1 
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+
+addDtV> inDB <- getDataValues(Site="test")
+
+addDtV> stplot(inDB, mode="ts")
+
+addDtV> #Version management
+addDtV> inDB <- getDataValues(Site="test")
+
+addDtV> to.correct <- which(inDB@data > 30)
+
+addDtV> inDB@data[to.correct,] <- 20
+
+addDtV> if(NROW(inDB@data)>=30){
+addDtV+    inDB@data[30,] <- 32
+addDtV+    updateDataValues(inDB, "Correction of wrong value")
+addDtV+ }
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in rsqlite_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpFxI8Zp/R.INSTALLc2291960602a/RObsDat/R/sv.R#9: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpqTXawT/R.INSTALL20b866ec0630/RObsDat/R/sv.R#9: 
+ --- if/while statement is in package --- 
+RObsDat
+ --- call (currently evaluated) --- 
 sv(getDataResult@DerivedFromIDs@data[selectMeta])
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: sv(getDataResult@DerivedFromIDs@data[selectMeta])
-where 2 at /tmp/RtmpFxI8Zp/R.INSTALLc2291960602a/RObsDat/R/odm1_1.R#570: paste("UPDATE DataValues SET DataValue = \"", value, "\", ValueAccuracy = ", 
+where 2 at /var/scratch2/tomas/tmp/RtmpqTXawT/R.INSTALL20b866ec0630/RObsDat/R/odm1_1.R#570: paste("UPDATE DataValues SET DataValue = \"", value, "\", ValueAccuracy = ", 
     valueAccuracy, ", LocalDateTime = \"", localDateTime, "\", UTCOffset = \"", 
     tz2offset(TZ), "\", DateTimeUTC = \"", strftime(localDateTime, 
         tz = TZ), "\", SiteID = ", SiteID, ", VariableID = ", 
@@ -18,7 +265,7 @@ where 3: .local(object, ValueID, localDateTime, value, TZ, SiteID, VariableID,
     Offset, OffsetTypeID, CensorCode, QualifierID, MethodID, 
     SourceID, SampleID, DerivedFromID, QualityControlLevelID, 
     ...)
-where 4 at /tmp/RtmpFxI8Zp/R.INSTALLc2291960602a/RObsDat/R/odm1_1.R#50: IupdateDataValues(obj, ValueID = rec.id, localDateTime = index(getDataResult@time[the.row, 
+where 4 at /var/scratch2/tomas/tmp/RtmpqTXawT/R.INSTALL20b866ec0630/RObsDat/R/odm1_1.R#50: IupdateDataValues(obj, ValueID = rec.id, localDateTime = index(getDataResult@time[the.row, 
     ]), value = sv(coredata(getDataResult@data[the.row, ])), 
     valueAccuracy = sv(getDataResult@Metadata$Valueaccuracy[selectMeta]), 
     TZ = the.tz, SiteID = getID("Site", getDataResult@Metadata$site[selectMeta]), 
@@ -32,7 +279,7 @@ where 4 at /tmp/RtmpFxI8Zp/R.INSTALLc2291960602a/RObsDat/R/odm1_1.R#50: IupdateD
     SampleID = getID("Sample", getDataResult@Metadata$sample[selectMeta]), 
     DerivedFromID = sv(getDataResult@DerivedFromIDs@data[selectMeta]), 
     QualityControlLevelID = getID("QualityControlLevel", getDataResult@Metadata$qualitycontrollevel[selectMeta]))
-where 5 at /tmp/RtmpFxI8Zp/R.INSTALLc2291960602a/RObsDat/R/updateDataValues.R#33: IupdateDataValues(obj, ValueID = rec.id, localDateTime = index(getDataResult@time[the.row, 
+where 5 at /var/scratch2/tomas/tmp/RtmpqTXawT/R.INSTALL20b866ec0630/RObsDat/R/updateDataValues.R#33: IupdateDataValues(obj, ValueID = rec.id, localDateTime = index(getDataResult@time[the.row, 
     ]), value = sv(coredata(getDataResult@data[the.row, ])), 
     valueAccuracy = sv(getDataResult@Metadata$Valueaccuracy[selectMeta]), 
     TZ = the.tz, SiteID = getID("Site", getDataResult@Metadata$site[selectMeta]), 
@@ -46,7 +293,7 @@ where 5 at /tmp/RtmpFxI8Zp/R.INSTALLc2291960602a/RObsDat/R/updateDataValues.R#33
     SampleID = getID("Sample", getDataResult@Metadata$sample[selectMeta]), 
     DerivedFromID = sv(getDataResult@DerivedFromIDs@data[selectMeta]), 
     QualityControlLevelID = getID("QualityControlLevel", getDataResult@Metadata$qualitycontrollevel[selectMeta]))
-where 6 at /tmp/RtmpfKYBL5/Rex2807747a5c987#75: updateDataValues(inDB, "Correction of wrong value")
+where 6 at /var/scratch2/tomas/tmp/Rtmpbhcpti/Rex8a503dbb5aa#75: updateDataValues(inDB, "Correction of wrong value")
 where 7: eval(ei, envir)
 where 8: eval(ei, envir)
 where 9: withVisible(eval(ei, envir))
@@ -98,7 +345,7 @@ where 11: example(addDataValues)
 38     TRUE
 39     TRUE
 40     TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
 function(the.vect, rownum=1){ #select variable
 	#avoid going beyond the vector.
 	#If we have only one entry, we may
@@ -119,3 +366,5 @@ function(the.vect, rownum=1){ #select variable
 <environment: namespace:RObsDat>
  --- function (body) search ---
 Function sv in namespace RObsDat has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

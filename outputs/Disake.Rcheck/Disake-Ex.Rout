@@ -1,8 +1,56 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Disake"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('Disake')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Baysbw")
+> ### * Baysbw
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Baysbw
+> ### Title: Local Bayesian function for bandwidth selection
+> ### Aliases: Baysbw
+> 
+> ### ** Examples
+> 
+> ## Data can be simulated data or real data
+> ## and bandwidth is computed through the local Bayesian procedure.
+> Vec<-c(10,0,1,0,4,0,6,0,0,0,1,1,1,2,4,4,5,6,6,6,6,7,1,7,0,7,7,
++ 7,8,0,8,12,8,8,9,9,0,9,9,10,10,10,10,0,10,10,11,12,12,10,12,12,
++ 13,14,15,16,16,17,0,12)
+>  
+> h_Bays<-Baysbw(Vec)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpIeZNn2/R.INSTALL1032954bedf/Disake/R/Baysbw.R#18: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmpuBG9nS/R.INSTALL7495d5a9f0a/Disake/R/Baysbw.R#18: 
+ --- if/while statement is in package --- 
+Disake
+ --- call (currently evaluated) --- 
 NULL
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: Baysbw(Vec)
 
  --- value of length: 60 type: logical ---
@@ -10,5 +58,7 @@ where 1: Baysbw(Vec)
 [16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 [31] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 [46] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
- --- function --- 
+ --- function (currently evaluated)--- 
  --- function (body) search ---
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

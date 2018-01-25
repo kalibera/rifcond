@@ -1,0 +1,149 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "vortexR"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('vortexR')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Nadults")
+> ### * Nadults
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Nadults
+> ### Title: Calculate the harmonic mean of the total number of adults
+> ### Aliases: Nadults
+> 
+> ### ** Examples
+> 
+> # Using Pacioni et al. example data. See ?pac.yr for more details.
+> data(pac.yr)
+> NadultAll <- Nadults(data=pac.yr[[2]], scenarios='all', gen=2.54, yr0=50,
++                      yrt=120, save2disk=FALSE)
+Calculating the harmonic means of total number of individuals and number of adults from year 50 to year 117
+NOTE: The last year used in the calculations is adjusted using the generation time provided (yrt - gen). See documentation for more information.
+Done!
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Ne")
+> ### * Ne
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Ne
+> ### Title: Calculate the effective population size (Ne)
+> ### Aliases: Ne
+> 
+> ### ** Examples
+> 
+> # Using Pacioni et al. example data. See ?pac.clas for more details.
+> data(pac.clas)
+> # Calculate Ne for all scenarios in the data. Note the odd value for scenario
+> # 12, consequent to the population going extinct.
+> NeAll <- Ne(data=pac.clas, scenarios='all', gen=2.54, yr0=50, yrt=120,
++          save2disk=FALSE)
+Effective population size based on loss of gene diversity from year 53 to year 120
+NOTE: The first year used in the calculations is adjusted  using the generation time provided (yr0 + gen).  See documentation for more information.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Pextinct")
+> ### * Pextinct
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Pextinct
+> ### Title: Cumulative probability of extinction at the end of the
+> ###   simulation
+> ### Aliases: Pextinct
+> 
+> ### ** Examples
+> 
+> # Using Pacioni et al. example data. See ?pac.run.lhs for more details.
+> data(pac.run.lhs)
+> Pext <- Pextinct(pac.run.lhs[[2]], project='Pacioni_et_al',
++   scenario='ST_Classic', ST=TRUE, save2disk=FALSE,
++   dir_out='DataAnalysis/Pextinct')
+> 
+> 
+> 
+> cleanEx()
+> nameEx("SSMD_matrix")
+> ### * SSMD_matrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: SSMD_matrix
+> ### Title: Generate a SSMD matrix with all possible pairwise comparisons
+> ### Aliases: SSMD_matrix
+> 
+> ### ** Examples
+> 
+> # Using Campbell et al. and Pacioni et al. example data.
+> # See ?pacioni and ?campbell for more details on example data.
+> require(vortexRdata)
+Loading required package: vortexRdata
+> 
+> data("pac.clas")
+> 
+> SSMD_matrix(data=pac.clas, project="Pacioni_et_al",
++ scenario="ST_Classic",
++ params = c("PExtinct", "Nextant", "Het", "Nalleles"),
++ yrs = c(60, 120), ST = FALSE, save2disk = FALSE)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- if/while statement is in package --- 
+vortexR
+ --- call (currently evaluated) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- R stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /var/scratch2/tomas/tmp/Rtmp0fZaUB/R.INSTALL317716f3c38/vortexR/R/SSMD_matrix.R#59: suppressWarnings(if (!yrs == "max" & !is.numeric(yrs)) stop("invalid value(s) for 'yrs' "))
+where 3: SSMD_matrix(data = pac.clas, project = "Pacioni_et_al", scenario = "ST_Classic", 
+    params = c("PExtinct", "Nextant", "Het", "Nalleles"), yrs = c(60, 
+        120), ST = FALSE, save2disk = FALSE)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x1488b00>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

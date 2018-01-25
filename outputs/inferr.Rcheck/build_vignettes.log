@@ -1,0 +1,114 @@
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- if/while statement is in package --- 
+inferr
+ --- call (currently evaluated) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- R stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /var/scratch2/tomas/tmp/Rtmpjxn4rJ/R.INSTALL2eee58762cf9/inferr/R/infer-ts-var-test.R#75: suppressWarnings(if (is.na(group_var)) {
+    name1 <- l(unlist(strsplit(deparse(substitute(c(variable, 
+        ...))), ","))[1])
+    name2 <- unlist(strsplit(l(unlist(strsplit(deparse(substitute(c(variable, 
+        ...))), ","))[2]), ")"))[1]
+    lev <- c(name1, name2)
+} else {
+    if (!is.factor(group_var)) {
+        group_var <- as.factor(group_var)
+    }
+    if (nlevels(group_var) > 2) {
+        stop("Specify a binary factor variable as input for group_var.", 
+            call. = FALSE)
+    }
+    lev <- levels(group_var)
+})
+where 3 at /var/scratch2/tomas/tmp/Rtmpjxn4rJ/R.INSTALL2eee58762cf9/inferr/R/infer-ts-var-test.R#61: infer_ts_var_test.default(mtcars$mpg, group_var = mtcars$am, 
+    alternative = "all")
+where 4: infer_ts_var_test(mtcars$mpg, group_var = mtcars$am, alternative = "all")
+where 5: eval(expr, envir, enclos)
+where 6: eval(expr, envir, enclos)
+where 7: withVisible(eval(expr, envir, enclos))
+where 8: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 9: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 10: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 11: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 12 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 13: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 14: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 15: block_exec(params)
+where 16 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#6: call_block(x)
+where 17 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/block.R#3: process_group.block(group)
+where 18: process_group(group)
+where 19 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 20 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/output.R#258: process_file(text, output)
+where 21 at /var/scratch2/tomas/tmp/RtmpiFnhvf/R.INSTALL2032429d4002/rmarkdown/R/render.R#486: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 22 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 23 at /var/scratch2/tomas/tmp/RtmpJ3m6tZ/R.INSTALL62535b5d8aec/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 24: engine$weave(file, quiet = quiet, encoding = enc)
+where 25: doTryCatch(return(expr), name, parentenv, handler)
+where 26: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 27: tryCatchList(expr, classes, parentenv, handlers)
+where 28: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 29: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/inferr.Rcheck/vign_test/inferr")
+
+ --- value of length: 32 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function (currently evaluated)--- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x2c53b20>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

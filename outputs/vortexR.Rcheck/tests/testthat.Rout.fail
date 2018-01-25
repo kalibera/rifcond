@@ -1,0 +1,147 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(vortexR)
+> 
+> test_check("vortexR")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- if/while statement is in package --- 
+vortexR
+ --- call (currently evaluated) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- R stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2 at /var/scratch2/tomas/tmp/Rtmp0fZaUB/R.INSTALL317716f3c38/vortexR/R/SSMD_matrix.R#59: suppressWarnings(if (!yrs == "max" & !is.numeric(yrs)) stop("invalid value(s) for 'yrs' "))
+where 3 at testthat/test-SSMD_matrix.R#8: SSMD_matrix(data = sta.main, project = "test", scenario = "test", 
+    params = c("PExtant", "Nextant"), yrs = c(25, 50), ST = FALSE, 
+    save2disk = FALSE)
+where 4: eval(code, test_env)
+where 5: eval(code, test_env)
+where 6: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 7: doTryCatch(return(expr), name, parentenv, handler)
+where 8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 9: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 10: doTryCatch(return(expr), name, parentenv, handler)
+where 11: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 14 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 15 at testthat/test-SSMD_matrix.R#5: test_that("test SSMD_matrix", {
+    data(sta.main)
+    ssmd_mat <- SSMD_matrix(data = sta.main, project = "test", 
+        scenario = "test", params = c("PExtant", "Nextant"), 
+        yrs = c(25, 50), ST = FALSE, save2disk = FALSE)
+    pairw <- pairwise(data = sta.main, project = "Campbell_et_al", 
+        scenario = "baseline", params = c("PExtant", "Nextant"), 
+        yrs = c(25, 50), ST = FALSE, type = "Single-Factor", 
+        SVs = c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"), 
+        save2disk = FALSE)
+    expect_length(ssmd_mat, 16)
+    expect_equal(pairw$SSMD.table[pairw$SSMD.table$Population == 
+        "RWA", "SSMD_Nextant25"], unname(ssmd_mat$`RWA Nextant 25`[2:8, 
+        1]))
+})
+where 16: eval(code, test_env)
+where 17: eval(code, test_env)
+where 18: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 19: doTryCatch(return(expr), name, parentenv, handler)
+where 20: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 21: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 22: doTryCatch(return(expr), name, parentenv, handler)
+where 23: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 24: tryCatchList(expr, classes, parentenv, handlers)
+where 25: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 26: test_code(NULL, exprs, env)
+where 27: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 28 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 29: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 30: FUN(X[[i]], ...)
+where 31: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 32 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/reporter-zzz.R#53: force(code)
+where 33 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 34 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 35 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 36 at /var/scratch2/tomas/tmp/Rtmpri1Vbr/R.INSTALLb8033c63809/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 37: test_check("vortexR")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function (currently evaluated)--- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x20e02d8>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

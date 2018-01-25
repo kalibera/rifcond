@@ -1,14 +1,76 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Calculator.LR.FNs"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('Calculator.LR.FNs')
+
+Attaching package: ‘Calculator.LR.FNs’
+
+The following object is masked from ‘package:base’:
+
+    sign
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Calculator.LR.FNs-package")
+> ### * Calculator.LR.FNs-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Calculator.LR.FNs-package
+> ### Title: Calculator for LR Fuzzy Numbers
+> ### Aliases: Calculator.LR.FNs-package Calculator.LR.FNs
+> ### Keywords: Calculator for LR Fuzzy Numbers Zadeh extension principle
+> ###   Introducing the form of LR fuzzy number Fuzzy Number Introducing the
+> ###   form of RL fuzzy number Fuzzy Number Introducing the form of L fuzzy
+> ###   number Fuzzy Number Ploting and drawing LR fuzzy numbers Sign of LR
+> ###   fuzzy number Support of LR fuzzy number Scalar multiplication on LR
+> ###   fuzzy numbers Summation of two LR fuzzy numbers Subtraction of two LR
+> ###   fuzzy numbers Product of two LR fuzzy numbers Division of two LR
+> ###   fuzzy numbers
+> 
+> ### ** Examples
+> 
+> # Example 1: mean of LR FNs
+> Left.fun  = function(x)  { (1-x)*(x>=0)}
+> A = L(6, 1, 2)
+> B = L(2, 4, 1)
+> LRFN.plot( A, xlim=c(-3,9), ylim=c(0,1.2), lwd=2, lty=2, col=2) 
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/Rtmpo4vhHb/R.INSTALLd3ec15d7f4a6/Calculator.LR.FNs/R/messages.R#6: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/Rtmpyfh5IT/R.INSTALLde626bac4e8c/Calculator.LR.FNs/R/messages.R#6: 
+ --- if/while statement is in package --- 
+Calculator.LR.FNs
+ --- call (currently evaluated) --- 
 messages(M)
- --- stacktrace ---
-where 1 at /tmp/Rtmpo4vhHb/R.INSTALLd3ec15d7f4a6/Calculator.LR.FNs/R/LRFN.plot.R#6: messages(M)
-where 2: LRFN.plot(A, xlim = xlim, ylim = ylim, lwd = 2, lty = 2, col = 2)
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmpyfh5IT/R.INSTALLde626bac4e8c/Calculator.LR.FNs/R/LRFN.plot.R#4: messages(M)
+where 2: LRFN.plot(A, xlim = c(-3, 9), ylim = c(0, 1.2), lwd = 2, lty = 2, 
+    col = 2)
 
  --- value of length: 4 type: logical ---
 [1] FALSE FALSE FALSE FALSE
- --- function --- 
+ --- function (currently evaluated)--- 
 function (M)  {
 
 options(warn = -1) 
@@ -54,3 +116,5 @@ if  ( M == "Addition has NOT a closed form of a LR fuzzy number" )
 <environment: namespace:Calculator.LR.FNs>
  --- function (body) search ---
 Function messages in namespace Calculator.LR.FNs has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

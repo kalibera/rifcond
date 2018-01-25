@@ -1,517 +1,2865 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "yuima"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('yuima')
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Loading required package: stats4
+Loading required package: expm
+Loading required package: Matrix
+
+Attaching package: ‘expm’
+
+The following object is masked from ‘package:Matrix’:
+
+    expm
+
+Loading required package: cubature
+Loading required package: mvtnorm
+############################################
+This is YUIMA Project package.
+Check for the latest development version at:
+http://R-Forge.R-Project.org/projects/yuima
+############################################
+
+Attaching package: ‘yuima’
+
+The following object is masked from ‘package:stats’:
+
+    simulate
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("CPoint")
+> ### * CPoint
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: CPoint
+> ### Title: Volatility structural change point estimator
+> ### Aliases: CPoint qmleL qmleR
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D diff.matrix <- matrix(c("theta1.1*x1","0*x2","0*x1","theta1.2*x2"), 2, 2)
+> ##D 
+> ##D drift.c <- c("1-x1", "3-x2")
+> ##D drift.matrix <- matrix(drift.c, 2, 1)
+> ##D 
+> ##D ymodel <- setModel(drift=drift.matrix, diffusion=diff.matrix, time.variable="t",
+> ##D state.variable=c("x1", "x2"), solve.variable=c("x1", "x2"))
+> ##D n <- 1000
+> ##D 
+> ##D set.seed(123)
+> ##D 
+> ##D t1 <- list(theta1.1=.1, theta1.2=0.2)
+> ##D t2 <- list(theta1.1=.6, theta1.2=.6)
+> ##D 
+> ##D tau <- 0.4
+> ##D ysamp1 <- setSampling(n=tau*n, Initial=0, delta=0.01)
+> ##D yuima1 <- setYuima(model=ymodel, sampling=ysamp1)
+> ##D yuima1 <- simulate(yuima1, xinit=c(1, 1), true.parameter=t1)
+> ##D 
+> ##D x1 <- yuima1@data@zoo.data[[1]]
+> ##D x1 <- as.numeric(x1[length(x1)])
+> ##D x2 <- yuima1@data@zoo.data[[2]]
+> ##D x2 <- as.numeric(x2[length(x2)])
+> ##D 
+> ##D ysamp2 <- setSampling(Initial=n*tau*0.01, n=n*(1-tau), delta=0.01)
+> ##D yuima2 <- setYuima(model=ymodel, sampling=ysamp2)
+> ##D 
+> ##D yuima2 <- simulate(yuima2, xinit=c(x1, x2), true.parameter=t2)
+> ##D 
+> ##D 
+> ##D yuima <- yuima1
+> ##D yuima@data@zoo.data[[1]] <- c(yuima1@data@zoo.data[[1]], yuima2@data@zoo.data[[1]][-1])
+> ##D yuima@data@zoo.data[[2]] <- c(yuima1@data@zoo.data[[2]], yuima2@data@zoo.data[[2]][-1])
+> ##D 
+> ##D plot(yuima)
+> ##D 
+> ##D # estimation of change point for given parameter values
+> ##D t.est <- CPoint(yuima,param1=t1,param2=t2, plot=TRUE)
+> ##D 
+> ##D 
+> ##D low <- list(theta1.1=0, theta1.2=0)
+> ##D 
+> ##D # first state estimate of parameters using small 
+> ##D # portion of data in the tails
+> ##D tmp1 <- qmleL(yuima,start=list(theta1.1=0.3,theta1.2=0.5),t=1.5,
+> ##D         lower=low, method="L-BFGS-B")
+> ##D tmp1
+> ##D tmp2 <- qmleR(yuima,start=list(theta1.1=0.3,theta1.2=0.5), t=8.5,
+> ##D         lower=low, method="L-BFGS-B")
+> ##D tmp2
+> ##D 
+> ##D 
+> ##D # first stage changepoint estimator
+> ##D t.est2 <- CPoint(yuima,param1=coef(tmp1),param2=coef(tmp2))
+> ##D t.est2$tau
+> ##D 
+> ##D 
+> ##D # second stage estimation of parameters given first stage
+> ##D # change point estimator
+> ##D tmp11 <- qmleL(yuima,start=as.list(coef(tmp1)), t=t.est2$tau-0.1,
+> ##D  lower=low, method="L-BFGS-B")
+> ##D tmp11
+> ##D 
+> ##D tmp21 <- qmleR(yuima,start=as.list(coef(tmp2)), t=t.est2$tau+0.1,
+> ##D  lower=low, method="L-BFGS-B")
+> ##D tmp21
+> ##D 
+> ##D # second stage estimator of the change point
+> ##D CPoint(yuima,param1=coef(tmp11),param2=coef(tmp21))
+> ##D 
+> ##D 
+> ##D ## One dimensional example: non linear case
+> ##D diff.matrix <- matrix("(1+x1^2)^theta1", 1, 1)
+> ##D drift.c <- c("x1")
+> ##D 
+> ##D ymodel <- setModel(drift=drift.c, diffusion=diff.matrix, time.variable="t",
+> ##D state.variable=c("x1"), solve.variable=c("x1"))
+> ##D n <- 500
+> ##D 
+> ##D set.seed(123)
+> ##D 
+> ##D y0 <- 5 # initial value
+> ##D theta00 <- 1/5
+> ##D gamma <- 1/4
+> ##D 
+> ##D 
+> ##D theta01 <- theta00+n^(-gamma)
+> ##D 
+> ##D 
+> ##D t1 <- list(theta1= theta00)
+> ##D t2 <- list(theta1= theta01)
+> ##D 
+> ##D tau <- 0.4
+> ##D ysamp1 <- setSampling(n=tau*n, Initial=0, delta=1/n)
+> ##D yuima1 <- setYuima(model=ymodel, sampling=ysamp1)
+> ##D yuima1 <- simulate(yuima1, xinit=c(5), true.parameter=t1)
+> ##D x1 <- yuima1@data@zoo.data[[1]]
+> ##D x1 <- as.numeric(x1[length(x1)])
+> ##D 
+> ##D ysamp2 <- setSampling(Initial=tau, n=n*(1-tau), delta=1/n)
+> ##D yuima2 <- setYuima(model=ymodel, sampling=ysamp2)
+> ##D 
+> ##D yuima2 <- simulate(yuima2, xinit=c(x1), true.parameter=t2)
+> ##D 
+> ##D 
+> ##D yuima <- yuima1
+> ##D yuima@data@zoo.data[[1]] <- c(yuima1@data@zoo.data[[1]], yuima2@data@zoo.data[[1]][-1])
+> ##D 
+> ##D 
+> ##D plot(yuima)
+> ##D 
+> ##D 
+> ##D t.est <- CPoint(yuima,param1=t1,param2=t2)
+> ##D t.est$tau
+> ##D 
+> ##D low <- list(theta1=0)
+> ##D upp <- list(theta1=1)
+> ##D 
+> ##D # first state estimate of parameters using small 
+> ##D # portion of data in the tails
+> ##D tmp1 <- qmleL(yuima,start=list(theta1=0.5),t=.15,lower=low, upper=upp,method="L-BFGS-B")
+> ##D tmp1
+> ##D tmp2 <- qmleR(yuima,start=list(theta1=0.5), t=.85,lower=low, upper=upp,method="L-BFGS-B")
+> ##D tmp2
+> ##D 
+> ##D 
+> ##D 
+> ##D # first stage changepoint estimator
+> ##D t.est2 <- CPoint(yuima,param1=coef(tmp1),param2=coef(tmp2))
+> ##D t.est2$tau
+> ##D 
+> ##D 
+> ##D # second stage estimation of parameters given first stage
+> ##D # change point estimator
+> ##D tmp11 <- qmleL(yuima,start=as.list(coef(tmp1)), t=t.est2$tau-0.1,
+> ##D    lower=low, upper=upp,method="L-BFGS-B")
+> ##D tmp11
+> ##D 
+> ##D tmp21 <- qmleR(yuima,start=as.list(coef(tmp2)), t=t.est2$tau+0.1,
+> ##D   lower=low, upper=upp,method="L-BFGS-B")
+> ##D tmp21
+> ##D 
+> ##D 
+> ##D # second stage estimator of the change point
+> ##D CPoint(yuima,param1=coef(tmp11),param2=coef(tmp21),plot=TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("CarmaNoise")
+> ### * CarmaNoise
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: CarmaNoise
+> ### Title: Estimation for the underlying Levy in a carma model
+> ### Aliases: Recovering.Noise Carma.Recovering CarmaRecovNoise CarmaNoise
+> ###   Levy.Carma
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D #Ex.1: Carma(p=3, q=0) process driven by a brownian motion.
+> ##D 
+> ##D mod0<-setCarma(p=3,q=0)
+> ##D 
+> ##D # We fix the autoregressive and moving average parameters
+> ##D # to ensure the existence of a second order stationary solution for the process.
+> ##D 
+> ##D true.parm0 <-list(a1=4,a2=4.75,a3=1.5,b0=1)
+> ##D 
+> ##D # We simulate a trajectory of the Carma model.
+> ##D 
+> ##D numb.sim<-1000
+> ##D samp0<-setSampling(Terminal=100,n=numb.sim)
+> ##D set.seed(100)
+> ##D incr.W<-matrix(rnorm(n=numb.sim,mean=0,sd=sqrt(100/numb.sim)),1,numb.sim)
+> ##D 
+> ##D sim0<-simulate(mod0,
+> ##D                true.parameter=true.parm0,
+> ##D                sampling=samp0, increment.W=incr.W)
+> ##D 
+> ##D #Applying the CarmaNoise
+> ##D 
+> ##D system.time(
+> ##D   inc.Levy0<-CarmaNoise(sim0,true.parm0)
+> ##D )
+> ##D 
+> ##D # We compare the orginal with the estimated noise increments 
+> ##D 
+> ##D par(mfrow=c(1,2))
+> ##D plot(t(incr.W)[1:998],type="l", ylab="",xlab="time")
+> ##D title(main="True Brownian Motion",font.main="1")
+> ##D plot(inc.Levy0,type="l", main="Filtered Brownian Motion",font.main="1",ylab="",xlab="time")
+> ##D 
+> ##D # Ex.2: carma(2,1) driven  by a compound poisson
+> ##D # where jump size is normally distributed and
+> ##D # the lambda is equal to 1.
+> ##D 
+> ##D mod1<-setCarma(p=2,               
+> ##D                q=1,
+> ##D                measure=list(intensity="Lamb",df=list("dnorm(z, 0, 1)")),
+> ##D                measure.type="CP") 
+> ##D 
+> ##D true.parm1 <-list(a1=1.39631, a2=0.05029,
+> ##D                   b0=1,b1=2,
+> ##D                   Lamb=1)
+> ##D 
+> ##D # We generate a sample path.
+> ##D 
+> ##D samp1<-setSampling(Terminal=100,n=200)
+> ##D set.seed(123)
+> ##D sim1<-simulate(mod1,
+> ##D                true.parameter=true.parm1,
+> ##D                sampling=samp1)
+> ##D 
+> ##D # We estimate the parameter using qmle.
+> ##D carmaopt1 <- qmle(sim1, start=true.parm1)
+> ##D summary(carmaopt1)
+> ##D # Internally qmle uses CarmaNoise. The result is in 
+> ##D plot(carmaopt1)
+> ##D 
+> ##D # Ex.3: Carma(p=2,q=1) with scale and location parameters 
+> ##D # driven by a Compound Poisson
+> ##D # with jump size normally distributed.
+> ##D mod2<-setCarma(p=2,                
+> ##D                q=1,
+> ##D                loc.par="mu",
+> ##D                scale.par="sig",
+> ##D                measure=list(intensity="Lamb",df=list("dnorm(z, 0, 1)")),
+> ##D                measure.type="CP") 
+> ##D 
+> ##D true.parm2 <-list(a1=1.39631,
+> ##D                   a2=0.05029,
+> ##D                   b0=1,
+> ##D                   b1=2,
+> ##D                   Lamb=1,
+> ##D                   mu=0.5,
+> ##D                   sig=0.23)
+> ##D # We simulate the sample path 
+> ##D set.seed(123)
+> ##D sim2<-simulate(mod2,
+> ##D                true.parameter=true.parm2,
+> ##D                sampling=samp1)
+> ##D 
+> ##D # We estimate the Carma and we plot the underlying noise.
+> ##D 
+> ##D carmaopt2 <- qmle(sim2, start=true.parm2)
+> ##D summary(carmaopt2)
+> ##D 
+> ##D # Increments estimated by CarmaNoise
+> ##D plot(carmaopt2)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Diagnostic.Carma")
+> ### * Diagnostic.Carma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Diagnostic.Carma
+> ### Title: Diagnostic Carma model
+> ### Aliases: Diagnostic.Carma
+> ### Keywords: ~kwd1 ~kwd2
+> 
+> ### ** Examples
+> 
+> 
+> mod1 <- setCarma(p = 2, q = 1, scale.par = "sig",
++           Carma.var = "y")
+> 
+> param1 <- list(a1 = 1.39631, a2 = 0.05029, b0 = 1,
++             b1 = 1, sig = 1)
+> samp1 <- setSampling(Terminal = 100, n = 200)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> 
+> set.seed(123)
+> 
+> sim1 <- simulate(mod1, true.parameter = param1,
++           sampling = samp1)
+> 
+> est1 <- qmle(sim1, start = param1)
+
+Starting qmle for carma ... 
+Warning in yuima.warn("Drift and diffusion parameters must be different. Doing\n               joint estimation, asymptotic theory may not hold true.") :
+  
+YUIMA: Drift and diffusion parameters must be different. Doing
+               joint estimation, asymptotic theory may not hold true.
+
+> 
+> Diagnostic.Carma(est1)
+[1] TRUE
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Diagnostic.Cogarch")
+> ### * Diagnostic.Cogarch
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Diagnostic.Cogarch
+> ### Title: Function for checking the statistical properties of the
+> ###   COGARCH(p,q) model
+> ### Aliases: Diagnostic.Cogarch
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Definition of the COGARCH(1,1) process driven by a Variance Gamma nois:
+> ##D param.VG <- list(a1 = 0.038,  b1 =  0.053,
+> ##D                   a0 = 0.04/0.053,lambda = 1, alpha = sqrt(2), beta = 0, mu = 0, 
+> ##D                   x01 = 50.33)
+> ##D 
+> ##D cog.VG <- setCogarch(p = 1, q = 1, work = FALSE,
+> ##D                       measure=list(df="rvgamma(z, lambda, alpha, beta, mu)"),
+> ##D                       measure.type = "code", 
+> ##D                       Cogarch.var = "y",
+> ##D                       V.var = "v", Latent.var="x",
+> ##D                       XinExpr=TRUE)
+> ##D 
+> ##D # Verify the stationarity and the positivity of th variance process
+> ##D 
+> ##D test <- Diagnostic.Cogarch(cog.VG,param=param.VG)
+> ##D show(test)
+> ##D 
+> ##D # Simulate a sample path
+> ##D 
+> ##D set.seed(210)
+> ##D 
+> ##D Term=800
+> ##D num=24000
+> ##D 
+> ##D samp.VG <- setSampling(Terminal=Term, n=num)
+> ##D 
+> ##D sim.VG <- simulate(cog.VG,
+> ##D                     true.parameter=param.VG,
+> ##D                     sampling=samp.VG,
+> ##D                     method="euler")
+> ##D plot(sim.VG)
+> ##D 
+> ##D # Estimate the model
+> ##D 
+> ##D res.VG <- gmm(sim.VG, start = param.VG, Est.Incr = "IncrPar")
+> ##D 
+> ##D summary(res.VG)
+> ##D 
+> ##D #  Check if the estimated COGARCH(1,1) has a positive and stationary variance
+> ##D 
+> ##D test1<-Diagnostic.Cogarch(res.VG)
+> ##D show(test1)
+> ##D 
+> ##D # Simulate a COGARCH sample path using the estimated COGARCH(1,1) 
+> ##D # and the recovered increments of underlying Variance Gamma Noise
+> ##D 
+> ##D esttraj<-simulate(res.VG)
+> ##D plot(esttraj)
+> ##D 
+> ##D 
+> ## End(Not run)  
+> 
+> 
+> 
+> cleanEx()
+> nameEx("IC")
+> ### * IC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: IC
+> ### Title: Information criteria for the stochastic differential equation
+> ### Aliases: IC
+> ### Keywords: Information criteria
+> 
+> ### ** Examples
+> 
+> 
+> ### Ex.1 
+> set.seed(123)
+> 
+> N <- 1000   # number of data
+> h <- N^(-2/3)  # sampling stepsize
+> Ter <- N*h  # terminal sampling time
+> 
+> ## Data generate (dXt = -Xt*dt + exp((-2*cos(Xt) + 1)/2)*dWt)
+> mod <- setModel(drift="theta21*x", diffusion="exp((theta11*cos(x)+theta12)/2)")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> samp <- setSampling(Terminal=Ter, n = N)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model=mod, sampling=setSampling(Terminal=Ter, n=50*N))
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> simu.yuima <- simulate(yuima, xinit=1, true.parameter=list(theta11=-2, theta12=1, 
++                        theta21=-1), subsampling=samp)
+> Xt <- NULL
+> for(i in 1:(N+1)){
++   Xt <- c(Xt, simu.yuima@data@original.data[50*(i-1)+1])
++ }
+> 
+> ## Parameter settings
+> para.init <- list(theta11=runif(1,max=-1.5,min=-2.5), theta12=runif(1,max=1.5,min=0.5), 
++                   theta21=runif(1,max=-0.5,min=-1.5))
+> para.low <- list(theta11=-7, theta12=-4, theta21=-6)
+> para.upp <- list(theta11=3, theta12=6, theta21=4)
+> 
+> ## Ex.1.1 (dXt = (theta21*x)*dt + exp((theta11*cos(x)+theta12)/2)*dWt)
+> mod1 <- setModel(drift="theta21*x", diffusion="exp((theta11*cos(x)+theta12)/2)")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> samp1 <- setSampling(Terminal=Ter, n = N)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima1 <- setYuima(model=mod1, sampling=samp1)
+> ic1 <- IC(yuima1, data=Xt, start=para.init, upper=para.upp, lower=para.low, rcpp=TRUE)
+> ic1
+$par
+   theta11    theta12    theta21 
+-1.8874815  0.7749077 -0.8515751 
+
+$BIC
+[1] -2670.394
+
+$QBIC
+[1] -2676.686
+
+$CIC
+[1] -2680.512
+
+> 
+> ## Ex.1.2 (dXt = (theta21*x)*dt + exp(theta11*cos(x)/2)*dWt)
+> mod2 <- setModel(drift="theta21*x", diffusion="exp(theta11*cos(x)/2)")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> samp2 <- setSampling(Terminal=Ter, n = N)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima2 <- setYuima(model=mod2, sampling=samp2)
+> ic2 <- IC(yuima2, data=Xt, start=para.init, upper=para.upp, lower=para.low, rcpp=TRUE)
+> ic2
+$par
+   theta11    theta21 
+-1.0379374 -0.9202064 
+
+$BIC
+[1] -2670.074
+
+$QBIC
+[1] -2671.756
+
+$CIC
+[1] -2675.285
+
+> 
+> ## Not run: 
+> ##D ### Ex.2 (multidimansion case) 
+> ##D set.seed(123)
+> ##D 
+> ##D N <- 3000   # number of data
+> ##D h <- N^(-2/3)  # sampling stepsize
+> ##D Ter <- N*h  # terminal sampling time
+> ##D 
+> ##D ## Data generate
+> ##D diff.coef.matrix <- matrix(c("beta1+1", "beta3*x1", "-beta2*x1", "beta4+1"), 2, 2)
+> ##D drif.coef.vec <- c("alpha1*x1", "alpha2*x2")
+> ##D mod <- setModel(drift = drif.coef.vec, diffusion = diff.coef.matrix, 
+> ##D                 state.variable = c("x1", "x2"), solve.variable = c("x1", "x2"))
+> ##D samp <- setSampling(Terminal = Ter, n = N)
+> ##D yuima <- setYuima(model = mod, sampling = setSampling(Terminal = Ter, n = 50*N))
+> ##D simu.yuima <- simulate(yuima, xinit = c(1,1), true.parameter = list(alpha1=-2, alpha2=-1, 
+> ##D                        beta1=1, beta2=1, beta3=1, beta4=2), subsampling = samp)
+> ##D Xt <- matrix(0,(N+1),2)
+> ##D for(i in 1:(N+1)){
+> ##D   Xt[i,] <- simu.yuima@data@original.data[50*(i-1)+1,]
+> ##D }
+> ##D 
+> ##D ## Parameter settings
+> ##D para.init <- list(alpha1 = runif(1,min=-3,max=-1), alpha2 = runif(1,min=-2,max=0), 
+> ##D                   alpha3 = runif(1,min=-1,max=1), beta1 = runif(1,min=0,max=2), 
+> ##D                   beta2 = runif(1,min=0,max=2), beta3 = runif(1,min=0,max=2), 
+> ##D                   beta4 = runif(1,min=1,max=3))
+> ##D para.low <- list(alpha1 = -5, alpha2 = -5, alpha3 = -5, beta1 = 0, beta2 = 0, beta3 = 0, beta4 = 0)
+> ##D para.upp <- list(alpha1 = 5, alpha2 = 5, alpha3 = 5, beta1 = 5, beta2 = 5, beta3 = 5, beta4 = 5)
+> ##D 
+> ##D ## Ex.2.1 
+> ##D diff.coef.matrix1 <- matrix(c("beta1+1", "beta3*x1", "-beta2*x1", "beta4+1"), 2, 2)
+> ##D drif.coef.vec1 <- c("alpha1*x1", "alpha2*x2+alpha3")
+> ##D mod1 <- setModel(drift = drif.coef.vec1, diffusion = diff.coef.matrix1, 
+> ##D                  state.variable = c("x1", "x2"), solve.variable = c("x1", "x2"))
+> ##D samp1 <- setSampling(Terminal=Ter, n = N)
+> ##D yuima1 <- setYuima(model=mod1, sampling=samp1)
+> ##D ic1 <- IC(yuima1, data=Xt, start=para.init, upper=para.upp, lower=para.low, rcpp=TRUE)
+> ##D ic1
+> ##D 
+> ##D ## Ex.2.2 
+> ##D diff.coef.matrix2 <- matrix(c("beta1+1", "beta3*x1", "-beta2*x1", "beta4+1"), 2, 2)
+> ##D drif.coef.vec2 <- c("alpha1*x1", "alpha2*x2")
+> ##D mod2 <- setModel(drift = drif.coef.vec2, diffusion = diff.coef.matrix2, 
+> ##D                  state.variable = c("x1", "x2"), solve.variable = c("x1", "x2"))
+> ##D samp2 <- setSampling(Terminal=Ter, n = N)
+> ##D yuima2 <- setYuima(model=mod2, sampling=samp2)
+> ##D ic2 <- IC(yuima2, data=Xt, start=para.init, upper=para.upp, lower=para.low, rcpp=TRUE)
+> ##D ic2
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Intensity.PPR")
+> ### * Intensity.PPR
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Intensity.PPR
+> ### Title: Intesity Process for the Point Process Regression Model
+> ### Aliases: Intensity.PPR
+> 
+> ### ** Examples
+> 
+> #INSERT HERE AN EXAMPLE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("LogSPX")
+> ### * LogSPX
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: LogSPX
+> ### Title: Five minutes Log SPX prices
+> ### Aliases: LogSPX Data
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(LogSPX)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MWK151")
+> ### * MWK151
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MWK151
+> ### Title: Graybill - Methuselah Walk - PILO - ITRDB CA535
+> ### Aliases: MWK151
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(MWK151)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("adaBayes")
+> ### * adaBayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: adaBayes
+> ### Title: Adaptive Bayes estimator for the parameters in sde model
+> ### Aliases: adaBayes adaBayes,yuima-method
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D set.seed(123)
+> ##D 
+> ##D b <- c("-theta1*x1+theta2*sin(x2)+50","-theta3*x2+theta4*cos(x1)+25")
+> ##D a <- matrix(c("4+theta5","1","1","2+theta6"),2,2)
+> ##D 
+> ##D true = list(theta1 = 0.5, theta2 = 5,theta3 = 0.3, 
+> ##D             theta4 = 5, theta5 = 1, theta6 = 1)
+> ##D lower = list(theta1=0.1,theta2=0.1,theta3=0,
+> ##D              theta4=0.1,theta5=0.1,theta6=0.1)
+> ##D upper = list(theta1=1,theta2=10,theta3=0.9,
+> ##D              theta4=10,theta5=10,theta6=10)
+> ##D start = list(theta1=runif(1), 
+> ##D              theta2=rnorm(1),
+> ##D              theta3=rbeta(1,1,1), 
+> ##D              theta4=rnorm(1),
+> ##D              theta5=rgamma(1,1,1), 
+> ##D              theta6=rexp(1))
+> ##D 
+> ##D yuimamodel <- setModel(drift=b,diffusion=a,state.variable=c("x1", "x2"),solve.variable=c("x1","x2"))
+> ##D yuimasamp <- setSampling(Terminal=50,n=50*10)
+> ##D yuima <- setYuima(model = yuimamodel, sampling = yuimasamp)
+> ##D yuima <- simulate(yuima, xinit = c(100,80),
+> ##D                   true.parameter = true,sampling = yuimasamp)
+> ##D 
+> ##D prior <-
+> ##D     list(
+> ##D         theta1=list(measure.type="code",df="dunif(z,0,1)"),
+> ##D         theta2=list(measure.type="code",df="dnorm(z,0,1)"),
+> ##D         theta3=list(measure.type="code",df="dbeta(z,1,1)"),
+> ##D         theta4=list(measure.type="code",df="dgamma(z,1,1)"),
+> ##D         theta5=list(measure.type="code",df="dnorm(z,0,1)"),
+> ##D         theta6=list(measure.type="code",df="dnorm(z,0,1)")
+> ##D     )
+> ##D 
+> ##D 
+> ##D set.seed(123)
+> ##D mle <- qmle(yuima, start = start, lower = lower, upper = upper, method = "L-BFGS-B",rcpp=TRUE) 
+> ##D print(mle@coef)
+> ##D bayes <- adaBayes(yuima, start=start, prior=prior,
+> ##D                                     method="mcmc",
+> ##D                                     mcmc=1000,rcpp=TRUE, lower = lower, upper = upper)
+> ##D print(bayes@coef)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("asymptotic_term")
+> ### * asymptotic_term
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: asymptotic_term
+> ### Title: asymptotic expansion of the expected value of the functional
+> ### Aliases: asymptotic_term asymptotic_term,yuima-method
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> # to the Black-Scholes economy:
+> # dXt^e = Xt^e * dt + e * Xt^e * dWt
+> diff.matrix <- "x*e"
+> model <- setModel(drift = "x", diffusion = diff.matrix)
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> # call option is evaluated by averating
+> # max{ (1/T)*int_0^T Xt^e dt, 0}, the first argument is the functional of interest:
+> Terminal <- 1
+> xinit <- c(1)
+> f <- list( c(expression(x/Terminal)), c(expression(0)))
+> F <- 0
+> division <- 1000
+> e <- .3
+> yuima <- setYuima(model = model, sampling = setSampling(Terminal=Terminal, n=division))
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setFunctional( yuima, f=f,F=F, xinit=xinit,e=e)
+> 
+> # asymptotic expansion
+> rho <- expression(0)
+> F0 <- F0(yuima)
+> get_ge <- function(x,epsilon,K,F0){
++   tmp <- (F0 - K) + (epsilon * x) 
++   tmp[(epsilon * x) < (K-F0)] <- 0
++   return( tmp )
++ }
+> g <- function(x) get_ge(x,epsilon=e,K=1,F0=F0)
+> set.seed(123)
+> asymp <- asymptotic_term(yuima, block=10, rho,g)
+[1] "compute X.t0"
+Warning in yuima.warn("Get variables ...") : 
+YUIMA: Get variables ...
+
+Warning in yuima.warn("Done.") : 
+YUIMA: Done.
+
+Warning in yuima.warn("Calculating d0 ...") :
+  
+YUIMA: Calculating d0 ...
+
+Warning in yuima.warn("Done\n") : 
+YUIMA: Done
+
+
+Warning in yuima.warn("Calculating d1 term ...") :
+  
+YUIMA: Calculating d1 term ...
+
+Warning in yuima.warn("Done\n") : 
+YUIMA: Done
+
+
+Warning in seq_len(length.out - 2L) * by :
+  Recycling array of length 1 in vector-array arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+Warning in from + seq_len(length.out - 2L) * by :
+  Recycling array of length 1 in array-vector arithmetic is deprecated.
+  Use c() or as.vector() instead.
+
+> asymp
+$d0
+[1] 0.7193282
+
+$d1
+[1] -0.01059786
+
+$d2
+           [,1]
+[1,] 0.01681822
+
+> sum(asymp$d0 + e * asymp$d1)
+[1] 0.7161489
+> 
+> 
+> ### An example of multivariate case: Heston model
+> ## a <- 1;C <- 1;d <- 10;R<-.1
+> ## diff.matrix <- matrix( c("x1*sqrt(x2)*e", "e*R*sqrt(x2)",0,"sqrt(x2*(1-R^2))*e"), 2,2)
+> ## model <- setModel(drift = c("a*x1","C*(10-x2)"), 
+> ## diffusion = diff.matrix,solve.variable=c("x1","x2"),state.variable=c("x1","x2"))
+> ## call option is evaluated by averating
+> ## max{ (1/T)*int_0^T Xt^e dt, 0}, the first argument is the functional of interest:
+> ##
+> ## Terminal <- 1
+> ## xinit <- c(1,1)
+> ## 
+> ## f <- list( c(expression(0), expression(0)),   
+> ## c(expression(0), expression(0)) , c(expression(0), expression(0))  )
+> ## F <- expression(x1,x2)
+> ## 
+> ## division <- 1000
+> ## e <- .3
+> ## 
+> ## yuima <- setYuima(model = model, sampling = setSampling(Terminal=Terminal, n=division))
+> ## yuima <- setFunctional( yuima, f=f,F=F, xinit=xinit,e=e)
+> ## 
+> ## rho <- expression(x1)
+> ## F0 <- F0(yuima)
+> ## get_ge <- function(x){
+> ##  return( max(x[1],0))
+> ## }
+> ## g <- function(x) get_ge(x)
+> ## set.seed(123)
+> ## asymp <- asymptotic_term(yuima, block=10, rho,g)
+> ## sum(asymp$d0 + e * asymp$d1)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bns.test")
+> ### * bns.test
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bns.test
+> ### Title: Barndorff-Nielsen and Shephard's Test for the Presence of Jumps
+> ###   Using Bipower Variation
+> ### Aliases: bns.test bns.test,yuima-method bns.test,yuima.data-method
+> ###   bns.test,list-method
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> 
+> set.seed(123)
+> 
+> # One-dimensional case
+> ## Model: dXt=t*dWt+t*dzt, 
+> ## where zt is a compound Poisson process with intensity 5 and jump sizes distribution N(0,0.1).
+> 
+> model <- setModel(drift=0,diffusion="t",jump.coeff="t",measure.type="CP",
++                   measure=list(intensity=5,df=list("dnorm(z,0,sqrt(0.1))")),
++                   time.variable="t")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> 
+> yuima.samp <- setSampling(Terminal = 1, n = 390) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = model, sampling = yuima.samp) 
+> yuima <- simulate(yuima)
+> plot(yuima) # The path seems to involve some jumps
+> 
+> bns.test(yuima) # standard type
+[[1]]
+
+	Barndorff-Nielsen and Shephard jump test
+
+data:  x1
+BNS = 1.6165, p-value = 0.05299
+
+
+> 
+> bns.test(yuima,type="log") # log type
+[[1]]
+
+	Barndorff-Nielsen and Shephard jump test
+
+data:  x1
+BNS = 1.5614, p-value = 0.05922
+
+
+> 
+> bns.test(yuima,type="ratio") # ratio type
+[[1]]
+
+	Barndorff-Nielsen and Shephard jump test
+
+data:  x1
+BNS = 1.5087, p-value = 0.06569
+
+
+> 
+> # Multi-dimensional case
+> ## Model: dXkt=t*dWk_t (k=1,2,3) (no jump case).
+> 
+> diff.matrix <- diag(3)
+> diag(diff.matrix) <- c("t","t","t")
+> model <- setModel(drift=c(0,0,0),diffusion=diff.matrix,time.variable="t",
++                   solve.variable=c("x1","x2","x3"))
+> 
+> yuima.samp <- setSampling(Terminal = 1, n = 390) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = model, sampling = yuima.samp) 
+> yuima <- simulate(yuima)
+> plot(yuima)
+> 
+> bns.test(yuima)
+[[1]]
+
+	Barndorff-Nielsen and Shephard jump test
+
+data:  x1
+BNS = 1.3401, p-value = 0.09011
+
+
+[[2]]
+
+	Barndorff-Nielsen and Shephard jump test
+
+data:  x2
+BNS = 0.33816, p-value = 0.3676
+
+
+[[3]]
+
+	Barndorff-Nielsen and Shephard jump test
+
+data:  x3
+BNS = 0.14015, p-value = 0.4443
+
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cce")
+> ### * cce
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cce
+> ### Title: Nonsynchronous Cumulative Covariance Estimator
+> ### Aliases: cce
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Set a model
+> diff.coef.1 <- function(t, x1 = 0, x2 = 0) sqrt(1+t)
+> diff.coef.2 <- function(t, x1 = 0, x2 = 0) sqrt(1+t^2)
+> cor.rho <- function(t, x1 = 0, x2 = 0) sqrt(1/2)
+> diff.coef.matrix <- matrix(c("diff.coef.1(t,x1,x2)", 
++ "diff.coef.2(t,x1,x2) * cor.rho(t,x1,x2)", 
++ "", "diff.coef.2(t,x1,x2) * sqrt(1-cor.rho(t,x1,x2)^2)"), 2, 2) 
+> cor.mod <- setModel(drift = c("", ""), 
++ diffusion = diff.coef.matrix,solve.variable = c("x1", "x2")) 
+> 
+> set.seed(111) 
+> 
+> ## We use a function poisson.random.sampling to get observation by Poisson sampling.
+> yuima.samp <- setSampling(Terminal = 1, n = 1200) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = cor.mod, sampling = yuima.samp) 
+> yuima <- simulate(yuima) 
+> psample<- poisson.random.sampling(yuima, rate = c(0.2,0.3), n = 1000) 
+> 
+> ## cce takes the psample and returns an estimate of the quadratic covariation. 
+> cce(psample)$covmat[1, 2]
+[1] 0.9944114
+> ##cce(psample)[1, 2]
+> 
+> ## True value of the quadratic covariation.
+> cc.theta <- function(T, sigma1, sigma2, rho) { 
++   tmp <- function(t) return(sigma1(t) * sigma2(t) * rho(t)) 
++ 	integrate(tmp, 0, T) 
++ }
+> 
+> theta <- cc.theta(T = 1, diff.coef.1, diff.coef.2, cor.rho)$value 
+> cat(sprintf("theta =%.5f\n", theta))
+theta =0.99958
+> 
+> names(psample@zoo.data)
+[1] "Series 1" "Series 2"
+> 
+> 
+> 
+> 
+> 
+> 
+> # Example. A stochastic differential equation with nonlinear feedback. 
+> 
+> ## Set a model
+> drift.coef.1 <- function(x1,x2) x2
+> drift.coef.2 <- function(x1,x2) -x1
+> drift.coef.vector <- c("drift.coef.1","drift.coef.2")
+> diff.coef.1 <- function(t,x1,x2) sqrt(abs(x1))*sqrt(1+t)
+> diff.coef.2 <- function(t,x1,x2) sqrt(abs(x2))
+> cor.rho <- function(t,x1,x2) 1/(1+x1^2)
+> diff.coef.matrix <- matrix(c("diff.coef.1(t,x1,x2)", 
++ "diff.coef.2(t,x1,x2) * cor.rho(t,x1,x2)","", 
++ "diff.coef.2(t,x1,x2) * sqrt(1-cor.rho(t,x1,x2)^2)"), 2, 2) 
+> cor.mod <- setModel(drift = drift.coef.vector,
++  diffusion = diff.coef.matrix,solve.variable = c("x1", "x2"))
+> 
+> ## Generate a path of the process
+> set.seed(111) 
+> yuima.samp <- setSampling(Terminal = 1, n = 10000) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = cor.mod, sampling = yuima.samp) 
+> yuima <- simulate(yuima, xinit=c(2,3)) 
+> plot(yuima)
+> 
+> 
+> ## The "true" value of the quadratic covariation.
+> cce(yuima)
+$covmat
+         Series 1 Series 2
+Series 1 2.709112 0.780349
+Series 2 0.780349 3.470497
+
+$cormat
+          Series 1  Series 2
+Series 1 1.0000000 0.2544952
+Series 2 0.2544952 1.0000000
+
+> 
+> ## We use the function poisson.random.sampling to generate nonsynchronous 
+> ## observations by Poisson sampling.
+> psample<- poisson.random.sampling(yuima, rate = c(0.2,0.3), n = 3000) 
+> 
+> ## cce takes the psample to return an estimated value  of the quadratic covariation. 
+> ## The off-diagonal elements are the value of the Hayashi-Yoshida estimator. 
+> cce(psample)
+$covmat
+          Series 1  Series 2
+Series 1 2.7946936 0.7569067
+Series 2 0.7569067 3.7185970
+
+$cormat
+          Series 1  Series 2
+Series 1 1.0000000 0.2347933
+Series 2 0.2347933 1.0000000
+
+> 
+> 
+> 
+> 
+> # Example. Epps effect for the realized covariance estimator
+> 
+> ## Set a model
+> drift <- c(0,0)
+> 
+> sigma1 <- 1
+> sigma2 <- 1
+> rho <- 0.5
+> 
+> diffusion <- matrix(c(sigma1,sigma2*rho,0,sigma2*sqrt(1-rho^2)),2,2)
+> 
+> model <- setModel(drift=drift,diffusion=diffusion,
++                   state.variable=c("x1","x2"),solve.variable=c("x1","x2"))
+>                   
+> ## Generate a path of the latent process
+> set.seed(116)
+> 
+> ## We regard the unit interval as 6.5 hours and generate the path on it 
+> ## with the step size equal to 2 seconds
+> 
+> yuima.samp <- setSampling(Terminal = 1, n = 11700) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = model, sampling = yuima.samp) 
+> yuima <- simulate(yuima)
+> 
+> ## We extract nonsynchronous observations from the path generated above 
+> ## by Poisson random sampling with the average duration equal to 10 seconds
+> 
+> psample <- poisson.random.sampling(yuima, rate = c(1/5,1/5), n = 11700)
+> 
+> ## Hayashi-Yoshida estimator consistetly estimates the true correlation
+> cce(psample)$cormat[1,2]
+[1] 0.5051646
+> 
+> ## If we synchronize the observation data on some regular grid 
+> ## by previous-tick interpolations and compute the correlation 
+> ## by therealized covariance based on such synchronized observations, 
+> ## we underestimate the true correlation (known as the Epps effect). 
+> ## This is illustrated by the following examples.
+> 
+> ## Synchronization on the grid with 5 seconds steps
+> suppressWarnings(s1 <- cce(subsampling(psample, sampling = setSampling(n = 4680)))$cormat[1,2])
+> s1
+[1] 0.1215581
+> 
+> ## Synchronization on the grid with 10 seconds steps
+> suppressWarnings(s2 <- cce(subsampling(psample, sampling = setSampling(n = 2340)))$cormat[1,2])
+> s2
+[1] 0.1983681
+> 
+> ## Synchronization on the grid with 20 seconds steps
+> suppressWarnings(s3 <- cce(subsampling(psample, sampling = setSampling(n = 1170)))$cormat[1,2])
+> s3
+[1] 0.3042326
+> 
+> ## Synchronization on the grid with 30 seconds steps
+> suppressWarnings(s4 <- cce(subsampling(psample, sampling = setSampling(n = 780)))$cormat[1,2])
+> s4
+[1] 0.3399889
+> 
+> ## Synchronization on the grid with 1 minute steps
+> suppressWarnings(s5 <- cce(subsampling(psample, sampling = setSampling(n = 390)))$cormat[1,2])
+> s5
+[1] 0.4338545
+> 
+> plot(zoo(c(s1,s2,s3,s4,s5),c(5,10,20,30,60)),type="b",xlab="seconds",ylab="correlation",
++ main = "Epps effect for the realized covariance")
+> 
+> 
+> 
+> # Example. Non-synchronous and noisy observations of a correlated bivariate Brownian motion
+> 
+> ## Generate noisy observations from the model used in the previous example
+> Omega <- 0.005*matrix(c(1,rho,rho,1),2,2) # covariance matrix of noise
+> noisy.psample <- noisy.sampling(psample,var.adj=Omega)
+> plot(noisy.psample)
+> 
+> ## Hayashi-Yoshida estimator: inconsistent
+> cce(noisy.psample)$covmat
+          [,1]      [,2]
+[1,] 20.978668  1.997296
+[2,]  1.997296 20.408344
+> 
+> ## Pre-averaged Hayashi-Yoshida estimator: consistent
+> cce(noisy.psample,method="PHY")$covmat
+          [,1]      [,2]
+[1,] 1.1322025 0.5057954
+[2,] 0.5057954 0.9176216
+> 
+> ## Generalized multiscale estimator: consistent
+> cce(noisy.psample,method="GME")$covmat
+          [,1]      [,2]
+[1,] 0.9492984 0.4189638
+[2,] 0.4189638 0.9081688
+> 
+> ## Multivariate realized kernel: consistent
+> cce(noisy.psample,method="RK")$covmat
+          [,1]      [,2]
+[1,] 0.7935139 0.4188074
+[2,] 0.4188074 0.9426828
+> 
+> ## Nonparametric QMLE: consistent
+> cce(noisy.psample,method="QMLE")$covmat
+          [,1]      [,2]
+[1,] 0.9551331 0.3966680
+[2,] 0.3966680 0.9798213
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cogarchNoise")
+> ### * cogarchNoise
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cogarchNoise
+> ### Title: Estimation for the underlying Levy in a COGARCH(p,q) model
+> ### Aliases: Recovering.Noise.cogarch cogarch.Recovering CogarchRecovNoise
+> ###   cogarchNoise Levy.cogarch
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> # Insert here some examples
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gmm")
+> ### * gmm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gmm
+> ### Title: Method of Moments for COGARCH(P,Q).
+> ### Aliases: gmm gmm.COGARCH 'Method of Moment COGARCH'
+> ### Keywords: Method of Moments Estimation COGARCH
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Example COGARCH(1,1): the parameters are the same used in Haugh et al. 2005. In this case
+> ##D # we assume the underlying noise is a symmetric variance gamma.
+> ##D # As first step we define the COGARCH(1,1) in yuima:
+> ##D 
+> ##D mod1 <- setCogarch(p = 1, q = 1, work = FALSE,
+> ##D                    measure=list(df="rbgamma(z,1,sqrt(2),1,sqrt(2))"),
+> ##D                     measure.type = "code", Cogarch.var = "y",
+> ##D                     V.var = "v", Latent.var="x",XinExpr=TRUE)
+> ##D 
+> ##D param <- list(a1 = 0.038,  b1 =  0.053,
+> ##D               a0 = 0.04/0.053, x01 = 20)
+> ##D 
+> ##D # We generate a trajectory
+> ##D samp <- setSampling(Terminal=10000, n=100000)
+> ##D set.seed(210)
+> ##D sim1 <- simulate(mod1, sampling = samp, true.parameter = param)
+> ##D 
+> ##D # We estimate the model
+> ##D 
+> ##D res1 <- gmm(yuima = sim1, start = param)
+> ##D 
+> ##D summary(res1)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hyavar")
+> ### * hyavar
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hyavar
+> ### Title: Asymptotic Variance Estimator for the Hayashi-Yoshida estimator
+> ### Aliases: hyavar
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Set a model
+> diff.coef.1 <- function(t, x1 = 0, x2 = 0) sqrt(1+t)
+> diff.coef.2 <- function(t, x1 = 0, x2 = 0) sqrt(1+t^2)
+> cor.rho <- function(t, x1 = 0, x2 = 0) sqrt(1/2)
+> diff.coef.matrix <- matrix(c("diff.coef.1(t,x1,x2)", 
++ "diff.coef.2(t,x1,x2) * cor.rho(t,x1,x2)", 
++ "", "diff.coef.2(t,x1,x2) * sqrt(1-cor.rho(t,x1,x2)^2)"), 2, 2) 
+> cor.mod <- setModel(drift = c("", ""), 
++ diffusion = diff.coef.matrix,solve.variable = c("x1", "x2")) 
+> 
+> set.seed(111) 
+> 
+> ## We use a function poisson.random.sampling to get observation by Poisson sampling.
+> yuima.samp <- setSampling(Terminal = 1, n = 1200) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = cor.mod, sampling = yuima.samp) 
+> yuima <- simulate(yuima) 
+> psample<- poisson.random.sampling(yuima, rate = c(0.2,0.3), n = 1000) 
+> 
+> ## Constructing a 95% confidence interval for the quadratic covariation from psample
+> result <- hyavar(psample)
+> thetahat <- result$covmat[1,2] # estimate of the quadratic covariation
+> se <- sqrt(result$avar.cov[1,2]) # estimated standard error
+> c(lower = thetahat + qnorm(0.025) * se, upper = thetahat + qnorm(0.975) * se)
+   lower    upper 
+0.590106 1.398717 
+> 
+> ## True value of the quadratic covariation.
+> cc.theta <- function(T, sigma1, sigma2, rho) { 
++   tmp <- function(t) return(sigma1(t) * sigma2(t) * rho(t)) 
++   integrate(tmp, 0, T) 
++ }
+> 
+> # contained in the constructed confidence interval
+> cc.theta(T = 1, diff.coef.1, diff.coef.2, cor.rho)$value
+[1] 0.9995767
+> 
+> # Example. A stochastic differential equation with nonlinear feedback. 
+> 
+> ## Set a model
+> drift.coef.1 <- function(x1,x2) x2
+> drift.coef.2 <- function(x1,x2) -x1
+> drift.coef.vector <- c("drift.coef.1","drift.coef.2")
+> diff.coef.1 <- function(t,x1,x2) sqrt(abs(x1))*sqrt(1+t)
+> diff.coef.2 <- function(t,x1,x2) sqrt(abs(x2))
+> cor.rho <- function(t,x1,x2) 1/(1+x1^2)
+> diff.coef.matrix <- matrix(c("diff.coef.1(t,x1,x2)", 
++ "diff.coef.2(t,x1,x2) * cor.rho(t,x1,x2)","", 
++ "diff.coef.2(t,x1,x2) * sqrt(1-cor.rho(t,x1,x2)^2)"), 2, 2) 
+> cor.mod <- setModel(drift = drift.coef.vector,
++  diffusion = diff.coef.matrix,solve.variable = c("x1", "x2"))
+> 
+> ## Generate a path of the process
+> set.seed(111) 
+> yuima.samp <- setSampling(Terminal = 1, n = 10000) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = cor.mod, sampling = yuima.samp) 
+> yuima <- simulate(yuima, xinit=c(2,3)) 
+> plot(yuima)
+> 
+> 
+> ## The "true" values of the covariance and correlation.
+> result.full <- cce(yuima)
+> (cov.true <- result.full$covmat[1,2]) # covariance
+[1] 0.780349
+> (cor.true <- result.full$cormat[1,2]) # correlation
+[1] 0.2544952
+> 
+> ## We use the function poisson.random.sampling to generate nonsynchronous 
+> ## observations by Poisson sampling.
+> psample<- poisson.random.sampling(yuima, rate = c(0.2,0.3), n = 3000) 
+> 
+> ## Constructing 95% confidence intervals for the covariation from psample
+> result <- hyavar(psample)
+> cov.est <- result$covmat[1,2] # estimate of covariance
+> cor.est <- result$cormat[1,2] # estimate of correlation
+> se.cov <- sqrt(result$avar.cov[1,2]) # estimated standard error of covariance
+> se.cor <- sqrt(result$avar.cor[1,2]) # estimated standard error of correlation
+> 
+> ## 95% confidence interval for covariance
+> c(lower = cov.est + qnorm(0.025) * se.cov,
++  upper = cov.est + qnorm(0.975) * se.cov) # contains cov.true
+    lower     upper 
+0.3017224 1.2120911 
+> 
+> ## 95% confidence interval for correlation
+> c(lower = cor.est + qnorm(0.025) * se.cor,
++  upper = cor.est + qnorm(0.975) * se.cor) # contains cor.true
+    lower     upper 
+0.0996616 0.3699250 
+> 
+> ## We can also use the Fisher z transformation to construct a
+> ## 95% confidence interval for correlation
+> ## It often improves the finite sample behavior of the asymptotic
+> ## theory (cf. Section 4.2.3 of Barndorff-Nielsen and Shephard (2004))
+> z <- atanh(cor.est) # the Fisher z transformation of the estimated correlation
+> se.z <- se.cor/(1 - cor.est^2) # standard error for z (calculated by the delta method)
+> ## 95% confidence interval for correlation via the Fisher z transformation
+> c(lower = tanh(z + qnorm(0.025) * se.z), upper = tanh(z + qnorm(0.975) * se.z)) 
+     lower      upper 
+0.09594454 0.36467922 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lasso")
+> ### * lasso
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lasso
+> ### Title: Adaptive LASSO estimation for stochastic differential equations
+> ### Aliases: lasso
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ##multidimension case
+> diff.matrix <- matrix(c("theta1.1","theta1.2", "1", "1"), 2, 2)
+> 
+> drift.c <- c("-theta2.1*x1", "-theta2.2*x2", "-theta2.2", "-theta2.1")
+> drift.matrix <- matrix(drift.c, 2, 2)
+> 
+> ymodel <- setModel(drift=drift.matrix, diffusion=diff.matrix, time.variable="t",
++                    state.variable=c("x1", "x2"), solve.variable=c("x1", "x2"))
+> n <- 100
+> ysamp <- setSampling(Terminal=(n)^(1/3), n=n)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model=ymodel, sampling=ysamp)
+> set.seed(123)
+> 
+> truep <- list(theta1.1=0.6, theta1.2=0,theta2.1=0.5, theta2.2=0)
+> yuima <- simulate(yuima, xinit=c(1, 1), 
++  true.parameter=truep)
+> 
+> 
+> est <- lasso(yuima, start=list(theta2.1=0.8, theta2.2=0.2, theta1.1=0.7, theta1.2=0.1),
++  lower=list(theta1.1=1e-10,theta1.2=1e-10,theta2.1=.1,theta2.2=1e-10),
++  upper=list(theta1.1=4,theta1.2=4,theta2.1=4,theta2.2=4), method="L-BFGS-B")
+
+Looking for MLE estimates...
+
+Performing LASSO estimation...
+> 
+> # TRUE
+> unlist(truep)
+theta1.1 theta1.2 theta2.1 theta2.2 
+     0.6      0.0      0.5      0.0 
+> 
+> # QMLE
+> round(est$mle,3)
+theta1.1 theta1.2 theta2.1 theta2.2 
+   0.559    0.000    0.741    0.024 
+> 
+> # LASSO
+> round(est$lasso,3) 
+theta1.1 theta1.2 theta2.1 theta2.2 
+   0.558    0.000    0.670    0.000 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("limiting.gamma")
+> ### * limiting.gamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: limiting.gamma
+> ### Title: calculate the value of limiting covariance matrices : Gamma
+> ### Aliases: limiting.gamma
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> 
+> set.seed(123)
+> 
+> ## Yuima
+> diff.matrix <- matrix(c("theta1"), 1, 1)
+> myModel <- setModel(drift=c("(-1)*theta2*x"), diffusion=diff.matrix, 
++ time.variable="t", state.variable="x")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> n <- 100
+> mySampling <- setSampling(Terminal=(n)^(1/3), n=n)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> myYuima <- setYuima(model=myModel, sampling=mySampling)
+> myYuima <- simulate(myYuima, xinit=1, true.parameter=list(theta1=0.6, theta2=0.3))
+> 
+> ## theorical figure of theta
+> theta1 <- 3.5
+> theta2 <- 1.3
+> 
+> theta <- list(theta1, theta2)
+> lim.gamma <- limiting.gamma(obj=myYuima, theta=theta, verbose=TRUE)
+Warning in yuima.warn("Initializing... ") : 
+YUIMA: Initializing... 
+
+Warning in yuima.warn("Done") : 
+YUIMA: Done
+
+Warning in yuima.warn("get C ... ") : 
+YUIMA: get C ... 
+
+Warning in yuima.warn("Done") : 
+YUIMA: Done
+
+Warning in yuima.warn("Get gamma1 ... ") : 
+YUIMA: Get gamma1 ... 
+
+Warning in yuima.warn("Done") : 
+YUIMA: Done
+
+Warning in yuima.warn("Get gamma2 ... ") : 
+YUIMA: Get gamma2 ... 
+
+Warning in yuima.warn("Done") : 
+YUIMA: Done
+
+> 
+> ## return theta1 and theta2 with list
+> lim.gamma$list
+$gamma1
+          [,1]
+[1,] 0.1632653
+
+$gamma2
+          [,1]
+[1,] 0.3846154
+
+> 
+> ## return theta1 and theta2 with vector
+> lim.gamma$vec
+[1] 0.1632653 0.3846154
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("llag")
+> ### * llag
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: llag
+> ### Title: Lead Lag Estimator
+> ### Aliases: llag llag,list-method
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> 
+> ## Set a model
+> diff.coef.matrix <- matrix(c("sqrt(x1)", "3/5*sqrt(x2)",
++  "1/3*sqrt(x3)", "", "4/5*sqrt(x2)","2/3*sqrt(x3)",
++  "","","2/3*sqrt(x3)"), 3, 3) 
+> drift <- c("1-x1","2*(10-x2)","3*(4-x3)")
+> cor.mod <- setModel(drift = drift, 
++  diffusion = diff.coef.matrix,
++  solve.variable = c("x1", "x2","x3")) 
+> 
+> set.seed(111) 
+> 
+> ## We use a function poisson.random.sampling 
+> ## to get observation by Poisson sampling.
+> yuima.samp <- setSampling(Terminal = 1, n = 1200) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = cor.mod, sampling = yuima.samp) 
+> yuima <- simulate(yuima,xinit=c(1,7,5)) 
+> 
+> ## intentionally displace the second time series
+> 
+>   data2 <- yuima@data@zoo.data[[2]]
+>   time2 <- time(data2)
+>   theta2 <- 0.05   # the lag of x2 behind x1
+>   stime2 <- time2 + theta2  
+>   time(yuima@data@zoo.data[[2]]) <- stime2
+> 
+>   data3 <- yuima@data@zoo.data[[3]]
+>   time3 <- time(data3)
+>   theta3 <- 0.12   # the lag of x3 behind x1
+>   stime3 <- time3 + theta3 
+>   time(yuima@data@zoo.data[[3]]) <- stime3
+> 
+> 
+> 
+> 
+> ## sampled data by Poisson rules
+> psample<- poisson.random.sampling(yuima, 
++  rate = c(0.2,0.3,0.4), n = 1000) 
+> 
+> 
+> ## plot
+> plot(psample)
+> 
+> 
+> ## cce
+> cce(psample)
+$covmat
+          Series 1  Series 2  Series 3
+Series 1 1.0341733 0.3703059 0.1689927
+Series 2 0.3703059 8.4164209 0.3131220
+Series 3 0.1689927 0.3131220 3.8125561
+
+$cormat
+           Series 1   Series 2   Series 3
+Series 1 1.00000000 0.12551634 0.08510659
+Series 2 0.12551634 1.00000000 0.05527664
+Series 3 0.08510659 0.05527664 1.00000000
+
+> 
+> ## lead-lag estimation (with cross-correlation plots)
+> par(mfcol=c(3,1))
+> result <- llag(psample, plot=TRUE)
+> 
+> ## estimated lead-lag parameter
+> result
+           Series 1    Series 2   Series 3
+Series 1  0.0000000  0.05232350 0.12000000
+Series 2 -0.0523235  0.00000000 0.07151363
+Series 3 -0.1200000 -0.07151363 0.00000000
+> 
+> ## computing pointwise confidence intervals
+> llag(psample, ci = TRUE)
+Estimated lead-lag parameters
+           Series 1    Series 2   Series 3
+Series 1  0.0000000  0.05232350 0.12000000
+Series 2 -0.0523235  0.00000000 0.07151363
+Series 3 -0.1200000 -0.07151363 0.00000000
+Corresponding p-values
+             Series 1     Series 2     Series 3
+Series 1 1.000000e+00 8.177761e-06 3.239945e-04
+Series 2 8.177761e-06 1.000000e+00 2.062569e-06
+Series 3 3.239945e-04 2.062569e-06 1.000000e+00
+Corresponding covariance matrix
+          Series 1 Series 2  Series 3
+Series 1 1.0341733 1.731379 0.8433603
+Series 2 1.7313790 8.416421 3.6797097
+Series 3 0.8433603 3.679710 3.8125561
+Corresponding correlation matrix
+          Series 1  Series 2  Series 3
+Series 1 1.0000000 0.5868563 0.4247255
+Series 2 0.5868563 1.0000000 0.6495936
+Series 3 0.4247255 0.6495936 1.0000000
+Lead-lag ratio
+          Series 1 Series 2 Series 3
+Series 1 1.0000000 2.251106 2.560784
+Series 2 0.4442260 1.000000 1.842937
+Series 3 0.3905055 0.542612 1.000000
+> 
+> ## In practice, it is better to specify the grid because the default grid contains too many points.
+> ## Here we give an example for how to specify it.
+> 
+> ## We search lead-lag parameters on the interval [-0.1, 0.1] with step size 0.01 
+> G <- seq(-0.1,0.1,by=0.01)
+> 
+> ## lead-lag estimation (with computing confidence intervals)
+> result <- llag(psample, grid = G, ci = TRUE)
+> 
+> ## Since the true lead-lag parameter 0.12 between x1 and x3 is not contained
+> ## in the searching grid G, we see that the corresponding cross-correlation 
+> ## does not exceed the cofidence interval
+> 
+> ## detailed output
+> ## the p-value for the (1,3)-th component is high
+> result
+Estimated lead-lag parameters
+         Series 1 Series 2 Series 3
+Series 1     0.00     0.05     0.10
+Series 2    -0.05     0.00     0.07
+Series 3    -0.10    -0.07     0.00
+Corresponding p-values
+             Series 1     Series 2     Series 3
+Series 1 1.000000e+00 8.724938e-06 2.964189e-02
+Series 2 8.724938e-06 1.000000e+00 1.319711e-06
+Series 3 2.964189e-02 1.319711e-06 1.000000e+00
+Corresponding covariance matrix
+           Series 1 Series 2   Series 3
+Series 1  1.0341733 1.725663 -0.4725133
+Series 2  1.7256633 8.416421  3.7335168
+Series 3 -0.4725133 3.733517  3.8125561
+Corresponding correlation matrix
+           Series 1  Series 2   Series 3
+Series 1  1.0000000 0.5849189 -0.2379629
+Series 2  0.5849189 1.0000000  0.6590923
+Series 3 -0.2379629 0.6590923  1.0000000
+Lead-lag ratio
+          Series 1  Series 2 Series 3
+Series 1 1.0000000 4.1345671 2.427283
+Series 2 0.2418633 1.0000000 4.436410
+Series 3 0.4119833 0.2254075 1.000000
+> 
+> ## Finally, we can examine confidence intervals of other significant levels
+> ## and/or without the Fisher z-transformation via the plot-method defined 
+> ## for yuima.llag-class objects as follows
+> plot(result, alpha = 0.001)
+> plot(result, fisher = FALSE)
+> 
+> par(mfcol=c(1,1))
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("lseBayes")
+> ### * lseBayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lseBayes
+> ### Title: Adaptive Bayes estimator for the parameters in sde model by
+> ###   using LSE functions
+> ### Aliases: lseBayes lseBayes,yuima-method
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ####2-dim model
+> ##D set.seed(123)
+> ##D 
+> ##D b <- c("-theta1*x1+theta2*sin(x2)+50","-theta3*x2+theta4*cos(x1)+25")
+> ##D a <- matrix(c("4+theta5*sin(x1)^2","1","1","2+theta6*sin(x2)^2"),2,2)
+> ##D 
+> ##D true = list(theta1 = 0.5, theta2 = 5,theta3 = 0.3, 
+> ##D             theta4 = 5, theta5 = 1, theta6 = 1)
+> ##D lower = list(theta1=0.1,theta2=0.1,theta3=0,
+> ##D              theta4=0.1,theta5=0.1,theta6=0.1)
+> ##D upper = list(theta1=1,theta2=10,theta3=0.9,
+> ##D              theta4=10,theta5=10,theta6=10)
+> ##D start = list(theta1=runif(1), 
+> ##D              theta2=rnorm(1),
+> ##D              theta3=rbeta(1,1,1), 
+> ##D              theta4=rnorm(1),
+> ##D              theta5=rgamma(1,1,1), 
+> ##D              theta6=rexp(1))
+> ##D 
+> ##D yuimamodel <- setModel(drift=b,diffusion=a,state.variable=c("x1", "x2"),solve.variable=c("x1","x2"))
+> ##D yuimasamp <- setSampling(Terminal=50,n=50*100)
+> ##D yuima <- setYuima(model = yuimamodel, sampling = yuimasamp)
+> ##D yuima <- simulate(yuima, xinit = c(100,80),
+> ##D                   true.parameter = true,sampling = yuimasamp)
+> ##D 
+> ##D prior <-
+> ##D     list(
+> ##D         theta1=list(measure.type="code",df="dunif(z,0,1)"),
+> ##D         theta2=list(measure.type="code",df="dnorm(z,0,1)"),
+> ##D         theta3=list(measure.type="code",df="dbeta(z,1,1)"),
+> ##D         theta4=list(measure.type="code",df="dgamma(z,1,1)"),
+> ##D         theta5=list(measure.type="code",df="dnorm(z,0,1)"),
+> ##D         theta6=list(measure.type="code",df="dnorm(z,0,1)")
+> ##D     )
+> ##D 
+> ##D 
+> ##D mle <- qmle(yuima, start = start, lower = lower, upper = upper, method = "L-BFGS-B",rcpp=TRUE) 
+> ##D print(mle@coef)
+> ##D set.seed(123)
+> ##D bayes1 <- lseBayes(yuima, start=start, prior=prior,
+> ##D                                     method="mcmc",
+> ##D                                     mcmc=1000,lower = lower, upper = upper,algorithm = "randomwalk")
+> ##D bayes1@coef
+> ##D set.seed(123)
+> ##D bayes2 <- lseBayes(yuima, start=start, prior=prior,
+> ##D                                     method="mcmc",
+> ##D                                     mcmc=1000,lower = lower, upper = upper,algorithm = "MpCN")
+> ##D bayes2@coef
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mllag")
+> ### * mllag
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mllag
+> ### Title: Multiple Lead-Lag Detector
+> ### Aliases: mllag
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> 
+> # The first example is taken from llag
+> 
+> ## Set a model
+> diff.coef.matrix <- matrix(c("sqrt(x1)", "3/5*sqrt(x2)",
++  "1/3*sqrt(x3)", "", "4/5*sqrt(x2)","2/3*sqrt(x3)",
++  "","","2/3*sqrt(x3)"), 3, 3) 
+> drift <- c("1-x1","2*(10-x2)","3*(4-x3)")
+> cor.mod <- setModel(drift = drift, 
++  diffusion = diff.coef.matrix,
++  solve.variable = c("x1", "x2","x3")) 
+> 
+> set.seed(111) 
+> 
+> ## We use a function poisson.random.sampling 
+> ## to get observation by Poisson sampling.
+> yuima.samp <- setSampling(Terminal = 1, n = 1200) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = cor.mod, sampling = yuima.samp) 
+> yuima <- simulate(yuima,xinit=c(1,7,5)) 
+> 
+> ## intentionally displace the second time series
+> 
+>   data2 <- yuima@data@zoo.data[[2]]
+>   time2 <- time(data2)
+>   theta2 <- 0.05   # the lag of x2 behind x1
+>   stime2 <- time2 + theta2  
+>   time(yuima@data@zoo.data[[2]]) <- stime2
+> 
+>   data3 <- yuima@data@zoo.data[[3]]
+>   time3 <- time(data3)
+>   theta3 <- 0.12   # the lag of x3 behind x1
+>   stime3 <- time3 + theta3 
+>   time(yuima@data@zoo.data[[3]]) <- stime3
+> 
+> ## sampled data by Poisson rules
+> psample<- poisson.random.sampling(yuima, 
++  rate = c(0.2,0.3,0.4), n = 1000) 
+>  
+>  ## We search lead-lag parameters on the interval [-0.1, 0.1] with step size 0.01 
+> G <- seq(-0.1,0.1,by=0.01)
+> 
+> ## lead-lag estimation by mllag
+> par(mfcol=c(3,1))
+> result <- mllag(psample, grid = G)
+> 
+> ## Since the lead-lag parameter for the pair(x1, x2) is not contained in G,
+> ## no lead-lag parameter is detected for this pair
+> 
+> par(mfcol=c(1,1))
+> 
+> # The second example is a situation where multiple lead-lag effects exist
+> set.seed(222)
+> 
+> n <- 3600
+> Times <- seq(0, 1, by = 1/n)
+> R1 <- 0.6
+> R2 <- -0.3
+> 
+> dW1 <- rnorm(n + 10)/sqrt(n)
+> dW2 <- rnorm(n + 5)/sqrt(n)
+> dW3 <- rnorm(n)/sqrt(n)
+> 
+> x <- zoo(diffinv(dW1[-(1:10)] + dW2[1:n]), Times)
+> y <- zoo(diffinv(R1 * dW1[1:n] + R2 * dW2[-(1:5)] + 
++                  sqrt(1- R1^2 - R2^2) * dW3), Times)
+> 
+> ## In this setting, both x and y have a component leading to the other, 
+> ## but x's leading component dominates y's one
+> 
+> yuima <- setData(list(x, y))
+> 
+> ## Lead-lag estimation by llag
+> G <- seq(-30/n, 30/n, by = 1/n)
+> est <- llag(yuima, grid = G, ci = TRUE)
+> 
+> ## The shape of the plotted cross-correlation is evidently bimodal,
+> ## so there are likely two lead-lag parameters
+> 
+> ## Lead-lag estimation by mllag
+> mllag(est) # succeeds in detecting two lead-lag parameters
+Estimated lead-lag parameters
+$`(1,2)`
+              lagcce     p.values correlation
+-0.0014 -0.001388889 1.532512e-18  -0.2027184
+0.0028   0.002777778 6.976852e-64   0.3993129
+
+Lead-lag ratio
+         [,1]     [,2]
+[1,] 1.000000 3.291845
+[2,] 0.303781 1.000000
+> 
+> ## Next consider a non-synchronous sampling case
+> psample <- poisson.random.sampling(yuima, n = n, rate = c(0.8, 0.7))
+> 
+> ## Lead-lag estimation by mllag
+> est <- mllag(psample, grid = G) 
+> est # detects too many lead-lag parameters
+Estimated lead-lag parameters
+$`(1,2)`
+               lagcce     p.values correlation
+-0.0019 -0.0019444444 9.587404e-03 -0.09947386
+-0.0017 -0.0016666667 7.373583e-05 -0.15183025
+-0.0014 -0.0013888889 5.156867e-08 -0.21000618
+-0.0011 -0.0011111111 6.846308e-05 -0.15352886
+-8e-04  -0.0008333333 6.209345e-03 -0.10497550
+0.0019   0.0019444444 6.093195e-03  0.10489307
+0.0022   0.0022222222 3.416795e-08  0.21323262
+0.0025   0.0025000000 8.068029e-19  0.35162642
+0.0028   0.0027777778 3.461797e-27  0.44407355
+0.0031   0.0030555556 1.802901e-17  0.33670488
+0.0033   0.0033333333 1.155407e-07  0.20461114
+0.0036   0.0036111111 2.032526e-03  0.11843907
+
+Lead-lag ratio
+          [,1]     [,2]
+[1,] 1.0000000 4.114432
+[2,] 0.2430469 1.000000
+> 
+> ## Using a lower significant level
+> mllag(est, alpha = 0.001) # insufficient
+Estimated lead-lag parameters
+$`(1,2)`
+              lagcce     p.values correlation
+-0.0017 -0.001666667 7.373583e-05  -0.1518302
+-0.0014 -0.001388889 5.156867e-08  -0.2100062
+-0.0011 -0.001111111 6.846308e-05  -0.1535289
+0.0022   0.002222222 3.416795e-08   0.2132326
+0.0025   0.002500000 8.068029e-19   0.3516264
+0.0028   0.002777778 3.461797e-27   0.4440735
+0.0031   0.003055556 1.802901e-17   0.3367049
+0.0033   0.003333333 1.155407e-07   0.2046111
+
+Lead-lag ratio
+          [,1]     [,2]
+[1,] 1.0000000 4.114432
+[2,] 0.2430469 1.000000
+> 
+> ## As the plot reveals, one reason is because the grid is too dense
+> ## In fact, this phenomenon can be avoided by using a coarser grid
+> mllag(psample, grid = seq(-30/n, 30/n, by=5/n)) # succeeds!
+Estimated lead-lag parameters
+$`(1,2)`
+              lagcce     p.values correlation
+-0.0014 -0.001388889 5.156867e-08  -0.2100062
+0.0028   0.002777778 3.461797e-27   0.4440735
+
+Lead-lag ratio
+          [,1]     [,2]
+[1,] 1.0000000 3.745384
+[2,] 0.2669953 1.000000
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("mmfrac")
+> ### * mmfrac
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mmfrac
+> ### Title: mmfrac
+> ### Aliases: mmfrac
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> # Estimating all Hurst parameter, diffusion coefficient  and drift coefficient 
+> # in fractional Ornstein-Uhlenbeck
+> 
+> model<-setModel(drift="-x*lambda",hurst=NA,diffusion="theta")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> sampling<-setSampling(T=100,n=10000)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yui1<-simulate(model,true.param=list(theta=1,lambda=4),hurst=0.7,sampling=sampling)
+> mmfrac(yui1)
+
+Fractional OU estimation
+                hurst   (theta)    lambda
+Estimate   0.68515444 0.9388648 4.6155292
+Std. Error 0.01060284 0.0648322 0.3557248
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mpv")
+> ### * mpv
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mpv
+> ### Title: Realized Multipower Variation
+> ### Aliases: mpv mpv,yuima-method mpv,yuima.data-method
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> 
+> set.seed(123)
+> 
+> # One-dimensional case
+> ## Model: dXt=t*dWt+t*dzt, 
+> ## where zt is a compound Poisson process with intensity 5 and jump sizes distribution N(0,0.1). 
+> 
+> model <- setModel(drift=0,diffusion="t",jump.coeff="t",measure.type="CP",
++                   measure=list(intensity=5,df=list("dnorm(z,0,sqrt(0.1))")),
++                   time.variable="t")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> 
+> yuima.samp <- setSampling(Terminal = 1, n = 390) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = model, sampling = yuima.samp) 
+> yuima <- simulate(yuima)
+> plot(yuima)
+> 
+> mpv(yuima) # true value is 1/3
+[1] 0.3690623
+> mpv(yuima,1) # true value is 1/2
+[1] 0.5022814
+> mpv(yuima,rep(2/3,3)) # true value is 1/3
+[1] 0.309954
+> 
+> # Multi-dimensional case
+> ## Model: dXkt=t*dWk_t (k=1,2,3).
+> 
+> diff.matrix <- diag(3)
+> diag(diff.matrix) <- c("t","t","t")
+> model <- setModel(drift=c(0,0,0),diffusion=diff.matrix,time.variable="t",
++                   solve.variable=c("x1","x2","x3"))
+> 
+> yuima.samp <- setSampling(Terminal = 1, n = 390) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = model, sampling = yuima.samp) 
+> yuima <- simulate(yuima)
+> plot(yuima)
+> 
+> mpv(yuima,list(c(1,1),1,rep(2/3,3))) # true varue is c(1/3,1/2,1/3)
+[1] 0.3263530 0.4923206 0.2836878
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("noisy.sampling")
+> ### * noisy.sampling
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: noisy.sampling
+> ### Title: Noisy Observation Generator
+> ### Aliases: noisy.sampling noisy.sampling,yuima-method
+> ###   noisy.sampling,yuima.data-method
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Set a model (a two-dimensional normal model sampled by a Poisson random sampling)
+> set.seed(123)
+> 
+> drift <- c(0,0)
+>   
+> sigma1 <- 1
+> sigma2 <- 1
+> rho <- 0.7
+> 
+> diffusion <- matrix(c(sigma1,sigma2*rho,0,sigma2*sqrt(1-rho^2)),2,2)
+> 
+> model <- setModel(drift=drift,diffusion=diffusion,
++                   state.variable=c("x1","x2"),solve.variable=c("x1","x2"))
+> 
+> yuima.samp <- setSampling(Terminal = 1, n = 2340) 
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model = model, sampling = yuima.samp) 
+> yuima <- simulate(yuima)
+> 
+> ## Poisson random sampling
+> psample<- poisson.random.sampling(yuima, rate = c(1/3,1/6), n = 2340)
+> 
+> ## Plot the path without noise
+> plot(psample)
+> 
+> # Set a matrix as the variance of noise
+> Omega <- 0.01*diffusion 
+> 
+> ## Contaminate the observation data by centered normal distributed noise
+> ## with the variance matrix equal to 1% of the diffusion
+> noisy.psample1 <- noisy.sampling(psample,var.adj=Omega)
+> plot(noisy.psample1)
+> 
+> ## Contaminate the observation data by centered uniformly distributed noise
+> ## with the variance matrix equal to 1% of the diffusion
+> noisy.psample2 <- noisy.sampling(psample,var.adj=Omega,rng="runif",min=-sqrt(3),max=sqrt(3))
+> plot(noisy.psample2)
+> 
+> ## Contaminate the observation data by centered exponentially distributed noise
+> ## with the variance matrix equal to 1% of the diffusion
+> noisy.psample3 <- noisy.sampling(psample,var.adj=Omega,rng="rexp",rate=1,mean.adj=1)
+> plot(noisy.psample3)
+> 
+> ## Contaminate the observation data by its return series
+> ## multiplied by -0.1 times the square root of the intensity vector
+> ## of the Poisson random sampling   
+> noisy.psample4 <- noisy.sampling(psample,end.coef=-0.1,n=2340*c(1/3,1/6))
+> plot(noisy.psample4)
+> 
+> ## An application: 
+> ## Adding a compound Poisson jumps to the observation data
+> 
+> ## Set a compound Poisson process
+> intensity <- 5
+> j.num <- rpois(1,intensity) # Set a number of jumps
+> j.idx <- unique(ceiling(2340*runif(j.num))) # Set time indices of jumps
+> jump <- matrix(0,2,2341)
+> jump[,j.idx+1] <- sqrt(0.25/intensity)*diffusion 
+> grid <- seq(0,1,by=1/2340)
+> CPprocess <- list(zoo(cumsum(jump[1,]),grid),zoo(cumsum(jump[2,]),grid))
+> 
+> ## Adding the jumps
+> yuima.jump <- noisy.sampling(yuima,znoise=CPprocess)
+> plot(yuima.jump)
+> 
+> ## Poisson random sampling
+> psample.jump <- poisson.random.sampling(yuima.jump, rate = c(1/3,1/6), n = 2340)
+> plot(psample.jump)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("phi.test")
+> ### * phi.test
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: phi.test
+> ### Title: Phi-divergence test statistic for stochastic differential
+> ###   equations
+> ### Aliases: phi.test
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> model<- setModel(drift="t1*(t2-x)",diffusion="t3")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> T<-10
+> n<-1000
+> sampling <- setSampling(Terminal=T,n=n)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima<-setYuima(model=model, sampling=sampling)
+> 
+> h0 <- list(t1=0.3, t2=1, t3=0.25)
+> X <- simulate(yuima, xinit=1, true=h0)
+> h1 <- list(t1=0.3, t2=0.2, t3=0.1)
+> 
+> phi1 <- function(x) 1-x+x*log(x)
+> 
+> phi.test(X, H0=h0, H1=h1,phi=phi1)
+Phi-Divergence test statistic based on phi = 'phi1'
+H0: t1 = 0.300 t2 = 1.000 t3 = 0.250
+versus
+H1: t1 = 0.300 t2 = 0.200 t3 = 0.100
+
+Test statistic = 1024.542, df = 3, p-value = 0 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> phi.test(X, H0=h0, phi=phi1, start=h0, lower=list(t1=0.1, t2=0.1, t3=0.1), 
++    upper=list(t1=2,t2=2,t3=2),method="L-BFGS-B")
+
+estimating parameters via QMLE...
+Phi-Divergence test statistic based on phi = 'phi1'
+H0: t1 = 0.300 t2 = 1.000 t3 = 0.250
+versus
+H1: t1 = 0.653 t2 = 0.935 t3 = 0.259
+H1 parameters estimated using QMLE
+
+Test statistic = 3.968, df = 3, p-value = 0.2648919  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> phi.test(X, H0=h1, phi=phi1, start=h0, lower=list(t1=0.1, t2=0.1, t3=0.1), 
++   upper=list(t1=2,t2=2,t3=2),method="L-BFGS-B")
+
+estimating parameters via QMLE...
+Phi-Divergence test statistic based on phi = 'phi1'
+H0: t1 = 0.300 t2 = 0.200 t3 = 0.100
+versus
+H1: t1 = 0.653 t2 = 0.935 t3 = 0.259
+H1 parameters estimated using QMLE
+
+Test statistic = 1.6e+19, df = 3, p-value = 0 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("poisson.random.sampling")
+> ### * poisson.random.sampling
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: poisson.random.sampling
+> ### Title: Poisson random sampling method
+> ### Aliases: poisson.random.sampling
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> ## Set a model
+> diff.coef.1 <- function(t, x1=0, x2) x2*(1+t)
+> diff.coef.2 <- function(t, x1, x2=0) x1*sqrt(1+t^2)
+> cor.rho <- function(t, x1=0, x2=0) sqrt((1+cos(x1*x2))/2)
+> diff.coef.matrix <- matrix(c("diff.coef.1(t,x1,x2)",
++ "diff.coef.2(t,x1,x2)*cor.rho(t,x1,x2)", "",
++ "diff.coef.2(t,x1,x2)*sqrt(1-cor.rho(t,x1,x2)^2)"),2,2)
+> cor.mod <- setModel(drift=c("",""), diffusion=diff.coef.matrix, 
++ solve.variable=c("x1", "x2"), xinit=c(3,2))
+> set.seed(111)
+> 
+> ## We first simulate the two dimensional diffusion model
+> yuima.samp <- setSampling(Terminal=1, n=1200)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model=cor.mod, sampling=yuima.samp)
+> yuima.sim <- simulate(yuima)
+> 
+> ## Then we use function poisson.random.sampling to get observations
+> ## by Poisson sampling.
+> psample <- poisson.random.sampling(yuima.sim,  rate = c(0.2, 0.3), n=1000)
+> str(psample)
+Formal class 'yuima.data' [package "yuima"] with 2 slots
+  ..@ original.data:List of 2
+  .. ..$ Series 1:‘zooreg’ series from 0.00333333333333333 to 0.998333333333333
+  Data: num [1:163] 2.85 2.84 2.71 2.64 2.67 ...
+  Index:  num [1:163] 0.00333 0.005 0.00667 0.00833 0.01417 ...
+  Frequency: 1200 
+  .. ..$ Series 2:‘zooreg’ series from 0.00166666666666667 to 0.995
+  Data: num [1:261] 1.99 1.86 1.64 1.8 1.87 ...
+  Index:  num [1:261] 0.00167 0.005 0.00833 0.02167 0.02333 ...
+  Frequency: 1200 
+  ..@ zoo.data     :List of 2
+  .. ..$ Series 1:‘zooreg’ series from 0.00333333333333333 to 0.998333333333333
+  Data: num [1:163] 2.85 2.84 2.71 2.64 2.67 ...
+  Index:  num [1:163] 0.00333 0.005 0.00667 0.00833 0.01417 ...
+  Frequency: 1200 
+  .. ..$ Series 2:‘zooreg’ series from 0.00166666666666667 to 0.995
+  Data: num [1:261] 1.99 1.86 1.64 1.8 1.87 ...
+  Index:  num [1:261] 0.00167 0.005 0.00833 0.02167 0.02333 ...
+  Frequency: 1200 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("qgv")
+> ### * qgv
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: qgv
+> ### Title: qgv
+> ### Aliases: qgv
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> # Estimating both Hurst parameter and diffusion coefficient in fractional Ornstein-Uhlenbeck
+> 
+> model<-setModel(drift="-x*lambda",hurst=NA,diffusion="theta")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> sampling<-setSampling(T=100,n=10000)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yui1<-simulate(model,true.param=list(theta=1,lambda=4),hurst=0.7,sampling=sampling)
+> qgv(yui1)
+
+Fractional OU estimation
+                hurst   (theta)
+Estimate   0.68515444 0.9388648
+Std. Error 0.01060284 0.0648322
+> 
+> 
+> # Estimating Hurst parameter only in diffusion processes
+> 
+> model2<-setModel(drift="-x*lambda",hurst=NA,diffusion="theta*sqrt(x)")
+Warning in yuima.warn("Solution variable (lhs) not specified. Trying to use state variables.") :
+  
+YUIMA: Solution variable (lhs) not specified. Trying to use state variables.
+
+> sampling<-setSampling(T=1,n=10000)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yui2<-simulate(model2,true.param=list(theta=1,lambda=4),hurst=0.7,sampling=sampling,xinit=10)
+> qgv(yui2)
+
+Fractional OU estimation
+              hurst (theta * sqrt(x))
+Estimate   0.691385                NA
+Std. Error       NA                NA
+> 
+> 
+> 
+> cleanEx()
+> nameEx("qmle")
+> ### * qmle
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: qmle
+> ### Title: Calculate quasi-likelihood and ML estimator of least squares
+> ###   estimator
+> ### Aliases: qmle quasilogl rql lse pseudologlikelihood
+> ###   pseudologlikelihood.COGARCH
+> ### Keywords: ts
+> 
+> ### ** Examples
+> 
+> #dXt^e = -theta2 * Xt^e * dt + theta1 * dWt
+> diff.matrix <- matrix(c("theta1"), 1, 1)
+> ymodel <- setModel(drift=c("(-1)*theta2*x"), diffusion=diff.matrix,
++   time.variable="t", state.variable="x", solve.variable="x")
+> n <- 100
+> 
+> ysamp <- setSampling(Terminal=(n)^(1/3), n=n)
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima <- setYuima(model=ymodel, sampling=ysamp)
+> set.seed(123)
+> yuima <- simulate(yuima, xinit=1, true.parameter=list(theta1=0.3,
++ theta2=0.1))
+> QL <- quasilogl(yuima, param=list(theta2=0.8, theta1=0.7))
+> ##QL <- ql(yuima, 0.8, 0.7, h=1/((n)^(2/3)))
+> QL
+[1] 86.99151
+> 
+> ## another way of parameter specification
+> ##param <- list(theta2=0.8, theta1=0.7)
+> ##QL <- ql(yuima, h=1/((n)^(2/3)), param=param)
+> ##QL
+> 
+> 
+> ## old code
+> ##system.time(
+> ##opt <- ml.ql(yuima, 0.8, 0.7, h=1/((n)^(2/3)), c(0, 1), c(0, 1))
+> ##)
+> ##cat(sprintf("\nTrue param. theta2 = .3, theta1 = .1\n"))
+> ##print(coef(opt))
+> 
+> 
+> system.time(
++ opt2 <- qmle(yuima, start=list(theta1=0.8, theta2=0.7), lower=list(theta1=0,theta2=0),
++  upper=list(theta1=1,theta2=1), method="L-BFGS-B")
++ )
+   user  system elapsed 
+  0.041   0.000   0.042 
+> cat(sprintf("\nTrue param. theta2 = .3, theta1 = .1\n"))
+
+True param. theta2 = .3, theta1 = .1
+> print(coef(opt2))
+     theta1      theta2 
+0.307654139 0.002737703 
+> 
+> ## initial guess for theta2 by least squares estimator
+> tmp <- lse(yuima, start=list(theta2=0.7), lower=list(theta2=0), upper=list(theta2=1))
+> tmp
+[1] 0.002737703
+> 
+> system.time(
++ opt3 <- qmle(yuima, start=list(theta1=0.8, theta2=tmp), lower=list(theta1=0,theta2=0),
++  upper=list(theta1=1,theta2=1), method="L-BFGS-B")
++ )
+   user  system elapsed 
+  0.042   0.000   0.044 
+> cat(sprintf("\nTrue param. theta2 = .3, theta1 = .1\n"))
+
+True param. theta2 = .3, theta1 = .1
+> print(coef(opt3))
+     theta1      theta2 
+0.273113433 0.002737703 
+> 
+> 
+> ## perform joint estimation? Non-optimal, just for didactic purposes
+> system.time(
++ opt4 <- qmle(yuima, start=list(theta1=0.8, theta2=0.7), lower=list(theta1=0,theta2=0),
++  upper=list(theta1=1,theta2=1), method="L-BFGS-B", joint=TRUE)
++ )
+Warning in yuima.warn("quasi likelihood is too small to calculate.") :
+  
+YUIMA: quasi likelihood is too small to calculate.
+
+Warning in yuima.warn("quasi likelihood is too small to calculate.") :
+  
+YUIMA: quasi likelihood is too small to calculate.
+
+Warning in yuima.warn("quasi likelihood is too small to calculate.") :
+  
+YUIMA: quasi likelihood is too small to calculate.
+
+Warning in yuima.warn("quasi likelihood is too small to calculate.") :
+  
+YUIMA: quasi likelihood is too small to calculate.
+
+   user  system elapsed 
+  0.072   0.000   0.073 
+> cat(sprintf("\nTrue param. theta2 = .3, theta1 = .1\n"))
+
+True param. theta2 = .3, theta1 = .1
+> print(coef(opt4))
+     theta1      theta2 
+0.273107671 0.002737514 
+> 
+> ## old code
+> ##system.time(
+> ##opt <- ml.ql(yuima, 0.8, 0.7, h=1/((n)^(2/3)), c(0, 1), c(0, 1), method="Newton")
+> ##)
+> ##cat(sprintf("\nTrue param. theta2 = .3, theta1 = .1\n"))
+> ##print(coef(opt))
+> 
+> 
+> ## Not run: 
+> ##D ###multidimension case
+> ##D ##dXt^e = - drift.matrix * Xt^e * dt + diff.matrix * dWt
+> ##D diff.matrix <- matrix(c("theta1.1","theta1.2", "1", "1"), 2, 2)
+> ##D 
+> ##D drift.c <- c("-theta2.1*x1", "-theta2.2*x2", "-theta2.2", "-theta2.1")
+> ##D drift.matrix <- matrix(drift.c, 2, 2)
+> ##D 
+> ##D ymodel <- setModel(drift=drift.matrix, diffusion=diff.matrix, time.variable="t",
+> ##D                    state.variable=c("x1", "x2"), solve.variable=c("x1", "x2"))
+> ##D n <- 100
+> ##D ysamp <- setSampling(Terminal=(n)^(1/3), n=n)
+> ##D yuima <- setYuima(model=ymodel, sampling=ysamp)
+> ##D set.seed(123)
+> ##D 
+> ##D ##xinit=c(x1, x2) #true.parameter=c(theta2.1, theta2.2, theta1.1, theta1.2)
+> ##D yuima <- simulate(yuima, xinit=c(1, 1),
+> ##D true.parameter=list(theta2.1=0.5, theta2.2=0.3, theta1.1=0.6, theta1.2=0.2))
+> ##D 
+> ##D ## theta2 <- c(0.8, 0.2) #c(theta2.1, theta2.2)
+> ##D ##theta1 <- c(0.7, 0.1) #c(theta1.1, theta1.2)
+> ##D ## QL <- ql(yuima, theta2, theta1, h=1/((n)^(2/3)))
+> ##D ## QL
+> ##D 
+> ##D ## ## another way of parameter specification
+> ##D ## #param <- list(theta2=theta2, theta1=theta1)
+> ##D ## #QL <- ql(yuima, h=1/((n)^(2/3)), param=param)
+> ##D ## #QL
+> ##D 
+> ##D ## theta2.1.lim <- c(0, 1)
+> ##D ## theta2.2.lim <- c(0, 1)
+> ##D ## theta1.1.lim <- c(0, 1)
+> ##D ## theta1.2.lim <- c(0, 1)
+> ##D ## theta2.lim <- t( matrix( c(theta2.1.lim, theta2.2.lim), 2, 2) )
+> ##D ## theta1.lim <- t( matrix( c(theta1.1.lim, theta1.2.lim), 2, 2) )
+> ##D 
+> ##D ## system.time(
+> ##D ## opt <- ml.ql(yuima, theta2, theta1, h=1/((n)^(2/3)), theta2.lim, theta1.lim)
+> ##D ## )
+> ##D ## opt@coef
+> ##D 
+> ##D system.time(
+> ##D opt2 <- qmle(yuima, start=list(theta2.1=0.8, theta2.2=0.2, theta1.1=0.7, theta1.2=0.1),
+> ##D  lower=list(theta1.1=.1,theta1.2=.1,theta2.1=.1,theta2.2=.1),
+> ##D  upper=list(theta1.1=4,theta1.2=4,theta2.1=4,theta2.2=4), method="L-BFGS-B")
+> ##D )
+> ##D opt2@coef
+> ##D summary(opt2)
+> ##D 
+> ##D ## unconstrained optimization
+> ##D system.time(
+> ##D opt3 <- qmle(yuima, start=list(theta2.1=0.8, theta2.2=0.2, theta1.1=0.7, theta1.2=0.1))
+> ##D )
+> ##D opt3@coef
+> ##D summary(opt3)
+> ##D 
+> ##D quasilogl(yuima, param=list(theta2.1=0.8, theta2.2=0.2, theta1.1=0.7, theta1.2=0.1))
+> ##D 
+> ##D ##system.time(
+> ##D ##opt <- ml.ql(yuima, theta2, theta1, h=1/((n)^(2/3)), theta2.lim, theta1.lim, method="Newton")
+> ##D ##)
+> ##D ##opt@coef
+> ##D ##
+> ##D 
+> ##D # carma(p=2,q=0) driven by a brownian motion without location parameter
+> ##D 
+> ##D mod0<-setCarma(p=2,
+> ##D                q=0,
+> ##D                scale.par="sigma")
+> ##D 
+> ##D true.parm0 <-list(a1=1.39631,
+> ##D                  a2=0.05029,
+> ##D                  b0=1,
+> ##D                  sigma=0.23)
+> ##D 
+> ##D samp0<-setSampling(Terminal=100,n=250)
+> ##D set.seed(123)
+> ##D sim0<-simulate(mod0,
+> ##D                true.parameter=true.parm0,
+> ##D                sampling=samp0)
+> ##D 
+> ##D system.time(
+> ##D carmaopt0 <- qmle(sim0, start=list(a1=1.39631,a2=0.05029,
+> ##D                               b0=1,
+> ##D                                sigma=0.23))
+> ##D )
+> ##D 
+> ##D summary(carmaopt0)
+> ##D 
+> ##D # carma(p=2,q=1) driven by a brownian motion without location parameter
+> ##D 
+> ##D mod1<-setCarma(p=2,
+> ##D                q=1)
+> ##D 
+> ##D true.parm1 <-list(a1=1.39631,
+> ##D                   a2=0.05029,
+> ##D                   b0=1,
+> ##D                   b1=2)
+> ##D 
+> ##D samp1<-setSampling(Terminal=100,n=250)
+> ##D set.seed(123)
+> ##D sim1<-simulate(mod1,
+> ##D                true.parameter=true.parm1,
+> ##D                sampling=samp1)
+> ##D 
+> ##D system.time(
+> ##D   carmaopt1 <- qmle(sim1, start=list(a1=1.39631,a2=0.05029,
+> ##D                                      b0=1,b1=2),joint=TRUE)
+> ##D )
+> ##D 
+> ##D summary(carmaopt1)
+> ##D 
+> ##D # carma(p=2,q=1) driven by a compound poisson process where the jump size is normally distributed.
+> ##D 
+> ##D mod2<-setCarma(p=2,
+> ##D                q=1,
+> ##D                measure=list(intensity="1",df=list("dnorm(z, 0, 1)")),
+> ##D                measure.type="CP")
+> ##D 
+> ##D true.parm2 <-list(a1=1.39631,
+> ##D                   a2=0.05029,
+> ##D                   b0=1,
+> ##D                   b1=2)
+> ##D 
+> ##D samp2<-setSampling(Terminal=100,n=250)
+> ##D set.seed(123)
+> ##D sim2<-simulate(mod2,
+> ##D                true.parameter=true.parm2,
+> ##D                sampling=samp2)
+> ##D 
+> ##D system.time(
+> ##D   carmaopt2 <- qmle(sim2, start=list(a1=1.39631,a2=0.05029,
+> ##D                                      b0=1,b1=2),joint=TRUE)
+> ##D )
+> ##D 
+> ##D summary(carmaopt2)
+> ##D 
+> ##D # carma(p=2,q=1) driven by a normal inverse gaussian process
+> ##D mod3<-setCarma(p=2,q=1,
+> ##D                measure=list(df=list("rNIG(z, alpha, beta, delta1, mu)")),
+> ##D                measure.type="code")
+> ##D #
+> ##D 
+> ##D # True param
+> ##D true.param3<-list(a1=1.39631,
+> ##D                  a2=0.05029,
+> ##D                  b0=1,
+> ##D                  b1=2,
+> ##D                  alpha=1,
+> ##D                  beta=0,
+> ##D                  delta1=1,
+> ##D                  mu=0)
+> ##D 
+> ##D samp3<-setSampling(Terminal=100,n=200)
+> ##D set.seed(123)
+> ##D 
+> ##D sim3<-simulate(mod3,
+> ##D                true.parameter=true.param3,
+> ##D                sampling=samp3)
+> ##D 
+> ##D 
+> ##D carmaopt3<-qmle(sim3,start=true.param3)
+> ##D 
+> ##D summary(carmaopt3)
+> ##D 
+> ##D # Simulation and Estimation of COGARCH(1,1) with CP driven noise
+> ##D 
+> ##D # Model parameters
+> ##D eta<-0.053
+> ##D b1 <- eta
+> ##D beta <- 0.04
+> ##D a0 <- beta/b1
+> ##D phi<- 0.038
+> ##D a1 <- phi
+> ##D 
+> ##D 
+> ##D # Definition
+> ##D 
+> ##D cog11<-setCogarch(p = 1,q = 1,
+> ##D   measure = list(intensity = "1",
+> ##D                  df = list("dnorm(z, 0, 1)")),
+> ##D   measure.type = "CP",
+> ##D   XinExpr=TRUE)
+> ##D 
+> ##D # Parameter
+> ##D paramCP11 <- list(a1 = a1, b1 =  b1,
+> ##D                   a0 = a0, y01 = 50.31)
+> ##D # Sampling scheme
+> ##D samp11 <- setSampling(0, 3200, n=64000)
+> ##D 
+> ##D # Simulation
+> ##D set.seed(125)
+> ##D 
+> ##D SimTime11 <- system.time(
+> ##D   sim11 <- simulate(object = cog11,
+> ##D     true.parameter = paramCP11,
+> ##D     sampling = samp11,
+> ##D     method="mixed")
+> ##D )
+> ##D 
+> ##D plot(sim11)
+> ##D 
+> ##D # Estimation
+> ##D 
+> ##D timeComp11<-system.time(
+> ##D   res11 <- qmle(yuima = sim11,
+> ##D     start = paramCP11,
+> ##D     grideq = TRUE,
+> ##D     method = "Nelder-Mead")
+> ##D )
+> ##D 
+> ##D timeComp11
+> ##D 
+> ##D unlist(paramCP11)
+> ##D 
+> ##D coef(res11)
+> ##D 
+> ##D # COGARCH(2,2) model driven by CP
+> ##D 
+> ##D cog22 <- setCogarch(p = 2,q = 2,
+> ##D   measure = list(intensity = "1",
+> ##D                  df = list("dnorm(z, 0, 1)")),
+> ##D   measure.type = "CP",
+> ##D   XinExpr=TRUE)
+> ##D 
+> ##D # Parameter
+> ##D 
+> ##D paramCP22 <- list(a1 = 0.04, a2 = 0.001,
+> ##D   b1 =  0.705, b2 = 0.1, a0 = 0.1, y01 = (1 + 2 / 3),
+> ##D   y02=0)
+> ##D 
+> ##D # Use diagnostic.cog for checking the stat and positivity
+> ##D 
+> ##D check22 <- Diagnostic.Cogarch(cog22, param = paramCP22)
+> ##D 
+> ##D # Sampling scheme
+> ##D 
+> ##D samp22 <- setSampling(0, 3600, n = 64000)
+> ##D 
+> ##D # Simulation
+> ##D 
+> ##D set.seed(125)
+> ##D SimTime22 <- system.time(
+> ##D   sim22 <- simulate(object = cog22,
+> ##D     true.parameter = paramCP22,
+> ##D     sampling = samp22,
+> ##D     method = "Mixed")
+> ##D )
+> ##D 
+> ##D plot(sim22)
+> ##D 
+> ##D timeComp22 <- system.time(
+> ##D   res22 <- qmle(yuima = sim22,
+> ##D     start = paramCP22,
+> ##D     grideq=TRUE,
+> ##D     method = "Nelder-Mead")
+> ##D )
+> ##D 
+> ##D timeComp22
+> ##D 
+> ##D unlist(paramCP22)
+> ##D 
+> ##D coef(res22)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("qmleLevy")
+> ### * qmleLevy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: qmleLevy
+> ### Title: Gaussian quasi-likelihood estimation for Levy driven SDE
+> ### Aliases: qmleLevy
+> ### Keywords: ~kwd1 ~kwd2
+> 
+> ### ** Examples
+> 
+> ## One-dimensional case 
+> dri<-"-theta0*x" ## set drift
+> jum<-"theta1/(1+x^2)^(-1/2)" ## set jump
+> yuima<-setModel(drift = dri
++                 ,jump.coeff = jum
++                 ,solve.variable = "x",state.variable = "x"
++                 ,measure.type = "code"
++                 ,measure = list(df="rbgamma(z,1,sqrt(2),1,sqrt(2))")) ## set true model
+> n<-3000
+> T<-30 ## terminal
+> hn<-T/n ## stepsize
+> 
+> sam<-setSampling(Terminal = T, n=n) ## set sampling scheme
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima<-setYuima(model = yuima, sampling = sam) ## model
+> 
+> true<-list(theta0 = 1,theta1 = 2) ## true values
+> upper<-list(theta0 = 4, theta1 = 4) ## set upper bound
+> lower<-list(theta0 = 0.5, theta1 = 1) ## set lower bound
+> set.seed(123)
+> yuima<-simulate(yuima, xinit = 0, true.parameter = true,sampling = sam) ## generate a path
+> start<-list(theta0 = runif(1,0.5,4), theta1 = runif(1,1,4)) ## set initial values
+> qmleLevy(yuima,start=start,lower=lower,upper=upper, joint = TRUE) 
+$joint
+   theta1    theta0 
+2.2447650 0.7116035 
+
+> 
+> ## Multi-dimensional case
+> 
+> lambda<-1/2
+> alpha<-1
+> beta<-c(0,0)
+> mu<-c(0,0)
+> Lambda<-matrix(c(1,0,0,1),2,2) ## set parameters in noise
+> 
+> dri<-c("1-theta0*x1-x2","-theta1*x2")
+> jum<-matrix(c("x1*theta2+1","0","0","1"),2,2) ## set coefficients
+> 
+> yuima <- setModel(drift=dri, 
++                  solve.variable=c("x1","x2"),state.variable = c("x1","x2"), 
++                  jump.coeff=jum, measure.type="code",
++                  measure=list(df="rvgamma(z, lambda, alpha, beta, mu, Lambda
++                  )"))
+> 
+> n<-3000 ## the number of total samples
+> T<-30 ## terminal
+> hn<-T/n ## stepsize
+> 
+> sam<-setSampling(Terminal = T, n=n) ## set sampling scheme
+Warning in yuima.warn("'delta' (re)defined.") :
+  
+YUIMA: 'delta' (re)defined.
+
+> yuima<-setYuima(model = yuima, sampling = sam) ## model
+> 
+> true<-list(theta0 = 1,theta1 = 2,theta2 = 3,lambda=lambda, alpha=alpha, 
++ beta=beta,mu=mu, Lambda=Lambda) ## true values
+> upper<-list(theta0 = 4, theta1 = 4, theta2 = 5) ## set upper bound
+> lower<-list(theta0 = 0.5, theta1 = 1, theta2 = 1) ## set lower bound
+> set.seed(123)
+> yuima<-simulate(yuima, xinit = c(0,0), true.parameter = true,sampling = sam) ## generate a path
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at ../../../../R/src/library/utils/R/str.R#159: 
- --- call (function) --- 
-str.default(psample)
- --- stacktrace ---
-where 1: str.default(psample)
-where 2: str(psample)
+ at /var/scratch2/tomas/tmp/RtmpxvQWMf/R.INSTALLc5a26f5854c9/yuima/R/rng.R#277: 
+ --- if/while statement is in package --- 
+yuima
+ --- call (currently evaluated) --- 
+rvgamma(n, lambda * delta, alpha, beta, mu * delta, Lambda)
+ --- R stacktrace ---
+where 1: rvgamma(n, lambda * delta, alpha, beta, mu * delta, Lambda)
+where 2: eval(parse(text = dZ))
+where 3: eval(parse(text = dZ))
+where 4: euler(xinit, yuima, dW, yuimaEnv)
+where 5 at /var/scratch2/tomas/tmp/RtmpxvQWMf/R.INSTALLc5a26f5854c9/yuima/R/simulate.R#93: aux.simulate(object, nsim, seed, xinit, true.parameter, space.discretized, 
+    increment.W, increment.L, method, hurst, methodfGn, sampling, 
+    subsampling, Initial, Terminal, n, delta, grid, random, sdelta, 
+    sgrid, interpolation)
+where 6: .local(object, nsim, seed, xinit, true.parameter, space.discretized, 
+    increment.W, increment.L, method, hurst, methodfGn, sampling, 
+    subsampling, ...)
+where 7 at /var/scratch2/tomas/tmp/RtmpxvQWMf/R.INSTALLc5a26f5854c9/yuima/R/simulate.R#15: simulate(yuima, xinit = c(0, 0), true.parameter = true, sampling = sam)
+where 8: simulate(yuima, xinit = c(0, 0), true.parameter = true, sampling = sam)
 
- --- value of length: 2 type: logical ---
-[1] FALSE FALSE
- --- function --- 
-function(object, max.level = NA, vec.len = strO$vec.len,
-	     digits.d = strO$digits.d,
-	     nchar.max = 128, give.attr = TRUE,
-	     drop.deparse.attr = strO$drop.deparse.attr,
-	     give.head = TRUE, give.length = give.head,
-	     width = getOption("width"), nest.lev = 0,
-	     indent.str= paste(rep.int(" ", max(0,nest.lev+1)), collapse= ".."),
-	     comp.str="$ ", no.list = FALSE, envir = baseenv(),
-	     strict.width = strO$strict.width,
-	     formatNum = strO$formatNum, list.len = 99,
-	     ...)
-{
-    ## Purpose: Display STRucture of any R - object (in a compact form).
-    ## --- see HELP file --
-    ## ------------------------------------------------------------------------
-    ## Author: Martin Maechler <maechler@stat.math.ethz.ch>	1990--1997
-
-    ## strOptions() defaults for
-    oDefs <- c("vec.len", "digits.d", "strict.width", "formatNum",
-	       "drop.deparse.attr")
-    ## from
-    strO <- getOption("str")
-    if (!is.list(strO)) {
-	warning('invalid options("str") -- using defaults instead')
-	strO <- strOptions()
+ --- value of length: 4 type: logical ---
+      [,1]  [,2]
+[1,] FALSE FALSE
+[2,] FALSE FALSE
+ --- function (currently evaluated)--- 
+function(x,lambda,alpha,beta,mu,Lambda){
+  ## Error check
+  if(length(mu)!=length(beta)){
+    stop("Error: wrong input dimension.")
+  }
+  if(missing(Lambda))
+   Lambda <- NA
+  
+  if(is.na(Lambda)){
+    ## univariate case
+    if(length(mu)!=1 || length(beta)!=1){
+      stop("Error: wrong input dimension.")
     }
-    else {
-        if (!all(names(strO) %in% oDefs))
-            warning(gettextf("invalid components in options(\"str\"): %s",
-                             paste(setdiff(names(strO), oDefs), collapse = ", ")),
-                    domain = NA)
-        strO <- modifyList(strOptions(), strO)
+    tmp <- as.numeric(alpha^2 - beta^2)
+    if( lambda <= 0 ){
+      stop("lambda must be positive.")
     }
-    strict.width <- match.arg(strict.width, choices = c("no", "cut", "wrap"))
-    if(strict.width != "no") {
-	## using eval() would be cleaner, but fails inside capture.output():
-	ss <- capture.output(str.default(object, max.level = max.level,
-				 vec.len = vec.len, digits.d = digits.d,
-				 nchar.max = nchar.max,
-				 give.attr= give.attr, give.head= give.head,
-				 give.length= give.length,
-				 width = width, nest.lev = nest.lev,
-				 indent.str = indent.str, comp.str= comp.str,
-				 no.list= no.list || is.data.frame(object),
-				 envir = envir, strict.width = "no",
-				 formatNum = formatNum, list.len = list.len,
-					 ...) )
-	if(strict.width == "wrap") {
-	    nind <- nchar(indent.str) + 2
-	    ss <- strwrap(ss, width = width, exdent = nind)
-					# wraps at white space (only)
-	}
-	if(length(iLong <- which(nchar(ss) > width))) { ## cut hard
-	    sL <- ss[iLong]
-	    k <- as.integer(width-2L)
-	    if(any(i <- grepl("\"", substr(sL, k +1L, nchar(sL))))) {
-		## care *not* to cut off the closing   "  at end of
-		## string that's already truncated {-> maybe_truncate()} :
-		ss[iLong[ i]] <- paste0(substr(sL[ i], 1, k-1L), "\"..")
-		ss[iLong[!i]] <- paste0(substr(sL[!i], 1, k), "..")
-	    } else {
-		ss[iLong] <- paste0(substr(sL, 1, k),"..")
-	    }
-	}
-	cat(ss, sep = "\n")
-	return(invisible())
+    if( alpha <= 0 ){
+      stop("alpha must be positive.")
+    }
+    if( tmp <= 0 ){
+      stop("alpha^2 - beta^2 must be positive value.")
+    }
+  
+    tau <- rgamma(x,lambda,tmp/2)
+    eta <- rnorm(x)
+    ##  z <- mu + beta * tau * Lambda + sqrt(tau * Lambda) * eta
+    z <- mu + beta * tau + sqrt(tau) * eta
+    X <- z
+    return(X)
+    
+  }else{ ## multivariate case
+    if( nrow(Lambda)!=ncol(Lambda)){
+      stop("Lambda must be a square matrix.")
+    }
+    if(sum((Lambda-t(Lambda))*(Lambda-t(Lambda)))!=0){
+      stop("Lambda must be a symmetric matrix")
+    }
+    if( nrow(Lambda)!=length(beta)){
+      stop("Dimension of Lambda and beta must be equal.")
+    }
+    if( min(eigen(Lambda)$value) <= 10^(-15) ){
+      stop("Lambda must be positive definite.")
+    }
+    if( det(Lambda) > 1+10^(-15) || det(Lambda) < 1-10^(-15) ){
+    	stop("The determinant of Lambda must be 1.")
     }
 
-    oo <- options(digits = digits.d); on.exit(options(oo))
-    le <- length(object)
-    if(is.na(le)) {
-        warning("'str.default': 'le' is NA, so taken as 0", immediate. = TRUE)
-        le <- 0
-        vec.len <- 0
-    }
-
-    ## x: character
-    maybe_truncate <- function(x, nx = nchar(x, type="w"), S = "\"", ch = "| __truncated__")
-    {
-	ok <- if(anyNA(nx)) !is.na(nx) else TRUE
-	if(any(lrg <- ok & nx > nchar.max)) {
-	    nc <- nchar(ch <- paste0(S, ch))
-	    if(nchar.max <= nc)
-		stop(gettextf("'nchar.max = %d' is too small", nchar.max), domain=NA)
-	    x.lrg <- x[lrg]
-	    tr.x <- strtrim(x.lrg, nchar.max - nc)
-	    if(any(ii <- tr.x != x.lrg & paste0(tr.x, S) != x.lrg)) {
-		x[lrg][ii] <- paste0(tr.x[ii], ch)
-	    }
-	}
-	x
-    }
-    pClass <- function(cls)
-	paste0("Class", if(length(cls) > 1) "es",
-	       " '", paste(cls, collapse = "', '"), "' ")
-
-    nfS <- names(fStr <- formals())# names of all formal args to str.default()
-    ##' Purpose: using short strSub() calls instead of long str() ones
-    ##' @title Call str() on sub-parts, with mostly the *same* arguments
-    ##' @param obj R object; always a "part" of the main 'object'
-    ##' @param ... further arguments to str(), [often str.default()]
-    strSub <- function(obj, ...) {
-	## 'give.length', ...etc are *not* automatically passed down:
-	nf <- setdiff(nfS, c("object", "give.length", "comp.str", "no.list",
-			     ## drop fn.name & "obj" :
-			     names(match.call())[-(1:2)], "..."))
-	aList <- as.list(fStr)[nf]
-	aList[] <- lapply(nf, function(n) eval(as.name(n)))
-	## do.call(str, c(list(object=obj),aList,list(...)), quote=TRUE), *not* copying 'obj'
-	do.call(function(...) str(obj, ...), c(aList, list(...)), quote = TRUE)
-    }
-
-    ## le.str: not used for arrays:
-    le.str <-
-	if(is.na(le)) " __no length(.)__ "
-	else if(give.length) {
-	    if(le > 0) paste0("[1:", paste(le), "]") else "(0)"
-	} else ""
-    v.len <- vec.len # modify v.len, not vec.len!
-    ## NON interesting attributes:
-    std.attr <- "names"
-
-    cl <- if((S4 <- isS4(object))) class(object) else oldClass(object)
-    has.class <- S4 || !is.null(cl) # S3 or S4
-    mod <- ""; char.like <- FALSE
-    if(give.attr) a <- attributes(object)#-- save for later...
-    dCtrl <- eval(formals(deparse)$control)
-    if(drop.deparse.attr) dCtrl <- dCtrl[dCtrl != "showAttributes"]
-    deParse <- function(.) deparse(., width.cutoff = min(500L, max(20L, width-10L)),
-				   control = dCtrl)
-    n.of. <- function(n, singl, plural) paste(n, ngettext(n, singl, plural))
-    n.of <- function(n, noun) n.of.(n, noun, paste0(noun,"s"))
-    if(is.ts <- stats::is.ts(object))
-        str1.ts <- function(o, lestr) {
-            tsp.a <- stats::tsp(o)
-            paste0(" Time-Series ", lestr, " from ", format(tsp.a[1L]),
-                   " to ", format(tsp.a[2L]), ":")
-        }
-    if (is.null(object))
-	cat(" NULL\n")
-    else if(S4) {
-	if(methods::is(object,"envRefClass")) {
-	    cld <- tryCatch(object$getClass(), error=function(e)e)
-	    if(inherits(cld, "error")) {
-		cat("Prototypical reference class", " '", paste(cl, collapse = "', '"),
-		    "' [package \"", attr(cl,"package"), "\"]\n", sep="")
-		## add a bit more info ??
-		return(invisible())
-	    }
-	    nFlds <- names(cld@fieldClasses)
-	    a <- sapply(nFlds, function(ch) object[[ch]], simplify = FALSE)
-	    cat("Reference class", " '", paste(cl, collapse = "', '"),
-		"' [package \"", attr(cl,"package"), "\"] with ",
-                n.of(length(a), "field"), "\n", sep = "")
-	    strSub(a, no.list=TRUE, give.length=give.length,
-		   nest.lev = nest.lev + 1)
-	    meths <- names(cld@refMethods)
-	    oMeths <- meths[is.na(match(meths, methods:::envRefMethodNames))]
-	    cat(indent.str, "and ", n.of(length(meths), "method"), sep = "")
-	    sNms <- names(cld@slots)
-	    if(lo <- length(oMeths)) {
-		cat(", of which", lo, ngettext(lo, "is", "are", domain = NA), " possibly relevant")
-		if (is.na(max.level) || nest.lev < max.level)
-		    cat(":",
-			strwrap(paste(sort(oMeths), collapse=", "),
-				indent = 2, exdent = 2,
-				prefix = indent.str, width=width),# exdent = nind),
-			sep = "\n")
-		else cat("\n")
-	    }
-	    if(length(sNms <- sNms[sNms != ".xData"])) {
-		sls <- sapply(sNms, methods::slot,
-			      object=object, simplify = FALSE)
-		cat(" and ", n.of(length(sNms), "slot"), "\n", sep="")
-		strSub(sls, comp.str = "@ ", no.list=TRUE, give.length=give.length,
-		       indent.str = paste(indent.str,".."), nest.lev = nest.lev + 1)
-	    }
-	    else if(lo == 0) cat(".\n")
-	}
-	else { ## S4 non-envRefClass
-	    a <- sapply(methods::.slotNames(object), methods::slot,
-			object=object, simplify = FALSE)
-	    cat("Formal class", " '", paste(cl, collapse = "', '"),
-		"' [package \"", attr(cl,"package"), "\"] with ",
-		n.of(length(a), "slot"), "\n", sep = "")
-	    strSub(a, comp.str = "@ ", no.list=TRUE, give.length=give.length,
-		   indent.str = paste(indent.str,".."), nest.lev = nest.lev + 1)
-	}
-	return(invisible())
-    }
-    else if(is.function(object)) {
-	cat(if(is.null(ao <- args(object))) deParse(object)
-	else { dp <- deParse(ao); paste(dp[-length(dp)], collapse="\n") },"\n")
-    } else if(is.list(object)) {
-	i.pl <- is.pairlist(object)
-	is.d.f <- is.data.frame(object)
-	##?if(is.d.f) std.attr <- c(std.attr, "class", if(is.d.f) "row.names")
-	if(le == 0) {
-	    if(is.d.f) std.attr <- c(std.attr, "class", "row.names")
-	    else cat(" ", if(!is.null(names(object))) "Named ",
-		     if(i.pl)"pair", "list()\n", sep = "")
-	} else { # list, length >= 1 :
-	    if(irregCl <- has.class && identical(object[[1L]], object)) {
-		le <- length(object <- unclass(object))
-		std.attr <- c(std.attr, "class")
-	    }
-	    if(no.list || (has.class &&
-			   any(sapply(paste0("str.", cl),
-					#use sys.function(.) ..
-				      function(ob)exists(ob, mode= "function",
-							 inherits= TRUE))))) {
-		## str.default is a 'NextMethod' : omit the 'List of ..'
-		std.attr <- c(std.attr, "class", if(is.d.f) "row.names")
-	    } else { # need as.character here for double lengths.
-		cat(if(i.pl) "Dotted pair list" else
-		    if(irregCl) paste(pClass(cl), "hidden list") else "List",
-		    " of ", as.character(le), "\n", sep = "")
-	    }
-	    if (is.na(max.level) || nest.lev < max.level) {
-		nam.ob <-
-		    if(is.null(nam.ob <- names(object))) rep.int("", le)
-		    else { ncn <- nchar(nam.ob, type="w")
-			   if(anyNA(ncn)) ## slower, but correct:
-			      ncn <- vapply(nam.ob, format.info, 0L)
-			   format(nam.ob, width = max(ncn), justify="left")
-		       }
-		for (i in seq_len(min(list.len,le) ) ) {
-		    cat(indent.str, comp.str, nam.ob[i], ":", sep = "")
-		    envir <- # pass envir for 'promise' components:
-			if(typeof(object[[i]]) == "promise") {
-			    structure(object, nam= as.name(nam.ob[i]))
-			} # else NULL
-		    strSub(object[[i]], give.length=give.length,
-                           nest.lev = nest.lev + 1,
-                           indent.str = paste(indent.str,".."))
-		}
-		if(list.len < le)
-		    cat(indent.str, "[list output truncated]\n")
-	    }
-	}
-    } else { #- not function, not list
-	if(is.vector(object)
-	   || (is.array(object) && is.atomic(object))
-	   ##f fails for formula:
-	   ##f typeof(object) in {"symbol", "language"} =: is.symbolic(.):
-	   ##f || (is.language(object) && !is.expression(object))
-	   || (is.language(object) && !is.expression(object) && !any(cl == "formula"))
-	   ) { ##-- Splus: FALSE for 'named vectors'
-	    if(is.atomic(object)) {
-		##-- atomic:   numeric{dbl|int} complex character logical raw
-		mod <- substr(mode(object), 1, 4)
-		if     (mod == "nume")
-		    mod <- if(is.integer(object)) "int"
-		    else if(has.class) cl[1L] else "num"
-		else if(mod == "char") { mod <- "chr"; char.like <- TRUE }
-		else if(mod == "comp") mod <- "cplx" #- else: keep 'logi'
-		if(is.array(object)) {
-		    rnk <- length(di. <- dim(object))
-		    di <- paste0(ifelse(di. > 1, "1:",""), di.,
-				 ifelse(di. > 0, "" ," "))
-		    pDi <- function(...) paste(c("[", ..., "]"), collapse = "")
-		    le.str <- (if(rnk == 1) pDi(di[1L], "(1d)") else
-			       pDi(paste0(di[-rnk], ", "), di[rnk]))
-		    if(m <- match("AsIs", cl, 0L)) ## workaround bad format.AsIs()
-			oldClass(object) <- cl[-m]
-                    std.attr <- c("dim", if(is.ts) c("tsp", "class"))
-		} else if(!is.null(names(object))) {
-		    mod <- paste("Named", mod)
-		    std.attr <- std.attr[std.attr != "names"]
-		}
-		if(has.class) {
-		    cl <- cl[1L] # and "forget" potential other classes
-		    if(cl != mod && substr(cl, 1L, nchar(mod)) != mod)
-			mod <- paste0("'",cl,"' ", mod)
-		    ## don't show the class *twice*
-		    std.attr <- c(std.attr, "class")
-		}
-		str1 <-
-		    if(is.ts) str1.ts(object, le.str)
-		    else if(le == 1 && !is.array(object)) paste(NULL, mod)
-		    else paste0(" ", mod, if(le>0)" ", le.str)
-	    } else { ##-- not atomic, but vector: #
-		mod <- typeof(object)#-- typeof(.) is more precise than mode!
-		str1 <- switch(mod,
-			       call = " call",
-			       language = " language",
-			       symbol = " symbol",
-			       expression = " ",# "expression(..)" by deParse(.)
-			       name = " name",
-			       ##not in R:argument = "",# .Argument(.) by deParse(.)
-			       ## in R (once):	comment.expression
-
-			       ## default :
-			       paste("		#>#>", mod, NULL)
-			       )
-	    }
-	} else if(is.ts) {
-	    str1 <- str1.ts(object, le.str)
-	    std.attr <- c("tsp","class") #- "names"
-	} else if (is.factor(object)) {
-	    nl <- length(lev.att <- levels(object))
-	    if(!is.character(lev.att)) {# should not happen..
-		warning("'object' does not have valid levels()")
-		nl <- 0
-	    } else { ## protect against large nl:
-                w <- min(max(width/2, 10), 1000)
-                if(nl > w) lev.att <- lev.att[seq_len(w)]
-                n.l <- length(lev.att) # possibly  n.l << nl
-                lev.att <- encodeString(lev.att, na.encode = FALSE, quote = '"')
-            }
-	    ord <- is.ordered(object)
-	    object <- unclass(object)
-	    if(nl) {
-		## as from 2.1.0, quotes are included ==> '-2':
-		lenl <- cumsum(3 + (nchar(lev.att, type="w") - 2))# level space
-		ml <- if(n.l <= 1 || lenl[n.l] <= 13)
-		    n.l else which.max(lenl > 13)
-		lev.att <- maybe_truncate(lev.att[seq_len(ml)])
-	    }
-	    else # nl == 0
-		ml <- length(lev.att <- "")
-
-	    lsep <- if(ord) "<" else ","
-	    str1 <-
-		paste0(if(ord)" Ord.f" else " F",
-		       "actor w/ ", nl, " level", if(nl != 1) "s",
-		       if(nl) " ",
-		       if(nl) paste0(lev.att, collapse = lsep),
-		       if(ml < nl) paste0(lsep, ".."), ":")
-
-	    std.attr <- c("levels", "class")
-	} else if(typeof(object) %in%
-		  c("externalptr", "weakref", "environment", "bytecode")) {
-	    ## Careful here, we don't want to change pointer objects
-	    if(has.class)
-                cat(pClass(cl))
-	    le <- v.len <- 0
-	    str1 <-
-		if(is.environment(object)) format(object)
-		else paste0("<", typeof(object), ">")
-	    has.class <- TRUE # fake for later
-	    std.attr <- "class"
-	    ## ideally we would figure out if as.character has a
-	    ## suitable method and use that.
-	} else if(has.class) {
-	    cat("Class", if(length(cl) > 1) "es",
-		" '", paste(cl, collapse = "', '"), "' ", sep = "")
-	    ## If there's a str.<method>, it should have been called before!
-	    uo <- unclass(object)
-	    if(!is.null(attributes(uo)$class)) {
-		## another irregular case
-		xtr <- c(if(identical(uo, object)) { # trap infinite loop
-		    class(uo) <- NULL
-		    "unclass()-immune"
-		} else if(!is.object(object)) "not-object")
-		if(!is.null(xtr)) cat("{",xtr,"} ", sep = "")
-	    }
-	    strSub(uo, indent.str = paste(indent.str,".."), nest.lev = nest.lev + 1)
-	    return(invisible())
-	} else if(is.atomic(object)) {
-	    if((1 == length(a <- attributes(object))) && (names(a) == "names"))
-		str1 <- paste(" Named vector", le.str)
-	    else {
-		##-- atomic / not-vector  "unclassified object" ---
-		str1 <- paste(" atomic", le.str)
-	    }
-	} else if(typeof(object) == "promise") {
-	    cat(" promise ")
-	    if (!is.null(envir)) {
-		objExp <- eval(bquote(substitute(.(attr(envir, "nam")), envir)))
-		cat("to ")
-		strSub(objExp)
-	    } else cat(" <...>\n")
-	    return(invisible())
-	} else {
-	    ##-- NOT-atomic / not-vector  "unclassified object" ---
-	    ##str1 <- paste(" ??? of length", le, ":")
-	    str1 <- paste("length", le)
-	}
-	##-- end  if else..if else...  {still non-list case}
-
-	##-- This needs some improvement: Not list nor atomic --
-	if ((is.language(object) || !is.atomic(object)) && !has.class) {
-	    ##-- has.class superfluous --
-	    mod <- mode(object)
-	    give.mode <- FALSE
-            trimEnds <- function(ch) sub(" +$", '', sub("^ +", ' ', ch))
-	    if (any(mod == c("call", "language", "(", "symbol"))
-		|| is.environment(object)) {
-		##give.mode <- !is.vector(object)# then it has not yet been done
-		if(mod == "(") give.mode <- TRUE
-		typ <- typeof(object)
-		object <- deParse(object)
-
-		le <- length(object) # is > 1 e.g. for {A;B} language
-		format.fun <- function(x) x
-		v.len <- round(.5 * v.len)
-		if(le > 1 && typ=="language" && object[1L] == "{" && object[le]=="}") {
-		    v.len <- v.len + 2
-		    if(le >= 3) {
-			object <- c(object[1L],
-				    paste(trimEnds(object[2:(le-1)]), collapse = ";"),
-				    object[le])
-			le <- length(object)
-		    }
-		}
-	    } else if (mod == "expression") {
-		format.fun <- function(x) trimEnds(deParse(as.expression(x)))
-		v.len <- round(.75 * v.len)
-	    } else if (mod == "name"){
-		object <- paste(object)#-- show `as' char
-	    } else if (mod == "argument"){
-		format.fun <- deParse
-	    } else {
-		give.mode <- TRUE
-	    }
-	    if(give.mode) str1 <- paste0(str1, ', mode "', mod,'":')
-
-	} else if(is.logical(object)) {
-	    v.len <- 1.5 * v.len # was '3' originally (but S prints 'T' 'F' ..)
-	    format.fun <- formatNum
-	} else if(is.numeric(object)) {
-	    iv.len <- round(2.5 * v.len)
-	    if(iSurv <- inherits(object, "Surv"))
-		std.attr <- c(std.attr, "class")
-	    int.surv <- iSurv || is.integer(object)
-	    if(!int.surv) {
-		ob <- if(le > iv.len) object[seq_len(iv.len)] else object
-		ao <- abs(ob <- ob[!is.na(ob)])
-	    }
-	    else if(iSurv)
-		le <- length(object <- as.character(object))
-	    if(int.surv || (all(ao > 1e-10 | ao==0) && all(ao < 1e10| ao==0) &&
-			    all(abs(ob - signif(ob, digits.d)) <= 9e-16*ao))) {
-		if(!iSurv || di.[2L] == 2) # "Surv" : implemented as matrix
-		    ## use integer-like length
-		    v.len <- iv.len
-		format.fun <- formatNum
-	    } else {
-		v.len <- round(1.25 * v.len)
-		format.fun <- formatNum
-	    }
-	} else if(is.complex(object)) {
-	    v.len <- round(.75 * v.len)
-	    format.fun <- formatNum
-	}
-
-	if(char.like) {
-	    ## if object is very long, drop the rest which won't be used anyway:
-	    max.len <- max(100L, width %/% 3L + 1L, if(!missing(vec.len)) vec.len)
-	    if(le > max.len) le <- length(object <- object[seq_len(max.len)])
-	    ## For very long strings, truncated later anyway,
-	    ## both nchar(*, type="w") and encodeString() are too expensive
-	    trimWidth <- as.integer(nchar.max)
-	    ## FIXME: need combined  encode.and.trim.string(object, m)  with O(m) !
-	    encObj <- tryCatch(strtrim(object, trimWidth), error=function(e) NULL)
-	    encObj <-
-		if(is.null(encObj)) # must first encodeString() before we can trim
-		    strtrim(encodeString(object, quote= '"', na.encode= FALSE),
-			    trimWidth)
-		else
-		    encodeString(encObj, quote= '"', na.encode= FALSE)
-	    if(le > 0) ## truncate if LONG char:
-		encObj <- maybe_truncate(encObj)
-	    v.len <-
-		if(missing(vec.len)) {
-		    max(1,sum(cumsum(1 + if(le>0) nchar(encObj, type="w") else 0) <
-			      width - (4 + 5*nest.lev + nchar(str1, type="w"))))
-		}		      # '5*ne..' above is fudge factor
-		else round(v.len)
-	    ile <- min(le, v.len)
-	    if(ile >= 1)
-		object <- encObj[seq_len(ile)]
-	    formObj <- function(x) paste(as.character(x), collapse = " ")
-	}
-	else { # not char.like
-	    if(!exists("format.fun"))
-		format.fun <-
-		    if(mod == "num" || mod == "cplx") format else as.character
-	    ## v.len <- max(1,round(v.len))
-	    ile <- min(v.len, le)
-	    formObj <- function(x) maybe_truncate(paste(format.fun(x), collapse = " "),
-						  S = "") # *not* string-like
-	}
-
-	cat(if(give.head) paste0(str1, " "),
-	    formObj(if(ile >= 1) object[seq_len(ile)] else if(v.len > 0) object),
-	    if(le > v.len) " ...", "\n", sep = "")
-
-    } ## else (not function nor list)----------------------------------------
-
-    if(give.attr) { ## possible: || has.class && any(cl == "terms")
-	nam <- names(a)
-	for (i in seq_along(a))
-	    if (all(nam[i] != std.attr)) {# only `non-standard' attributes:
-		cat(indent.str, paste0('- attr(*, "', nam[i], '")='), sep = "")
-		strSub(a[[i]], give.length = give.length,
-		       indent.str = paste(indent.str, ".."), nest.lev = nest.lev+1)
-	    }
-    }
-    invisible()	 ## invisible(object)#-- is SLOOOOW on large objects
+    tmp <- as.numeric(alpha^2 - t(beta) %*% Lambda %*% beta)
+  
+    if( lambda <= 0 )
+      stop("lambda must be positive.")
+    if( alpha <= 0 )
+      stop("alpha must be positive.")
+    if( tmp <=0)
+      stop("alpha^2 - t(beta) %*% Lambda %*% beta must be positive.")
+    
+    tau <- rgamma(x,lambda,tmp/2)
+    eta <- rnorm(x*length(beta))
+    sqrt.L <- svd(Lambda)
+    sqrt.L <- sqrt.L$u %*% diag(sqrt(sqrt.L$d)) %*% t(sqrt.L$v)
+    
+    z <- mu + t(matrix(rep(tau,length(beta)),x,length(beta))) * matrix(rep(Lambda %*% beta,x),length(beta),x)+t(matrix(rep(sqrt(tau),length(beta)),x,length(beta))) * (sqrt.L %*% t(matrix(eta,x,length(beta))))
+    X <- z
+    return(X)
+  }
 }
-<bytecode: 0xd004e60>
-<environment: namespace:utils>
+<environment: namespace:yuima>
  --- function (body) search ---
-Function str.default in namespace utils has this body.
+Function rvgamma in namespace yuima has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

@@ -1,0 +1,204 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "multinets"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('multinets')
+multinets was developed by Neylson Crepalde as an extension to 'igraph'
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("extract_highlevel")
+> ### * extract_highlevel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extract_highlevel
+> ### Title: Extract the high level of a multilevel network
+> ### Aliases: extract_highlevel
+> 
+> ### ** Examples
+> 
+> organizations <- extract_highlevel(linked_sim)
+> 
+> individuals <- extract_lowlevel(linked_sim)
+> 
+> affiliations <- extract_mesolevel(linked_sim)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extract_lowlevel")
+> ### * extract_lowlevel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extract_lowlevel
+> ### Title: Extract the low level of a multilevel network
+> ### Aliases: extract_lowlevel
+> 
+> ### ** Examples
+> 
+> organizations <- extract_highlevel(linked_sim)
+> 
+> individuals <- extract_lowlevel(linked_sim)
+> 
+> affiliations <- extract_mesolevel(linked_sim)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extract_mesolevel")
+> ### * extract_mesolevel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extract_mesolevel
+> ### Title: Extract the meso level of a multilevel network
+> ### Aliases: extract_mesolevel
+> 
+> ### ** Examples
+> 
+> organizations <- extract_highlevel(linked_sim)
+> 
+> individuals <- extract_lowlevel(linked_sim)
+> 
+> affiliations <- extract_mesolevel(linked_sim)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("is_multilevel")
+> ### * is_multilevel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: is_multilevel
+> ### Title: Check whether a graph is multilevel
+> ### Aliases: is_multilevel
+> 
+> ### ** Examples
+> 
+>   is_multilevel(linked_sim)
+[1] TRUE
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("layout_multilevel")
+> ### * layout_multilevel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: layout_multilevel
+> ### Title: Layout for multilevel networks
+> ### Aliases: layout_multilevel
+> 
+> ### ** Examples
+> 
+> # Check if the network is multilevel
+> is_multilevel(linked_sim)
+[1] TRUE
+> 
+> # Generate the layout (x,y) coordinates
+> l <- layout_multilevel(linked_sim)
+> 
+> # Plot the graph using the layout
+> plot(linked_sim, layout = l)
+> 
+> # Using Kamada Kawai algorithm
+> l.kk <- layout_multilevel(linked_sim, layout = igraph::layout_with_kk)
+> 
+> # Plot the graph with the new layout
+> plot(linked_sim, layout = l.kk)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mode_transformation")
+> ### * mode_transformation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mode_transformation
+> ### Title: 2-mode to 1-mode transformation
+> ### Aliases: mode_transformation
+> 
+> ### ** Examples
+> 
+> # First, extract the mesolevel of the multilevel network
+> affiliation <- extract_mesolevel(linked_sim)
+> 
+> # To obtain both transformed networks
+> transformed <- mode_transformation(affiliation)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpzgRsAr/R.INSTALLc8136c2cade/multinets/R/mode_transformation.R#49: 
+ --- if/while statement is in package --- 
+multinets
+ --- call (currently evaluated) --- 
+withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- R stacktrace ---
+where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 2: suppressWarnings({
+    if (!igraph::is_bipartite(x)) {
+        stop("Data is not bipartite")
+    }
+    else {
+        if (which == "both") {
+            new = igraph::bipartite_projection(x, which = "both")
+        }
+        if (which == "high") {
+            new = igraph::bipartite_projection(x, which = "true")
+        }
+        if (which == "low") {
+            new = igraph::bipartite_projection(x, which = "false")
+        }
+        return(new)
+    }
+})
+where 3: mode_transformation(affiliation)
+
+ --- value of length: 3 type: logical ---
+[1]  TRUE FALSE FALSE
+ --- function (currently evaluated)--- 
+function (expr, ...) 
+{
+    handlers <- list(...)
+    classes <- names(handlers)
+    parentenv <- parent.frame()
+    if (length(classes) != length(handlers)) 
+        stop("bad handler specification")
+    .Internal(.addCondHands(classes, handlers, parentenv, NULL, 
+        TRUE))
+    expr
+}
+<bytecode: 0x2617b20>
+<environment: namespace:base>
+ --- function (body) search ---
+Function withCallingHandlers in namespace base has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX

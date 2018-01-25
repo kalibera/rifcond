@@ -1,18 +1,78 @@
+
+R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "disp2D"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('disp2D')
+Loading required package: geometry
+Loading required package: magic
+Loading required package: abind
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("disp2D-package")
+> ### * disp2D-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: disp2D-package
+> ### Title: Hausdorff and Simplex Dispersion orderings
+> ### Aliases: disp2D-package disp2D
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> library(disp2D)
+> library(geometry)
+> library(mvtnorm)
+> sigma1 = matrix(c(0.912897,1.092679,1.092679,1.336440),byrow=TRUE,ncol=2)
+> sigma2 = sigma1 + diag(1,ncol=2,nrow=2)
+> A = rmvnorm(200,mean=rep(0,2),sigma=sigma1)
+> B = rmvnorm(200,mean=rep(0,2),sigma=sigma2)
+> r=.1
+> prob = probA = probB =  rep(1/200,200)
+> HA = exactHausdorff(A,probA,r)
+> HB = exactHausdorff(B,probB,r)
+> plot(HA$distance, cumsum(HA$probability), type = "l", xlab = "",
++      ylab = "DF", xlim = range(c(HA,HB)))
+>  lines(HB$distance, cumsum(HB$probability), lty = 2)
+> d1 = simplex(A,bootstrap=TRUE,nresamples=100)
+ ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#322: 
- --- call (function) --- 
+ at /var/scratch2/tomas/tmp/RtmptIlCBr/R.INSTALL2d401db33bb5/disp2D/R/fun-disp2D.R#322: 
+ --- if/while statement is in package --- 
+disp2D
+ --- call (currently evaluated) --- 
 FUN(newX[, i], ...)
- --- stacktrace ---
+ --- R stacktrace ---
 where 1: FUN(newX[, i], ...)
-where 2 at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#68: apply(pp1, 1, distShape, pp = pp2)
-where 3 at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#57: distconvhull(A, B)
-where 4 at /tmp/RtmpUBpwDj/R.INSTALL2a4676ac11179/disp2D/R/fun-disp2D.R#106: dhn(xa1, xa2)
+where 2 at /var/scratch2/tomas/tmp/RtmptIlCBr/R.INSTALL2d401db33bb5/disp2D/R/fun-disp2D.R#68: apply(pp1, 1, distShape, pp = pp2)
+where 3 at /var/scratch2/tomas/tmp/RtmptIlCBr/R.INSTALL2d401db33bb5/disp2D/R/fun-disp2D.R#57: distconvhull(A, B)
+where 4 at /var/scratch2/tomas/tmp/RtmptIlCBr/R.INSTALL2d401db33bb5/disp2D/R/fun-disp2D.R#106: dhn(xa1, xa2)
 where 5: simplex(A, bootstrap = TRUE, nresamples = 100)
 
  --- value of length: 4 type: logical ---
         z        pp typeShape      isna 
      TRUE      TRUE      TRUE      TRUE 
- --- function --- 
+ --- function (currently evaluated)--- 
 function(z,pp){
   zinpp = 0
   for(i in 1:nrow(pp)){
@@ -44,3 +104,5 @@ function(z,pp){
 <environment: namespace:disp2D>
  --- function (body) search ---
 Function distShape in namespace disp2D has this body.
+ ----------- END FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
