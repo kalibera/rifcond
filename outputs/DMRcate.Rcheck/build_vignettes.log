@@ -1,0 +1,320 @@
+Loading required package: minfi
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:parallel':
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order,
+    paste, pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
+    rowSums, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max, which.min
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: S4Vectors
+
+Attaching package: 'S4Vectors'
+
+The following object is masked from 'package:base':
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: SummarizedExperiment
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: 'matrixStats'
+
+The following objects are masked from 'package:Biobase':
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: 'DelayedArray'
+
+The following objects are masked from 'package:matrixStats':
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following objects are masked from 'package:base':
+
+    aperm, apply
+
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: 'Biostrings'
+
+The following object is masked from 'package:DelayedArray':
+
+    type
+
+The following object is masked from 'package:base':
+
+    strsplit
+
+Loading required package: bumphunter
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: locfit
+locfit 1.5-9.1 	 2013-03-22
+Setting options('download.file.method.GEOquery'='auto')
+Setting options('GEOquery.inmemory.gpl'=FALSE)
+Loading required package: DSS
+Loading required package: bsseq
+
+Attaching package: 'bsseq'
+
+The following object is masked from 'package:minfi':
+
+    getMeth
+
+Loading required package: splines
+Loading required package: DMRcatedata
+
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpeWdWcZ/R.INSTALL75207912a45e/DMRcate/R/cpg.annotate.R#135: 
+ --- package (from environment) --- 
+DMRcate
+ --- call from context --- 
+cpg.annotate("sequencing", DSSres)
+ --- call from argument --- 
+if (analysis.type != "differential") stop("Error: only differential analysis.type available for sequencing assays")
+ --- R stacktrace ---
+where 1: cpg.annotate("sequencing", DSSres)
+where 2: eval(expr, envir, enclos)
+where 3 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 4 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 5 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 6 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 7 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 8 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 9 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 10 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 11 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 12 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#91: block_exec(params)
+where 13 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#6: call_block(x)
+where 14 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#3: process_group.block(group)
+where 15 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/output.R#314: process_group(group)
+where 16 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 17 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/output.R#258: process_file(text, output)
+where 18 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/utils-vignettes.R#40: (if (grepl("\\.[Rr]md$", file)) knit2html_v1 else if (grepl("\\.[Rr]rst$", 
+    file)) knit2pandoc else knit)(file, encoding = encoding, 
+    quiet = quiet, envir = globalenv())
+where 19 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 20: doTryCatch(return(expr), name, parentenv, handler)
+where 21: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 22: tryCatchList(expr, classes, parentenv, handlers)
+where 23 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 24: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/DMRcate.Rcheck/vign_test/DMRcate")
+
+ --- value of length: 4 type: logical ---
+[1] FALSE  TRUE  TRUE  TRUE
+ --- function from context --- 
+function(datatype = c("array", "sequencing"), object, what=c("Beta", "M"), arraytype=c("EPIC", "450K"), analysis.type = c("differential", "variability", "ANOVA", "diffVar"), 
+                         design, contrasts = FALSE, cont.matrix = NULL, fdr = 0.05, coef, ...) 
+{
+  if (datatype == "array") {
+    stopifnot(class(object) %in% c("matrix", "GenomicRatioSet"))
+    if(class(object) == "matrix"){
+      if(arraytype=="450K"){grset <- makeGenomicRatioSetFromMatrix(object, array = "IlluminaHumanMethylation450k", annotation = "ilmn12.hg19", mergeManifest = TRUE, what = what)}
+      if(arraytype=="EPIC"){grset <- makeGenomicRatioSetFromMatrix(object, array = "IlluminaHumanMethylationEPIC", annotation = "ilm10b2.hg19", mergeManifest = TRUE, what = what)}
+    } else {
+	grset <- object
+    }
+    object <- getM(grset)
+    analysis.type <- match.arg(analysis.type)
+    switch(analysis.type, differential = {
+      stopifnot(is.matrix(design))
+      if (!contrasts) {
+        stopifnot(colnames(design)[1] == "(Intercept)")
+      } else {
+        stopifnot(!is.null(cont.matrix))
+      }
+      fit <- lmFit(object, design, ...)
+      if (contrasts) {
+        stopifnot(coef %in% colnames(cont.matrix))
+        fit <- contrasts.fit(fit, cont.matrix)
+      }
+      fit <- eBayes(fit)
+      tt <- topTable(fit, coef = coef, number = nrow(object))
+      nsig <- sum(tt$adj.P.Val < fdr)
+      if (nsig == 0) {
+        message("Your contrast returned no individually significant probes. Try increasing the fdr. Alternatively, set pcutoff manually in dmrcate() to return DMRs, but be warned there is an increased risk of Type I errors.")
+      }
+      if (nsig > 0 & nsig <= 100) {
+        message(paste("Your contrast returned", nsig, 
+                      "individually significant probes; a small but real effect. Consider manually setting the value of pcutoff to return more DMRs, but be warned that doing this increases the risk of Type I errors."))
+      }
+      if (nsig > 100) {
+        message(paste("Your contrast returned", nsig, 
+                      "individually significant probes. We recommend the default setting of pcutoff in dmrcate()."))
+      }
+      betafit <- lmFit(ilogit2(object), design, ...)
+      if (contrasts) {
+        betafit <- contrasts.fit(betafit, cont.matrix)
+      }
+      betafit <- eBayes(betafit)
+      betatt <- topTable(betafit, coef = coef, number = nrow(object))
+      m <- match(rownames(tt), rownames(betatt))
+      tt$betafc <- betatt$logFC[m]
+      m <- match(rownames(object), rownames(tt))
+      tt <- tt[m, ]
+      
+      anno <- getAnnotation(grset)
+      stat <- tt$t
+      annotated <- data.frame(ID = rownames(tt), stat = stat, 
+                              CHR = anno$chr, pos = anno$pos, betafc = tt$betafc, 
+                              indfdr = tt$adj.P.Val, is.sig=tt$adj.P.Val < fdr)
+    }, variability = {
+      RSanno <- getAnnotation(grset)
+      wholevar <- var(object)
+      weights <- apply(object, 1, var)
+      weights <- weights/mean(weights)
+      annotated <- data.frame(ID = rownames(object), stat = weights, CHR = RSanno$chr, pos = RSanno$pos, 
+                              betafc = rep(0, nrow(object)), indfdr = rep(0, nrow(object)), is.sig=weights > quantile(weights, 0.95))
+    }, ANOVA = {
+      message("You are annotating in ANOVA mode: consider making the value of fdr quite small, e.g. 0.001")
+      stopifnot(is.matrix(design))
+      fit <- lmFit(object, design, ...)
+      fit <- eBayes(fit)
+      sqrtFs <- sqrt(fit$F)
+      sqrtfdrs <- p.adjust(fit$F.p.value, method="BH")
+      nsig <- sum(sqrtfdrs < fdr)
+      if (nsig == 0) {
+        message("Your design returned no individually significant probes for ANOVA. Try increasing the fdr. Alternatively, set pcutoff manually in dmrcate() to return DMRs, but be warned there is an increased risk of Type I errors.")
+      }
+      if (nsig > 0 & nsig <= 100) {
+        message(paste("Your design returned", nsig, 
+                      "individually significant probes for ANOVA; a small but real effect. Consider manually setting the value of pcutoff to return more DMRs, but be warned that doing this increases the risk of Type I errors."))
+      }
+      if (nsig > 100) {
+        message(paste("Your design returned", nsig, 
+                      "individually significant probes for ANOVA. We recommend the default setting of pcutoff in dmrcate(). Large numbers (e.g. > 100000) may warrant a smaller value of the argument passed to fdr"))
+      }
+      
+      anno <- getAnnotation(grset)
+      stat <- sqrtFs
+      annotated <- data.frame(ID = rownames(object), stat = stat, 
+                              CHR = anno$chr, pos = anno$pos, betafc = 0, 
+                              indfdr = sqrtfdrs, is.sig=sqrtfdrs < fdr)
+    }, diffVar={
+      stopifnot(is.matrix(design))
+      if (!contrasts) {
+        stopifnot(colnames(design)[1] == "(Intercept)")
+      } else {
+        stopifnot(!is.null(cont.matrix))
+      }
+      fitvar <- varFit(object, design = design, ...)
+      if (contrasts) {
+        stopifnot(coef %in% colnames(cont.matrix))
+        fitvar <- contrasts.varFit(fitvar, cont.matrix)
+      }
+      tt <- topVar(fitvar, coef=coef, number = nrow(object))
+      nsig <- sum(tt$Adj.P.Value < fdr)
+      if (nsig == 0) {
+        message("Your contrast returned no individually significant probes. Try increasing the fdr. Alternatively, set pcutoff manually in dmrcate() to return DVMRs, but be warned there is an increased risk of Type I errors.")
+      }
+      if (nsig > 0 & nsig <= 100) {
+        message(paste("Your contrast returned", nsig, 
+                      "individually significant probes; a small but real effect. Consider manually setting the value of pcutoff to return more DVMRs, but be warned that doing this increases the risk of Type I errors."))
+      }
+      if (nsig > 100) {
+        message(paste("Your contrast returned", nsig, 
+                      "individually significant probes. We recommend the default setting of pcutoff in dmrcate()."))
+      }
+      m <- match(rownames(object), rownames(tt))
+      tt <- tt[m, ]
+      
+      anno <- getAnnotation(grset)
+      stat <- tt$t
+      annotated <- data.frame(ID = rownames(tt), stat = stat, 
+                              CHR = anno$chr, pos = anno$pos, betafc = 0, 
+                              indfdr = tt$Adj.P.Value, is.sig=tt$Adj.P.Value < fdr)
+      
+      
+
+      
+    })
+    annotated <- annotated[order(annotated$CHR, annotated$pos), 
+                           ]
+    class(annotated) <- "annot"
+    return(annotated)
+  }
+  if (datatype == "sequencing") {
+    if (!all(c("stat", "chr", "pos", "diff", "fdr") %in% 
+             colnames(object))) 
+      stop("Error: object does not contain all required columns, was it created by DSS::DMLtest()? Must contain colNames 'stat', 'chr', 'pos', 'diff' and 'fdr'.")
+    if(analysis.type != "differential")
+      stop("Error: only differential analysis.type available for sequencing assays")
+    annotated <- data.frame(ID = rownames(object), stat = object$stat, 
+                            CHR = object$chr, pos = object$pos, betafc = object$diff, 
+                            indfdr = object$fdr, is.sig=object$fdr < fdr)
+    annotated <- annotated[order(annotated$CHR, annotated$pos), 
+                           ]
+    class(annotated) <- "annot"
+  }
+  else {
+    message("Error: datatype must be one of 'array' or 'sequencing'")
+  }
+  return(annotated)
+}
+<bytecode: 0x4dfd8090>
+<environment: namespace:DMRcate>
+ --- function search by body ---
+Function cpg.annotate in namespace DMRcate has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

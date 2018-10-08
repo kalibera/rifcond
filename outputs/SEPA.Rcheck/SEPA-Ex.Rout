@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -78,10 +78,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Loading required package: graph
 Loading required package: Biobase
@@ -126,88 +126,88 @@ The following object is masked from ‘package:IRanges’:
 
 Building most specific GOs .....
 Loading required package: org.Hs.eg.db
-	( 2337 GO terms found. )
+	( 2352 GO terms found. )
 
 Build GO DAG topology ..........
-	( 5603 GO terms and 12651 relations. )
+	( 5648 GO terms and 12857 relations. )
 
 Annotating nodes ...............
-	( 463 genes annotated to the GO terms. )
+	( 465 genes annotated to the GO terms. )
 
 			 -- Classic Algorithm -- 
 
-		 the algorithm is scoring 3349 nontrivial nodes
+		 the algorithm is scoring 3400 nontrivial nodes
 		 parameters: 
 			 test statistic: fisher
 
 Building most specific GOs .....
-	( 2337 GO terms found. )
+	( 2352 GO terms found. )
 
 Build GO DAG topology ..........
-	( 5603 GO terms and 12651 relations. )
+	( 5648 GO terms and 12857 relations. )
 
 Annotating nodes ...............
-	( 463 genes annotated to the GO terms. )
+	( 465 genes annotated to the GO terms. )
 
 			 -- Classic Algorithm -- 
 
-		 the algorithm is scoring 3416 nontrivial nodes
+		 the algorithm is scoring 3449 nontrivial nodes
 		 parameters: 
 			 test statistic: fisher
 
 Building most specific GOs .....
-	( 2337 GO terms found. )
+	( 2352 GO terms found. )
 
 Build GO DAG topology ..........
-	( 5603 GO terms and 12651 relations. )
+	( 5648 GO terms and 12857 relations. )
 
 Annotating nodes ...............
-	( 463 genes annotated to the GO terms. )
+	( 465 genes annotated to the GO terms. )
 
 			 -- Classic Algorithm -- 
 
-		 the algorithm is scoring 2732 nontrivial nodes
+		 the algorithm is scoring 2779 nontrivial nodes
 		 parameters: 
 			 test statistic: fisher
 
 Building most specific GOs .....
-	( 2337 GO terms found. )
+	( 2352 GO terms found. )
 
 Build GO DAG topology ..........
-	( 5603 GO terms and 12651 relations. )
+	( 5648 GO terms and 12857 relations. )
 
 Annotating nodes ...............
-	( 463 genes annotated to the GO terms. )
+	( 465 genes annotated to the GO terms. )
 
 			 -- Classic Algorithm -- 
 
-		 the algorithm is scoring 368 nontrivial nodes
+		 the algorithm is scoring 417 nontrivial nodes
 		 parameters: 
 			 test statistic: fisher
 
 Building most specific GOs .....
-	( 2337 GO terms found. )
+	( 2352 GO terms found. )
 
 Build GO DAG topology ..........
-	( 5603 GO terms and 12651 relations. )
+	( 5648 GO terms and 12857 relations. )
 
 Annotating nodes ...............
-	( 463 genes annotated to the GO terms. )
+	( 465 genes annotated to the GO terms. )
 
 			 -- Classic Algorithm -- 
 
-		 the algorithm is scoring 1247 nontrivial nodes
+		 the algorithm is scoring 1236 nontrivial nodes
 		 parameters: 
 			 test statistic: fisher
 
 Building most specific GOs .....
-	( 2337 GO terms found. )
+	( 2352 GO terms found. )
 
 Build GO DAG topology ..........
-	( 5603 GO terms and 12651 relations. )
+	( 5648 GO terms and 12857 relations. )
 
 Annotating nodes ...............
-	( 463 genes annotated to the GO terms. )
+	( 465 genes annotated to the GO terms. )
 
 			 -- Classic Algorithm -- 
 
@@ -216,58 +216,58 @@ Annotating nodes ...............
 			 test statistic: fisher
 $down
         GO.ID                                Term Annotated Significant
-1  GO:0022402                  cell cycle process       130         102
-2  GO:0007049                          cell cycle       152         113
-3  GO:0000278                  mitotic cell cycle       111          87
-4  GO:0051301                       cell division        69          62
-5  GO:1903047          mitotic cell cycle process       101          81
-6  GO:0051276             chromosome organization        98          79
+1  GO:0007049                          cell cycle       157         117
+2  GO:0022402                  cell cycle process       133         102
+3  GO:0000278                  mitotic cell cycle       115          90
+4  GO:0051276             chromosome organization        99          80
+5  GO:0051301                       cell division        69          62
+6  GO:1903047          mitotic cell cycle process       103          82
 7  GO:0007059              chromosome segregation        61          53
-8  GO:0000280                    nuclear division        58          50
+8  GO:0000280                    nuclear division        59          51
 9  GO:0098813      nuclear chromosome segregation        55          48
 10 GO:0000819        sister chromatid segregation        52          46
-11 GO:0048285                   organelle fission        59          50
-12 GO:0006259               DNA metabolic process        72          57
-13 GO:0044770         cell cycle phase transition        65          52
-14 GO:0006260                     DNA replication        38          35
-15 GO:0044772 mitotic cell cycle phase transition        64          51
-16 GO:0140014            mitotic nuclear division        48          41
-17 GO:0051726            regulation of cell cycle        89          63
-18 GO:0006281                          DNA repair        47          39
-19 GO:0006261       DNA-dependent DNA replication        26          25
-20 GO:0010564    regulation of cell cycle process        62          47
+11 GO:0048285                   organelle fission        60          51
+12 GO:0006259               DNA metabolic process        73          58
+13 GO:0140014            mitotic nuclear division        48          42
+14 GO:0006260                     DNA replication        39          36
+15 GO:0044770         cell cycle phase transition        65          52
+16 GO:0051726            regulation of cell cycle        93          67
+17 GO:0044772 mitotic cell cycle phase transition        63          50
+18 GO:0010564    regulation of cell cycle process        63          49
+19 GO:0006261       DNA-dependent DNA replication        28          27
+20 GO:0006281                          DNA repair        48          40
    Expected classicFisher
-1     52.79       2.1e-25
-2     61.72       2.9e-25
-3     45.07       1.3e-20
-4     28.02       3.5e-20
-5     41.01       3.9e-20
-6     39.79       8.1e-20
-7     24.77       1.5e-15
-8     23.55       2.5e-14
-9     22.33       3.4e-14
-10    21.11       4.3e-14
-11    23.96       1.1e-13
-12    29.24       4.5e-13
-13    26.39       3.3e-12
-14    15.43       5.9e-12
-15    25.99       7.6e-12
-16    19.49       2.0e-11
-17    36.14       1.4e-10
-18    19.08       4.3e-10
-19    10.56       1.0e-09
-20    25.17       1.6e-09
+1     63.81       1.2e-26
+2     54.06       9.0e-24
+3     46.74       2.3e-21
+4     40.24       3.4e-20
+5     28.05       3.9e-20
+6     41.86       5.8e-20
+7     24.79       1.6e-15
+8     23.98       1.0e-14
+9     22.35       3.6e-14
+10    21.14       4.6e-14
+11    24.39       4.7e-14
+12    29.67       2.1e-13
+13    19.51       1.9e-12
+14    15.85       2.4e-12
+15    26.42       3.5e-12
+16    37.80       7.1e-12
+17    25.61       1.9e-11
+18    25.61       1.3e-10
+19    11.38       1.5e-10
+20    19.51       1.9e-10
 
 $up
         GO.ID                                        Term Annotated Significant
 1  GO:0072657            protein localization to membrane        33          30
-2  GO:0022613        ribonucleoprotein complex biogenesis        29          27
+2  GO:0022613        ribonucleoprotein complex biogenesis        30          28
 3  GO:0090150 establishment of protein localization to...        29          27
 4  GO:0006605                           protein targeting        30          27
 5  GO:0006518                   peptide metabolic process        45          35
-6  GO:0006396                              RNA processing        34          29
-7  GO:0006612               protein targeting to membrane        26          24
-8  GO:0042254                         ribosome biogenesis        26          24
+6  GO:0006612               protein targeting to membrane        26          24
+7  GO:0042254                         ribosome biogenesis        26          24
+8  GO:0006396                              RNA processing        35          29
 9  GO:0006364                             rRNA processing        25          23
 10 GO:0006613 cotranslational protein targeting to mem...        25          23
 11 GO:0006614 SRP-dependent cotranslational protein ta...        25          23
@@ -281,97 +281,97 @@ $up
 19 GO:0034470                            ncRNA processing        27          24
 20 GO:0043604                  amide biosynthetic process        42          32
    Expected classicFisher
-1     10.41       2.2e-13
-2      9.14       1.1e-12
-3      9.14       1.1e-12
-4      9.46       7.9e-12
-5     14.19       2.1e-11
-6     10.72       2.2e-11
-7      8.20       4.0e-11
-8      8.20       4.0e-11
-9      7.88       1.3e-10
-10     7.88       1.3e-10
-11     7.88       1.3e-10
-12     7.88       1.3e-10
-13     7.88       1.3e-10
-14     7.88       1.3e-10
-15    12.93       1.7e-10
-16    12.93       1.7e-10
-17    14.82       1.9e-10
-18     8.51       2.7e-10
-19     8.51       2.7e-10
-20    13.24       5.1e-10
+1     10.43       2.4e-13
+2      9.48       3.4e-13
+3      9.17       1.2e-12
+4      9.48       8.6e-12
+5     14.23       2.4e-11
+6      8.22       4.3e-11
+7      8.22       4.3e-11
+8     11.06       1.0e-10
+9      7.90       1.4e-10
+10     7.90       1.4e-10
+11     7.90       1.4e-10
+12     7.90       1.4e-10
+13     7.90       1.4e-10
+14     7.90       1.4e-10
+15    12.96       1.8e-10
+16    12.96       1.8e-10
+17    14.86       2.1e-10
+18     8.54       2.9e-10
+19     8.54       2.9e-10
+20    13.28       5.6e-10
 
 $`NA`
         GO.ID                                        Term Annotated Significant
-1  GO:0042692                 muscle cell differentiation        24          15
-2  GO:0030239                          myofibril assembly         9           8
-3  GO:0003012                       muscle system process        30          17
-4  GO:0006941                 striated muscle contraction        14          10
-5  GO:0010927 cellular component assembly involved in ...        10           8
-6  GO:0030049                     muscle filament sliding        10           8
-7  GO:0033275               actin-myosin filament sliding        10           8
-8  GO:0006936                          muscle contraction        25          14
-9  GO:0003008                              system process        55          24
-10 GO:0061061                muscle structure development        43          20
-11 GO:0051146        striated muscle cell differentiation        18          11
-12 GO:0030048               actin filament-based movement        11           8
-13 GO:0070252             actin-mediated cell contraction        11           8
-14 GO:0055001                     muscle cell development        14           9
-15 GO:0055002            striated muscle cell development        14           9
-16 GO:0090257         regulation of muscle system process        15           9
-17 GO:0001656                     metanephros development         4           4
-18 GO:0043501                  skeletal muscle adaptation         4           4
-19 GO:0072006                         nephron development         8           6
-20 GO:0009653          anatomical structure morphogenesis       106          37
+1  GO:0030239                          myofibril assembly        10           9
+2  GO:0042692                 muscle cell differentiation        21          14
+3  GO:0010927 cellular component assembly involved in ...        11           9
+4  GO:0003012                       muscle system process        30          17
+5  GO:0006941                 striated muscle contraction        14          10
+6  GO:0051146        striated muscle cell differentiation        19          12
+7  GO:0030049                     muscle filament sliding        10           8
+8  GO:0033275               actin-myosin filament sliding        10           8
+9  GO:0061061                muscle structure development        44          21
+10 GO:0006936                          muscle contraction        25          14
+11 GO:0055001                     muscle cell development        15          10
+12 GO:0055002            striated muscle cell development        15          10
+13 GO:0003008                              system process        55          24
+14 GO:0030048               actin filament-based movement        11           8
+15 GO:0070252             actin-mediated cell contraction        11           8
+16 GO:0009653          anatomical structure morphogenesis       107          39
+17 GO:0003009                 skeletal muscle contraction         7           6
+18 GO:0045214                      sarcomere organization         7           6
+19 GO:0050879           multicellular organismal movement         7           6
+20 GO:0050881                    musculoskeletal movement         7           6
    Expected classicFisher
-1      5.86       5.1e-05
-2      2.20       7.4e-05
-3      7.32       8.9e-05
-4      3.42       0.00022
-5      2.44       0.00030
-6      2.44       0.00030
-7      2.44       0.00030
-8      6.10       0.00049
-9     13.42       0.00066
-10    10.49       0.00074
-11     4.39       0.00078
-12     2.68       0.00086
-13     2.68       0.00086
-14     3.42       0.00152
-15     3.42       0.00152
-16     3.66       0.00301
-17     0.98       0.00341
-18     0.98       0.00341
-19     1.95       0.00342
-20    25.87       0.00372
+1      2.43       1.8e-05
+2      5.10       3.1e-05
+3      2.67       8.0e-05
+4      7.29       8.4e-05
+5      3.40       0.00021
+6      4.62       0.00027
+7      2.43       0.00029
+8      2.43       0.00029
+9     10.69       0.00031
+10     6.08       0.00047
+11     3.65       0.00050
+12     3.65       0.00050
+13    13.37       0.00061
+14     2.67       0.00083
+15     2.67       0.00083
+16    26.00       0.00088
+17     1.70       0.00104
+18     1.70       0.00104
+19     1.70       0.00104
+20     1.70       0.00104
 
 $down_up
         GO.ID                                        Term Annotated Significant
 1  GO:0006002      fructose 6-phosphate metabolic process         1           1
-2  GO:0071902 positive regulation of protein serine/th...        16           2
-3  GO:0000413       protein peptidyl-prolyl isomerization         2           1
-4  GO:0006007                   glucose catabolic process         2           1
-5  GO:0006734                      NADH metabolic process         2           1
-6  GO:0006735                           NADH regeneration         2           1
-7  GO:0019320                    hexose catabolic process         2           1
-8  GO:0038065        collagen-activated signaling pathway         2           1
-9  GO:0045070 positive regulation of viral genome repl...         2           1
-10 GO:0046365            monosaccharide catabolic process         2           1
-11 GO:0046826 negative regulation of protein export fr...         2           1
-12 GO:0061615 glycolytic process through fructose-6-ph...         2           1
-13 GO:0061620 glycolytic process through glucose-6-pho...         2           1
-14 GO:0061621                        canonical glycolysis         2           1
-15 GO:0061718       glucose catabolic process to pyruvate         2           1
-16 GO:1903902     positive regulation of viral life cycle         2           1
-17 GO:1904116                     response to vasopressin         2           1
-18 GO:1904117            cellular response to vasopressin         2           1
-19 GO:0045860 positive regulation of protein kinase ac...        25           2
-20 GO:0018208               peptidyl-proline modification         3           1
+2  GO:0090630               activation of GTPase activity         1           1
+3  GO:0071902 positive regulation of protein serine/th...        16           2
+4  GO:0000413       protein peptidyl-prolyl isomerization         2           1
+5  GO:0006007                   glucose catabolic process         2           1
+6  GO:0006734                      NADH metabolic process         2           1
+7  GO:0006735                           NADH regeneration         2           1
+8  GO:0009435                    NAD biosynthetic process         2           1
+9  GO:0019320                    hexose catabolic process         2           1
+10 GO:0038065        collagen-activated signaling pathway         2           1
+11 GO:0045070 positive regulation of viral genome repl...         2           1
+12 GO:0046365            monosaccharide catabolic process         2           1
+13 GO:0046826 negative regulation of protein export fr...         2           1
+14 GO:0051457 maintenance of protein location in nucle...         2           1
+15 GO:0061615 glycolytic process through fructose-6-ph...         2           1
+16 GO:0061620 glycolytic process through glucose-6-pho...         2           1
+17 GO:0061621                        canonical glycolysis         2           1
+18 GO:0061718       glucose catabolic process to pyruvate         2           1
+19 GO:0072595 maintenance of protein localization in o...         2           1
+20 GO:1903902     positive regulation of viral life cycle         2           1
    Expected classicFisher
 1      0.01         0.013
-2      0.21         0.016
-3      0.03         0.026
+2      0.01         0.013
+3      0.21         0.015
 4      0.03         0.026
 5      0.03         0.026
 6      0.03         0.026
@@ -387,8 +387,8 @@ $down_up
 16     0.03         0.026
 17     0.03         0.026
 18     0.03         0.026
-19     0.32         0.037
-20     0.04         0.038
+19     0.03         0.026
+20     0.03         0.026
 
 $up_down
         GO.ID                                        Term Annotated Significant
@@ -396,53 +396,53 @@ $up_down
 2  GO:0002699 positive regulation of immune effector p...         2           2
 3  GO:0002821 positive regulation of adaptive immune r...         2           2
 4  GO:0002824 positive regulation of adaptive immune r...         2           2
-5  GO:0019439         aromatic compound catabolic process        41           5
-6  GO:0034655 nucleobase-containing compound catabolic...        41           5
-7  GO:0046700               heterocycle catabolic process        41           5
-8  GO:0044270 cellular nitrogen compound catabolic pro...        42           5
-9  GO:1901361 organic cyclic compound catabolic proces...        42           5
-10 GO:0051704                      multi-organism process       101           7
-11 GO:0050776               regulation of immune response        23           4
-12 GO:0048519 negative regulation of biological proces...       202           9
-13 GO:0002684 positive regulation of immune system pro...        25           4
-14 GO:0048872              homeostasis of number of cells        11           3
-15 GO:1901564 organonitrogen compound metabolic proces...       214           9
-16 GO:0016032                               viral process        48           5
-17 GO:0044403 symbiosis, encompassing mutualism throug...        49           5
+5  GO:0050776               regulation of immune response        23           4
+6  GO:0051704                      multi-organism process       102           7
+7  GO:0048519 negative regulation of biological proces...       204           9
+8  GO:0002684 positive regulation of immune system pro...        25           4
+9  GO:0048872              homeostasis of number of cells        11           3
+10 GO:0016032                               viral process        48           5
+11 GO:0019439         aromatic compound catabolic process        48           5
+12 GO:0034655 nucleobase-containing compound catabolic...        48           5
+13 GO:0046700               heterocycle catabolic process        48           5
+14 GO:1901564 organonitrogen compound metabolic proces...       215           9
+15 GO:0044270 cellular nitrogen compound catabolic pro...        49           5
+16 GO:0044403                            symbiont process        49           5
+17 GO:1901361 organic cyclic compound catabolic proces...        49           5
 18 GO:0002822 regulation of adaptive immune response b...         3           2
 19 GO:0033077            T cell differentiation in thymus         3           2
 20 GO:0044419 interspecies interaction between organis...        50           5
    Expected classicFisher
-1      0.27       6.1e-05
-2      0.04       0.00034
-3      0.04       0.00034
-4      0.04       0.00034
-5      0.80       0.00042
-6      0.80       0.00042
-7      0.80       0.00042
-8      0.82       0.00047
-9      0.82       0.00047
-10     1.96       0.00048
-11     0.45       0.00050
-12     3.93       0.00052
-13     0.49       0.00070
-14     0.21       0.00078
-15     4.16       0.00088
-16     0.93       0.00090
-17     0.95       0.00099
-18     0.06       0.00100
-19     0.06       0.00100
-20     0.97       0.00109
+1      0.27         6e-05
+2      0.04       0.00033
+3      0.04       0.00033
+4      0.04       0.00033
+5      0.45       0.00049
+6      1.97       0.00050
+7      3.95       0.00054
+8      0.48       0.00069
+9      0.21       0.00077
+10     0.93       0.00088
+11     0.93       0.00088
+12     0.93       0.00088
+13     0.93       0.00088
+14     4.16       0.00088
+15     0.95       0.00097
+16     0.95       0.00097
+17     0.95       0.00097
+18     0.06       0.00099
+19     0.06       0.00099
+20     0.97       0.00107
 
 $up_down_up
         GO.ID                                        Term Annotated Significant
-1  GO:0060041       retina development in camera-type eye         5           1
-2  GO:0006457                             protein folding         6           1
+1  GO:0006457                             protein folding         6           1
+2  GO:0060041       retina development in camera-type eye         6           1
 3  GO:0043010                 camera-type eye development         9           1
 4  GO:0030178 negative regulation of Wnt signaling pat...        10           1
 5  GO:0090090 negative regulation of canonical Wnt sig...        10           1
-6  GO:0001654                             eye development        12           1
-7  GO:0007423                   sensory organ development        13           1
+6  GO:0001654                             eye development        11           1
+7  GO:0007423                   sensory organ development        12           1
 8  GO:0060828 regulation of canonical Wnt signaling pa...        13           1
 9  GO:0030111         regulation of Wnt signaling pathway        15           1
 10 GO:0060070             canonical Wnt signaling pathway        15           1
@@ -450,20 +450,20 @@ $up_down_up
 12 GO:0198738                  cell-cell signaling by wnt        18           1
 13 GO:1905114 cell surface receptor signaling pathway ...        18           1
 14 GO:0007267                         cell-cell signaling        30           1
-15 GO:0009968 negative regulation of signal transducti...        44           1
-16 GO:0010648 negative regulation of cell communicatio...        44           1
-17 GO:0023057            negative regulation of signaling        44           1
+15 GO:0009968 negative regulation of signal transducti...        45           1
+16 GO:0010648 negative regulation of cell communicatio...        45           1
+17 GO:0023057            negative regulation of signaling        45           1
 18 GO:0045892 negative regulation of transcription, DN...        53           1
-19 GO:0048585 negative regulation of response to stimu...        53           1
-20 GO:0051253 negative regulation of RNA metabolic pro...        54           1
+19 GO:0051253 negative regulation of RNA metabolic pro...        54           1
+20 GO:1902679 negative regulation of RNA biosynthetic ...        54           1
    Expected classicFisher
-1      0.01         0.011
+1      0.01         0.013
 2      0.01         0.013
 3      0.02         0.019
 4      0.02         0.022
 5      0.02         0.022
-6      0.03         0.026
-7      0.03         0.028
+6      0.02         0.024
+7      0.03         0.026
 8      0.03         0.028
 9      0.03         0.032
 10     0.03         0.032
@@ -471,12 +471,12 @@ $up_down_up
 12     0.04         0.039
 13     0.04         0.039
 14     0.06         0.065
-15     0.10         0.095
-16     0.10         0.095
-17     0.10         0.095
+15     0.10         0.097
+16     0.10         0.097
+17     0.10         0.097
 18     0.11         0.114
-19     0.11         0.114
-20     0.12         0.117
+19     0.12         0.116
+20     0.12         0.116
 
 > 
 > 
@@ -45786,15 +45786,21 @@ ENSG00000185585.15  6.209137312
 > truetimevisualize(HSMMdata,truetime,c("ENSG00000122180.4","ENSG00000125968.7"))
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/Rtmp6zyPQY/R.INSTALLc2617c3a6ffa/SEPA/R/truetimevisualize.R#28: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#28: 
+ --- package (from environment) --- 
 SEPA
- --- call (currently evaluated) --- 
+ --- call from context --- 
 FUN(X[[i]], ...)
+ --- call from argument --- 
+if (mode == "mean") {
+    mean(e[truetime == levels(truetime)[i]])
+} else {
+    median(e[truetime == levels(truetime)[i]])
+}
  --- R stacktrace ---
 where 1: FUN(X[[i]], ...)
 where 2: lapply(X = X, FUN = FUN, ...)
-where 3 at /var/scratch2/tomas/tmp/Rtmp6zyPQY/R.INSTALLc2617c3a6ffa/SEPA/R/truetimevisualize.R#27: sapply(1:length(levels(truetime)), function(i) {
+where 3 at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#27: sapply(1:length(levels(truetime)), function(i) {
     if (mode == "mean") {
         mean(e[truetime == levels(truetime)[i]])
     }
@@ -45804,7 +45810,7 @@ where 3 at /var/scratch2/tomas/tmp/Rtmp6zyPQY/R.INSTALLc2617c3a6ffa/SEPA/R/truet
 })
 where 4: FUN(X[[i]], ...)
 where 5: lapply(X = X, FUN = FUN, ...)
-where 6: sapply(gene, function(singlegene) {
+where 6 at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#25: sapply(gene, function(singlegene) {
     e <- expr[singlegene, names(truetime)]
     sapply(1:length(levels(truetime)), function(i) {
         if (mode == "mean") {
@@ -45815,7 +45821,7 @@ where 6: sapply(gene, function(singlegene) {
         }
     })
 })
-where 7 at /var/scratch2/tomas/tmp/Rtmp6zyPQY/R.INSTALLc2617c3a6ffa/SEPA/R/truetimevisualize.R#25: as.vector(sapply(gene, function(singlegene) {
+where 7 at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#25: as.vector(sapply(gene, function(singlegene) {
     e <- expr[singlegene, names(truetime)]
     sapply(1:length(levels(truetime)), function(i) {
         if (mode == "mean") {
@@ -45831,7 +45837,7 @@ where 8: truetimevisualize(HSMMdata, truetime, c("ENSG00000122180.4",
 
  --- value of length: 2 type: logical ---
 [1]  TRUE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(i) {
                   if (mode == "mean") {
                         mean(e[truetime==levels(truetime)[i]])      
@@ -45839,7 +45845,8 @@ function(i) {
                         median(e[truetime==levels(truetime)[i]])
                   }                  
             }
-<environment: 0x28650e18>
- --- function (body) search ---
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+<bytecode: 0x145984c0>
+<environment: 0x144ab378>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

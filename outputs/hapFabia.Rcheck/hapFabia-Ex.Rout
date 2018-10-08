@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -42,10 +42,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Welcome to Bioconductor
 
@@ -75,7 +75,7 @@ BibTex: enter 'toBibtex(citation("fabia"))'
 
 Homepage: http://www.bioinf.jku.at/software/fabia/fabia.html
 
-FABIA Package Version 2.25.0
+FABIA Package Version 2.26.0
 
 +--------------------------+          #    #    ##    #####     
 |#.....#...#.......#.#....#|          #    #   #  #   #    #    
@@ -98,7 +98,7 @@ BibTex: enter 'toBibtex(citation("hapFabia"))'
 
 Homepage: http://www.bioinf.jku.at/software/hapFabia/index.html
 
-hapFabia Package Version 1.21.0
+hapFabia Package Version 1.22.0
 
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -444,14 +444,14 @@ list()
 > 
 > mergedIBDsegmentList[c(3,4)] <-
 +    mergedIBDsegmentList[c(1,2)]
-Warning in `[<-`(`*tmp*`, i, value = new("IBDsegmentList", IBDsegments = list( :
+Warning in `[<-`(`*tmp*`, i, value = value) :
   implicit list embedding of S4 objects is deprecated
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/RtmpuDN3ca/R.INSTALLcbf9c51f0b8/hapFabia/R/methods-IBDsegmentList-class.R#110: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpU3DksL/R.INSTALL7f7934698da9/hapFabia/R/methods-IBDsegmentList-class.R#110: 
+ --- package (from environment) --- 
 hapFabia
- --- call (currently evaluated) --- 
+ --- call from context --- 
 `[<-`(`*tmp*`, c(3, 4), value = new("IBDsegmentList", IBDsegments = list(
     new("IBDsegment", ID = 1L, bicluster_id = 2L, chromosome = "1", 
         IBDsegmentPos = 79427, IBDsegmentLength = 40L, numberIndividuals = 10L, 
@@ -511,6 +511,10 @@ hapFabia
         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
         ), tagSNVAnno = list("", "", "", "", "", "", "", "", 
             "", "", "", "", "", "", ""))), lengthList = 2L, statistics = list()))
+ --- call from argument --- 
+if (i > lengthList(x)) {
+    lengthList(x) <- i
+}
  --- R stacktrace ---
 where 1: `[<-`(`*tmp*`, c(3, 4), value = new("IBDsegmentList", IBDsegments = list(
     new("IBDsegment", ID = 1L, bicluster_id = 2L, chromosome = "1", 
@@ -633,7 +637,7 @@ where 2: `[<-`(`*tmp*`, c(3, 4), value = new("IBDsegmentList", IBDsegments = lis
 
  --- value of length: 2 type: logical ---
 [1] FALSE  TRUE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 Method Definition:
 
 function (x, i, j, ..., value) 
@@ -644,13 +648,14 @@ function (x, i, j, ..., value)
     }
     x
 }
+<bytecode: 0x55cd238>
 <environment: namespace:hapFabia>
 
 Signatures:
         x                i         j         value           
 target  "IBDsegmentList" "numeric" "missing" "IBDsegmentList"
 defined "IBDsegmentList" "numeric" "missing" "IBDsegmentList"
- --- function (body) search ---
+ --- function search by body ---
 S4 Method [<-:base defined in namespace hapFabia with signature IBDsegmentList#numeric#missing#IBDsegmentList has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

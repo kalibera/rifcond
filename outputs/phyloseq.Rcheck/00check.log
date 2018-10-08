@@ -1,0 +1,525 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/phyloseq.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘phyloseq/DESCRIPTION’ ... OK
+* this is package ‘phyloseq’ version ‘1.24.2’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .travis.yml
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘phyloseq’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+DPCoA: no visible global function definition for ‘as.dist’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/ordination-methods.R:339)
+chunkReOrder: no visible global function definition for ‘tail’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2779)
+chunkReOrder: no visible global function definition for ‘head’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2779)
+export_env_file: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1573)
+export_mothur_dist: no visible global function definition for ‘as.dist’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1475)
+export_mothur_dist: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1503)
+export_mothur_dist: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1511)
+fastUniFrac: no visible global function definition for ‘combn’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/distance-methods.R:580)
+fastUniFrac: no visible global function definition for ‘as.dist’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/distance-methods.R:685)
+import_RDP_otu: no visible global function definition for ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:852)
+import_env_file: no visible global function definition for ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:636)
+import_mothur_constaxonomy: no visible global function definition for
+  ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1233)
+import_mothur_constaxonomy: no visible global function definition for
+  ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1234)
+import_mothur_dist: no visible global function definition for ‘as.dist’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1437)
+import_mothur_groups: no visible global function definition for
+  ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1128)
+import_mothur_shared: no visible global function definition for
+  ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:1205)
+import_qiime_otu_tax: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:532)
+import_qiime_otu_tax: no visible binding for global variable ‘Consensus
+  Lineage’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:532)
+import_qiime_otu_tax: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:536)
+import_qiime_otu_tax: no visible binding for global variable ‘#OTU ID’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:536)
+import_qiime_sample_data: no visible global function definition for
+  ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:597-598)
+import_uparse: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2397)
+import_uparse: no visible binding for global variable ‘count’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2397)
+import_uparse: no visible binding for global variable ‘queryString’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2397)
+import_uparse: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2398)
+import_uparse: no visible binding for global variable ‘queryID’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2398)
+import_uparse: no visible binding for global variable ‘queryString’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2398)
+import_uparse: no visible binding for global variable ‘Classification’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2401)
+import_uparse: no visible global function definition for
+  ‘dcast.data.table’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2409-2412)
+import_uparse: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2416)
+import_uparse: no visible binding for global variable ‘OTULabel’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2416)
+import_uparse: no visible binding for global variable ‘OTULabel’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2426)
+import_uparse: no visible binding for global variable ‘count’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2426)
+import_uparse: no visible binding for global variable ‘queryID’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2426)
+import_uparse: no visible binding for global variable ‘Classification’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2426)
+import_usearch_uc: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2310)
+import_usearch_uc: no visible binding for global variable ‘read’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2310)
+microbio_me_qiime: no visible global function definition for
+  ‘download.file’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2133)
+microbio_me_qiime: no visible global function definition for ‘unzip’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2152)
+microbio_me_qiime: no visible global function definition for ‘untar’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/IO-methods.R:2155)
+nodeplotboot : <anonymous>: no visible global function definition for
+  ‘complete.cases’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1911)
+nodeplotboot : <anonymous>: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1925)
+nodeplotboot : <anonymous>: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1925)
+nodeplotdefault : <anonymous>: no visible binding for global variable
+  ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1979-1985)
+nodeplotdefault : <anonymous>: no visible binding for global variable
+  ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1979-1985)
+nodeplotdefault : <anonymous>: no visible binding for global variable
+  ‘label’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1979-1985)
+ordinate: no visible global function definition for ‘as.formula’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/ordination-methods.R:169)
+plot_clusgap: no visible binding for global variable ‘k’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2838)
+plot_clusgap: no visible binding for global variable ‘gap’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2838)
+plot_clusgap: no visible binding for global variable ‘gap’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2839)
+plot_clusgap: no visible binding for global variable ‘SE.sim’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2839)
+plot_heatmap: no visible global function definition for
+  ‘capture.output’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2604)
+plot_heatmap: no visible binding for global variable ‘Sample’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2672-2673)
+plot_heatmap: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2672-2673)
+plot_heatmap: no visible binding for global variable ‘Abundance’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2672-2673)
+plot_net : vertex_layout: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:486)
+plot_net : link_layout: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:494)
+plot_net : link_layout: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:494)
+plot_net : link_layout: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:495)
+plot_net : link_layout: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:495)
+plot_net: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:503-517)
+plot_net: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:503-517)
+plot_net: no visible binding for global variable ‘xend’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:503-517)
+plot_net: no visible binding for global variable ‘yend’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:503-517)
+plot_network: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:233)
+plot_network: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:233)
+plot_richness: no visible binding for global variable ‘value’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:763)
+plot_richness: no visible binding for global variable ‘se’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:763)
+plot_scree: no visible binding for global variable ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1350)
+plot_scree: no visible binding for global variable ‘eigenvalue’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1350)
+plot_tree: no visible binding for global variable ‘xleft’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2202)
+plot_tree: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2202)
+plot_tree: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2202)
+plot_tree: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2203)
+plot_tree: no visible binding for global variable ‘vmin’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2203)
+plot_tree: no visible binding for global variable ‘vmax’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2203)
+plot_tree: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2217)
+plot_tree: no visible binding for global variable ‘label’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2246)
+plot_tree: no visible binding for global variable ‘label’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2248)
+plot_tree: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2278)
+plot_tree: no visible binding for global variable ‘Abundance’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2283)
+plot_tree: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2291)
+plot_tree: no visible binding for global variable ‘Sample’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2291)
+plot_tree: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2294)
+plot_tree: no visible binding for global variable ‘h.adj.index’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2294)
+plot_tree: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2294)
+plot_tree: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2294)
+plot_tree: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2298)
+plot_tree: no visible binding for global variable ‘xdodge’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2298)
+plot_tree: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2298)
+plot_tree: no visible binding for global variable ‘h.adj.index’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2298)
+plot_tree: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2301)
+plot_tree: no visible binding for global variable ‘xdodge’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2301)
+plot_tree: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2301)
+plot_tree: no visible binding for global variable ‘h.adj.index’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2301)
+plot_tree: no visible binding for global variable ‘Abundance’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2303)
+plot_tree: no visible binding for global variable ‘Abundance’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2317)
+plot_tree: no visible binding for global variable ‘xdodge’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2318-2319)
+plot_tree: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2318-2319)
+plot_tree: no visible binding for global variable ‘Abundance’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2318-2319)
+plot_tree: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2326)
+plot_tree: no visible binding for global variable ‘xfartiplab’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2326)
+plot_tree: no visible binding for global variable ‘xdodge’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2326)
+plot_tree: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2326)
+plot_tree: no visible binding for global variable ‘h.adj.index’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2327)
+plot_tree: no visible binding for global variable ‘.SD’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2327)
+plot_tree: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2327)
+plot_tree: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2347)
+plot_tree: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2349)
+plot_tree: no visible binding for global variable ‘xdodge’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:2349)
+rp.joint.fill: no visible global function definition for ‘relevel’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1186)
+tip_glom: no visible global function definition for ‘as.dist’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/transform_filter-methods.R:306)
+tip_glom: no visible global function definition for ‘cutree’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/transform_filter-methods.R:307)
+tip_glom: no visible global function definition for ‘as.hclust’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/transform_filter-methods.R:307)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1758)
+tree_layout: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1758)
+tree_layout: no visible binding for global variable ‘V2’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1759)
+tree_layout: no visible binding for global variable ‘V2’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1760)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1760)
+tree_layout: no visible binding for global variable ‘OTU’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1760)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1763)
+tree_layout: no visible binding for global variable ‘xleft’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1763)
+tree_layout: no visible binding for global variable ‘V1’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1763)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1764)
+tree_layout: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1764)
+tree_layout: no visible binding for global variable ‘V2’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1764)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1765)
+tree_layout: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1765)
+tree_layout: no visible binding for global variable ‘V2’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1765)
+tree_layout: no visible binding for global variable ‘xleft’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1767)
+tree_layout: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1767)
+tree_layout: no visible binding for global variable ‘V1’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1767)
+tree_layout: no visible binding for global variable ‘V2’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1770)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1770)
+tree_layout: no visible binding for global variable ‘x’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1770)
+tree_layout: no visible binding for global variable ‘xright’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1770)
+tree_layout: no visible binding for global variable ‘V2’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1771)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1771)
+tree_layout: no visible binding for global variable ‘label’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1771)
+tree_layout: no visible binding for global variable ‘V1’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1773)
+tree_layout: no visible global function definition for ‘J’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1774)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1774)
+tree_layout: no visible binding for global variable ‘y’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1774)
+tree_layout: no visible binding for global variable ‘vmin’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1774)
+tree_layout: no visible binding for global variable ‘vmax’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1774)
+tree_layout: no visible global function definition for ‘J’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1775)
+tree_layout: no visible global function definition for ‘:=’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1775)
+tree_layout: no visible binding for global variable ‘label’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:1775)
+JSD,matrix: no visible global function definition for ‘combn’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/distance-methods.R:340)
+JSD,matrix: no visible binding for global variable ‘i’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/distance-methods.R:348)
+JSD,matrix: no visible binding for global variable ‘i’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/distance-methods.R:349)
+JSD,matrix: no visible global function definition for ‘as.dist’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/distance-methods.R:358)
+capscale.phyloseq,phyloseq-formula-character: no visible global
+  function definition for ‘as.formula’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/ordination-methods.R:634)
+capscale.phyloseq,phyloseq-formula-dist: no visible global function
+  definition for ‘as.formula’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/ordination-methods.R:606)
+cca.phyloseq,phyloseq-formula: no visible global function definition
+  for ‘as.formula’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/ordination-methods.R:418)
+distance,phyloseq-character: no visible global function definition for
+  ‘as.dist’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/distance-methods.R:159)
+merge_phyloseq_pair,sample_data-sample_data : <anonymous>: no visible
+  binding for global variable ‘X0’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/merge-methods.R:207)
+merge_samples,sample_data: no visible global function definition for
+  ‘aggregate’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/merge-methods.R:542)
+plot_phyloseq,phyloseq: no visible binding for global variable
+  ‘esophagus’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:49)
+plot_phyloseq,phyloseq: no visible binding for global variable
+  ‘esophagus’
+  (/var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/plot-methods.R:53)
+Undefined global functions or variables:
+  #OTU ID .SD := Abundance Classification Consensus Lineage J OTU
+  OTULabel SE.sim Sample V1 V2 X0 aggregate as.dist as.formula
+  as.hclust axis capture.output combn complete.cases count cutree
+  dcast.data.table download.file eigenvalue esophagus gap h.adj.index
+  head i k label queryID queryString read read.table relevel se tail
+  untar unzip value vmax vmin write.table x xdodge xend xfartiplab
+  xleft xright y yend
+Consider adding
+  importFrom("graphics", "axis")
+  importFrom("stats", "aggregate", "as.dist", "as.formula", "as.hclust",
+             "complete.cases", "cutree", "relevel")
+  importFrom("utils", "capture.output", "combn", "download.file", "head",
+             "read.table", "tail", "untar", "unzip", "write.table")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘phyloseq-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: mt
+> ### Title: Multiple testing of taxa abundance according to sample
+> ###   categories/classes
+> ### Aliases: mt mt,phyloseq,ANY-method mt,otu_table,integer-method
+> ###   mt,otu_table,numeric-method mt,otu_table,logical-method
+> ###   mt,otu_table,character-method mt,otu_table,factor-method
+> 
+> ### ** Examples
+> 
+> ## # Simple example, testing genera that sig correlate with Enterotypes
+> data(enterotype)
+> # Filter samples that don't have Enterotype
+> x <- subset_samples(enterotype, !is.na(Enterotype))
+> # (the taxa are at the genera level in this dataset)
+> res = mt(x, "Enterotype", method=c("fdr", "bonferroni"), test="f", B=300)
+B=300
+b=3	b=6	b=9	b=12	b=15	b=18	b=21	b=24	b=27	b=30	
+b=33	b=36	b=39	b=42	b=45	b=48	b=51	b=54	b=57	b=60	
+b=63	b=66	b=69	b=72	b=75	b=78	b=81	b=84	b=87	b=90	
+b=93	b=96	b=99	b=102	b=105	b=108	b=111	b=114	b=117	b=120	
+b=123	b=126	b=129	b=132	b=135	b=138	b=141	b=144	b=147	b=150	
+b=153	b=156	b=159	b=162	b=165	b=168	b=171	b=174	b=177	b=180	
+b=183	b=186	b=189	b=192	b=195	b=198	b=201	b=204	b=207	b=210	
+b=213	b=216	b=219	b=222	b=225	b=228	b=231	b=234	b=237	b=240	
+b=243	b=246	b=249	b=252	b=255	b=258	b=261	b=264	b=267	b=270	
+b=273	b=276	b=279	b=282	b=285	b=288	b=291	b=294	b=297	b=300	
+r=5	r=10	r=15	r=20	r=25	r=30	r=35	r=40	r=45	r=50	
+r=55	r=60	r=65	r=70	r=75	r=80	r=85	r=90	r=95	r=100	
+r=105	r=110	r=115	r=120	r=125	r=130	r=135	r=140	r=145	r=150	
+r=155	r=160	r=165	r=170	r=175	r=180	r=185	r=190	r=195	r=200	
+r=205	r=210	r=215	r=220	r=225	r=230	r=235	r=240	r=245	r=250	
+r=255	r=260	r=265	r=270	r=275	r=280	r=285	r=290	r=295	r=300	
+r=305	r=310	r=315	r=320	r=325	r=330	r=335	r=340	r=345	r=350	
+r=355	r=360	r=365	r=370	r=375	r=380	r=385	r=390	r=395	r=400	
+r=405	r=410	r=415	r=420	r=425	r=430	r=435	r=440	r=445	r=450	
+r=455	r=460	r=465	r=470	r=475	r=480	r=485	r=490	r=495	r=500	
+r=505	r=510	r=515	r=520	r=525	r=530	r=535	r=540	r=545	r=550	
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/multtest-wrapper.R#101: 
+ --- package (from environment) --- 
+phyloseq
+ --- call from context --- 
+mt(x, "Enterotype", method = c("fdr", "bonferroni"), test = "f", 
+    B = 300)
+ --- call from argument --- 
+if (length(method) > 0 & method %in% p.adjust.methods) {
+    method <- method[which(method %in% p.adjust.methods)]
+    adjp = sapply(method, function(meth, p) {
+        p.adjust(p, meth)
+    }, p = MT$rawp, USE.NAMES = TRUE)
+    MT <- cbind(MT, adjp)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpT6QmbE/R.INSTALLe291f96d92a/phyloseq/R/multtest-wrapper.R#71: mt(x, "Enterotype", method = c("fdr", "bonferroni"), test = "f", 
+    B = 300)
+where 2: mt(x, "Enterotype", method = c("fdr", "bonferroni"), test = "f", 
+    B = 300)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+Method Definition:
+
+function (physeq, classlabel, minPmaxT = "minP", method = "fdr", 
+    ...) 
+{
+    if (!is.null(sample_data(physeq, FALSE)) & inherits(classlabel, 
+        "character") & identical(length(classlabel), 1L)) {
+        rawFactor = get_variable(physeq, classlabel[1])
+        if (!inherits(rawFactor, "factor")) {
+            rawFactor = factor(rawFactor)
+        }
+        classlabel = rawFactor
+    }
+    MT = mt(otu_table(physeq), classlabel, minPmaxT, ...)
+    if (!is.null(tax_table(physeq, FALSE))) {
+        MT = cbind(MT, as(tax_table(physeq), "matrix")[rownames(MT), 
+            , drop = FALSE])
+    }
+    if (length(method) > 0 & method %in% p.adjust.methods) {
+        method <- method[which(method %in% p.adjust.methods)]
+        adjp = sapply(method, function(meth, p) {
+            p.adjust(p, meth)
+        }, p = MT$rawp, USE.NAMES = TRUE)
+        MT <- cbind(MT, adjp)
+    }
+    return(MT)
+}
+<bytecode: 0x16339fa8>
+<environment: namespace:phyloseq>
+
+Signatures:
+        physeq     classlabel 
+target  "phyloseq" "character"
+defined "phyloseq" "ANY"      
+ --- function search by body ---
+S4 Method mt:phyloseq defined in namespace phyloseq with signature phyloseq#ANY has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat-phyloseq.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 2 NOTEs

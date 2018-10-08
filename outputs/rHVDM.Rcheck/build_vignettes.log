@@ -22,11 +22,11 @@ The following objects are masked from ‘package:base’:
     anyDuplicated, append, as.data.frame, basename,
     cbind, colMeans, colSums, colnames, dirname,
     do.call, duplicated, eval, evalq, get, grep,
-    grepl, intersect, is.unsorted, lapply, lengths,
-    mapply, match, mget, order, paste, pmax,
-    pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
-    rowSums, rownames, sapply, setdiff, sort, table,
-    tapply, union, unique, unsplit, which, which.max,
+    grepl, intersect, is.unsorted, lapply, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max,
     which.min
 
 Loading required package: Biobase
@@ -40,18 +40,22 @@ Welcome to Bioconductor
 Loading required package: minpack.lm
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/measurementerrorHVDM.R#23: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- package (from environment) --- 
 rHVDM
- --- call (currently evaluated) --- 
+ --- call from context --- 
 .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- call from argument --- 
+if (refchips == 0) {
+    wei <- rep(0, m)
+}
  --- R stacktrace ---
-where 1 at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
-where 2 at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 1 at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
 where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A")
 where 4: eval(expr, .GlobalEnv)
-where 5: eval(expr, .GlobalEnv)
-where 6: withVisible(eval(expr, .GlobalEnv))
+where 5 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 6 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
 where 7: doTryCatch(return(expr), name, parentenv, handler)
 where 8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 9: tryCatchList(expr, classes, parentenv, handlers)
@@ -74,27 +78,26 @@ where 10: tryCatch(expr, error = function(e) {
     else prefix <- "Error : "
     msg <- paste0(prefix, conditionMessage(e), "\n")
     .Internal(seterrmessage(msg[1L]))
-    if (!silent && identical(getOption("show.error.messages"), 
-        TRUE)) {
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
         cat(msg, file = outFile)
         .Internal(printDeferredWarnings())
     }
     invisible(structure(msg, class = "try-error", condition = e))
 })
-where 11: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
-where 12: evalFunc(ce, options)
+where 11 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 12 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
 where 13: tryCatchList(expr, classes, parentenv, handlers)
-where 14: tryCatch(evalFunc(ce, options), finally = {
+where 14 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
     cat("\n")
     sink()
 })
-where 15: driver$runcode(drobj, chunk, chunkopts)
-where 16 at ../../../../R/src/library/tools/R/Vignettes.R#1150: utils::Sweave(...)
-where 17: engine$weave(file, quiet = quiet, encoding = enc)
+where 15 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 16 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 17 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
 where 18: doTryCatch(return(expr), name, parentenv, handler)
 where 19: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 20: tryCatchList(expr, classes, parentenv, handlers)
-where 21: tryCatch({
+where 21 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
     engine$weave(file, quiet = quiet, encoding = enc)
     setwd(startdir)
     find_vignette_product(name, by = "weave", engine = engine)
@@ -102,13 +105,13 @@ where 21: tryCatch({
     stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
         file, conditionMessage(e)), domain = NA, call. = FALSE)
 })
-where 22: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/rHVDM.Rcheck/vign_test/rHVDM")
+where 22: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/rHVDM.Rcheck/vign_test/rHVDM")
 
  --- value of length: 21 type: logical ---
  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [10] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [19] FALSE FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(X,errtable,refchips){
 	#method as described in GB paper
 	#prepare the receptacle
@@ -154,8 +157,9 @@ function(X,errtable,refchips){
 	dimnames(res)[[2]][1]<-"avg"
 	res
 }
+<bytecode: 0x5d4f410>
 <environment: namespace:rHVDM>
- --- function (body) search ---
+ --- function search by body ---
 Function .computeinderrtable in namespace rHVDM has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

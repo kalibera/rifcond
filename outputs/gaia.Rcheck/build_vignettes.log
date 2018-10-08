@@ -29,18 +29,32 @@ File 'CompleteResults.txt' Saved
 Performing Data Preprocessing
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/Rtmp15TLB9/R.INSTALL690032144ff/gaia/R/runGAIA.R#6: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/Rtmp9oaMKo/R.INSTALL4adbc754471/gaia/R/runGAIA.R#6: 
+ --- package (from environment) --- 
 gaia
- --- call (currently evaluated) --- 
+ --- call from context --- 
 runGAIA(cnv_obj, markers_obj, "Results.txt", aberrations = 1, 
     chromosomes = c(10, 11, 14), threshold = 0.5)
+ --- call from argument --- 
+if (chromosomes == -1) {
+    chromosomes <- as.numeric(sort(unique(names(markers_obj))))
+    chromosomes <- chromosomes[which(!is.na(chromosomes))]
+} else {
+    known_chr <- as.numeric(names(markers_obj))
+    if ((length(known_chr[chromosomes]) != length(chromosomes)) || 
+        (sum(is.na(known_chr[chromosomes])) > 0)) {
+        error_string <- "Error in the list of chromosomes passed as argument.\n"
+        error_string <- cat(error_string, "The list of the chromosomes that can be analyzed follows:\n", 
+            known_chr, "\n")
+        stop(error_string, call. = FALSE)
+    }
+}
  --- R stacktrace ---
 where 1: runGAIA(cnv_obj, markers_obj, "Results.txt", aberrations = 1, 
     chromosomes = c(10, 11, 14), threshold = 0.5)
 where 2: eval(expr, .GlobalEnv)
-where 3: eval(expr, .GlobalEnv)
-where 4: withVisible(eval(expr, .GlobalEnv))
+where 3 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 4 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
 where 5: doTryCatch(return(expr), name, parentenv, handler)
 where 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 7: tryCatchList(expr, classes, parentenv, handlers)
@@ -63,27 +77,26 @@ where 8: tryCatch(expr, error = function(e) {
     else prefix <- "Error : "
     msg <- paste0(prefix, conditionMessage(e), "\n")
     .Internal(seterrmessage(msg[1L]))
-    if (!silent && identical(getOption("show.error.messages"), 
-        TRUE)) {
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
         cat(msg, file = outFile)
         .Internal(printDeferredWarnings())
     }
     invisible(structure(msg, class = "try-error", condition = e))
 })
-where 9: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
-where 10: evalFunc(ce, options)
+where 9 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 10 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
 where 11: tryCatchList(expr, classes, parentenv, handlers)
-where 12: tryCatch(evalFunc(ce, options), finally = {
+where 12 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
     cat("\n")
     sink()
 })
-where 13: driver$runcode(drobj, chunk, chunkopts)
-where 14 at ../../../../R/src/library/tools/R/Vignettes.R#1150: utils::Sweave(...)
-where 15: engine$weave(file, quiet = quiet, encoding = enc)
+where 13 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 14 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 15 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
 where 16: doTryCatch(return(expr), name, parentenv, handler)
 where 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 18: tryCatchList(expr, classes, parentenv, handlers)
-where 19: tryCatch({
+where 19 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
     engine$weave(file, quiet = quiet, encoding = enc)
     setwd(startdir)
     find_vignette_product(name, by = "weave", engine = engine)
@@ -91,11 +104,11 @@ where 19: tryCatch({
     stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
         file, conditionMessage(e)), domain = NA, call. = FALSE)
 })
-where 20: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/gaia.Rcheck/vign_test/gaia")
+where 20: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/gaia.Rcheck/vign_test/gaia")
 
  --- value of length: 3 type: logical ---
 [1] FALSE FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(cnv_obj, markers_obj, output_file_name="",  aberrations=-1, chromosomes=-1, num_iterations=10, threshold=0.25, hom_threshold=0.12, approximation=FALSE){
 
 message("\nPerforming Data Preprocessing");
@@ -288,9 +301,9 @@ if(output_file_name!=""){
 }
 return(results);
 }
-<bytecode: 0x846a110>
+<bytecode: 0x3892788>
 <environment: namespace:gaia>
- --- function (body) search ---
+ --- function search by body ---
 Function runGAIA in namespace gaia has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

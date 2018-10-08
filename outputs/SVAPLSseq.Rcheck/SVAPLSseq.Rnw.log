@@ -2,8 +2,8 @@
 > options(width = 65)
 
 > BiocStyle::latex()
-\RequirePackage[]{/var/scratch2/tomas/test/mine/R-ifc4/lib/BiocStyle/resources/tex/Bioconductor}
-\AtBeginDocument{\bibliographystyle{/var/scratch2/tomas/test/mine/R-ifc4/lib/BiocStyle/resources/tex/unsrturl}}
+\RequirePackage[]{/var/scratch2ro/tomas/test/mine/R-75396/lib/BiocStyle/resources/tex/Bioconductor}
+\AtBeginDocument{\bibliographystyle{/var/scratch2ro/tomas/test/mine/R-75396/lib/BiocStyle/resources/tex/unsrturl}}
 \usepackage[noae, nogin]{Sweave}
 > library(SummarizedExperiment)
 Loading required package: GenomicRanges
@@ -28,10 +28,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Loading required package: S4Vectors
 
@@ -162,32 +162,42 @@ S6   5.474165  3.098831  0.45612324
 > sv = svplsSurr(dat = sim.dat, group = group)
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/RtmpOKfYv3/R.INSTALL1c2f66d96ea9/SVAPLSseq/R/svplsSurr.R#101: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpMtjUyx/R.INSTALL6907541522a2/SVAPLSseq/R/svplsSurr.R#101: 
+ --- package (from environment) --- 
 SVAPLSseq
- --- call (currently evaluated) --- 
+ --- call from context --- 
 svplsSurr(dat = sim.dat, group = group)
+ --- call from argument --- 
+if (surr.select == "automatic") {
+    if (!is.null(controls)) 
+        pvals = anova(lm(as.formula(paste("svd(Y[controls, ])$v[, 1] ~", 
+            surr.effect, sep = " "))))[, 5]
+    if (is.null(controls)) 
+        pvals = anova(lm(as.formula(paste("svd(E)$v[, 1] ~", 
+            surr.effect, sep = " "))))[, 5]
+    index = which(pvals < cutoff)
+}
  --- R stacktrace ---
 where 1: svplsSurr(dat = sim.dat, group = group)
 where 2: eval(ei, envir)
 where 3: eval(ei, envir)
 where 4: withVisible(eval(ei, envir))
-where 5: source(output, echo = TRUE)
+where 5 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
 where 6: doTryCatch(return(expr), name, parentenv, handler)
 where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 8: tryCatchList(expr, classes, parentenv, handlers)
-where 9: tryCatch({
+where 9 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
     source(output, echo = TRUE)
 }, error = function(e) {
     cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
     stop(conditionMessage(e), call. = FALSE, domain = NA)
 })
-where 10: tools:::.run_one_vignette("SVAPLSseq.Rnw", "/var/scratch2/tomas/test/mine/R-ifc4/check/SVAPLSseq.Rcheck/00_pkg_src/SVAPLSseq/vignettes", 
-    pkgdir = "/var/scratch2/tomas/test/mine/R-ifc4/check/SVAPLSseq.Rcheck/00_pkg_src/SVAPLSseq")
+where 10: tools:::.run_one_vignette("SVAPLSseq.Rnw", "/var/scratch2/tomas/test/mine/R-75396/check/SVAPLSseq.Rcheck/00_pkg_src/SVAPLSseq/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-75396/check/SVAPLSseq.Rcheck/00_pkg_src/SVAPLSseq")
 
  --- value of length: 2 type: logical ---
 [1]  TRUE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(dat, group, controls = NULL, phi = function(x) log(x + const), const = 1,
            pls.method = "oscorespls", max.surrs = 3, opt.surrs = 1, surr.select = c("automatic", "manual"), cutoff = 10^-7, parallel = FALSE,
            num.cores = NULL, plot = FALSE){
@@ -242,9 +252,9 @@ function(dat, group, controls = NULL, phi = function(x) log(x + const), const = 
     }
     return(res)
   }
-<bytecode: 0x1da0c180>
+<bytecode: 0x96c10e0>
 <environment: namespace:SVAPLSseq>
- --- function (body) search ---
+ --- function search by body ---
 Function svplsSurr in namespace SVAPLSseq has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

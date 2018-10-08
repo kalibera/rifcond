@@ -28,11 +28,11 @@ The following objects are masked from ‘package:base’:
     anyDuplicated, append, as.data.frame, basename,
     cbind, colMeans, colSums, colnames, dirname,
     do.call, duplicated, eval, evalq, get, grep,
-    grepl, intersect, is.unsorted, lapply, lengths,
-    mapply, match, mget, order, paste, pmax,
-    pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
-    rowSums, rownames, sapply, setdiff, sort, table,
-    tapply, union, unique, unsplit, which, which.max,
+    grepl, intersect, is.unsorted, lapply, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max,
     which.min
 
 Loading required package: Biobase
@@ -53,36 +53,40 @@ Loading required package: minpack.lm
 > anothereset <- estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A")
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/measurementerrorHVDM.R#23: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- package (from environment) --- 
 rHVDM
- --- call (currently evaluated) --- 
+ --- call from context --- 
 .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- call from argument --- 
+if (refchips == 0) {
+    wei <- rep(0, m)
+}
  --- R stacktrace ---
-where 1 at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
-where 2 at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 1 at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
 where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A")
 where 4: eval(ei, envir)
 where 5: eval(ei, envir)
 where 6: withVisible(eval(ei, envir))
-where 7: source(output, echo = TRUE)
+where 7 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
 where 8: doTryCatch(return(expr), name, parentenv, handler)
 where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 10: tryCatchList(expr, classes, parentenv, handlers)
-where 11: tryCatch({
+where 11 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
     source(output, echo = TRUE)
 }, error = function(e) {
     cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
     stop(conditionMessage(e), call. = FALSE, domain = NA)
 })
-where 12: tools:::.run_one_vignette("rHVDM.Rnw", "/var/scratch2/tomas/test/mine/R-ifc4/check/rHVDM.Rcheck/00_pkg_src/rHVDM/vignettes", 
-    pkgdir = "/var/scratch2/tomas/test/mine/R-ifc4/check/rHVDM.Rcheck/00_pkg_src/rHVDM")
+where 12: tools:::.run_one_vignette("rHVDM.Rnw", "/var/scratch2/tomas/test/mine/R-75396/check/rHVDM.Rcheck/00_pkg_src/rHVDM/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-75396/check/rHVDM.Rcheck/00_pkg_src/rHVDM")
 
  --- value of length: 21 type: logical ---
  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [10] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [19] FALSE FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(X,errtable,refchips){
 	#method as described in GB paper
 	#prepare the receptacle
@@ -128,8 +132,9 @@ function(X,errtable,refchips){
 	dimnames(res)[[2]][1]<-"avg"
 	res
 }
+<bytecode: 0x1241a60>
 <environment: namespace:rHVDM>
- --- function (body) search ---
+ --- function search by body ---
 Function .computeinderrtable in namespace rHVDM has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

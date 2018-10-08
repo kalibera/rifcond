@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -471,17 +471,19 @@ Slot "primer":
 > conversion.data <- convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/RtmpeqiW0s/R.INSTALL70ca1603df66/MassArray/R/convControl.R#26: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpUL470u/R.INSTALL513a28eeb6f0/MassArray/R/convControl.R#26: 
+ --- package (from environment) --- 
 MassArray
- --- call (currently evaluated) --- 
+ --- call from context --- 
 convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
+ --- call from argument --- 
+if (fragmentation[[which.fragment]]$collisions > 0) next
  --- R stacktrace ---
 where 1: convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function (sequence, fragmentation, multiple=FALSE) {
 	sequence <- toupper(sequence)
 	N <- nchar(sequence)
@@ -530,9 +532,9 @@ function (sequence, fragmentation, multiple=FALSE) {
 	}
 	return(fragmentation)
 }
-<bytecode: 0x8415ef0>
+<bytecode: 0x51eb3c8>
 <environment: namespace:MassArray>
- --- function (body) search ---
+ --- function search by body ---
 Function convControl in namespace MassArray has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

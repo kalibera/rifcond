@@ -41,16 +41,12 @@ File 'CompleteResults.txt' Saved
 
 > results[which(results[, 6] == min(results[, 6])), 
 +     ]
-   Chromosome Aberration Kind Region Start [bp] Region End [bp]
-1  "1"        "0"             "301"             "700"          
-8  "20"       "2"             "801"             "1000"         
-9  "21"       "2"             "801"             "1000"         
-10 "22"       "2"             "801"             "1000"         
-   Region Size [bp] q-value
-1  "400"            "0"    
-8  "200"            "0"    
-9  "200"            "0"    
-10 "200"            "0"    
+  Chromosome Aberration Kind Region Start [bp] Region End [bp] Region Size [bp]
+8 "20"       "2"             "801"             "1000"          "200"           
+9 "21"       "2"             "801"             "1000"          "200"           
+  q-value
+8 "0"    
+9 "0"    
 
 > results <- runGAIA(cnv_obj, markers_obj, "Results.txt", 
 +     aberrations = 1, chromosomes = c(10, 11, 14), threshold = 0.5)
@@ -58,34 +54,48 @@ File 'CompleteResults.txt' Saved
 Performing Data Preprocessing
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/Rtmp15TLB9/R.INSTALL690032144ff/gaia/R/runGAIA.R#6: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/Rtmp9oaMKo/R.INSTALL4adbc754471/gaia/R/runGAIA.R#6: 
+ --- package (from environment) --- 
 gaia
- --- call (currently evaluated) --- 
+ --- call from context --- 
 runGAIA(cnv_obj, markers_obj, "Results.txt", aberrations = 1, 
     chromosomes = c(10, 11, 14), threshold = 0.5)
+ --- call from argument --- 
+if (chromosomes == -1) {
+    chromosomes <- as.numeric(sort(unique(names(markers_obj))))
+    chromosomes <- chromosomes[which(!is.na(chromosomes))]
+} else {
+    known_chr <- as.numeric(names(markers_obj))
+    if ((length(known_chr[chromosomes]) != length(chromosomes)) || 
+        (sum(is.na(known_chr[chromosomes])) > 0)) {
+        error_string <- "Error in the list of chromosomes passed as argument.\n"
+        error_string <- cat(error_string, "The list of the chromosomes that can be analyzed follows:\n", 
+            known_chr, "\n")
+        stop(error_string, call. = FALSE)
+    }
+}
  --- R stacktrace ---
 where 1: runGAIA(cnv_obj, markers_obj, "Results.txt", aberrations = 1, 
     chromosomes = c(10, 11, 14), threshold = 0.5)
 where 2: eval(ei, envir)
 where 3: eval(ei, envir)
 where 4: withVisible(eval(ei, envir))
-where 5: source(output, echo = TRUE)
+where 5 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
 where 6: doTryCatch(return(expr), name, parentenv, handler)
 where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 8: tryCatchList(expr, classes, parentenv, handlers)
-where 9: tryCatch({
+where 9 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
     source(output, echo = TRUE)
 }, error = function(e) {
     cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
     stop(conditionMessage(e), call. = FALSE, domain = NA)
 })
-where 10: tools:::.run_one_vignette("gaia.Rnw", "/var/scratch2/tomas/test/mine/R-ifc4/check/gaia.Rcheck/00_pkg_src/gaia/vignettes", 
-    pkgdir = "/var/scratch2/tomas/test/mine/R-ifc4/check/gaia.Rcheck/00_pkg_src/gaia")
+where 10: tools:::.run_one_vignette("gaia.Rnw", "/var/scratch2/tomas/test/mine/R-75396/check/gaia.Rcheck/00_pkg_src/gaia/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-75396/check/gaia.Rcheck/00_pkg_src/gaia")
 
  --- value of length: 3 type: logical ---
 [1] FALSE FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(cnv_obj, markers_obj, output_file_name="",  aberrations=-1, chromosomes=-1, num_iterations=10, threshold=0.25, hom_threshold=0.12, approximation=FALSE){
 
 message("\nPerforming Data Preprocessing");
@@ -278,9 +288,9 @@ if(output_file_name!=""){
 }
 return(results);
 }
-<bytecode: 0x725b4c8>
+<bytecode: 0x1b0b210>
 <environment: namespace:gaia>
- --- function (body) search ---
+ --- function search by body ---
 Function runGAIA in namespace gaia has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

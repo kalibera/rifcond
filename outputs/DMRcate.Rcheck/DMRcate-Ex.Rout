@@ -1,0 +1,289 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "DMRcate"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('DMRcate')
+Loading required package: minfi
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: SummarizedExperiment
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following objects are masked from ‘package:Biobase’:
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: ‘DelayedArray’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following objects are masked from ‘package:base’:
+
+    aperm, apply
+
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:DelayedArray’:
+
+    type
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+Loading required package: bumphunter
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: locfit
+locfit 1.5-9.1 	 2013-03-22
+Setting options('download.file.method.GEOquery'='auto')
+Setting options('GEOquery.inmemory.gpl'=FALSE)
+Loading required package: DSS
+Loading required package: bsseq
+
+Attaching package: ‘bsseq’
+
+The following object is masked from ‘package:minfi’:
+
+    getMeth
+
+Loading required package: splines
+Loading required package: DMRcatedata
+
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("DMR.plot")
+> ### * DMR.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DMR.plot
+> ### Title: Plotting DMRs
+> ### Aliases: DMR.plot plot
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D data(dmrcatedata)
+> ##D myMs <- logit2(myBetas)
+> ##D myMs.noSNPs <- rmSNPandCH(myMs, dist=2, mafcut=0.05)
+> ##D patient <- factor(sub("-.*", "", colnames(myMs)))
+> ##D type <- factor(sub(".*-", "", colnames(myMs)))
+> ##D design <- model.matrix(~patient + type) 
+> ##D myannotation <- cpg.annotate("array", myMs.noSNPs, what="M", arraytype = "450K",
+> ##D                              analysis.type="differential", design=design, coef=39)
+> ##D dmrcoutput <- dmrcate(myannotation, lambda=1000, C=2)
+> ##D results.ranges <- extractRanges(dmrcoutput, genome = "hg19")
+> ##D groups <- c(Tumour="magenta", Normal="forestgreen")
+> ##D cols <- groups[as.character(type)]
+> ##D samps <- c(1:6, 38+(1:6))
+> ##D DMR.plot(ranges=results.ranges, dmr=1, CpGs=myBetas, what="Beta", arraytype = "450K", 
+> ##D          phen.col=cols, genome="hg19", samps=samps)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("DMRcate-package")
+> ### * DMRcate-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DMRcate-package
+> ### Title: DMR calling from bisulphite sequencing and Illumina array data
+> ### Aliases: DMRcate-package DMRcate
+> 
+> ### ** Examples
+> 
+> data(dmrcatedata)
+> myMs <- logit2(myBetas)
+> myMs.noSNPs <- rmSNPandCH(myMs, dist=2, mafcut=0.05)
+> patient <- factor(sub("-.*", "", colnames(myMs)))
+> type <- factor(sub(".*-", "", colnames(myMs)))
+> design <- model.matrix(~patient + type) 
+> myannotation <- cpg.annotate("array", myMs.noSNPs, what="M", arraytype = "450K",
++                              analysis.type="differential", design=design, coef=39)
+Loading required package: IlluminaHumanMethylation450kanno.ilmn12.hg19
+Your contrast returned 6091 individually significant probes. We recommend the default setting of pcutoff in dmrcate().
+> dmrcoutput <- dmrcate(myannotation, lambda=1000, C=2)
+Fitting chr20...
+Demarcating regions...
+Done!
+> results.ranges <- extractRanges(dmrcoutput, genome = "hg19")
+> groups <- c(Tumour="magenta", Normal="forestgreen")
+> cols <- groups[as.character(type)]
+> samps <- c(1:6, 38+(1:6))
+> DMR.plot(ranges=results.ranges, dmr=1, CpGs=myBetas, phen.col=cols, genome="hg19", samps=samps)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpeWdWcZ/R.INSTALL75207912a45e/DMRcate/R/DMR.plot.R#13: 
+ --- package (from environment) --- 
+DMRcate
+ --- call from context --- 
+DMR.plot(ranges = results.ranges, dmr = 1, CpGs = myBetas, phen.col = cols, 
+    genome = "hg19", samps = samps)
+ --- call from argument --- 
+if (arraytype == "450K") {
+    grset <- makeGenomicRatioSetFromMatrix(CpGs, array = "IlluminaHumanMethylation450k", 
+        annotation = "ilmn12.hg19", mergeManifest = TRUE, what = what)
+}
+ --- R stacktrace ---
+where 1: DMR.plot(ranges = results.ranges, dmr = 1, CpGs = myBetas, phen.col = cols, 
+    genome = "hg19", samps = samps)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function from context --- 
+function(ranges, dmr, CpGs, what=c("Beta", "M"), arraytype=c("EPIC", "450K"), phen.col, genome = c("hg19", "hg38", "mm10"), samps = NULL, ...)
+
+{
+  env <- new.env(parent=emptyenv())
+  data(dmrcatedata, envir=env)
+  stopifnot(class(CpGs) %in% c("matrix", "GRanges", "GenomicRatioSet"))
+  stopifnot(dmr %in% 1:length(ranges))
+  data(dmrcatedata)
+  if(is.null(samps)){samps=1:length(phen.col)}
+  group <- unique(names(phen.col))
+  if(class(CpGs) %in% c("matrix", "GenomicRatioSet")){
+    if(class(CpGs) == "matrix"){
+      if(arraytype=="450K"){grset <- makeGenomicRatioSetFromMatrix(CpGs, array = "IlluminaHumanMethylation450k", annotation = "ilmn12.hg19", mergeManifest = TRUE, what = what)}
+      if(arraytype=="EPIC"){grset <- makeGenomicRatioSetFromMatrix(CpGs, array = "IlluminaHumanMethylationEPIC", annotation = "ilm10b2.hg19", mergeManifest = TRUE, what = what)}
+    }
+    CpGs <- getBeta(grset)
+    RSanno <- getAnnotation(grset)
+    RSanno <- RSanno[order(RSanno$chr, RSanno$pos),]
+    CpGs <- CpGs[rownames(RSanno),]
+    colnames(CpGs) <- paste(colnames(CpGs), ".C", sep='')
+    cov <- matrix(1, nrow(CpGs), ncol(CpGs), dimnames = list(rownames(CpGs), sub(".C$", ".cov", colnames(CpGs))))
+    cpgs.ranges <- GRanges(RSanno$chr, IRanges(RSanno$pos, RSanno$pos))
+    dummy <- matrix(0, nrow=nrow(CpGs), ncol=2*ncol(CpGs))
+    dummy[,seq(1, 2*ncol(CpGs), 2)] <- CpGs
+    dummy[,seq(2, 2*ncol(CpGs), 2)] <- cov
+    colnames(dummy)[seq(2, 2*ncol(CpGs), 2)] <- colnames(cov)
+    colnames(dummy)[seq(1, 2*ncol(CpGs), 2)] <- colnames(CpGs)
+    values(cpgs.ranges) <- dummy 
+  } else {
+    stopifnot(length(colnames(values(CpGs)))/2 == length(phen.col))
+    if(!all(gsub(".*\\.", "", colnames(values(CpGs))) == rep(c("C", "cov"), length(phen.col)))){
+        stop("Error: Column names of values(ranges) might not be in the correct format. Must be c('<sample1>.C', '<sample1>.cov', '<sample2>.C', '<sample2>.cov'...) and so on for all samples.")
+      }
+    cpgs.ranges <- CpGs
+  }
+  ranges$ID <- paste0("DMR_", 1:length(ranges))
+  ranges.reduce <- reduce(ranges+5000)
+  dmrs.inplot <- ranges[ranges %over% ranges.reduce[subjectHits(findOverlaps(ranges[dmr], ranges.reduce))]]
+  ranges.inplot <- ranges.reduce[ranges.reduce %over% dmrs.inplot]
+  cpgs.ranges <- subsetByOverlaps(cpgs.ranges, ranges.inplot)
+  methRatios <- as.data.frame(values(cpgs.ranges)[,grep("C$", colnames(values(cpgs.ranges)))])/
+                as.data.frame(values(cpgs.ranges)[,grep("cov$", colnames(values(cpgs.ranges)))])
+  methRatios <- GRanges(cpgs.ranges, mcols=methRatios)
+  mcols(methRatios) <- mcols(methRatios)[samps]
+  names(mcols(methRatios)) <- gsub("mcols.", "", gsub("*.C$", "", names(mcols(methRatios))))
+  phen.col <- phen.col[samps]
+  
+ 
+  dt.group <- lapply(unique(names(phen.col)), function(i)
+        DataTrack(methRatios[,names(phen.col) %in% i], name=i, background.title=phen.col[i],
+                  type="heatmap", showSampleNames=TRUE, ylim=c(0, 1), genome=genome,
+                  gradient=c("blue", "white", "red")))
+ 
+  dt.group <- c(dt.group, list(DataTrack(methRatios, groups=names(phen.col), type="b",
+                                             aggregateGroups=TRUE, col=phen.col[sort(group)], ylim=c(0, 1), name="Group means")))
+     
+  switch(genome, 
+         hg19={tx=env$tx.hg19},
+         hg38={tx=env$tx.hg38},
+         mm10={tx=env$tx.mm10}
+  )
+  extras <- list(AnnotationTrack(dmrs.inplot, name="DMRs", showFeatureId=TRUE, col=NULL, fill="purple", id=dmrs.inplot$ID, 
+                                 fontcolor="black"))
+  #extras <- endoapply(extras, function(x) {
+  #  chromosome(x) <- as.character(seqnames(methRatios[dmr]))
+  #  x
+  #})
+  values(cpgs.ranges) <- NULL
+    basetracks <- list(IdeogramTrack(genome = "hg19", chromosome = as.character(seqnames(ranges.inplot))),
+                       GenomeAxisTrack(),
+                       GeneRegionTrack(subsetByOverlaps(tx, ranges.inplot), name = "Gene", showId=TRUE, geneSymbol=TRUE, symbol = subsetByOverlaps(tx, ranges.inplot)$gene_name, col=NULL, fill="lightblue", transcriptAnnotation = "symbol", shape="arrow"),
+                       AnnotationTrack(cpgs.ranges, name="CpGs", fill="green", col=NULL, stacking="dense"))
+    plotTracks(c(basetracks, extras, dt.group), from=start(ranges.inplot), to=end(ranges.inplot), ...)
+  }
+<bytecode: 0x98ededb8>
+<environment: namespace:DMRcate>
+ --- function search by body ---
+Function DMR.plot in namespace DMRcate has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

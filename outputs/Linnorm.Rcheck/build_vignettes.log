@@ -1,0 +1,272 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmprlkozk/R.INSTALL9e0058305e03/Linnorm/R/Linnorm.HClust.R#111: 
+ --- package (from environment) --- 
+Linnorm
+ --- call from context --- 
+Linnorm.HClust(Islam, Group = Group, num_Clust = 2, fontsize = 1.5, 
+    Color = c("Red", "Blue"), RectColor = "Green")
+ --- call from argument --- 
+if (!areColors(Color)) {
+    stop("Invalid Color.")
+}
+ --- R stacktrace ---
+where 1: Linnorm.HClust(Islam, Group = Group, num_Clust = 2, fontsize = 1.5, 
+    Color = c("Red", "Blue"), RectColor = "Green")
+where 2: eval(expr, envir, enclos)
+where 3 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 4 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 5 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 6 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 7 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 8 at /var/scratch2/tomas/tmp/RtmpVDsuYh/R.INSTALLea3c7034c122/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 9 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 10 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 11 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 12 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#91: block_exec(params)
+where 13 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#6: call_block(x)
+where 14 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/block.R#3: process_group.block(group)
+where 15 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/output.R#314: process_group(group)
+where 16 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 17 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/output.R#258: process_file(text, output)
+where 18 at /var/scratch2/tomas/tmp/Rtmp2QeCoK/R.INSTALLf4e061395fda/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 19 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 20 at /var/scratch2/tomas/tmp/Rtmp7Dot5M/R.INSTALLb88c30e4c4ea/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 21 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 22: doTryCatch(return(expr), name, parentenv, handler)
+where 23: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 24: tryCatchList(expr, classes, parentenv, handlers)
+where 25 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 26: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/Linnorm.Rcheck/vign_test/Linnorm")
+
+ --- value of length: 2 type: logical ---
+  Red  Blue 
+FALSE FALSE 
+ --- function from context --- 
+function(datamatrix, RowSamples = FALSE, MZP = 0, DataImputation = TRUE, input="Raw", method_hclust="ward.D", method_dist="pearson", Group=NULL, num_Clust=0, Color="Auto", ClustRect=TRUE, RectColor="red", fontsize=0.5, linethickness=0.5, plot.title="Hierarchical clustering", ...) {
+	#Hierarchical clustering with Linnorm transformed dataset
+	#Author: (Ken) Shun Hang Yip <shunyip@bu.edu>
+	#Note from http://stackoverflow.com/questions/24140339/tree-cut-and-rectangles-around-clusters-for-a-horizontal-dendrogram-in-r last accessed Feb 9th, 2017
+	if (input != "Raw" && input != "Linnorm") {
+		stop("input argument is not recognized.")
+	}
+	if (MZP > 1 || MZP < 0) {
+		stop("Invalid MZP.")
+	}
+	if (length(Group) != 0) {
+		if (length(Group) != length(datamatrix[1,])) {
+			stop("Group must be a vector with the same length as sample size.")
+		}
+	}
+	if (num_Clust < 0) {
+		stop("Invalid number of clusters.")
+	}
+	if (!is.logical(RowSamples)){
+		stop("Invalid RowSamples.")
+	}
+	if (!is.logical(DataImputation)){
+		stop("Invalid DataImputation.")
+	}
+	if (!is.logical(ClustRect)){
+		stop("Invalid ClustRect.")
+	}
+	if (!RowSamples) {
+		datamatrix <- t(datamatrix)
+	}
+	#Linnorm transformation
+	if (input == "Raw") {
+		datamatrix <- Linnorm(datamatrix, DataImputation=DataImputation, RowSamples = TRUE,...)
+	}
+	#Backup data that will be filtered, so that we can include them in the output
+	Backup <- colSums(datamatrix != 0) < nrow(datamatrix) * MZP
+	Backup2 <- 0
+	if (sum(Backup) != 0) {
+		Backup2 <-  datamatrix[,Backup]
+	}
+	#Filter zeroes based on MZP threshold
+	datamatrix <- datamatrix[,colSums(datamatrix != 0) >= nrow(datamatrix) * MZP]
+	
+	#Clustering
+	hc <- hclust(Dist(datamatrix, method = method_dist), ,method = method_hclust)
+	dendr <- dendro_data(hc, type = "rectangle")
+	
+	#plot object
+	render_plot <- 0
+	
+	#Render Color of plot
+	colorCode <- 0
+	if (length(Color) == 0) {
+		Color = "Auto"
+	}
+	if (length(Color) == 1) {
+		if (Color != "Auto") {
+			if (!areColors(Color)) {
+				stop("Invalid Color.")
+			}
+			if (length(unique(Group)) > 1) {
+				stop("Number of Color provided does not equal to the number of groups.")
+			}
+			if (num_Clust != 1 && length(unique(Group)) == 0) {
+				stop("Number of Color provided does not equal to num_Clust.")
+			}
+			colorCode <- c("grey60", Color)
+		}
+		if (Color == "Auto") {
+			if (length(unique(Group)) > num_Clust) {
+				colorCode <- c("grey60", rainbow(length(unique(Group))))
+			} else {
+				colorCode <- c("grey60", rainbow(num_Clust))
+			}
+		}
+	} else {
+		if (!areColors(Color)) {
+			stop("Invalid Color.")
+		}
+		if (length(unique(Group)) > num_Clust) {
+			if (length(Color) != length(unique(Group))) {
+				stop("Number of Color provided does not equal to the number of groups.")
+			}
+		} else {
+			if (length(Color) != num_Clust) {
+				stop("Number of Color provided does not equal to num_Clust.")
+			}
+		}
+		colorCode <- c("grey60", Color)
+	}
+	
+	#Cluster object
+	clust <- 0
+	
+	if (num_Clust > 0) {
+		clust <- cutree(hc, k = num_Clust)
+		# Split dendrogram into upper grey section and lower coloured section
+		height <- unique(dendr$segments$y)[order(unique(dendr$segments$y), decreasing = TRUE)]
+		cut.height <- mean(c(height[num_Clust], height[num_Clust-1]))
+		dendr$segments$line <- ifelse(dendr$segments$y == dendr$segments$yend &
+		   dendr$segments$y > cut.height, 1, 2)
+		dendr$segments$line <- ifelse(dendr$segments$yend  > cut.height, 1, dendr$segments$line)
+
+		# Number the clusters
+		dendr$segments$cluster <- c(-1, diff(dendr$segments$line))
+		change <- which(dendr$segments$cluster == 1)
+		for (i in 1:num_Clust) dendr$segments$cluster[change[i]] = i + 1
+		dendr$segments$cluster <-  ifelse(dendr$segments$line == 1, 1, 
+					 ifelse(dendr$segments$cluster == 0, NA, dendr$segments$cluster))
+		dendr$segments$cluster <- na.locf(dendr$segments$cluster)
+		
+		#plotting
+		render_plot <- ggplot() + 
+		geom_segment(data = segment(dendr),
+			aes(x=x, y=y, xend=xend, yend=yend, size=factor(line), colour=factor(cluster)), size=linethickness, lineend = "square", show.legend = FALSE
+		) +
+		scale_colour_manual(values = colorCode) +
+		scale_y_reverse(expand = c(0.2, 0)) + 
+		labs(x = NULL, y = NULL) +
+		coord_flip() +
+		ggtitle(plot.title) +
+		theme(axis.line.y = element_blank(),
+			axis.ticks.y = element_blank(),
+			axis.text.y = element_blank(),
+			axis.title.y = element_blank(),
+			panel.background = element_rect(fill = "white"),
+			panel.grid = element_blank()
+		)
+	} else {
+		#Plotting without clusters
+		render_plot <- ggplot() + 
+		geom_segment(data = segment(dendr),
+			aes(x=x, y=y, xend=xend, yend=yend, size=factor(line)), size=linethickness, lineend = "square", show.legend = FALSE
+		) +
+		scale_y_reverse(expand = c(0.2, 0)) + 
+		labs(x = NULL, y = NULL) +
+		coord_flip() +
+		theme(axis.line.y = element_blank(),
+			axis.ticks.y = element_blank(),
+			axis.text.y = element_blank(),
+			axis.title.y = element_blank(),
+			panel.background = element_rect(fill = "white"),
+			panel.grid = element_blank()
+		)
+	}
+	
+	if (length(Group) != 0) {
+		#Set label color
+		labcol <- as.numeric(label(dendr)[,3])
+		unilab <- as.character(unique(as.character(Group)))
+		index <- 1
+		for (i in length(unilab):1) {
+			labcol[which(as.character(dendr$label$label) %in% rownames(datamatrix)[which(Group == unilab[i])])] <- index+1
+			index <- index + 1
+		}
+		render_plot <- render_plot + geom_text(data = label(dendr), 
+			aes(x, y, label = label, colour=factor(labcol)),
+			hjust = -0.2, size = fontsize, show.legend = FALSE
+		)
+	} else {
+		render_plot <- render_plot + geom_text(data = label(dendr), 
+			aes(x, y, label = label),
+			hjust = -0.2, size = fontsize, show.legend = FALSE
+		)
+	}
+	
+	if (ClustRect) {
+		if (length(rownames(datamatrix)) > length(unique(rownames(datamatrix)))) {
+			warning("Duplicate sample names found. Rectangle not drawn.")
+		} else {
+			#rectangle
+			clust.df <- data.frame(label=rownames(datamatrix), cluster=factor(clust))
+			dendr2 <- merge(dendr[["labels"]],clust.df, by="label")
+			rect <- aggregate(x~cluster,dendr2,range)
+			rect <- data.frame(rect$cluster,rect$x)
+			ymax <- mean(hc$height[length(hc$height)-((num_Clust-2):(num_Clust-1))])
+			render_plot <- render_plot + geom_rect(data=rect, 
+			aes(xmin=X1-.5, xmax=X2+.5, ymin=0, ymax=ymax), 
+			color=RectColor, fill=NA, size=linethickness)
+		}
+	}
+	render_plot <- ggplot_build(render_plot)
+	#Reconstruct Linnorm transformed matrix for output
+	if (sum(Backup) != 0) {
+		datamatrix <- cbind(datamatrix, Backup2)
+	}
+	if (!RowSamples) {
+		datamatrix <- t(datamatrix)
+	}
+	#Results for output
+	listing <- list(clust, render_plot, datamatrix)
+	results <- setNames(listing, c("Results", "plot", "Linnorm"))
+	return (results)
+}
+<bytecode: 0x238c57c8>
+<environment: namespace:Linnorm>
+ --- function search by body ---
+Function Linnorm.HClust in namespace Linnorm has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

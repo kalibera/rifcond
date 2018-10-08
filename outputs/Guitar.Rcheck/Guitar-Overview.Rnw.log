@@ -26,11 +26,11 @@ The following objects are masked from ‘package:base’:
     anyDuplicated, append, as.data.frame, basename,
     cbind, colMeans, colSums, colnames, dirname,
     do.call, duplicated, eval, evalq, get, grep,
-    grepl, intersect, is.unsorted, lapply, lengths,
-    mapply, match, mget, order, paste, pmax,
-    pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
-    rowSums, rownames, sapply, setdiff, sort, table,
-    tapply, union, unique, unsplit, which, which.max,
+    grepl, intersect, is.unsorted, lapply, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max,
     which.min
 
 Loading required package: S4Vectors
@@ -127,14 +127,18 @@ Loading required package: grid
 +     saveToPDFprefix = "example2")
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
-: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/Rtmpv915YN/R.INSTALL64ea37cb8ae7/Guitar/R/GuitarPlot2.R#17: 
+ --- package (from environment) --- 
 Guitar
- --- call (currently evaluated) --- 
+ --- call from context --- 
 withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- call from argument --- 
+if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & is.na(genome)) {
+    stop("Must provide at least one of the three: GuitarCoords, txdb or genome")
+}
  --- R stacktrace ---
 where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
-where 2 at /var/scratch2/tomas/tmp/RtmpX8W0n6/R.INSTALLb8bd128eb6a6/Guitar/R/GuitarPlot2.R#17: suppressWarnings(if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & 
+where 2 at /var/scratch2/tomas/tmp/Rtmpv915YN/R.INSTALL64ea37cb8ae7/Guitar/R/GuitarPlot2.R#17: suppressWarnings(if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & 
     is.na(genome)) {
     stop("Must provide at least one of the three: GuitarCoords, txdb or genome")
 })
@@ -143,18 +147,18 @@ where 3: GuitarPlot(gfeatures = feature_hg19, GuitarCoordsFromTxDb = gc_txdb,
 where 4: eval(ei, envir)
 where 5: eval(ei, envir)
 where 6: withVisible(eval(ei, envir))
-where 7: source(output, echo = TRUE)
+where 7 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
 where 8: doTryCatch(return(expr), name, parentenv, handler)
 where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 10: tryCatchList(expr, classes, parentenv, handlers)
-where 11: tryCatch({
+where 11 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
     source(output, echo = TRUE)
 }, error = function(e) {
     cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
     stop(conditionMessage(e), call. = FALSE, domain = NA)
 })
-where 12: tools:::.run_one_vignette("Guitar-Overview.Rnw", "/var/scratch2/tomas/test/mine/R-ifc4/check/Guitar.Rcheck/00_pkg_src/Guitar/vignettes", 
-    pkgdir = "/var/scratch2/tomas/test/mine/R-ifc4/check/Guitar.Rcheck/00_pkg_src/Guitar")
+where 12: tools:::.run_one_vignette("Guitar-Overview.Rnw", "/var/scratch2/tomas/test/mine/R-75396/check/Guitar.Rcheck/00_pkg_src/Guitar/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-75396/check/Guitar.Rcheck/00_pkg_src/Guitar")
 
  --- value of length: 279900 type: logical ---
     [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -12658,7 +12662,7 @@ where 12: tools:::.run_one_vignette("Guitar-Overview.Rnw", "/var/scratch2/tomas/
 [99985] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [99993] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [ reached getOption("max.print") -- omitted 179901 entries ]
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function (expr, ...) 
 {
     handlers <- list(...)
@@ -12670,9 +12674,9 @@ function (expr, ...)
         TRUE))
     expr
 }
-<bytecode: 0x22b6c68>
+<bytecode: 0xf810a8>
 <environment: namespace:base>
- --- function (body) search ---
+ --- function search by body ---
 Function withCallingHandlers in namespace base has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

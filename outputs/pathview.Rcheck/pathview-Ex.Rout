@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -44,10 +44,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Loading required package: Biobase
 Welcome to Bioconductor
@@ -256,7 +256,7 @@ Info: Downloading png files for hsa00620, 2/2 pathways..
 > #generate simulated gene data named with non-KEGG/Entrez gene IDs
 > gene.ensprot <- sim.mol.data(mol.type = "gene", id.type = gene.idtype.list[4], 
 +     nmol = 50000)
-Note: "ENSEMBLPROT" has only 24071 unique IDs!
+Note: "ENSEMBLPROT" has only 24171 unique IDs!
 > #construct map between non-KEGG ID and KEGG ID (Entrez gene)
 > id.map.ensprot <- id2eg(ids = names(gene.ensprot), 
 +     category = gene.idtype.list[4], org = "Hs")
@@ -265,45 +265,47 @@ Note: "ENSEMBLPROT" has only 24071 unique IDs!
 > gene.entrez <- mol.sum(mol.data = gene.ensprot, id.map = id.map.ensprot)
 > #check the results
 > head(gene.ensprot)
-ENSP00000278422 ENSP00000458663 ENSP00000371844 ENSP00000484339 ENSP00000296220 
-      0.9127603      -0.4090441      -0.3521951       1.7388902      -0.1310930 
-ENSP00000464227 
-     -0.4164128 
+ENSP00000430147 ENSP00000454188 ENSP00000301490 ENSP00000428258 ENSP00000380283 
+      0.2762701      -0.8449300       0.6166796      -0.9273487       1.6788952 
+ENSP00000293350 
+      2.6161189 
 > head(id.map.ensprot)
      ENSEMBLPROT       ENTREZID
-[1,] "ENSP00000278422" "51075" 
-[2,] "ENSP00000458663" "23152" 
-[3,] "ENSP00000371844" "253175"
-[4,] "ENSP00000484339" "2661"  
-[5,] "ENSP00000296220" "114885"
-[6,] "ENSP00000464227" "125150"
+[1,] "ENSP00000430147" "51121" 
+[2,] "ENSP00000454188" "23205" 
+[3,] "ENSP00000301490" "254552"
+[4,] "ENSP00000428258" "2669"  
+[5,] "ENSP00000380283" "115330"
+[6,] "ENSP00000293350" "126133"
 > head(gene.entrez)
                                                               [,1]
-10                                                      -0.5794612
-1000                                                     0.6116813
-10000                                                    1.1706802
-100008586; 2574; 2576; 2578; 2579; 26748; 26749; 729408 -1.5590037
-10002                                                    0.7790800
-100033411                                                0.5348955
+10                                                      -1.1719676
+1000                                                    -1.5445967
+10000                                                   -1.6440136
+100008586; 2574; 2576; 2578; 2579; 26748; 26749; 729408 -1.5186827
+10002                                                   -0.4448764
+100033411                                               -0.6578295
 > 
 > #map Entrez Gene to Gene Symbol and Name
 > eg.symbname=eg2id(eg=id.map.ensprot[,2])
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/RtmpqJgyiV/R.INSTALL908ab555eaa/pathview/R/geneannot.map.R#31: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpyVsfuU/R.INSTALLaeb42c3d75bb/pathview/R/geneannot.map.R#31: 
+ --- package (from environment) --- 
 pathview
- --- call (currently evaluated) --- 
+ --- call from context --- 
 geneannot.map(in.ids = eg, in.type = "entrez", out.type = category, 
     org = org, pkg.name = pkg.name, ...)
+ --- call from argument --- 
+if (in.type == out.type) stop("in.type and out.type are the same, no need to map!")
  --- R stacktrace ---
-where 1 at /var/scratch2/tomas/tmp/RtmpqJgyiV/R.INSTALL908ab555eaa/pathview/R/eg2id.R#6: geneannot.map(in.ids = eg, in.type = "entrez", out.type = category, 
+where 1 at /var/scratch2/tomas/tmp/RtmpyVsfuU/R.INSTALLaeb42c3d75bb/pathview/R/eg2id.R#6: geneannot.map(in.ids = eg, in.type = "entrez", out.type = category, 
     org = org, pkg.name = pkg.name, ...)
 where 2: eg2id(eg = id.map.ensprot[, 2])
 
  --- value of length: 2 type: logical ---
 [1] FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(in.ids, in.type, out.type, org="Hs", pkg.name=NULL, unique.map=TRUE, na.rm=TRUE, keep.order=TRUE){
   if(is.null(pkg.name)) {#pkg.name=paste("org", org, "eg.db", sep=".")
     data(bods)
@@ -394,9 +396,9 @@ function(in.ids, in.type, out.type, org="Hs", pkg.name=NULL, unique.map=TRUE, na
     return(res)
   }
 }
-<bytecode: 0x1a716a60>
+<bytecode: 0x1616d450>
 <environment: namespace:pathview>
- --- function (body) search ---
+ --- function search by body ---
 Function geneannot.map in namespace pathview has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,163 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/SPLINTER.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘SPLINTER/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SPLINTER’ version ‘1.6.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘SPLINTER’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+metaremove: no visible global function definition for 'is'
+  (/var/scratch2/tomas/tmp/RtmpjMVhVE/R.INSTALL6bbb2c3c4a62/SPLINTER/R/main_splinter.R:1366)
+metaremove: no visible global function definition for 'endoapply'
+  (/var/scratch2/tomas/tmp/RtmpjMVhVE/R.INSTALL6bbb2c3c4a62/SPLINTER/R/main_splinter.R:1366)
+Undefined global functions or variables:
+  endoapply is
+Consider adding
+  importFrom("methods", "is")
+to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+contains 'methods').
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘SPLINTER-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: insertRegion
+> ### Title: insertRegion
+> ### Aliases: insertRegion
+> 
+> ### ** Examples
+> 
+> #Inserts the exon defined in roi GRanges object from a GRanges/GRangesList
+> region_minus_exon
+GRangesList object of length 1:
+$ENSMUST00000023873 
+GRanges object with 16 ranges and 3 metadata columns:
+       seqnames            ranges strand |    cds_id    cds_name exon_rank
+          <Rle>         <IRanges>  <Rle> | <integer> <character> <integer>
+   [1]    chr14 55136084-55136193      - |    181046        <NA>         1
+   [2]    chr14 55135334-55135452      - |    181045        <NA>         2
+   [3]    chr14 55134943-55135028      - |    181044        <NA>         3
+   [4]    chr14 55134140-55134274      - |    181043        <NA>         4
+   [5]    chr14 55133612-55133724      - |    181042        <NA>         5
+   ...      ...               ...    ... .       ...         ...       ...
+  [12]    chr14 55128671-55128780      - |    181032        <NA>        12
+  [13]    chr14 55128381-55128474      - |    181031        <NA>        13
+  [14]    chr14 55128126-55128242      - |    181030        <NA>        14
+  [15]    chr14 55127729-55127793      - |    181029        <NA>        15
+  [16]    chr14 55126632-55126784      - |    181028        <NA>        16
+
+-------
+seqinfo: 34 sequences from mm9 genome; no seqlengths
+> region_with_exon<-insertRegion(region_minus_exon,roi)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpjMVhVE/R.INSTALL6bbb2c3c4a62/SPLINTER/R/main_splinter.R#824: 
+ --- package (from environment) --- 
+SPLINTER
+ --- call from context --- 
+insertRegion(region_minus_exon, roi)
+ --- call from argument --- 
+if (as.character(strand(current)) == "-") current <- rev(current)
+ --- R stacktrace ---
+where 1: insertRegion(region_minus_exon, roi)
+
+ --- value of length: 17 type: logical ---
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[16] TRUE TRUE
+ --- function from context --- 
+function(subject,roi){
+  roi<-roi$roi
+  s2<-subject[,"exon_rank"]
+  for(tx in seq_along(s2)){
+    #message(names(s2)[tx])
+    current<-s2[[tx]]
+    current<-append(current,roi,after=0)
+    current<-reduce(current)
+    if(as.character(strand(current))=="-") current<-rev(current)
+    elementMetadata(current) <- DataFrame(exon_rank=seq(1,length(current)))
+    s2[[tx]]<-current
+  }
+  return(s2)
+}
+<bytecode: 0x4221bf88>
+<environment: namespace:SPLINTER>
+ --- function search by body ---
+Function insertRegion in namespace SPLINTER has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+
+ --- value of length: 17 type: logical ---
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[15] TRUE TRUE TRUE
+ --- function from context --- 
+function(subject,roi){
+  roi<-roi$roi
+  s2<-subject[,"exon_rank"]
+  for(tx in seq_along(s2)){
+    #message(names(s2)[tx])
+    current<-s2[[tx]]
+    current<-append(current,roi,after=0)
+    current<-reduce(current)
+    if(as.character(strand(current))=="-") current<-rev(current)
+    elementMetadata(current) <- DataFrame(exon_rank=seq(1,length(current)))
+    s2[[tx]]<-current
+  }
+  return(s2)
+}
+<bytecode: 0x4a5ac7f8>
+<environment: namespace:SPLINTER>
+ --- function search by body ---
+Function insertRegion in namespace SPLINTER has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 1 NOTE

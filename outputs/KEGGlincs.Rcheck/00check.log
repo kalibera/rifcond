@@ -1,0 +1,345 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/KEGGlincs.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘KEGGlincs/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘KEGGlincs’ version ‘1.6.2’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘KEGGlincs’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+Namespace in Imports field not imported from: ‘XML’
+  All declared Imports should be used.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘KEGGlincs-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: add_edge_data
+> ### Title: Annotate KEGG edge mappings with user data
+> ### Aliases: add_edge_data
+> 
+> ### ** Examples
+> 
+> p53_KGML <- get_KGML('hsa04115')
+> p53_KEGG_mappings <- expand_KEGG_mappings(p53_KGML)
+> p53_edges <- expand_KEGG_edges(p53_KGML, p53_KEGG_mappings)
+> p53_HA1E_data <- overlap_info(p53_KGML, p53_KEGG_mappings, 'HA1E', 
++                                data_type = '100_bing', only_mapped = FALSE)
+Number of genes documented in selected pathway = 72 
+Number of pathway genes in dataset = 50
+Coverage = 69.44%
+>                                
+> p53_edges_HA1E_ALL <- add_edge_data(p53_edges, p53_KEGG_mappings, 
++                                      p53_HA1E_data, c(3, 10,12))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpW32ZHr/R.INSTALL4c206c01b41b/KEGGlincs/R/add_edge_data.R#41: 
+ --- package (from environment) --- 
+KEGGlincs
+ --- call from context --- 
+add_edge_data(p53_edges, p53_KEGG_mappings, p53_HA1E_data, c(3, 
+    10, 12))
+ --- call from argument --- 
+if (map_type == "SYMBOL") {
+    expanded_edges$unique_ID = paste0(expanded_edges$entry1symbol, 
+        ",", expanded_edges$entry2symbol)
+    expanded_edges$unique_IDR = paste0(expanded_edges$entry2symbol, 
+        ",", expanded_edges$entry1symbol)
+}
+ --- R stacktrace ---
+where 1: add_edge_data(p53_edges, p53_KEGG_mappings, p53_HA1E_data, c(3, 
+    10, 12))
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function from context --- 
+function(expanded_edges, KEGG_mappings,
+                          user_data, map_type = "SYMBOL",data_column_no = 3,
+                          only_mapped = FALSE) {
+    
+    expanded_edges <- expanded_edges[expanded_edges$type != "maplink", ]
+    if (nrow(expanded_edges) > 0) {
+        if (map_type == "SYMBOL"){
+            expanded_edges$unique_ID = 
+                paste0(expanded_edges$entry1symbol, ",",
+                expanded_edges$entry2symbol)
+            expanded_edges$unique_IDR = 
+                paste0(expanded_edges$entry2symbol, ",",
+                expanded_edges$entry1symbol)
+        }
+        if (map_type == "NUMBER"){
+            expanded_edges$unique_ID = 
+                paste0(expanded_edges$entry1accession, ",",
+                expanded_edges$entry2accession)
+            expanded_edges$unique_IDR = 
+                paste0(expanded_edges$entry2accession, ",",
+                expanded_edges$entry1accession)
+        }
+        
+        user_data$unique_ID = paste0(user_data[,1], ",",
+                                     user_data[,2])
+        pre_mapped1 <- subset(user_data, user_data$unique_ID %in%
+                                  expanded_edges$unique_ID)
+        pre_mapped2 <- subset(user_data, user_data$unique_ID %in%
+                                  expanded_edges$unique_IDR)
+        pre_mapped2 <- pre_mapped2[, c(2, 1, 3:ncol(pre_mapped2))]
+        names(pre_mapped2) = names(pre_mapped1)
+        if (nrow(pre_mapped2) >= 1 & nrow(pre_mapped1) >= 1) {
+            pre_mapped2$unique_ID <- paste0(pre_mapped2[,1], ",",
+                                            pre_mapped2[,2])
+            pre_mapped <- rbind(pre_mapped1, pre_mapped2)
+        }
+        if (nrow(pre_mapped2) == 0 & (nrow(pre_mapped1) == 0)) {
+            pre_mapped <- data.frame(unique_ID = NA)
+        }
+        if (nrow(pre_mapped1) == 0 & nrow(pre_mapped2) >= 1) {
+            pre_mapped2$unique_ID <- paste0(pre_mapped2[,1], ",",
+                                            pre_mapped2[,2])
+            pre_mapped <- pre_mapped2
+        }
+        if (nrow(pre_mapped2) == 0 & nrow(pre_mapped1) >= 1) {
+            pre_mapped <- pre_mapped1
+        }
+        if (!is.na(pre_mapped[1, 1])) {
+            expanded_edges_1 <- subset(expanded_edges, expanded_edges$unique_ID
+                                       %in% pre_mapped$unique_ID)
+            expanded_edges_1 <- expanded_edges[expanded_edges$unique_ID %in%
+                                                   pre_mapped$unique_ID, ]
+            expanded_edges_2 <- expanded_edges[!expanded_edges$unique_ID %in%
+                                                   pre_mapped$unique_ID, ]
+            expanded_edges_1$has_data = 1
+            testval <- nrow(expanded_edges_2)
+            if (testval > 0) {
+                expanded_edges_2$has_data = 0
+                edge_set <- rbind(expanded_edges_1, expanded_edges_2)
+            }
+            else {
+                edge_set <- expanded_edges_1
+            }
+            
+            edge_set <- edge_set[order(edge_set$unique_ID), ]
+            
+            data_to_add <- data.frame("unique_ID" = pre_mapped$unique_ID, stringsAsFactors = FALSE)
+            data_to_add <- cbind(data_to_add, pre_mapped[, data_column_no])
+            
+            data_to_add <- data_to_add[order(data_to_add$unique_ID), ]
+            colnames(data_to_add)[2] <- "summary_score"
+            
+            annotated_edges <- merge(edge_set, data_to_add, "unique_ID",
+                                     all.x = TRUE)
+            drops <- c("unique_ID", "unique_IDR")
+            annotated_edges <- annotated_edges[, !(names(annotated_edges) %in%
+                                                       drops)]
+            cat(paste0("Number of edges documented in selected pathway = ",
+                       nrow(annotated_edges)), "\n")
+            cat(paste0("Number of edges with corresponding user data = ",
+                       sum(annotated_edges$has_data), "\n"))
+            cat(paste0("Coverage = ", round(sum(annotated_edges$has_data)/
+                                                nrow(annotated_edges) * 100, 2), "%", "\n"))
+            annotated_edges$premapped <- 1
+            # un_mapped <- subset(user_data, !user_data$unique_ID %in%
+            #                       expanded_edges$unique_ID &
+            #                       !user_data$unique_ID %in% expanded_edges$unique_IDR)
+            # un_mapped_edges <- un_mapped[, c(1:2, data_column_no,
+            #                                  ncol(un_mapped))]
+            
+            if (only_mapped) {
+                return(annotated_edges)
+            }
+        }
+        else {
+            annotated_edges <- expanded_edges
+            annotated_edges$premapped <- 1
+            annotated_edges$has_data <- 0
+            un_mapped <- user_data
+            un_mapped$unique_ID <- paste0(un_mapped$knockout1,
+                                          un_mapped$knockout2)
+            un_mapped_edges <- un_mapped[, c(1:2, data_column_no,
+                                             ncol(un_mapped))]
+            un_mapped_edges$premapped <- 0
+            un_mapped_edges$has_data <- 0
+            cat(paste0("Number of edges documented in selected pathway = ",
+                       nrow(annotated_edges)), "\n")
+            cat(paste0("Number of edges with corresponding user data = ",
+                       sum(annotated_edges$has_data), "\n"))
+            cat(paste0("Coverage = ", round(sum(annotated_edges$has_data)/
+                                                nrow(annotated_edges) * 100, 2), "%", "\n"))
+            if (only_mapped) {
+                cat(paste0("No documented edges are found in data;
+                           only data for de-novo edges can be mapped \n"))
+                return(annotated_edges)
+            }
+        }
+        }
+    else if (nrow(expanded_edges) == 0) {
+        annotated_edges <- expanded_edges
+        annotated_edges$premapped <- 1
+        annotated_edges$has_data <- 0
+        un_mapped <- user_data
+        un_mapped$unique_ID <- paste0(un_mapped$knockout1, un_mapped$knockout2)
+        un_mapped_edges <- un_mapped[, c(1:2, data_column_no, ncol(un_mapped))]
+        un_mapped_edges$premapped <- 0
+        un_mapped_edges$has_data <- 0
+        cat(paste0("Number of edges documented in selected pathway = ",
+                   nrow(annotated_edges)), "\n")
+        cat(paste0("Number of edges with corresponding user data = ",
+                   sum(annotated_edges$has_data), "\n"))
+        cat(paste0("Coverage = ", round(sum(annotated_edges$has_data)/
+                                            nrow(annotated_edges) * 100, 2), "%", "\n"))
+        if (only_mapped) {
+            return(annotated_edges)
+        }
+    }
+    names(un_mapped_edges)[1:2] <- c("entryNAME_1", "entryNAME_2")
+    for (i in 1:nrow(un_mapped_edges)) {
+        un_mapped_edges$Source_eid[i] <-
+            list(KEGG_mappings$entryID[which(KEGG_mappings$entrySYMBOL ==
+                                                 un_mapped_edges$entryNAME_1[i])])
+        un_mapped_edges$Target_eid[i] <-
+            list(KEGG_mappings$entryID[which(KEGG_mappings$entrySYMBOL ==
+                                                 un_mapped_edges$entryNAME_2[i])])
+        x <- length(unlist(un_mapped_edges$Source_eid[i]))
+        y <- length(unlist(un_mapped_edges$Target_eid[i]))
+        if (x > 1 | y > 1) {
+            un_mapped_edges$simple[i] <- FALSE
+        } else {
+            un_mapped_edges$simple[i] <- TRUE
+        }
+    }
+    simple_un_mapped_edges <- un_mapped_edges[un_mapped_edges$simple == TRUE,
+                                              -ncol(un_mapped_edges)]
+    complex_un_mapped_edges <- un_mapped_edges[un_mapped_edges$simple == FALSE,
+                                               -ncol(un_mapped_edges)]
+    test_val <- nrow(complex_un_mapped_edges)
+    if (test_val == 0) {
+        un_mapped_edges <- simple_un_mapped_edges
+    } else {
+        keeps <- c("Source_eid", "Target_eid", "unique_ID")
+        c_temp <- complex_un_mapped_edges[, (names(complex_un_mapped_edges) %in%
+                                                 keeps)]
+        
+        for (i in 1:nrow(c_temp)) {
+            x <- length(unlist(c_temp$Source_eid[i]))
+            y <- length(unlist(c_temp$Target_eid[i]))
+            l <- x * y
+            
+            c_temp$Source_eid[i] <- list(sort(unlist(rep(c_temp$Source_eid[i],
+                                                         y))))
+            c_temp$Target_eid[i] <- list(unlist(rep(c_temp$Target_eid[i], x)))
+            c_temp$unique_ID[i] <- list(rep(c_temp$unique_ID[i], l))
+        }
+        
+        c_temp <- data.frame(unique_ID = unlist(c_temp$unique_ID), Source_eid =
+                                 unlist(c_temp$Source_eid),
+                             Target_eid = unlist(c_temp$Target_eid))
+        drops <- c("Source_eid", "Target_eid")
+        complex_un_mapped_edges <-
+            complex_un_mapped_edges[, !(names(complex_un_mapped_edges) %in%
+                                            drops)]
+        complex_un_mapped_edges <- merge(complex_un_mapped_edges, c_temp)
+        un_mapped_edges <- rbind(simple_un_mapped_edges,
+                                 complex_un_mapped_edges)
+    }
+    un_mapped_edges$Source_eid <- unlist(un_mapped_edges$Source_eid)
+    un_mapped_edges$Target_eid <- unlist(un_mapped_edges$Target_eid)
+    un_mapped_edges <- plyr::rename(un_mapped_edges, c(Source_eid = "entry1",
+                                                       Target_eid = "entry2", entryNAME_1 = "entry1symbol",
+                                                       entryNAME_2 = "entry2symbol"))
+    un_mapped_edges$subtype1 <- "de_novo"
+    
+    drops <- c("unique_ID")
+    un_mapped_edges <- un_mapped_edges[, !(names(un_mapped_edges) %in% drops)]
+    un_mapped_edges$has_data <- 1
+    un_mapped_edges$premapped <- 0
+    for (i in 1:nrow(un_mapped_edges)) {
+        un_mapped_edges$entry1accession[i] <-
+            KEGG_mappings$entryACCESSION[which(KEGG_mappings$entrySYMBOL ==
+                                                   un_mapped_edges$entry1symbol[i])][1]
+        un_mapped_edges$entry2accession[i] <-
+            KEGG_mappings$entryACCESSION[which(KEGG_mappings$entrySYMBOL ==
+                                                   un_mapped_edges$entry2symbol[i])][1]
+        un_mapped_edges$entry1type[i] <-
+            KEGG_mappings$entryTYPE[which(KEGG_mappings$entrySYMBOL ==
+                                              un_mapped_edges$entry1symbol[i])][1]
+        un_mapped_edges$entry2type[i] <-
+            KEGG_mappings$entryTYPE[which(KEGG_mappings$entrySYMBOL ==
+                                              un_mapped_edges$entry2symbol[i])][1]
+    }
+    
+    if (nrow(annotated_edges) > 0 & nrow(un_mapped_edges) > 0) {
+        all_edges <- gtools::smartbind(annotated_edges, un_mapped_edges)
+    } else if (nrow(annotated_edges) > 0)
+        all_edges <- annotated_edges else {
+            all_edges <- un_mapped_edges
+            all_edges$value <- NA
+            all_edges$subtype2 <- NA
+            all_edges$value2 <- NA
+            all_edges$specific_subtype <- NA
+            all_edges$type <- NA
+            all_edges$is_direct <- 1
+            all_edges$edgeID <- seq(1:nrow(un_mapped_edges))
+            refcols <- c("edgeID", "entry1accession", "entry2accession", "entry1",
+                         "entry2")
+            all_edges <- all_edges[, c(refcols, setdiff(names(all_edges), refcols))]
+            cat(paste0("All documented edges are of type maplink; only data for
+                       de-novo edges can be mapped \n"))
+        }
+    
+    for (i in 1:nrow(all_edges)) {
+        if (all_edges$entry1[i] == all_edges$entry2[i]) {
+            all_edges$paralogs[i] <- 1
+        } else {
+            all_edges$paralogs[i] <- 0
+        }
+    }
+    return(all_edges)
+        }
+<bytecode: 0xf8de368>
+<environment: namespace:KEGGlincs>
+ --- function search by body ---
+Function add_edge_data in namespace KEGGlincs has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 NOTE

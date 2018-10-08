@@ -1,0 +1,1159 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/NOISeq.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘NOISeq/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘NOISeq’ version ‘2.24.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘NOISeq’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Invalid citation information in ‘inst/CITATION’:
+  Error in bibentry(bibtype = entry, textVersion = textVersion, header = header,     footer = footer, ...): object 'e140' not found
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+.calcFactorQuantile : <anonymous>: no visible global function
+  definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/normalization.R:143)
+CV: no visible global function definition for ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/filter.low.counts.R:9)
+DE.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:5)
+DE.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:24)
+DE.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:28)
+DE.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:33-34)
+DE.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:38)
+DE.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:57)
+DE.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:58)
+DE.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:59)
+DE.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:64)
+DE.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:69)
+DE.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:74)
+DE.plot: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:86)
+DE.plot: no visible global function definition for ‘aggregate’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:129-130)
+DE.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:141-142)
+DE.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:144)
+DE.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:146)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:154-156)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:158-160)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:169-171)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:173-175)
+DE.plot: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:178-179)
+DE.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:183-184)
+DE.plot: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:217)
+DE.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:219)
+DE.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:227-229)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:231-232)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:234-235)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:242-243)
+DE.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:245-246)
+DE.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:250)
+DE.plot: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:252-253)
+DE.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:257)
+DE.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:259-260)
+DE.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:351)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:355-358)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:360-363)
+DE.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:365-368)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:375-378)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:380-383)
+DE.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:385-386)
+DE.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:389)
+DE.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:392-395)
+DE.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:402)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:405-408)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:410-413)
+DE.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:415-417)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:421-424)
+DE.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:426-429)
+DE.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:431-432)
+DE.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:435)
+DE.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:438-441)
+DE.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/DE.plot.R:445)
+GC.dat: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:98)
+GC.dat: no visible global function definition for ‘aggregate’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:113)
+GC.dat: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:124)
+GC.dat: no visible global function definition for ‘aggregate’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:139)
+GC.dat: no visible global function definition for ‘lm’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:170)
+GC.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:216)
+GC.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:219-221)
+GC.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:222-223)
+GC.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:225-226)
+GC.plot: no visible global function definition for ‘pf’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:225-226)
+GC.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:232-234)
+GC.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:236)
+GC.plot: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/GC.bias.plot.R:240)
+MD: no visible global function definition for ‘combn’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/MD.R:3)
+MD.plot: no visible global function definition for ‘quantile’
+MD.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/MD.plot.R:5-6)
+MD.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/MD.plot.R:7)
+MD.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/MD.plot.R:9-10)
+MDbio: no visible global function definition for ‘combn’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/MD.R:30)
+MDbio: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/MD.R:59)
+MDbio: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/MD.R:60)
+PCA.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/PCA.plot.R:67-72)
+PCA.plot: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/PCA.plot.R:86)
+PCA.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/PCA.plot.R:96-101)
+PCA.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/PCA.plot.R:103-104)
+PCA.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/PCA.plot.R:106)
+QCreport: no visible global function definition for ‘pdf’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:106)
+QCreport: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:110)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:112)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:114)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:115)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:116-117)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:120)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:121)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:124)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:126)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:128)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:129)
+QCreport: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:130)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:134)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:136-137)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:138-139)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:141-142)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:146)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:148-149)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:151-152)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:156)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:157)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:160)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:161)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:164)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:165)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:168)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:170-171)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:173-174)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:178)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:180-181)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:183-184)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:188)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:189)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:190)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:193)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:194)
+QCreport: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:201)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:204)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:205)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:206)
+QCreport: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:220)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:222)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:224)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:225)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:232)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:237)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:238)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:242)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:247)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:248)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:249)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:255)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:256)
+QCreport: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:270)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:272)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:273)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:274)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:280)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:281)
+QCreport : <anonymous>: no visible global function definition for ‘pf’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:285)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:291-292)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:293)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:295-296)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:297-298)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:299-300)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:304)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:308)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:312)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:313)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:314)
+QCreport : <anonymous>: no visible global function definition for ‘pf’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:318)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:324-325)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:326)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:328-329)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:330-331)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:332-333)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:337)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:340)
+QCreport: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:345)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:347)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:348)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:349)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:352-353)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:354)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:356-357)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:358)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:362)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:370)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:372)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:373)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:374)
+QCreport: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:375)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:377)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:381-382)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:383-384)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:385-386)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:401)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:402)
+QCreport : <anonymous>: no visible global function definition for ‘pf’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:406)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:412-413)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:414)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:416-417)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:418-419)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:420-421)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:425)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:429)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:434)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:435)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:436)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:439-440)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:441)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:443-444)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:445)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:450)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:459)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:461)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:462)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:463)
+QCreport: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:464)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:466)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:470-471)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:472-473)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:474-475)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:492)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:493)
+QCreport : <anonymous>: no visible global function definition for ‘pf’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:497)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:503-504)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:505)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:507-508)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:509-510)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:511-512)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:516)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:519)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:523)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:524)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:525)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:528-529)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:530)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:532-533)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:534)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:539)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:548)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:550)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:551)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:552)
+QCreport: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:553)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:555)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:559-560)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:561-562)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:563-564)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:576)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:577)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:578)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:581-582)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:583)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:585-586)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:587)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:592)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:601)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:603)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:604)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:605)
+QCreport: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:606)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:608)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:612-613)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:614-615)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:616-617)
+QCreport: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:636)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:638)
+QCreport: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:639)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:640)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:641-642)
+QCreport: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:643)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:647)
+QCreport: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:650)
+QCreport: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/QCreport.R:655)
+allMDbio: no visible binding for global variable ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/allMD.R:538)
+allMDbio: no visible binding for global variable ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/allMD.R:539)
+allMDbio: no visible binding for global variable ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/allMD.R:560)
+allMDbio: no visible binding for global variable ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/allMD.R:561)
+biodetection.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:75)
+biodetection.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:129)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:131-134)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:136-139)
+biodetection.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:142-143)
+biodetection.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:144)
+biodetection.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:147-150)
+biodetection.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:155)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:160-163)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:165-168)
+biodetection.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:171-172)
+biodetection.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:173)
+biodetection.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:176-178)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:182-185)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:187-190)
+biodetection.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:193-194)
+biodetection.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:195)
+biodetection.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:198-201)
+biodetection.plot: no visible global function definition for
+  ‘prop.test’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:220)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:232-234)
+biodetection.plot: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:236)
+biodetection.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:240-242)
+biodetection.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:244-245)
+biodetection.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R:267)
+cd.dat : <anonymous>: no visible binding for global variable ‘median’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:65)
+cd.dat: no visible binding for global variable ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:71)
+cd.plot: no visible binding for global variable ‘density’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:123)
+cd.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:126-127)
+cd.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:128)
+cd.plot: no visible global function definition for ‘median’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:128)
+cd.plot: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:132)
+cd.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:133)
+cd.plot: no visible global function definition for ‘median’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:133)
+cd.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/cd.plot.R:137-138)
+countsbio.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:185)
+countsbio.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:208)
+countsbio.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:210-211)
+countsbio.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:213-214)
+countsbio.plot: no visible global function definition for ‘barplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:216-219)
+countsbio.plot: no visible global function definition for ‘abline’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:220)
+countsbio.plot: no visible global function definition for ‘mtext’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:222)
+countsbio.plot: no visible global function definition for ‘mtext’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:224)
+countsbio.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:226)
+countsbio.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:228)
+countsbio.plot: no visible global function definition for ‘boxplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:261-262)
+countsbio.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:264)
+countsbio.plot: no visible global function definition for ‘boxplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:265-266)
+countsbio.plot: no visible global function definition for ‘mtext’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:269)
+countsbio.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:279)
+countsbio.plot: no visible global function definition for ‘boxplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:280-281)
+countsbio.plot: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:284)
+countsbio.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/countsbio.plot.R:288)
+degenes: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/degenes.R:15)
+degenes: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/degenes.R:18)
+filtered.data : <anonymous>: no visible global function definition for
+  ‘wilcox.test’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/filter.low.counts.R:58)
+filtered.data: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/filter.low.counts.R:59)
+filtered.data : <anonymous>: no visible global function definition for
+  ‘prop.test’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/filter.low.counts.R:65-67)
+filtered.data: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/filter.low.counts.R:68)
+length.dat: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:98)
+length.dat: no visible global function definition for ‘aggregate’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:114)
+length.dat: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:125)
+length.dat: no visible global function definition for ‘aggregate’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:140)
+length.dat: no visible global function definition for ‘lm’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:170)
+length.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:218)
+length.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:221-223)
+length.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:224-225)
+length.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:227-228)
+length.plot: no visible global function definition for ‘pf’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:227-228)
+length.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:234-236)
+length.plot: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:238)
+length.plot: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/length.bias.plot.R:242)
+noiseqbio: no visible global function definition for ‘density’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/noiseqbio.R:78)
+noiseqbio: no visible global function definition for ‘approxfun’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/noiseqbio.R:79)
+noiseqbio: no visible global function definition for ‘density’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/noiseqbio.R:81)
+noiseqbio: no visible global function definition for ‘approxfun’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/noiseqbio.R:82)
+noiseqbio: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/noiseqbio.R:92)
+noiseqbio: no visible global function definition for ‘legend’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/noiseqbio.R:93)
+plot.y2: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:215-217)
+plot.y2: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:219)
+plot.y2: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:222)
+plot.y2: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:227)
+plot.y2: no visible global function definition for ‘supsmu’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:227)
+plot.y2: no visible global function definition for ‘mtext’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:230-231)
+plot.y2: no visible global function definition for ‘mtext’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:233)
+plot.y2: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:237)
+plot.y2: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:241-243)
+plot.y2: no visible global function definition for ‘box’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:245)
+plot.y2: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:247)
+plot.y2: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:250-251)
+plot.y2: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:257)
+plot.y2: no visible global function definition for ‘supsmu’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:257)
+plot.y2: no visible global function definition for ‘mtext’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:260)
+plot.y2: no visible global function definition for ‘mtext’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:262)
+plot.y2: no visible global function definition for ‘axis’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:267)
+probdeg: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/probdeg.R:17)
+rpkm: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/normalization.R:60)
+saturation.dat: no visible global function definition for ‘rmultinom’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:61)
+saturation.dat: no visible global function definition for ‘rmultinom’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:72)
+saturation.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:194)
+saturation.plot: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:231)
+saturation.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:271-275)
+saturation.plot: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:282-283)
+saturation.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:288)
+saturation.plot: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:300)
+saturation.plot: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:305)
+saturation.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:308)
+saturation.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:322)
+saturation.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:324)
+saturation.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:325)
+saturation.plot: no visible global function definition for ‘rect’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:328)
+saturation.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:329)
+saturation.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:330)
+saturation.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:331)
+saturation.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:334)
+saturation.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:335-336)
+saturation.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:337-338)
+saturation.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:339)
+saturation.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:343)
+saturation.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:344-345)
+saturation.plot: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:346-347)
+saturation.plot: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:348)
+saturation.plot: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:351)
+saturation.plot: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/saturation.plot.R:351)
+share.info: no visible global function definition for ‘kmeans’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:19)
+share.info : <anonymous>: no visible global function definition for
+  ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:53)
+share.info : <anonymous>: no visible global function definition for
+  ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:54)
+share.info: no visible global function definition for ‘kmeans’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:68)
+share.info : <anonymous>: no visible global function definition for
+  ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:91)
+share.info : <anonymous>: no visible global function definition for
+  ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:92)
+share.info: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:113)
+share.info: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/fewreplicates.R:114)
+sim.samples: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:103)
+sim.samples: no visible global function definition for ‘rmultinom’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:104-105)
+sim.samples: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:112)
+sim.samples: no visible global function definition for ‘rmultinom’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/auxiliar.R:113-114)
+tmm: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/normalization.R:38)
+uqua: no visible binding for global variable ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/normalization.R:93)
+uqua: no visible global function definition for ‘na.omit’
+  (/var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/normalization.R:104)
+Undefined global functions or variables:
+  abline aggregate approxfun axis barplot box boxplot colors combn
+  density dev.off kmeans layout legend lines lm matplot median mtext
+  na.omit p.adjust par pdf pf plot points prop.test quantile rect
+  rmultinom runif sd segments supsmu text wilcox.test
+Consider adding
+  importFrom("grDevices", "colors", "dev.off", "pdf")
+  importFrom("graphics", "abline", "axis", "barplot", "box", "boxplot",
+             "layout", "legend", "lines", "matplot", "mtext", "par",
+             "plot", "points", "rect", "segments", "text")
+  importFrom("stats", "aggregate", "approxfun", "density", "kmeans",
+             "lm", "median", "na.omit", "p.adjust", "pf", "prop.test",
+             "quantile", "rmultinom", "runif", "sd", "supsmu",
+             "wilcox.test")
+  importFrom("utils", "combn")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘NOISeq-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: Data_Exploration
+> ### Title: Exploration of expression data.
+> ### Aliases: dat
+> 
+> ### ** Examples
+> 
+> ## Load the input object with the expression data and the annotations
+> data(myCounts)
+> 
+> ## Generating data for the plot "biodetection" and samples in columns 3 and 4 of expression data
+> mydata2plot = dat(mydata, type = "biodetection", k = 0)
+Biotypes detection is to be computed for:
+ [1] "R1L1Kidney" "R1L2Liver"  "R1L3Kidney" "R1L4Liver"  "R1L6Liver" 
+ [6] "R1L7Kidney" "R1L8Liver"  "R2L2Kidney" "R2L3Liver"  "R2L6Kidney"
+> 
+> ## Generating the corresponding plot
+> explo.plot(mydata2plot, samples = c(3,4))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R#157: 
+ --- package (from environment) --- 
+NOISeq
+ --- call from context --- 
+biodetection.plot(object@dat, samples = samples, plottype = plottype, 
+    toplot = toplot, ...)
+ --- call from argument --- 
+if (plottype == "persample") {
+    barplot(biotable1[c(1, 3), ], main = samples[1], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c("grey", 2), las = 2, ylim = c(0, ymaxL), border = c("grey", 
+            2))
+    barplot(biotable1[c(2, 4), ], main = samples[1], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c(2, 1), las = 2, density = 30, ylim = c(0, ymaxL), 
+        border = 2, add = TRUE)
+    if (ymaxR > 0) {
+        axis(side = 4, at = pretty(c(0, ymaxL), n = 5), labels = round(pretty(c(0, 
+            ymaxL), n = 5) * ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+    }
+    legend(x = "topright", bty = "n", horiz = FALSE, fill = c("grey", 
+        2, 2), density = c(NA, 30, NA), border = c("grey", 2, 
+        2), legend = c("% in genome", "detected", "% in sample"))
+    barplot(biotable2[c(1, 3), ], main = samples[2], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c("grey", 4), las = 2, ylim = c(0, ymaxL), border = c("grey", 
+            4))
+    barplot(biotable2[c(2, 4), ], main = samples[2], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c(4, 1), las = 2, density = 30, ylim = c(0, ymaxL), 
+        border = 4, add = TRUE)
+    if (ymaxR > 0) {
+        axis(side = 4, at = pretty(c(0, ymaxL), n = 5), labels = round(pretty(c(0, 
+            ymaxL), n = 5) * ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+    }
+    legend(x = "topright", bty = "n", horiz = FALSE, fill = c("grey", 
+        4, 4), density = c(NA, 30, NA), border = c("grey", 4, 
+        4), legend = c("% in genome", "detected", "% in sample"))
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/classes.R#11: biodetection.plot(object@dat, samples = samples, plottype = plottype, 
+    toplot = toplot, ...)
+where 2: .local(object, ...)
+where 3 at /var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/classes.R#9: explo.plot(mydata2plot, samples = c(3, 4))
+where 4: explo.plot(mydata2plot, samples = c(3, 4))
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(dat, samples = c(1,2), plottype = "persample", 
+                              toplot = "protein_coding", toreport = FALSE,...) {  
+  
+  mypar = par(no.readonly = TRUE)
+
+  if (length(samples) > 2) {
+    stop("ERROR: This function cannot generate plots for more than 2 samples.\n 
+         Please, use it as many times as needed to generate the plots for all your samples.\n")
+  }
+  
+  if (is.numeric(samples)) samples = names(dat$biotables)[samples]
+    
+  biotable1 <- rbind(dat$genome, dat$biotables[[samples[1]]], rep(0, length(dat$genome)))
+  
+    
+  
+  # Computing ylim for left and right axis
+     
+  if (ncol(biotable1) >= 3) {
+    ymaxL <- ceiling(max(biotable1[,1:3], na.rm = TRUE))
+    ymaxR <- max(biotable1[,-c(1:3)], na.rm = TRUE)        
+  } else {
+    ymaxL <- ceiling(max(biotable1, na.rm = TRUE))
+    ymaxR = 0 
+  } 
+  
+  
+  if (length(samples) == 2) {
+    
+    biotable2 <- rbind(dat$genome, dat$biotables[[samples[2]]], rep(0, length(dat$genome)))
+    
+    if (ncol(biotable2) >= 3) {
+      ymax2 <- ceiling(max(biotable2[,1:3], na.rm = TRUE))
+      ymax2sin <- max(biotable2[,-c(1:3)], na.rm = TRUE)
+      ymaxR <- ceiling(max(ymaxR, ymax2sin))
+    } else {
+      ymax2 <- ceiling(max(biotable2, na.rm = TRUE))      
+    }    
+    
+    ymaxL = max(ymaxL, ymax2)   
+  }
+  
+  
+  
+  # Rescaling biotables (datos2)
+  if (length(samples) == 2) {        
+    if (ncol(biotable2) >= 3) biotable2[,-c(1:3)] <- biotable2[,-c(1:3)]*ymaxL/ymaxR    
+  }  
+  
+  # Rescaling biotables (datos1)  
+  if (ncol(biotable1) >= 3) biotable1[,-c(1:3)] <- biotable1[,-c(1:3)]*ymaxL/ymaxR
+  
+  
+  ## PLOTS
+    
+  if (length(samples) == 1) {   # Plot (1 sample) - 2 scales    
+    
+    par(mar = c(11, 4, 2, 2))
+    
+    barplot(biotable1[c(1,3),], main = samples[1],
+            xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+            beside = TRUE, col = c("grey", 2), las = 2,
+            ylim = c(0, ymaxL), border = c("grey", 2))
+    
+    barplot(biotable1[c(2,4),], main = samples[1],
+            xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+            beside = TRUE, col = c(2, 1), las = 2, density = 30,
+            ylim = c(0, ymaxL), border = 2, add = TRUE)    
+    
+    if (ymaxR > 0) {  # if number of biotypes >= 3 so we have left and right axis
+      axis(side=4, at = pretty(c(0,ymaxL), n = 5), 
+           labels = round(pretty(c(0,ymaxL), n = 5)*ymaxR/ymaxL, 1))    
+      abline(v = 9.5, col = 3, lwd = 2, lty = 2)        
+    }    
+    
+    legend(x = "topright", bty = "n", horiz = FALSE,
+           fill = c("grey", 2, 2), density = c(NA,30,NA),
+           border = c("grey", 2, 2),
+           legend = c("% in genome", "detected", "% in sample"))
+    
+    
+  } else {   # Plot (2 samples)    
+    
+    par(mar = c(11, 4, 2, 2))    
+    
+    if (plottype == "persample") {    ### A plot for each sample separately
+      
+      # Datos1
+      barplot(biotable1[c(1,3),], main = samples[1],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c("grey", 2), las = 2,
+              ylim = c(0, ymaxL), border = c("grey", 2))
+      
+      barplot(biotable1[c(2,4),], main = samples[1],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c(2, 1), las = 2, density = 30,
+              ylim = c(0, ymaxL), border = 2, add = TRUE)
+      
+      if (ymaxR > 0) {   # if number of biotypes >= 3 so we have left and right axis
+        axis(side=4, at = pretty(c(0,ymaxL), n = 5), 
+             labels = round(pretty(c(0,ymaxL), n = 5)*ymaxR/ymaxL, 1))      
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+      }  
+      
+      legend(x = "topright", bty = "n", horiz = FALSE,
+             fill = c("grey", 2, 2), density = c(NA,30,NA), border = c("grey", 2, 2),
+             legend = c("% in genome", "detected", "% in sample"))
+      
+      
+      # Datos2        
+      barplot(biotable2[c(1,3),], main = samples[2],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c("grey", 4), las = 2,
+              ylim = c(0, ymaxL), border = c("grey", 4))
+      
+      barplot(biotable2[c(2,4),], main = samples[2],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c(4, 1), las = 2, density = 30,
+              ylim = c(0, ymaxL), border = 4, add = TRUE)
+      
+      if (ymaxR > 0) {   # if number of biotypes >= 3 so we have left and right axis
+        axis(side=4, at = pretty(c(0,ymaxL), n = 5), 
+             labels = round(pretty(c(0,ymaxL), n = 5)*ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+      }      
+      
+      legend(x = "topright", bty = "n", horiz = FALSE, 
+             fill = c("grey", 4, 4), density = c(NA,30,NA),
+             border = c("grey", 4, 4),
+             legend = c("% in genome", "detected", "% in sample"))
+      
+    }
+
+    
+    if (plottype == "comparison") {   ## A plot comparing two samples with regard to genome and for % in sample
+      
+      lefttable = rbind(100*dat$biotables[[samples[1]]][1,]/dat$genome, 100*dat$biotables[[samples[2]]][1,]/dat$genome)     
+      
+      righttable = rbind(dat$biotables[[samples[1]]][2,], dat$biotables[[samples[2]]][2,])
+      
+      if (length(toplot) > 1) {
+        toplot = toplot[1]
+        print("WARNING: More than one biotype was provided, the proportion test will only by applied to the first biotype.")
+      }
+      
+      if ((toplot != 1) && (toplot != "global")) {         
+        numgenes = dat$genomesize
+        myx = round(righttable[,toplot]*numgenes/100, 0)
+        mytest = prop.test(x = myx, n = rep(numgenes, 2), alternative = "two.sided")
+        if (is.numeric(toplot)) toplot = colnames(righttable)[toplot]
+      }
+      
+      asumar = colSums(righttable)
+      asumar = which(asumar < 0.25)
+      if (length(asumar) > 1) {
+        righttable = cbind(righttable[,-asumar], rowSums(righttable[,asumar]))
+        colnames(righttable)[ncol(righttable)] = "Others"
+      }            
+      
+      # Detection in the genome
+      bbb = barplot(lefttable, main = "Biotype detection over genome total",
+                    xlab = NULL, ylab = "% detected features", axis.lty = 1, legend = FALSE, cex.names = 0.8,
+                    beside = TRUE, col = c(2,4), las = 2, density = 80, border = c(2,4), ylim = c(0,100))    
+      bbb = colSums(bbb)/2
+      lines(bbb, dat$genome, pch = 20, type = "o", lwd = 2)
+      
+      
+      # %detection in the sample        
+      barplot(righttable, main = "Relative biotype abundance in sample",
+              xlab = NULL, ylab = "Relative % biotypes", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c(2, 4), las = 2, border = c(2,4))
+                  
+      legend(x = "topright", bty = "n", horiz = FALSE, pch = c(15,15,20), lwd = c(NA,NA,1), legend = c(samples, "% in genome"),
+             col = c(2,4,1))
+      
+      if ((toplot != 1) && (toplot != "global")) {        
+        print(paste("Percentage of", toplot, "biotype in each sample:"))
+        names(mytest$estimate) = samples
+        print(round(mytest$estimate*100, 4))
+        print(paste("Confidence interval at 95% for the difference of percentages:", samples[1], "-", samples[2]))
+        print(round(mytest$conf.int[1:2]*100, 4))
+        if (mytest$p.value < 0.05) {
+          print(paste("The percentage of this biotype is significantly DIFFERENT for these two samples (p-value =",
+                      signif(mytest$p.value, 4), ")."))
+        } else {
+          print(paste("The percentage of this biotype is NOT significantly different for these two samples (p-value =",
+                      signif(mytest$p.value, 4), ")."))
+        }       
+      }      
+    }
+    
+    
+  }
+  
+  # Reset with the default values
+  if (!toreport) par(mypar)
+  
+  
+}
+<bytecode: 0x8c8a4e0>
+<environment: namespace:NOISeq>
+ --- function search by body ---
+Function biodetection.plot in namespace NOISeq has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 1 NOTE

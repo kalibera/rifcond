@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -43,10 +43,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Loading required package: Biobase
 Welcome to Bioconductor
@@ -129,19 +129,23 @@ everything seems to be OK
 > fiveGybis<-estimerrors(eset=fiveGyMAS5,plattid="affy_HGU133A",refchips=leastnoisychips)
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/measurementerrorHVDM.R#23: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- package (from environment) --- 
 rHVDM
- --- call (currently evaluated) --- 
+ --- call from context --- 
 .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- call from argument --- 
+if (refchips == 0) {
+    wei <- rep(0, m)
+}
  --- R stacktrace ---
-where 1 at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
-where 2 at /var/scratch2/tomas/tmp/Rtmp3SmfqM/R.INSTALLd1b219e7d531/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 1 at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /var/scratch2/tomas/tmp/RtmpCCmtpC/R.INSTALL89ff1d7b41ce/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
 where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A", refchips = leastnoisychips)
 
  --- value of length: 3 type: logical ---
 [1] FALSE FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(X,errtable,refchips){
 	#method as described in GB paper
 	#prepare the receptacle
@@ -187,8 +191,9 @@ function(X,errtable,refchips){
 	dimnames(res)[[2]][1]<-"avg"
 	res
 }
+<bytecode: 0x498b990>
 <environment: namespace:rHVDM>
- --- function (body) search ---
+ --- function search by body ---
 Function .computeinderrtable in namespace rHVDM has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

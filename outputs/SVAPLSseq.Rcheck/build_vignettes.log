@@ -20,10 +20,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Loading required package: S4Vectors
 
@@ -73,16 +73,26 @@ The following object is masked from ‘package:BiocGenerics’:
 
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/RtmpOKfYv3/R.INSTALL1c2f66d96ea9/SVAPLSseq/R/svplsSurr.R#101: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpMtjUyx/R.INSTALL6907541522a2/SVAPLSseq/R/svplsSurr.R#101: 
+ --- package (from environment) --- 
 SVAPLSseq
- --- call (currently evaluated) --- 
+ --- call from context --- 
 svplsSurr(dat = sim.dat, group = group)
+ --- call from argument --- 
+if (surr.select == "automatic") {
+    if (!is.null(controls)) 
+        pvals = anova(lm(as.formula(paste("svd(Y[controls, ])$v[, 1] ~", 
+            surr.effect, sep = " "))))[, 5]
+    if (is.null(controls)) 
+        pvals = anova(lm(as.formula(paste("svd(E)$v[, 1] ~", 
+            surr.effect, sep = " "))))[, 5]
+    index = which(pvals < cutoff)
+}
  --- R stacktrace ---
 where 1: svplsSurr(dat = sim.dat, group = group)
 where 2: eval(expr, .GlobalEnv)
-where 3: eval(expr, .GlobalEnv)
-where 4: withVisible(eval(expr, .GlobalEnv))
+where 3 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 4 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
 where 5: doTryCatch(return(expr), name, parentenv, handler)
 where 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 7: tryCatchList(expr, classes, parentenv, handlers)
@@ -105,27 +115,26 @@ where 8: tryCatch(expr, error = function(e) {
     else prefix <- "Error : "
     msg <- paste0(prefix, conditionMessage(e), "\n")
     .Internal(seterrmessage(msg[1L]))
-    if (!silent && identical(getOption("show.error.messages"), 
-        TRUE)) {
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
         cat(msg, file = outFile)
         .Internal(printDeferredWarnings())
     }
     invisible(structure(msg, class = "try-error", condition = e))
 })
-where 9: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
-where 10: evalFunc(ce, options)
+where 9 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 10 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
 where 11: tryCatchList(expr, classes, parentenv, handlers)
-where 12: tryCatch(evalFunc(ce, options), finally = {
+where 12 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
     cat("\n")
     sink()
 })
-where 13: driver$runcode(drobj, chunk, chunkopts)
-where 14 at ../../../../R/src/library/tools/R/Vignettes.R#1150: utils::Sweave(...)
-where 15: engine$weave(file, quiet = quiet, encoding = enc)
+where 13 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 14 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 15 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
 where 16: doTryCatch(return(expr), name, parentenv, handler)
 where 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 18: tryCatchList(expr, classes, parentenv, handlers)
-where 19: tryCatch({
+where 19 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
     engine$weave(file, quiet = quiet, encoding = enc)
     setwd(startdir)
     find_vignette_product(name, by = "weave", engine = engine)
@@ -133,11 +142,11 @@ where 19: tryCatch({
     stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
         file, conditionMessage(e)), domain = NA, call. = FALSE)
 })
-where 20: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/SVAPLSseq.Rcheck/vign_test/SVAPLSseq")
+where 20: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/SVAPLSseq.Rcheck/vign_test/SVAPLSseq")
 
  --- value of length: 2 type: logical ---
 [1]  TRUE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(dat, group, controls = NULL, phi = function(x) log(x + const), const = 1,
            pls.method = "oscorespls", max.surrs = 3, opt.surrs = 1, surr.select = c("automatic", "manual"), cutoff = 10^-7, parallel = FALSE,
            num.cores = NULL, plot = FALSE){
@@ -192,9 +201,9 @@ function(dat, group, controls = NULL, phi = function(x) log(x + const), const = 
     }
     return(res)
   }
-<bytecode: 0x192ec0a0>
+<bytecode: 0x1ede6318>
 <environment: namespace:SVAPLSseq>
- --- function (body) search ---
+ --- function search by body ---
 Function svplsSurr in namespace SVAPLSseq has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,825 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/seq2pathway.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘seq2pathway/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘seq2pathway’ version ‘1.12.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘seq2pathway’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+FAIME_EmpiricalP: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:146)
+FAIME_EmpiricalP: no visible binding for global variable
+  ‘gencode_coding’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:146)
+FAIME_EmpiricalP: no visible binding for global variable
+  ‘gencode_coding’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:166)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:207)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:207)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:208)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:208)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:209)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:209)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:210)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:210)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:211)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:211)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:212)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:212)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:214)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:214)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:215)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:215)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:217)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:217)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:218)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:218)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:220)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:220)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:221)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:221)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:228)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_hg_v20’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:228)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_hg_v20’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:229)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:231)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_hg_v19’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:231)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_hg_v19’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:232)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:234)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_mm_vM4’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:234)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_mm_vM4’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:235)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:237)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_mm_vM1’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:237)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_GENCODE_df_mm_vM1’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:238)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:277)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:278)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:286)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:299-300)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:302-303)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:305-308)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:310-330)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:312-313)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:315)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:321)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:322)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:322)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:323)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:324)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:327)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:328-329)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:332)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:344-345)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:347-348)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:350-354)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:356-375)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:358-359)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:361)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:367)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:368)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:368)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:369)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:370)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:373)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:374)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:377)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:389-390)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:392-393)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:396-400)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:402-422)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:404-405)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:407)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:413)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘Des_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:414)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:414)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:415)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:416)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:419)
+FisherTest_GO_BP_MF_CC: no visible binding for global variable
+  ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:420-421)
+FisherTest_GO_BP_MF_CC: no visible global function definition for
+  ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:424)
+FisherTest_MsigDB: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:446)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_hg_v20’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:446)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_hg_v20’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:447)
+FisherTest_MsigDB: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:449)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_hg_v19’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:449)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_hg_v19’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:450)
+FisherTest_MsigDB: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:452)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_mm_vM4’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:452)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_mm_vM4’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:453)
+FisherTest_MsigDB: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:455)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_mm_vM1’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:455)
+FisherTest_MsigDB: no visible binding for global variable
+  ‘Msig_GENCODE_df_mm_vM1’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:456)
+FisherTest_MsigDB: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:486)
+FisherTest_MsigDB: no visible global function definition for
+  ‘fisher.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:487)
+FisherTest_MsigDB: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:496)
+KSrank: no visible global function definition for ‘ks.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:528)
+KSrank_EmpiricalP: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:540)
+KSrank_EmpiricalP: no visible binding for global variable
+  ‘gencode_coding’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:540)
+KSrank_EmpiricalP: no visible binding for global variable
+  ‘gencode_coding’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:557)
+KSrank_EmpiricalP: no visible global function definition for ‘ks.test’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:567)
+Normalize_F: no visible global function definition for ‘head’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:590)
+cumulativerank_EmpiricalP: no visible global function definition for
+  ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:66)
+cumulativerank_EmpiricalP: no visible binding for global variable
+  ‘gencode_coding’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:66)
+cumulativerank_EmpiricalP: no visible binding for global variable
+  ‘gencode_coding’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:86)
+gene2pathway_test: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1273)
+gene2pathway_test: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1273)
+gene2pathway_test: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1274)
+gene2pathway_test: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1274)
+gene2pathway_test: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1275)
+gene2pathway_test: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1275)
+gene2pathway_test: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1276)
+gene2pathway_test: no visible binding for global variable ‘Des_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1276)
+gene2pathway_test: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1277)
+gene2pathway_test: no visible binding for global variable ‘Des_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1277)
+gene2pathway_test: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1278)
+gene2pathway_test: no visible binding for global variable ‘Des_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1278)
+gene2pathway_test: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1299-1300)
+gene2pathway_test: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1305-1306)
+gene2pathway_test: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1313-1314)
+gene2pathway_test: no visible binding for global variable ‘Des_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1318)
+gene2pathway_test: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1327-1328)
+gene2pathway_test: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1331-1333)
+gene2pathway_test: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1339-1340)
+gene2pathway_test: no visible binding for global variable ‘Des_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1344)
+gene2pathway_test: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1353-1354)
+gene2pathway_test: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1357-1358)
+gene2pathway_test: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1364-1365)
+gene2pathway_test: no visible binding for global variable ‘Des_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1369)
+rungene2pathway_EmpiricalP: no visible global function definition for
+  ‘txtProgressBar’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:764)
+rungene2pathway_EmpiricalP: no visible global function definition for
+  ‘setTxtProgressBar’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:773)
+rungene2pathway_EmpiricalP: no visible global function definition for
+  ‘setTxtProgressBar’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:798)
+runseq2gene: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:885)
+runseq2gene: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:889-890)
+runseq2gene: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:891-892)
+runseq2gene: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:896)
+runseq2gene: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:900)
+runseq2gene: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:904)
+runseq2gene: no visible global function definition for ‘read.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:985)
+runseq2pathway: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1050)
+runseq2pathway: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1050)
+runseq2pathway: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1051)
+runseq2pathway: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1051)
+runseq2pathway: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1052)
+runseq2pathway: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1052)
+runseq2pathway: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1053)
+runseq2pathway: no visible binding for global variable ‘Des_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1053)
+runseq2pathway: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1054)
+runseq2pathway: no visible binding for global variable ‘Des_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1054)
+runseq2pathway: no visible global function definition for ‘data’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1055)
+runseq2pathway: no visible binding for global variable ‘Des_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1055)
+runseq2pathway: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1088)
+runseq2pathway: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1093-1094)
+runseq2pathway: no visible global function definition for ‘read.table’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1096)
+runseq2pathway: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1113-1114)
+runseq2pathway: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1118-1120)
+runseq2pathway: no visible binding for global variable ‘GO_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1126-1127)
+runseq2pathway: no visible binding for global variable ‘Des_BP_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1132)
+runseq2pathway: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1142-1143)
+runseq2pathway: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1145-1147)
+runseq2pathway: no visible binding for global variable ‘GO_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1152)
+runseq2pathway: no visible binding for global variable ‘Des_MF_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1157)
+runseq2pathway: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1167-1168)
+runseq2pathway: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1170-1172)
+runseq2pathway: no visible binding for global variable ‘GO_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1177-1178)
+runseq2pathway: no visible binding for global variable ‘Des_CC_list’
+  (/var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r:1183)
+Undefined global functions or variables:
+  Des_BP_list Des_CC_list Des_MF_list GO_BP_list GO_CC_list
+  GO_GENCODE_df_hg_v19 GO_GENCODE_df_hg_v20 GO_GENCODE_df_mm_vM1
+  GO_GENCODE_df_mm_vM4 GO_MF_list Msig_GENCODE_df_hg_v19
+  Msig_GENCODE_df_hg_v20 Msig_GENCODE_df_mm_vM1 Msig_GENCODE_df_mm_vM4
+  data fisher.test gencode_coding head ks.test p.adjust read.table
+  setTxtProgressBar txtProgressBar write.table
+Consider adding
+  importFrom("stats", "fisher.test", "ks.test", "p.adjust")
+  importFrom("utils", "data", "head", "read.table", "setTxtProgressBar",
+             "txtProgressBar", "write.table")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘seq2pathway-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: FisherTest_GO_BP_MF_CC
+> ### Title: A wrapper function to perform the Fisher's exact test, using
+> ###   GO-defined genesets.
+> ### Aliases: FisherTest_GO_BP_MF_CC
+> ### Keywords: methods
+> 
+> ### ** Examples
+> 
+>   data(dat_chip)
+>   head(dat_chip)
+           peakscore
+ABCD4       8.433123
+ABHD12B     9.526305
+ABHD4       9.988747
+AC004817.1 10.086676
+AC005477.1 10.086676
+AC007375.1 10.186544
+>   data(GO_BP_list,package="seq2pathway.data")
+>   data(Des_BP_list,package="seq2pathway.data")
+>   newOntology <- list(GO_BP_list[1:200], Des_BP_list[1:200])
+>   # A demo run of this funcion
+>   FS_test<- FisherTest_GO_BP_MF_CC(gs=as.vector(rownames(dat_chip)),
++                                  Ontology="newOntology", newOntology=newOntology)
+Warning in FisherTest_GO_BP_MF_CC(gs = as.vector(rownames(dat_chip)), Ontology = "newOntology",  :
+  Ontology other than 'GOterm','BP','MF' and 'CC' is test
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpol7ndd/R.INSTALLc3f2173c8cc1/seq2pathway/R/seq2pathway-internal.r#200: 
+ --- package (from environment) --- 
+seq2pathway
+ --- call from context --- 
+FisherTest_GO_BP_MF_CC(gs = as.vector(rownames(dat_chip)), Ontology = "newOntology", 
+    newOntology = newOntology)
+ --- call from argument --- 
+if (names(newOntology[[1]]) != names(newOntology[[2]])) {
+    stop("the two lists of newOntology should have the same ontology IDs.")
+}
+ --- R stacktrace ---
+where 1: FisherTest_GO_BP_MF_CC(gs = as.vector(rownames(dat_chip)), Ontology = "newOntology", 
+    newOntology = newOntology)
+
+ --- value of length: 200 type: logical ---
+  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function(gs,
+    genome=c("hg38","hg19","mm10","mm9"),min_Intersect_Count=5, 
+    Ontology=c("GOterm","BP","MF","CC", "newOntology"), newOntology=NULL)
+{
+if(missing(min_Intersect_Count)) {min_Intersect_Count=5}
+if(!Ontology %in% c("GOterm","BP","MF","CC")) 
+ { warning ("Ontology other than 'GOterm','BP','MF' and 'CC' is test")
+   if(length(newOntology)<2) {
+	stop ("newOntology should be a list of two lists with the same list names.")}
+   if(length(newOntology[[1]])!=length(newOntology[[2]])){ 
+          stop ("newOntology should be a list of two equal-length lists.")}
+   if(names(newOntology[[1]])!=names(newOntology[[2]])){        
+          stop ("the two lists of newOntology should have the same ontology IDs.")}
+          }
+if(is.null(newOntology)) 
+{
+####load GP pathway information
+if(Ontology =="GOterm") {
+   data(GO_BP_list,package="seq2pathway.data")
+   data(GO_MF_list,package="seq2pathway.data")
+   data(GO_CC_list,package="seq2pathway.data") 
+   data(Des_BP_list,package="seq2pathway.data")
+   data(Des_MF_list,package="seq2pathway.data")
+   data(Des_CC_list,package="seq2pathway.data")
+   } else  if(Ontology =="BP") {
+         data(GO_BP_list,package="seq2pathway.data") 
+         data(Des_BP_list,package="seq2pathway.data")
+         } else if(Ontology =="MF") {
+              data(GO_MF_list,package="seq2pathway.data") 
+              data(Des_MF_list,package="seq2pathway.data")
+              } else if(Ontology =="CC") {
+                  data(GO_CC_list,package="seq2pathway.data")
+                  data(Des_CC_list,package="seq2pathway.data")
+                  }
+}
+#######check genome
+if(missing(genome)){genome="hg19"}
+#####load  GO_GENCODE_databse_intersect_gene information
+if(genome=="hg38"){
+data(GO_GENCODE_df_hg_v20,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_hg_v20
+}else if(genome=="hg19"){
+data(GO_GENCODE_df_hg_v19,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_hg_v19
+}else if(genome=="mm10"){
+data(GO_GENCODE_df_mm_vM4,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_mm_vM4
+}else if(genome=="mm9"){
+data(GO_GENCODE_df_mm_vM1,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_mm_vM1
+}
+
+GO_FisherTest_result<-list()
+n.list=0
+############## newOntology
+if(!is.null(newOntology)) 
+{
+n.list <- n.list+1
+# newOntology <- list(GO_BP_list[1:200], Des_BP_list[1:200])
+gene_list <- newOntology[[1]]
+Des_list <- newOntology[[2]]
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(gene_list))), 
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with gene_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(gene_list))),
+	unique(toupper(unlist(gs)))))
+
+mdat <- matrix(, nrow = length(gene_list), ncol = 9, byrow = TRUE,
+               dimnames = list(c(1:length(gene_list)),
+               c("GOID","Description","Fisher_Pvalue", "Fisher_odds","FDR",
+		"Intersect_Count","GO_gene_inBackground","GO_gene_raw_Count",
+		"Intersect_gene")))
+mdat<-as.data.frame(mdat)
+
+for(i in 1:length(gene_list)){
+
+pathwaygene<-length(intersect(toupper(gene_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(gene_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(gene_list)[i]
+mdat[i,2]<-as.character(Des_list[which(names(Des_list)==names(gene_list)[i])])
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(gene_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(gene_list[[i]]),
+	unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("newOntology")
+} else
+{
+####################GO:BP
+if(Ontology %in% c("GOterm","BP"))
+{
+n.list=n.list+1
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(GO_BP_list))), 
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with GO_BP_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(GO_BP_list))),
+	unique(toupper(unlist(gs)))))
+
+mdat <- matrix(, nrow = length(GO_BP_list), ncol = 9, byrow = TRUE,
+        dimnames = list(c(1:length(GO_BP_list)),
+        c("GOID","Description","Fisher_Pvalue", "Fisher_odds","FDR",
+	 "Intersect_Count","GO_gene_inBackground","GO_gene_raw_Count","Intersect_gene")))
+mdat<-as.data.frame(mdat)
+for(i in 1:length(GO_BP_list)){
+
+pathwaygene<-length(intersect(toupper(GO_BP_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(GO_BP_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(GO_BP_list)[i]
+mdat[i,2]<-as.character(Des_BP_list[which(names(Des_BP_list)==names(GO_BP_list)[i])])
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(GO_BP_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(GO_BP_list[[i]]),
+	unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("GO_BP")
+}
+####################GO:CC
+if(Ontology %in% c("GOterm","CC"))
+{
+n.list=n.list+1
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(GO_CC_list))), 
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with GO_CC_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(GO_CC_list))),
+	unique(toupper(unlist(gs)))))
+
+mdat <- matrix(, nrow = length(GO_CC_list), ncol = 9, byrow = TRUE,
+               dimnames = list(c(1:length(GO_CC_list)),
+                             c("GOID","Description","Fisher_Pvalue", 
+				"Fisher_odds","FDR","Intersect_Count",
+				"GO_gene_inBackground","GO_gene_raw_Count","Intersect_gene")))
+mdat<-as.data.frame(mdat)
+for(i in 1:length(GO_CC_list)){
+
+pathwaygene<-length(intersect(toupper(GO_CC_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(GO_CC_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(GO_CC_list)[i]
+mdat[i,2]<-Des_CC_list[which(names(Des_CC_list)==names(GO_CC_list)[i])]
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(GO_CC_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(GO_CC_list[[i]]),unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("GO_CC")
+}
+####################GO:MF
+if(Ontology %in% c("GOterm","MF"))
+{
+n.list=n.list+1
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(GO_MF_list))),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with GO_MF_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(GO_MF_list))),
+	unique(toupper(unlist(gs)))))
+
+
+mdat <- matrix(, nrow = length(GO_MF_list), ncol = 9, byrow = TRUE,
+               dimnames = list(c(1:length(GO_MF_list)),
+                            c("GOID","Description","Fisher_Pvalue", 
+				"Fisher_odds","FDR","Intersect_Count",
+				"GO_gene_inBackground","GO_gene_raw_Count","Intersect_gene")))
+mdat<-as.data.frame(mdat)
+for(i in 1:length(GO_MF_list)){
+
+pathwaygene<-length(intersect(toupper(GO_MF_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(GO_MF_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(GO_MF_list)[i]
+mdat[i,2]<-Des_MF_list[which(names(Des_MF_list)==names(GO_MF_list)[i])]
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(GO_MF_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(GO_MF_list[[i]]),
+	unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("GO_MF")
+}
+}
+
+print("Fisher's exact test done")
+return(GO_FisherTest_result)
+}
+<bytecode: 0x3a471d0>
+<environment: namespace:seq2pathway>
+ --- function search by body ---
+Function FisherTest_GO_BP_MF_CC in namespace seq2pathway has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 NOTE

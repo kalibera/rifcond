@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -42,10 +42,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Welcome to Bioconductor
 
@@ -74,7 +74,7 @@ BibTex: enter 'toBibtex(citation("fabia"))'
 
 Homepage: http://www.bioinf.jku.at/software/fabia/fabia.html
 
-FABIA Package Version 2.25.0
+FABIA Package Version 2.26.0
 
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -1149,7 +1149,7 @@ Cycle: 0Cycle: 20Cycle: 40Cycle: 50
 > 
 > fabiaVersion()
 
-FABIA Package Version 2.25.0
+FABIA Package Version 2.26.0
 
 
 Copyright (c) 2010 by Sepp Hochreiter
@@ -8646,17 +8646,21 @@ Cycle: 0Cycle: 20
 > plotBicluster(rEx,p=1)
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/RtmpW0P7nB/R.INSTALLce7a4f04626a/fabia/R/fabia.R#1504: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/Rtmp06pE5S/R.INSTALLf5ef794def49/fabia/R/fabia.R#1504: 
+ --- package (from environment) --- 
 fabia
- --- call (currently evaluated) --- 
+ --- call from context --- 
 plotBicluster(rEx, p = 1)
+ --- call from argument --- 
+if (is(r) == "Factorization") {
+    stop("First argument is of the class Factorization but must be the result of the function extractBic() (a list). Stopped.")
+}
  --- R stacktrace ---
 where 1: plotBicluster(rEx, p = 1)
 
  --- value of length: 3 type: logical ---
 [1] FALSE FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(r,p,opp=FALSE,zlim=NULL,title=NULL,which=c(1, 2)){
 
 
@@ -8921,8 +8925,9 @@ axis(BELOW<-1, at=1:xbl, labels=xLabels[1:xbl], cex.axis=0.7)
 }
 devAskNewPage(ask = FALSE)
 }
+<bytecode: 0x6ac45e0>
 <environment: namespace:fabia>
- --- function (body) search ---
+ --- function search by body ---
 Function plotBicluster in namespace fabia has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

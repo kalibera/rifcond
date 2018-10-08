@@ -1,0 +1,238 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/SEPA.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘SEPA/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SEPA’ version ‘1.10.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘SEPA’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+patternGOanalysis: no visible global function definition for ‘new’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/patternGOanalysis.R:62)
+pseudotimepattern : <anonymous>: no visible global function definition
+  for ‘lm’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:51)
+pseudotimepattern: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:58)
+pseudotimepattern: no visible global function definition for ‘lm’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:76)
+pseudotimepattern: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:103)
+pseudotimepattern: no visible global function definition for ‘confint’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:106)
+pseudotimepattern: no visible global function definition for ‘confint’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:107)
+pseudotimepattern: no visible global function definition for ‘confint’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:108)
+pseudotimepattern: no visible global function definition for ‘fitted’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:109)
+pseudotimepattern : <anonymous>: no visible global function definition
+  for ‘lm’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:125)
+pseudotimepattern : <anonymous>: no visible global function definition
+  for ‘fitted’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:126)
+pseudotimepattern: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimepattern.R:130)
+pseudotimevisualize: no visible binding for global variable
+  ‘pseudotime’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimevisualize.R:79)
+pseudotimevisualize: no visible binding for global variable ‘Var2’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimevisualize.R:94-96)
+pseudotimevisualize: no visible binding for global variable ‘Var1’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimevisualize.R:94-96)
+pseudotimevisualize: no visible binding for global variable ‘value’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimevisualize.R:94-96)
+pseudotimevisualize: no visible binding for global variable ‘xend’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimevisualize.R:94-96)
+pseudotimevisualize: no visible binding for global variable ‘yend’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/pseudotimevisualize.R:94-96)
+truetimepattern : <anonymous> : <anonymous>: no visible global function
+  definition for ‘t.test’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimepattern.R:28)
+truetimepattern : <anonymous>: no visible global function definition
+  for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimepattern.R:30)
+truetimevisualize : <anonymous> : <anonymous>: no visible global
+  function definition for ‘median’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R:31)
+truetimevisualize: no visible binding for global variable ‘time’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R:35-53)
+truetimevisualize: no visible binding for global variable ‘expmean’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R:35-53)
+truetimevisualize: no visible binding for global variable ‘Gene’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R:35-53)
+windowGOanalysis: no visible global function definition for ‘new’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/windowGOanalysis.R:56)
+windowGOvisualize: no visible binding for global variable ‘Var1’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/windowGOvisualize.R:53)
+windowGOvisualize: no visible binding for global variable ‘value’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/windowGOvisualize.R:53)
+windowGOvisualize: no visible binding for global variable ‘Var1’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/windowGOvisualize.R:55-57)
+windowGOvisualize: no visible binding for global variable ‘value’
+  (/var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/windowGOvisualize.R:55-57)
+Undefined global functions or variables:
+  Gene Var1 Var2 confint expmean fitted lines lm median new p.adjust
+  pseudotime t.test time value xend yend
+Consider adding
+  importFrom("graphics", "lines")
+  importFrom("methods", "new")
+  importFrom("stats", "confint", "fitted", "lm", "median", "p.adjust",
+             "t.test", "time")
+to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+contains 'methods').
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘SEPA-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: truetimevisualize
+> ### Title: truetimevisualize
+> ### Aliases: truetimevisualize
+> 
+> ### ** Examples
+> 
+> data(HSMMdata)
+> truetimevisualize(HSMMdata,truetime,c("ENSG00000122180.4","ENSG00000125968.7"))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#28: 
+ --- package (from environment) --- 
+SEPA
+ --- call from context --- 
+FUN(X[[i]], ...)
+ --- call from argument --- 
+if (mode == "mean") {
+    mean(e[truetime == levels(truetime)[i]])
+} else {
+    median(e[truetime == levels(truetime)[i]])
+}
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: lapply(X = X, FUN = FUN, ...)
+where 3 at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#27: sapply(1:length(levels(truetime)), function(i) {
+    if (mode == "mean") {
+        mean(e[truetime == levels(truetime)[i]])
+    }
+    else {
+        median(e[truetime == levels(truetime)[i]])
+    }
+})
+where 4: FUN(X[[i]], ...)
+where 5: lapply(X = X, FUN = FUN, ...)
+where 6 at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#25: sapply(gene, function(singlegene) {
+    e <- expr[singlegene, names(truetime)]
+    sapply(1:length(levels(truetime)), function(i) {
+        if (mode == "mean") {
+            mean(e[truetime == levels(truetime)[i]])
+        }
+        else {
+            median(e[truetime == levels(truetime)[i]])
+        }
+    })
+})
+where 7 at /var/scratch2/tomas/tmp/RtmpQA8YNe/R.INSTALL50ae5c768e96/SEPA/R/truetimevisualize.R#25: as.vector(sapply(gene, function(singlegene) {
+    e <- expr[singlegene, names(truetime)]
+    sapply(1:length(levels(truetime)), function(i) {
+        if (mode == "mean") {
+            mean(e[truetime == levels(truetime)[i]])
+        }
+        else {
+            median(e[truetime == levels(truetime)[i]])
+        }
+    })
+}))
+where 8: truetimevisualize(HSMMdata, truetime, c("ENSG00000122180.4", 
+    "ENSG00000125968.7"))
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(i) {
+                  if (mode == "mean") {
+                        mean(e[truetime==levels(truetime)[i]])      
+                  } else {
+                        median(e[truetime==levels(truetime)[i]])
+                  }                  
+            }
+<bytecode: 0x145984c0>
+<environment: 0x144ab378>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+where 30 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 31: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/SEPA.Rcheck/vign_test/SEPA")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(i) {
+                  if (mode == "mean") {
+                        mean(e[truetime==levels(truetime)[i]])      
+                  } else {
+                        median(e[truetime==levels(truetime)[i]])
+                  }                  
+            }
+<bytecode: 0x20852e70>
+<environment: 0x208a1d10>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 1 NOTE

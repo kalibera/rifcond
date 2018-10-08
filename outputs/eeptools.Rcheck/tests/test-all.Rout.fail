@@ -1,0 +1,158 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(eeptools)
+Loading required package: ggplot2
+> 
+> test_check("eeptools")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpkjUEW5/R.INSTALL5f7f6ce3c7b5/eeptools/R/max_mis.R#21: 
+ --- package (from environment) --- 
+eeptools
+ --- call from context --- 
+max_mis(ordered("A", "B", "C"))
+ --- call from argument --- 
+if (varclass %in% c("ordered", "factor", "character")) {
+    stop("Vector must be of class integer or real to take maximum values")
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpHQoy6X/R.INSTALLb0473fc72854/rlang/R/eval.R#103: max_mis(ordered("A", "B", "C"))
+where 2 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/expectation.R#99: eval_bare(get_expr(quo), get_env(quo))
+where 3: doTryCatch(return(expr), name, parentenv, handler)
+where 4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 5: tryCatchList(expr, classes, parentenv, handlers)
+where 6 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/capture-condition.R#36: tryCatch({
+    code
+    NULL
+}, error = function(e) e)
+where 7 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 8 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/expect-output.R#120: quasi_capture(enquo(object), capture_error, label = label)
+where 9 at testthat/test-utils.R#91: expect_error(max_mis(ordered("A", "B", "C")))
+where 10: eval(code, test_env)
+where 11 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-that.R#152: eval(code, test_env)
+where 12 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 13: doTryCatch(return(expr), name, parentenv, handler)
+where 14: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 15: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 16: doTryCatch(return(expr), name, parentenv, handler)
+where 17: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 18: tryCatchList(expr, classes, parentenv, handlers)
+where 19 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 20 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 21 at testthat/test-utils.R#83: test_that("max_mis handles missing data correctly", {
+    expect_identical(max(c(7, NA, 3, 2, 0), na.rm = TRUE), max_mis(c(7, 
+        NA, 3, 2, 0)))
+    max(c(NA, NA, NA, NA), na.rm = TRUE)
+    expect_identical(max_mis(c(NA, NA, NA, NA)), NA_real_)
+    expect_identical(max_mis(c(NA_real_, NA_real_)), NA_real_)
+    expect_identical(max_mis(c()), NA_real_)
+    expect_error(max_mis(c("A", "B", "C")))
+    expect_error(max_mis(factor("A", "B", "C")))
+    expect_error(max_mis(ordered("A", "B", "C")))
+})
+where 22: eval(code, test_env)
+where 23 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-that.R#152: eval(code, test_env)
+where 24 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 25: doTryCatch(return(expr), name, parentenv, handler)
+where 26: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 27: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 28: doTryCatch(return(expr), name, parentenv, handler)
+where 29: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 30: tryCatchList(expr, classes, parentenv, handlers)
+where 31 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 32 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 33 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 34 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/reporter-zzz.R#53: force(code)
+where 35 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 36: FUN(X[[i]], ...)
+where 37 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 38 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/reporter-zzz.R#53: force(code)
+where 39 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 40 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 41 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 42 at /var/scratch2/tomas/tmp/Rtmp6ZvNw6/R.INSTALLdda98b3b235/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 43: test_check("eeptools")
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function(x){
+  varclass <- class(x)
+  if(varclass %in% c("ordered", "factor", "character")){
+    stop("Vector must be of class integer or real to take maximum values")
+  }
+  suppressWarnings(x <- max(x, na.rm=TRUE))
+  if(varclass == "integer"){
+    ifelse(!is.finite(x), NA_integer_, x)
+  } else if(varclass == "numeric") {
+    ifelse(!is.finite(x), NA_real_, x)
+  } else if(varclass %in% c("NULL", "logical")){
+    NA_real_
+  }
+}
+<bytecode: 0x1110f6a0>
+<environment: namespace:eeptools>
+ --- function search by body ---
+Function max_mis in namespace eeptools has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

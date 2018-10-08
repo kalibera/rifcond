@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -45,10 +45,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Loading required package: Biobase
 Welcome to Bioconductor
@@ -125,26 +125,6 @@ Loading required package: org.Hs.eg.db
 > 
 > 
 > cleanEx()
-> nameEx("add_KEGG_drugs")
-> ### * add_KEGG_drugs
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: add_KEGG_drugs
-> ### Title: Add edges from disease/drug tables
-> ### Aliases: add_KEGG_drugs
-> 
-> ### ** Examples
-> 
-> end_res_KGML <- get_KGML("hsa01522")
-> end_res_KEGG_mappings <- expand_KEGG_mappings(end_res_KGML)
-> end_res_edges <- expand_KEGG_edges(end_res_KGML, end_res_KEGG_mappings)
-> end_res_drugs <- get_drug_table("hsa01522")
-> edges_plus_kdrug <- add_KEGG_drugs(end_res_edges, end_res_KEGG_mappings, end_res_drugs)
-> 
-> 
-> 
-> cleanEx()
 > nameEx("add_edge_data")
 > ### * add_edge_data
 > 
@@ -161,27 +141,34 @@ Loading required package: org.Hs.eg.db
 > p53_edges <- expand_KEGG_edges(p53_KGML, p53_KEGG_mappings)
 > p53_HA1E_data <- overlap_info(p53_KGML, p53_KEGG_mappings, 'HA1E', 
 +                                data_type = '100_bing', only_mapped = FALSE)
-Number of genes documented in selected pathway = 68 
-Number of pathway genes in dataset = 48
-Coverage = 70.59%
+Number of genes documented in selected pathway = 72 
+Number of pathway genes in dataset = 50
+Coverage = 69.44%
 >                                
 > p53_edges_HA1E_ALL <- add_edge_data(p53_edges, p53_KEGG_mappings, 
 +                                      p53_HA1E_data, c(3, 10,12))
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/Rtmpfwqs0p/R.INSTALLb98e188873e2/KEGGlincs/R/add_edge_data.R#41: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpW32ZHr/R.INSTALL4c206c01b41b/KEGGlincs/R/add_edge_data.R#41: 
+ --- package (from environment) --- 
 KEGGlincs
- --- call (currently evaluated) --- 
+ --- call from context --- 
 add_edge_data(p53_edges, p53_KEGG_mappings, p53_HA1E_data, c(3, 
     10, 12))
+ --- call from argument --- 
+if (map_type == "SYMBOL") {
+    expanded_edges$unique_ID = paste0(expanded_edges$entry1symbol, 
+        ",", expanded_edges$entry2symbol)
+    expanded_edges$unique_IDR = paste0(expanded_edges$entry2symbol, 
+        ",", expanded_edges$entry1symbol)
+}
  --- R stacktrace ---
 where 1: add_edge_data(p53_edges, p53_KEGG_mappings, p53_HA1E_data, c(3, 
     10, 12))
 
  --- value of length: 3 type: logical ---
 [1] FALSE FALSE FALSE
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function(expanded_edges, KEGG_mappings,
                           user_data, map_type = "SYMBOL",data_column_no = 3,
                           only_mapped = FALSE) {
@@ -423,8 +410,9 @@ function(expanded_edges, KEGG_mappings,
     }
     return(all_edges)
         }
+<bytecode: 0xf8de368>
 <environment: namespace:KEGGlincs>
- --- function (body) search ---
+ --- function search by body ---
 Function add_edge_data in namespace KEGGlincs has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,331 @@
+
+> library(splines)
+
+> library(stats)
+
+> library(golubEsets)
+Loading required package: Biobase
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+> library(vsn)
+
+> oldopt <- options(digits = 3)
+
+> on.exit({
++     options(oldopt)
++ })
+
+> options(width = 75)
+
+> data(Golub_Train)
+
+> golubNorm <- justvsn(Golub_Train)
+
+> id <- as.numeric(Golub_Train$ALL.AML)
+
+> Golub_Train$ALL.AML
+ [1] ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL
+[18] ALL ALL ALL ALL ALL ALL ALL ALL ALL ALL AML AML AML AML AML AML AML
+[35] AML AML AML AML
+Levels: ALL AML
+
+> id
+ [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2
+[36] 2 2 2
+
+> library(twilight)
+
+> pval <- twilight.pval(golubNorm, id, B = 100)
+No complete enumeration. Prepare permutation matrix. 
+Compute vector of observed statistics. 
+Compute expected scores and p-values. This will take approx. 1 seconds. 
+Compute q-values. 
+Compute values for confidence lines. 
+
+> data(expval)
+
+> expval
+
+ Twilight object with
+     7129 transcripts
+     observed and expected test statistics
+     p- and q-values
+
+ Estimated percentage of non-induced genes:
+     pi0 
+0.619148 
+
+ Function call:
+ Test: fc. Paired: FALSE. Number of permutations: 1000. Balanced: FALSE. 
+
+> class(expval)
+[1] "twilight"
+
+> names(expval)
+ [1] "result"   "s0"       "ci.line"  "quant.ci" "lambda"   "pi0"     
+ [7] "boot.pi0" "boot.ci"  "effect"   "call"    
+
+> names(expval$result)
+ [1] "observed"  "expected"  "candidate" "pvalue"    "qvalue"   
+ [6] "fdr"       "mean.fdr"  "lower.fdr" "upper.fdr" "index"    
+
+> expval$result[1:7, 1:5]
+                observed   expected candidate       pvalue      qvalue
+M84526_at       3.990578  1.1091753         1 1.402721e-07 0.000619148
+M27891_at       3.669657  0.9709790         1 2.805443e-07 0.000619148
+M89957_at      -3.153319 -1.1007286         1 4.208164e-07 0.000619148
+X82240_rna1_at -3.111376 -0.9651917         1 5.610885e-07 0.000619148
+U89922_s_at    -2.954233 -0.8979189         1 7.013606e-07 0.000619148
+M19507_at       2.925666  0.8936237         1 8.416328e-07 0.000619148
+M11722_at      -2.689999 -0.8471725         1 9.819049e-07 0.000619148
+
+> bitmap(file = "tr_2004_01-scores.png", width = 6, 
++     height = 4.5, pointsize = 10)
+
+> plot(expval, which = "scores", grayscale = F, legend = F)
+
+> dev.off()
+null device 
+          1 
+
+> bitmap(file = "tr_2004_01-qvalues.png", width = 6, 
++     height = 4.5, pointsize = 10)
+
+> plot(expval, which = "qvalues")
+
+> dev.off()
+null device 
+          1 
+
+> expval$pi0
+[1] 0.619148
+
+> gene <- exprs(golubNorm)[pval$result$index[1], ]
+
+> corr <- twilight.pval(golubNorm, gene, method = "spearman", 
++     quant.ci = 0.99, B = 100)
+Compute vector of observed statistics. 
+Compute expected scores and p-values. This will take approx. 0 seconds. 
+Compute q-values. 
+Compute values for confidence lines. 
+
+> corr
+
+ Twilight object with
+     7129 transcripts
+     observed and expected test statistics
+     p- and q-values
+
+ Estimated percentage of non-induced genes:
+     pi0 
+0.636817 
+
+ Function call:
+ Test: spearman. Number of permutations: 100. 
+
+> corr$result[1:10, 1:5]
+                   observed   expected candidate       pvalue     qvalue
+M27891_at         1.0000000  0.5660444         1 1.402721e-06 0.00636817
+J03801_f_at       0.7901302  0.5348747         1 2.805443e-06 0.00636817
+D88422_at         0.7850968  0.5147150         1 4.208164e-06 0.00636817
+Z15115_at        -0.7577415 -0.5702768         1 5.610885e-06 0.00636817
+M83667_rna1_s_at  0.7566473  0.5037750         1 7.013606e-06 0.00636817
+M19045_f_at       0.7557720  0.4942313         1 8.416328e-06 0.00636817
+M33195_at         0.7481125  0.4873400         1 9.819049e-06 0.00636817
+X64072_s_at       0.7474560  0.4812605         1 1.122177e-05 0.00636817
+U22376_cds2_s_at -0.7457052 -0.5377131         1 1.262449e-05 0.00636817
+M63138_at         0.7439545  0.4756538         1 1.402721e-05 0.00636817
+
+> bitmap(file = "tr_2004_01-corr.png", width = 6, height = 4.5, 
++     pointsize = 10)
+
+> plot(corr, which = "scores", grayscale = F, legend = F)
+
+> dev.off()
+null device 
+          1 
+
+> yperm <- twilight.filtering(golubNorm, id, method = "fc", 
++     num.perm = 50, num.take = 10)
+Filtering: Wait for 5 to 15 dots .....done
+
+> dim(yperm)
+[1] 50 38
+
+> yperm <- yperm[-1, ]
+
+> b <- twilight.pval(golubNorm, yperm[1, ], method = "fc", 
++     yperm = yperm)
+Compute vector of observed statistics. 
+Compute expected scores and p-values. This will take approx. 0 seconds. 
+Compute q-values. 
+Compute values for confidence lines. 
+
+> hist(b$result$pvalue, col = "gray", br = 20)
+
+> bitmap(file = "tr_2004_01-hist.png", width = 6, height = 4.5, 
++     pointsize = 10)
+
+> hist(b$result$pvalue, col = "gray", br = 20, main = "", 
++     xlab = "P-value")
+
+> dev.off()
+pdf 
+  2 
+
+> data(exfdr)
+
+> exfdr
+
+ Twilight object with
+     7129 transcripts
+     observed and expected test statistics
+     p- and q-values
+     local FDR
+     bootstrap estimates of local FDR
+
+ Bootstrap estimate of percentage of non-induced
+ genes with lower and upper 95% CI:
+       pi0 lower.pi0 upper.pi0
+ 0.6263987   0.59279 0.6568944
+
+ Function call:
+ Test: fc. Paired: FALSE. Number of permutations: 1000. Balanced: FALSE. 
+ Function twilight used lambda = 0.02 
+
+> exfdr$result[1:5, 6:9]
+                      fdr   mean.fdr   lower.fdr  upper.fdr
+M84526_at      0.01024130 0.01015424 0.007309932 0.01307063
+M27891_at      0.01024240 0.01015535 0.007311074 0.01307174
+M89957_at      0.01024351 0.01015646 0.007312216 0.01307286
+X82240_rna1_at 0.01024461 0.01015756 0.007313358 0.01307398
+U89922_s_at    0.01024571 0.01015867 0.007314500 0.01307509
+
+> bitmap(file = "tr_2004_01-fdr.png", width = 6, height = 4.5, 
++     pointsize = 10)
+
+> plot(exfdr, which = "fdr", grayscale = F, legend = T)
+
+> dev.off()
+pdf 
+  2 
+
+> bitmap(file = "tr_2004_01-volcano.png", width = 6, 
++     height = 4.5, pointsize = 10)
+
+> plot(exfdr, which = "volcano")
+
+> dev.off()
+pdf 
+  2 
+
+> bitmap(file = "tr_2004_01-effectsize.png", width = 6, 
++     height = 4.5, pointsize = 10)
+
+> plot(exfdr, which = "effectsize", legend = T)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpPJ8FIH/R.INSTALLba613654bed/twilight/R/plot.twilight.R#156: 
+ --- package (from environment) --- 
+twilight
+ --- call from context --- 
+funk5(x, legend, ...)
+ --- call from argument --- 
+if (is.nan(yin$effect[[1]])) {
+    stop("The input object must contain effect size frequencies.\n Choose 'scores' or 'qvalues' instead or run twilight.\n")
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpPJ8FIH/R.INSTALLba613654bed/twilight/R/plot.twilight.R#218: funk5(x, legend, ...)
+where 2 at ../../../../R/src/library/graphics/R/plot.R#21: plot.twilight(exfdr, which = "effectsize", legend = T)
+where 3: plot(exfdr, which = "effectsize", legend = T)
+where 4: eval(ei, envir)
+where 5: eval(ei, envir)
+where 6: withVisible(eval(ei, envir))
+where 7 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
+    source(output, echo = TRUE)
+}, error = function(e) {
+    cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
+    stop(conditionMessage(e), call. = FALSE, domain = NA)
+})
+where 12: tools:::.run_one_vignette("tr_2004_01.Rnw", "/var/scratch2/tomas/test/mine/R-75396/check/twilight.Rcheck/00_pkg_src/twilight/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-75396/check/twilight.Rcheck/00_pkg_src/twilight")
+
+ --- value of length: 73 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[45] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function(yin,leg,...){
+    if (is.nan(yin$effect[[1]])){
+      stop("The input object must contain effect size frequencies.\n Choose 'scores' or 'qvalues' instead or run twilight.\n")
+    }
+
+    check <- unlist(strsplit(yin$call," "))
+    if (check[2]!="fc."){
+      stop("Effect size distributions can only be estimated with twilight.pval(.,method='fc').\n")
+    }
+
+    all <- hist(yin$result$observed,br=yin$effect$breaks,plot=FALSE)
+
+    x.fc   <- yin$result$observed
+
+    mini   <- ceiling(min(x.fc))
+    maxi   <- floor(max(x.fc))
+    x.tick <- seq(mini,maxi,length=abs(mini)+abs(maxi)+1)
+
+    x.lab  <- (exp(abs(x.tick))-1)*100
+    x.lab  <- paste(sign(x.tick)*round(x.lab),"%",sep="")
+
+    plot(all,col=gray(0.7),xaxt="n",main="",xlab="Fold change equivalent score")
+    plot(yin$effect,col="black",add=TRUE)
+
+    if (leg==TRUE){
+      legend(mean(x.tick[5:6]),max(all$counts),legend=c("Mixture","Alternative"),lty=c(1,1),bty="n",col=c(gray(0.7),"black"),lwd=c(2,2),y.intersp=2)
+    }
+      
+    axis(1,at=x.tick,labels=x.lab)
+
+  }
+<bytecode: 0x6f473e0>
+<environment: 0x7b16450>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

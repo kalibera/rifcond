@@ -22,11 +22,11 @@ The following objects are masked from ‘package:base’:
     anyDuplicated, append, as.data.frame, basename,
     cbind, colMeans, colSums, colnames, dirname,
     do.call, duplicated, eval, evalq, get, grep,
-    grepl, intersect, is.unsorted, lapply, lengths,
-    mapply, match, mget, order, paste, pmax,
-    pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
-    rowSums, rownames, sapply, setdiff, sort, table,
-    tapply, union, unique, unsplit, which, which.max,
+    grepl, intersect, is.unsorted, lapply, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max,
     which.min
 
 Loading required package: S4Vectors
@@ -92,22 +92,26 @@ Loading required package: ggplot2
 Loading required package: grid
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
-: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/Rtmpv915YN/R.INSTALL64ea37cb8ae7/Guitar/R/GuitarPlot2.R#17: 
+ --- package (from environment) --- 
 Guitar
- --- call (currently evaluated) --- 
+ --- call from context --- 
 withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+ --- call from argument --- 
+if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & is.na(genome)) {
+    stop("Must provide at least one of the three: GuitarCoords, txdb or genome")
+}
  --- R stacktrace ---
 where 1: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
-where 2 at /var/scratch2/tomas/tmp/RtmpX8W0n6/R.INSTALLb8bd128eb6a6/Guitar/R/GuitarPlot2.R#17: suppressWarnings(if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & 
+where 2 at /var/scratch2/tomas/tmp/Rtmpv915YN/R.INSTALL64ea37cb8ae7/Guitar/R/GuitarPlot2.R#17: suppressWarnings(if (is.na(GuitarCoordsFromTxDb) & is.na(txdb) & 
     is.na(genome)) {
     stop("Must provide at least one of the three: GuitarCoords, txdb or genome")
 })
 where 3: GuitarPlot(gfeatures = feature_hg19, GuitarCoordsFromTxDb = gc_txdb, 
     saveToPDFprefix = "example2")
 where 4: eval(expr, .GlobalEnv)
-where 5: eval(expr, .GlobalEnv)
-where 6: withVisible(eval(expr, .GlobalEnv))
+where 5 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 6 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
 where 7: doTryCatch(return(expr), name, parentenv, handler)
 where 8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 9: tryCatchList(expr, classes, parentenv, handlers)
@@ -130,27 +134,26 @@ where 10: tryCatch(expr, error = function(e) {
     else prefix <- "Error : "
     msg <- paste0(prefix, conditionMessage(e), "\n")
     .Internal(seterrmessage(msg[1L]))
-    if (!silent && identical(getOption("show.error.messages"), 
-        TRUE)) {
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
         cat(msg, file = outFile)
         .Internal(printDeferredWarnings())
     }
     invisible(structure(msg, class = "try-error", condition = e))
 })
-where 11: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
-where 12: evalFunc(ce, options)
+where 11 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 12 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
 where 13: tryCatchList(expr, classes, parentenv, handlers)
-where 14: tryCatch(evalFunc(ce, options), finally = {
+where 14 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
     cat("\n")
     sink()
 })
-where 15: driver$runcode(drobj, chunk, chunkopts)
-where 16 at ../../../../R/src/library/tools/R/Vignettes.R#1150: utils::Sweave(...)
-where 17: engine$weave(file, quiet = quiet, encoding = enc)
+where 15 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 16 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 17 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
 where 18: doTryCatch(return(expr), name, parentenv, handler)
 where 19: tryCatchOne(expr, names, parentenv, handlers[[1L]])
 where 20: tryCatchList(expr, classes, parentenv, handlers)
-where 21: tryCatch({
+where 21 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
     engine$weave(file, quiet = quiet, encoding = enc)
     setwd(startdir)
     find_vignette_product(name, by = "weave", engine = engine)
@@ -158,7 +161,7 @@ where 21: tryCatch({
     stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
         file, conditionMessage(e)), domain = NA, call. = FALSE)
 })
-where 22: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/Guitar.Rcheck/vign_test/Guitar")
+where 22: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/Guitar.Rcheck/vign_test/Guitar")
 
  --- value of length: 279900 type: logical ---
     [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -12662,7 +12665,7 @@ where 22: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-ifc4/check/Guita
 [99985] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [99993] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [ reached getOption("max.print") -- omitted 179901 entries ]
- --- function (currently evaluated)--- 
+ --- function from context --- 
 function (expr, ...) 
 {
     handlers <- list(...)
@@ -12674,9 +12677,9 @@ function (expr, ...)
         TRUE))
     expr
 }
-<bytecode: 0xdb6b20>
+<bytecode: 0x14164f0>
 <environment: namespace:base>
- --- function (body) search ---
+ --- function search by body ---
 Function withCallingHandlers in namespace base has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

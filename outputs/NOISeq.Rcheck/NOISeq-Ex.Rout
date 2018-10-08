@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-22 r74151) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -42,10 +42,10 @@ The following objects are masked from ‘package:base’:
     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
     as.data.frame, basename, cbind, colMeans, colSums, colnames,
     dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
-    intersect, is.unsorted, lapply, lengths, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind,
-    rowMeans, rowSums, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
 
 Welcome to Bioconductor
 
@@ -342,23 +342,58 @@ Biotypes detection is to be computed for:
 > explo.plot(mydata2plot, samples = c(3,4))
  ----------- FAILURE REPORT -------------- 
  --- srcref --- 
- at /var/scratch2/tomas/tmp/RtmpdPQNfS/R.INSTALLd57720d9d69b/NOISeq/R/biodetection.plot.R#157: 
- --- if/while statement is in package --- 
+ at /var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/biodetection.plot.R#157: 
+ --- package (from environment) --- 
 NOISeq
- --- call (currently evaluated) --- 
+ --- call from context --- 
 biodetection.plot(object@dat, samples = samples, plottype = plottype, 
     toplot = toplot, ...)
+ --- call from argument --- 
+if (plottype == "persample") {
+    barplot(biotable1[c(1, 3), ], main = samples[1], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c("grey", 2), las = 2, ylim = c(0, ymaxL), border = c("grey", 
+            2))
+    barplot(biotable1[c(2, 4), ], main = samples[1], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c(2, 1), las = 2, density = 30, ylim = c(0, ymaxL), 
+        border = 2, add = TRUE)
+    if (ymaxR > 0) {
+        axis(side = 4, at = pretty(c(0, ymaxL), n = 5), labels = round(pretty(c(0, 
+            ymaxL), n = 5) * ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+    }
+    legend(x = "topright", bty = "n", horiz = FALSE, fill = c("grey", 
+        2, 2), density = c(NA, 30, NA), border = c("grey", 2, 
+        2), legend = c("% in genome", "detected", "% in sample"))
+    barplot(biotable2[c(1, 3), ], main = samples[2], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c("grey", 4), las = 2, ylim = c(0, ymaxL), border = c("grey", 
+            4))
+    barplot(biotable2[c(2, 4), ], main = samples[2], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c(4, 1), las = 2, density = 30, ylim = c(0, ymaxL), 
+        border = 4, add = TRUE)
+    if (ymaxR > 0) {
+        axis(side = 4, at = pretty(c(0, ymaxL), n = 5), labels = round(pretty(c(0, 
+            ymaxL), n = 5) * ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+    }
+    legend(x = "topright", bty = "n", horiz = FALSE, fill = c("grey", 
+        4, 4), density = c(NA, 30, NA), border = c("grey", 4, 
+        4), legend = c("% in genome", "detected", "% in sample"))
+}
  --- R stacktrace ---
-where 1 at /var/scratch2/tomas/tmp/RtmpdPQNfS/R.INSTALLd57720d9d69b/NOISeq/R/classes.R#11: biodetection.plot(object@dat, samples = samples, plottype = plottype, 
+where 1 at /var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/classes.R#11: biodetection.plot(object@dat, samples = samples, plottype = plottype, 
     toplot = toplot, ...)
 where 2: .local(object, ...)
-where 3 at /var/scratch2/tomas/tmp/RtmpdPQNfS/R.INSTALLd57720d9d69b/NOISeq/R/classes.R#9: explo.plot(mydata2plot, samples = c(3, 4))
+where 3 at /var/scratch2/tomas/tmp/RtmpNyJlGk/R.INSTALLfe624b67cd4b/NOISeq/R/classes.R#9: explo.plot(mydata2plot, samples = c(3, 4))
 where 4: explo.plot(mydata2plot, samples = c(3, 4))
 
  --- value of length: 2 type: logical ---
 [1]  TRUE FALSE
- --- function (currently evaluated)--- 
-function(dat, samples = c(1,2), plottype = c("persample", "comparison"), 
+ --- function from context --- 
+function(dat, samples = c(1,2), plottype = "persample", 
                               toplot = "protein_coding", toreport = FALSE,...) {  
   
   mypar = par(no.readonly = TRUE)
@@ -557,9 +592,9 @@ function(dat, samples = c(1,2), plottype = c("persample", "comparison"),
   
   
 }
-<bytecode: 0x10ccf270>
+<bytecode: 0x8c8a4e0>
 <environment: namespace:NOISeq>
- --- function (body) search ---
+ --- function search by body ---
 Function biodetection.plot in namespace NOISeq has this body.
- ----------- END FAILURE REPORT -------------- 
-Fatal error: the condition has length > 1 and only the first element will be used XXXXXX
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
