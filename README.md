@@ -17,3 +17,10 @@ can set the environment variables in the same way with the current R-devel
 to to detect further similar errors in a package.  Without `abort`, one
 would get a normal runtime R error, allowing interactive debugging if
 needed.
+
+The reports should be fairly self-explanatory. Look for a line containing
+`FAILURE REPORT` near the end of an output file. The `srcref` field gives
+file name and line number for the if/while statement, the `call from
+argument` field gives the if/while statement expression, the `value` field
+gives the type and length of the actual value passed to the condition (so,
+the value that is of length bigger than one).
