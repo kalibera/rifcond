@@ -1,0 +1,375 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/RNAstructureModuleMiner.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘RNAstructureModuleMiner/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘RNAstructureModuleMiner’ version ‘0.1.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘RNAstructureModuleMiner’ can be installed ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... ERROR
+Running examples in ‘RNAstructureModuleMiner-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: plot_bulge
+> ### Title: plot_bulge
+> ### Aliases: plot_bulge
+> 
+> ### ** Examples
+> 
+> ###
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> col2 <- c("G","C","C","A","C","C","C","U","G","C","A","G","G","G","U","C","G","G","C")
+> col3 <- c(0,1,2,3,4,5,6,7,8,0,10,11,12,13,14,15,16,17,18)
+> col4 <- c(2,3,4,5,6,7,8,9,0,11,12,13,14,15,16,17,18,19,0)
+> col5 <- c(19,18,17,15,14,13,12,11,10,9,8,7,6,5,4,0,3,2,1)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> data <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol =6)
+> plot_bulge(data)
+   pos before after seq pos2 bound
+2   20     19    21   A   20     0
+21  21     20    22   A   21    -1
+1    1      0     2   G    1    19
+24   2      1     3   C    2    18
+3    3      2     4   C    3    17
+4    4      3     5   A    4    15
+5    5      4     6   C    5    14
+6    6      5     7   C    6    13
+7    7      6     8   C    7    12
+8    8      7     9   U    8    11
+9    9      8    10   G    9    10
+10  10      9    11   C   10     9
+11  11     10    12   A   11     8
+12  12     11    13   G   12     7
+13  13     12    14   G   13     6
+14  14     13    15   G   14     5
+15  15     14    16   U   15     4
+16  16     15    17   C   16     0
+17  17     16    18   G   17     3
+18  18     17    19   G   18     2
+19  19     18    20   C   19     1
+22   0     -1     1   A    0    20
+23  -1     -2     0   A   -1    21
+[1] "-1 21 0 0 0 1 -1 0"
+$x
+[1] -1
+
+$y
+[1] 0
+
+[1] 1.047198
+[1] "20 21 20"
+[1] "19 20 19"
+[1] "18 19 18"
+[1] "17 18 17"
+[1] "15 17 16"
+[1] "New LOOPS:  c(3, 17)"
+[1] 3
+[1] "4 15 4.95105651629515 -0.309016994374947 5.53884176858763 0.5 4 2.44929359829471e-16"
+$x
+[1] -0.9510565
+
+$y
+[1] 0.309017
+
+[1] 1.075232
+[1] "14 15 14"
+[1] "13 14 13"
+[1] "12 13 12"
+[1] "11 12 11"
+[1] "10 11 10"
+[1] "9 10 9"
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "8 9 8"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "7 8 7"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "6 7 6"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "5 6 5"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "4 5 4"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "New LOOPS:  c(15, 4)"
+[1] 15
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpPWWmYF/R.INSTALL3a1f6f011678/RRNA/R/RRNA.r#1232: 
+ --- package (from environment) --- 
+RRNA
+ --- call from context --- 
+ct2coord(ct)
+ --- call from argument --- 
+if (output$x[output$pos == lps[1]] < output$x[output$pos == pp]) {
+    p3 = 1
+} else {
+    p3 = 1
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpqUPbaZ/R.INSTALL786e5efe6603/RNAstructureModuleMiner/R/plot_bulge.R#6: ct2coord(ct)
+where 2: plot_bulge(data)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function(input){
+group=0;
+firstrun=1
+### First NT in the file is at 0,0 ####
+
+#### Create two fake base-pairs in the begining to make it work ###
+mnp<-min(input$pos)
+map<-max(input$pos)
+a1<-map+1
+a2<-map+2
+b1<-mnp-1
+b2<-mnp-2
+
+new1<-NULL
+new1$pos[1]=a1
+new1$before[1]=(a1-1)
+new1$after[1]=(a1+1)
+new1$seq[1]="A"
+new1$pos2[1]=a1
+new1$bound[1]=b1
+
+new2<-NULL
+new2$pos[1]=a2
+new2$before[1]=(a2-1)
+new2$after[1]=(a2+1)
+new2$seq[1]="A"
+new2$pos2[1]=a2
+new2$bound[1]=b2
+
+new3<-NULL
+new3$pos[1]=b1
+new3$before[1]=(b1-1)
+new3$after[1]=(b1+1)
+new3$seq[1]="A"
+new3$pos2[1]=b1
+new3$bound[1]=a1
+
+new4<-NULL
+new4$pos[1]=b2
+new4$before[1]=(b2-1)
+new4$after[1]=(b2+1)
+new4$seq[1]="A"
+new4$pos2[1]=b2
+new4$bound[1]=a2
+
+input<-rbind(new1,new2,input,new3,new4)
+input<-as.data.frame(input)
+print(input)
+mnp<-min(input$pos)
+	
+output<-NULL
+nextNT=input[input$pos==mnp,]
+if(nextNT$bound!=0){
+#### Set Coordinates to (0,0) and (0,1) #####
+output$pos[1]=mnp
+output$x[1]=0
+output$y[1]=0
+output$pos[2]=nextNT$bound
+output$x[2]=0
+output$y[2]=1
+}
+stems<-NULL
+stems[[1]]<-c(output$pos[1],output$pos[2])
+
+j<-3
+prev<-mnp
+npos<-input$after[input$pos==mnp]
+nextNT=input[input$pos==npos,]
+mp<-max(input$pos)
+while(length(stems)>0){
+newstems<-NULL
+newloops<-NULL
+	ns<-1
+	nl<-1
+for(i in 1:length(stems)){
+s1<-stems[[i]]
+#### Use stemCoord to generate stem coordinates ###
+p1<-s1[1]
+p2<-s1[2]
+if(firstrun==1){
+x3=-1
+y3=0
+firstrun=0
+}else{
+### If prev.x < this.x p3=-1 ##
+	prev<-input$before[input$pos==p1]
+	x3<-output$x[output$pos==prev]
+	y3<-output$y[output$pos==prev]
+}
+x1<-output$x[output$pos==p1]
+y1<-output$y[output$pos==p1]
+x2<-output$x[output$pos==p2]
+y2<-output$y[output$pos==p2]
+print(paste(p1,p2,x1,y1,x2,y2,x3,y3))
+sout<-stemCords(input,p1,p2,x1,y1,x2,y2,x3,y3)
+sdat<-sout[[1]]
+sdat<-as.data.frame(sdat)
+sdat<-sdat[sdat$pos!=p1,]
+sdat<-sdat[sdat$pos!=p2,]
+l<-dim(sdat)[1]
+if(l>0){
+s<-length(output$pos)
+s<-s+1
+for(sd in 1:length(sdat$pos)){
+output$pos[s]<-sdat$pos[sd]
+output$x[s]<-sdat$x[sd]
+output$y[s]<-sdat$y[sd]
+s<-s+1
+}
+}
+newloops[[nl]]=sout[[2]]
+nl<-nl+1
+}
+##### Loop through all loop starts ###
+print(paste("New LOOPS: ",newloops))
+newstems<-NULL
+for( i in 1:length(newloops)){
+lps<-newloops[[i]]
+	print(lps[1])
+lp1<-loopLength(input,lps[1])
+#### Add stems to newstems ###
+if(length(lp1)>1){
+nstm<-lp1[[2]]
+for(nt in 1:length(nstm)){
+newstems[[ns]]<-nstm[[nt]]
+ns<-ns+1
+}
+}
+#### Get Coordinates for each position and add to output ###
+pp<-input$before[input$pos==lps[1]]
+if(output$x[output$pos==lps[1]] < output$x[output$pos==pp]){
+	p3=1
+}else{
+		p3=1
+}
+
+lout<-genCords(lp1,lps[1],lps[2],output,p3)
+pt<-lp1[[1]]
+tout<-lout
+lpl<-length(pt$pos)
+pt$pos=pt$pos[lpl:1]
+lout$pos=pt$pos
+lout<-as.data.frame(lout)
+lout<-lout[lout$pos!=lps[1],]
+lout<-lout[lout$pos!=lps[2],]
+s<-length(output$pos)
+s<-s+1
+for(lo in 1:length(lout$pos)){
+output$pos[s]<-lout$pos[lo]
+output$x[s]<-lout$x[lo]
+output$y[s]<-lout$y[lo]
+output$group[s]=group
+	s<-s+1
+}
+group=group+1
+}
+stems<-newstems
+
+}		
+my<-min(output$y)-5
+xy<-max(output$y)+5
+mx<-min(output$x)-5
+xx<-max(output$x)+5
+#plot(output$x,output$y,type="n",ylim=c(my,xy),xlim=c(mx,xx))
+#for(i in output$pos){
+#	b<-input$after[input$pos==i]
+#points(c(output$x[output$pos==i],output$x[output$pos==b]),c(output$y[output$pos==i],output$y[output$pos==b]),type="l")
+#text(output$x[output$pos==i],output$y[output$pos==i],i)
+#}
+output<-as.data.frame(output)
+input<-as.data.frame(input)
+all<-merge(output,input,by="pos")
+names(all)[1]="num"
+all
+### Remove first two and last two ##
+rmax<-dim(all)[1]
+rmax<-rmax-2
+all<-all[3:rmax,]
+all
+}
+<bytecode: 0x4b223e8>
+<environment: namespace:RRNA>
+ --- function search by body ---
+Function ct2coord in namespace RRNA has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR

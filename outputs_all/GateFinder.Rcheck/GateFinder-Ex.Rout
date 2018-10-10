@@ -1,0 +1,142 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "GateFinder"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('GateFinder')
+sROC 0.1-2 loaded
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("GateFinder-package")
+> ### * GateFinder-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GateFinder-package
+> ### Title: GateFinder
+> ### Aliases: GateFinder-package
+> 
+> ### ** Examples
+> 
+> 
+> 
+> library(flowCore)
+> 
+> data(LPSData) 
+> ##Select the target population. In this case cells with those with a pP38 expression (dimension 34) of higher than 3.5.
+> targetpop <- (exprs(rawdata)[,34]>3.5)
+> 
+> ##Subset the markers that should be considered for gating.
+> x=exprs(rawdata)[,prop.markers]
+> colnames(x)=marker.names[prop.markers]
+> 
+> ##Run GateFinder.
+> ans=GateFinder(x, targetpop)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmptf8Vb9/R.INSTALL8e106708816/GateFinder/R/AllMethods.R#334: 
+ --- package (from environment) --- 
+GateFinder
+ --- call from context --- 
+.getScores(x, targetpop, gates = gates, skipdims = c(dimx, dimy), 
+    currentpop = currentpop, beta, randomize = randomize, predimx = predimx[i], 
+    predimy = predimy[i])
+ --- call from argument --- 
+if (is.na(gates[[i]][[j]]) | (length(gates[[i]][[j]]) == 0)) {
+    fmeasure[i, j] = 0
+    precision[i, j] = 0
+    recall[i, j] = 0
+    next
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmptf8Vb9/R.INSTALL8e106708816/GateFinder/R/AllMethods.R#104: .getScores(x, targetpop, gates = gates, skipdims = c(dimx, dimy), 
+    currentpop = currentpop, beta, randomize = randomize, predimx = predimx[i], 
+    predimy = predimy[i])
+where 2: GateFinder(x, targetpop)
+
+ --- value of length: 14 type: logical ---
+     CD45RA  CD19
+[1,]  FALSE FALSE
+[2,]  FALSE FALSE
+[3,]  FALSE FALSE
+[4,]  FALSE FALSE
+[5,]  FALSE FALSE
+[6,]  FALSE FALSE
+[7,]  FALSE FALSE
+ --- function from context --- 
+function(x, targetpop, gates, skipdims=NA, currentpop=rep(TRUE,length(targetpop)), beta, randomize, predimx=NULL, predimy=NULL){
+        if (length(which(!is.na(unlist(gates))))==0)
+            return(NA)
+        n=dim(x)[2]
+        fmeasure=matrix(0,n,n)
+        precision=matrix(0,n,n)
+        recall=matrix(0,n,n)
+        for (i in 1:(n-1)){
+            for (j in (i+1):n){
+                if (!is.null(predimx))
+                    if (i!=predimx)
+                        next
+                if (!is.null(predimy))
+                    if (j!=predimy)
+                        next
+                if (i %in% skipdims)
+                    next
+                if (j %in% skipdims)
+                    next
+                if (is.na(gates[[i]][[j]]) | (length(gates[[i]][[j]])==0)){
+                    fmeasure[i,j]=0
+                    precision[i,j]=0
+                    recall[i,j]=0
+                    next
+                }
+                foundpop=currentpop & as.logical(.inpoly(x[,i],x[,j],list(x=gates[[i]][[j]][,1],y=gates[[i]][[j]][,2])))
+                tp=length(which(targetpop & foundpop))
+                fp=length(which(!targetpop & foundpop))
+                fn=length(which(targetpop & !foundpop))
+                tn=length(which(!targetpop & !foundpop))
+                precision[i,j]=tp/(tp+fp)
+                recall[i,j]=tp/(tp+fn)
+                fmeasure[i,j]=(1+beta^2)*precision[i,j]*recall[i,j]/(beta^2*precision[i,j]+recall[i,j])
+            }
+        }
+        if (randomize){
+            answer=sample(as.vector(fmeasure), size=1, prob=as.vector(fmeasure))
+        }
+        if (!randomize){
+            answer=max(fmeasure)
+        }
+        temp=which(fmeasure==answer,arr.ind=TRUE)
+        if((dim(temp))[1]>1)
+            temp=temp[1,]
+        i=temp[1]
+        j=temp[2]
+        newpop=rep(FALSE, length(currentpop))
+        if (length(gates[[i]][[j]])!=0)
+            newpop=currentpop & as.logical(.inpoly(x[,i],x[,j],list(x=gates[[i]][[j]][,1],y=gates[[i]][[j]][,2])))
+        return(list(i=i,j=j,fmeasure=fmeasure[i,j],precision=precision[i,j],recall=recall[i,j],newpop=newpop,allfmeasures=fmeasure))
+    }
+<bytecode: 0x1a1effd8>
+<environment: namespace:GateFinder>
+ --- function search by body ---
+Function .getScores in namespace GateFinder has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

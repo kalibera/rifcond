@@ -1,0 +1,145 @@
+Package: sns, Version: 1.1.2
+Metropolis-Hastings MCMC using Stochastic Newton Sampler
+Scientific Computing Group, Sentrana Inc. &
+Imperial College London
+RegressionFactory 0.7.2
+Heart and Lung Institute, Imperial College London &
+Scientific Computing Group, Sentrana Inc.
+MfUSampler 1.0.4
+Convenience Functions for Multivariate MCMC Using Univariate Samplers
+For citations, please use:
+Alireza S. Mahani, Mansour T. A. Sharabiani (2017). Multivariate-From-Univariate MCMC Sampler: The R Package MfUSampler. Journal of Statistical Software, Code Snippets, 78(1), 1-22. doi:10.18637/jss.v078.c01
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpELTumh/R.INSTALL868bc72e551/MfUSampler/R/MfUSampler.R#27: 
+ --- package (from environment) --- 
+MfUSampler
+ --- call from context --- 
+MfU.Sample(gamma.iter, loglike.linreg.het.gamma.fonly, beta = beta.iter, 
+    X = X, Z = Z, y = y)
+ --- call from argument --- 
+if (uni.sampler == "slice") {
+    for (k in 1:length(x)) {
+        x[k] <- MfU.UniSlice(x[k], MfU.fEval, k, x, f, ..., w = control$slice$w[k], 
+            m = control$slice$m[k], lower = control$slice$lower[k], 
+            upper = control$slice$upper[k])
+    }
+    return(x)
+} else if (uni.sampler == "ars") {
+    for (k in 1:length(x)) {
+        x[k] <- ars(n = 1, MfU.fgEval.f, MfU.fgEval.g, x = control$ars$x[[k]], 
+            ns = control$ars$ns[k], m = control$ars$m[k], emax = control$ars$emax[k], 
+            lb = control$ars$lb[k], ub = control$ars$ub[k], xlb = control$ars$xlb[k], 
+            xub = control$ars$xub[k], k, x, f, ...)
+    }
+    return(x)
+} else if (uni.sampler == "arms") {
+    for (k in 1:length(x)) {
+        x[k] <- arms(x[k], MfU.fEval, indFunc = control$arms$indFunc[[k]], 
+            n.sample = 1, k, x, f, ...)
+    }
+    return(x)
+} else if (uni.sampler == "unimet") {
+    for (k in 1:length(x)) {
+        x[k] <- MfU.UniMet(x[k], MfU.fEval, k, x, f, ..., sigma = control$unimet$sigma[k])
+    }
+    return(x)
+} else {
+    stop("invalid sampler")
+}
+ --- R stacktrace ---
+where 1: MfU.Sample(gamma.iter, loglike.linreg.het.gamma.fonly, beta = beta.iter, 
+    X = X, Z = Z, y = y)
+where 2: eval(expr, .GlobalEnv)
+where 3 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 4 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
+where 5: doTryCatch(return(expr), name, parentenv, handler)
+where 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 7: tryCatchList(expr, classes, parentenv, handlers)
+where 8: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 9 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 10 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
+where 11: tryCatchList(expr, classes, parentenv, handlers)
+where 12 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
+    cat("\n")
+    sink()
+})
+where 13 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 14 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 15 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 16: doTryCatch(return(expr), name, parentenv, handler)
+where 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 18: tryCatchList(expr, classes, parentenv, handlers)
+where 19 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 20: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/sns.Rcheck/vign_test/sns")
+
+ --- value of length: 4 type: logical ---
+[1]  TRUE FALSE FALSE FALSE
+ --- function from context --- 
+function(x, f, uni.sampler = c("slice", "ars", "arms", "unimet")
+  , ..., control = MfU.Control(length(x))) {
+  if (uni.sampler == "slice") {
+    for (k in 1:length(x)) {
+      x[k] <- MfU.UniSlice(x[k], MfU.fEval, k, x, f, ..., w=control$slice$w[k], m=control$slice$m[k]
+                           , lower=control$slice$lower[k], upper=control$slice$upper[k])
+    }
+    return (x)
+  } else if (uni.sampler == "ars") {
+    for (k in 1:length(x)) {
+      x[k] <- ars(n=1, MfU.fgEval.f, MfU.fgEval.g, x=control$ars$x[[k]], ns=control$ars$ns[k], m=control$ars$m[k]
+                  , emax=control$ars$emax[k], lb=control$ars$lb[k], ub=control$ars$ub[k], xlb=control$ars$xlb[k]
+                  , xub=control$ars$xub[k], k, x, f, ...)
+    }
+    return (x)
+  } else if (uni.sampler == "arms") {
+    for (k in 1:length(x)) {
+      x[k] <- arms(x[k], MfU.fEval, indFunc = control$arms$indFunc[[k]]
+                   , n.sample = 1, k, x, f, ...)
+    }
+    return (x)
+  } else if (uni.sampler == "unimet") {
+    for (k in 1:length(x)) {
+      x[k] <- MfU.UniMet(x[k], MfU.fEval, k, x, f, ..., sigma = control$unimet$sigma[k])
+    }
+    return (x)
+  } else {
+    stop("invalid sampler")
+  }
+}
+<bytecode: 0x3f5d4a0>
+<environment: namespace:MfUSampler>
+ --- function search by body ---
+Function MfU.Sample in namespace MfUSampler has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

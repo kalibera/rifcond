@@ -1,0 +1,162 @@
+Loading required package: robustbase
+Warning: Removed 29 rows containing missing values (geom_point).
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+15.638859833092533.74599536247882
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+12.139270996656312.307692307692310.3617975173708
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+16.42065372042111612.6709691596414
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+6.533866827983022021.9375753397427
+The Tm calculation (fit, adj. R squared ~ 0.849, NRMSE ~ 0.088) is not optimal presumably
+due to noisy data. Check raw melting curve (see examples of diffQ).
+knitr hook "anchor" is now available
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+15.638859833092533.74599536247882
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+12.139270996656312.307692307692310.3617975173708
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+16.42065372042111612.6709691596414
+The distribution of the curve data indicates noise. The data should be visually 
+inspected with a plot (see examples of diffQ).
+Approximate and calculated Tm varri. This is an expected behaviour 
+
+			 but the calculation should be confirmed with a plot (see examples of diffQ).
+6.533866827983022021.9375753397427
+The Tm calculation (fit, adj. R squared ~ 0.849, NRMSE ~ 0.088) is not optimal presumably
+due to noisy data. Check raw melting curve (see examples of diffQ).
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at <text>#9: 
+ --- package (from environment) --- 
+package:qpcR
+ --- call from context --- 
+FUN(X[[i]], ...)
+ --- call from argument --- 
+if (res_model %>% class == "try-error") {
+    res_model <- NA
+} else {
+    try(efficiency(res_model, plot = FALSE, type = "Cy0"), silent = TRUE)
+}
+ --- R stacktrace ---
+where 1: FUN(X[[i]], ...)
+where 2: lapply(2L:ncol(fdata), function(block_column) {
+    res_model <- try(mselect(pcrfit(data = fdata, cyc = 1, fluo = block_column), 
+        verbose = FALSE, do.all = TRUE), silent = TRUE)
+    if (res_model %>% class == "try-error") {
+        res_model <- NA
+    }
+    else {
+        try(efficiency(res_model, plot = FALSE, type = "Cy0"), 
+            silent = TRUE)
+    }
+})
+where 3: do.call(cbind, lapply(2L:ncol(fdata), function(block_column) {
+    res_model <- try(mselect(pcrfit(data = fdata, cyc = 1, fluo = block_column), 
+        verbose = FALSE, do.all = TRUE), silent = TRUE)
+    if (res_model %>% class == "try-error") {
+        res_model <- NA
+    }
+    else {
+        try(efficiency(res_model, plot = FALSE, type = "Cy0"), 
+            silent = TRUE)
+    }
+}))
+where 4: eval(expr, envir, enclos)
+where 5 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 6 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 7 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 8 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 9 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 10 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 11 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 12 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 13 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 14 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#91: block_exec(params)
+where 15 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#6: call_block(x)
+where 16 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#3: process_group.block(group)
+where 17 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: process_group(group)
+where 18 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 19 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#258: process_file(text, output)
+where 20 at /var/scratch2/tomas/tmp/RtmpxUaBIG/R.INSTALL504c49159209/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 21 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 22 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 23 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 24: doTryCatch(return(expr), name, parentenv, handler)
+where 25: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 26: tryCatchList(expr, classes, parentenv, handlers)
+where 27 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 28: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/RDML.Rcheck/vign_test/RDML")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(block_column) {
+    
+    res_model <- try(mselect(pcrfit(data=fdata, cyc=1, fluo=block_column), verbose=FALSE, do.all=TRUE), silent=TRUE)
+    if(res_model %>% class=="try-error") {
+        res_model <- NA
+    }
+    else{
+        try(efficiency(res_model, plot=FALSE, type="Cy0"), silent=TRUE)
+    }
+        }
+<bytecode: 0x1722ae08>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

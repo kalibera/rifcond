@@ -1,0 +1,109 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/concaveman.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘concaveman/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘concaveman’ version ‘1.0.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘concaveman’ can be installed ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... ERROR
+Running examples in ‘concaveman-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: concaveman
+> ### Title: concaveman: A very fast 2D concave hull algorithm.
+> ### Aliases: concaveman concaveman-package concaveman concaveman.matrix
+> ###   concaveman.sf concaveman.SpatialPoints
+> 
+> ### ** Examples
+> 
+> data(points)
+> polygons <- concaveman(points)
+> plot(points)
+> plot(polygons, add = TRUE)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at ../../../../R/src/library/graphics/R/plot.R#385: 
+ --- package (from environment) --- 
+graphics
+ --- call from context --- 
+plot.data.frame(polygons, add = TRUE)
+ --- call from argument --- 
+if (cl %in% c("integer", "numeric")) stripchart(x1, ...) else plot(x1, 
+    ...)
+ --- R stacktrace ---
+where 1 at ../../../../R/src/library/graphics/R/plot.R#21: plot.data.frame(polygons, add = TRUE)
+where 2: plot(polygons, add = TRUE)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function (x, ...)
+{
+    plot2 <- function(x, xlab=names(x)[1L], ylab=names(x)[2L], ...)
+        plot(x[[1L]], x[[2L]], xlab=xlab, ylab=ylab, ...)
+
+    if(!is.data.frame(x))
+	stop("'plot.data.frame' applied to non data frame")
+    if(ncol(x) == 1) {
+        x1 <- x[[1L]]
+        cl <- class(x1)
+        if(cl %in% c("integer", "numeric"))  stripchart(x1, ...)
+        else plot(x1, ...) # factor, ts, complex ...
+    } else if(ncol(x) == 2) {
+        plot2(x, ...)
+    } else {
+	pairs(data.matrix(x), ...)
+    }
+}
+<bytecode: 0x5da73f8>
+<environment: namespace:graphics>
+ --- function search by body ---
+Function plot.data.frame in namespace graphics has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR

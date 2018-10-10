@@ -1,0 +1,854 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "PCRedux"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('PCRedux')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("PCRedux-package")
+> ### * PCRedux-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: PCRedux-package
+> ### Title: PCRedux - quantitative PCR Data Mining and Machine Learning
+> ###   Helper Tool
+> ### Aliases: PCRedux-package l4 PCRedux
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> # Use the mblrr function to analyse amplification curves
+> library(qpcR)
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> mblrr(x=boggy[, 1], y=boggy[, 2])
+mblrr_intercept_bg     mblrr_slope_bg       mblrr_cor_bg mblrr_intercept_pt 
+       0.181622824        0.005868179        0.800678697        1.954160826 
+    mblrr_slope_pt       mblrr_cor_pt 
+      -0.003070031        0.000000000 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:qpcR’, ‘package:Matrix’, ‘package:robustbase’,
+  ‘package:rgl’, ‘package:minpack.lm’, ‘package:MASS’
+
+> nameEx("PCRedux_datasets")
+> ### * PCRedux_datasets
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: PCRedux_datasets
+> ### Title: The datasets implemented in PCRedux
+> ### Aliases: data_sample RAS002 RAS002_decisions
+> ### Keywords: models
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ## 'data_sample' dataset.
+> ##D head(data_sample)
+> ##D 
+> ##D ## 'RAS002.rdml' dataset as rda file.
+> ##D head(RAS002)
+> ##D head(RAS002_decisions)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("autocorrelation_test")
+> ### * autocorrelation_test
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: autocorrelation_test
+> ### Title: A function to test for autocorrelation of amplification curve
+> ###   data from a quantitative PCR experiment
+> ### Aliases: autocorrelation_test
+> ### Keywords: autocorrelation
+> 
+> ### ** Examples
+> 
+> # Test for autocorrelation in amplification curve data
+> # Load the libraries magrittr for pipes and qpcR for the data
+> library(magrittr)
+> library(qpcR)
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> # Test for autocorrelation in the testdat data set
+> res_ac <- sapply(2:ncol(testdat), function(i) {
++                     autocorrelation_test(testdat[, i])
++                 }
++          )
+> 
+> # Plot curve data as overview
+> # Define the colors for the amplification curves
+> colors <- rainbow(ncol(testdat)-1, alpha=0.3)
+> # Names of samplesfile:///home/tux/R_malade
+> samples <- colnames(testdat)[-1]
+> layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE))
+> matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU",
++         main="testdat data set", type="l", lty=1, col=colors, lwd=2)
+> legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
+> 
+> # Curves rated by a human after analysis of the overview. 1 = positive,
+> # 0 = negative
+> human_rating <- c(1,1,0,0,1,1,0,0,
++                   1,1,0,0,1,1,0,0,
++                   1,1,0,0,1,1,0,0)
+> 
+> # Convert the n.s. (not significant) to 0 and others to 1.
+> # Combine the results of the aromatic autocorrelation_test as variable "ac",
+> # the human rated values as variable "hr" in a new data frame (res_ac_hr).
+> res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1),
++                         hr=human_rating) %>% as.matrix
+> res_performeR <- performeR(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
+> 
+> # Add ratings by human and autocorrelation_test to the plot
+> par(las=2)
+> plot(1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab="Sample", ylab="Decisions",
++      xaxt="n", yaxt="n", pch=19)
+> axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
+> axis(1, at=1:nrow(res_ac_hr), labels=colnames(testdat)[-1], las=2)
+> points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, col="red")
+> legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1),
++        bty="n", col=c("black","red"))
+> 
+> barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n",
++         ylab="", main="Performance of autocorrelation_test")
+> axis(2, at=c(0,1), labels=c("0", "1"), las=2)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+
+detaching ‘package:qpcR’, ‘package:Matrix’, ‘package:robustbase’,
+  ‘package:rgl’, ‘package:minpack.lm’, ‘package:MASS’,
+  ‘package:magrittr’
+
+> nameEx("decision_modus")
+> ### * decision_modus
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: decision_modus
+> ### Title: A function to get a decision (modus) from a vector of classes
+> ### Aliases: decision_modus
+> ### Keywords: decision modus
+> 
+> ### ** Examples
+> 
+> 
+> # First example
+> # Enter a string of arbritary of "a","a","y","n"
+> # Result:
+> # [1] a
+> # Levels: a b n y
+> 
+> decision_modus(c("a","a","y","n","b"))
+[1] a
+Levels: a b n y
+> 
+> # Second example
+> # Analyze data from the decision_res_testdat.csv data file
+> library(data.table)
+> library(magrittr)
+> filename <- system.file("decision_res_testdat.csv", package = "PCRedux")
+> my_data <- as.data.frame(fread(filename))
+> head(my_data)
+  testdat test.result.1 test.result.2 test.result.3 conformity
+1    F1.1             y             y             y       TRUE
+2    F1.2             y             y             y       TRUE
+3    F1.3             n             n             n       TRUE
+4    F1.4             n             n             n       TRUE
+5    F2.1             y             y             y       TRUE
+6    F2.2             y             y             y       TRUE
+> 
+> dec <- lapply(1L:nrow(my_data), function(i) {
++        decision_modus(my_data[i, 2:4])
++ }) %>% unlist
+> 
+> names(dec) <- my_data[, 1]
+> dec
+F1.1 F1.2 F1.3 F1.4 F2.1 F2.2 F2.3 F2.4 F3.1 F3.2 F3.3 F3.4 F4.1 F4.2 F4.3 F4.4 
+   y    y    n    n    y    y    n    n    y    y    n    n    y    y    n    n 
+F5.1 F5.2 F5.3 F5.4 F6.1 F6.2 F6.3 F6.4 
+   y    y    n    n    y    y    n    n 
+Levels: y n
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:magrittr’, ‘package:data.table’
+
+> nameEx("earlyreg")
+> ### * earlyreg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: earlyreg
+> ### Title: A function to calculate the slope and intercept of an
+> ###   amplification curve data from a quantitative PCR experiment.
+> ### Aliases: earlyreg
+> ### Keywords: intercept slope
+> 
+> ### ** Examples
+> 
+> 
+> # Calculate slope and intercept on noise (negative) amplification curve data
+> # for the cycles 2 to 7 for the C316.amp data set
+> library(chipPCR)
+> data(C316.amp)
+> 
+> # Plot the data
+> plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU",
++      main="C316.amp data set", lty=1, type="l")
+> res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=5)
+> res
+intercept     slope 
+123.90651 -27.50786 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:chipPCR’
+
+> nameEx("encu")
+> ### * encu
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: encu
+> ### Title: A function to calculate numerous features from amplification
+> ###   curve data from a quantitative PCR experiment.
+> ### Aliases: encu
+> ### Keywords: intercept normalization preprocessing slope
+> 
+> ### ** Examples
+> 
+> 
+> # Calculate curve features of an amplification curve data. Note that not all
+> # available CPU cores are used. If need set "all" to use all available cores.
+> # In this example the testdat data set from the qpcR package is used.
+> # The samples F1.1 and F1.2 are positive amplification curves. The samples
+> # F1.3 and F1.4 are negative.
+> 
+> library(qpcR)
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> res_encu <- encu(testdat[, 1:3])
+Loading required package: bcp
+Loading required package: grid
+> res_encu
+  runs  cpD1  cpD2      eff   sliwin cpDdiff loglin_slope cpD2_range top
+1 F1.1 17.49 15.62 1.819425 1.739444    1.87    0.1382870   4.368862  10
+2 F1.2 17.39 15.59 1.782711 1.737737    1.80    0.1421122   4.258406  10
+       f.top tdp     f.tdp bg.stop amp.stop   b_slope f_intercept
+1 0.01391000  27 0.9712161       9       30 -12.73839   0.9283718
+2 0.01330955  28 0.9853867       9       27 -13.90384   0.7622996
+  convInfo_iteratons qPCRmodel qPCRmodelRF       minRFU maxRFU        init2
+1                  8        l7          l7 -0.004237230      1 1.700487e-05
+2                  8        l7          l7 -0.003998994      1 2.631616e-05
+       fluo    slope_bg intercept_bg     sd_bg head2tail_ratio mblrr_slope_pt
+1 0.1953197 0.001733801 -0.006777540 0.4229451   -0.0007122453  -0.0003719424
+2 0.2160592 0.001635822 -0.006490719 0.4395818   -0.0009850845  -0.0002171012
+  mblrr_intercept_bg mblrr_slope_bg mblrr_cor_bg mblrr_intercept_pt
+1       -0.006442819    0.001572672    0.9323391           1.008902
+2       -0.006274295    0.001548088    0.9198655           1.001047
+  mblrr_cor_pt   polyarea peaks_ratio autocorellation changepoint_e.agglo
+1            0 -0.1559269  0.02573190       0.5814756                   2
+2            0 -0.1684371  0.03146392       0.5478919                   2
+  changepoint_bcp amptester_shapiro amptester_lrt amptester_rgt amptester_tht
+1              11             FALSE          TRUE          TRUE          TRUE
+2              12             FALSE          TRUE          TRUE          TRUE
+  amptester_slt amptester_polygon amptester_slope.ratio hookreg_hook
+1          TRUE          4.742807             0.2223128            1
+2          TRUE          4.782519             0.2163902            1
+  hookreg_hook_slope hookreg_hook_delta number_of_cycles detection_chemistry
+1       -0.001613054                 16               49                  NA
+2       -0.002352293                 19               49                  NA
+  device
+1     NA
+2     NA
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:bcp’, ‘package:grid’, ‘package:qpcR’,
+  ‘package:Matrix’, ‘package:robustbase’, ‘package:rgl’,
+  ‘package:minpack.lm’, ‘package:MASS’
+
+> nameEx("head2tailratio")
+> ### * head2tailratio
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: head2tailratio
+> ### Title: A function to calculate to head to tail ratio of amplification
+> ###   curve data from a quantitative PCR experiment
+> ### Aliases: head2tailratio
+> ### Keywords: head ratio tail
+> 
+> ### ** Examples
+> 
+> 
+> # calculate head to tail ratio on amplification curve data
+> 
+> library(qpcR)
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> 
+> res_head2tailratio <- sapply(2:ncol(competimer), function(i) {
++    head2tailratio(y=competimer[, i], normalize=TRUE, slope_normalizer=TRUE)
++ })
+> 
+> res_head2tailratio_cluster <- kmeans(res_head2tailratio, 3)$cluster
+> 
+> matplot(competimer[, 1], competimer[, -1], xlab="Cycle", ylab="RFU",
++         main="competimer data set", type="l", lty=1, col=res_head2tailratio_cluster, lwd=2)
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:qpcR’, ‘package:Matrix’, ‘package:robustbase’,
+  ‘package:rgl’, ‘package:minpack.lm’, ‘package:MASS’
+
+> nameEx("hookreg")
+> ### * hookreg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hookreg
+> ### Title: A function to calculate the slope and intercept of an
+> ###   amplification curve data from a quantitative PCR experiment at the
+> ###   end of the data stream.
+> ### Aliases: hookreg
+> ### Keywords: hook intercept slope
+> 
+> ### ** Examples
+> 
+> 
+> # Calculate slope and intercept on noise (negative) amplification curve data
+> # for the last eight cycles.
+> 
+> library(qpcR)
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> library(magrittr)
+> 
+>  res_hook <- sapply(2:ncol(boggy), function(i) {
++      hookreg(x=boggy[, 1], y=boggy[, i])}) %>% t %>%
++      data.frame(sample=colnames(boggy)[-1],.)
+> res_hook
+   sample intercept        slope hook.start hook.delta      p.value
+1    F1.1  1.172270 -0.006245585         26         15 5.036934e-11
+2    F1.2  1.200001 -0.007383676         26         15 1.002592e-12
+3    F2.1  1.164265 -0.005088431         32          9 3.832008e-06
+4    F2.2  1.167357 -0.005181812         32          9 7.647282e-07
+5    F3.1  1.053409 -0.001504617         35          6 5.438867e-02
+6    F3.2  1.078725 -0.002225900         35          6 2.157723e-02
+7    F4.1  0.000000  0.000000000          0          0           NA
+8    F4.2  0.000000  0.000000000          0          0           NA
+9    F5.1  0.000000  0.000000000          0          0           NA
+10   F5.2  0.000000  0.000000000          0          0           NA
+11   F6.1  0.000000  0.000000000          0          0           NA
+12   F6.2  0.000000  0.000000000          0          0           NA
+         CI.low        CI.up hook.fit hook.CI hook
+1  -0.007322575 -0.005168594        1       1    1
+2  -0.008319020 -0.006448333        1       1    1
+3  -0.006673196 -0.003503667        1       1    1
+4  -0.006455094 -0.003908531        1       1    1
+5  -0.004630009  0.001620776        0       0    0
+6  -0.005630020  0.001178220        0       0    0
+7            NA           NA        0       0    0
+8            NA           NA        0       0    0
+9            NA           NA        0       0    0
+10           NA           NA        0       0    0
+11           NA           NA        0       0    0
+12           NA           NA        0       0    0
+> 
+> data_colors <- rainbow(ncol(boggy[, -1]), alpha=0.5)
+> cl <- kmeans(na.omit(res_hook[, 2:3]), 2)$cluster
+> 
+> par(mfrow=c(1,2))
+> matplot(x=boggy[, 1], y=boggy[, -1], xlab="Cycle", ylab="RFU",
++  main="boggy Data Set", type="l", lty=1, lwd=2, col=data_colors)
+>  legend("topleft", as.character(res_hook$sample), pch=19,
++          col=data_colors, bty="n")
+> 
+> plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
++  xlab="intercept", ylab="Slope",
++  main="Clusters of Amplification Curves with an Hook Effect-like Curvature\nboggy Data Set")
+>  points(res_hook$intercept, res_hook$slope, col=cl, pch=cl, cex=cl)
+>  legend("topright", c("Strong Hook effect", " Weak Hook effect"), pch=c(1,2), col=c(1,2), bty="n")
+>  text(res_hook$intercept, res_hook$slope, res_hook$sample)
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+
+detaching ‘package:magrittr’, ‘package:qpcR’, ‘package:Matrix’,
+  ‘package:robustbase’, ‘package:rgl’, ‘package:minpack.lm’,
+  ‘package:MASS’
+
+> nameEx("hookregNL")
+> ### * hookregNL
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hookregNL
+> ### Title: hookregNL - A function to calculate the slope of amplification
+> ###   curves in the tail region
+> ### Aliases: hookregNL
+> 
+> ### ** Examples
+> 
+> # Analyze data from the boggy data set for potential hook effect like
+> # curvature
+> library(qpcR)
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> # has hook
+> res <- hookregNL(boggy[, 1], boggy[, 2])
+Waiting for profiling to be done...
+> res
+        slope      CI.low       CI.up hook
+1 -0.01596799 -0.01872172 -0.01348229    1
+> 
+> # has no hook
+> res <- hookregNL(boggy[, 1], boggy[, 12])
+Waiting for profiling to be done...
+> res
+         slope CI.low CI.up hook
+1 0.0003363785     NA    NA    0
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:qpcR’, ‘package:Matrix’, ‘package:robustbase’,
+  ‘package:rgl’, ‘package:minpack.lm’, ‘package:MASS’
+
+> nameEx("mblrr")
+> ### * mblrr
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mblrr
+> ### Title: A function to perform a Qunantile-filter based Local Robust
+> ###   Regression
+> ### Aliases: mblrr
+> ### Keywords: regression segmented
+> 
+> ### ** Examples
+> 
+> 
+> # Perform an mblrr analysis on noise (negative) amplification data of qPCR data
+> # with 35 cycles.
+> library(qpcR)
+Loading required package: MASS
+Loading required package: minpack.lm
+Loading required package: rgl
+Loading required package: robustbase
+Loading required package: Matrix
+> mblrr(x=boggy[, 1], y=boggy[, 2], normalize=TRUE)
+mblrr_intercept_bg     mblrr_slope_bg       mblrr_cor_bg mblrr_intercept_pt 
+       0.096390217        0.003114339        0.800678697        1.037105266 
+    mblrr_slope_pt       mblrr_cor_pt 
+      -0.001629316        0.000000000 
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:qpcR’, ‘package:Matrix’, ‘package:robustbase’,
+  ‘package:rgl’, ‘package:minpack.lm’, ‘package:MASS’
+
+> nameEx("pcrfit_single")
+> ### * pcrfit_single
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pcrfit_single
+> ### Title: pcrfit_single - A function to extract features from an
+> ###   amplification curve
+> ### Aliases: pcrfit_single
+> 
+> ### ** Examples
+> 
+> # Load the chipPCR package and analyze from the C126EG685 the first qPCR run
+> # "A01" (column 2).
+> library(chipPCR)
+> res <- pcrfit_single(C126EG685[, 2])
+Loading required package: bcp
+Loading required package: grid
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:bcp’, ‘package:grid’, ‘package:chipPCR’
+
+> nameEx("performeR")
+> ### * performeR
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: performeR
+> ### Title: Performance analysis for binary classification
+> ### Aliases: performeR
+> ### Keywords: accuracy precision sensitivity specificity
+> 
+> ### ** Examples
+> 
+> # Produce some arbitrary binary decisions data
+> # test_data is the new test or method that should be analyzed
+> # reference_data is the reference data set that should be analyzed
+> test_data <- c(0,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1)
+> reference_data <- c(0,0,0,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1)
+> 
+> # Plot the data of the decisions
+> plot(1:length(test_data), test_data, xlab="Sample", ylab="Decisions",
++      yaxt="n", pch=19)
+> axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
+> points(1:length(reference_data), reference_data, pch=1, cex=2, col="blue")
+> legend("topleft", c("Sample", "Reference"), pch=c(19,1),
++         cex=c(1.5,1.5), bty="n", col=c("black","blue"))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at ../../../../R/src/library/graphics/R/legend.R#101: 
+ --- package (from environment) --- 
+graphics
+ --- call from context --- 
+legend("topleft", c("Sample", "Reference"), pch = c(19, 1), cex = c(1.5, 
+    1.5), bty = "n", col = c("black", "blue"))
+ --- call from argument --- 
+if (xc < 0) text.width <- -text.width
+ --- R stacktrace ---
+where 1: legend("topleft", c("Sample", "Reference"), pch = c(19, 1), cex = c(1.5, 
+    1.5), bty = "n", col = c("black", "blue"))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(x, y = NULL, legend, fill = NULL, col = par("col"), border="black",
+         lty, lwd, pch, angle = 45, density = NULL, bty = "o", bg = par("bg"),
+         box.lwd = par("lwd"), box.lty = par("lty"), box.col = par("fg"),
+	 pt.bg = NA, cex = 1, pt.cex = cex, pt.lwd = lwd,
+	 xjust = 0, yjust = 1, x.intersp = 1, y.intersp = 1, adj = c(0, 0.5),
+	 text.width = NULL, text.col = par("col"), text.font = NULL,
+	 merge = do.lines && has.pch, trace = FALSE,
+	 plot = TRUE, ncol = 1, horiz = FALSE, title = NULL,
+	 inset = 0, xpd, title.col = text.col, title.adj = 0.5,
+         seg.len = 2)
+{
+    ## the 2nd arg may really be `legend'
+    if(missing(legend) && !missing(y) &&
+       (is.character(y) || is.expression(y))) {
+	legend <- y
+	y <- NULL
+    }
+    mfill <- !missing(fill) || !missing(density)
+
+    if(!missing(xpd)) {
+        op <- par("xpd")
+        on.exit(par(xpd=op))
+        par(xpd=xpd)
+    }
+    title <- as.graphicsAnnot(title)
+    if(length(title) > 1) stop("invalid 'title'")
+    legend <- as.graphicsAnnot(legend)
+    n.leg <- if(is.call(legend)) 1 else length(legend)
+    if(n.leg == 0) stop("'legend' is of length 0")
+    auto <-
+	if (is.character(x))
+	    match.arg(x, c("bottomright", "bottom", "bottomleft", "left",
+			   "topleft", "top", "topright", "right", "center"))
+	else NA
+
+    if (is.na(auto)) {
+	xy <- xy.coords(x, y, setLab = FALSE); x <- xy$x; y <- xy$y
+	nx <- length(x)
+	if (nx < 1 || nx > 2) stop("invalid coordinate lengths")
+    } else nx <- 0
+
+    xlog <- par("xlog")
+    ylog <- par("ylog")
+
+    rect2 <- function(left, top, dx, dy, density = NULL, angle, ...) {
+	r <- left + dx; if(xlog) { left <- 10^left; r <- 10^r }
+	b <- top  - dy; if(ylog) {  top <- 10^top;  b <- 10^b }
+	rect(left, top, r, b, angle = angle, density = density, ...)
+    }
+    segments2 <- function(x1, y1, dx, dy, ...) {
+	x2 <- x1 + dx; if(xlog) { x1 <- 10^x1; x2 <- 10^x2 }
+	y2 <- y1 + dy; if(ylog) { y1 <- 10^y1; y2 <- 10^y2 }
+	segments(x1, y1, x2, y2, ...)
+    }
+    points2 <- function(x, y, ...) {
+	if(xlog) x <- 10^x
+	if(ylog) y <- 10^y
+	points(x, y, ...)
+    }
+    text2 <- function(x, y, ...) {
+	##--- need to adjust  adj == c(xadj, yadj) ?? --
+	if(xlog) x <- 10^x
+	if(ylog) y <- 10^y
+	text(x, y, ...)
+    }
+    if(trace)
+	catn <- function(...)
+	    do.call("cat", c(lapply(list(...),formatC), list("\n")))
+
+    cin <- par("cin")
+    Cex <- cex * par("cex")		# = the `effective' cex for text
+
+    ## at this point we want positive width even for reversed x axis.
+    if(is.null(text.width))
+	text.width <- max(abs(strwidth(legend, units="user",
+				       cex=cex, font = text.font)))
+    else if(!is.numeric(text.width) || text.width < 0)
+	stop("'text.width' must be numeric, >= 0")
+
+    xc <- Cex * xinch(cin[1L], warn.log=FALSE) # [uses par("usr") and "pin"]
+    yc <- Cex * yinch(cin[2L], warn.log=FALSE)
+    if(xc < 0) text.width <- -text.width
+
+    xchar  <- xc
+    xextra <- 0
+    yextra <- yc * (y.intersp - 1)
+    ## watch out for reversed axis here: heights can be negative
+    ymax   <- yc * max(1, strheight(legend, units="user", cex=cex)/yc)
+    ychar <- yextra + ymax
+    if(trace) catn("  xchar=", xchar, "; (yextra,ychar)=", c(yextra,ychar))
+
+    if(mfill) {
+	##= sizes of filled boxes.
+	xbox <- xc * 0.8
+	ybox <- yc * 0.5
+	dx.fill <- xbox ## + x.intersp*xchar
+    }
+    do.lines <- (!missing(lty) && (is.character(lty) || any(lty > 0))
+		 ) || !missing(lwd)
+
+    ## legends per column:
+    n.legpercol <-
+	if(horiz) {
+	    if(ncol != 1)
+                warning(gettextf("horizontal specification overrides: Number of columns := %d",
+                                 n.leg), domain = NA)
+	    ncol <- n.leg
+	    1
+	} else ceiling(n.leg / ncol)
+
+    has.pch <- !missing(pch) && length(pch) > 0 # -> default 'merge' is available
+    if(do.lines) {
+	x.off <- if(merge) -0.7 else 0
+    } else if(merge)
+	warning("'merge = TRUE' has no effect when no line segments are drawn")
+
+    if(has.pch) {
+	if(is.character(pch) && !is.na(pch[1L]) &&
+           nchar(pch[1L], type = "c") > 1) {
+	    if(length(pch) > 1)
+		warning("not using pch[2..] since pch[1L] has multiple chars")
+	    np <- nchar(pch[1L], type = "c")
+	    pch <- substr(rep.int(pch[1L], np), 1L:np, 1L:np)
+	}
+        ## this coercion was documented but not done in R < 3.0.0
+        if(!is.character(pch)) pch <- as.integer(pch)
+    }
+
+    if (is.na(auto)) {
+	##- Adjust (x,y) :
+	if (xlog) x <- log10(x)
+	if (ylog) y <- log10(y)
+    }
+    if(nx == 2) {
+	## (x,y) are specifiying OPPOSITE corners of the box
+	x <- sort(x)
+	y <- sort(y)
+	left <- x[1L]
+	top  <- y[2L]
+	w <- diff(x)# width
+	h <- diff(y)# height
+	w0 <- w/ncol # column width
+
+	x <- mean(x)
+	y <- mean(y)
+	if(missing(xjust)) xjust <- 0.5
+	if(missing(yjust)) yjust <- 0.5
+
+    }
+    else {## nx == 1  or  auto
+	## -- (w,h) := (width,height) of the box to draw -- computed in steps
+	h <- (n.legpercol + !is.null(title)) * ychar + yc
+	w0 <- text.width + (x.intersp + 1) * xchar
+	if(mfill)	w0 <- w0 + dx.fill
+	if(do.lines)	w0 <- w0 + (seg.len + x.off)*xchar
+	w <- ncol*w0 + .5* xchar
+	if (!is.null(title)
+	    && (abs(tw <- strwidth(title, units="user", cex=cex) + 0.5*xchar)) > abs(w)) {
+	    xextra <- (tw - w)/2
+	    w <- tw
+	}
+
+	##-- (w,h) are now the final box width/height.
+
+	if (is.na(auto)) {
+	    left <- x - xjust * w
+	    top	 <- y + (1 - yjust) * h
+	} else {
+	    usr <- par("usr")
+	    inset <- rep_len(inset, 2)
+	    insetx <- inset[1L]*(usr[2L] - usr[1L])
+	    left <- switch(auto, "bottomright" =,
+			   "topright" =, "right" = usr[2L] - w - insetx,
+			   "bottomleft" =, "left" =, "topleft" = usr[1L] + insetx,
+			   "bottom" =, "top" =, "center" = (usr[1L] + usr[2L] - w)/2)
+	    insety <- inset[2L]*(usr[4L] - usr[3L])
+	    top <- switch(auto, "bottomright" =,
+			  "bottom" =, "bottomleft" = usr[3L] + h + insety,
+			  "topleft" =, "top" =, "topright" = usr[4L] - insety,
+			  "left" =, "right" =, "center" = (usr[3L] + usr[4L] + h)/2)
+	}
+    }
+
+    if (plot && bty != "n") { ## The legend box :
+	if(trace)
+	    catn("  rect2(", left, ",", top,", w=", w, ", h=", h, ", ...)",
+                 sep = "")
+	rect2(left, top, dx = w, dy = h, col = bg, density = NULL,
+              lwd = box.lwd, lty = box.lty, border = box.col)
+    }
+
+    ## (xt[],yt[]) := `current' vectors of (x/y) legend text
+    xt <- left + xchar + xextra +
+	(w0 * rep.int(0:(ncol-1), rep.int(n.legpercol,ncol)))[1L:n.leg]
+    yt <- top -	0.5 * yextra - ymax -
+	(rep.int(1L:n.legpercol,ncol)[1L:n.leg] - 1 + !is.null(title)) * ychar
+
+    if (mfill) {		#- draw filled boxes -------------
+	if(plot) {
+	    if(!is.null(fill)) fill <- rep_len(fill, n.leg)
+	    rect2(left = xt, top=yt+ybox/2, dx = xbox, dy = ybox,
+		  col = fill,
+		  density = density, angle = angle, border = border)
+	}
+	xt <- xt + dx.fill
+    }
+    if(plot && (has.pch || do.lines))
+	col <- rep_len(col, n.leg)
+
+    ## NULL is not documented but people use it.
+    if(missing(lwd) || is.null(lwd))
+	lwd <- par("lwd") # = default for pt.lwd
+    if (do.lines) {			#- draw lines ---------------------
+        ## NULL is not documented
+	if(missing(lty) || is.null(lty)) lty <- 1
+	lty <- rep_len(lty, n.leg)
+	lwd <- rep_len(lwd, n.leg)
+	ok.l <- !is.na(lty) & (is.character(lty) | lty > 0) & !is.na(lwd)
+	if(trace)
+	    catn("  segments2(",xt[ok.l] + x.off*xchar, ",", yt[ok.l],
+		 ", dx=", seg.len*xchar, ", dy=0, ...)")
+	if(plot)
+	    segments2(xt[ok.l] + x.off*xchar, yt[ok.l],
+                      dx = seg.len*xchar, dy = 0,
+		      lty = lty[ok.l], lwd = lwd[ok.l], col = col[ok.l])
+	# if (!merge)
+	xt <- xt + (seg.len+x.off) * xchar
+    }
+    if (has.pch) {			#- draw points -------------------
+	pch <- rep_len(pch, n.leg)
+	pt.bg <- rep_len(pt.bg, n.leg)
+	pt.cex <- rep_len(pt.cex, n.leg)
+	pt.lwd <- rep_len(pt.lwd, n.leg)
+        ok <- !is.na(pch)
+        if (!is.character(pch)) {
+            ## R 2.x.y omitted pch < 0
+            ok <- ok & (pch >= 0 | pch <= -32)
+        } else {
+            ## like points
+            ok <- ok & nzchar(pch)
+        }
+	x1 <- (if(merge && do.lines) xt-(seg.len/2)*xchar else xt)[ok]
+	y1 <- yt[ok]
+	if(trace)
+	    catn("  points2(", x1,",", y1,", pch=", pch[ok],", ...)")
+	if(plot)
+	    points2(x1, y1, pch = pch[ok], col = col[ok],
+		    cex = pt.cex[ok], bg = pt.bg[ok], lwd = pt.lwd[ok])
+##D	if (!merge) xt <- xt + dx.pch
+    }
+
+    xt <- xt + x.intersp * xchar
+    if(plot) {
+	if (!is.null(title))
+            text2(left + w*title.adj, top - ymax, labels = title,
+                  adj = c(title.adj, 0), cex = cex, col = title.col)
+
+	text2(xt, yt, labels = legend, adj = adj, cex = cex,
+	      col = text.col, font = text.font)
+    }
+    invisible(list(rect = list(w = w, h = h, left = left, top = top),
+		   text = list(x = xt, y = yt)))
+}
+<bytecode: 0x1482fc18>
+<environment: namespace:graphics>
+ --- function search by body ---
+Function legend in namespace graphics has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

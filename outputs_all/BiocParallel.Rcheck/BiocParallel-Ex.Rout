@@ -1,0 +1,2156 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "BiocParallel"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('BiocParallel')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BatchJobsParam-class")
+> ### * BatchJobsParam-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BatchJobsParam-class
+> ### Title: Enable parallelization on batch systems
+> ### Aliases: BatchJobsParam-class BatchJobsParam
+> ###   bpbackend,BatchJobsParam-method bpbackend<-,BatchJobsParam
+> ###   bpisup,BatchJobsParam-method bpstart,BatchJobsParam-method
+> ###   bpstop,BatchJobsParam-method bpworkers,BatchJobsParam-method
+> ###   bpschedule,BatchJobsParam-method show,BatchJobsParam-method
+> 
+> ### ** Examples
+> 
+> p <- BatchJobsParam(progressbar=FALSE)
+> bplapply(1:10, sqrt, BPPARAM=p)
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+Warning in result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries
+[[1]]
+[1] 1
+
+[[2]]
+[1] 1.414214
+
+[[3]]
+[1] 1.732051
+
+[[4]]
+[1] 2
+
+[[5]]
+[1] 2.236068
+
+[[6]]
+[1] 2.44949
+
+[[7]]
+[1] 2.645751
+
+[[8]]
+[1] 2.828427
+
+[[9]]
+[1] 3
+
+[[10]]
+[1] 3.162278
+
+> 
+> ## Not run: 
+> ##D ## see vignette for additional explanation
+> ##D funs <- makeClusterFunctionsSLURM("~/slurm.tmpl")
+> ##D param <- BatchJobsParam(4, cluster.functions=funs)
+> ##D register(param)
+> ##D bplapply(1:10, function(i) sqrt)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:BatchJobs’, ‘package:BBmisc’
+
+> nameEx("BatchtoolsParam-class")
+> ### * BatchtoolsParam-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BatchtoolsParam-class
+> ### Title: Enable parallelization on batch systems
+> ### Aliases: BatchtoolsParam-class BatchtoolsParam
+> ###   bpRNGseed,BatchtoolsParam-method
+> ###   bpRNGseed<-,BatchtoolsParam,numeric-method
+> ###   bpbackend,BatchtoolsParam-method bpisup,BatchtoolsParam-method
+> ###   bplapply,ANY,BatchtoolsParam-method bplogdir,BatchtoolsParam-method
+> ###   bplogdir<-,BatchtoolsParam,character-method
+> ###   bpschedule,BatchtoolsParam-method bpstart,BatchtoolsParam-method
+> ###   bpstop,BatchtoolsParam-method bpworkers,BatchtoolsParam-method
+> ###   show,BatchtoolsParam-method batchtoolsWorkers batchtoolsCluster
+> ###   batchtoolsTemplate batchtoolsRegistryargs
+> 
+> ### ** Examples
+> 
+> ## Pi approximation
+> piApprox = function(n) {
++     nums = matrix(runif(2 * n), ncol = 2)
++     d = sqrt(nums[, 1]^2 + nums[, 2]^2)
++     4 * mean(d <= 1)
++ }
+> 
+> piApprox(1000)
+[1] 3.148
+> 
+> ## Calculate piApprox 10 times
+> param <- BatchtoolsParam()
+> result <- bplapply(rep(10e5, 10), piApprox, BPPARAM=param)
+Adding 10 jobs ...
+Submitting 10 jobs in 10 chunks using cluster functions 'Multicore' ...
+
+cleaning registry...
+> 
+> ## Not run: 
+> ##D ## see vignette for additional explanation
+> ##D library(BiocParallel)
+> ##D param = BatchtoolsParam(workers=5,
+> ##D                         cluster="sge",
+> ##D                         template="script/test-sge-template.tmpl")
+> ##D ## Run parallel job
+> ##D result = bplapply(rep(10e5, 100), piApprox, BPPARAM=param)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BiocParallelParam-class")
+> ### * BiocParallelParam-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BiocParallelParam-class
+> ### Title: BiocParallelParam objects
+> ### Aliases: BiocParallelParam-class BiocParallelParam bpbackend
+> ###   bpbackend<- bpbackend,missing-method bpbackend<-,missing,ANY-method
+> ###   bpisup bpisup,ANY-method bpisup,missing-method bpstart
+> ###   bpstart,ANY-method bpstart,missing-method bpstop bpstop,ANY-method
+> ###   bpstop,missing-method bpnworkers bpworkers bpworkers<-
+> ###   bpworkers,missing-method bpworkers,BiocParallelParam-method bptasks
+> ###   bptasks,BiocParallelParam-method bptasks<-
+> ###   bptasks<-,BiocParallelParam,numeric-method bpcatchErrors
+> ###   bpcatchErrors,BiocParallelParam-method bpcatchErrors<-
+> ###   bpcatchErrors<-,BiocParallelParam,logical-method bpstopOnError
+> ###   bpstopOnError,BiocParallelParam-method bpstopOnError<-
+> ###   bpstopOnError<-,BiocParallelParam,logical-method
+> ###   bpstopOnError<-,DoparParam,logical-method bplog bplog<-
+> ###   bplog,BiocParallelParam-method bpthreshold bpthreshold<-
+> ###   bpthreshold,BiocParallelParam-method bptimeout bptimeout<-
+> ###   bptimeout,BiocParallelParam-method
+> ###   bptimeout<-,BiocParallelParam,numeric-method bpprogressbar
+> ###   bpprogressbar,BiocParallelParam-method bpprogressbar<-
+> ###   bpprogressbar<-,BiocParallelParam,logical-method bpjobname
+> ###   bpjobname,BiocParallelParam-method bpjobname<-
+> ###   bpjobname<-,BiocParallelParam,character-method
+> ###   show,BiocParallel-method print.remote_error
+> ### Keywords: classes methods
+> 
+> ### ** Examples
+> 
+> 
+> getClass("BiocParallelParam")
+Reference Class "BiocParallelParam":
+
+Class fields:
+                                                                            
+Name:        workers         tasks       jobname   progressbar           log
+Class:           ANY       integer     character       logical       logical
+                                                              
+Name:      threshold stop.on.error       timeout  catch.errors
+Class:     character       logical       integer       logical
+
+Class Methods: 
+     "import", ".objectParent", "usingMethods", "show", "getClass", "untrace", 
+     "export", "initialize", ".objectPackage", "callSuper", "show#envRefClass", 
+     "copy", "initFields", "getRefClass", "trace", "field"
+
+Reference Superclasses: 
+     "envRefClass"
+
+> 
+> ## For examples see ?SnowParam, ?MulticoreParam, ?BatchJobsParam 
+> ## and ?SerialParam.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("DoparParam-class")
+> ### * DoparParam-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: DoparParam-class
+> ### Title: Enable parallel evaluation using registered dopar backend
+> ### Aliases: DoparParam-class DoparParam
+> ###   coerce,SOCKcluster,DoparParam-method bpbackend,DoparParam-method
+> ###   bpbackend<-,DoparParam,SOCKcluster-method bpisup,DoparParam-method
+> ###   bpstart,DoparParam-method bpstop,DoparParam-method
+> ###   bpworkers,DoparParam-method show,DoparParam-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D # First register a parallel backend with foreach
+> ##D library(doParallel)
+> ##D registerDoParallel(2)
+> ##D 
+> ##D p <- DoparParam()
+> ##D bplapply(1:10, sqrt, BPPARAM=p)
+> ##D bpvec(1:10, sqrt, BPPARAM=p)
+> ##D 
+> ##D register(DoparParam(), default=TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("MulticoreParam-class")
+> ### * MulticoreParam-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MulticoreParam-class
+> ### Title: Enable multi-core parallel evaluation
+> ### Aliases: MulticoreParam MulticoreParam-class multicoreWorkers
+> ###   bpisup,MulticoreParam-method bpschedule,MulticoreParam-method
+> ###   bpworkers<-,MulticoreParam,numeric-method show,MulticoreParam-method
+> ### Keywords: classes methods
+> 
+> ### ** Examples
+> 
+> ## -----------------------------------------------------------------------
+> ## Job configuration:
+> ## -----------------------------------------------------------------------
+> 
+> ## MulticoreParam supports shared memory computing. The object fields
+> ## control the division of tasks, error handling, logging and
+> ## result format.
+> bpparam <- MulticoreParam()
+> bpparam
+class: MulticoreParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: FORK
+> 
+> ## By default the param is created with the maximum available workers
+> ## determined by multicoreWorkers().
+> multicoreWorkers()
+[1] 62
+> 
+> ## Fields are modified with accessors of the same name:
+> bplog(bpparam) <- TRUE
+> bpresultdir(bpparam) <- "/myResults/"
+> bpparam
+class: MulticoreParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: TRUE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: /myResults/
+  cluster type: FORK
+> 
+> ## -----------------------------------------------------------------------
+> ## Logging:
+> ## -----------------------------------------------------------------------
+> 
+> ## When 'log == TRUE' the workers use a custom script (in BiocParallel)
+> ## that enables logging and access to other job statistics. Log messages
+> ## are returned as each job completes rather than waiting for all to finish.
+> 
+> ## In 'fun', a value of 'x = 1' will throw a warning, 'x = 2' is ok
+> ## and 'x = 3' throws an error. Because 'x = 1' sleeps, the warning
+> ## should return after the error.
+> 
+> X <- 1:3
+> fun <- function(x) {
++     if (x == 1) {
++         Sys.sleep(2)
++         if (TRUE & c(TRUE, TRUE))  ## warning
++             x
++     } else if (x == 2) {
++         x                          ## ok
++     } else if (x == 3) {
++         sqrt("FOO")                ## error
++     }
++ }
+> 
+> ## By default logging is off. Turn it on with the bplog()<- setter
+> ## or by specifying 'log = TRUE' in the constructor.
+> bpparam <- MulticoreParam(3, log = TRUE, stop.on.error = FALSE)
+> res <- tryCatch({
++     bplapply(X, fun, BPPARAM=bpparam)
++ }, error=identity)
+############### LOG OUTPUT ###############
+Task: 2
+Node: 2
+Timestamp: 2018-10-08 10:04:19
+Success: TRUE
+Task duration:
+   user  system elapsed 
+  0.000   0.000   0.025 
+Memory used:
+          used (Mb) gc trigger  (Mb) max used (Mb)
+Ncells 1249274 66.8    2557508 136.6  1598145 85.4
+Vcells 2209317 16.9    8388608  64.0  4135076 31.6
+Log messages:
+stderr and stdout:
+
+############### LOG OUTPUT ###############
+Task: 3
+Node: 3
+Timestamp: 2018-10-08 10:04:20
+Success: FALSE
+Task duration:
+   user  system elapsed 
+  0.017   0.000   0.036 
+Memory used:
+          used (Mb) gc trigger  (Mb) max used (Mb)
+Ncells 1249305 66.8    2557508 136.6  1598145 85.4
+Vcells 2182639 16.7    8388608  64.0  4135076 31.6
+Log messages:ERROR [2018-10-08 10:04:19] non-numeric argument to mathematical function
+
+stderr and stdout:
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:BiocParallel
+ --- call from context --- 
+FUN(...)
+ --- call from argument --- 
+if (TRUE & c(TRUE, TRUE)) x
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/ErrorHandling.R#74: FUN(...)
+where 2: doTryCatch(return(expr), name, parentenv, handler)
+where 3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 4: tryCatchList(expr, classes, parentenv, handlers)
+where 5 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/ErrorHandling.R#73: tryCatch({
+    FUN(...)
+}, error = handle_error)
+where 6 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/ErrorHandling.R#72: withCallingHandlers({
+    tryCatch({
+        FUN(...)
+    }, error = handle_error)
+}, warning = handle_warning)
+where 7: FUN(X[[i]], ...)
+where 8: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(X = 1L, FUN = function(...) {
+        setTimeLimit(timeout, timeout, TRUE)
+        on.exit(setTimeLimit(Inf, Inf, FALSE))
+
+        if (stop.on.error && ERROR_OCCURRED) {
+            UNEVALUATED
+        } else {
+            withCallingHandlers({
+                tryCatch({
+                    FUN(...)
+                }, error=handle_error)
+            }, warning=handle_warning)
+        }
+    })
+where 9 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#74: do.call(msg$data$fun, msg$data$args)
+where 10: doTryCatch(return(expr), name, parentenv, handler)
+where 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#73: tryCatch({
+    do.call(msg$data$fun, msg$data$args)
+}, error = function(e) {
+    .error_worker_comm(e, "worker evaluation failed")
+})
+where 14: doTryCatch(return(expr), name, parentenv, handler)
+where 15: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 16: tryCatchList(expr, classes, parentenv, handlers)
+where 17 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#58: tryCatch({
+    msg <- .recv(manager, "worker")
+    if (inherits(msg, "error")) 
+        break
+    if (msg$type == "DONE") {
+        .close(manager)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        sout <- character()
+        file <- textConnection("sout", "w", local = TRUE)
+        sink(file, type = "message")
+        sink(file, type = "output")
+        t1 <- proc.time()
+        value <- tryCatch({
+            do.call(msg$data$fun, msg$data$args)
+        }, error = function(e) {
+            .error_worker_comm(e, "worker evaluation failed")
+        })
+        t2 <- proc.time()
+        sink(NULL, type = "message")
+        sink(NULL, type = "output")
+        close(file)
+        success <- !(inherits(value, "bperror") || !all(bpok(value)))
+        log <- .log_buffer_get()
+        .send_VALUE(manager, msg$data$tag, value, success, t2 - 
+            t1, log, sout)
+    }
+}, interrupt = function(e) {
+    NULL
+})
+where 18 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#52: bploop.SOCK0node(node)
+where 19 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/SnowParam-utils.R#60: bploop(node)
+where 20 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#37: eval(expr, env)
+where 21 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/SnowParam-utils.R#49: parallel::mcparallel({
+    con <- NULL
+    suppressWarnings({
+        while (is.null(con)) {
+            con <- tryCatch({
+                socketConnection(host, port, FALSE, TRUE, "a+b", 
+                  timeout = timeout)
+            }, error = function(e) {
+            })
+        }
+    })
+    node <- structure(list(con = con), class = "SOCK0node")
+    bploop(node)
+}, detached = TRUE)
+where 22 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/SnowParam-utils.R#38: .bpforkChild(host, port, rank, timeout)
+where 23 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/SnowParam-class.R#289: .bpfork(nnodes, bptimeout(x), .hostname(x), .port(x))
+where 24: .local(x, ...)
+where 25 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/AllGenerics.R#109: bpstart(BPPARAM, length(X))
+where 26 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/SnowParam-class.R#411: bpstart(BPPARAM, length(X))
+where 27 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/AllGenerics.R#2: bplapply(X, fun, BPPARAM = bpparam)
+where 28: bplapply(X, fun, BPPARAM = bpparam)
+where 29: doTryCatch(return(expr), name, parentenv, handler)
+where 30: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 31: tryCatchList(expr, classes, parentenv, handlers)
+where 32: tryCatch({
+    bplapply(X, fun, BPPARAM = bpparam)
+}, error = identity)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function (x) 
+{
+    if (x == 1) {
+        Sys.sleep(2)
+        if (TRUE & c(TRUE, TRUE)) 
+            x
+    }
+    else if (x == 2) {
+        x
+    }
+    else if (x == 3) {
+        sqrt("FOO")
+    }
+}
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+> res
+<worker_comm_error: 'bplapply' receive data failed:
+  error reading from connection>
+> 
+> ## When a 'logdir' location is given the messages are redirected to a file:
+> ## Not run: 
+> ##D bplogdir(bpparam) <- tempdir()
+> ##D bplapply(X, fun, BPPARAM = bpparam)
+> ##D list.files(bplogdir(bpparam))
+> ## End(Not run)
+> 
+> ## -----------------------------------------------------------------------
+> ## Managing results:
+> ## -----------------------------------------------------------------------
+> 
+> ## By default results are returned as a list. When 'resultdir' is given
+> ## files are saved in the directory specified by job, e.g., 'TASK1.Rda',
+> ## 'TASK2.Rda', etc.
+> ## Not run: 
+> ##D bpparam <- MulticoreParam(2, resultdir = tempdir(), stop.on.error = FALSE)
+> ##D bplapply(X, fun, BPPARAM = bpparam)
+> ##D list.files(bpresultdir(bpparam))
+> ## End(Not run)
+> 
+> ## -----------------------------------------------------------------------
+> ## Error handling:
+> ## -----------------------------------------------------------------------
+> 
+> ## When 'stop.on.error' is TRUE the job is terminated as soon as an
+> ## error is hit. When FALSE, all computations are attemptres
+> 
+> ## When a 'logdir' location is given the messages are redirected to a file:
+> ## Not run: 
+> ##D bplogdir(bpparam) <- tempdir()
+> ##D bplapply(X, fun, BPPARAM = bpparam)
+> ##D list.files(bplogdir(bpparam))
+> ## End(Not run)
+> 
+> ## -----------------------------------------------------------------------
+> ## Managing results:
+> ## -----------------------------------------------------------------------
+> 
+> ## By default results are returned as a list. When 'resultdir' is given
+> ## files are saved in the directory specified by job, e.g., 'TASK1.Rda',
+> ## 'TASK2.Rda', etc.
+> ## Not run: 
+> ##D bpparam <- MulticoreParam(2, resultdir = tempdir(), stop.on.error = FALSE)
+> ##D bplapply(X, fun, BPPARAM = bpparam)
+> ##D list.files(bpresultdir(bpparam))
+> ## End(Not run)
+> 
+> ## -----------------------------------------------------------------------
+> ## Error handling:
+> ## -----------------------------------------------------------------------
+> 
+> ## When 'stop.on.error' is TRUE the job is terminated as soon as an
+> ## error is hit. When FALSE, all computations are attempted and partial
+> ## results are returned along with errors. In this example the number of
+> ## 'tasks' is set to equal the length of 'X' so each element is run
+> ## separately. (Default behavior is to divide 'X' evenly over workers.)
+> 
+> ## All results along with error:
+> bpparam <- MulticoreParam(2, tasks = 4, stop.on.error = FALSE)
+> res <- bptry(bplapply(list(1, "two", 3, 4), sqrt, BPPARAM = bpparam))
+> res
+[[1]]
+[1] 1
+
+[[2]]
+<remote_error in FUN(...): non-numeric argument to mathematical function>
+traceback() available as 'attr(x, "traceback")'
+
+[[3]]
+[1] 1.732051
+
+[[4]]
+[1] 2
+
+> 
+> ## Calling bpok() on the result list returns TRUE for elements with no error.
+> bpok(res)
+[1]  TRUE FALSE  TRUE  TRUE
+> 
+> ## -----------------------------------------------------------------------
+> ## Random number generation:
+> ## -----------------------------------------------------------------------
+> 
+> ## Random number generation is controlled with the 'RNGseed' field.
+> ## This seed is passed to parallel::clusterSetRNGStream
+> ## which uses the L'Ecuyer-CMRG random number generator and distributes
+> ## streams to members of the cluster.
+> 
+> bpparam <- MulticoreParam(3, RNGseed = 7739465)
+> bplapply(seq_len(bpnworkers(bpparam)), function(i) rnorm(1), BPPARAM = bpparam)
+[[1]]
+[1] 0.8552377
+
+[[2]]
+[1] -0.2198241
+
+[[3]]
+[1] -0.5324814
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("SerialParam-class")
+> ### * SerialParam-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: SerialParam-class
+> ### Title: Enable serial evaluation
+> ### Aliases: SerialParam-class SerialParam bpisup,SerialParam-method
+> ###   bpworkers,SerialParam-method bplog,SerialParam-method
+> ###   bplogdir,SerialParam-method bplog<-,SerialParam,logical-method
+> ###   bpthreshold<-,SerialParam,character-method
+> ###   bplogdir<-,SerialParam,character-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> p <- SerialParam()
+> simplify2array(bplapply(1:10, sqrt, BPPARAM=p))
+ [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+ [9] 3.000000 3.162278
+> bpvec(1:10, sqrt, BPPARAM=p)
+ [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+ [9] 3.000000 3.162278
+> 
+> ## Not run: 
+> ##D register(SerialParam(), default=TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("SnowParam-class")
+> ### * SnowParam-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: SnowParam-class
+> ### Title: Enable simple network of workstations (SNOW)-style parallel
+> ###   evaluation
+> ### Aliases: SnowParam SnowParam-class snowWorkers
+> ###   bpbackend,SnowParam-method bpbackend<-,SnowParam,cluster-method
+> ###   bpisup,SnowParam-method bpstart,SnowParam-method
+> ###   bpstop,SnowParam-method bpworkers,SnowParam-method
+> ###   bpworkers<-,SnowParam,numeric-method
+> ###   bpworkers<-,SnowParam,character-method bplog,SnowParam-method
+> ###   bplog<-,SnowParam,logical-method bpthreshold,SnowParam-method
+> ###   bpthreshold<-,SnowParam,character-method bpRNGseed bpRNGseed<-
+> ###   bpRNGseed,SnowParam-method bpRNGseed<-,SnowParam,numeric-method
+> ###   bplogdir bplogdir<- bplogdir,SnowParam-method
+> ###   bplogdir<-,SnowParam,character-method bpresultdir bpresultdir<-
+> ###   bpresultdir,SnowParam-method bpresultdir<-,SnowParam,character-method
+> ###   coerce,SOCKcluster,SnowParam-method
+> ###   coerce,spawnedMPIcluster,SnowParam-method show,SnowParam-method
+> ### Keywords: classes methods
+> 
+> ### ** Examples
+> 
+> 
+> ## -----------------------------------------------------------------------
+> ## Job configuration:
+> ## -----------------------------------------------------------------------
+> 
+> ## SnowParam supports distributed memory computing. The object fields
+> ## control the division of tasks, error handling, logging and result
+> ## format.
+> bpparam <- SnowParam()
+> bpparam
+class: SnowParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: SOCK
+> 
+> ## Fields are modified with accessors of the same name:
+> bplog(bpparam) <- TRUE
+> bpresultdir(bpparam) <- "/myResults/"
+> bpparam
+class: SnowParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: TRUE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: /myResults/
+  cluster type: SOCK
+> 
+> ## -----------------------------------------------------------------------
+> ## Logging:
+> ## -----------------------------------------------------------------------
+> 
+> ## When 'log == TRUE' the workers use a custom script (in BiocParallel)
+> ## that enables logging and access to other job statistics. Log messages
+> ## are returned as each job completes rather than waiting for all to
+> ## finish.
+> 
+> ## In 'fun', a value of 'x = 1' will throw a warning, 'x = 2' is ok
+> ## and 'x = 3' throws an error. Because 'x = 1' sleeps, the warning
+> ## should return after the error.
+> 
+> X <- 1:3
+> fun <- function(x) {
++     if (x == 1) {
++         Sys.sleep(2)
++         if (TRUE & c(TRUE, TRUE))  ## warning
++             x
++     } else if (x == 2) {
++         x                          ## ok
++     } else if (x == 3) {
++         sqrt("FOO")                ## error
++     }
++ }
+> 
+> ## By default logging is off. Turn it on with the bplog()<- setter
+> ## or by specifying 'log = TRUE' in the constructor.
+> bpparam <- SnowParam(3, log = TRUE, stop.on.error = FALSE)
+> tryCatch({
++     bplapply(X, fun, BPPARAM = bpparam)
++ }, error=identity)
+############### LOG OUTPUT ###############
+Task: 2
+Node: 2
+Timestamp: 2018-10-08 10:04:39
+Success: TRUE
+Task duration:
+   user  system elapsed 
+      0       0       0 
+Memory used:
+          used (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1261614 67.4    2557508 136.6  2191173 117.1
+Vcells 2203841 16.9    8388608  64.0  8388332  64.0
+Log messages:
+stderr and stdout:
+
+############### LOG OUTPUT ###############
+Task: 3
+Node: 3
+Timestamp: 2018-10-08 10:04:39
+Success: FALSE
+Task duration:
+   user  system elapsed 
+  0.015   0.000   0.041 
+Memory used:
+          used (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1261447 67.4    2557508 136.6  2191173 117.1
+Vcells 2203962 16.9    8388608  64.0  8388332  64.0
+Log messages:ERROR [2018-10-08 10:04:39] non-numeric argument to mathematical function
+
+stderr and stdout:
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:stats
+ --- call from context --- 
+FUN(...)
+ --- call from argument --- 
+if (TRUE & c(TRUE, TRUE)) x
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/ErrorHandling.R#74: FUN(...)
+where 2: doTryCatch(return(expr), name, parentenv, handler)
+where 3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 4: tryCatchList(expr, classes, parentenv, handlers)
+where 5 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/ErrorHandling.R#73: tryCatch({
+    FUN(...)
+}, error = handle_error)
+where 6 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/ErrorHandling.R#72: withCallingHandlers({
+    tryCatch({
+        FUN(...)
+    }, error = handle_error)
+}, warning = handle_warning)
+where 7: FUN(X[[i]], ...)
+where 8: (function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+})(X = 1L, FUN = function(...) {
+        setTimeLimit(timeout, timeout, TRUE)
+        on.exit(setTimeLimit(Inf, Inf, FALSE))
+
+        if (stop.on.error && ERROR_OCCURRED) {
+            UNEVALUATED
+        } else {
+            withCallingHandlers({
+                tryCatch({
+                    FUN(...)
+                }, error=handle_error)
+            }, warning=handle_warning)
+        }
+    })
+where 9 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#74: do.call(msg$data$fun, msg$data$args)
+where 10: doTryCatch(return(expr), name, parentenv, handler)
+where 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#73: tryCatch({
+    do.call(msg$data$fun, msg$data$args)
+}, error = function(e) {
+    .error_worker_comm(e, "worker evaluation failed")
+})
+where 14: doTryCatch(return(expr), name, parentenv, handler)
+where 15: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 16: tryCatchList(expr, classes, parentenv, handlers)
+where 17 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#58: tryCatch({
+    msg <- .recv(manager, "worker")
+    if (inherits(msg, "error")) 
+        break
+    if (msg$type == "DONE") {
+        .close(manager)
+        break
+    }
+    else if (msg$type == "EXEC") {
+        sout <- character()
+        file <- textConnection("sout", "w", local = TRUE)
+        sink(file, type = "message")
+        sink(file, type = "output")
+        t1 <- proc.time()
+        value <- tryCatch({
+            do.call(msg$data$fun, msg$data$args)
+        }, error = function(e) {
+            .error_worker_comm(e, "worker evaluation failed")
+        })
+        t2 <- proc.time()
+        sink(NULL, type = "message")
+        sink(NULL, type = "output")
+        close(file)
+        success <- !(inherits(value, "bperror") || !all(bpok(value)))
+        log <- .log_buffer_get()
+        .send_VALUE(manager, msg$data$tag, value, success, t2 - 
+            t1, log, sout)
+    }
+}, interrupt = function(e) {
+    NULL
+})
+where 18 at /var/scratch2/tomas/tmp/RtmpidThwE/R.INSTALLd0107709f5d0/BiocParallel/R/bploop.R#52: bploop.SOCKnode(snow::makeSOCKmaster(master, port))
+where 19: BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+where 20: eval(quote({
+    master <- "localhost"
+    port <- ""
+    snowlib <- Sys.getenv("R_SNOW_LIB")
+    outfile <- Sys.getenv("R_SNOW_OUTFILE")
+    args <- commandArgs()
+    pos <- match("--args", args)
+    args <- args[-(1:pos)]
+    for (a in args) {
+        pos <- regexpr("=", a)
+        name <- substr(a, 1, pos - 1)
+        value <- substr(a, pos + 1, nchar(a))
+        switch(name, MASTER = master <- value, PORT = port <- value, 
+            SNOWLIB = snowlib <- value, OUT = outfile <- value)
+    }
+    if (!(snowlib %in% .libPaths())) .libPaths(c(snowlib, .libPaths()))
+    library(methods)
+    loadNamespace("snow")
+    if (port == "") port <- getClusterOption("port")
+    BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+}), new.env())
+where 21: eval(quote({
+    master <- "localhost"
+    port <- ""
+    snowlib <- Sys.getenv("R_SNOW_LIB")
+    outfile <- Sys.getenv("R_SNOW_OUTFILE")
+    args <- commandArgs()
+    pos <- match("--args", args)
+    args <- args[-(1:pos)]
+    for (a in args) {
+        pos <- regexpr("=", a)
+        name <- substr(a, 1, pos - 1)
+        value <- substr(a, pos + 1, nchar(a))
+        switch(name, MASTER = master <- value, PORT = port <- value, 
+            SNOWLIB = snowlib <- value, OUT = outfile <- value)
+    }
+    if (!(snowlib %in% .libPaths())) .libPaths(c(snowlib, .libPaths()))
+    library(methods)
+    loadNamespace("snow")
+    if (port == "") port <- getClusterOption("port")
+    BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+}), new.env())
+where 22: eval(expr, p)
+where 23: eval(expr, p)
+where 24: eval.parent(substitute(eval(quote(expr), envir)))
+where 25: local({
+    master <- "localhost"
+    port <- ""
+    snowlib <- Sys.getenv("R_SNOW_LIB")
+    outfile <- Sys.getenv("R_SNOW_OUTFILE")
+    args <- commandArgs()
+    pos <- match("--args", args)
+    args <- args[-(1:pos)]
+    for (a in args) {
+        pos <- regexpr("=", a)
+        name <- substr(a, 1, pos - 1)
+        value <- substr(a, pos + 1, nchar(a))
+        switch(name, MASTER = master <- value, PORT = port <- value, 
+            SNOWLIB = snowlib <- value, OUT = outfile <- value)
+    }
+    if (!(snowlib %in% .libPaths())) 
+        .libPaths(c(snowlib, .libPaths()))
+    library(methods)
+    loadNamespace("snow")
+    if (port == "") 
+        port <- getClusterOption("port")
+    BiocParallel::bploop(snow::makeSOCKmaster(master, port))
+})
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function (x) 
+{
+    if (x == 1) {
+        Sys.sleep(2)
+        if (TRUE & c(TRUE, TRUE)) 
+            x
+    }
+    else if (x == 2) {
+        x
+    }
+    else if (x == 3) {
+        sqrt("FOO")
+    }
+}
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+<worker_comm_error: 'bplapply' receive data failed:
+  error reading from connection>
+> 
+> ## When a 'logdir' location is given the messages are redirected to a
+> ## file:
+> ## Not run: 
+> ##D bplogdir(bpparam) <- tempdir()
+> ##D bplapply(X, fun, BPPARAM = bpparam)
+> ##D list.files(bplogdir(bpparam))
+> ## End(Not run)
+> 
+> ## -----------------------------------------------------------------------
+> ## Managing results:
+> ## -----------------------------------------------------------------------
+> 
+> ## By default results are returned as a list. When 'resultdir' is given
+> ## files are saved in the directory specified by job, e.g., 'TASK1.Rda',
+> ## 'TASK2.Rda', etc.
+> ## Not run: 
+> ##D bpparam <- SnowParam(2, resultdir = tempdir())
+> ##D bplapply(X, fun, BPPARAM = bpparam)
+> ##D list.files(bpresultdir(bpparam))
+> ## End(Not run)
+> 
+> ## -----------------------------------------------------------------------
+> ## Error handling:
+> ## -----------------------------------------------------------------------
+> 
+> ## When 'stop.on.error' is TRUE the process returns as soon as an error
+> ## is thrown.
+> 
+> ## When 'stop.on.error' is FALSE all computations are attempted. Partial
+> ## results are returned along with errors. Use bptry() to see the
+> ## partial results
+> bpparam <- SnowParam(2, stop.on.error = FALSE)
+> res <- bptry(bplapply(list(1, "two", 3, 4), sqrt, BPPARAM = bpparam))
+> res
+[[1]]
+[1] 1
+
+[[2]]
+<remote_error in FUN(...): non-numeric argument to mathematical function>
+traceback() available as 'attr(x, "traceback")'
+
+[[3]]
+[1] 1.732051
+
+[[4]]
+[1] 2
+
+> 
+> ## Calling bpok() on the result list returns TRUE for elements with no
+> ## error.
+> bpok(res)
+[1]  TRUE FALSE  TRUE  TRUE
+> 
+> ## -----------------------------------------------------------------------
+> ## Random number generation:
+> ## -----------------------------------------------------------------------
+> 
+> ## Random number generation is controlled with the 'RNGseed' field.
+> ## This seed is passed to parallel::clusterSetRNGStream
+> ## which uses the L'Ecuyer-CMRG random number generator and distributes
+> ## streams to members of the cluster.
+> 
+> bpparam <- SnowParam(3, RNGseed = 7739465)
+> bplapply(seq_len(bpnworkers(bpparam)), function(i) rnorm(1),
++          BPPARAM = bpparam)
+[[1]]
+[1] 0.8552377
+
+[[2]]
+[1] -0.2198241
+
+[[3]]
+[1] -0.5324814
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bpaggregate")
+> ### * bpaggregate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpaggregate
+> ### Title: Apply a function on subsets of data frames
+> ### Aliases: bpaggregate bpaggregate,formula,BiocParallelParam-method
+> ###   bpaggregate,matrix,BiocParallelParam-method
+> ###   bpaggregate,data.frame,BiocParallelParam-method
+> ###   bpaggregate,ANY,missing-method
+> 
+> ### ** Examples
+> 
+> 
+> if (require(Rsamtools) && require(GenomicAlignments)) {
++ 
++   fl <- system.file("extdata", "ex1.bam", package="Rsamtools")
++   param <- ScanBamParam(what = c("flag", "mapq"))
++   gal <- readGAlignments(fl, param=param) 
++ 
++   ## Report the mean map quality by range cutoff:
++   cutoff <- rep(0, length(gal))
++   cutoff[start(gal) > 1000 & start(gal) < 1500] <- 1
++   cutoff[start(gal) > 1500] <- 2 
++   bpaggregate(as.data.frame(mcols(gal)$mapq), list(cutoff = cutoff), mean)
++ 
++ }
+Loading required package: Rsamtools
+Loading required package: GenomeInfoDb
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomicRanges
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+Loading required package: GenomicAlignments
+Loading required package: SummarizedExperiment
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following objects are masked from ‘package:Biobase’:
+
+    anyMissing, rowMedians
+
+
+Attaching package: ‘DelayedArray’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following object is masked from ‘package:Biostrings’:
+
+    type
+
+The following objects are masked from ‘package:base’:
+
+    aperm, apply
+
+  cutoff mcols(gal)$mapq
+1      0        93.98635
+2      1        94.30386
+3      2        59.49398
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:GenomicAlignments’, ‘package:SummarizedExperiment’,
+  ‘package:DelayedArray’, ‘package:matrixStats’, ‘package:Biobase’,
+  ‘package:Rsamtools’, ‘package:Biostrings’, ‘package:XVector’,
+  ‘package:GenomicRanges’, ‘package:GenomeInfoDb’, ‘package:IRanges’,
+  ‘package:S4Vectors’, ‘package:stats4’, ‘package:BiocGenerics’,
+  ‘package:parallel’
+
+> nameEx("bpiterate")
+> ### * bpiterate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpiterate
+> ### Title: Parallel iteration over an indeterminate number of data chunks
+> ### Aliases: bpiterate bpiterate,ANY,ANY,missing-method
+> ###   bpiterate,ANY,ANY,BiocParallelParam-method
+> ###   bpiterate,ANY,ANY,SerialParam-method
+> ###   bpiterate,ANY,ANY,SnowParam-method
+> ###   bpiterate,ANY,ANY,BatchJobsParam-method
+> ###   bpiterate,ANY,ANY,DoparParam-method
+> ### Keywords: manip methods
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D if (require(Rsamtools) && require(RNAseqData.HNRNPC.bam.chr14) &&
+> ##D     require(GenomicAlignments) && require(ShortRead)) {
+> ##D 
+> ##D   ## ----------------------------------------------------------------------
+> ##D   ## Iterate through a BAM file
+> ##D   ## ----------------------------------------------------------------------
+> ##D  
+> ##D   ## Select a single file and set 'yieldSize' in the BamFile object.
+> ##D   fl <- RNAseqData.HNRNPC.bam.chr14_BAMFILES[[1]]
+> ##D   bf <- BamFile(fl, yieldSize = 300000) 
+> ##D  
+> ##D   ## bamIterator() is initialized with a BAM file and returns a function.
+> ##D   ## The return function requires no arguments and iterates through the
+> ##D   ## file returning data chunks the size of yieldSize.
+> ##D   bamIterator <- function(bf) {
+> ##D       done <- FALSE
+> ##D       if (!isOpen( bf))
+> ##D           open(bf)
+> ##D  
+> ##D       function() {
+> ##D           if (done)
+> ##D               return(NULL)
+> ##D           yld <- readGAlignments(bf) 
+> ##D           if (length(yld) == 0L) {
+> ##D               close(bf)
+> ##D               done <<- TRUE
+> ##D               NULL
+> ##D           } else yld
+> ##D       }
+> ##D   }
+> ##D  
+> ##D   ## FUN counts reads in a region of interest.
+> ##D   roi <- GRanges("chr14", IRanges(seq(19e6, 107e6, by = 10e6), width = 10e6))
+> ##D   counter <- function(reads, roi, ...) {
+> ##D       countOverlaps(query = roi, subject = reads)
+> ##D   }
+> ##D 
+> ##D   ## Initialize the iterator.
+> ##D   ITER <- bamIterator(bf)
+> ##D 
+> ##D   ## The number of chunks returned by ITER() determines the result length.
+> ##D   bpparam <- MulticoreParam(workers = 3) 
+> ##D   bpiterate(ITER, counter, roi = roi, BPPARAM = bpparam)
+> ##D 
+> ##D   ## Re-initialize the iterator and combine on the fly with REDUCE:
+> ##D   ITER <- bamIterator(bf)
+> ##D   bpparam <- MulticoreParam(workers = 3) 
+> ##D   bpiterate(ITER, counter, REDUCE = sum, roi = roi, BPPARAM = bpparam)
+> ##D 
+> ##D   ## ----------------------------------------------------------------------
+> ##D   ## Iterate through a FASTA file
+> ##D   ## ----------------------------------------------------------------------
+> ##D  
+> ##D   ## Set data chunk size with 'n' in the FastqStreamer object.
+> ##D   sp <- SolexaPath(system.file('extdata', package = 'ShortRead'))
+> ##D   fl <- file.path(analysisPath(sp), "s_1_sequence.txt")
+> ##D  
+> ##D   ## Create an iterator that returns data chunks the size of 'n'.
+> ##D   fastqIterator <- function(fqs) {
+> ##D       done <- FALSE
+> ##D       if (!isOpen(fqs))
+> ##D           open(fqs)
+> ##D  
+> ##D       function() {
+> ##D           if (done)
+> ##D               return(NULL)
+> ##D           yld <- yield(fqs) 
+> ##D           if (length(yld) == 0L) {
+> ##D               close(fqs)
+> ##D               done <<- TRUE
+> ##D               NULL
+> ##D           } else yld
+> ##D       }
+> ##D   }
+> ##D  
+> ##D   ## The process function summarizes the number of times each sequence occurs.
+> ##D   summary <- function(reads, ...) {
+> ##D        ShortRead::tables(reads, n = 0)$distribution
+> ##D   }
+> ##D 
+> ##D   ## Create a param.
+> ##D   bpparam <- SnowParam(workers = 2) 
+> ##D 
+> ##D   ## Initialize the streamer and iterator.
+> ##D   fqs <- FastqStreamer(fl, n = 100)
+> ##D   ITER <- fastqIterator(fqs)
+> ##D   bpiterate(ITER, summary, BPPARAM = bpparam)
+> ##D  
+> ##D   ## Results from the workers are combined on the fly when REDUCE is used.
+> ##D   ## Collapsing the data in this way can substantially reduce memory 
+> ##D   ## requirements.
+> ##D   fqs <- FastqStreamer(fl, n = 100)
+> ##D   ITER <- fastqIterator(fqs)
+> ##D   bpiterate(ITER, summary, REDUCE = merge, all = TRUE, BPPARAM = bpparam)
+> ##D 
+> ##D   }
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bplapply")
+> ### * bplapply
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bplapply
+> ### Title: Parallel lapply-like functionality
+> ### Aliases: bplapply bplapply,ANY,list-method bplapply,ANY,missing-method
+> ###   bplapply,ANY,BiocParallelParam-method
+> ###   bplapply,ANY,BatchJobsParam-method bplapply,ANY,DoparParam-method
+> ###   bplapply,ANY,SerialParam-method bplapply,ANY,SnowParam-method
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> showMethods("bplapply")
+Function: bplapply (package BiocParallel)
+X="ANY", BPPARAM="BatchJobsParam"
+X="ANY", BPPARAM="BatchtoolsParam"
+X="ANY", BPPARAM="DoparParam"
+X="ANY", BPPARAM="SerialParam"
+X="ANY", BPPARAM="SnowParam"
+X="ANY", BPPARAM="list"
+X="ANY", BPPARAM="missing"
+X="integer", BPPARAM="BatchJobsParam"
+    (inherited from: X="ANY", BPPARAM="BatchJobsParam")
+X="integer", BPPARAM="MulticoreParam"
+    (inherited from: X="ANY", BPPARAM="SnowParam")
+X="integer", BPPARAM="SerialParam"
+    (inherited from: X="ANY", BPPARAM="SerialParam")
+X="integer", BPPARAM="SnowParam"
+    (inherited from: X="ANY", BPPARAM="SnowParam")
+X="list", BPPARAM="MulticoreParam"
+    (inherited from: X="ANY", BPPARAM="SnowParam")
+X="list", BPPARAM="SerialParam"
+    (inherited from: X="ANY", BPPARAM="SerialParam")
+X="list", BPPARAM="SnowParam"
+    (inherited from: X="ANY", BPPARAM="SnowParam")
+X="numeric", BPPARAM="BatchtoolsParam"
+    (inherited from: X="ANY", BPPARAM="BatchtoolsParam")
+
+> 
+> ## ten tasks (1:10) so ten calls to FUN default registered parallel
+> ## back-end. Compare with bpvec.
+> fun <- function(v) {
++     message("working") ## 10 tasks
++     sqrt(v)
++ }
+> bplapply(1:10, fun) 
+working
+working
+working
+working
+working
+working
+working
+working
+working
+working
+[[1]]
+[1] 1
+
+[[2]]
+[1] 1.414214
+
+[[3]]
+[1] 1.732051
+
+[[4]]
+[1] 2
+
+[[5]]
+[1] 2.236068
+
+[[6]]
+[1] 2.44949
+
+[[7]]
+[1] 2.645751
+
+[[8]]
+[1] 2.828427
+
+[[9]]
+[1] 3
+
+[[10]]
+[1] 3.162278
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bploop")
+> ### * bploop
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bploop
+> ### Title: Internal Functions for SNOW-style Parallel Evaluation
+> ### Aliases: bploop bploop.MPInode bploop.SOCKnode bploop.SOCK0node
+> ###   bploop.lapply bploop.iterate bprunMPIslave
+> 
+> ### ** Examples
+> 
+> ## These functions are not meant to be called by the end user.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bpmapply")
+> ### * bpmapply
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpmapply
+> ### Title: Parallel mapply-like functionality
+> ### Aliases: bpmapply bpmapply,ANY,list-method bpmapply,ANY,missing-method
+> ###   bpmapply,ANY,BiocParallelParam-method
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> showMethods("bpmapply")
+Function: bpmapply (package BiocParallel)
+FUN="ANY", BPPARAM="BiocParallelParam"
+FUN="ANY", BPPARAM="list"
+FUN="ANY", BPPARAM="missing"
+
+> 
+> fun <- function(greet, who) {
++     paste(Sys.getpid(), greet, who)
++ }
+> greet <- c("morning", "night")
+> who <- c("sun", "moon")
+> 
+> param <- bpparam()
+> original <- bpworkers(param)
+> bpworkers(param) <- 2
+> result <- bpmapply(fun, greet, who, BPPARAM = param)
+> cat(paste(result, collapse="\n"), "\n")
+44760 morning sun
+44814 night moon 
+> bpworkers(param) <- original
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bpok")
+> ### * bpok
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpok
+> ### Title: Resume computation with partial results
+> ### Aliases: bpresume bplasterror bpok
+> 
+> ### ** Examples
+> 
+> 
+> ## -----------------------------------------------------------------------
+> ## Catch errors: 
+> ## -----------------------------------------------------------------------
+> 
+> ## By default 'stop.on.error' is TRUE in BiocParallelParam objects.
+> SnowParam(workers = 2)
+class: SnowParam
+  bpisup: FALSE; bpnworkers: 2; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: SOCK
+> 
+> ## If 'stop.on.error' is TRUE an ill-fated bplapply() simply stops,
+> ## displaying the error message.
+> param <- SnowParam(workers = 2, stop.on.error = TRUE)
+> tryCatch({
++     bplapply(list(1, "two", 3), sqrt, BPPARAM = param)
++ }, error=identity)
+<bplist_error: BiocParallel errors
+  element index: 2, 3
+  first error: non-numeric argument to mathematical function>
+results and errors available as 'attr(x, "result")'
+> 
+> ## If 'stop.on.error' is FALSE then the computation continues. Errors
+> ## are signalled but the full evaluation can be retrieved
+> param <- SnowParam(workers = 2, stop.on.error = FALSE)
+> X <- list(1, "two", 3)
+> result <- bptry(bplapply(X, sqrt, BPPARAM = param))
+> result
+[[1]]
+[1] 1
+
+[[2]]
+<remote_error in FUN(...): non-numeric argument to mathematical function>
+traceback() available as 'attr(x, "traceback")'
+
+[[3]]
+[1] 1.732051
+
+> 
+> ## Check for errors:
+> fail <- !bpok(result)
+> fail
+[1] FALSE  TRUE FALSE
+> 
+> ## Access the traceback with attr():
+> tail(attr(result[[2]], "traceback"), 5)
+[1] "       FUN(...)"                                       
+[2] "   }, error = handle_error)"                           
+[3] "3: tryCatchList(expr, classes, parentenv, handlers)"   
+[4] "2: tryCatchOne(expr, names, parentenv, handlers[[1L]])"
+[5] "1: value[[3L]](cond)"                                  
+> 
+> ## -----------------------------------------------------------------------
+> ## Resume calculations: 
+> ## -----------------------------------------------------------------------
+> 
+> ## The 'resume' mechanism is triggered by supplying a list of partial
+> ## results as 'BPREDO'. Data elements that failed are rerun and merged
+> ## with previous results.
+> 
+> ## A call of sqrt() on the character "2" returns an error.
+> param <- SnowParam(workers = 2, stop.on.error = FALSE)
+> X <- list(1, "two", 3)
+> result <- bptry(bplapply(X, sqrt, BPPARAM = param))
+> 
+> ## Fix the input data by changing the character "2" to a numeric 2:
+> X_mod <- list(1, 2, 3)
+> 
+> ## Repeat the original call to bplapply() with the partial results as 'BPREDO':
+> bplapply(X_mod, sqrt, BPPARAM = param , BPREDO = result)
+resuming previous calculation ... 
+[[1]]
+[1] 1
+
+[[2]]
+[1] 1.414214
+
+[[3]]
+[1] 1.732051
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bpschedule")
+> ### * bpschedule
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpschedule
+> ### Title: Schedule back-end Params
+> ### Aliases: bpschedule bpschedule,missing-method bpschedule,ANY-method
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> bpschedule(SnowParam())                 # TRUE
+[1] TRUE
+> bpschedule(MulticoreParam(2))           # FALSE on windows
+[1] TRUE
+> 
+> p <- MulticoreParam()
+> bpschedule(p)                           # TRUE
+[1] TRUE
+> bplapply(1:2, function(i, p) {
++     bpschedule(p)                       # FALSE
++ }, p = p, BPPARAM=p)
+[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bptry")
+> ### * bptry
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bptry
+> ### Title: Try expression evaluation, recovering from bperror signals
+> ### Aliases: bptry
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> param = registered()[[1]]
+> param
+class: MulticoreParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: FORK
+> X = list(1, "2", 3)
+> bptry(bplapply(X, sqrt))                         # bplist_error handler
+[[1]]
+[1] 1
+
+[[2]]
+<remote_error in FUN(...): non-numeric argument to mathematical function>
+traceback() available as 'attr(x, "traceback")'
+
+[[3]]
+[1] 1.732051
+
+> bptry(bplapply(X, sqrt), bplist_error=identity)  # bperror handler
+<bplist_error: BiocParallel errors
+  element index: 2
+  first error: non-numeric argument to mathematical function>
+results and errors available as 'attr(x, "result")'
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bpvalidate")
+> ### * bpvalidate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpvalidate
+> ### Title: Tools for developing functions for parallel execution in
+> ###   distributed memory
+> ### Aliases: bpvalidate
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> 
+> ## ---------------------------------------------------------------------
+> ## Testing package functions
+> ## ---------------------------------------------------------------------
+> 
+> ## Not run: 
+> ##D library(myPkg)
+> ##D 
+> ##D ## Test exported functions by name or the double colon:
+> ##D bpvalidate(myExportedFun)
+> ##D bpvalidate(myPkg::myExportedFun)
+> ##D 
+> ##D ## Non-exported functions are called with the triple colon:
+> ##D bpvalidate(myPkg:::myInternalFun)
+> ## End(Not run)
+> 
+> ## ---------------------------------------------------------------------
+> ## Testing workspace functions
+> ## ---------------------------------------------------------------------
+> 
+> ## Functions defined in the workspace have the .GlobalEnv as their
+> ## environment. Often the symbols used inside the function body
+> ## are not defined in .GlobalEnv and must be passed explicitly.
+> 
+> ## Loading libraries:
+> ## In 'fun1' countBam() is flagged as unknown:
+> fun1 <- function(fl, ...) 
++     countBam(fl)
+> bpvalidate(fun1)
+Warning in bpvalidate(fun1) : function references unknown symbol(s)
+$inPath
+named list()
+
+$unknown
+[1] "countBam"
+
+> 
+> ## countBam() is not defined in .GlobalEnv and must be passed as
+> ## an argument or made available by loading the library.
+> fun2 <- function(fl, ...) {
++     library(Rsamtools)
++     countBam(fl)
++ }
+> bpvalidate(fun2)
+$inPath
+named list()
+
+$unknown
+character(0)
+
+> 
+> ## Passing arguments:
+> ## 'param' is defined in the workspace but not passed to 'fun3'. 
+> ## bpvalidate() flags 'param' as being found 'inPath' which means
+> ## it is not defined in the function environment or inside the function.
+> library(Rsamtools)
+Loading required package: GenomeInfoDb
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomicRanges
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+> param <- ScanBamParam(flag=scanBamFlag(isMinusStrand=FALSE))
+> 
+> fun3 <- function(fl, ...) {
++   library(Rsamtools)
++   countBam(fl, param=param)
++ }
+> bpvalidate(fun3)
+$inPath
+$inPath$param
+[1] ".GlobalEnv"
+
+
+$unknown
+character(0)
+
+> 
+> ## 'param' is explicitly passed by adding it as a formal argument.
+> fun4 <- function(fl, ..., param) {
++   library(Rsamtools)
++   countBam(fl, param=param)
++ }
+> bpvalidate(fun4)
+$inPath
+named list()
+
+$unknown
+character(0)
+
+> 
+> ## The corresponding call to a bp* function includes 'param':
+> ## Not run: bplapply(files, fun4, param=param, BPPARAM=SnowParam(2))
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:Rsamtools’, ‘package:Biostrings’, ‘package:XVector’,
+  ‘package:GenomicRanges’, ‘package:GenomeInfoDb’, ‘package:IRanges’,
+  ‘package:S4Vectors’, ‘package:stats4’, ‘package:BiocGenerics’,
+  ‘package:parallel’
+
+> nameEx("bpvec")
+> ### * bpvec
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpvec
+> ### Title: Parallel, vectorized evaluation
+> ### Aliases: bpvec bpvec,ANY,missing-method bpvec,ANY,list-method
+> ###   bpvec,ANY,BiocParallelParam-method
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> showMethods("bpvec")
+Function: bpvec (package BiocParallel)
+X="ANY", BPPARAM="BiocParallelParam"
+X="ANY", BPPARAM="list"
+X="ANY", BPPARAM="missing"
+X="integer", BPPARAM="SerialParam"
+    (inherited from: X="ANY", BPPARAM="BiocParallelParam")
+
+> 
+> ## ten tasks (1:10), called with as many back-end elements are specified
+> ## by BPPARAM.  Compare with bplapply
+> fun <- function(v) {
++     message("working")
++     sqrt(v)
++ }
+> system.time(result <- bpvec(1:10, fun)) 
+working
+working
+working
+working
+working
+working
+working
+working
+working
+working
+   user  system elapsed 
+  0.511   0.564   3.008 
+> result
+ [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+ [9] 3.000000 3.162278
+> 
+> ## invalid FUN -- length(class(X)) is not equal to length(X)
+> bptry(bpvec(1:2, class, BPPARAM=SerialParam()))
+<bpvec_error: length(FUN(X)) not equal to length(X)>
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bpvectorize")
+> ### * bpvectorize
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bpvectorize
+> ### Title: Transform vectorized functions into parallelized, vectorized
+> ###   function
+> ### Aliases: bpvectorize bpvectorize,ANY,ANY-method
+> ###   bpvectorize,ANY,missing-method
+> ### Keywords: interface
+> 
+> ### ** Examples
+> 
+> psqrt <- bpvectorize(sqrt) ## default parallelization
+> psqrt(1:10)
+ [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+ [9] 3.000000 3.162278
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ipcmutex")
+> ### * ipcmutex
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ipcmutex
+> ### Title: Inter-process locks and counters
+> ### Aliases: ipclocked ipclock ipctrylock ipcunlock ipcid ipcremove
+> ###   ipcyield ipcvalue ipcreset
+> 
+> ### ** Examples
+> 
+> ipcid()
+[1] "c617d3a7-84a9-4858-bf61-94ab359ba8d7"
+> 
+> ## Locks
+> 
+> id <- ipcid()
+> 
+> ipclock(id)
+[1] TRUE
+> ipctrylock(id)
+[1] FALSE
+> ipcunlock(id)
+[1] FALSE
+> ipctrylock(id)
+[1] TRUE
+> ipclocked(id)
+[1] TRUE
+> 
+> ipcremove(id)
+> 
+> id <- ipcid()
+> result <- bplapply(1:5, function(i, id) {
++     BiocParallel::ipclock(id)
++     Sys.sleep(1)
++     time <- Sys.time()
++     BiocParallel::ipcunlock(id)
++     time
++ }, id)
+> ipcremove(id)
+> diff(sort(unlist(result, use.names=FALSE)))
+[1] 1.000967 1.002009 1.001996 1.001979
+> 
+> ## Counters
+> 
+> id <- ipcid()
+> 
+> ipcyield(id)
+[1] 1
+> ipcyield(id)
+[1] 2
+> 
+> ipcvalue(id)
+[1] 3
+> ipcyield(id)
+[1] 3
+> 
+> ipcreset(id, 10)
+> ipcvalue(id)
+[1] 10
+> ipcyield(id)
+[1] 10
+> 
+> ipcremove(id)
+> 
+> id <- ipcid()
+> result <- bplapply(1:5, function(i, id) {
++     BiocParallel::ipcyield(id)
++ }, id)
+> ipcremove(id)
+> sort(unlist(result, use.names=FALSE))
+[1] 1 2 3 4 5
+> 
+> 
+> 
+> cleanEx()
+> nameEx("register")
+> ### * register
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: register
+> ### Title: Maintain a global registry of available back-end Params
+> ### Aliases: register registered bpparam
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> 
+> ## ----------------------------------------------------------------------
+> ## The registry 
+> ## ----------------------------------------------------------------------
+> 
+> ## The default registry.
+> default <- registered()
+> default
+$MulticoreParam
+class: MulticoreParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: FORK
+
+$SnowParam
+class: SnowParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: SOCK
+
+$SerialParam
+class: SerialParam
+  bpisup: TRUE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bplogdir: NA
+
+> 
+> ## When default = TRUE the last param registered becomes the new default.
+> snowparam <- SnowParam(workers = 3, type = "SOCK")
+> register(snowparam, default = TRUE)
+> registered()
+$SnowParam
+class: SnowParam
+  bpisup: FALSE; bpnworkers: 3; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: SOCK
+
+$MulticoreParam
+class: MulticoreParam
+  bpisup: FALSE; bpnworkers: 62; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: FORK
+
+$SerialParam
+class: SerialParam
+  bpisup: TRUE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bplogdir: NA
+
+> 
+> ## Retrieve the default back-end,
+> bpparam()
+class: SnowParam
+  bpisup: FALSE; bpnworkers: 3; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: SOCK
+> 
+> ## or a specific BiocParallelParam.
+> bpparam("SnowParam")
+class: SnowParam
+  bpisup: FALSE; bpnworkers: 3; bptasks: 0; bpjobname: BPJOB
+  bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
+  bptimeout: 2592000; bpprogressbar: FALSE
+  bpRNGseed: 
+  bplogdir: NA
+  bpresultdir: NA
+  cluster type: SOCK
+> 
+> ## restore original registry -- push the defaults in reverse order
+> for (param in rev(default))
++     register(param)
+> 
+> ## ----------------------------------------------------------------------
+> ## Specifying a back-end for evaluation
+> ## ----------------------------------------------------------------------
+> 
+> ## The back-end of choice is given as the BPPARAM argument to
+> ## the BiocParallel functions. None, one, or multiple back-ends can be
+> ## used.
+> 
+> bplapply(1:6, sqrt, BPPARAM = MulticoreParam(3))
+[[1]]
+[1] 1
+
+[[2]]
+[1] 1.414214
+
+[[3]]
+[1] 1.732051
+
+[[4]]
+[1] 2
+
+[[5]]
+[1] 2.236068
+
+[[6]]
+[1] 2.44949
+
+> 
+> ## When not specified, the default from the registry is used.
+> bplapply(1:6, sqrt)
+[[1]]
+[1] 1
+
+[[2]]
+[1] 1.414214
+
+[[3]]
+[1] 1.732051
+
+[[4]]
+[1] 2
+
+[[5]]
+[1] 2.236068
+
+[[6]]
+[1] 2.44949
+
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  104.46 11.047 352.451 50.151 13.56 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

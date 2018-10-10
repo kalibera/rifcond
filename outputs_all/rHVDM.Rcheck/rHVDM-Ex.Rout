@@ -1,0 +1,199 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "rHVDM"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('rHVDM')
+Loading required package: R2HTML
+Loading required package: affy
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: minpack.lm
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("HVDMcheck")
+> ### * HVDMcheck
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: HVDMcheck
+> ### Title: Checks that an object of class ExpressionSet is compliant with
+> ###   HVDM
+> ### Aliases: HVDMcheck
+> ### Keywords: IO ts
+> 
+> ### ** Examples
+> 
+> data(HVDMexample)
+> HVDMcheck(fiveGyMAS5)
+*** checking that pheno data has all the required fields:
+					OK
+*** checking time vectors:
+					OK
+*** checking that pdata and expression set coincide:
+					OK
+*** checking dynamic range of expression values:
+					OK
+HAVE TO CHANGE THE MESSAGE WITH THE CORRECT ACCESSION MODIFICATION LABELS
+*** checking standard deviation in assayData([eset])$se.exprs:
+					OK
+  
+everything seems to be OK
+> 
+> 
+> 
+> cleanEx()
+> nameEx("HVDMreport")
+> ### * HVDMreport
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: HVDMreport
+> ### Title: generates an HTML report using the input
+> ### Aliases: HVDMreport
+> ### Keywords: IO ts
+> 
+> ### ** Examples
+> 
+> data(HVDMexample)
+> tHVDMp53<-training(eset=fiveGyMAS5,genes=p53traingenes,degrate=0.8,actname="p53")
+> #HVDMreport(tHVDMp53)
+> #HVDMreport(tHVDMp53, name="p53training")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("estimerrors")
+> ### * estimerrors
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estimerrors
+> ### Title: computes the standard deviation of the measurement error using
+> ###   pre-calculated tables specific to the plattform or user-defined table
+> ### Aliases: estimerrors
+> ### Keywords: IO ts
+> 
+> ### ** Examples
+> 
+> data(HVDMexample)
+> fiveGybis<-estimerrors(eset=fiveGyMAS5,plattid="affy_HGU133A",refchips=leastnoisychips)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpehAK0L/R.INSTALLe0b041d97b27/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- package (from environment) --- 
+rHVDM
+ --- call from context --- 
+.computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- call from argument --- 
+if (refchips == 0) {
+    wei <- rep(0, m)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpehAK0L/R.INSTALLe0b041d97b27/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /var/scratch2/tomas/tmp/RtmpehAK0L/R.INSTALLe0b041d97b27/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A", refchips = leastnoisychips)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function from context --- 
+function(X,errtable,refchips){
+	#method as described in GB paper
+	#prepare the receptacle
+	N<-dim(X)[2]
+	if(missing(refchips)){
+		refchips<-c(1:N)
+	}
+	m<-dim(errtable)[1]
+	res<-matrix(rep(0,m*N),m,N)
+	dimnames(res)[[2]]<-dimnames(X)[[2]]
+	#compute average
+	coeffmul<-rep(1./N,N)
+	aver<-as.vector(X %*% coeffmul)
+	difsq<-(X-aver)^2
+	#determine bounds for classification
+	bnds<-c(-20,errtable[,1])
+	for(i in c(1:(m-1))){
+		bnds[i+1]<-errtable[i,1]/2+errtable[i+1,1]/2
+	}
+	bnds[m+1]<-log(max(aver)+1)
+	if(refchips==0){
+		wei<-rep(0,m)
+	}
+	for(i in c(1:m)){
+		keep<-((log(aver)>bnds[i]) & (log(aver)<=bnds[i+1]))
+		ngenes<-sum(keep*1)
+		coe<-rep(1./ngenes,ngenes)
+		res[i,]<-as.vector(t(difsq[keep,]) %*% coe)
+		if(refchips==0){
+			wei[i]<-ngenes
+		}
+	}
+	if(refchips==0){
+		refchips<-.retlessnoisy(X=res,weight=wei,N=3)
+		print(refchips)
+	}
+	#compute average for reference group
+	nref<-length(refchips)
+	coe<-rep(1./nref,nref)
+	avrefchi<-res[,refchips] %*% coe
+	ratio<-as.vector(errtable[,2]/avrefchi)
+	res<-cbind(errtable[,1],res*ratio)
+	dimnames(res)[[2]][1]<-"avg"
+	res
+}
+<bytecode: 0x319bd28>
+<environment: namespace:rHVDM>
+ --- function search by body ---
+Function .computeinderrtable in namespace rHVDM has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

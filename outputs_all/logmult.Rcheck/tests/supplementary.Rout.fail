@@ -1,0 +1,193 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## Variations based on Becker & Clogg (1989), cf. Becker-Clogg1989.R
+> 
+> library(logmult)
+Loading required package: gnm
+
+Attaching package: 'logmult'
+
+The following object is masked from 'package:gnm':
+
+    se
+
+> data(color)
+> 
+> caithness <- color[,,"Caithness"]
+> 
+> 
+> ## Adding the table again as supplementary rows
+> rsup <- caithness
+> csup <- caithness
+> rownames(rsup) <- paste(rownames(caithness), "2")
+> colnames(csup) <- paste(colnames(caithness), "2")
+> 
+> names(dimnames(rsup)) <- names(dimnames(csup)) <- names(dimnames(caithness))
+> 
+> mA1r <- rc(caithness, 1, rowsup=rsup, weighting="u", start=NA)
+Running base model to find starting values...
+Running real model...
+Initialising
+Running main iterations.....................
+Done
+> mA1c <- rc(caithness, 1, colsup=csup, weighting="u", start=NA)
+Running base model to find starting values...
+Running real model...
+Initialising
+Running main iterations.....................
+Done
+> mA1 <- rc(caithness, 1, rowsup=rsup, colsup=csup, weighting="u", start=NA)
+Running base model to find starting values...
+Running real model...
+Initialising
+Running main iterations.....................
+Done
+> 
+> rscoresA1 <- mA1$assoc$row[1:4, 1, 1] * sqrt(mA1$assoc$phi[1, 1])
+> cscoresA1 <- mA1$assoc$col[1:5, 1, 1] * sqrt(mA1$assoc$phi[1, 1])
+> 
+> rmA1 <- gnm(Freq ~ Eye + Hair + Eye:cscoresA1[col(rsup)],
++                data=as.table(rsup), family=poisson)
+> cmA1 <- gnm(Freq ~ Eye + Hair + Hair:rscoresA1[row(csup)],
++                data=as.table(csup), family=poisson)
+> 
+> rscA1 <- getContrasts(rmA1, pickCoef(rmA1, "cscores"), ref="mean")$qvframe[,1]
+> cscA1 <- getContrasts(cmA1, pickCoef(cmA1, "rscores"), ref="mean")$qvframe[,1]
+> 
+> stopifnot(all.equal(rscA1, rscoresA1, mA1$assoc$row[5:8,,] * sqrt(mA1$assoc$phi[1, 1]),
++                     tolerance=1e-6, check.attributes=FALSE))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+base
+ --- call from context --- 
+all.equal.numeric(rscA1, rscoresA1, mA1$assoc$row[5:8, , ] * 
+    sqrt(mA1$assoc$phi[1, 1]), tolerance = 1e-06, check.attributes = FALSE)
+ --- call from argument --- 
+if (scale == 1) "absolute" else "scaled"
+ --- R stacktrace ---
+where 1: all.equal.numeric(rscA1, rscoresA1, mA1$assoc$row[5:8, , ] * 
+    sqrt(mA1$assoc$phi[1, 1]), tolerance = 1e-06, check.attributes = FALSE)
+where 2: all.equal(rscA1, rscoresA1, mA1$assoc$row[5:8, , ] * sqrt(mA1$assoc$phi[1, 
+    1]), tolerance = 1e-06, check.attributes = FALSE)
+where 3: doTryCatch(return(expr), name, parentenv, handler)
+where 4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 5: tryCatchList(expr, classes, parentenv, handlers)
+where 6: tryCatch(if (missE) ...elt(i) else eval(cl.i, envir = envir), 
+    error = function(e) {
+        e$call <- cl.i
+        stop(e)
+    })
+where 7: withCallingHandlers(tryCatch(if (missE) ...elt(i) else eval(cl.i, 
+    envir = envir), error = function(e) {
+    e$call <- cl.i
+    stop(e)
+}), warning = function(w) {
+    w$call <- cl.i
+    w
+})
+where 8: stopifnot(all.equal(rscA1, rscoresA1, mA1$assoc$row[5:8, , ] * 
+    sqrt(mA1$assoc$phi[1, 1]), tolerance = 1e-06, check.attributes = FALSE))
+
+ --- value of length: 4 type: logical ---
+  Blue 2  Light 2 Medium 2   Dark 2 
+   FALSE    FALSE    FALSE    FALSE 
+ --- function from context --- 
+function (target, current, tolerance = sqrt(.Machine$double.eps), 
+    scale = NULL, countEQ = FALSE, formatFUN = function(err, 
+        what) format(err), ..., check.attributes = TRUE) 
+{
+    if (!is.numeric(tolerance)) 
+        stop("'tolerance' should be numeric")
+    if (!is.numeric(scale) && !is.null(scale)) 
+        stop("'scale' should be numeric or NULL")
+    if (!is.logical(check.attributes)) 
+        stop(gettextf("'%s' must be logical", "check.attributes"), 
+            domain = NA)
+    msg <- if (check.attributes) 
+        attr.all.equal(target, current, tolerance = tolerance, 
+            scale = scale, ...)
+    if (data.class(target) != data.class(current)) {
+        msg <- c(msg, paste0("target is ", data.class(target), 
+            ", current is ", data.class(current)))
+        return(msg)
+    }
+    lt <- length(target)
+    lc <- length(current)
+    cplx <- is.complex(target)
+    if (lt != lc) {
+        if (!is.null(msg)) 
+            msg <- msg[-grep("\\bLengths\\b", msg)]
+        msg <- c(msg, paste0(if (cplx) "Complex" else "Numeric", 
+            ": lengths (", lt, ", ", lc, ") differ"))
+        return(msg)
+    }
+    target <- as.vector(target)
+    current <- as.vector(current)
+    out <- is.na(target)
+    if (any(out != is.na(current))) {
+        msg <- c(msg, paste("'is.NA' value mismatch:", sum(is.na(current)), 
+            "in current", sum(out), "in target"))
+        return(msg)
+    }
+    out <- out | target == current
+    if (all(out)) 
+        return(if (is.null(msg)) TRUE else msg)
+    if (countEQ) {
+        N <- length(out)
+        n0 <- sum(out)
+        sabst0 <- sum(abs(target[out]))
+    }
+    else sabst0 <- 0
+    target <- target[!out]
+    current <- current[!out]
+    if (!countEQ) 
+        N <- length(target)
+    if (is.integer(target) && is.integer(current)) 
+        target <- as.double(target)
+    xy <- sum(abs(target - current))/N
+    what <- if (is.null(scale)) {
+        xn <- (sabst0 + sum(abs(target)))/N
+        if (is.finite(xn) && xn > tolerance) {
+            xy <- xy/xn
+            "relative"
+        }
+        else "absolute"
+    }
+    else {
+        xy <- xy/scale
+        if (scale == 1) 
+            "absolute"
+        else "scaled"
+    }
+    if (cplx) 
+        what <- paste(what, "Mod")
+    if (is.na(xy) || xy > tolerance) 
+        msg <- c(msg, paste("Mean", what, "difference:", formatFUN(xy, 
+            what)))
+    if (is.null(msg)) 
+        TRUE
+    else msg
+}
+<bytecode: 0x97f7448>
+<environment: namespace:base>
+ --- function search by body ---
+Function all.equal.numeric in namespace base has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

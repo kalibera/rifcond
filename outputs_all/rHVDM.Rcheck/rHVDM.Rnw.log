@@ -1,0 +1,140 @@
+
+> options(keep.source = TRUE, width = 60)
+
+> foo <- packageDescription("rHVDM")
+
+> library(rHVDM)
+Loading required package: R2HTML
+Loading required package: affy
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall,
+    clusterEvalQ, clusterExport, clusterMap,
+    parApply, parCapply, parLapply, parLapplyLB,
+    parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce,
+    anyDuplicated, append, as.data.frame, basename,
+    cbind, colMeans, colSums, colnames, dirname,
+    do.call, duplicated, eval, evalq, get, grep,
+    grepl, intersect, is.unsorted, lapply, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max,
+    which.min
+
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view
+    with 'browseVignettes()'. To cite Bioconductor,
+    see 'citation("Biobase")', and for packages
+    'citation("pkgname")'.
+
+Loading required package: minpack.lm
+
+> data(HVDMexample)
+
+> anothereset <- assayDataElementReplace(fiveGyMAS5, 
++     "se.exprs", 5 + exprs(fiveGyMAS5) * 0.1)
+
+> anothereset <- estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpehAK0L/R.INSTALLe0b041d97b27/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- package (from environment) --- 
+rHVDM
+ --- call from context --- 
+.computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- call from argument --- 
+if (refchips == 0) {
+    wei <- rep(0, m)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpehAK0L/R.INSTALLe0b041d97b27/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /var/scratch2/tomas/tmp/RtmpehAK0L/R.INSTALLe0b041d97b27/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A")
+where 4: eval(ei, envir)
+where 5: eval(ei, envir)
+where 6: withVisible(eval(ei, envir))
+where 7 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
+    source(output, echo = TRUE)
+}, error = function(e) {
+    cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
+    stop(conditionMessage(e), call. = FALSE, domain = NA)
+})
+where 12: tools:::.run_one_vignette("rHVDM.Rnw", "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/rHVDM.Rcheck/00_pkg_src/rHVDM/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/rHVDM.Rcheck/00_pkg_src/rHVDM")
+
+ --- value of length: 21 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[10] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[19] FALSE FALSE FALSE
+ --- function from context --- 
+function(X,errtable,refchips){
+	#method as described in GB paper
+	#prepare the receptacle
+	N<-dim(X)[2]
+	if(missing(refchips)){
+		refchips<-c(1:N)
+	}
+	m<-dim(errtable)[1]
+	res<-matrix(rep(0,m*N),m,N)
+	dimnames(res)[[2]]<-dimnames(X)[[2]]
+	#compute average
+	coeffmul<-rep(1./N,N)
+	aver<-as.vector(X %*% coeffmul)
+	difsq<-(X-aver)^2
+	#determine bounds for classification
+	bnds<-c(-20,errtable[,1])
+	for(i in c(1:(m-1))){
+		bnds[i+1]<-errtable[i,1]/2+errtable[i+1,1]/2
+	}
+	bnds[m+1]<-log(max(aver)+1)
+	if(refchips==0){
+		wei<-rep(0,m)
+	}
+	for(i in c(1:m)){
+		keep<-((log(aver)>bnds[i]) & (log(aver)<=bnds[i+1]))
+		ngenes<-sum(keep*1)
+		coe<-rep(1./ngenes,ngenes)
+		res[i,]<-as.vector(t(difsq[keep,]) %*% coe)
+		if(refchips==0){
+			wei[i]<-ngenes
+		}
+	}
+	if(refchips==0){
+		refchips<-.retlessnoisy(X=res,weight=wei,N=3)
+		print(refchips)
+	}
+	#compute average for reference group
+	nref<-length(refchips)
+	coe<-rep(1./nref,nref)
+	avrefchi<-res[,refchips] %*% coe
+	ratio<-as.vector(errtable[,2]/avrefchi)
+	res<-cbind(errtable[,1],res*ratio)
+	dimnames(res)[[2]][1]<-"avg"
+	res
+}
+<bytecode: 0x1fe2900>
+<environment: namespace:rHVDM>
+ --- function search by body ---
+Function .computeinderrtable in namespace rHVDM has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

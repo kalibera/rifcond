@@ -1,0 +1,172 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/simulatorZ.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘simulatorZ/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘simulatorZ’ version ‘1.14.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘simulatorZ’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+Namespaces in Imports field not imported from:
+  ‘IRanges’ ‘S4Vectors’
+  All declared Imports should be used.
+Packages in Depends field not imported from:
+  ‘BiocGenerics’ ‘methods’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+fastCox: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/rowCoxTest.R:54-55)
+fastCox: no visible global function definition for ‘new’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/rowCoxTest.R:60)
+geneFilter: no visible global function definition for ‘cor’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/geneFilter.R:24)
+geneFilter: no visible global function definition for ‘cor’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/geneFilter.R:25)
+geneFilter: no visible global function definition for ‘cor’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/geneFilter.R:28)
+getMatrix: no visible global function definition for ‘is’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/00utils.R:7-8)
+getMatrix: no visible global function definition for ‘is’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/00utils.R:9-11)
+masomenos: no visible global function definition for ‘is’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/masomenos.R:16)
+plusMinus: no visible binding for global variable ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/plusminuscore.R:82)
+plusMinus: no visible binding for global variable ‘quantile’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/plusminuscore.R:93)
+plusMinus: no visible global function definition for ‘new’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/plusminuscore.R:96-97)
+rowCoxTests: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/rowCoxTest.R:104-106)
+simData: no visible global function definition for ‘is’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/simData.R:38-60)
+simData: no visible global function definition for ‘is’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/simData.R:69-81)
+simTime: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/simTime.R:40)
+simTime: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpY1AF3y/R.INSTALL90a2ece4923/simulatorZ/R/simTime.R:45)
+Undefined global functions or variables:
+  cor is new pnorm quantile runif sd
+Consider adding
+  importFrom("methods", "is", "new")
+  importFrom("stats", "cor", "pnorm", "quantile", "runif", "sd")
+to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+contains 'methods').
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘simulatorZ-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: funCV
+> ### Title: funCV
+> ### Aliases: funCV
+> 
+> ### ** Examples
+> 
+> 
+> 
+> library(curatedOvarianData)
+Loading required package: affy
+> 
+> 
+> library(GenomicRanges)
+> 
+> 
+> set.seed(8)
+> 
+> 
+> data( E.MTAB.386_eset )
+> 
+> 
+> eset <- E.MTAB.386_eset[1:100, 1:30]
+> 
+> 
+> time <- eset$days_to_death
+> 
+> 
+> cens.chr <- eset$vital_status
+> 
+> 
+> cens <- c()
+> 
+> 
+> for(i in seq_along(cens.chr)){
++ 
++ 
++   if(cens.chr=="living") cens[i] <- 1
++ 
++ 
++   else cens[i] <- 0
++ 
++ 
++ }
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:curatedOvarianData
+ --- call from context --- 
+NULL
+ --- call from argument --- 
+if (cens.chr == "living") cens[i] <- 1 else cens[i] <- 0
+ --- R stacktrace ---
+
+ --- value of length: 30 type: logical ---
+ [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
+[13] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+[25] FALSE FALSE FALSE FALSE FALSE  TRUE
+ --- function from context --- 
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘runTests.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 3 NOTEs

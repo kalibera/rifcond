@@ -1,0 +1,120 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/mlogit.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘mlogit/DESCRIPTION’ ... OK
+* this is package ‘mlogit’ version ‘0.3-0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘mlogit’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'mlogit.Rd':
+  ‘multinom’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... NOTE
+   ----------- FAILURE REPORT -------------- 
+   --- srcref --- 
+   at ../../../../R/src/library/tools/R/QC.R#4371: 
+   --- package (from environment) --- 
+  tools
+   --- call from context --- 
+  FUN(X[[i]], ...)
+   --- call from argument --- 
+  if (!length(x)) return()
+   --- R stacktrace ---
+  where 1: FUN(X[[i]], ...)
+  where 2 at ../../../../R/src/library/tools/R/QC.R#4373: lapply(unclass(x), check_one, ds = ds)
+  where 3 at ../../../../R/src/library/tools/R/QC.R#4413: check_one(get(ds, envir = dataEnv), ds)
+  where 4: withCallingHandlers(expr, message = function(c) invokeRestart("muffleMessage"))
+  where 5 at ../../../../R/src/library/tools/R/QC.R#4412: suppressMessages({
+      for (ds in ls(envir = dataEnv, all.names = TRUE)) check_one(get(ds, 
+          envir = dataEnv), ds)
+  })
+  where 6: tools:::.check_package_datasets(".")
+  
+   --- value of length: 2 type: logical ---
+  [1] FALSE FALSE
+   --- function from context --- 
+  function(x, ds)
+      {
+          if(!length(x)) return()
+          ## avoid as.list methods
+          if(is.list(x)) lapply(unclass(x), check_one, ds = ds)
+          if(is.character(x)) {
+              xx <- unclass(x)
+              enc <- Encoding(xx)
+              latin1 <<- latin1 + sum(enc == "latin1")
+              utf8 <<- utf8 + sum(enc == "UTF-8")
+              bytes <<- bytes + sum(enc == "bytes")
+              unk <- xx[enc == "unknown"]
+              ind <- .Call(C_check_nonASCII2, unk)
+              if(length(ind)) {
+                  non_ASCII <<- c(non_ASCII, unk[ind])
+                  where <<- c(where, rep.int(ds, length(ind)))
+              }
+          }
+          a <- attributes(x)
+          if(!is.null(a)) {
+              lapply(a, check_one, ds = ds)
+              check_one(names(a), ds)
+          }
+          invisible()
+      }
+  <bytecode: 0x2ae0ac8>
+  <environment: 0x2b0b950>
+   --- function search by body ---
+   ----------- END OF FAILURE REPORT -------------- 
+  Fatal error: the condition has length > 1
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘AER.R’
+  Running ‘greene.R’
+  Running ‘threetests.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 WARNING, 1 NOTE

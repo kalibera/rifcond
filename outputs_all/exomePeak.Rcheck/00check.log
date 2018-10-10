@@ -1,0 +1,647 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘exomePeak/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘exomePeak’ version ‘2.14.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘exomePeak’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+Packages in Depends field not imported from:
+  ‘GenomicAlignments’ ‘GenomicFeatures’ ‘Rsamtools’ ‘rtracklayer’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+.bed2grangeslist: no visible global function definition for ‘head’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/bed2transcriptdb.R:18)
+.bed2grangeslist: no visible global function definition for ‘makeTxDb’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/bed2transcriptdb.R:55-56)
+.bed2grangeslist: no visible global function definition for ‘exonsBy’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/bed2transcriptdb.R:57)
+.exomepeak_notification: no visible global function definition for
+  ‘mcols<-’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/exomepeak_notification.R:60)
+.exomepeak_notification: no visible global function definition for
+  ‘mcols<-’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/exomepeak_notification.R:64)
+.exomepeak_notification: no visible global function definition for
+  ‘mcols<-’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/exomepeak_notification.R:81)
+.exomepeak_notification: no visible global function definition for
+  ‘mcols<-’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/exomepeak_notification.R:85)
+.exomepeak_notification: no visible global function definition for
+  ‘mcols<-’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/exomepeak_notification.R:89)
+.get.bam.chrs: no visible global function definition for ‘indexBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.bam.chrs.R:8)
+.get.bam.chrs: no visible global function definition for ‘ScanBamParam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.bam.chrs.R:11)
+.get.bam.chrs: no visible global function definition for ‘scanBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.bam.chrs.R:12)
+.get.bam.read.length: no visible global function definition for
+  ‘indexBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.bam.read.length.R:8)
+.get.bam.read.length: no visible global function definition for
+  ‘ScanBamParam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.bam.read.length.R:11)
+.get.bam.read.length: no visible global function definition for
+  ‘scanBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.bam.read.length.R:12)
+.get.bam.read.length: no visible global function definition for
+  ‘median’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.bam.read.length.R:13)
+.get.check.points.reads.count: no visible global function definition
+  for ‘IRangesList’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.check.points.reads.count.R:6)
+.get.check.points.reads.count: no visible global function definition
+  for ‘IRanges’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.check.points.reads.count.R:6)
+.get.check.points.reads.count: no visible global function definition
+  for ‘ScanBamParam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.check.points.reads.count.R:9)
+.get.check.points.reads.count: no visible global function definition
+  for ‘scanBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/get.check.points.reads.count.R:12)
+.read.gtf: no visible global function definition for ‘makeTxDbFromUCSC’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/read.gtf.R:7-8)
+.read.gtf: no visible global function definition for ‘makeTxDbFromGFF’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/read.gtf.R:15)
+.read.gtf: no visible global function definition for ‘columns’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/read.gtf.R:34)
+.read.gtf: no visible global function definition for ‘keys’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/read.gtf.R:37)
+.read.gtf: no visible global function definition for ‘select’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/read.gtf.R:38)
+.read.gtf: no visible global function definition for ‘columns’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/read.gtf.R:38)
+.readTxDb2: no visible global function definition for
+  ‘makeTxDbFromUCSC’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:238-239)
+.readTxDb2: no visible global function definition for ‘makeTxDbFromGFF’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:246)
+.report.diff.peak.based.on.result: no visible global function
+  definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.diff.peak.based.on.result.R:18)
+.report.diff.peak.based.on.result: no visible global function
+  definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.diff.peak.based.on.result.R:22)
+.report.diff.peak.based.on.result: no visible global function
+  definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.diff.peak.based.on.result.R:32)
+.report.diff.peak.based.on.result: no visible global function
+  definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.diff.peak.based.on.result.R:39)
+.report.diff.peak.based.on.result: no visible global function
+  definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.diff.peak.based.on.result.R:56)
+.report.diff.peak.based.on.result: no visible global function
+  definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.diff.peak.based.on.result.R:63)
+.report.peak.based.on.result: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.peak.based.on.result.R:24)
+.report.peak.based.on.result: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.peak.based.on.result.R:25)
+.report.peak.based.on.result: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.peak.based.on.result.R:45)
+.report.peak.based.on.result: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.peak.based.on.result.R:46)
+.report.peak.based.on.result: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.peak.based.on.result.R:50)
+.report.peak.based.on.result: no visible global function definition for
+  ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/report.peak.based.on.result.R:51)
+.xls2Grangeslist: no visible global function definition for
+  ‘read.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:261)
+.xls2Grangeslist: no visible global function definition for ‘head’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:274)
+.xls2Grangeslist: no visible global function definition for ‘makeTxDb’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:311-312)
+.xls2Grangeslist: no visible global function definition for ‘exonsBy’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:313)
+.xls2Grangeslist: no visible global function definition for ‘mcols<-’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:314)
+RMT: no visible global function definition for ‘read.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:84)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:96-98)
+RMT: no visible global function definition for ‘read.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:102)
+RMT: no visible global function definition for ‘findOverlaps’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:107)
+RMT: no visible global function definition for ‘queryHits’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:109)
+RMT: no visible global function definition for ‘subjectHits’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:110)
+RMT: no visible global function definition for ‘ranges’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:116)
+RMT: no visible global function definition for ‘ranges’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:117)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:131)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:132)
+RMT: no visible global function definition for ‘exonsBy’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:137)
+RMT: no visible global function definition for ‘readGAlignments’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:147)
+RMT: no visible global function definition for ‘ScanBamParam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:148)
+RMT: no visible global function definition for ‘scanBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:149)
+RMT: no visible global function definition for ‘countOverlaps’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:154)
+RMT: no visible global function definition for ‘countOverlaps’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:156)
+RMT: no visible global function definition for ‘width’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:158)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:165)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:166)
+RMT: no visible global function definition for ‘readGAlignments’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:170)
+RMT: no visible global function definition for ‘ScanBamParam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:171)
+RMT: no visible global function definition for ‘scanBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:172)
+RMT: no visible global function definition for ‘countOverlaps’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:177)
+RMT: no visible global function definition for ‘countOverlaps’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:179)
+RMT: no visible global function definition for ‘width’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:181)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:187)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:188)
+RMT: no visible global function definition for ‘var’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:212)
+RMT: no visible global function definition for ‘write.table’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R:215)
+bltest: no visible global function definition for ‘pchisq’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/bltest.r:92)
+bltest: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/bltest.r:96)
+bltest: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/bltest.r:100)
+ctest: no visible global function definition for ‘pbinom’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/ctest.R:19)
+ctest: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/ctest.R:25)
+ctest: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/ctest.R:29)
+exomepeak: no visible global function definition for ‘indexBam’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/exomepeak.R:98)
+rhtest: no visible global function definition for ‘phyper’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/rhtest.R:50)
+rhtest: no visible global function definition for ‘phyper’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/rhtest.R:51)
+rhtest: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/rhtest.R:59)
+rhtest: no visible global function definition for ‘p.adjust’
+  (/var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/rhtest.R:63)
+Undefined global functions or variables:
+  IRanges IRangesList ScanBamParam columns countOverlaps exonsBy
+  findOverlaps head indexBam keys makeTxDb makeTxDbFromGFF
+  makeTxDbFromUCSC mcols<- median p.adjust pbinom pchisq phyper
+  queryHits ranges read.table readGAlignments scanBam select
+  subjectHits var width write.table
+Consider adding
+  importFrom("stats", "median", "p.adjust", "pbinom", "pchisq", "phyper",
+             "var")
+  importFrom("utils", "head", "read.table", "write.table")
+to your NAMESPACE file.
+* checking Rd files ... NOTE
+prepare_Rd: RMT.Rd:60-62: Dropping empty section \details
+prepare_Rd: RMT.Rd:74-76: Dropping empty section \note
+prepare_Rd: RMT.Rd:80-82: Dropping empty section \seealso
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘exomePeak-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: RMT
+> ### Title: Extract a combinatorial RNA methylome from multiple biological
+> ###   conditions or replicates.
+> ### Aliases: RMT
+> ### Keywords: MeRIP-Seq
+> 
+> ### ** Examples
+> 
+> # the RESPECT R-package has two main functions:
+> # 1. exome-based peak
+> # 2. compute reads counts, rpkm and fold change
+> # please feel free to contact liulian19860905@163.com for any questions
+> 
+> # load library and specify the parameters
+> gene_anno_gtf <- system.file("extdata", "example.gtf", package="exomePeak")
+> f1 <- system.file("extdata", "IP1.bam", package="exomePeak")
+> f2 <- system.file("extdata", "IP2.bam", package="exomePeak")
+> f3 <- system.file("extdata", "IP3.bam", package="exomePeak")
+> f4 <- system.file("extdata", "IP4.bam", package="exomePeak")
+> ip_bam <- c(f1,f2,f3,f4)
+> f1 <- system.file("extdata", "Input1.bam", package="exomePeak")
+> f2 <- system.file("extdata", "Input2.bam", package="exomePeak")
+> f3 <- system.file("extdata", "Input3.bam", package="exomePeak")
+> input_bam <- c(f1,f2,f3)
+> input2bam <- list(4)
+> input2bam[[1]] <- c(1,2) # the 1st ip sample uses the 1st & 2nd input samples as control
+> input2bam[[2]] <- c(1,2) # the 2nd ip sample uses the 1st & 2nd input samples as control
+> input2bam[[3]] <- c(1,2) # the 3rd ip sample uses the 1st & 2nd input samples as control
+> input2bam[[4]] <- c(3)   # the 4th ip sample uses the 3rd input sample as control
+> 
+> # Extract the combinatorial RNA methylome
+> # unfortunately, this function has not been optimized for parallel processing.
+> # This part will take a really long time on real data
+> RMT(INPUT_BAM=input_bam, IP_BAM=ip_bam, INPUT2IP=input2bam, GENE_ANNO_GTF=gene_anno_gtf)
+[1] "Processing IP sample 1"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "2 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "15 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_1"
+[1] "15 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_1"
+[1] "Processing IP sample 2"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "2 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "19 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_2"
+[1] "19 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_2"
+[1] "Processing IP sample 3"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "2 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "14 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_3"
+[1] "14 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_3"
+[1] "Processing IP sample 4"
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+'select()' returned 1:many mapping between keys and columns
+[1] "Divide transcriptome into chr-gene-batch sections ..."
+[1] "Get Reads Count ..."
+[1] "This step may take a few hours ..."
+[1] "100 %"
+[1] "Get all the peaks ..."
+[1] "Get the consistent peaks ..."
+[1] "---------------------------------"
+[1] "The bam files used:"
+[1] "1 IP replicate(s)"
+[1] "1 Input replicate(s)"
+[1] "---------------------------------"
+[1] "Peak calling result: "
+[1] "5 peaks detected on merged data."
+[1] "Please check 'peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_4"
+[1] "5 consistent peaks detected on every replicates. (Recommended list)"
+[1] "Please check 'con_peak.bed/xls' under /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/exomePeak.Rcheck/RMT_Result/temp/IP_rep_4"
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpx4HivE/R.INSTALLbb337bc497fd/exomePeak/R/RMT.R#119: 
+ --- package (from environment) --- 
+exomePeak
+ --- call from context --- 
+RMT(INPUT_BAM = input_bam, IP_BAM = ip_bam, INPUT2IP = input2bam, 
+    GENE_ANNO_GTF = gene_anno_gtf)
+ --- call from argument --- 
+if (x < y) {
+    num[matrix_overlap[i, 1][1][[1]]] <- matrix_overlap[i, 1][1][[1]]
+} else if (x > y) {
+    num[matrix_overlap[i, 2][1][[1]]] <- matrix_overlap[i, 2][1][[1]]
+} else {
+    num[matrix_overlap[i, 1][1][[1]]] <- matrix_overlap[i, 1][1][[1]]
+    num[matrix_overlap[i, 2][1][[1]]] <- matrix_overlap[i, 2][1][[1]]
+}
+ --- R stacktrace ---
+where 1: RMT(INPUT_BAM = input_bam, IP_BAM = ip_bam, INPUT2IP = input2bam, 
+    GENE_ANNO_GTF = gene_anno_gtf)
+
+ --- value of length: 4 type: logical ---
+[1] FALSE  TRUE FALSE  TRUE
+ --- function from context --- 
+function(
+  INPUT_BAM,
+  IP_BAM,
+  INPUT2IP = NA, 
+  GENE_ANNO_GTF = NA, 
+  GENOME = NA, 
+  UCSC_TABLE_NAME = "knownGene",
+  TXDB = NA,
+  EXOME_OUTPUT_DIR = NA,
+  RMT_OUTPUT_DIR = NA,
+  RMT_EXPERIMENT_NAME = "RMT_Result") {
+  # Wrap parameters ##################################################
+  PARAMETERS = list();
+  PARAMETERS$INPUT_BAM = INPUT_BAM
+  PARAMETERS$IP_BAM = IP_BAM
+  PARAMETERS$INPUT2IP = INPUT2IP
+  PARAMETERS$EXOME_OUTPUT_DIR = EXOME_OUTPUT_DIR
+  PARAMETERS$GO_OUTPUT_DIR = RMT_OUTPUT_DIR
+  PARAMETERS$GO_EXPERIMENT_NAME = RMT_EXPERIMENT_NAME
+  PARAMETERS$GENE_ANNO_GTF=GENE_ANNO_GTF
+  PARAMETERS$GENOME = GENOME
+  PARAMETERS$UCSC_TABLE_NAME=UCSC_TABLE_NAME
+  PARAMETERS$TXDB = TXDB
+  
+  
+  # dependent variables
+  if (is.na(PARAMETERS$EXOME_OUTPUT_DIR)) {
+    PARAMETERS$EXOME_OUTPUT_DIR <- getwd()
+  }
+  if (is.na(PARAMETERS$GO_OUTPUT_DIR)) {
+    PARAMETERS$GO_OUTPUT_DIR <- getwd()
+  }
+  
+  # algrithm ##################################################
+  #peak calling
+  input_length <- length(PARAMETERS$INPUT_BAM)
+  ip_length <- length(PARAMETERS$IP_BAM)
+  all_filepath <- vector()
+  
+  # decide whether paired
+  temp1 <- is.na(PARAMETERS$INPUT2IP)
+  flag <- temp1[1]
+  
+  
+  if(flag){
+    for(i in 1:ip_length){
+      experiment_name = paste(PARAMETERS$GO_EXPERIMENT_NAME,"/temp/IP_rep_",i,sep="")
+      all_filepath[i] = PARAMETERS$IP_BAM[i]
+      print(paste("Processing IP sample",i))
+      temp <- exomepeak(GENE_ANNO_GTF = GENE_ANNO_GTF, 
+                        GENOME = GENOME, UCSC_TABLE_NAME = UCSC_TABLE_NAME,
+                        TXDB = TXDB, IP_BAM = c(PARAMETERS$IP_BAM[i]), 
+                        INPUT_BAM = c(PARAMETERS$INPUT_BAM[i]), 
+                        OUTPUT_DIR = PARAMETERS$EXOME_OUTPUT_DIR, 
+                        POISSON_MEAN_RATIO = 1,
+                        EXPERIMENT_NAME = experiment_name)
+    }
+  } else {
+    for(i in 1:ip_length){
+      experiment_name = paste(PARAMETERS$GO_EXPERIMENT_NAME,"/temp/IP_rep_",i,sep="")
+      input_bam = PARAMETERS$INPUT_BAM[PARAMETERS$INPUT2IP[[i]][1]]
+      if(length(PARAMETERS$INPUT2IP[[i]])>1){
+        for(j in 2:length(PARAMETERS$INPUT2IP[[i]])){
+          input_bam=c(input_bam,c(PARAMETERS$INPUT_BAM[PARAMETERS$INPUT2IP[[i]][j]]))
+        }
+      }      
+      all_filepath[i] <- paste(PARAMETERS$EXOME_OUTPUT_DIR,experiment_name,sep = '/')
+      print(paste("Processing IP sample",i))
+      temp <- exomepeak(GENE_ANNO_GTF = GENE_ANNO_GTF, 
+                        GENOME = GENOME, UCSC_TABLE_NAME = UCSC_TABLE_NAME,
+                        TXDB = TXDB, IP_BAM = c(PARAMETERS$IP_BAM[i]), 
+                        INPUT_BAM = input_bam, 
+                        OUTPUT_DIR = PARAMETERS$EXOME_OUTPUT_DIR, 
+                        POISSON_MEAN_RATIO = 1, 
+                        EXPERIMENT_NAME = experiment_name)   
+    }
+  }
+  
+  #merge all peak
+  for(i in 1:length(all_filepath)){
+    path <- paste(all_filepath[i],"peak.xls",sep = '/')
+    bam_file <- read.table(path,sep = "\t",header = FALSE)
+    if(i == 1){
+      all_peak <- bam_file
+    } else {
+      all_peak = rbind(all_peak,bam_file[2:nrow(bam_file), ])
+    } 
+  }
+  dir.create(paste(PARAMETERS$GO_OUTPUT_DIR,
+                   PARAMETERS$GO_EXPERIMENT_NAME,sep = '/'),
+             recursive = TRUE,showWarnings = FALSE)
+  dir = paste(PARAMETERS$GO_OUTPUT_DIR,
+              PARAMETERS$GO_EXPERIMENT_NAME,sep = '/')
+  write.table(all_peak,paste(dir,"all_peak.xls",sep = '/'),
+              sep = "\t",quote = FALSE,col.names = FALSE,
+              row.names = FALSE)
+  
+  #read all peaks and transform GRangesList
+  filepath = paste(dir,"all_peak.xls",sep = '/')
+  matrix_peak_read = read.table(filepath,header = TRUE,stringsAsFactors = FALSE)
+  
+  ori_peak <- .xls2Grangeslist(filepath)
+  
+  #remove overlaps
+  overlaps <- findOverlaps(ori_peak,ori_peak)
+  matrix_overlap <- matrix(0,length(overlaps),2)
+  matrix_overlap[,1] <- queryHits(overlaps)
+  matrix_overlap[,2] <- subjectHits(overlaps)
+  
+  num <- c(rep(0,length(ori_peak)))
+  
+  for(i in 1:nrow(matrix_overlap)){
+    if(matrix_overlap[i, 1][1][[1]] != matrix_overlap[i, 2][1][[1]]){
+      x <- ranges(ori_peak[matrix_overlap[i, 1]])[[1]]@width
+      y <- ranges(ori_peak[matrix_overlap[i, 2]])[[1]]@width
+      #num[i]=if(x<y) matrix_overlap[i,1][1][[1]] else matrix_overlap[i,2][1][[1]]
+      if(x < y){
+        num[matrix_overlap[i, 1][1][[1]]] <- matrix_overlap[i, 1][1][[1]] 
+      } else if(x > y){
+        num[matrix_overlap[i, 2][1][[1]]] <- matrix_overlap[i, 2][1][[1]]
+      } else {
+        num[matrix_overlap[i, 1][1][[1]]] <- matrix_overlap[i, 1][1][[1]]
+        num[matrix_overlap[i, 2][1][[1]]] <- matrix_overlap[i, 2][1][[1]]
+      }
+    }
+  }
+  peak <- ori_peak[num == 0]
+  tab <- which(num == 0)
+  write.table(matrix_peak_read[tab, ],paste(dir,"merged_peak.xls",sep = '/'),sep = "\t",quote = FALSE,col.names = TRUE,row.names = FALSE)
+  write.table(matrix_peak_read[tab,1:12 ],paste(dir,"merged_peak.bed",sep = '/'),sep = "\t",quote = FALSE,col.names = FALSE,row.names = FALSE)
+  
+  
+  # read gene annotation from internet
+  txdb <- .readTxDb2(PARAMETERS)
+  exonRanges <- exonsBy(txdb, "gene")
+  
+  #rpkm in all inputbams and ipbams
+  rpkm_input <- matrix(0,length(peak),length(PARAMETERS$INPUT_BAM))
+  rpkm_ip <- matrix(0,length(peak),length(PARAMETERS$IP_BAM))
+  count_input <- matrix(0,length(peak),length(PARAMETERS$INPUT_BAM))
+  count_ip <- matrix(0,length(peak),length(PARAMETERS$IP_BAM))
+  #rpkm in inutbams
+  for(i in 1:length(PARAMETERS$INPUT_BAM)){
+    filepath <- PARAMETERS$INPUT_BAM[i]
+    aligns <- readGAlignments(filepath)
+    para <- ScanBamParam(what="mapq")
+    mapq <- scanBam(filepath, param=para)[[1]][[1]]
+    # filter reads with mapq smaller than 30. 
+    mapq[is.na(mapq)] <- 255  # Note: mapq "NA" means mapq = 255
+    ID_keep <- (mapq >30)
+    filtered <- aligns[ID_keep]
+    id <- countOverlaps(filtered,exonRanges)
+    transcriptome_filtered_aligns <- filtered[id>0]
+    counts <- countOverlaps(peak, transcriptome_filtered_aligns)
+    count_input[,i] <- counts
+    numBases <- sum(width(peak))
+    geneLengthsInKB <- numBases / 1000
+    millionsMapped <- length(transcriptome_filtered_aligns) / 1000000
+    rpm <- counts / millionsMapped
+    rpkm_input[,i] <- rpm / geneLengthsInKB
+    
+  }
+  write.table(count_input,paste(dir,"count_input.xls",sep = '/'),sep = "\t",quote = FALSE,col.names = TRUE,row.names = FALSE)
+  write.table(rpkm_input,paste(dir,"rpkm_input.xls",sep = '/'),sep = "\t",quote = FALSE,col.names = TRUE,row.names = FALSE)
+  #rpkm in ipbams
+  for(i in 1:length(PARAMETERS$IP_BAM)){
+    filepath <- PARAMETERS$IP_BAM[i]
+    aligns <- readGAlignments(filepath)
+    para <- ScanBamParam(what="mapq")
+    mapq <- scanBam(filepath, param=para)[[1]][[1]]
+    # filter reads with mapq smaller than 30. 
+    mapq[is.na(mapq)] <- 255  # Note: mapq "NA" means mapq = 255
+    ID_keep <- (mapq >30)
+    filtered <- aligns[ID_keep]
+    id <- countOverlaps(filtered,exonRanges)
+    transcriptome_filtered_aligns <- filtered[id>0]
+    counts <- countOverlaps(peak, transcriptome_filtered_aligns)
+    count_ip[,i] <- counts
+    numBases <- sum(width(peak))
+    geneLengthsInKB <- numBases / 1000
+    millionsMapped <- length(transcriptome_filtered_aligns) / 1000000
+    rpm <- counts / millionsMapped
+    rpkm_ip[,i] <- rpm / geneLengthsInKB 
+  }
+  write.table(count_ip,paste(dir,"count_ip.xls",sep = '/'),sep = "\t",quote = FALSE,col.names = TRUE,row.names = FALSE)
+  write.table(rpkm_ip,paste(dir,"rpkm_ip.xls",sep = '/'),sep = "\t",quote = FALSE,col.names = TRUE,row.names = FALSE)
+  
+  #return to all conditions
+  matrix_log2_fc = matrix(0,length(peak),ip_length)
+  if(is.na(PARAMETERS$INPUT2IP)){
+    for(i in 1:ip_length){
+      matrix_log2_fc[,i] <- log2(rpkm_ip[,i]+0.01)-log2(rpkm_input[,i]+0.01)
+    }
+  } else {
+    for(i in 1:ip_length){
+      if(length(PARAMETERS$INPUT2IP[[i]])==1){
+        matrix_log2_fc[,i] <- log2(rpkm_ip[,i]+0.01)-log2(rpkm_input[,PARAMETERS$INPUT2IP[[i]]]+0.01)
+      } else {
+        sum = matrix(0,length(peak),1)
+        for(j in 1:length(PARAMETERS$INPUT2IP[i])){
+          sum = sum + rpkm_input[,PARAMETERS$INPUT2IP[[i]][j]]
+        }
+        matrix_log2_fc[,i] <- log2(rpkm_ip[,i]+0.01)-log2(sum + 0.01)
+      }
+    }
+  }
+  
+  #feature selection
+  v <- matrix_log2_fc[,1]
+  for(i in 1:nrow(matrix_log2_fc)) {v[i] <- var(matrix_log2_fc[i,])}
+  # hist(v)
+  matrix_log2_fc <- cbind(tab,matrix_log2_fc[1:nrow(matrix_log2_fc),],matrix_peak_read[tab,])
+  write.table(matrix_log2_fc,paste(dir,"all_information.xls",sep = '/'),sep = "\t",quote = FALSE,col.names = TRUE,row.names = FALSE)
+  
+  # delete un-necessary files
+  file.remove(paste(dir,"all_peak.xls",sep = '/'))
+  file.remove(paste(dir,"all_information.xls",sep = '/')) 
+
+  # notification
+  print("***************************")
+  print("***************************")
+  print(paste("The combinatorial RNA methylome is generated under:",dir))
+  print("Including:")
+  print("1. Merged Peaks")
+  print("2. Merged Peaks in BED format")
+  print("3. Reads count for every peak in every bam file")
+  print("4. RPKM for every peak in every bam file")
+  }
+<bytecode: 0x2c7381c0>
+<environment: namespace:exomePeak>
+ --- function search by body ---
+Function RMT in namespace exomePeak has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 3 NOTEs

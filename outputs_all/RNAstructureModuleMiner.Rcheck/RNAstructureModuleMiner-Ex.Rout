@@ -1,0 +1,576 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "RNAstructureModuleMiner"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('RNAstructureModuleMiner')
+Loading required package: RRNA
+
+Attaching package: ‘RNAstructureModuleMiner’
+
+The following object is masked from ‘package:graphics’:
+
+    stem
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("bulge_loop")
+> ### * bulge_loop
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bulge_loop
+> ### Title: Get bulge loops in a RNA secondary structure
+> ### Aliases: bulge_loop
+> 
+> ### ** Examples
+> 
+> ###Create a RNA secondary structure
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> col2 <- c("G","C","C","A","C","C","C","U","G","C","A","G","G","G","U","C","G","G","C")
+> col3 <- c(0,1,2,3,4,5,6,7,8,0,10,11,12,13,14,15,16,17,18)
+> col4 <- c(2,3,4,5,6,7,8,9,0,11,12,13,14,15,16,17,18,19,0)
+> col5 <- c(19,18,17,15,14,13,12,11,10,9,8,7,6,5,4,0,3,2,1)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> data <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol =6)
+> ###Compute bulge loops in the RNA secondary structure
+> bulge_loop(data)
+[[1]]
+[1] 16
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compare")
+> ### * compare
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compare
+> ### Title: compare
+> ### Aliases: compare
+> 
+> ### ** Examples
+> 
+> ###
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+> col2 <- c("G","A","A","G","A","T","C","A","T","G","C","A","G","T","C","A","T","C","A","G")
+> col3 <- c(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> col4 <- c(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,0)
+> col5 <- c(18,17,0,15,14,13,0,0,0,0,0,0,6,5,4,0,2,1,0,0)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+> 
+> col1_2 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13)
+> col2_2 <- c("G","A","C","U","G","G","G","G","C","G","G","U","C")
+> col3_2 <- c(0,1,2,3,4,5,6,7,8,9,10,11,12)
+> col4_2 <- c(2,3,4,5,6,7,8,9,10,11,12,13,0)
+> col5_2 <- c(13,12,11,10,9,0,0,0,5,4,3,2,1)
+> col6_2 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13)
+> data1 <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol = 6)
+> data2 <- matrix(c(col1_2,col2_2,col3_2,col4_2,col5_2,col6_2),byrow=FALSE,ncol = 6)
+> compare(data1,data2)
+[1] 6.119048
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ct2dot")
+> ### * ct2dot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ct2dot
+> ### Title: ct2dot
+> ### Aliases: ct2dot
+> 
+> ### ** Examples
+> 
+> ###
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13)
+> col2 <- c("G","A","C","U","G","G","G","G","C","G","G","U","C")
+> col3 <- c(0,1,2,3,4,5,6,7,8,9,10,11,12)
+> col4 <- c(2,3,4,5,6,7,8,9,10,11,12,13,0)
+> col5 <- c(13,12,11,10,9,0,0,0,5,4,3,2,1)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13)
+> data <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol = 6)
+> data <- as.data.frame(data)
+> ct2dot(data)
+[[1]]
+[1] "(((((...)))))"
+
+[[2]]
+[1] "GACUGGGGCGGUC"
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hairpin_loop")
+> ### * hairpin_loop
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hairpin_loop
+> ### Title: hairpin_loop
+> ### Aliases: hairpin_loop
+> 
+> ### ** Examples
+> 
+> ###
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13)
+> col2 <- c("G","A","C","U","G","G","G","G","C","G","G","U","C")
+> col3 <- c(0,1,2,3,4,5,6,7,8,9,10,11,12)
+> col4 <- c(2,3,4,5,6,7,8,9,10,11,12,13,0)
+> col5 <- c(13,12,11,10,9,0,0,0,5,4,3,2,1)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13)
+> data <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol = 6)
+> hairpin_loop(data)
+[[1]]
+[1] 6 7 8
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("internal_loop")
+> ### * internal_loop
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: internal_loop
+> ### Title: Get Internal Loop
+> ### Aliases: internal_loop
+> 
+> ### ** Examples
+> 
+> ###
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+> col2 <- c("G","A","A","G","A","T","C","A","T","G","C","A","G","T","C","A","T","C","A","G")
+> col3 <- c(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> col4 <- c(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,0)
+> col5 <- c(18,17,0,15,14,13,0,0,0,0,0,0,6,5,4,0,2,1,0,0)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+> data <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol =6)
+> internal_loop(data)
+[[1]]
+[1]  3 16
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("multi_branch_loop")
+> ### * multi_branch_loop
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: multi_branch_loop
+> ### Title: multi_branch_loop
+> ### Aliases: multi_branch_loop
+> 
+> ### ** Examples
+> 
+> ###
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
++ ,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40
++ ,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60
++ ,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80
++ ,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100
++ ,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115
++ ,116,117,118,119)
+> col2 <- c("C","C","U","A","G","U","G","A","C","A","A","U","A"
++ ,"G","C","G","A","G","A","G","A","G","G","A","A","A","C","A"
++ ,"C","C","C","G","U","C","U","C","C","A","U","C","C","C","G"
++ ,"A","A","C","A","C","G","A","A","G","G","U","U","A","A","G"
++ ,"C","U","C","U","C","C","C","A","G","C","G","C","C","G","A"
++ ,"U","G","G","U","A","G","U","U","G","G","G","G","C","C","A"
++ ,"G","C","G","C","C","C","C","U","G","C","A","A","G","A","G"
++ ,"U","A","G","G","U","U","G","U","C","G","C","U","A","G","G"
++ ,"C")
+> col3 <- c(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
++ ,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39
++ ,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59
++ ,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79
++ ,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99
++ ,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114
++ ,115,116,117,118)
+> col4 <- c(2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
++ ,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41
++ ,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61
++ ,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81
++ ,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100
++ ,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115
++ ,116,117,118,119,120)
+> col5 <- c(118,117,116,115,114,113,112,111,0,0,0,0,0,67,66,64
++ ,63,62,0,61,60,59,0,0,0,0,55,54,53,50,49,48,47,0,0,0,0,0,0,0
++ ,0,0,0,0,0,0,33,32,31,30,0,0,29,28,27,0,0,0,22,21,20,18,17,16
++ ,0,15,14,0,0,107,106,105,104,103,102,101,0,0,98,97,96,95,94
++ ,93,92,91,0,0,0,0,86,85,84,83,82,81,80,79,0,0,76,75,74,73,72
++ ,71,70,0,0,0,8,7,6,5,4,3,2,1,0)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
++ ,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40
++ ,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60
++ ,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80
++ ,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100
++ ,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115
++ ,116,117,118,119)
+> 
+> data <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol =6)
+> multi_branch_loop(data)
+[[1]]
+ [1]   9  10  11  12  13  68  69 108 109 110
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot_bulge")
+> ### * plot_bulge
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot_bulge
+> ### Title: plot_bulge
+> ### Aliases: plot_bulge
+> 
+> ### ** Examples
+> 
+> ###
+> col1 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> col2 <- c("G","C","C","A","C","C","C","U","G","C","A","G","G","G","U","C","G","G","C")
+> col3 <- c(0,1,2,3,4,5,6,7,8,0,10,11,12,13,14,15,16,17,18)
+> col4 <- c(2,3,4,5,6,7,8,9,0,11,12,13,14,15,16,17,18,19,0)
+> col5 <- c(19,18,17,15,14,13,12,11,10,9,8,7,6,5,4,0,3,2,1)
+> col6 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
+> data <- matrix(c(col1,col2,col3,col4,col5,col6),byrow=FALSE,ncol =6)
+> plot_bulge(data)
+   pos before after seq pos2 bound
+2   20     19    21   A   20     0
+21  21     20    22   A   21    -1
+1    1      0     2   G    1    19
+24   2      1     3   C    2    18
+3    3      2     4   C    3    17
+4    4      3     5   A    4    15
+5    5      4     6   C    5    14
+6    6      5     7   C    6    13
+7    7      6     8   C    7    12
+8    8      7     9   U    8    11
+9    9      8    10   G    9    10
+10  10      9    11   C   10     9
+11  11     10    12   A   11     8
+12  12     11    13   G   12     7
+13  13     12    14   G   13     6
+14  14     13    15   G   14     5
+15  15     14    16   U   15     4
+16  16     15    17   C   16     0
+17  17     16    18   G   17     3
+18  18     17    19   G   18     2
+19  19     18    20   C   19     1
+22   0     -1     1   A    0    20
+23  -1     -2     0   A   -1    21
+[1] "-1 21 0 0 0 1 -1 0"
+$x
+[1] -1
+
+$y
+[1] 0
+
+[1] 1.047198
+[1] "20 21 20"
+[1] "19 20 19"
+[1] "18 19 18"
+[1] "17 18 17"
+[1] "15 17 16"
+[1] "New LOOPS:  c(3, 17)"
+[1] 3
+[1] "4 15 4.95105651629515 -0.309016994374947 5.53884176858763 0.5 4 2.44929359829471e-16"
+$x
+[1] -0.9510565
+
+$y
+[1] 0.309017
+
+[1] 1.075232
+[1] "14 15 14"
+[1] "13 14 13"
+[1] "12 13 12"
+[1] "11 12 11"
+[1] "10 11 10"
+[1] "9 10 9"
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "8 9 8"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "7 8 7"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "6 7 6"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "5 6 5"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "4 5 4"
+Warning in output$x[j] <- output$x[output$pos == prev1] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == prev1] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$x[j] <- output$x[output$pos == pbpos] + vect$x[1] :
+  number of items to replace is not a multiple of replacement length
+Warning in output$y[j] <- output$y[output$pos == pbpos] + vect$y[1] :
+  number of items to replace is not a multiple of replacement length
+[1] "New LOOPS:  c(15, 4)"
+[1] 15
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpPWWmYF/R.INSTALL3a1f6f011678/RRNA/R/RRNA.r#1232: 
+ --- package (from environment) --- 
+RRNA
+ --- call from context --- 
+ct2coord(ct)
+ --- call from argument --- 
+if (output$x[output$pos == lps[1]] < output$x[output$pos == pp]) {
+    p3 = 1
+} else {
+    p3 = 1
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpqUPbaZ/R.INSTALL786e5efe6603/RNAstructureModuleMiner/R/plot_bulge.R#6: ct2coord(ct)
+where 2: plot_bulge(data)
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function(input){
+group=0;
+firstrun=1
+### First NT in the file is at 0,0 ####
+
+#### Create two fake base-pairs in the begining to make it work ###
+mnp<-min(input$pos)
+map<-max(input$pos)
+a1<-map+1
+a2<-map+2
+b1<-mnp-1
+b2<-mnp-2
+
+new1<-NULL
+new1$pos[1]=a1
+new1$before[1]=(a1-1)
+new1$after[1]=(a1+1)
+new1$seq[1]="A"
+new1$pos2[1]=a1
+new1$bound[1]=b1
+
+new2<-NULL
+new2$pos[1]=a2
+new2$before[1]=(a2-1)
+new2$after[1]=(a2+1)
+new2$seq[1]="A"
+new2$pos2[1]=a2
+new2$bound[1]=b2
+
+new3<-NULL
+new3$pos[1]=b1
+new3$before[1]=(b1-1)
+new3$after[1]=(b1+1)
+new3$seq[1]="A"
+new3$pos2[1]=b1
+new3$bound[1]=a1
+
+new4<-NULL
+new4$pos[1]=b2
+new4$before[1]=(b2-1)
+new4$after[1]=(b2+1)
+new4$seq[1]="A"
+new4$pos2[1]=b2
+new4$bound[1]=a2
+
+input<-rbind(new1,new2,input,new3,new4)
+input<-as.data.frame(input)
+print(input)
+mnp<-min(input$pos)
+	
+output<-NULL
+nextNT=input[input$pos==mnp,]
+if(nextNT$bound!=0){
+#### Set Coordinates to (0,0) and (0,1) #####
+output$pos[1]=mnp
+output$x[1]=0
+output$y[1]=0
+output$pos[2]=nextNT$bound
+output$x[2]=0
+output$y[2]=1
+}
+stems<-NULL
+stems[[1]]<-c(output$pos[1],output$pos[2])
+
+j<-3
+prev<-mnp
+npos<-input$after[input$pos==mnp]
+nextNT=input[input$pos==npos,]
+mp<-max(input$pos)
+while(length(stems)>0){
+newstems<-NULL
+newloops<-NULL
+	ns<-1
+	nl<-1
+for(i in 1:length(stems)){
+s1<-stems[[i]]
+#### Use stemCoord to generate stem coordinates ###
+p1<-s1[1]
+p2<-s1[2]
+if(firstrun==1){
+x3=-1
+y3=0
+firstrun=0
+}else{
+### If prev.x < this.x p3=-1 ##
+	prev<-input$before[input$pos==p1]
+	x3<-output$x[output$pos==prev]
+	y3<-output$y[output$pos==prev]
+}
+x1<-output$x[output$pos==p1]
+y1<-output$y[output$pos==p1]
+x2<-output$x[output$pos==p2]
+y2<-output$y[output$pos==p2]
+print(paste(p1,p2,x1,y1,x2,y2,x3,y3))
+sout<-stemCords(input,p1,p2,x1,y1,x2,y2,x3,y3)
+sdat<-sout[[1]]
+sdat<-as.data.frame(sdat)
+sdat<-sdat[sdat$pos!=p1,]
+sdat<-sdat[sdat$pos!=p2,]
+l<-dim(sdat)[1]
+if(l>0){
+s<-length(output$pos)
+s<-s+1
+for(sd in 1:length(sdat$pos)){
+output$pos[s]<-sdat$pos[sd]
+output$x[s]<-sdat$x[sd]
+output$y[s]<-sdat$y[sd]
+s<-s+1
+}
+}
+newloops[[nl]]=sout[[2]]
+nl<-nl+1
+}
+##### Loop through all loop starts ###
+print(paste("New LOOPS: ",newloops))
+newstems<-NULL
+for( i in 1:length(newloops)){
+lps<-newloops[[i]]
+	print(lps[1])
+lp1<-loopLength(input,lps[1])
+#### Add stems to newstems ###
+if(length(lp1)>1){
+nstm<-lp1[[2]]
+for(nt in 1:length(nstm)){
+newstems[[ns]]<-nstm[[nt]]
+ns<-ns+1
+}
+}
+#### Get Coordinates for each position and add to output ###
+pp<-input$before[input$pos==lps[1]]
+if(output$x[output$pos==lps[1]] < output$x[output$pos==pp]){
+	p3=1
+}else{
+		p3=1
+}
+
+lout<-genCords(lp1,lps[1],lps[2],output,p3)
+pt<-lp1[[1]]
+tout<-lout
+lpl<-length(pt$pos)
+pt$pos=pt$pos[lpl:1]
+lout$pos=pt$pos
+lout<-as.data.frame(lout)
+lout<-lout[lout$pos!=lps[1],]
+lout<-lout[lout$pos!=lps[2],]
+s<-length(output$pos)
+s<-s+1
+for(lo in 1:length(lout$pos)){
+output$pos[s]<-lout$pos[lo]
+output$x[s]<-lout$x[lo]
+output$y[s]<-lout$y[lo]
+output$group[s]=group
+	s<-s+1
+}
+group=group+1
+}
+stems<-newstems
+
+}		
+my<-min(output$y)-5
+xy<-max(output$y)+5
+mx<-min(output$x)-5
+xx<-max(output$x)+5
+#plot(output$x,output$y,type="n",ylim=c(my,xy),xlim=c(mx,xx))
+#for(i in output$pos){
+#	b<-input$after[input$pos==i]
+#points(c(output$x[output$pos==i],output$x[output$pos==b]),c(output$y[output$pos==i],output$y[output$pos==b]),type="l")
+#text(output$x[output$pos==i],output$y[output$pos==i],i)
+#}
+output<-as.data.frame(output)
+input<-as.data.frame(input)
+all<-merge(output,input,by="pos")
+names(all)[1]="num"
+all
+### Remove first two and last two ##
+rmax<-dim(all)[1]
+rmax<-rmax-2
+all<-all[3:rmax,]
+all
+}
+<bytecode: 0x4b223e8>
+<environment: namespace:RRNA>
+ --- function search by body ---
+Function ct2coord in namespace RRNA has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

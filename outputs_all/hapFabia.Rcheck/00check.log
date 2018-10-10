@@ -1,0 +1,372 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/hapFabia.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘hapFabia/DESCRIPTION’ ... OK
+* this is package ‘hapFabia’ version ‘1.22.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘hapFabia’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+File ‘hapFabia/R/zzz.R’:
+  .onLoad calls:
+    packageStartupMessage("+--------------------------+          #    #    ##    #####     \n",     "|#.....#...#.......#.#....#|          #    #   #  #   #    #    \n",     "|#.....#...#.......#.#....#|          ######  #    #  #    #    \n",     "|#.....#...#...............|          #    #  ######  #####     \n",     "|#.....#...#.......#.#....#|          #    #  #    #  #         \n",     "|#.....#...#...............|          #    #  #    #  #         \n",     "|#.....#...#.......#.#....#|  #######                           \n",     "|..................#.#....#|  #         ##    #####   #    ##   \n",     "|#.....#...#.......#.#....#|  #        #  #   #    #  #   #  #  \n",     "|..................#.#....#|  #####   #    #  #####   #  #    # \n",     "|#.....#...#.......#.#....#|  #       ######  #    #  #  ###### \n",     "|#.....#...#.......#.#....#|  #       #    #  #    #  #  #    # \n",     "+--------------------------+  #       #    #  #####   #  #    # \n")
+    packageStartupMessage("Citation: S. Hochreiter,", "\n", "HapFABIA: Identification of very short segments of identity by descent characterized by rare variants in large sequencing data,",     "\n", "Nucleic Acids Research, 2013, doi: 10.1093/nar/gkt1013.",     "\n", "BibTex: enter 'toBibtex(citation(\"hapFabia\"))'",     "\n\n", "Homepage: http://www.bioinf.jku.at/software/hapFabia/index.html",     "\n\n", "hapFabia Package Version ", version, "\n")
+
+See section ‘Good practice’ in '?.onAttach'.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in shell scripts ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘hapFabia-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: IBDsegmentList-class
+> ### Title: IBDsegmentList instances and methods
+> ### Aliases: IBDsegmentList-class IBDsegmentList-method IBDsegmentList
+> ###   IBDsegmentList,ANY-method IBDsegmentList,list,numeric,list-method
+> ###   IBDsegments IBDsegments,IBDsegmentList-method IBDsegments<-
+> ###   IBDsegments<-,IBDsegmentList,list-method lengthList
+> ###   lengthList,IBDsegmentList-method lengthList<-
+> ###   lengthList<-,IBDsegmentList,numeric-method statistics
+> ###   statistics,IBDsegmentList-method statistics<-
+> ###   statistics<-,IBDsegmentList,list-method [[ [[,IBDsegmentList-method
+> ###   [[,IBDsegmentList,numeric,missing-method [[<-
+> ###   [[<-,IBDsegmentList-method
+> ###   [[<-,IBDsegmentList,numeric,missing,IBDsegment-method [
+> ###   [,IBDsegmentList-method [,IBDsegmentList,numeric,missing-method [<-
+> ###   [<-,IBDsegmentList-method
+> ###   [<-,IBDsegmentList,numeric,missing,IBDsegmentList-method
+> ###   summary,IBDsegmentList-method plot,IBDsegmentList-method
+> ###   plot,IBDsegmentList,missing-method
+> ### Keywords: classes methods hplot
+> 
+> ### ** Examples
+> 
+> 
+> data(hapRes)
+> 
+> mergedIBDsegmentList <-
++    hapRes$mergedIBDsegmentList
+> 
+> # Summary method
+> summary(mergedIBDsegmentList)
+
+An object of class IBDsegmentList
+Number of IBD segments:  1
+Statistics:
+list()
+> 
+> # Accessors
+> lengthList(mergedIBDsegmentList)
+[1] 1
+> 
+> statistics(mergedIBDsegmentList)
+list()
+> 
+> summary(IBDsegments(mergedIBDsegmentList))
+     Length Class      Mode
+[1,] 1      IBDsegment S4  
+> 
+> 
+> # Subsets
+> 
+> summary(mergedIBDsegmentList[[1]])
+
+An object of class IBDsegment
+IBD segment ID:  1
+From bicluster:  2
+Chromosome:  1
+Position:  79,427
+Length SNVs:  40
+Length:  4 kbp
+Number of individuals/chromosomes:  10
+Number of tagSNVs:  15 
+> 
+> summary(mergedIBDsegmentList[1])
+
+An object of class IBDsegmentList
+Number of IBD segments:  1
+Statistics:
+list()
+> 
+> mergedIBDsegmentList[[2]] <-
++    mergedIBDsegmentList[[1]]
+> mergedIBDsegmentList[[3]] <-
++    hapRes$mergedIBDsegmentList2[[1]]
+> 
+> summary(mergedIBDsegmentList)
+
+An object of class IBDsegmentList
+Number of IBD segments:  3
+Statistics:
+list()
+> 
+> mergedIBDsegmentList[c(3,4)] <-
++    mergedIBDsegmentList[c(1,2)]
+Warning in `[<-`(`*tmp*`, i, value = value) :
+  implicit list embedding of S4 objects is deprecated
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp7D7ZZJ/R.INSTALLd7271433fd9c/hapFabia/R/methods-IBDsegmentList-class.R#110: 
+ --- package (from environment) --- 
+hapFabia
+ --- call from context --- 
+`[<-`(`*tmp*`, c(3, 4), value = new("IBDsegmentList", IBDsegments = list(
+    new("IBDsegment", ID = 1L, bicluster_id = 2L, chromosome = "1", 
+        IBDsegmentPos = 79427, IBDsegmentLength = 40L, numberIndividuals = 10L, 
+        numbertagSNVs = 15L, individuals = c(7L, 40L, 78L, 81L, 
+        84L, 88L, 89L, 130L, 160L, 192L), tagSNVs = c(809L, 811L, 
+        814L, 818L, 822L, 824L, 827L, 829L, 830L, 832L, 838L, 
+        844L, 846L, 848L, 849L), populationIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        idIndividuals = c("4", "20", "39", "41", "42", "44", 
+        "45", "65", "80", "96"), labelIndividuals = c("4_4", 
+        "20_20", "39_39", "41_41", "42_42", "44_44", "45_45", 
+        "65_65", "80_80", "96_96"), platformIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        coreClusterIndividuals = c("80", "42", "4", "41"), tagSNVPositions = c(78002, 
+        78034, 78107, 78225, 78657, 78845, 79307, 79427, 79447, 
+        79642, 80205, 80383, 81234, 81711, 81855), tagSNVAlleles = c("A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T"), tagSNVNames = c("809", 
+        "811", "814", "818", "822", "824", "827", "829", "830", 
+        "832", "838", "844", "846", "848", "849"), tagSNVFreq = c(0.11, 
+        0.09, 0.085, 0.065, 0.045, 0.05, 0.085, 0.085, 0.09, 
+        0.085, 0.095, 0.08, 0.1, 0.1, 0.075), tagSNVGroupFreq = c(0.055, 
+        0.07, 0.065, 0.055, 0.0475, 0.0475, 0.0675, 0.0625, 0.07, 
+        0.0675, 0.07, 0.065, 0.0725, 0.0725, 0.0625), tagSNVChange = c("0", 
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+        "0", "0", "0"), tagSNVsPerIndividual = c(15, 14, 14, 
+        14, 15, 14, 14, 14, 15, 15), individualPerTagSNV = c(4, 
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        ), tagSNVAnno = list("", "", "", "", "", "", "", "", 
+            "", "", "", "", "", "", "")), new("IBDsegment", ID = 1L, 
+        bicluster_id = 2L, chromosome = "1", IBDsegmentPos = 79427, 
+        IBDsegmentLength = 40L, numberIndividuals = 10L, numbertagSNVs = 15L, 
+        individuals = c(7L, 40L, 78L, 81L, 84L, 88L, 89L, 130L, 
+        160L, 192L), tagSNVs = c(809L, 811L, 814L, 818L, 822L, 
+        824L, 827L, 829L, 830L, 832L, 838L, 844L, 846L, 848L, 
+        849L), populationIndividuals = c("4", "20", "39", "41", 
+        "42", "44", "45", "65", "80", "96"), idIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        labelIndividuals = c("4_4", "20_20", "39_39", "41_41", 
+        "42_42", "44_44", "45_45", "65_65", "80_80", "96_96"), 
+        platformIndividuals = c("4", "20", "39", "41", "42", 
+        "44", "45", "65", "80", "96"), coreClusterIndividuals = c("80", 
+        "42", "4", "41"), tagSNVPositions = c(78002, 78034, 78107, 
+        78225, 78657, 78845, 79307, 79427, 79447, 79642, 80205, 
+        80383, 81234, 81711, 81855), tagSNVAlleles = c("A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T"), tagSNVNames = c("809", 
+        "811", "814", "818", "822", "824", "827", "829", "830", 
+        "832", "838", "844", "846", "848", "849"), tagSNVFreq = c(0.11, 
+        0.09, 0.085, 0.065, 0.045, 0.05, 0.085, 0.085, 0.09, 
+        0.085, 0.095, 0.08, 0.1, 0.1, 0.075), tagSNVGroupFreq = c(0.055, 
+        0.07, 0.065, 0.055, 0.0475, 0.0475, 0.0675, 0.0625, 0.07, 
+        0.0675, 0.07, 0.065, 0.0725, 0.0725, 0.0625), tagSNVChange = c("0", 
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+        "0", "0", "0"), tagSNVsPerIndividual = c(15, 14, 14, 
+        14, 15, 14, 14, 14, 15, 15), individualPerTagSNV = c(4, 
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        ), tagSNVAnno = list("", "", "", "", "", "", "", "", 
+            "", "", "", "", "", "", ""))), lengthList = 2L, statistics = list()))
+ --- call from argument --- 
+if (i > lengthList(x)) {
+    lengthList(x) <- i
+}
+ --- R stacktrace ---
+where 1: `[<-`(`*tmp*`, c(3, 4), value = new("IBDsegmentList", IBDsegments = list(
+    new("IBDsegment", ID = 1L, bicluster_id = 2L, chromosome = "1", 
+        IBDsegmentPos = 79427, IBDsegmentLength = 40L, numberIndividuals = 10L, 
+        numbertagSNVs = 15L, individuals = c(7L, 40L, 78L, 81L, 
+        84L, 88L, 89L, 130L, 160L, 192L), tagSNVs = c(809L, 811L, 
+        814L, 818L, 822L, 824L, 827L, 829L, 830L, 832L, 838L, 
+        844L, 846L, 848L, 849L), populationIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        idIndividuals = c("4", "20", "39", "41", "42", "44", 
+        "45", "65", "80", "96"), labelIndividuals = c("4_4", 
+        "20_20", "39_39", "41_41", "42_42", "44_44", "45_45", 
+        "65_65", "80_80", "96_96"), platformIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        coreClusterIndividuals = c("80", "42", "4", "41"), tagSNVPositions = c(78002, 
+        78034, 78107, 78225, 78657, 78845, 79307, 79427, 79447, 
+        79642, 80205, 80383, 81234, 81711, 81855), tagSNVAlleles = c("A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T"), tagSNVNames = c("809", 
+        "811", "814", "818", "822", "824", "827", "829", "830", 
+        "832", "838", "844", "846", "848", "849"), tagSNVFreq = c(0.11, 
+        0.09, 0.085, 0.065, 0.045, 0.05, 0.085, 0.085, 0.09, 
+        0.085, 0.095, 0.08, 0.1, 0.1, 0.075), tagSNVGroupFreq = c(0.055, 
+        0.07, 0.065, 0.055, 0.0475, 0.0475, 0.0675, 0.0625, 0.07, 
+        0.0675, 0.07, 0.065, 0.0725, 0.0725, 0.0625), tagSNVChange = c("0", 
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+        "0", "0", "0"), tagSNVsPerIndividual = c(15, 14, 14, 
+        14, 15, 14, 14, 14, 15, 15), individualPerTagSNV = c(4, 
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        ), tagSNVAnno = list("", "", "", "", "", "", "", "", 
+            "", "", "", "", "", "", "")), new("IBDsegment", ID = 1L, 
+        bicluster_id = 2L, chromosome = "1", IBDsegmentPos = 79427, 
+        IBDsegmentLength = 40L, numberIndividuals = 10L, numbertagSNVs = 15L, 
+        individuals = c(7L, 40L, 78L, 81L, 84L, 88L, 89L, 130L, 
+        160L, 192L), tagSNVs = c(809L, 811L, 814L, 818L, 822L, 
+        824L, 827L, 829L, 830L, 832L, 838L, 844L, 846L, 848L, 
+        849L), populationIndividuals = c("4", "20", "39", "41", 
+        "42", "44", "45", "65", "80", "96"), idIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        labelIndividuals = c("4_4", "20_20", "39_39", "41_41", 
+        "42_42", "44_44", "45_45", "65_65", "80_80", "96_96"), 
+        platformIndividuals = c("4", "20", "39", "41", "42", 
+        "44", "45", "65", "80", "96"), coreClusterIndividuals = c("80", 
+        "42", "4", "41"), tagSNVPositions = c(78002, 78034, 78107, 
+        78225, 78657, 78845, 79307, 79427, 79447, 79642, 80205, 
+        80383, 81234, 81711, 81855), tagSNVAlleles = c("A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T"), tagSNVNames = c("809", 
+        "811", "814", "818", "822", "824", "827", "829", "830", 
+        "832", "838", "844", "846", "848", "849"), tagSNVFreq = c(0.11, 
+        0.09, 0.085, 0.065, 0.045, 0.05, 0.085, 0.085, 0.09, 
+        0.085, 0.095, 0.08, 0.1, 0.1, 0.075), tagSNVGroupFreq = c(0.055, 
+        0.07, 0.065, 0.055, 0.0475, 0.0475, 0.0675, 0.0625, 0.07, 
+        0.0675, 0.07, 0.065, 0.0725, 0.0725, 0.0625), tagSNVChange = c("0", 
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+        "0", "0", "0"), tagSNVsPerIndividual = c(15, 14, 14, 
+        14, 15, 14, 14, 14, 15, 15), individualPerTagSNV = c(4, 
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        ), tagSNVAnno = list("", "", "", "", "", "", "", "", 
+            "", "", "", "", "", "", ""))), lengthList = 2L, statistics = list()))
+where 2: `[<-`(`*tmp*`, c(3, 4), value = new("IBDsegmentList", IBDsegments = list(
+    new("IBDsegment", ID = 1L, bicluster_id = 2L, chromosome = "1", 
+        IBDsegmentPos = 79427, IBDsegmentLength = 40L, numberIndividuals = 10L, 
+        numbertagSNVs = 15L, individuals = c(7L, 40L, 78L, 81L, 
+        84L, 88L, 89L, 130L, 160L, 192L), tagSNVs = c(809L, 811L, 
+        814L, 818L, 822L, 824L, 827L, 829L, 830L, 832L, 838L, 
+        844L, 846L, 848L, 849L), populationIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        idIndividuals = c("4", "20", "39", "41", "42", "44", 
+        "45", "65", "80", "96"), labelIndividuals = c("4_4", 
+        "20_20", "39_39", "41_41", "42_42", "44_44", "45_45", 
+        "65_65", "80_80", "96_96"), platformIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        coreClusterIndividuals = c("80", "42", "4", "41"), tagSNVPositions = c(78002, 
+        78034, 78107, 78225, 78657, 78845, 79307, 79427, 79447, 
+        79642, 80205, 80383, 81234, 81711, 81855), tagSNVAlleles = c("A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T"), tagSNVNames = c("809", 
+        "811", "814", "818", "822", "824", "827", "829", "830", 
+        "832", "838", "844", "846", "848", "849"), tagSNVFreq = c(0.11, 
+        0.09, 0.085, 0.065, 0.045, 0.05, 0.085, 0.085, 0.09, 
+        0.085, 0.095, 0.08, 0.1, 0.1, 0.075), tagSNVGroupFreq = c(0.055, 
+        0.07, 0.065, 0.055, 0.0475, 0.0475, 0.0675, 0.0625, 0.07, 
+        0.0675, 0.07, 0.065, 0.0725, 0.0725, 0.0625), tagSNVChange = c("0", 
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+        "0", "0", "0"), tagSNVsPerIndividual = c(15, 14, 14, 
+        14, 15, 14, 14, 14, 15, 15), individualPerTagSNV = c(4, 
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        ), tagSNVAnno = list("", "", "", "", "", "", "", "", 
+            "", "", "", "", "", "", "")), new("IBDsegment", ID = 1L, 
+        bicluster_id = 2L, chromosome = "1", IBDsegmentPos = 79427, 
+        IBDsegmentLength = 40L, numberIndividuals = 10L, numbertagSNVs = 15L, 
+        individuals = c(7L, 40L, 78L, 81L, 84L, 88L, 89L, 130L, 
+        160L, 192L), tagSNVs = c(809L, 811L, 814L, 818L, 822L, 
+        824L, 827L, 829L, 830L, 832L, 838L, 844L, 846L, 848L, 
+        849L), populationIndividuals = c("4", "20", "39", "41", 
+        "42", "44", "45", "65", "80", "96"), idIndividuals = c("4", 
+        "20", "39", "41", "42", "44", "45", "65", "80", "96"), 
+        labelIndividuals = c("4_4", "20_20", "39_39", "41_41", 
+        "42_42", "44_44", "45_45", "65_65", "80_80", "96_96"), 
+        platformIndividuals = c("4", "20", "39", "41", "42", 
+        "44", "45", "65", "80", "96"), coreClusterIndividuals = c("80", 
+        "42", "4", "41"), tagSNVPositions = c(78002, 78034, 78107, 
+        78225, 78657, 78845, 79307, 79427, 79447, 79642, 80205, 
+        80383, 81234, 81711, 81855), tagSNVAlleles = c("A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", "A:T", 
+        "A:T", "A:T", "A:T", "A:T", "A:T", "A:T"), tagSNVNames = c("809", 
+        "811", "814", "818", "822", "824", "827", "829", "830", 
+        "832", "838", "844", "846", "848", "849"), tagSNVFreq = c(0.11, 
+        0.09, 0.085, 0.065, 0.045, 0.05, 0.085, 0.085, 0.09, 
+        0.085, 0.095, 0.08, 0.1, 0.1, 0.075), tagSNVGroupFreq = c(0.055, 
+        0.07, 0.065, 0.055, 0.0475, 0.0475, 0.0675, 0.0625, 0.07, 
+        0.0675, 0.07, 0.065, 0.0725, 0.0725, 0.0625), tagSNVChange = c("0", 
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+        "0", "0", "0"), tagSNVsPerIndividual = c(15, 14, 14, 
+        14, 15, 14, 14, 14, 15, 15), individualPerTagSNV = c(4, 
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        ), tagSNVAnno = list("", "", "", "", "", "", "", "", 
+            "", "", "", "", "", "", ""))), lengthList = 2L, statistics = list()))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function from context --- 
+Method Definition:
+
+function (x, i, j, ..., value) 
+{
+    IBDsegments(x)[i] <- value
+    if (i > lengthList(x)) {
+        lengthList(x) <- i
+    }
+    x
+}
+<bytecode: 0x41b0f40>
+<environment: namespace:hapFabia>
+
+Signatures:
+        x                i         j         value           
+target  "IBDsegmentList" "numeric" "missing" "IBDsegmentList"
+defined "IBDsegmentList" "numeric" "missing" "IBDsegmentList"
+ --- function search by body ---
+S4 Method [<-:base defined in namespace hapFabia with signature IBDsegmentList#numeric#missing#IBDsegmentList has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 2 NOTEs

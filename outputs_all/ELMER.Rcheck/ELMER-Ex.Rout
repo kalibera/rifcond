@@ -1,0 +1,1581 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "ELMER"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('ELMER')
+Loading required package: ELMER.data
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("GetNearGenes")
+> ### * GetNearGenes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GetNearGenes
+> ### Title: GetNearGenes to collect nearby genes for one locus.
+> ### Aliases: GetNearGenes
+> 
+> ### ** Examples
+> 
+> geneAnnot <- getTSS(TSS=list(upstream=0, downstream=0))
+Downloading transcripts information. Using: Human genes (GRCh38.p12)
+> probe <- GenomicRanges::GRanges(seqnames = c("chr1","chr2"), 
++ range=IRanges::IRanges(start = c(16058489,236417627), end= c(16058489,236417627)), 
++ name= c("cg18108049","cg17125141"))
+> names(probe) <- c("cg18108049","cg17125141")
+> NearbyGenes <- GetNearGenes(numFlankingGenes = 20,geneAnnot=geneAnnot,TRange=probe)
+Searching for the 20 near genes
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+> 
+> 
+> 
+> cleanEx()
+> nameEx("TCGA.pipe")
+> ### * TCGA.pipe
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: TCGA.pipe
+> ### Title: ELMER analysis pipeline for TCGA data.
+> ### Aliases: TCGA.pipe
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D   distal.probe <- TCGA.pipe(disease = "LUSC", analysis="distal.enhancer", wd="~/")
+> ##D   TCGA.pipe(disease = "LUSC",analysis = "all", genome = "hg19", cores = 1, permu.size=300, Pe=0.01)
+> ##D   projects <- TCGAbiolinks:::getGDCprojects()$project_id
+> ##D   projects <- gsub("TCGA-","",projects[grepl('^TCGA',projects,perl=TRUE)])
+> ##D   for(proj in projects) TCGA.pipe(disease = proj,analysis = "download")
+> ##D   plyr::alply(sort(projects),1,function(proj) {
+> ##D        tryCatch({
+> ##D          print(proj);
+> ##D          TCGA.pipe(disease = proj,analysis = c("createMAE"))})
+> ##D        }, .progress = "text")
+> ##D   plyr::alply(sort(projects),1,function(proj) {
+> ##D     tryCatch({
+> ##D       print(proj);
+> ##D       TCGA.pipe(disease = proj,
+> ##D                  analysis = c("diffMeth","pair", "motif","TF.search"))})
+> ##D   }, .progress = "text")
+> ##D 
+> ##D   # Evaluation mutation
+> ##D   TCGA.pipe(disease = "LUSC",analysis = "createMAE",gene = "NFE2L2")
+> ##D   TCGA.pipe(disease = "LUSC",analysis = c("diffMeth","pair", "motif","TF.search"), 
+> ##D             mode = "supervised",
+> ##D             group.col = "NFE2L2", group1 = "Mutant", group2 = "WT",
+> ##D             diff.dir = c("hypo"),
+> ##D             dir.out = "LUSC_NFE2L2_MutvsWT")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("TF.rank.plot")
+> ### * TF.rank.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: TF.rank.plot
+> ### Title: TF.rank.plot to plot the scores (-log10(P value)) which assess
+> ###   the correlation between TF expression and average DNA methylation at
+> ###   motif sites.
+> ### Aliases: TF.rank.plot
+> 
+> ### ** Examples
+> 
+> library(ELMER)
+> data <- tryCatch(ELMER:::getdata("elmer.data.example"), error = function(e) {
++   message(e)
++   data(elmer.data.example, envir = environment())
++ })
+> enriched.motif <- list("P53_HUMAN.H11MO.0.A"= c("cg00329272", "cg10097755", "cg08928189",
++                                  "cg17153775", "cg21156590", "cg19749688", "cg12590404",
++                                  "cg24517858", "cg00329272", "cg09010107", "cg15386853",
++                                  "cg10097755", "cg09247779", "cg09181054"))
+> TF <- get.TFs(data, 
++               enriched.motif, 
++               group.col = "definition",
++               group1 = "Primary solid Tumor", 
++               group2 = "Solid Tissue Normal",
++               TFs = data.frame(
++                      external_gene_name=c("TP53","TP63","TP73"),
++                      ensembl_gene_id= c("ENSG00000141510",
++                                         "ENSG00000073282",
++                                         "ENSG00000078900"),
++                      stringsAsFactors = FALSE),
++              label="hypo")
+Selecting U (unmethylated) and M (methylated) groups. Each groups has 20% of samples
+Accessing TF families from TFClass database to indentify known potential TF
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+Calculating the average methylation at all motif-adjacent probes 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Performing Mann-Whitney U test
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Finding potential TF and known potential TF
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+-----------------
+** Creating plots
+-----------------
+TF rank plot highlighting TF in the same family (folder: .//TFrankPlot)
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+Saving plot as: .//TFrankPlot/P53_HUMAN.H11MO.0.A.TFrankPlot.pdf
+> TF.meth.cor <- get(load("getTF.hypo.TFs.with.motif.pvalue.rda"))            
+> TF.rank.plot(motif.pvalue=TF.meth.cor,  
++             motif="P53_HUMAN.H11MO.0.A", 
++             TF.label=createMotifRelevantTfs("subfamily")["P53_HUMAN.H11MO.0.A"],
++             save=TRUE)
+Retrieving TFClass subfamily classification from ELMER.data.
+Saving plot as: .//P53_HUMAN.H11MO.0.A.TFrankPlot.pdf
+> TF.rank.plot(motif.pvalue=TF.meth.cor,  
++             motif="P53_HUMAN.H11MO.0.A", 
++             save=TRUE)
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+Saving plot as: .//P53_HUMAN.H11MO.0.A.TFrankPlot.pdf
+> # Same as above
+> TF.rank.plot(motif.pvalue=TF.meth.cor,  
++             motif="P53_HUMAN.H11MO.0.A", 
++             dir.out = "TFplots",
++             TF.label=createMotifRelevantTfs("family")["P53_HUMAN.H11MO.0.A"],
++             save=TRUE)
+Retrieving TFClass family classification from ELMER.data.
+Saving plot as: TFplots/P53_HUMAN.H11MO.0.A.TFrankPlot.pdf
+> 
+> 
+> 
+> cleanEx()
+> nameEx("addDistNearestTSS")
+> ### * addDistNearestTSS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: addDistNearestTSS
+> ### Title: Calculate the distance between probe and gene TSS
+> ### Aliases: addDistNearestTSS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D  data <- ELMER:::getdata("elmer.data.example")
+> ##D   NearbyGenes <- GetNearGenes(data = data, 
+> ##D                               probes = c("cg15924102", "cg24741609"),  
+> ##D                               numFlankingGenes = 20)
+> ##D   NearbyGenes <- addDistNearestTSS(data,NearbyGenes)
+> ##D   NearbyGenes <- addDistNearestTSS(data,NearbyGenes[[1]])
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("addMutCol")
+> ### * addMutCol
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: addMutCol
+> ### Title: Adds mutation information to MAE
+> ### Aliases: addMutCol
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D  data <- ELMER:::getdata("elmer.data.example") # Get data from ELMER.data
+> ##D  data <- addMutCol(data, "LUSC","TP53")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calculateEnrichement")
+> ### * calculateEnrichement
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calculateEnrichement
+> ### Title: Calculate motif Erichment
+> ### Aliases: calculateEnrichement
+> 
+> ### ** Examples
+> 
+> foreground <- Matrix::Matrix(sample(0:1,size = 100,replace = TRUE), nrow = 10, ncol = 10,sparse = TRUE)
+> rownames(foreground) <- paste0("region",1:10)
+> colnames(foreground) <- paste0("motif",1:10)
+> background <- Matrix::Matrix(sample(0:1,size = 100,replace = TRUE), nrow = 10, ncol = 10,sparse = TRUE)
+> rownames(background) <- paste0("region",1:10)
+> colnames(background) <- paste0("motif",1:10)
+> calculateEnrichement(foreground,background)
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%
+          motif NumOfRegions    lowerOR   upperOR        OR   p.value      FDR
+motif5   motif5            8 0.40482188 53.810254 3.7187130 0.3498452 0.874613
+motif1   motif1            6 0.18656939 12.395770 1.4696649 1.0000000 1.000000
+motif10 motif10            6 0.18656939 12.395770 1.4696649 1.0000000 1.000000
+motif2   motif2            5 0.18656939 12.395770 1.4696649 1.0000000 1.000000
+motif7   motif7            4 0.11879399  8.417935 1.0000000 1.0000000 1.000000
+motif3   motif3            3 0.06659951  5.775515 0.6573128 1.0000000 1.000000
+motif6   motif6            3 0.06659951  5.775515 0.6573128 1.0000000 1.000000
+motif4   motif4            5 0.01858382  2.470222 0.2689102 0.3498452 0.874613
+motif8   motif8            5 0.01858382  2.470222 0.2689102 0.3498452 0.874613
+motif9   motif9            3 0.01797770  1.683381 0.2020448 0.1788954 0.874613
+> 
+> 
+> 
+> cleanEx()
+> nameEx("createMAE")
+> ### * createMAE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: createMAE
+> ### Title: Construct a Multi Assay Experiment for ELMER analysis
+> ### Aliases: createMAE
+> 
+> ### ** Examples
+> 
+> # NON TCGA example: matrices has diffetrent column names
+> gene.exp <- S4Vectors::DataFrame(sample1.exp = c("ENSG00000141510"=2.3,"ENSG00000171862"=5.4),
++                   sample2.exp = c("ENSG00000141510"=1.6,"ENSG00000171862"=2.3))
+> dna.met <- S4Vectors::DataFrame(sample1.met = c("cg14324200"=0.5,"cg23867494"=0.1),
++                        sample2.met =  c("cg14324200"=0.3,"cg23867494"=0.9))
+> sample.info <- S4Vectors::DataFrame(primary =  c("sample1","sample2"), 
++                                     sample.type = c("Normal", "Tumor"))
+> sampleMap <- S4Vectors::DataFrame(primary = c("sample1","sample1","sample2","sample2"), 
++                                   colname = c("sample1.exp","sample1.met",
++                                               "sample2.exp","sample2.met"))
+> mae <- createMAE(exp = gene.exp, 
++                  met = dna.met, 
++                  sampleMap = sampleMap, 
++                  met.platform ="450K",
++                  colData = sample.info, 
++                  genome = "hg38") 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creating a SummarizedExperiment from gene expression input
+Downloading genome information (try:0) Using: Human genes (GRCh38.p12)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creating a SummarizedExperiment from DNA methylation input
+harmonizing input:
+  removing 4 sampleMap rows with 'primary' not in colData
+MAE saved as: mae_hg38_450K.rda
+> # You can also use sample Mapping and Sample information tables from a tsv file
+> # You can use the createTSVTemplates function to create the tsv files
+> readr::write_tsv(as.data.frame(sampleMap), path = "sampleMap.tsv")
+> readr::write_tsv(as.data.frame(sample.info), path = "sample.info.tsv")
+> mae <- createMAE(exp = gene.exp, 
++                  met = dna.met, 
++                  sampleMap = "sampleMap.tsv", 
++                  met.platform ="450K",
++                  colData = "sample.info.tsv", 
++                  genome = "hg38") 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creating a SummarizedExperiment from gene expression input
+Downloading genome information (try:0) Using: Human genes (GRCh38.p12)
+Loading from disk
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creating a SummarizedExperiment from DNA methylation input
+MAE saved as: mae_hg38_450K.rda
+> 
+> ## Not run: 
+> ##D    # TCGA example using TCGAbiolinks
+> ##D    # Testing creating MultyAssayExperiment object
+> ##D    # Load library
+> ##D    library(TCGAbiolinks)
+> ##D    library(SummarizedExperiment)
+> ##D    
+> ##D    samples <- c("TCGA-BA-4074", "TCGA-BA-4075", "TCGA-BA-4077", "TCGA-BA-5149",
+> ##D                 "TCGA-UF-A7JK", "TCGA-UF-A7JS", "TCGA-UF-A7JT", "TCGA-UF-A7JV")
+> ##D    
+> ##D    #1) Get gene expression matrix
+> ##D    query.exp <- GDCquery(project = "TCGA-HNSC", 
+> ##D                          data.category = "Transcriptome Profiling", 
+> ##D                          data.type = "Gene Expression Quantification", 
+> ##D                          workflow.type = "HTSeq - FPKM-UQ",
+> ##D                          barcode = samples)
+> ##D    
+> ##D    GDCdownload(query.exp)
+> ##D    exp.hg38 <- GDCprepare(query = query.exp)
+> ##D    
+> ##D    
+> ##D    # Aligned against Hg19
+> ##D    query.exp.hg19 <- GDCquery(project = "TCGA-HNSC", 
+> ##D                               data.category = "Gene expression",
+> ##D                               data.type = "Gene expression quantification",
+> ##D                               platform = "Illumina HiSeq", 
+> ##D                               file.type  = "normalized_results",
+> ##D                               experimental.strategy = "RNA-Seq",
+> ##D                               barcode = samples,
+> ##D                               legacy = TRUE)
+> ##D    GDCdownload(query.exp.hg19)
+> ##D    exp.hg19 <- GDCprepare(query.exp.hg19)
+> ##D    
+> ##D    # Our object needs to have emsembl gene id as rownames
+> ##D    rownames(exp.hg19) <- values(exp.hg19)$ensembl_gene_id
+> ##D    
+> ##D    # DNA Methylation
+> ##D    query.met <- GDCquery(project = "TCGA-HNSC",
+> ##D                          legacy = TRUE,
+> ##D                          data.category = "DNA methylation",
+> ##D                          barcode = samples,
+> ##D                          platform = "Illumina Human Methylation 450")
+> ##D    
+> ##D    GDCdownload(query.met)
+> ##D    met <- GDCprepare(query = query.met)
+> ##D    
+> ##D    distal.enhancer <- get.feature.probe(genome = "hg19",platform = "450k")
+> ##D    
+> ##D    # Consisering it is TCGA and SE
+> ##D    mae.hg19 <- createMAE(exp = exp.hg19, 
+> ##D                          met =  met, 
+> ##D                          TCGA = TRUE, 
+> ##D                          genome = "hg19",  
+> ##D                          filter.probes = distal.enhancer)
+> ##D    values(getExp(mae.hg19))
+> ##D    
+> ##D    mae.hg38 <- createMAE(exp = exp.hg38, met = met, 
+> ##D                         TCGA = TRUE, genome = "hg38",  
+> ##D                         filter.probes = distal.enhancer)
+> ##D    values(getExp(mae.hg38))
+> ##D    
+> ##D    # Consisering it is TCGA and not SE
+> ##D    mae.hg19.test <- createMAE(exp = assay(exp.hg19), met =  assay(met), 
+> ##D                               TCGA = TRUE, genome = "hg19",  
+> ##D                               filter.probes = distal.enhancer)
+> ##D    
+> ##D    mae.hg38 <- createMAE(exp = assay(exp.hg38), met = assay(met), 
+> ##D                          TCGA = TRUE, genome = "hg38",  
+> ##D                          filter.probes = distal.enhancer)
+> ##D    values(getExp(mae.hg38))
+> ##D    
+> ##D    # Consisering it is not TCGA and SE
+> ##D    # DNA methylation and gene expression Objects should have same sample names in columns
+> ##D    not.tcga.exp <- exp.hg19 
+> ##D    colnames(not.tcga.exp) <- substr(colnames(not.tcga.exp),1,15)
+> ##D    not.tcga.met <- met 
+> ##D    colnames(not.tcga.met) <- substr(colnames(not.tcga.met),1,15)
+> ##D    
+> ##D    phenotype.data <- data.frame(row.names = colnames(not.tcga.exp), 
+> ##D                                 samples = colnames(not.tcga.exp), 
+> ##D                                 group = c(rep("group1",4),rep("group2",4)))
+> ##D    distal.enhancer <- get.feature.probe(genome = "hg19",platform = "450k")
+> ##D    mae.hg19 <- createMAE(exp = not.tcga.exp, 
+> ##D                          met =  not.tcga.met, 
+> ##D                          TCGA = FALSE, 
+> ##D                          filter.probes = distal.enhancer,
+> ##D                          genome = "hg19", 
+> ##D                          colData = phenotype.data)
+> ## End(Not run)
+> createMAE
+function (exp, 
+                       met, 
+                       colData, 
+                       sampleMap,
+                       linearize.exp = FALSE,
+                       filter.probes = NULL,
+                       met.na.cut = 0.2,
+                       filter.genes = NULL,
+                       met.platform = "450K",
+                       genome = NULL,
+                       save = TRUE,
+                       save.filename,
+                       TCGA = FALSE) {
+  
+  if(missing(genome)) stop("Please specify the genome (hg38, hg19)")
+  
+  # Check if input are path to rda files
+  if(is.character(exp)) exp <- get(load(exp))
+  if(is.character(met)) met <- get(load(met))
+  
+  suppressMessages({
+    
+    if(!missing(colData)) { 
+      if(is.character(colData)) { 
+        colData <- as.data.frame(read_tsv(colData))
+        rownames(colData) <- colData$primary
+      }
+    }
+    if(!missing(sampleMap)) { 
+      if(is.character(sampleMap)) sampleMap <- read_tsv(sampleMap)
+    }
+  })  
+  
+  # Expression data must have the ensembl_gene_id (Ensemble ID) and external_gene_name (Gene Symbol)
+  required.cols <- c("external_gene_name", "ensembl_gene_id")
+  # If my input is a data frame we will need to add metadata information for the ELMER analysis steps
+  if(class(exp) != class(as(SummarizedExperiment(),"RangedSummarizedExperiment"))){
+    exp <- makeSummarizedExperimentFromGeneMatrix(exp, genome)
+  }
+  # Add this here ?
+  if(linearize.exp) assay(exp) <- log2(assay(exp) + 1)
+  
+  
+  if(class(met) != class(as(SummarizedExperiment(),"RangedSummarizedExperiment"))){
+    met <- makeSummarizedExperimentFromDNAMethylation(met, genome, met.platform)
+  }
+  met <- met[rowMeans(is.na(assay(met))) < met.na.cut, ]
+  
+  # Select the regions from DNA methylation that overlaps enhancer.
+  if(!is.null(filter.probes)){
+    if(is.character(filter.probes)){
+      filter.probes <- get(load(filter.probes))
+    }
+  } 
+  if(!is.null(filter.probes) & !is.null(met)){
+    met <- met[rownames(met) %in% names(filter.probes),]
+  }
+  if(!is.null(filter.genes) & !is.null(exp)){
+    exp <- exp[rownames(exp) %in% names(filter.genes),]
+  } 
+  
+  # We will need to check if the fields that we need exists.
+  # Otherwise we will need to create them
+  if(class(exp) == class(as(SummarizedExperiment(),"RangedSummarizedExperiment"))){
+    required.cols <- required.cols[!required.cols %in% colnames(values(exp))]
+    if(length(required.cols) > 0) {
+      gene.info <- TCGAbiolinks:::get.GRCh.bioMart(genome)
+      colnames(gene.info)[grep("external_gene", colnames(gene.info))] <- "external_gene_name"
+      if(all(grepl("ENSG",rownames(exp)))) {
+        extra <- as.data.frame(gene.info[match(rownames(exp),gene.info$ensembl_gene_id),required.cols])
+        colnames(extra) <- required.cols
+        values(exp) <- cbind(values(exp),extra)
+      } else {
+        stop("Please the gene expression matrix should receive ENSEMBLE IDs")
+      }
+    }
+  } 
+  if(TCGA){
+    message("Checking if samples have both DNA methylation and Gene expression and if they are in the same order...")
+    # If it is not TCGA we will assure the sample has both DNA methylation and gene expression
+    ID <- intersect(substr(colnames(met),1,16), substr(colnames(exp),1,16))
+    
+    # Get only samples with both DNA methylation and Gene expression
+    met <- met[,match(ID,substr(colnames(met),1,16))]
+    exp <- exp[,match(ID,substr(colnames(exp),1,16))]
+    stopifnot(all(substr(colnames(exp),1,16) == substr(colnames(met),1,16)))
+    stopifnot(ncol(exp) == ncol(met))
+    
+    # Get clinical information
+    if(missing(colData)) {
+      colData <- TCGAbiolinks:::colDataPrepare(c(colnames(met), colnames(exp)))
+      # This will keep the same strategy the old ELMER version used:
+      # Every type of tumor samples (starts with T) will be set to tumor and
+      # every type of normal samples   (starts with N) will be set to normal 
+      # See : https://github.com/lijingya/ELMER/blob/3e050462aa41c8f542530ccddc8fa607207faf88/R/Small.R#L8-L48
+      colData$TN <- NA
+      colData[grep("^N",colData$shortLetterCode),"TN"] <- "Normal" 
+      colData[grep("^T",colData$shortLetterCode),"TN"] <- "Tumor" 
+      
+      colData$barcode <- NULL
+      colData <- colData[!duplicated(colData),]      
+      rownames(colData) <- colData$sample
+    } 
+    if(missing(sampleMap)) {
+      sampleMap <- DataFrame(assay= c(rep("DNA methylation", length(colnames(met))), rep("Gene expression", length(colnames(exp)))),
+                             primary = substr(c(colnames(met),colnames(exp)),1,16),
+                             colname=c(colnames(met),colnames(exp)))
+    }
+    
+    message("Creating MultiAssayExperiment")
+    mae <- MultiAssayExperiment(experiments=list("DNA methylation" = met,
+                                                 "Gene expression" = exp),
+                                colData = colData,   
+                                sampleMap = sampleMap,
+                                metadata = list(TCGA= TRUE, genome = genome, met.platform = met.platform ))
+  } else {
+    
+    if(missing(colData)){
+      message <- paste("Please set colData argument. A data frame with samples", 
+                       "information. All rownames should be colnames of DNA",
+                       "methylation and gene expression. An example is showed",
+                       "in MultiAssayExperiment documentation",
+                       "(access it with ?MultiAssayExperiment)")
+      stop(message)
+    }
+    
+    if(missing(sampleMap)){
+      # Check that we have the same number of samples
+      message("Removing samples not found in both DNA methylation and gene expression (we are considering the names of the gene expression and DNA methylation columns to be the same) ")
+      ID <- intersect(colnames(met), colnames(exp))
+      met <- met[,match(ID,colnames(met))]
+      exp <- exp[,match(ID,colnames(exp))]
+      
+      if(!all(colnames(exp) == colnames(met))) 
+        stop("Error DNA methylation matrix and gene expression matrix are not in the same order")
+      
+      colData <- colData[match(ID,rownames(colData)),,drop = FALSE]
+      sampleMap <- DataFrame(assay= c(rep("DNA methylation", length(colnames(met))), 
+                                      rep("Gene expression", length(colnames(exp)))),
+                             primary = c(colnames(met),colnames(exp)),
+                             colname=c(colnames(met),colnames(exp)))
+      mae <- MultiAssayExperiment(experiments=list("DNA methylation" = met,
+                                                   "Gene expression" = exp),
+                                  colData = colData,
+                                  sampleMap = sampleMap,
+                                  metadata = list(TCGA=FALSE, genome = genome, met.platform = met.platform ))
+    } else {
+      # Check that we have the same number of samples
+      if(!all(c("primary","colname") %in% colnames(sampleMap))) 
+        stop("sampleMap should have the following columns: primary (sample ID) and colname(DNA methylation and gene expression sample [same as the colnames of the matrix])")
+      #if(!any(rownames(colData) %in% sampleMap$primary))
+      #  stop("colData row names should be mapped to sampleMap primary column ")
+      # Find which samples are DNA methylation and gene expression
+      sampleMap.met <- sampleMap[sampleMap$colname %in% colnames(met),,drop = FALSE]
+      sampleMap.exp <- sampleMap[sampleMap$colname %in% colnames(exp),,drop = FALSE]
+      
+      # Which ones have both DNA methylation and gene expresion?
+      commun.samples <- intersect(sampleMap.met$primary,sampleMap.exp$primary)
+      
+      # Remove the one that does not have both data
+      sampleMap.met <- sampleMap.met[match(sampleMap.met$primary,commun.samples),,drop = FALSE]
+      sampleMap.exp <- sampleMap.exp[match(sampleMap.exp$primary,commun.samples),,drop = FALSE]
+      
+      # Ordering samples to be matched
+      met <- met[,sampleMap.met$colname,drop = FALSE]
+      exp <- exp[,sampleMap.exp$colname,drop = FALSE]
+      
+      if(!all(sampleMap.met$primary == sampleMap.exp$primary)) 
+        stop("Error DNA methylation matrix and gene expression matrix are not in the same order")
+      
+      colData <- colData[match(commun.samples,rownames(colData)),,drop = FALSE]
+      sampleMap <- DataFrame(assay= c(rep("DNA methylation", length(colnames(met))), 
+                                      rep("Gene expression", length(colnames(exp)))),
+                             primary = commun.samples,
+                             colname=c(colnames(met),colnames(exp)))
+      mae <- MultiAssayExperiment(experiments=list("DNA methylation" = met,
+                                                   "Gene expression" = exp),
+                                  colData = colData,
+                                  sampleMap = sampleMap,
+                                  metadata = list(TCGA=FALSE, genome = genome, met.platform = met.platform ))
+    }
+  }
+  if(save) {
+    if(missing(save.filename)) save.filename <- paste0("mae_",genome,"_",met.platform,".rda")
+    save(mae, file = save.filename,compress = "xz")
+    message("MAE saved as: ", save.filename)
+  }
+  return(mae)
+}
+<bytecode: 0x2bd5dc38>
+<environment: namespace:ELMER>
+> 
+> 
+> 
+> cleanEx()
+> nameEx("createTSVTemplates")
+> ### * createTSVTemplates
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: createTSVTemplates
+> ### Title: Create examples files for Sample mapping and information used in
+> ###   createMAE function
+> ### Aliases: createTSVTemplates
+> 
+> ### ** Examples
+> 
+> gene.exp <- S4Vectors::DataFrame(sample1.exp = c("ENSG00000141510"=2.3,"ENSG00000171862"=5.4),
++                   sample2.exp = c("ENSG00000141510"=1.6,"ENSG00000171862"=2.3))
+> dna.met <- S4Vectors::DataFrame(sample1.met = c("cg14324200"=0.5,"cg23867494"=0.1),
++                        sample2.met =  c("cg14324200"=0.3,"cg23867494"=0.9))
+> createTSVTemplates(met = dna.met, exp = gene.exp)                       
+===== Sample mapping example file ======
+Saving example file as elmer_example_sample_mapping.tsv.
+Please, fill primary column correctly
+===== Sample information example file ======
+Saving example file as elmer_example_sample_metadata.tsv.
+Please, fill primary column correctly, also you can add new columns as the example group column.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("findMotifRegion")
+> ### * findMotifRegion
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: findMotifRegion
+> ### Title: Use Hocomoco motif and homer to identify motifs in a given
+> ###   region
+> ### Aliases: findMotifRegion
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D  # use the center of the region and +-250bp around it
+> ##D  gr0 <- GRanges(Rle(c("chr2", "chr2", "chr1", "chr3"), 
+> ##D                     c(1, 3, 2, 4)
+> ##D                     ), 
+> ##D                IRanges(1:10, width=10:1)
+> ##D                )
+> ##D  names(gr0) <- paste0("ID",c(1:10))
+> ##D  findMotifRegion(regions = gr0, region.size = 500, genome = "hg38", cores = 1)
+> ##D  
+> ##D  # use the region size itself
+> ##D  gr1 <- GRanges(Rle(c("chr2", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)), 
+> ##D                 IRanges(1:10, width=sample(200:1000,10)))
+> ##D  names(gr1) <- paste0("ID",c(1:10))
+> ##D  findMotifRegion(regions = gr0, genome = "hg38", cores = 1)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.TFs")
+> ### * get.TFs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.TFs
+> ### Title: get.TFs to identify regulatory TFs.
+> ### Aliases: get.TFs
+> 
+> ### ** Examples
+> 
+> data <- tryCatch(
++   ELMER:::getdata("elmer.data.example"), 
++   error = function(e) {
++     message(e)
++      data(elmer.data.example, envir = environment())
++   })
+> enriched.motif <- list("P53_HUMAN.H11MO.1.A"= c("cg00329272", "cg10097755", "cg08928189",
++                                  "cg17153775", "cg21156590", "cg19749688", "cg12590404",
++                                  "cg24517858", "cg00329272", "cg09010107", "cg15386853",
++                                  "cg10097755", "cg09247779", "cg09181054"))
+> TF <- get.TFs(data, 
++               enriched.motif, 
++               group.col = "definition",
++               group1 = "Primary solid Tumor", 
++               group2 = "Solid Tissue Normal",
++               TFs = data.frame(
++                      external_gene_name=c("TP53","TP63","TP73"),
++                      ensembl_gene_id= c("ENSG00000141510",
++                                         "ENSG00000073282",
++                                         "ENSG00000078900"),
++                      stringsAsFactors = FALSE),
++              label="hypo")
+Selecting U (unmethylated) and M (methylated) groups. Each groups has 20% of samples
+Accessing TF families from TFClass database to indentify known potential TF
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+Calculating the average methylation at all motif-adjacent probes 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Performing Mann-Whitney U test
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Finding potential TF and known potential TF
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+-----------------
+** Creating plots
+-----------------
+TF rank plot highlighting TF in the same family (folder: .//TFrankPlot)
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+Saving plot as: .//TFrankPlot/P53_HUMAN.H11MO.1.A.TFrankPlot.pdf
+> # This case will use Uniprot dabase to get list of Trasncription factors              
+> TF <- get.TFs(data, 
++               group.col = "definition",
++               group1 = "Primary solid Tumor", 
++               group2 = "Solid Tissue Normal",
++               enriched.motif, 
++               label="hypo")              
+Selecting U (unmethylated) and M (methylated) groups. Each groups has 20% of samples
+-------------------------------------------------------------------------------------------------------------------
+** Downloading TF list from Lambert, Samuel A., et al. The human transcription factors. Cell 172.4 (2018): 650-665.
+-------------------------------------------------------------------------------------------------------------------
+Accessing TF families from TFClass database to indentify known potential TF
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+Calculating the average methylation at all motif-adjacent probes 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Performing Mann-Whitney U test
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Finding potential TF and known potential TF
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+-----------------
+** Creating plots
+-----------------
+TF rank plot highlighting TF in the same family (folder: .//TFrankPlot)
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+Saving plot as: .//TFrankPlot/P53_HUMAN.H11MO.1.A.TFrankPlot.pdf
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.diff.meth")
+> ### * get.diff.meth
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.diff.meth
+> ### Title: Identify hypo/hyper-methylated CpG sites between two groups
+> ###   (i.e. normal vs tumor samples, treated vs untreated).
+> ### Aliases: get.diff.meth
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> Hypo.probe <- get.diff.meth(data, 
++                             diff.dir="hypo",
++                             group.col = "definition", 
++                             group1 = "Primary solid Tumor", 
++                             group2 = "Solid Tissue Normal",
++                             sig.dif = 0.1) # get hypomethylated probes
+ELMER will search for probes hypomethylated in group Primary solid Tumor (n:226) compared to Solid Tissue Normal (n:8)
+Number of probes: 101
+  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  23%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |=====================                                                 |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |==============================                                        |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |======================================                                |  54%  |                                                                              |=======================================                               |  55%  |                                                                              |========================================                              |  56%  |                                                                              |========================================                              |  57%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  61%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  71%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |====================================================                  |  74%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  77%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  81%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================| 100%
+Saving results
+Number of relevant probes found: 78
+> Hyper.probe <- get.diff.meth(data, 
++                             diff.dir="hyper",
++                             group.col = "definition", 
++                             sig.dif = 0.1) # get hypomethylated probes
+Group 1: Solid Tissue Normal
+Group 2: Primary solid Tumor
+ELMER will search for probes hypermethylated in group Solid Tissue Normal (n:8) compared to Primary solid Tumor (n:226)
+Number of probes: 101
+  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  23%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |=====================                                                 |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |==============================                                        |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |======================================                                |  54%  |                                                                              |=======================================                               |  55%  |                                                                              |========================================                              |  56%  |                                                                              |========================================                              |  57%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  61%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  71%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |====================================================                  |  74%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  77%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  81%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================| 100%
+Saving results
+Number of relevant probes found: 1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.enriched.motif")
+> ### * get.enriched.motif
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.enriched.motif
+> ### Title: get.enriched.motif to identify the overrepresented motifs in a
+> ###   set of probes (HM450K) regions.
+> ### Aliases: get.enriched.motif
+> 
+> ### ** Examples
+> 
+> probes <- c("cg00329272","cg10097755","cg08928189", "cg17153775","cg21156590",
++ "cg19749688","cg12590404","cg24517858","cg00329272","cg09010107",
++ "cg15386853", "cg10097755", "cg09247779","cg09181054","cg19371916")
+>   data <- tryCatch(ELMER:::getdata("elmer.data.example"), error = function(e) {
++   message(e)
++   data(elmer.data.example, envir = environment())
++   })
+> bg <- rownames(getMet(data))
+> data(Probes.motif.hg38.450K,package = "ELMER.data")
+> enriched.motif <- get.enriched.motif(probes.motif = Probes.motif.hg38.450K,
++                                      probes = probes,
++                                      background.probes = bg,
++                                      pvalue = 1, 
++                                      min.incidence = 2, 
++                                      label = "hypo")
+  |                                                                              |                                                                      |   0%  |                                                                              |                                                                      |   1%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |=======                                                               |  11%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |==============                                                        |  21%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |=====================                                                 |  31%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |===============================                                       |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |===================================                                   |  51%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |==========================================                            |  61%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |============================================                          |  64%  |                                                                              |=============================================                         |  64%  |                                                                              |=============================================                         |  65%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |=================================================                     |  71%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |===================================================                   |  74%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  79%  |                                                                              |========================================================              |  80%  |                                                                              |========================================================              |  81%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |==========================================================            |  84%  |                                                                              |===========================================================           |  84%  |                                                                              |===========================================================           |  85%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |===============================================================       |  91%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |=================================================================     |  94%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================|  99%  |                                                                              |======================================================================| 100%
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+------------------------------------
+** Filtering motifs based on quality
+------------------------------------
+Number of enriched motifs with quality:
+-----------
+ => A: 0
+ => B: 0
+ => C: 0
+ => D: 0
+ => S: 0
+-----------
+Considering only motifs with quality from A up to DS: 0 motifs are enriched.
+> # If the MAE is set, the background and the probes.motif will 
+> # be automatically set                                     
+> enriched.motif <- get.enriched.motif(data = data,
++                                      min.motif.quality = "DS",
++                                      probes=probes,
++                                      pvalue = 1,
++                                      min.incidence=2, 
++                                      label="hypo")
+Loading object: Probes.motif.hg38.450K
+  |                                                                              |                                                                      |   0%  |                                                                              |                                                                      |   1%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |=======                                                               |  11%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |==============                                                        |  21%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |=====================                                                 |  31%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |===============================                                       |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |===================================                                   |  51%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |==========================================                            |  61%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |============================================                          |  64%  |                                                                              |=============================================                         |  64%  |                                                                              |=============================================                         |  65%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |=================================================                     |  71%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |===================================================                   |  74%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  79%  |                                                                              |========================================================              |  80%  |                                                                              |========================================================              |  81%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |==========================================================            |  84%  |                                                                              |===========================================================           |  84%  |                                                                              |===========================================================           |  85%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |===============================================================       |  91%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |=================================================================     |  94%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================|  99%  |                                                                              |======================================================================| 100%
+Retrieving TFClass family classification from ELMER.data.
+Retrieving TFClass subfamily classification from ELMER.data.
+------------------------------------
+** Filtering motifs based on quality
+------------------------------------
+Number of enriched motifs with quality:
+-----------
+ => A: 0
+ => B: 0
+ => C: 0
+ => D: 0
+ => S: 0
+-----------
+Considering only motifs with quality from A up to DS: 0 motifs are enriched.
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:bindrcpp'
+
+> nameEx("get.feature.probe")
+> ### * get.feature.probe
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.feature.probe
+> ### Title: get.feature.probe to select probes within promoter regions or
+> ###   distal regions.
+> ### Aliases: get.feature.probe
+> 
+> ### ** Examples
+> 
+> # get distal enhancer probe
+> ## Not run: 
+> ##D Probe <- get.feature.probe()
+> ## End(Not run)
+> # get promoter probes
+> ## Not run: 
+> ##D Probe <- get.feature.probe(promoter=FALSE)
+> ## End(Not run)
+> # get distal enhancer probe remove chrX chrY
+> Probe2 <- get.feature.probe(rm.chr=c("chrX", "chrY"))
+Downloading transcripts information. Using: Human genes (GRCh38.p12)
+Returning distal probes: 158288
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.pair")
+> ### * get.pair
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.pair
+> ### Title: get.pair to predict enhancer-gene linkages.
+> ### Aliases: get.pair
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> nearGenes <-GetNearGenes(TRange=getMet(data)[c("cg00329272","cg10097755"),],
++                          geneAnnot=getExp(data))
+Searching for the 20 near genes
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+> Hypo.pair <- get.pair(data=data,
++                        nearGenes=nearGenes,
++                        permu.size=5,
++                        group.col = "definition",
++                        group1 = "Primary solid Tumor", 
++                        group2 = "Solid Tissue Normal",
++                        raw.pvalue = 0.2,
++                        Pe = 0.2,
++                        dir.out="./",
++                        label= "hypo")
+Selecting U (unmethylated) and M (methylated) groups. Each groups has 20% of samples
+-------------------
+* Filtering probes
+-------------------
+For more information see function preAssociationProbeFiltering
+Making sure we have at least 5% of beta values lesser than 0.3 and 5% of beta values greater 0.3.
+Removing 47 probes out of 101
+Calculating Pp (probe - gene) for all nearby genes
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+File created: .//getPair.hypo.all.pairs.statistic.csv
+Calculating Pr (random probe - gene). Permutating  5 probes for 12 genes
+  |                                                                              |                                                                      |   0%  |                                                                              |==============                                                        |  20%  |                                                                              |============================                                          |  40%  |                                                                              |==========================================                            |  60%  |                                                                              |========================================================              |  80%  |                                                                              |======================================================================| 100%
+Calculate empirical P value.
+
+Downloading transcripts information. Using: Human genes (GRCh38.p12)
+Update the distance to gene to distance to the nearest TSS of the gene
+>                      
+> Hypo.pair <- get.pair(data = data,
++                       nearGenes = nearGenes,
++                       permu.size = 5,
++                       raw.pvalue = 0.2,
++                       Pe = 0.2,
++                       dir.out = "./",
++                       diffExp = TRUE, 
++                       group.col = "definition",
++                       group1 = "Primary solid Tumor", 
++                       group2 = "Solid Tissue Normal",
++                       label = "hypo")                    
+Selecting U (unmethylated) and M (methylated) groups. Each groups has 20% of samples
+-------------------
+* Filtering probes
+-------------------
+For more information see function preAssociationProbeFiltering
+Making sure we have at least 5% of beta values lesser than 0.3 and 5% of beta values greater 0.3.
+Removing 47 probes out of 101
+Calculating Pp (probe - gene) for all nearby genes
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+File created: .//getPair.hypo.all.pairs.statistic.csv
+Calculating Pr (random probe - gene). Permutating  5 probes for 12 genes
+  |                                                                              |                                                                      |   0%  |                                                                              |==============                                                        |  20%  |                                                                              |============================                                          |  40%  |                                                                              |==========================================                            |  60%  |                                                                              |========================================================              |  80%  |                                                                              |======================================================================| 100%
+Calculate empirical P value.
+
+Downloading transcripts information. Using: Human genes (GRCh38.p12)
+Update the distance to gene to distance to the nearest TSS of the gene
+Calculating differential expression between two groups
+  |                                                                              |                                                                      |   0%  |                                                                              |==============                                                        |  20%  |                                                                              |============================                                          |  40%  |                                                                              |==========================================                            |  60%  |                                                                              |========================================================              |  80%  |                                                                              |======================================================================| 100%
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.permu")
+> ### * get.permu
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.permu
+> ### Title: get.permu to generate permutation results for calculation of
+> ###   empirical P values for each enhancer-gene linkage.
+> ### Aliases: get.permu
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> permu <-get.permu(data = data,
++                   geneID=rownames(getExp(data)),
++                   rm.probes=c("cg00329272","cg10097755"),
++                   permu.size=5)
+  |                                                                              |                                                                      |   0%  |                                                                              |==============                                                        |  20%  |                                                                              |============================                                          |  40%  |                                                                              |==========================================                            |  60%  |                                                                              |========================================================              |  80%  |                                                                              |======================================================================| 100%
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getGeneID")
+> ### * getGeneID
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getGeneID
+> ### Title: getGeneID to report gene id from symbol
+> ### Aliases: getGeneID
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> getGeneID(data, symbol="ZNF697")
+[1] "ENSG00000143067"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getRandomPairs")
+> ### * getRandomPairs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getRandomPairs
+> ### Title: Get random pairs
+> ### Aliases: getRandomPairs
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D  data <- ELMER:::getdata("elmer.data.example")
+> ##D  nearGenes <- GetNearGenes(TRange=getMet(data)[c("cg00329272","cg10097755"),],
+> ##D                             geneAnnot=getExp(data))
+> ##D                             
+> ##D  pair <- get.pair(data = data,
+> ##D                   group.col = "definition", 
+> ##D                   group1 = "Primary solid Tumor", 
+> ##D                   group2 = "Solid Tissue Normal",
+> ##D                   mode = "supervised",
+> ##D                   diff.dir = "hypo",
+> ##D                   nearGenes = nearGenes,
+> ##D                   permu.size = 5,
+> ##D                   raw.pvalue =  0.001,
+> ##D                   Pe = 0.2,
+> ##D                   dir.out="./",
+> ##D                   permu.dir = "permu_test",
+> ##D                   label = "hypo")
+> ## End(Not run)
+>  pair <- data.frame(Probe = rep("cg00329272",3), 
++                     GeneID = c("ENSG00000116213","ENSG00000130762","ENSG00000149527"),
++                     Sides = c("R5","R2","L4"))                    
+>  getRandomPairs(pair)
+Downloading transcripts information. Using: Human genes (GRCh38.p12)
+Returning distal probes: 160356
+Downloading genome information (try:0) Using: Human genes (GRCh38.p12)
+Loading from disk
+Searching for the 24 near genes
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+        Probe          GeneID     Symbol Distance Side probe_seqnames
+1: cg04973183 ENSG00000249367   FABP5P12   171243   L4           chr4
+2: cg04973183 ENSG00000248552 AC074344.1   177326   R2           chr4
+3: cg04973183 ENSG00000250997 AC093853.1  1324056   R5           chr4
+   probe_start probe_end probe_width probe_strand
+1:   159197771 159197772           2            +
+2:   159197771 159197772           2            +
+3:   159197771 159197772           2            +
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getSymbol")
+> ### * getSymbol
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getSymbol
+> ### Title: getSymbol to report gene symbol from id
+> ### Aliases: getSymbol
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> getSymbol(data, geneID="ENSG00000143067")
+[1] "ZNF697"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getTCGA")
+> ### * getTCGA
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getTCGA
+> ### Title: getTCGA to download DNA methylation, RNA expression and clinic
+> ###   data for all samples of certain cancer type from TCGA.
+> ### Aliases: getTCGA
+> 
+> ### ** Examples
+> 
+> getTCGA(disease = "BRCA",
++         Meth = FALSE, 
++         RNA = FALSE, 
++         Clinic = TRUE, 
++         basedir = tempdir(), 
++         genome = "hg19"
++         )
+---------------------
+** Downloading Clinic
+---------------------
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getTFtargets")
+> ### * getTFtargets
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getTFtargets
+> ### Title: Get TF target genes
+> ### Aliases: getTFtargets
+> 
+> ### ** Examples
+> 
+> pairs <- data.frame(Probe = c("cg26992600","cg26992800","cg26992900"),
++                     Symbol = c("KEAP1","DSP","ATP86"))
+> enriched.motif <- list("FOXD3_HUMAN.H11MO.0.D"= c("cg26992800","cg26992900"))
+> TF.result <- data.frame(motif = c("FOXD3_HUMAN.H11MO.0.D"),
++                         potential.TF.family = c("TP63;TP73"))
+> getTFtargets(pairs,enriched.motif,TF.result)
+    TF Target
+1 TP63    DSP
+3 TP63  ATP86
+2 TP73    DSP
+4 TP73  ATP86
+>  
+> ## Not run: 
+> ##D getTFtargets("../LUAD_LUSC_analysis_hg38/hyper/getPair.hyper.pairs.significant.csv",
+> ##D enriched.motif = "../LUAD_analysis_hg38/hyper/getMotif.hyper.enriched.motifs.rda",
+> ##D TF.result = "../LUAD_analysis_hg38/hyper/getTF.hyper.significant.TFs.with.motif.summary.csv")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getTSS")
+> ### * getTSS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getTSS
+> ### Title: getTSS to fetch GENCODE gene annotation (transcripts level) from
+> ###   Bioconductor package biomaRt If upstream and downstream are specified
+> ###   in TSS list, promoter regions of GENCODE gene will be generated.
+> ### Aliases: getTSS
+> 
+> ### ** Examples
+> 
+> # get GENCODE gene annotation (transcripts level)
+> ## Not run: 
+> ##D     getTSS <- getTSS()
+> ##D     getTSS <- getTSS(genome.build = "hg38", TSS=list(upstream=1000, downstream=1000))
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("heatmapGene")
+> ### * heatmapGene
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: heatmapGene
+> ### Title: Heatmap for correlation between probes DNA methylation and a
+> ###   single gene expression.
+> ### Aliases: heatmapGene
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D   data <- ELMER:::getdata("elmer.data.example")
+> ##D   group.col <- "subtype_Expression.Subtype"
+> ##D   group1 <- "classical"
+> ##D   group2 <- "secretory"
+> ##D   pairs <- data.frame(Probe = c("cg15924102","cg19403323", "cg22396959"),
+> ##D                       GeneID = c("ENSG00000196878", "ENSG00000009790", "ENSG00000009790" ),
+> ##D                       Symbol = c("TRAF3IP3","LAMB3","LAMB3"),
+> ##D                       Distance = c(6017,168499,0),
+> ##D                       Raw.p = c(0.001,0.00001,0.001),
+> ##D                       Pe = c(0.001,0.00001,0.001))
+> ##D  heatmapGene(data = data, 
+> ##D              group.col = group.col,
+> ##D              group1 = group1, 
+> ##D              group2 = group2,
+> ##D              pairs = pairs, 
+> ##D              GeneSymbol = "LAMB3",
+> ##D              annotation.col = c("ethnicity","vital_status"),
+> ##D              filename = "heatmap.pdf")
+> ##D  \dontrun{            
+> ##D      heatmapGene(data = data, 
+> ##D                  group.col = group.col,
+> ##D                  group1 = group1, 
+> ##D                  group2 = group2,
+> ##D                  GeneSymbol = "LAMB3",
+> ##D                  annotation.col = c("ethnicity","vital_status"),
+> ##D                  filename = "heatmap_closer_probes.pdf")
+> ##D  }
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("heatmapPairs")
+> ### * heatmapPairs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: heatmapPairs
+> ### Title: Heatmap of pairs gene and probes anti-correlated
+> ### Aliases: heatmapPairs
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D   data <- ELMER:::getdata("elmer.data.example")
+> ##D   group.col <- "subtype_Expression.Subtype"
+> ##D   group1 <- "classical"
+> ##D   group2 <- "secretory"
+> ##D   pairs <- data.frame(Probe = c("cg15924102","cg19403323", "cg22396959"),
+> ##D                       GeneID = c("ENSG00000196878", "ENSG00000009790", "ENSG00000009790" ),
+> ##D                       Symbol = c("TRAF3IP3","LAMB3","LAMB3"),
+> ##D                       Distance = c(6017,168499,0),
+> ##D                       Raw.p = c(0.001,0.00001,0.001),
+> ##D                       Pe = c(0.001,0.00001,0.001))
+> ##D  heatmapPairs(data = data, group.col = group.col,
+> ##D               group1 = group1, group2 = group2,
+> ##D               annotation.col = c("ethnicity","vital_status","age_at_diagnosis"),
+> ##D               pairs, filename = "heatmap.pdf")
+> ##D   
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("metBoxPlot")
+> ### * metBoxPlot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: metBoxPlot
+> ### Title: scatter.plot to plot scatter plots between gene expression and
+> ###   DNA methylation.
+> ### Aliases: metBoxPlot
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D   data <- ELMER:::getdata("elmer.data.example")
+> ##D   group.col <- "subtype_Expression.Subtype"
+> ##D   group1 <- "classical"
+> ##D   group2 <- "secretory"
+> ##D   metBoxPlot(data,
+> ##D              group.col = group.col,
+> ##D              group1 = group1,
+> ##D              group2 = group2, 
+> ##D              probe ="cg17898069",
+> ##D              minSubgroupFrac = 0.2, 
+> ##D              diff.dir = "hypo")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("motif.enrichment.plot")
+> ### * motif.enrichment.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: motif.enrichment.plot
+> ### Title: motif.enrichment.plot to plot bar plots showing motif enrichment
+> ###   ORs and 95% confidence interval for ORs
+> ### Aliases: motif.enrichment.plot
+> 
+> ### ** Examples
+> 
+> motif.enrichment <- data.frame(motif=c("TP53","NR3C1","E2F1","EBF1","RFX5","ZNF143", "CTCF"),
++                                OR=c(19.33,4.83,1, 4.18, 3.67,3.03,2.49),
++                                lowerOR =c(10,3,1.09,1.9,1.5,1.9, 0.82),
++                                upperOR =c(23,5,3,7,6,5,5),
++                                stringsAsFactors=FALSE)
+> motif.enrichment.plot(motif.enrichment=motif.enrichment,
++                       significant=list(OR=3),
++                       label="hypo", save=FALSE)
+> motif.enrichment.plot(motif.enrichment = motif.enrichment,
++                       significant = list(OR = 3),
++                       label = "hypo", 
++                       title = "OR for paired probes hypomethylated in Mutant vs WT",
++                       save = FALSE)
+> motif.enrichment <- data.frame(motif=c("TP53","NR3C1","E2F1","EBF1","RFX5","ZNF143", "CTCF"),
++                                OR=c(19.33,4.83,1, 4.18, 3.67,3.03,2.49),
++                                lowerOR =c(10,3,1.09,1.9,1.5,1.5, 0.82),
++                                upperOR =c(23,5,3,7,6,5,5),
++                                NumOfProbes = c(23,5,3,7,6,5,5),
++                                PercentageOfProbes = c(0.23,0.05,0.03,0.07,0.06,0.05,0.05),
++                                stringsAsFactors=FALSE)
+> motif.enrichment.plot(motif.enrichment=motif.enrichment,
++                       significant=list(OR=3),
++                       label="hypo", save=FALSE)
+> motif.enrichment.plot(motif.enrichment = motif.enrichment,
++                       significant = list(OR = 3),
++                       label = "hypo", 
++                       summary = TRUE,
++                       title = "OR for paired probes hypomethylated in Mutant vs WT",
++                       save = TRUE)
+NULL
+> 
+> 
+> 
+> cleanEx()
+> nameEx("preAssociationProbeFiltering")
+> ### * preAssociationProbeFiltering
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: preAssociationProbeFiltering
+> ### Title: Filtering probes
+> ### Aliases: preAssociationProbeFiltering
+> 
+> ### ** Examples
+> 
+>  random.probe <- runif(100, 0, 1)
+>  bias_l.probe <- runif(100, 0, 0.3)
+>  bias_g.probe <- runif(100, 0.3, 1)
+>  met <- rbind(random.probe,bias_l.probe,bias_g.probe)
+>  met <- preAssociationProbeFiltering(data = met,  K = 0.3, percentage = 0.05)
+-------------------
+* Filtering probes
+-------------------
+For more information see function preAssociationProbeFiltering
+Making sure we have at least 5% of beta values lesser than 0.3 and 5% of beta values greater 0.3.
+Removing 2 probes out of 3
+>  met <- rbind(random.probe,random.probe,random.probe)
+>  met <- preAssociationProbeFiltering(met,  K = 0.3, percentage = 0.05)
+-------------------
+* Filtering probes
+-------------------
+For more information see function preAssociationProbeFiltering
+Making sure we have at least 5% of beta values lesser than 0.3 and 5% of beta values greater 0.3.
+There were no probes to be removed
+>  data <- ELMER:::getdata("elmer.data.example") # Get data from ELMER.data
+>  data <- preAssociationProbeFiltering(data,  K = 0.3, percentage = 0.05)
+-------------------
+* Filtering probes
+-------------------
+For more information see function preAssociationProbeFiltering
+Making sure we have at least 5% of beta values lesser than 0.3 and 5% of beta values greater 0.3.
+Removing 47 probes out of 101
+>  
+>  cg24741609 <- runif(100, 0, 1)
+>  cg17468663 <- runif(100, 0, 0.3)
+>  cg14036402 <- runif(100, 0.3, 1)
+>  met <- rbind(cg24741609,cg14036402,cg17468663)
+>  colnames(met) <- paste("sample",1:100)
+>  exp <- met
+>  rownames(exp) <- c("ENSG00000141510","ENSG00000171862","ENSG00000171863")
+>  sample.info <- S4Vectors::DataFrame(sample.type = rep(c("Normal", "Tumor"),50))
+>  rownames(sample.info) <- colnames(exp)
+>  mae <- createMAE(exp = exp, met = met, colData = sample.info, genome = "hg38") 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creating a SummarizedExperiment from gene expression input
+Downloading genome information (try:0) Using: Human genes (GRCh38.p12)
+Loading from disk
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creating a SummarizedExperiment from DNA methylation input
+Removing samples not found in both DNA methylation and gene expression (we are considering the names of the gene expression and DNA methylation columns to be the same) 
+MAE saved as: mae_hg38_450K.rda
+>  mae <- preAssociationProbeFiltering(mae,  K = 0.3, percentage = 0.05)
+-------------------
+* Filtering probes
+-------------------
+For more information see function preAssociationProbeFiltering
+Making sure we have at least 5% of beta values lesser than 0.3 and 5% of beta values greater 0.3.
+Removing 2 probes out of 3
+> 
+> 
+> 
+> cleanEx()
+> nameEx("promoterMeth")
+> ### * promoterMeth
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: promoterMeth
+> ### Title: promoterMeth to calculate associations of gene expression with
+> ###   DNA methylation at promoter regions
+> ### Aliases: promoterMeth
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D   data(elmer.data.example.promoter)
+> ##D   Gene.promoter <- promoterMeth(mae.promoter) 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("render_report")
+> ### * render_report
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: render_report
+> ### Title: Build report for TCGA.pipe function
+> ### Aliases: render_report
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D render_report(group.col = "TN",
+> ##D               group1 = "Tumor",
+> ##D               group2 = "Normal",
+> ##D               dir.out = "~/paper_elmer/Result/BRCA/TN_Tumor_vs_Normal/hypo/",
+> ##D               direction = "hypo",
+> ##D               mae = "~/paper_elmer/Result/BRCA/BRCA_mae_hg38.rda")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("scatter.plot")
+> ### * scatter.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scatter.plot
+> ### Title: scatter.plot to plot scatter plots between gene expression and
+> ###   DNA methylation.
+> ### Aliases: scatter.plot
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> scatter.plot(data,
++             byProbe=list(probe=c("cg19403323"),numFlankingGenes=20), 
++             category="definition", save=FALSE)
+Searching for the 20 near genes
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+> scatter.plot(data,byProbe=list(probe=c("cg19403323"),numFlankingGenes=20), 
++             category="definition", save=TRUE) ## save to pdf
+Searching for the 20 near genes
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+> # b. generate one probe-gene pair
+> scatter.plot(data,byPair=list(probe=c("cg19403323"),gene=c("ENSG00000143322")),
++              category="definition", save=FALSE,lm_line=TRUE) 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+> 
+> 
+> 
+> cleanEx()
+> nameEx("schematic.plot")
+> ### * schematic.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: schematic.plot
+> ### Title: schematic.plot to plot schematic plots showing the locations of
+> ###   genes and probes.
+> ### Aliases: schematic.plot
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> pair <- data.frame(Probe = c("cg19403323","cg19403323", "cg26403223"),
++                    GeneID = c("ENSG00000196878", "ENSG00000009790", "ENSG00000009790" ),
++                    Symbol = c("TRAF3IP3","LAMB3","LAMB3"),
++                    Raw.p =c(0.001,0.00001,0.001),
++                    Pe = c(0.001,0.00001,0.001))
+> schematic.plot(data,
++                group.col = "definition",
++                group1 = "Primary solid Tumor",
++                group2 = "Solid Tissue Normal",
++                pair = pair,
++                byProbe = "cg19403323")
+Searching for the 20 near genes
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%Saving as: .//cg19403323.schematic.byProbe
+
+> schematic.plot(data,
++                group.col = "definition",
++                group1 = "Primary solid Tumor",
++                group2 = "Solid Tissue Normal",
++                pair = pair,
++                byGeneID = "ENSG00000009790")
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100% ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp7GhxYy/R.INSTALLb5305c7b0e13/GenomicInteractions/R/InteractionTrack-class.R#129: 
+ --- package (from environment) --- 
+GenomicInteractions
+ --- call from context --- 
+GenomicInteractions::InteractionTrack(name = "Putative pair genes\n (-log10 raw p-value)", 
+    interactions, chromosome = chr)
+ --- call from argument --- 
+if (chromosome != "" & !(chromosome %in% seqlevels(x))) {
+    stop(paste("chromosome:", chromosome, "not found in seqlevels of the supplied GenomicInteractions object", 
+        sep = " "))
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Schematic.plot.R#278: GenomicInteractions::InteractionTrack(name = "Putative pair genes\n (-log10 raw p-value)", 
+    interactions, chromosome = chr)
+where 2 at /var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Schematic.plot.R#152: schematic(data = data, gene.gr, probe.gr, significant, label = sprintf("%s/%s.schematic.byGene", 
+    dir.out, gene), save = save, statehub.tracks = statehub.tracks, 
+    group.col = group.col, group1 = group1, group2 = group2, 
+    extra.tracks = extra.tracks)
+where 3: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 4 at /var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Schematic.plot.R#111: suppressWarnings({
+    if (!missing(byProbe)) {
+        nearGenes <- do.call(GetNearGenes, c(list(TRange = rowRanges(getMet(data))[byProbe, 
+            ], geneAnnot = rowRanges(getExp(data))), params))
+        pb <- txtProgressBar(min = 0, max = length(byProbe), 
+            title = "creating images", style = 3, initial = 0, 
+            char = "=")
+        progress <- 0
+        for (probe in byProbe) {
+            progress <- progress + 1
+            setTxtProgressBar(pb, progress)
+            significant <- pair[pair$Probe == probe, ]
+            gene.gr <- rowRanges(getExp(data))[nearGenes[[probe]]$GeneID, 
+                ]
+            probe.gr <- rowRanges(getMet(data))[unique(nearGenes[[probe]]$Target), 
+                ]
+            schematic(data = data, gene.gr = gene.gr, probe.gr = probe.gr, 
+                significant = significant, label = sprintf("%s/%s.schematic.byProbe", 
+                  dir.out, probe), statehub.tracks = statehub.tracks, 
+                save = save, group.col = group.col, group1 = group1, 
+                group2 = group2, extra.tracks = extra.tracks)
+        }
+        close(pb)
+    }
+    if (!missing(byGeneID)) {
+        pb <- txtProgressBar(min = 0, max = length(byGeneID), 
+            title = "creating images", style = 3, initial = 0, 
+            char = "=")
+        progress <- 0
+        for (gene in byGeneID) {
+            progress <- progress + 1
+            setTxtProgressBar(pb, progress)
+            significant <- pair[pair$GeneID == gene, ]
+            if (nrow(significant) == 0) {
+                warning(paste0("Gene ", gene, " is not in pair list. We cannot plot it."))
+                next
+            }
+            gene.gr <- rowRanges(getExp(data))[gene, ]
+            probe.gr <- rowRanges(getMet(data))[significant$Probe, 
+                ]
+            schematic(data = data, gene.gr, probe.gr, significant, 
+                label = sprintf("%s/%s.schematic.byGene", dir.out, 
+                  gene), save = save, statehub.tracks = statehub.tracks, 
+                group.col = group.col, group1 = group1, group2 = group2, 
+                extra.tracks = extra.tracks)
+        }
+        close(pb)
+    }
+    if (length(byCoordinate$chr) != 0) {
+        for (i in 1:length(byCoordinate$chr)) {
+            coordinate <- GRanges(seqnames = byCoordinate$chr[i], 
+                ranges = IRanges(byCoordinate$start[i], byCoordinate$end[i]))
+            probe.gr <- rowRanges(getMet(data))[unique(pair$Probe), 
+                ]
+            probe.gr <- probe.gr[queryHits(findOverlaps(probe.gr, 
+                coordinate)), ]
+            if (length(probe.gr) == 0) 
+                stop("No probes in that region")
+            gene.gr <- rowRanges(getExp(data))[queryHits(findOverlaps(rowRanges(getExp(data)), 
+                coordinate)), ]
+            if (length(gene.gr) == 0) 
+                stop("No genes in that region")
+            significant <- pair[pair$GeneID %in% names(gene.gr) & 
+                pair$Probe %in% names(probe.gr), ]
+            schematic(data = data, gene.gr, probe.gr, significant, 
+                label = sprintf("%s/%s_%s_%s.schematic.byCoordinate", 
+                  dir.out, byCoordinate$chr[i], byCoordinate$start[i], 
+                  byCoordinate$end[i]), save = save, statehub.tracks = statehub.tracks, 
+                group.col = group.col, group1 = group1, group2 = group2, 
+                extra.tracks = extra.tracks)
+        }
+    }
+})
+where 5: schematic.plot(data, group.col = "definition", group1 = "Primary solid Tumor", 
+    group2 = "Solid Tissue Normal", pair = pair, byGeneID = "ENSG00000009790")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(x, chromosome="", name=NULL, start=NULL, end=NULL){ 
+  if(!(class(x)=="GenomicInteractions")){ stop("x must be a GenomicInteractions object")}
+  if(is.null(name)){
+    name = name(x)
+  }
+  if(chromosome !="" & !(chromosome %in% seqlevels(x))){
+    stop(paste("chromosome:", chromosome, "not found in seqlevels of the supplied GenomicInteractions object", sep=" "))
+  }
+  if(chromosome != ""){
+    if(xor(is.null(start), is.null(end))){
+      stop(paste("both start and end need to be specified"))
+    }else if(is.null(start) & is.null(end)){
+      x = x[as.vector(seqnames(anchorOne(x)) == chromosome | seqnames(anchorTwo(x)) == chromosome)]
+    }else{
+      x = subsetByFeatures(x, GRanges(chromosome, IRanges(start, end)))
+    }
+  }
+	return(new("InteractionTrack", name=name, giobject=x, chromosome=chromosome, variables=list(chromosome=chromosome, start=start, end=end)))	
+}
+<bytecode: 0x6ad7e248>
+<environment: namespace:GenomicInteractions>
+ --- function search by body ---
+Function InteractionTrack in namespace GenomicInteractions has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

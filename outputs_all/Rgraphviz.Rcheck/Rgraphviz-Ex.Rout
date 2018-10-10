@@ -1,0 +1,1109 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Rgraphviz"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('Rgraphviz')
+Loading required package: graph
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: grid
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("AgEdge-class")
+> ### * AgEdge-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AgEdge-class
+> ### Title: Class "AgEdge": A class to describe an edge for a Ragraph object
+> ### Aliases: AgEdge-class AgEdge AgEdge<- splines sp ep getSpline
+> ###   numSplines head tail arrowsize lines,AgEdge-method show,AgEdge-method
+> ###   arrowsize,AgEdge-method color,AgEdge-method ep,AgEdge-method
+> ###   getSpline,AgEdge-method head,AgEdge-method numSplines,AgEdge-method
+> ###   sp,AgEdge-method splines,AgEdge-method tail,AgEdge-method
+> ###   txtLabel,AgEdge-method txtLabel arrowhead,AgEdge-method arrowhead
+> ###   arrowtail,AgEdge-method arrowtail
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> z <- agopen(g1,name="foo")
+> x <- AgEdge(z)  ## list of AgEdge objects
+> 
+> vv <- x[[1]]
+> vv
+An edge between e and b with 1 BezierCurve objects: 
+99,383 92,324 75,180 68,121 
+> ## Demonstrate the methods of this class
+> splines(vv)
+[[1]]
+99,383 92,324 75,180 68,121 
+
+> sp(vv)
+x: 0, y: 0
+> ep(vv)
+x: 0, y: 0
+> numSplines(vv)
+[1] 1
+> getSpline(vv, 1)
+99,383 92,324 75,180 68,121 
+> head(vv)
+[1] "e"
+> tail(vv)
+[1] "b"
+> txtLabel(vv)
+An object of class "AgTextLabel"
+Slot "labelText":
+character(0)
+
+Slot "labelLoc":
+x: , y: 
+
+Slot "labelJust":
+character(0)
+
+Slot "labelWidth":
+integer(0)
+
+Slot "labelColor":
+character(0)
+
+Slot "labelFontsize":
+numeric(0)
+
+> arrowhead(vv)
+[1] "none"
+> arrowtail(vv)
+[1] "none"
+> arrowsize(vv)
+[1] "1"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("AgNode-class")
+> ### * AgNode-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AgNode-class
+> ### Title: Class "AgNode": A class to describe a node for a Ragraph object
+> ### Aliases: AgNode-class AgNode AgNode<- color fillcolor name shape
+> ###   getNodeRW getNodeLW getNodeCenter getRadiusDiv getNodeHeight style
+> ###   style,AgNode-method color,AgNode-method fillcolor,AgNode-method
+> ###   getNodeXY,AgNode-method getNodeCenter,AgNode-method
+> ###   getNodeHeight,AgNode-method getNodeLW,AgNode-method
+> ###   getNodeRW,AgNode-method name,AgNode-method shape,AgNode-method
+> ###   txtLabel,AgNode-method drawAgNode
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> z <- agopen(g1,name="foo")
+> x <- AgNode(z) ## list of AgNode objects
+> vv <- x[[1]]
+> 
+> ## The methods in use
+> color(vv)
+[1] "black"
+> fillcolor(vv)
+[1] "transparent"
+> getNodeCenter(vv)
+x: 28, y: 410
+> getNodeXY(vv)
+$x
+[1] 28
+
+$y
+[1] 410
+
+> getNodeHeight(vv)
+[1] 54
+> getNodeLW(vv)
+[1] 27
+> getNodeRW(vv)
+[1] 27
+> name(vv)
+[1] "a"
+> shape(vv)
+[1] "circle"
+> style(vv)
+[1] ""
+> txtLabel(vv)
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "a"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 6
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("AgTextLabel-class")
+> ### * AgTextLabel-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: AgTextLabel-class
+> ### Title: Class "AgTextLabel": Represents a graphviz text label
+> ### Aliases: AgTextLabel-class labelText labelLoc labelJust labelWidth
+> ###   labelColor labelFontsize labelFontsize,AgTextLabel-method
+> ###   labelColor,AgTextLabel-method labelText,AgTextLabel-method
+> ###   labelLoc,AgTextLabel-method labelJust,AgTextLabel-method
+> ###   labelWidth,AgTextLabel-method drawTxtLabel
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> 
+> ## Make the labels be the edge weights.  This code is from the vignette
+> eAttrs <- list()
+> ew <- edgeWeights(g1)
+> lw <- unlist(unlist(ew))
+> toRemove <- removedEdges(g1)
+> lw <- lw[-toRemove]
+> names(lw) <- edgeNames(g1)
+> eAttrs$label <- lw
+> 
+> z <- agopen(g1,"foo", edgeAttrs=eAttrs)
+> x <- AgEdge(z)  ## list of AgEdge objects
+> x[[1]]  ## AgEdge
+An edge between e and b with 1 BezierCurve objects: 
+99,393 92,330 74,173 67,111 
+> a <- txtLabel(x[[1]])
+> a ## txtLabel object
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "1"
+
+Slot "labelLoc":
+x: 87, y: 252
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 7
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+> 
+> labelText(a)
+[1] "1"
+> labelLoc(a)
+x: 87, y: 252
+> labelJust(a)
+[1] "n"
+> labelWidth(a)
+[1] 7
+> labelColor(a)
+[1] "black"
+> labelFontsize(a)
+[1] 14
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BezierCurve-class")
+> ### * BezierCurve-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BezierCurve-class
+> ### Title: Class "BezierCurve": A class to describe a Bezier curve
+> ### Aliases: BezierCurve-class BezierCurve cPoints pointList bezierPoints
+> ###   bLines show,BezierCurve-method lines,BezierCurve-method
+> ###   bLines,BezierCurve-method bezierPoints,BezierCurve-method
+> ###   pointList,BezierCurve-method cPoints,BezierCurve-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> z <- agopen(g1,"foo")
+> x <- AgEdge(z)  ## list of AgEdge objects
+> x[[1]]  ## AgEdge
+An edge between e and b with 1 BezierCurve objects: 
+99,383 92,324 75,180 68,121 
+> a <- splines(x[[1]])[[1]]
+> a  ## BezierCurve
+99,383 92,324 75,180 68,121 
+> 
+> cPoints(a)
+[[1]]
+x: 99, y: 383
+
+[[2]]
+x: 92, y: 324
+
+[[3]]
+x: 75, y: 180
+
+[[4]]
+x: 68, y: 121
+
+> pointList(a)
+[[1]]
+[1]  99 383
+
+[[2]]
+[1]  92 324
+
+[[3]]
+[1]  75 180
+
+[[4]]
+[1]  68 121
+
+> bezierPoints(a)
+          x      y
+ [1,] 99.00 383.00
+ [2,] 96.62 362.92
+ [3,] 93.76 338.76
+ [4,] 90.54 311.54
+ [5,] 87.08 282.28
+ [6,] 83.50 252.00
+ [7,] 79.92 221.72
+ [8,] 76.46 192.46
+ [9,] 73.24 165.24
+[10,] 70.38 141.08
+[11,] 68.00 121.00
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GraphvizLayouts")
+> ### * GraphvizLayouts
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GraphvizLayouts
+> ### Title: Graphviz Layout Methods
+> ### Aliases: GraphvizLayouts dot twopi neato circo fdp
+> ### Keywords: graphs
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> if (interactive()) {
++   op <- par()
++   on.exit(par=op)
++   par(ask=TRUE)
++   plot(g1, "dot")
++   plot(g1, "neato")
++   plot(g1, "twopi")
++ }
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("Ragraph-class")
+> ### * Ragraph-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Ragraph-class
+> ### Title: Class "Ragraph": A class to handle libgraph representations
+> ### Aliases: Ragraph-class Ragraph agraph laidout layoutType edgemode
+> ###   boundBox show,Ragraph-method edgeNames,Ragraph-method
+> ###   graphDataDefaults,Ragraph-method
+> ###   graphDataDefaults<-,Ragraph,vector,vector-method
+> ###   graphData,Ragraph,vector-method
+> ###   graphData<-,Ragraph,vector,vector-method
+> ###   clusterData,Ragraph,numeric,vector-method
+> ###   clusterData<-,Ragraph,numeric,vector,vector-method
+> ###   edgeDataDefaults,Ragraph,missing-method
+> ###   edgeDataDefaults<-,Ragraph,vector,vector-method
+> ###   edgeData,Ragraph,vector,vector,vector-method
+> ###   edgeData<-,Ragraph,vector,vector,vector,vector-method
+> ###   nodeDataDefaults,Ragraph,missing-method
+> ###   nodeDataDefaults<-,Ragraph,vector,vector-method
+> ###   nodeData,Ragraph,vector,vector-method
+> ###   nodeData<-,Ragraph,vector,vector,vector-method AgEdge,Ragraph-method
+> ###   AgEdge<-,Ragraph-method agraph,Ragraph-method boundBox,Ragraph-method
+> ###   laidout,Ragraph-method layoutType,Ragraph-method
+> ###   edgemode,Ragraph-method AgNode,Ragraph-method AgNode<-,Ragraph-method
+> ###   getNodeLW,Ragraph-method getNodeRW,Ragraph-method
+> ###   getNodeHeight,Ragraph-method getNodeXY,Ragraph-method getNodeXY
+> ###   getNodeNames getNodeLabels
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> z <- agopen(g1,"foo")
+> z
+[1] "A graph with 10 nodes."
+> 
+> ## The various methods in action
+> 
+> ## These methods are all used to obtain positional information about nodes
+> getNodeXY(z)
+$x
+ [1] 147  62 377 147 147  62 259 195 370 482
+
+$y
+ [1] 477 387 117 297 207 117 477  27 477 477
+
+> getNodeHeight(z)
+ [1] 54 54 54 54 54 54 54 54 54 54
+> getNodeLW(z)
+ [1] 27 27 27 27 27 27 27 27 27 27
+> getNodeRW(z)
+ [1] 27 27 27 27 27 27 27 27 27 27
+> 
+> ## Retrieve information about the edges in the graph
+> edgeNames(z)
+ [1] "a~b" "a~d" "a~e" "a~f" "a~h" "b~d" "b~e" "b~f" "b~h" "c~h" "d~e" "d~f"
+[13] "d~h" "e~f" "e~h" "f~h"
+> edgemode(z)
+[1] "undirected"
+> 
+> ## These get information about the layout
+> laidout(z)
+[1] TRUE
+> layoutType(z)
+[1] "dot"
+> boundBox(z)
+An object of class "boundingBox"
+Slot "botLeft":
+x: 0, y: 0
+
+Slot "upRight":
+x: 524, y: 504
+
+> 
+> ## Used to retrieve the entire list of edges or nodes
+> AgEdge(z)
+[[1]]
+An edge between b and a with 1 BezierCurve objects: 
+129,456 114,442 95,421 81,407 
+
+[[2]]
+An edge between d and a with 1 BezierCurve objects: 
+147,449 147,415 147,357 147,324 
+
+[[3]]
+An edge between e and a with 2 BezierCurve objects: 
+158,452 174,413 201,334 183,270 
+183,270 179,255 171,240 163,229 
+
+[[4]]
+An edge between f and a with 2 BezierCurve objects: 
+121,470 92,463 47,447 26,414 
+26,414 -27,325 25,194 50,141 
+
+[[5]]
+An edge between h and a with 3 BezierCurve objects: 
+170,462 211,435 291,374 291,298 
+291,298 291,298 291,298 291,206 
+291,206 291,141 242,77 214,46 
+
+[[6]]
+An edge between d and b with 1 BezierCurve objects: 
+81,366 95,352 115,331 129,317 
+
+[[7]]
+An edge between e and b with 2 BezierCurve objects: 
+71,361 81,337 96,300 111,270 
+111,270 118,256 126,241 133,230 
+
+[[8]]
+An edge between f and b with 1 BezierCurve objects: 
+62,359 62,308 62,195 62,144 
+
+[[9]]
+An edge between h and b with 2 BezierCurve objects: 
+50,362 23,309 -32,175 26,90 
+26,90 58,43 129,31 168,28 
+
+[[10]]
+An edge between h and c with 1 BezierCurve objects: 
+353,104 318,87 254,56 219,39 
+
+[[11]]
+An edge between e and d with 1 BezierCurve objects: 
+147,269 147,258 147,245 147,234 
+
+[[12]]
+An edge between f and d with 2 BezierCurve objects: 
+133,273 126,262 118,247 111,234 
+111,234 96,203 81,166 71,142 
+
+[[13]]
+An edge between h and d with 2 BezierCurve objects: 
+163,274 170,263 179,248 183,234 
+183,234 202,171 200,93 197,54 
+
+[[14]]
+An edge between f and e with 1 BezierCurve objects: 
+129,186 114,172 95,151 81,137 
+
+[[15]]
+An edge between h and e with 1 BezierCurve objects: 
+154,180 163,146 179,86 188,53 
+
+[[16]]
+An edge between h and f with 1 BezierCurve objects: 
+84,101 109,85 148,59 173,42 
+
+> AgNode(z)
+[[1]]
+An object of class "AgNode"
+Slot "center":
+x: 147, y: 477
+
+Slot "name":
+[1] "a"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "a"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 6
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[2]]
+An object of class "AgNode"
+Slot "center":
+x: 62, y: 387
+
+Slot "name":
+[1] "b"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "b"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 7
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[3]]
+An object of class "AgNode"
+Slot "center":
+x: 377, y: 117
+
+Slot "name":
+[1] "c"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "c"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 6
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[4]]
+An object of class "AgNode"
+Slot "center":
+x: 147, y: 297
+
+Slot "name":
+[1] "d"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "d"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 7
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[5]]
+An object of class "AgNode"
+Slot "center":
+x: 147, y: 207
+
+Slot "name":
+[1] "e"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "e"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 6
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[6]]
+An object of class "AgNode"
+Slot "center":
+x: 62, y: 117
+
+Slot "name":
+[1] "f"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "f"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 4
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[7]]
+An object of class "AgNode"
+Slot "center":
+x: 259, y: 477
+
+Slot "name":
+[1] "g"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "g"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 7
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[8]]
+An object of class "AgNode"
+Slot "center":
+x: 195, y: 27
+
+Slot "name":
+[1] "h"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "h"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 7
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[9]]
+An object of class "AgNode"
+Slot "center":
+x: 370, y: 477
+
+Slot "name":
+[1] "i"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "i"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 3
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+[[10]]
+An object of class "AgNode"
+Slot "center":
+x: 482, y: 477
+
+Slot "name":
+[1] "j"
+
+Slot "txtLabel":
+An object of class "AgTextLabel"
+Slot "labelText":
+[1] "j"
+
+Slot "labelLoc":
+x: 0, y: 0
+
+Slot "labelJust":
+[1] "n"
+
+Slot "labelWidth":
+[1] 3
+
+Slot "labelColor":
+[1] "black"
+
+Slot "labelFontsize":
+[1] 14
+
+
+Slot "height":
+[1] 54
+
+Slot "rWidth":
+[1] 27
+
+Slot "lWidth":
+[1] 27
+
+Slot "color":
+[1] "black"
+
+Slot "fillcolor":
+[1] "transparent"
+
+Slot "shape":
+[1] "circle"
+
+Slot "style":
+[1] ""
+
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("agopen")
+> ### * agopen
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: agopen
+> ### Title: A function to obtain a libgraph object
+> ### Aliases: agopen
+> ### Keywords: graphs
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> z <- agopen(g1,name="foo")
+> z
+[1] "A graph with 10 nodes."
+> z <- agopen(g1,name="foo",layoutType="neato")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("agopenSimple")
+> ### * agopenSimple
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: agopenSimple
+> ### Title: A function to obtain a Ragraph object
+> ### Aliases: agopenSimple
+> ### Keywords: graphs
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> z <- agopenSimple(g1,name="foo")
+> if(graphvizVersion() >= "2.10") {
++   ## This example will only run with Graphviz >= 2.10
++   plot(z, "twopi")
++ }
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:Rgraphviz
+ --- call from context --- 
+NULL
+ --- call from argument --- 
+if (graphvizVersion() >= "2.10") {
+    plot(z, "twopi")
+}
+ --- R stacktrace ---
+
+ --- value of length: 3 type: logical ---
+installed_version     build_version  bundled_graphviz 
+             TRUE              TRUE              TRUE 
+ --- function from context --- 
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

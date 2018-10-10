@@ -1,0 +1,143 @@
+sROC 0.1-2 loaded
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmptf8Vb9/R.INSTALL8e106708816/GateFinder/R/AllMethods.R#334: 
+ --- package (from environment) --- 
+GateFinder
+ --- call from context --- 
+.getScores(x, targetpop, gates = gates, skipdims = c(dimx, dimy), 
+    currentpop = currentpop, beta, randomize = randomize, predimx = predimx[i], 
+    predimy = predimy[i])
+ --- call from argument --- 
+if (is.na(gates[[i]][[j]]) | (length(gates[[i]][[j]]) == 0)) {
+    fmeasure[i, j] = 0
+    precision[i, j] = 0
+    recall[i, j] = 0
+    next
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmptf8Vb9/R.INSTALL8e106708816/GateFinder/R/AllMethods.R#104: .getScores(x, targetpop, gates = gates, skipdims = c(dimx, dimy), 
+    currentpop = currentpop, beta, randomize = randomize, predimx = predimx[i], 
+    predimy = predimy[i])
+where 2: GateFinder(x, targetpop)
+where 3: eval(expr, .GlobalEnv)
+where 4 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 5 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
+where 6: doTryCatch(return(expr), name, parentenv, handler)
+where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 8: tryCatchList(expr, classes, parentenv, handlers)
+where 9: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 10 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 11 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
+    cat("\n")
+    sink()
+})
+where 14 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 15 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 16 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 17: doTryCatch(return(expr), name, parentenv, handler)
+where 18: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 19: tryCatchList(expr, classes, parentenv, handlers)
+where 20 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 21: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/GateFinder.Rcheck/vign_test/GateFinder")
+
+ --- value of length: 14 type: logical ---
+     CD45RA  CD19
+[1,]  FALSE FALSE
+[2,]  FALSE FALSE
+[3,]  FALSE FALSE
+[4,]  FALSE FALSE
+[5,]  FALSE FALSE
+[6,]  FALSE FALSE
+[7,]  FALSE FALSE
+ --- function from context --- 
+function(x, targetpop, gates, skipdims=NA, currentpop=rep(TRUE,length(targetpop)), beta, randomize, predimx=NULL, predimy=NULL){
+        if (length(which(!is.na(unlist(gates))))==0)
+            return(NA)
+        n=dim(x)[2]
+        fmeasure=matrix(0,n,n)
+        precision=matrix(0,n,n)
+        recall=matrix(0,n,n)
+        for (i in 1:(n-1)){
+            for (j in (i+1):n){
+                if (!is.null(predimx))
+                    if (i!=predimx)
+                        next
+                if (!is.null(predimy))
+                    if (j!=predimy)
+                        next
+                if (i %in% skipdims)
+                    next
+                if (j %in% skipdims)
+                    next
+                if (is.na(gates[[i]][[j]]) | (length(gates[[i]][[j]])==0)){
+                    fmeasure[i,j]=0
+                    precision[i,j]=0
+                    recall[i,j]=0
+                    next
+                }
+                foundpop=currentpop & as.logical(.inpoly(x[,i],x[,j],list(x=gates[[i]][[j]][,1],y=gates[[i]][[j]][,2])))
+                tp=length(which(targetpop & foundpop))
+                fp=length(which(!targetpop & foundpop))
+                fn=length(which(targetpop & !foundpop))
+                tn=length(which(!targetpop & !foundpop))
+                precision[i,j]=tp/(tp+fp)
+                recall[i,j]=tp/(tp+fn)
+                fmeasure[i,j]=(1+beta^2)*precision[i,j]*recall[i,j]/(beta^2*precision[i,j]+recall[i,j])
+            }
+        }
+        if (randomize){
+            answer=sample(as.vector(fmeasure), size=1, prob=as.vector(fmeasure))
+        }
+        if (!randomize){
+            answer=max(fmeasure)
+        }
+        temp=which(fmeasure==answer,arr.ind=TRUE)
+        if((dim(temp))[1]>1)
+            temp=temp[1,]
+        i=temp[1]
+        j=temp[2]
+        newpop=rep(FALSE, length(currentpop))
+        if (length(gates[[i]][[j]])!=0)
+            newpop=currentpop & as.logical(.inpoly(x[,i],x[,j],list(x=gates[[i]][[j]][,1],y=gates[[i]][[j]][,2])))
+        return(list(i=i,j=j,fmeasure=fmeasure[i,j],precision=precision[i,j],recall=recall[i,j],newpop=newpop,allfmeasures=fmeasure))
+    }
+<bytecode: 0x1d3421f8>
+<environment: namespace:GateFinder>
+ --- function search by body ---
+Function .getScores in namespace GateFinder has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

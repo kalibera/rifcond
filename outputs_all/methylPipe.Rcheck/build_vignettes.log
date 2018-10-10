@@ -1,0 +1,200 @@
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:parallel':
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums,
+    colnames, dirname, do.call, duplicated, eval, evalq, get,
+    grep, grepl, intersect, is.unsorted, lapply, mapply, match,
+    mget, order, paste, pmax, pmax.int, pmin, pmin.int, rank,
+    rbind, rowMeans, rowSums, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which, which.max,
+    which.min
+
+Loading required package: S4Vectors
+
+Attaching package: 'S4Vectors'
+
+The following object is masked from 'package:base':
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: SummarizedExperiment
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages
+    'citation("pkgname")'.
+
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: 'matrixStats'
+
+The following objects are masked from 'package:Biobase':
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: 'DelayedArray'
+
+The following objects are masked from 'package:matrixStats':
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following objects are masked from 'package:base':
+
+    aperm, apply
+
+Loading required package: Rsamtools
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: 'Biostrings'
+
+The following object is masked from 'package:DelayedArray':
+
+    type
+
+The following object is masked from 'package:base':
+
+    strsplit
+
+Loading required package: BSgenome
+Loading required package: rtracklayer
+
+Extracting methylation information from input SAM files and creating output files for each sample...
+
+Creating temporary BAM files from input SAM files...
+
+Creating uncovered regions objects for each sample from BAM files...
+
+Removing all temporary BAM files...
+
+Methylation info and Uncovered regions output files created for each sample in output_folder...
+
+Processing done Successfully...
+
+Warning in in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE,  :
+  You changed the working directory to /var/scratch2/tomas/tmp/RtmpCurMMP (probably via setwd()). It will be restored to /var/scratch2/tomas/test/mine/R-svn-dev-75396/check/methylPipe.Rcheck/vign_test/methylPipe/vignettes. See the Note section in ?knitr::knit
+S4 Object of class BSdata
+
+TABIX indexed file for this BSdata:
+/var/scratch2ro/tomas/test/mine/R-svn-dev-75396/lib/methylPipe/extdata/H1_chr20_CG_10k_tabix_out.txt.gz
+
+The first lines of the uncovered regions of this BSdata:
+Associated organism genome:
+Homo sapiens
+
+Chromosomes available:
+The first lines of the data:
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpb4Gcxx/R.INSTALLb541786d22a9/methylPipe/R/Allfunctions.R#635: 
+ --- package (from environment) --- 
+methylPipe
+ --- call from context --- 
+getCposDensity(GenoRanges, Cpos = Cpos, nbins = Nbins)
+ --- call from argument --- 
+if (is.na(Cpos[[i]])) Cpos[[i]] <- rep(0, nbins) else Cpos[[i]] <- sapply(Cpos[[i]], 
+    length)/widths
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmpb4Gcxx/R.INSTALLb541786d22a9/methylPipe/R/Allfunctions.R#713: getCposDensity(GenoRanges, Cpos = Cpos, nbins = Nbins)
+where 2: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 3 at /var/scratch2/tomas/tmp/Rtmpb4Gcxx/R.INSTALLb541786d22a9/methylPipe/R/Allfunctions.R#713: suppressWarnings(CposD <- getCposDensity(GenoRanges, Cpos = Cpos, 
+    nbins = Nbins))
+where 4: profileDNAmetBin(GenoRanges = GR_chr20, Sample = H1.db, mcCLASS = "mCG", 
+    nbins = 3)
+where 5: eval(expr, envir, enclos)
+where 6 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 7 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 8 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 9 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 10 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 11 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 12 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 13 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 14 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 15 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#91: block_exec(params)
+where 16 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#6: call_block(x)
+where 17 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#3: process_group.block(group)
+where 18 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: process_group(group)
+where 19 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 20 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#258: process_file(text, output)
+where 21 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#40: (if (grepl("\\.[Rr]md$", file)) knit2html_v1 else if (grepl("\\.[Rr]rst$", 
+    file)) knit2pandoc else knit)(file, encoding = encoding, 
+    quiet = quiet, envir = globalenv())
+where 22 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 23: doTryCatch(return(expr), name, parentenv, handler)
+where 24: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 25: tryCatchList(expr, classes, parentenv, handlers)
+where 26 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 27: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/methylPipe.Rcheck/vign_test/methylPipe")
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function from context --- 
+function(GenoRanges, Cpos, nbins) {
+    allwidths <- width(GenoRanges)
+    Nbins <- nbins
+    for(i in 1:length(Cpos)) {
+        widths <- rep(round(allwidths[i]/Nbins), Nbins)
+        if(is.na(Cpos[[i]]))
+          Cpos[[i]] <- rep(0,nbins)
+        else
+          Cpos[[i]] <- sapply(Cpos[[i]], length)/widths
+    }
+    return(Cpos)
+}
+<bytecode: 0x45dc8000>
+<environment: namespace:methylPipe>
+ --- function search by body ---
+Function getCposDensity in namespace methylPipe has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,128 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+base
+ --- call from context --- 
+mean.default(log(x), na.rm = na.rm)
+ --- call from argument --- 
+if (na.rm) x <- x[!is.na(x)]
+ --- R stacktrace ---
+where 1: mean.default(log(x), na.rm = na.rm)
+where 2 at <text>#3: mean(log(x), na.rm = na.rm)
+where 3: geomean(x, c(1.5, 0))
+where 4: eval(expr, envir, enclos)
+where 5 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 6 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 7 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 12 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#166: try(f, silent = TRUE)
+where 13 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 14 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 15 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 16 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 17 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 18 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 19 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#91: block_exec(params)
+where 20 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#6: call_block(x)
+where 21 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#3: process_group.block(group)
+where 22 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: process_group(group)
+where 23 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 24 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#258: process_file(text, output)
+where 25 at /var/scratch2/tomas/tmp/RtmpxUaBIG/R.INSTALL504c49159209/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 26 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 27 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 28 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 29: doTryCatch(return(expr), name, parentenv, handler)
+where 30: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 31: tryCatchList(expr, classes, parentenv, handlers)
+where 32 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 33: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/assertive.Rcheck/vign_test/assertive")
+
+ --- value of length: 2 type: double ---
+[1] 1.5 0.0
+ --- function from context --- 
+function (x, trim = 0, na.rm = FALSE, ...) 
+{
+    if (!is.numeric(x) && !is.complex(x) && !is.logical(x)) {
+        warning("argument is not numeric or logical: returning NA")
+        return(NA_real_)
+    }
+    if (na.rm) 
+        x <- x[!is.na(x)]
+    if (!is.numeric(trim) || length(trim) != 1L) 
+        stop("'trim' must be numeric of length one")
+    n <- length(x)
+    if (trim > 0 && n) {
+        if (is.complex(x)) 
+            stop("trimmed means are not defined for complex data")
+        if (anyNA(x)) 
+            return(NA_real_)
+        if (trim >= 0.5) 
+            return(stats::median(x, na.rm = FALSE))
+        lo <- floor(n * trim) + 1
+        hi <- n + 1 - lo
+        x <- sort.int(x, partial = unique(c(lo, hi)))[lo:hi]
+    }
+    .Internal(mean(x))
+}
+<bytecode: 0x72efed8>
+<environment: namespace:base>
+ --- function search by body ---
+Function mean.default in namespace base has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

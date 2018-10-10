@@ -1,0 +1,249 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "simulatorZ"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('simulatorZ')
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: SummarizedExperiment
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following objects are masked from ‘package:Biobase’:
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: ‘DelayedArray’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following objects are masked from ‘package:base’:
+
+    aperm, apply
+
+Loading required package: survival
+Loading required package: CoxBoost
+Loading required package: Matrix
+
+Attaching package: ‘Matrix’
+
+The following object is masked from ‘package:S4Vectors’:
+
+    expand
+
+Loading required package: prodlim
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("cvSubsets")
+> ### * cvSubsets
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cvSubsets
+> ### Title: cvSubsets
+> ### Aliases: cvSubsets
+> 
+> ### ** Examples
+> 
+> 
+> 
+> library(curatedOvarianData)
+Loading required package: affy
+> 
+> 
+> data(E.MTAB.386_eset)
+> 
+> 
+> 
+> 
+> 
+> set.seed(8)
+> 
+> 
+> id <- cvSubsets(E.MTAB.386_eset, 3)
+> 
+> 
+> 
+> 
+> 
+> subset1 <- E.MTAB.386_eset[, id[[1]]]
+> 
+> 
+> subset2 <- E.MTAB.386_eset[, id[[2]]]
+> 
+> 
+> subset3 <- E.MTAB.386_eset[, id[[3]]]
+> 
+> 
+> 
+> 
+> 
+> ## Number of observations in the set does not need to be a multiple of
+> 
+> 
+> ## the fold parameter
+> 
+> 
+> id2 <- cvSubsets(E.MTAB.386_eset, 5)
+> 
+> 
+> subsets <- list()
+> 
+> 
+> subsets[[1]] <- E.MTAB.386_eset[, id2[[1]]]
+> 
+> 
+> subsets[[2]] <- E.MTAB.386_eset[, id2[[2]]]
+> 
+> 
+> subsets[[3]] <- E.MTAB.386_eset[, id2[[3]]]
+> 
+> 
+> subsets[[4]] <- E.MTAB.386_eset[, id2[[4]]]
+> 
+> 
+> subsets[[5]] <- E.MTAB.386_eset[, id2[[5]]]
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:curatedOvarianData’, ‘package:affy’
+
+> nameEx("funCV")
+> ### * funCV
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: funCV
+> ### Title: funCV
+> ### Aliases: funCV
+> 
+> ### ** Examples
+> 
+> 
+> 
+> library(curatedOvarianData)
+Loading required package: affy
+> 
+> 
+> library(GenomicRanges)
+> 
+> 
+> set.seed(8)
+> 
+> 
+> data( E.MTAB.386_eset )
+> 
+> 
+> eset <- E.MTAB.386_eset[1:100, 1:30]
+> 
+> 
+> time <- eset$days_to_death
+> 
+> 
+> cens.chr <- eset$vital_status
+> 
+> 
+> cens <- c()
+> 
+> 
+> for(i in seq_along(cens.chr)){
++ 
++ 
++   if(cens.chr=="living") cens[i] <- 1
++ 
++ 
++   else cens[i] <- 0
++ 
++ 
++ }
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:curatedOvarianData
+ --- call from context --- 
+NULL
+ --- call from argument --- 
+if (cens.chr == "living") cens[i] <- 1 else cens[i] <- 0
+ --- R stacktrace ---
+
+ --- value of length: 30 type: logical ---
+ [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
+[13] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+[25] FALSE FALSE FALSE FALSE FALSE  TRUE
+ --- function from context --- 
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

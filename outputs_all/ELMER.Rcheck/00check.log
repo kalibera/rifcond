@@ -1,0 +1,313 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/ELMER.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘ELMER/DESCRIPTION’ ... OK
+* this is package ‘ELMER’ version ‘2.4.4’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘ELMER’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... WARNING
+'::' or ':::' import not declared from: 'data.table'
+':::' call which should be '::': 'TCGAbiolinks:::TCGAVisualize_volcano'
+  See the note in ?`:::` about the use of this operator.
+Unexported objects imported by ':::' calls:
+  'TCGAbiolinks:::colDataPrepare' 'TCGAbiolinks:::get.GRCh.bioMart'
+  See the note in ?`:::` about the use of this operator.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+TF.rank.plot: no visible binding for global variable 'pvalue'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:291-304)
+TF.rank.plot: no visible binding for global variable 'label'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:291-304)
+TF.rank.plot: no visible binding for global variable 'Gene'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:308-320)
+addDistNearestTSS: no visible binding for global variable 'Target'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/GetNearbyGenes.R:262-270)
+addDistNearestTSS: no visible binding for global variable 'GeneID'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/GetNearbyGenes.R:262-270)
+addDistNearestTSS: no visible binding for global variable 'Probe'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/GetNearbyGenes.R:278-285)
+addDistNearestTSS: no visible binding for global variable 'GeneID'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/GetNearbyGenes.R:278-285)
+addMutCol: no visible binding for global variable 'Hugo_Symbol'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/TCGA_pipe.R:482)
+calculateEnrichement : <anonymous>: no visible global function
+  definition for 'fisher.test'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Small.R:893)
+findMotifRegion: no visible binding for global variable 'gr'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Small.R:958-963)
+findMotifRegion: no visible global function definition for
+  'write.table'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Small.R:974)
+get.diff.meth: no visible binding for global variable 'x'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Main_function.R:223-226)
+get.enriched.motif : <anonymous>: no visible global function definition
+  for 'fisher.test'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Main_function.R:1029)
+getRandomPairs: no visible binding for global variable
+  'hm450.hg38.manifest'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Small.R:801)
+getTFtargets: no visible binding for global variable 'TF'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Main_function.R:1515)
+getTFtargets: no visible binding for global variable 'TF'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Main_function.R:1517)
+heatmapGene: no visible global function definition for 'precede'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/plots.R:473)
+heatmapGene: no visible global function definition for 'precede'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/plots.R:474)
+heatmapGene: no visible global function definition for
+  'subsetByOverlaps'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/plots.R:488)
+heatmapGene: no visible binding for global variable 'mae'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/plots.R:500-507)
+motif.enrichment.plot: no visible binding for global variable 'y'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:103-116)
+motif.enrichment.plot: no visible binding for global variable 'x'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:103-116)
+motif.enrichment.plot: no visible binding for global variable 'z'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:103-116)
+motif.enrichment.plot: no visible binding for global variable 'upperOR'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:120)
+motif.enrichment.plot: no visible binding for global variable 'lowerOR'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:120)
+motif.enrichment.plot: no visible binding for global variable 'motif'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:123-135)
+motif.enrichment.plot: no visible binding for global variable 'OR'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:123-135)
+motif.enrichment.plot: no visible binding for global variable 'upperOR'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:147)
+motif.enrichment.plot: no visible binding for global variable 'lowerOR'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:147)
+motif.enrichment.plot: no visible binding for global variable 'motif'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:148-157)
+motif.enrichment.plot: no visible binding for global variable 'OR'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/motif.TF.Plots.R:148-157)
+scatter: no visible binding for global variable 'value'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Scatter.plot.R:217-231)
+scatter: no visible global function definition for 'cor.test'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Scatter.plot.R:236-238)
+scatter: no visible binding for global variable 'mae'
+  (/var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Scatter.plot.R:250-267)
+Undefined global functions or variables:
+  Gene GeneID Hugo_Symbol OR Probe TF Target cor.test fisher.test gr
+  hm450.hg38.manifest label lowerOR mae motif precede pvalue
+  subsetByOverlaps upperOR value write.table x y z
+Consider adding
+  importFrom("stats", "cor.test", "fisher.test")
+  importFrom("utils", "write.table")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘ELMER-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: schematic.plot
+> ### Title: schematic.plot to plot schematic plots showing the locations of
+> ###   genes and probes.
+> ### Aliases: schematic.plot
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> pair <- data.frame(Probe = c("cg19403323","cg19403323", "cg26403223"),
++                    GeneID = c("ENSG00000196878", "ENSG00000009790", "ENSG00000009790" ),
++                    Symbol = c("TRAF3IP3","LAMB3","LAMB3"),
++                    Raw.p =c(0.001,0.00001,0.001),
++                    Pe = c(0.001,0.00001,0.001))
+> schematic.plot(data,
++                group.col = "definition",
++                group1 = "Primary solid Tumor",
++                group2 = "Solid Tissue Normal",
++                pair = pair,
++                byProbe = "cg19403323")
+Searching for the 20 near genes
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%Saving as: .//cg19403323.schematic.byProbe
+
+> schematic.plot(data,
++                group.col = "definition",
++                group1 = "Primary solid Tumor",
++                group2 = "Solid Tissue Normal",
++                pair = pair,
++                byGeneID = "ENSG00000009790")
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100% ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp7GhxYy/R.INSTALLb5305c7b0e13/GenomicInteractions/R/InteractionTrack-class.R#129: 
+ --- package (from environment) --- 
+GenomicInteractions
+ --- call from context --- 
+GenomicInteractions::InteractionTrack(name = "Putative pair genes\n (-log10 raw p-value)", 
+    interactions, chromosome = chr)
+ --- call from argument --- 
+if (chromosome != "" & !(chromosome %in% seqlevels(x))) {
+    stop(paste("chromosome:", chromosome, "not found in seqlevels of the supplied GenomicInteractions object", 
+        sep = " "))
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Schematic.plot.R#278: GenomicInteractions::InteractionTrack(name = "Putative pair genes\n (-log10 raw p-value)", 
+    interactions, chromosome = chr)
+where 2 at /var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Schematic.plot.R#152: schematic(data = data, gene.gr, probe.gr, significant, label = sprintf("%s/%s.schematic.byGene", 
+    dir.out, gene), save = save, statehub.tracks = statehub.tracks, 
+    group.col = group.col, group1 = group1, group2 = group2, 
+    extra.tracks = extra.tracks)
+where 3: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 4 at /var/scratch2/tomas/tmp/RtmpnQC8Yy/R.INSTALLb52420c4c701/ELMER/R/Schematic.plot.R#111: suppressWarnings({
+    if (!missing(byProbe)) {
+        nearGenes <- do.call(GetNearGenes, c(list(TRange = rowRanges(getMet(data))[byProbe, 
+            ], geneAnnot = rowRanges(getExp(data))), params))
+        pb <- txtProgressBar(min = 0, max = length(byProbe), 
+            title = "creating images", style = 3, initial = 0, 
+            char = "=")
+        progress <- 0
+        for (probe in byProbe) {
+            progress <- progress + 1
+            setTxtProgressBar(pb, progress)
+            significant <- pair[pair$Probe == probe, ]
+            gene.gr <- rowRanges(getExp(data))[nearGenes[[probe]]$GeneID, 
+                ]
+            probe.gr <- rowRanges(getMet(data))[unique(nearGenes[[probe]]$Target), 
+                ]
+            schematic(data = data, gene.gr = gene.gr, probe.gr = probe.gr, 
+                significant = significant, label = sprintf("%s/%s.schematic.byProbe", 
+                  dir.out, probe), statehub.tracks = statehub.tracks, 
+                save = save, group.col = group.col, group1 = group1, 
+                group2 = group2, extra.tracks = extra.tracks)
+        }
+        close(pb)
+    }
+    if (!missing(byGeneID)) {
+        pb <- txtProgressBar(min = 0, max = length(byGeneID), 
+            title = "creating images", style = 3, initial = 0, 
+            char = "=")
+        progress <- 0
+        for (gene in byGeneID) {
+            progress <- progress + 1
+            setTxtProgressBar(pb, progress)
+            significant <- pair[pair$GeneID == gene, ]
+            if (nrow(significant) == 0) {
+                warning(paste0("Gene ", gene, " is not in pair list. We cannot plot it."))
+                next
+            }
+            gene.gr <- rowRanges(getExp(data))[gene, ]
+            probe.gr <- rowRanges(getMet(data))[significant$Probe, 
+                ]
+            schematic(data = data, gene.gr, probe.gr, significant, 
+                label = sprintf("%s/%s.schematic.byGene", dir.out, 
+                  gene), save = save, statehub.tracks = statehub.tracks, 
+                group.col = group.col, group1 = group1, group2 = group2, 
+                extra.tracks = extra.tracks)
+        }
+        close(pb)
+    }
+    if (length(byCoordinate$chr) != 0) {
+        for (i in 1:length(byCoordinate$chr)) {
+            coordinate <- GRanges(seqnames = byCoordinate$chr[i], 
+                ranges = IRanges(byCoordinate$start[i], byCoordinate$end[i]))
+            probe.gr <- rowRanges(getMet(data))[unique(pair$Probe), 
+                ]
+            probe.gr <- probe.gr[queryHits(findOverlaps(probe.gr, 
+                coordinate)), ]
+            if (length(probe.gr) == 0) 
+                stop("No probes in that region")
+            gene.gr <- rowRanges(getExp(data))[queryHits(findOverlaps(rowRanges(getExp(data)), 
+                coordinate)), ]
+            if (length(gene.gr) == 0) 
+                stop("No genes in that region")
+            significant <- pair[pair$GeneID %in% names(gene.gr) & 
+                pair$Probe %in% names(probe.gr), ]
+            schematic(data = data, gene.gr, probe.gr, significant, 
+                label = sprintf("%s/%s_%s_%s.schematic.byCoordinate", 
+                  dir.out, byCoordinate$chr[i], byCoordinate$start[i], 
+                  byCoordinate$end[i]), save = save, statehub.tracks = statehub.tracks, 
+                group.col = group.col, group1 = group1, group2 = group2, 
+                extra.tracks = extra.tracks)
+        }
+    }
+})
+where 5: schematic.plot(data, group.col = "definition", group1 = "Primary solid Tumor", 
+    group2 = "Solid Tissue Normal", pair = pair, byGeneID = "ENSG00000009790")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(x, chromosome="", name=NULL, start=NULL, end=NULL){ 
+  if(!(class(x)=="GenomicInteractions")){ stop("x must be a GenomicInteractions object")}
+  if(is.null(name)){
+    name = name(x)
+  }
+  if(chromosome !="" & !(chromosome %in% seqlevels(x))){
+    stop(paste("chromosome:", chromosome, "not found in seqlevels of the supplied GenomicInteractions object", sep=" "))
+  }
+  if(chromosome != ""){
+    if(xor(is.null(start), is.null(end))){
+      stop(paste("both start and end need to be specified"))
+    }else if(is.null(start) & is.null(end)){
+      x = x[as.vector(seqnames(anchorOne(x)) == chromosome | seqnames(anchorTwo(x)) == chromosome)]
+    }else{
+      x = subsetByFeatures(x, GRanges(chromosome, IRanges(start, end)))
+    }
+  }
+	return(new("InteractionTrack", name=name, giobject=x, chromosome=chromosome, variables=list(chromosome=chromosome, start=start, end=end)))	
+}
+<bytecode: 0x6ad7e248>
+<environment: namespace:GenomicInteractions>
+ --- function search by body ---
+Function InteractionTrack in namespace GenomicInteractions has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... NOTE
+'::' or ':::' import not declared from: ‘devtools’
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs

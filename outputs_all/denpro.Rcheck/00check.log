@@ -1,0 +1,838 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/denpro.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘denpro/DESCRIPTION’ ... OK
+* this is package ‘denpro’ version ‘0.9.2’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘denpro’ can be installed ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+branchmap: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:325-330)
+branchmap: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:331)
+coloallo: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:751-753)
+colobary: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1211)
+colobary.merge: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1041-1046)
+colobary.nodes: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1109-1114)
+colobary.roots: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1253-1258)
+colorsofdata: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1692-1697)
+colorsofdata.adagrid: no visible global function definition for
+  ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1578-1580)
+colorsofdata.adagrid.new: no visible global function definition for
+  ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1523-1525)
+colorsofdata.adagrid2: no visible global function definition for
+  ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1454-1459)
+colorsofdata.new: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1631-1636)
+colorsofdata.tail: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1746-1751)
+colorsofdata2: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1329-1334)
+colorsofdata3: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/denpro.R:1399-1404)
+dist.func: no visible global function definition for ‘median’
+dist.func: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:9-11)
+dist.func: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:16)
+dist.func: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:17)
+dist.func: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:20)
+dist.func: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:21)
+dist.func: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:38-42)
+dist.func: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:66-71)
+dist.func: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/dist.func.R:89-94)
+draw.levset: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/draw.levset.R:24-30)
+draw.levset: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/draw.levset.R:41-42)
+draw.levset: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/draw.levset.R:47)
+eva.clayton: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.clayton.R:10)
+eva.clayton: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.clayton.R:11)
+eva.clayton: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.clayton.R:16)
+eva.clayton: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.clayton.R:17)
+eva.clayton: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.clayton.R:18)
+eva.clayton: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.clayton.R:19)
+eva.cop6: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.cop6.R:10)
+eva.cop6: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.cop6.R:11)
+eva.copula: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.copula.R:19)
+eva.copula: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.copula.R:25)
+eva.copula: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.copula.R:26)
+eva.copula: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.copula.R:31)
+eva.copula: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.copula.R:32)
+eva.gauss: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:12)
+eva.gauss: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:13)
+eva.gauss: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:18)
+eva.gauss: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:19)
+eva.gauss: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:20)
+eva.gauss: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:21)
+eva.gauss: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:25)
+eva.gauss: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:26)
+eva.gauss: no visible global function definition for ‘dnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.gauss.R:29)
+eva.plackett: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.plackett.R:10)
+eva.plackett: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.plackett.R:11)
+eva.prod: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.prod.R:19)
+eva.skewgauss: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.skewgauss.R:9)
+eva.student: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:13)
+eva.student: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:14)
+eva.student: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:19)
+eva.student: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:20)
+eva.student: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:21)
+eva.student: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:22)
+eva.student: no visible global function definition for ‘qt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:26)
+eva.student: no visible global function definition for ‘qt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:27)
+eva.student: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/eva.student.R:28)
+explo.compa: no visible global function definition for ‘cov’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/explo.compa.R:6)
+explo.compa: no visible global function definition for ‘cov’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/explo.compa.R:9)
+explo.compa: no visible global function definition for ‘rnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/explo.compa.R:13)
+graph.matrix: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.R:32)
+graph.matrix: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.R:40-41)
+graph.matrix.level: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:32-33)
+graph.matrix.level: no visible global function definition for
+  ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:45-46)
+graph.matrix.level: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:47-48)
+graph.matrix.level: no visible global function definition for
+  ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:54)
+graph.matrix.level: no visible global function definition for
+  ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:56)
+graph.matrix.level: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:58)
+graph.matrix.level: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:59-60)
+graph.matrix.level: no visible global function definition for
+  ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:98-99)
+graph.matrix.level: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:100-101)
+graph.matrix.level: no visible global function definition for
+  ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:106)
+graph.matrix.level: no visible global function definition for
+  ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:108)
+graph.matrix.level: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:110)
+graph.matrix.level: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/graph.matrix.level.R:111-112)
+histo1d: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:33-34)
+histo1d: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:43)
+histo1d: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:44)
+histo1d: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:40-47)
+histo1d: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:53)
+histo1d: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:61)
+histo1d: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:62)
+histo1d: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo1d.R:66)
+histo2data: no visible global function definition for ‘gray’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/histo2data.R:27)
+lambda2emass: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/lambda2emass.R:32)
+leafsfirst.visu: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:83-84)
+leafsfirst.visu: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:96)
+leafsfirst.visu: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:112)
+leafsfirst.visu: no visible global function definition for ‘dev.next’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:112)
+leafsfirst.visu: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:113)
+leafsfirst.visu: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:115)
+leafsfirst.visu: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:132)
+leafsfirst.visu: no visible global function definition for ‘dev.next’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:132)
+leafsfirst.visu: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:133)
+leafsfirst.visu: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/leafsfirst.visu.R:134)
+modegraph: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/modegraph.R:31-33)
+modetestgauss: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/modetestgauss.R:15)
+montecarlo.ball: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/montecarlo.ball.R:14)
+montecarlo.ball: no visible global function definition for ‘rnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/montecarlo.ball.R:15)
+montecarlo.ball: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/montecarlo.ball.R:29)
+montecarlo.complex: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/montecarlo.complex.R:20)
+nn.indit: no visible global function definition for ‘dist’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/nn.indit.R:7)
+nn.radit: no visible global function definition for ‘dist’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/nn.radit.R:6)
+paraclus: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:15)
+paraclus: no visible global function definition for ‘kmeans’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:19)
+paraclus: no visible global function definition for ‘dist’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:24)
+paraclus: no visible global function definition for ‘hclust’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:25)
+paraclus: no visible global function definition for ‘cutree’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:26)
+paraclus: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:39)
+paraclus: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:91-92)
+paraclus: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:95-98)
+paraclus: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:100)
+paraclus: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:101-102)
+paraclus: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:111)
+paraclus: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:112)
+paraclus: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:124-125)
+paraclus: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:128-131)
+paraclus: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:133)
+paraclus: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:140)
+paraclus: no visible global function definition for ‘layout’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:141)
+paraclus: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:153-154)
+paraclus: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:157-160)
+paraclus: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:162)
+paraclus: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:168)
+paraclus: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paraclus.R:169)
+paracoor: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:11-14)
+paracoor: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:18-19)
+paracoor: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:37)
+paracoor: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:44)
+paracoor: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:47)
+paracoor: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:48)
+paracoor: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:49)
+paracoor: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:50-51)
+paracoor: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:54)
+paracoor: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.R:58)
+paracoor.dens: no visible global function definition for ‘grey’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.dens.R:18)
+paracoor.dens: no visible global function definition for ‘grey’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.dens.R:50)
+paracoor.dens: no visible global function definition for ‘image’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/paracoor.dens.R:51)
+pcf.boundary: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.boundary.R:16)
+pcf.boundary: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.boundary.R:17)
+pcf.func: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:89)
+pcf.func: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:95)
+pcf.func: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:96)
+pcf.func: no visible global function definition for ‘qt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:100)
+pcf.func: no visible global function definition for ‘qt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:101)
+pcf.func: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:149)
+pcf.func: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:155)
+pcf.func: no visible global function definition for ‘dt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:156)
+pcf.func: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:160)
+pcf.func: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pcf.func.R:161)
+perspec.dyna: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/perspec.dyna.R:3-5)
+perspec.dyna: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/perspec.dyna.R:7)
+perspec.dyna: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/perspec.dyna.R:16-18)
+perspec.dyna: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/perspec.dyna.R:20)
+perspec.dyna: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/perspec.dyna.R:22)
+plot.complex: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.complex.R:4)
+plot.complex: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.complex.R:10)
+plot.histdata: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.histdata.R:24-26)
+plot.histdata: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.histdata.R:31-32)
+plot.histdata: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.histdata.R:40)
+plot.histo: no visible global function definition for ‘gray’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.histo.R:9)
+plot.histo: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.histo.R:21-22)
+plot.histo: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.histo.R:31)
+plot.kernscale: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.kernscale.R:21-22)
+plot.kernscale: no visible global function definition for ‘matpoints’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plot.kernscale.R:26)
+plotbary: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbary.R:20-25)
+plotbary: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbary.R:64)
+plotbary: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbary.R:74)
+plotbary: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbary.R:75)
+plotbary: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbary.R:126)
+plotbary.slide: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbary.slide.R:6)
+plotbary.slide: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbary.slide.R:10)
+plotbranchmap: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotbranchmap.R:4-7)
+plotdelineator: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotdelineator.R:28-29)
+plotdelineator: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotdelineator.R:22-32)
+plotinfo: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotinfo.R:34)
+plotmodet: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotmodet.R:47-52)
+plotmodet: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotmodet.R:62)
+plotmodet: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotmodet.R:76)
+plottext: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottext.R:50)
+plottree: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottree.R:23-28)
+plottree: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottree.R:118)
+plottree: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottree.R:137)
+plottree: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottree.R:152)
+plottree: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottree.R:189)
+plottwin: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:59-60)
+plottwin: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:72)
+plottwin: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:81)
+plottwin: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:82)
+plottwin: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:95)
+plottwin: no visible global function definition for ‘dev.next’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:95)
+plottwin: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:96)
+plottwin: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:97)
+plottwin: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:105)
+plottwin: no visible global function definition for ‘dev.next’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:105)
+plottwin: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:106)
+plottwin: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plottwin.R:108)
+plotvecs: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvecs.R:46-47)
+plotvecs: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvecs.R:69)
+plotvecs: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvecs.R:83)
+plotvecs: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvecs.R:116)
+plotvolu: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:104)
+plotvolu: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:105-108)
+plotvolu: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:125)
+plotvolu: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:126)
+plotvolu: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:130)
+plotvolu: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:154)
+plotvolu: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:161)
+plotvolu: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:166)
+plotvolu: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:189-194)
+plotvolu: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:205-210)
+plotvolu: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:230)
+plotvolu: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:244)
+plotvolu: no visible global function definition for ‘polygon’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.R:258)
+plotvolu.new: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.new.R:75)
+plotvolu.new: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.new.R:84)
+plotvolu.new: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.new.R:85)
+plotvolu.new: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.new.R:89)
+plotvolu.new: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.new.R:111)
+plotvolu.new: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.new.R:118)
+plotvolu.new: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu.new.R:123)
+plotvolu2d: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu2d.R:13-15)
+plotvolu2d: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu2d.R:32-35)
+plotvolu2d: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu2d.R:42-44)
+plotvolu2d: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/plotvolu2d.R:52-54)
+pp.plot: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pp.plot.R:7)
+pp.plot: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pp.plot.R:8)
+pp.plot: no visible global function definition for ‘punif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pp.plot.R:9)
+pp.plot: no visible global function definition for ‘pexp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pp.plot.R:10)
+pp.plot: no visible global function definition for ‘pexp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pp.plot.R:11-12)
+pp.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pp.plot.R:31-34)
+pp.plot: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/pp.plot.R:35)
+preprocess: no visible global function definition for ‘cov’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/preprocess.R:9)
+preprocess: no visible global function definition for ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/preprocess.R:17)
+preprocess: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/preprocess.R:35)
+qq.plot: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:9)
+qq.plot: no visible global function definition for ‘qt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:10)
+qq.plot: no visible global function definition for ‘qunif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:11)
+qq.plot: no visible global function definition for ‘qexp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:12)
+qq.plot: no visible global function definition for ‘qexp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:14)
+qq.plot: no visible global function definition for ‘qexp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:17)
+qq.plot: no visible global function definition for ‘qexp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:18)
+qq.plot: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:26)
+qq.plot: no visible global function definition for ‘qt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:27)
+qq.plot: no visible global function definition for ‘qunif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:28)
+qq.plot: no visible global function definition for ‘qexp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:29)
+qq.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:44)
+qq.plot: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:47)
+qq.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:50)
+qq.plot: no visible global function definition for ‘segments’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/qq.plot.R:53)
+scaletable: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:30-32)
+scaletable: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:95)
+scaletable: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:96-97)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:98)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:99)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:100)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:101)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:102)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:103)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:104)
+scaletable: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:126)
+scaletable: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:129-130)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:131)
+scaletable: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:134)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:140-141)
+scaletable: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:144)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:150)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:151)
+scaletable: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:154)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:159-160)
+scaletable: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:171)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:174-176)
+scaletable: no visible global function definition for ‘dev.new’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:181)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:184-185)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:199)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:200)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:207)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:208)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:222)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:223-224)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:226)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:252)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:257-258)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:260)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:264-265)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:267)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:270-272)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:274)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:277-278)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:280)
+scaletable: no visible global function definition for ‘text’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:285)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:287)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:312-313)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:325)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:328-330)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:332)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:335-336)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:338)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:340)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:351)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:357-358)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:360)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:386-393)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:395)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:398-399)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:401)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:402)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:414-421)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:423)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:426-427)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:429)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:430)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:433)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:441-442)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:447-448)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:450)
+scaletable: no visible global function definition for ‘persp’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:462-464)
+scaletable: no visible global function definition for ‘title’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:465)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:467)
+scaletable: no visible global function definition for ‘dev.set’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:472)
+scaletable: no visible global function definition for ‘locator’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:473)
+scaletable: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/scaletable.R:478)
+sim.data: no visible global function definition for ‘rnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:34)
+sim.data: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:37)
+sim.data: no visible global function definition for ‘pnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:38)
+sim.data: no visible global function definition for ‘qt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:39)
+sim.data: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:40)
+sim.data: no visible global function definition for ‘rt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:49)
+sim.data: no visible global function definition for ‘pt’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:52)
+sim.data: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.data.R:53)
+sim.fssk: no visible global function definition for ‘rnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.fssk.R:11)
+sim.fssk: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/sim.fssk.R:17)
+simmix: no visible global function definition for ‘rnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/simmix.R:22)
+simmix: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/simmix.R:24)
+simmix1d: no visible global function definition for ‘rnorm’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/simmix1d.R:14)
+simmix1d: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/simmix1d.R:16)
+simukern: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/simukern.R:9)
+simukern: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/simukern.R:18)
+tail.plot: no visible global function definition for ‘median’
+tail.plot: no visible global function definition for ‘colors’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:6-11)
+tail.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:20-21)
+tail.plot: no visible global function definition for ‘median’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:27)
+tail.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:34-35)
+tail.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:47-48)
+tail.plot: no visible global function definition for ‘median’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:54)
+tail.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:61-62)
+tail.plot: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:82-83)
+tail.plot: no visible global function definition for ‘median’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:89)
+tail.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:97-98)
+tail.plot: no visible global function definition for ‘matplot’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.R:106-107)
+tail.plot.dens: no visible global function definition for ‘sd’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.dens.R:33)
+tail.plot.dens: no visible global function definition for ‘grey’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.dens.R:46)
+tail.plot.dens: no visible global function definition for ‘image’
+  (/var/scratch2/tomas/tmp/RtmpViM3ym/R.INSTALLf59a8aa4b43/denpro/R/tail.plot.dens.R:48-49)
+Undefined global functions or variables:
+  colors cov cutree dev.new dev.next dev.off dev.set dist dnorm dt gray
+  grey hclust image kmeans layout locator matplot matpoints median par
+  persp pexp plot pnorm points polygon pt punif qexp qnorm qt qunif
+  rnorm rt runif sd segments text title
+Consider adding
+  importFrom("grDevices", "colors", "dev.new", "dev.next", "dev.off",
+             "dev.set", "gray", "grey")
+  importFrom("graphics", "image", "layout", "locator", "matplot",
+             "matpoints", "par", "persp", "plot", "points", "polygon",
+             "segments", "text", "title")
+  importFrom("stats", "cov", "cutree", "dist", "dnorm", "dt", "hclust",
+             "kmeans", "median", "pexp", "pnorm", "pt", "punif", "qexp",
+             "qnorm", "qt", "qunif", "rnorm", "rt", "runif", "sd")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+* checking examples ... ERROR
+Running examples in ‘denpro-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: pcf.kern
+> ### Title: Computes a multivariate kernel estimate
+> ### Aliases: pcf.kern
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> n<-100
+> dendat<-sim.data(n=n,type="mulmod")
+> 
+> h<-1
+> pcf<-pcf.kern(dendat,h=h,N=c(32,32))
+> dp<-draw.pcf(pcf)
+> contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+> 
+> d<-2
+> h<-(4/(d+2))^(1/(d+4))*n^(-1/(d+4))*apply(dendat,2,sd)
+> pcf<-pcf.kern(dendat,h=h,N=c(32,32))
+> dp<-draw.pcf(pcf)
+> contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+> 
+> # we use now nonuniform weighting of kernels
+> 
+> weights<-matrix(0,n,1)
+> threshold<-4
+> for (i in 1:n){
++     eta<-(n-i)
++     if (eta/h>threshold) result<-0 else result<-exp(-eta^2/(2*h^2))
++     weights[i]<-result
++ }
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:denpro
+ --- call from context --- 
+NULL
+ --- call from argument --- 
+if (eta/h > threshold) result <- 0 else result <- exp(-eta^2/(2 * 
+    h^2))
+ --- R stacktrace ---
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 2 NOTEs

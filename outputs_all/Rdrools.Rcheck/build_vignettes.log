@@ -1,0 +1,165 @@
+Loading required package: rJava
+Loading required package: Rdroolsjars
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+
+Attaching package: 'purrr'
+
+The following object is masked from 'package:magrittr':
+
+    set_names
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at <text>#41: 
+ --- package (from environment) --- 
+package:bindrcpp
+ --- call from context --- 
+.f(.x[[i]], ...)
+ --- call from argument --- 
+if (class(intermediateOutput) == "list") {
+    plotAnomalies[[ruleNum]] <- NULL
+} else {
+    intermediateOutput <- dplyr::filter_(intermediateOutput, 
+        paste(ruleName, "==", "'true'"))
+    GroupedCols <- paste(colnames(intermediateOutput[, !names(intermediateOutput) %in% 
+        c(ruleName, ruleValue)]), collapse = ":")
+    intermediateOutput$Group <- apply(intermediateOutput[, !names(intermediateOutput) %in% 
+        c(ruleName, ruleValue)], 1, paste, collapse = ":")
+    colnames(intermediateOutput)[ncol(intermediateOutput) - 1] <- "values"
+    plotAnomalies[[ruleNum]] <- ggplot2::ggplot(intermediateOutput, 
+        ggplot2::aes(x = Group, y = values)) + ggplot2::geom_bar(stat = "identity", 
+        fill = "steelblue") + ggplot2::labs(title = "Groups satisfying the rule", 
+        x = list(title = paste0("Grouped By - ", GroupedCols), 
+            tickangle = -45), y = "Aggregated Value") + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, 
+        hjust = 1))
+    return(plotAnomalies)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpsimC0R/R.INSTALL46c9fe4b96f/purrr/R/map.R#104: .f(.x[[i]], ...)
+where 2 at <text>#36: purrr::map(1:length(result), function(ruleNum) {
+    ruleName <- paste0("Rule", ruleNum)
+    ruleValue <- paste0("Rule", ruleNum, "Value")
+    intermediateOutput <- result[[ruleNum]][["intermediateOutput"]]
+    if (class(intermediateOutput) == "list") {
+        plotAnomalies[[ruleNum]] <- NULL
+    }
+    else {
+        intermediateOutput <- dplyr::filter_(intermediateOutput, 
+            paste(ruleName, "==", "'true'"))
+        GroupedCols <- paste(colnames(intermediateOutput[, !names(intermediateOutput) %in% 
+            c(ruleName, ruleValue)]), collapse = ":")
+        intermediateOutput$Group <- apply(intermediateOutput[, 
+            !names(intermediateOutput) %in% c(ruleName, ruleValue)], 
+            1, paste, collapse = ":")
+        colnames(intermediateOutput)[ncol(intermediateOutput) - 
+            1] <- "values"
+        plotAnomalies[[ruleNum]] <- ggplot2::ggplot(intermediateOutput, 
+            ggplot2::aes(x = Group, y = values)) + ggplot2::geom_bar(stat = "identity", 
+            fill = "steelblue") + ggplot2::labs(title = "Groups satisfying the rule", 
+            x = list(title = paste0("Grouped By - ", GroupedCols), 
+                tickangle = -45), y = "Aggregated Value") + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, 
+            hjust = 1))
+        return(plotAnomalies)
+    }
+})
+where 3: plotgraphs(result = groupedAggregationRuleOutput, plotName = "Plot of groups")
+where 4: eval(expr, envir, enclos)
+where 5 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 6 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 7 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 8 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 9 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 10 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 11 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 12 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 13 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 14 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#91: block_exec(params)
+where 15 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#6: call_block(x)
+where 16 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#3: process_group.block(group)
+where 17 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: process_group(group)
+where 18 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 19 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#258: process_file(text, output)
+where 20 at /var/scratch2/tomas/tmp/RtmpxUaBIG/R.INSTALL504c49159209/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 21 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 22 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 23 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 24: doTryCatch(return(expr), name, parentenv, handler)
+where 25: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 26: tryCatchList(expr, classes, parentenv, handlers)
+where 27 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 28: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/Rdrools.Rcheck/vign_test/Rdrools")
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function from context --- 
+function(ruleNum){
+      ruleName <- paste0("Rule",ruleNum)
+      ruleValue <- paste0("Rule",ruleNum,"Value")
+      intermediateOutput<- result[[ruleNum]][["intermediateOutput"]]
+      
+      if(class(intermediateOutput)=="list"){
+        plotAnomalies[[ruleNum]] <- NULL
+        
+      }else {
+        intermediateOutput<- dplyr::filter_(intermediateOutput,paste(ruleName,"==","'true'"))
+        
+        GroupedCols <- paste(colnames(intermediateOutput[,
+                                                         !names(intermediateOutput) %in% c(ruleName,ruleValue)]),collapse = ":")
+        intermediateOutput$Group <-  apply( intermediateOutput[ , !names(intermediateOutput) %in% c(ruleName,ruleValue) ] , 1 , paste , collapse = ":" )
+        colnames(intermediateOutput)[ncol(intermediateOutput)-1] <- "values"
+        
+        plotAnomalies[[ruleNum]] <- ggplot2::ggplot(intermediateOutput, ggplot2::aes(x=Group, y=values))+
+          ggplot2::geom_bar(stat = "identity",fill="steelblue")+
+          ggplot2::labs(title="Groups satisfying the rule", 
+               x=list(title = paste0("Grouped By - ",GroupedCols), tickangle = -45), y = "Aggregated Value") +
+          ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+        
+        return(plotAnomalies)
+        
+      }
+    }
+<bytecode: 0x6df5978>
+<environment: 0x13e267c0>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

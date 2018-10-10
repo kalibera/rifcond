@@ -1,0 +1,229 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(GenVisR)
+> 
+> test_check("GenVisR")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpJjeTtj/R.INSTALL56d603e7623/GenVisR/R/GMS-class.R#222: 
+ --- package (from environment) --- 
+GenVisR
+ --- call from context --- 
+.local(object, labelColumn, verbose, ...)
+ --- call from argument --- 
+if (!labelColumn %in% colnames(getMeta(object))) {
+    memo <- paste("Did not find column:", labelColumn, "in the meta slot of the vepObject! Valid", 
+        "names are:", toString(colnames(getMeta(object))))
+    warning(memo)
+    labelFlag <- FALSE
+}
+ --- R stacktrace ---
+where 1: .local(object, labelColumn, verbose, ...)
+where 2 at /var/scratch2/tomas/tmp/RtmpJjeTtj/R.INSTALL56d603e7623/GenVisR/R/AllGenerics.R#57: toWaterfall(gmsObject, hierarchy = setMutationHierarchy.out, 
+    labelColumn = c("default_gene_name", "gene_name_source"), 
+    verbose = FALSE)
+where 3 at /var/scratch2/tomas/tmp/RtmpCNyMli/R.INSTALL1f046ceb3c8/rlang/R/eval.R#103: toWaterfall(gmsObject, hierarchy = setMutationHierarchy.out, 
+    labelColumn = c("default_gene_name", "gene_name_source"), 
+    verbose = FALSE)
+where 4 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/expectation.R#99: eval_bare(get_expr(quo), get_env(quo))
+where 5 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/capture-condition.R#78: withCallingHandlers(code, warning = function(condition) {
+    out$push(condition)
+    invokeRestart("muffleWarning")
+})
+where 6 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 7 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/expect-output.R#161: quasi_capture(enquo(object), capture_warnings, label = label)
+where 8 at testthat/test-GMS-class.R#197: expect_warning(toWaterfall(gmsObject, hierarchy = setMutationHierarchy.out, 
+    labelColumn = c("default_gene_name", "gene_name_source"), 
+    verbose = FALSE))
+where 9: eval(code, test_env)
+where 10 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-that.R#152: eval(code, test_env)
+where 11 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 12: doTryCatch(return(expr), name, parentenv, handler)
+where 13: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 14: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 15: doTryCatch(return(expr), name, parentenv, handler)
+where 16: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 17: tryCatchList(expr, classes, parentenv, handlers)
+where 18 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 19 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 20 at testthat/test-GMS-class.R#195: test_that("toWaterfall checks the label parameter", {
+    expect_warning(toWaterfall(gmsObject, hierarchy = setMutationHierarchy.out, 
+        labelColumn = c("default_gene_name", "gene_name_source"), 
+        verbose = FALSE))
+    expect_warning(toWaterfall(gmsObject, hierarchy = setMutationHierarchy.out, 
+        labelColumn = c("Not Here"), verbose = FALSE))
+})
+where 21: eval(code, test_env)
+where 22 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-that.R#152: eval(code, test_env)
+where 23 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 24: doTryCatch(return(expr), name, parentenv, handler)
+where 25: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 26: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 27: doTryCatch(return(expr), name, parentenv, handler)
+where 28: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 29: tryCatchList(expr, classes, parentenv, handlers)
+where 30 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 31 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 32 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 33 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/reporter-zzz.R#53: force(code)
+where 34 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 35: FUN(X[[i]], ...)
+where 36 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 37 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/reporter-zzz.R#53: force(code)
+where 38 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 39 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 40 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 41 at /var/scratch2/tomas/tmp/RtmpLjy9nM/R.INSTALL2049131c71f5/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 42: test_check("GenVisR")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(object, hierarchy, labelColumn, verbose, ...){
+              
+              # print status message
+              if(verbose){
+                  memo <- paste("Converting", class(object),
+                                "to expected waterfall format")
+                  message(memo)
+              }
+              
+              # grab the sample, mutation, gene columns and set a label
+              sample <- getSample(object)
+              mutation <- getMutation(object)[,"trv_type"]
+              gene <- getMeta(object)[,"gene_name"]
+              label <- NA
+              labelFlag <- TRUE
+              
+              # if a label column exists and is proper overwrite the label variable
+              # if not change the flag
+              if(!is.null(labelColumn)){
+                  if(length(labelColumn) != 1) {
+                      memo <- paste("Parameter \"labelColumn\" must be of length 1!",
+                                    "Found length to be", length(labelColumn))
+                      warning(memo)
+                      labelFlag <- FALSE
+                  }
+                  
+                  if(!labelColumn %in% colnames(getMeta(object))){
+                      memo <- paste("Did not find column:", labelColumn,
+                                    "in the meta slot of the vepObject! Valid",
+                                    "names are:", toString(colnames(getMeta(object))))
+                      warning(memo)
+                      labelFlag <- FALSE
+                  }
+                  
+                  if(labelFlag){
+                      label <- getMeta(object)[,labelColumn, with=FALSE]
+                  }
+              }
+              
+              # combine all columns into a consistent format
+              waterfallFormat <- cbind(sample, gene, mutation, label)
+              colnames(waterfallFormat) <- c("sample", "gene", "mutation", "label")
+              
+              # make a temporary ID column for genomic features to collapse on
+              # this will ensure the mutation burden/frequency plot will be accurate
+              waterfallFormat$key <- paste0(getPosition(object)$chromosome_name, ":",
+                                            getPosition(object)$start, ":",
+                                            getPosition(object)$stop, ":",
+                                            getPosition(object)$reference, ":",
+                                            getPosition(object)$variant, ":",
+                                            getSample(object)$sample)
+              rowCountOrig <- nrow(waterfallFormat)
+
+              # order the data based on the mutation hierarchy,
+              # remove all duplicates based on key, and remove the key column
+              waterfallFormat$mutation <- factor(waterfallFormat$mutation, levels=hierarchy$mutation)
+              waterfallFormat <- waterfallFormat[order(waterfallFormat$mutation),]
+              waterfallFormat <- waterfallFormat[!duplicated(waterfallFormat$key),]
+              waterfallFormat[,key:=NULL]
+
+              # print status message
+              if(verbose){
+                  memo <- paste("Removed", rowCountOrig - nrow(waterfallFormat),
+                                "rows from the data which harbored duplicate",
+                                "genomic locations")
+                  message(memo)
+              }
+              
+              # remove any rows with NA values in gene or sample, this could mess up downstream functions
+              rowCountOrig <- nrow(waterfallFormat)
+              waterfallFormat <- waterfallFormat[!is.na(waterfallFormat$gene),]
+              waterfallFormat <- waterfallFormat[!is.na(waterfallFormat$sample),]
+              if(verbose & rowCountOrig != nrow(waterfallFormat)){
+                  memo <- paste("Removed", rowCountOrig-nrow(waterfallFormat), "rows which harbored NA values",
+                                "in either the gene or sample column")
+                  message(memo)
+              }
+              
+              # convert appropriate columns to factor
+              waterfallFormat$sample <- factor(waterfallFormat$sample)
+              
+              return(waterfallFormat)
+          }
+<bytecode: 0x3b5d8dc0>
+<environment: namespace:GenVisR>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,118 @@
+Warning: replacing previous import 'stats::BIC' by 'flowMerge::BIC' when loading 'CONFESS'
+
+Setting B = 1 performs run-based cross-validation only (keeps run(s) 1,2,3,4)
+
+-----------------------------------------------------------
+| Running the CV analysis for reference run 5 and CV 1... |
+-----------------------------------------------------------
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpPQSvvo/R.INSTALLd5d251be7f02/CONFESS/R/internal_fluo_NBE.R#2413: 
+ --- package (from environment) --- 
+CONFESS
+ --- call from context --- 
+path.initiator(data = data.step3new, where = data$init.path)
+ --- call from argument --- 
+if (where != "random") {
+    w <- where
+} else {
+    w <- sample(c("bottom/left", "bottom/right", "top/left", 
+        "top/right"), 1)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpPQSvvo/R.INSTALLd5d251be7f02/CONFESS/R/fluo_NBE.R#1735: path.initiator(data = data.step3new, where = data$init.path)
+where 2: Fluo_CV_modeling(data = steps2_4, B = 1, batch = 1:4, perc.cutoff = 0.6, 
+    q = 0.9, f = 0.99, seed.it = TRUE, pseudotime.cutoff = 20, 
+    savePlot = "screen")
+where 3: eval(expr, envir, enclos)
+where 4 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 5 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 6 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 7 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 8 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 9 at /var/scratch2/tomas/tmp/RtmpfWTHZH/R.INSTALL2ad84c46978/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 10 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 11 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 12 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 13 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#91: block_exec(params)
+where 14 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#6: call_block(x)
+where 15 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/block.R#3: process_group.block(group)
+where 16 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: process_group(group)
+where 17 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 18 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/output.R#258: process_file(text, output)
+where 19 at /var/scratch2/tomas/tmp/RtmpxUaBIG/R.INSTALL504c49159209/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 20 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 21 at /var/scratch2/tomas/tmp/RtmpUfWvVM/R.INSTALLf668331a1aa8/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 22 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 23: doTryCatch(return(expr), name, parentenv, handler)
+where 24: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 25: tryCatchList(expr, classes, parentenv, handlers)
+where 26 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 27: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/CONFESS.Rcheck/vign_test/CONFESS")
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function(data, where) {
+  w <- c()
+  if (where != "random") {
+    w <- where
+  } else {
+    w <-
+      sample(c("bottom/left", "bottom/right", "top/left", "top/right"),
+             1)
+  }
+  
+  if (w == "bottom/left") {
+    sl1 <- sort.list(data$centroids[, 2])
+    sl2 <- sl1[sort.list(data$centroids[sl1[1:2], 3])]
+  } else if (w == "bottom/right") {
+    sl1 <- sort.list(data$centroids[, 2], decreasing = TRUE)
+    sl2 <- sl1[sort.list(data$centroids[sl1[1:2], 3])]
+  } else if (w == "top/left") {
+    sl1 <- sort.list(data$centroids[, 2])
+    sl2 <-
+      sl1[sort.list(data$centroids[sl1[1:2], 3], decreasing = TRUE)]
+  } else if (w == "top/right") {
+    sl1 <- sort.list(data$centroids[, 2], decreasing = TRUE)
+    sl2 <-
+      sl1[sort.list(data$centroids[sl1[1:2], 3], decreasing = TRUE)]
+  } else {
+    stop("Invalid starting point. Revise init.path parameter!")
+  }
+  
+  return(c(sl2[1], w))
+}
+<bytecode: 0x250b0e28>
+<environment: namespace:CONFESS>
+ --- function search by body ---
+Function path.initiator in namespace CONFESS has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,131 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/Rgraphviz.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘Rgraphviz/DESCRIPTION’ ... OK
+* this is package ‘Rgraphviz’ version ‘2.24.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘Rgraphviz’ can be installed ... WARNING
+Found the following significant warnings:
+  BinaryHeap.c:269:74: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+  gvdevice.c:269:12: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+See ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/Rgraphviz.Rcheck/00install.out’ for details.
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+There are ::: calls to the package's namespace in its code. A package
+  almost never needs to use ::: for its own objects:
+  ‘.graphviz_build_version’
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking line endings in shell scripts ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking include directives in Makefiles ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+File ‘/var/scratch2ro/tomas/test/mine/R-svn-dev-75396/lib/Rgraphviz/libs/Rgraphviz.so’:
+  Found ‘__assert_fail’, possibly from ‘assert’ (C)
+  Found ‘abort’, possibly from ‘abort’ (C)
+  Found ‘exit’, possibly from ‘exit’ (C)
+  Found ‘printf’, possibly from ‘printf’ (C)
+  Found ‘putchar’, possibly from ‘putchar’ (C)
+  Found ‘puts’, possibly from ‘printf’ (C), ‘puts’ (C)
+  Found ‘rand’, possibly from ‘rand’ (C)
+  Found ‘srand’, possibly from ‘srand’ (C)
+  Found ‘srand48’, possibly from ‘srand48’ (C)
+  Found ‘stderr’, possibly from ‘stderr’ (C)
+  Found ‘stdout’, possibly from ‘stdout’ (C)
+
+Compiled code should not call entry points which might terminate R nor
+write to stdout/stderr instead of to the console, nor use Fortran I/O
+nor system RNGs. The detected symbols are linked into the code but
+might come from libraries and not actually be called.
+
+See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘Rgraphviz-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: agopenSimple
+> ### Title: A function to obtain a Ragraph object
+> ### Aliases: agopenSimple
+> ### Keywords: graphs
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> V <- letters[1:10]
+> M <- 1:4
+> g1 <- randomGraph(V, M, .2)
+> z <- agopenSimple(g1,name="foo")
+> if(graphvizVersion() >= "2.10") {
++   ## This example will only run with Graphviz >= 2.10
++   plot(z, "twopi")
++ }
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:Rgraphviz
+ --- call from context --- 
+NULL
+ --- call from argument --- 
+if (graphvizVersion() >= "2.10") {
+    plot(z, "twopi")
+}
+ --- R stacktrace ---
+
+ --- value of length: 3 type: logical ---
+installed_version     build_version  bundled_graphviz 
+             TRUE              TRUE              TRUE 
+ --- function from context --- 
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘runTests.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs

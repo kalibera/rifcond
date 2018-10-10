@@ -1,0 +1,195 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-svn-dev-75396/check/CARBayesST.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘CARBayesST/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘CARBayesST’ version ‘3.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘CARBayesST’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘CARBayesST-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: ST.CARclustrends
+> ### Title: Fit a spatio-temporal generalised linear mixed model to data,
+> ###   with a clustering of temporal trend functions and a temporally common
+> ###   spatial surface.
+> ### Aliases: ST.CARclustrends
+> 
+> ### ** Examples
+> 
+> ##################################################
+> #### Run the model on simulated data on a lattice
+> ##################################################
+> #### Load the libraries required
+> library(truncdist)
+Loading required package: stats4
+Loading required package: evd
+> library(gtools)
+> 
+> 
+> #### set up the regular lattice    
+> x.easting <- 1:10
+> x.northing <- 1:10
+> Grid <- expand.grid(x.easting, x.northing)
+> K <- nrow(Grid)
+> N <- 10
+> N.all <- N * K
+> 
+> #### set up spatial neighbourhood matrix W
+> distance <- as.matrix(dist(Grid))
+> W <-array(0, c(K,K))
+> W[distance==1] <-1 	
+> 
+> 
+> #### Create the spatial covariance matrix
+> Q.W <- 0.99 * (diag(apply(W, 2, sum)) - W) + 0.01 * diag(rep(1,K))
+> Q.W.inv <- solve(Q.W)
+>   
+>            
+> #### Simulate the elements in the linear predictor and the data
+> beta <- 0.01
+> gamma <- 0.7
+> phi <- mvrnorm(n=1, mu=rep(0,K), Sigma=(0.01 * Q.W.inv))
+> 
+> lambda <- rep(1/2, 2)
+> w <- t(rmultinom(K, 1, lambda))
+> 
+> Y <- matrix(NA, nrow = K, ncol = N)
+> for (i in 1:N)
++ {
++   LP <- beta + w[, 2] * (gamma * i) + phi
++   mean <- exp(LP)
++   Y[, i] <- rpois(n=K, lambda=mean)
++  }
+> Y <- as.numeric(Y)
+> 
+> 
+> #### Run the model
+> ## Not run: 
+> ##D model <- ST.CARclustrends(formula=Y~1, family="poisson", W=W, burnin=10000, 
+> ##D n.sample=50000, trends=c("Constant", "LI"))
+> ## End(Not run)
+> 
+> 
+> #### Toy example for checking
+> model <- ST.CARclustrends(formula=Y~1, family="poisson", W=W, burnin=10, 
++ n.sample=50, trends=c("Constant", "LI"))
+Setting up the model.
+Generating 40 post burnin and thinned (if requested) samples
+
+  |                                                                            
+  |                                                                      |   0% ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpMKctrD/R.INSTALLc044f472c2f/truncdist/R/qtrunc.R#20: 
+ --- package (from environment) --- 
+truncdist
+ --- call from context --- 
+qtrunc(u, spec, a = a, b = b, ...)
+ --- call from argument --- 
+if (G.a == G.b) {
+    stop("Trunction interval is not inside the domain of the quantile function")
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpMKctrD/R.INSTALLc044f472c2f/truncdist/R/rtrunc.R#15: qtrunc(u, spec, a = a, b = b, ...)
+where 2 at /var/scratch2/tomas/tmp/RtmpGQPkXy/R.INSTALL345d669e17d/CARBayesST/R/poisson.CARclustrends.R#588: rtrunc(n = Nchains, spec = "norm", a = 0, b = 0.99, mean = rho, 
+    sd = proposal.sd.rho)
+where 3: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 4 at /var/scratch2/tomas/tmp/RtmpGQPkXy/R.INSTALL345d669e17d/CARBayesST/R/poisson.CARclustrends.R#588: suppressWarnings(rtrunc(n = Nchains, spec = "norm", a = 0, b = 0.99, 
+    mean = rho, sd = proposal.sd.rho))
+where 5 at /var/scratch2/tomas/tmp/RtmpGQPkXy/R.INSTALL345d669e17d/CARBayesST/R/ST.CARclustrends.R#18: poisson.CARclustrends(formula = formula, data = data, W = W, 
+    burnin = burnin, n.sample = n.sample, thin = thin, trends = trends, 
+    changepoint = changepoint, knots = knots, prior.mean.beta = prior.mean.beta, 
+    prior.var.beta = prior.var.beta, prior.mean.gamma = prior.mean.gamma, 
+    prior.var.gamma = prior.var.gamma, prior.lambda = prior.lambda, 
+    prior.tau2 = prior.tau2, Nchains = Nchains, verbose = TRUE)
+where 6: ST.CARclustrends(formula = Y ~ 1, family = "poisson", W = W, 
+    burnin = 10, n.sample = 50, trends = c("Constant", "LI"))
+
+ --- value of length: 4 type: logical ---
+[1] FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function( p, spec, a = -Inf, b = Inf, ... )
+{
+###
+### This function evaluates the inverse of the truncated distribution function
+### or quantile function for the given vector of probabilities and
+### the specified distribution
+###
+### Arguments
+### p = a numeric vector of probabilities
+### spec = a character value for the name of the distribution (e.g., "norm")
+### ... = other arguments passed to the corresponding density function
+###
+    if ( a >= b )
+        stop( "argument a is greater than or equal to b" )
+    tt <- p
+    G   <- get( paste( "p", spec, sep="" ), mode = "function" )
+    Gin <- get( paste( "q", spec, sep="" ), mode = "function" )
+    G.a <- G( a, ... )
+    G.b <- G( b, ... )
+    if ( G.a == G.b ) {
+        stop( "Trunction interval is not inside the domain of the quantile function" )
+    }    
+    result <- pmin( pmax( a, Gin( G( a, ... ) + 
+              p * ( G( b, ... ) - G( a, ... )), ... ) ), b )
+    return( result )
+}
+<bytecode: 0xe9ebd40>
+<environment: namespace:truncdist>
+ --- function search by body ---
+Function qtrunc in namespace truncdist has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 NOTE

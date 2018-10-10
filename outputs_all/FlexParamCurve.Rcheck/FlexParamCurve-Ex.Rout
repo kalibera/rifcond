@@ -1,0 +1,1830 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "FlexParamCurve"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('FlexParamCurve')
+Loading required package: nlme
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("FlexParamCurve-package")
+> ### * FlexParamCurve-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: FlexParamCurve-package
+> ### Title: Tools to Fit Flexible Parametric Curves
+> ### Aliases: FlexParamCurve-package
+> ### Keywords: Curve fit Parametric curves Growth nlme nlsList double
+> ###   logistic logistic equation positive negative curve
+> 
+> ### ** Examples
+> 
+> 
+> 
+> #Code is provided here for an illustrative overview of using FlexParamCurve to select,  
+> 
+> 
+> # fit, analyze and plot the most appropriate non-linear curves for a dataset.
+> 
+> 
+> # NOTE: autorun is disabled for these examples since more detailed examples are provided for the 
+> 
+> 
+> # individual functions in their associated help files and runtime for this overview approximates 
+> 
+> 
+> # 5 mins. To run, simply copy and paste code from this help file into the R GUI.
+> 
+> 
+> 
+> 
+> 
+> # run all-model selection for posneg.data object (Step 2) without need to run any previous functions
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D     modseltable <- pn.mod.compare(posneg.data$age, posneg.data$mass,
+> ##D 
+> ##D 
+> ##D     posneg.data$id, existing = FALSE, pn.options = "myoptions")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> 
+> # run backwards stepwise model selection (Step 2) for logist.data object
+> 
+> 
+> #without need to run any previous functions
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D     modseltable <- pn.modselect.step(logist.data$age, logist.data$mass,
+> ##D 
+> ##D 
+> ##D     logist.data$id, existing = FALSE, pn.options = "myoptions")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> 
+> # estimate fixed parameters use data object posneg.data (Step 1)
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D      modpar(posneg.data$age,posneg.data$mass, pn.options = "myoptions")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> 
+> # change fixed values of M and constrain hatching mass to 45.5 in a growth curve (Step 1)
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D       change.pnparameters(M=1,RM=0.5,first.y=45.5, pn.options = "myoptions")
+> ## End(Not run)
+> 
+> 
+>     
+> 
+> 
+> # fit nlsList object using 6 parameter model with values M and RM (Step 3)
+> 
+> 
+> # fixed to value in pnmodelparams and then fit nlme model
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D richardsR22.lis <- nlsList(mass ~ SSposnegRichards(age, Asym = Asym, K = K,
+> ##D 
+> ##D 
+> ##D       Infl = Infl, RAsym = RAsym, Rk = Rk, Ri = Ri,
+> ##D 
+> ##D 
+> ##D       modno = 22, pn.options = "myoptions"), data = posneg.data)
+> ##D 
+> ##D 
+> ##D richardsR22.nlme <- nlme(richardsR22.lis, random = pdDiag(Asym + Infl ~ 1))
+> ## End(Not run)
+> 
+> 
+>  
+> 
+> 
+> # fit reduced nlsList model and then compare performance with extraF (manual version of Step 2)
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D  richardsR20.lis <- nlsList(mass ~ SSposnegRichards(age, Asym = Asym, K = K,
+> ##D 
+> ##D 
+> ##D       Infl = Infl, modno = 20, pn.options = "myoptions"), data = posneg.data)
+> ##D 
+> ##D 
+> ##D  extraF(richardsR20.lis,richardsR22.lis)
+> ## End(Not run)
+> 
+> 
+>  
+> 
+> 
+> # fit and plot a logistic curve (M=1) to data, note - all parameters set to 1 are ignored
+> 
+> 
+> # note code here forces \eqn{modpar} to only estimate 4 curve parameters (simple Richards curve)
+> 
+> 
+> #create list for fixed parameters
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D modpar(logist.data$age,logist.data$mass,force4par=TRUE, pn.options = "myoptions")
+> ##D 
+> ##D 
+> ##D change.pnparameters(M=1, pn.options = "myoptions") # set M to 1 for subsequent fit
+> ##D 
+> ##D 
+> ##D richardsR20.nls <- nls(mass ~ SSposnegRichards(age, Asym = Asym, K = K,
+> ##D 
+> ##D 
+> ##D       Infl = Infl, modno = 20, pn.options = "myoptions"), data = logist.data)
+> ##D 
+> ##D 
+> ##D plot(logist.data$age , logist.data$mass, xlab = "age", ylab = "mass", pch = ".", cex = 0.7) 
+> ##D 
+> ##D 
+> ##D par <- coef( richardsR20.nls )
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> 
+> #(Step 4)
+> 
+> 
+> ## Not run: 
+> ##D   
+> ##D 
+> ##D 
+> ##D curve(posnegRichards.eqn(x, Asym = par[1], K = par[2], Infl = par[3], modno = 20
+> ##D 
+> ##D 
+> ##D , pn.options = "myoptions"), add= TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("SSposnegRichards")
+> ### * SSposnegRichards
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: SSposnegRichards
+> ### Title: Self-Starting Positive-Negative Richards Model (double-Richards)
+> ### Aliases: SSposnegRichards
+> 
+> ### ** Examples
+> 
+> 
+> 
+>  set.seed(3) #for compatability issues
+> 
+> 
+>  require(graphics)
+> 
+> 
+>     # retrieve mean estimates of 8 parameters using getInitial
+> 
+> 
+>     # and posneg.data object
+> 
+> 
+>     modpar(posneg.data$age, posneg.data$mass,verbose=TRUE, pn.options = "myoptions", width.bounds=2)
+[1] modpar will attempt to parameterize your data using the following sequential procedures:
+[1]   (1) Extract parameter estimates for 8-parameter double-Richards curve in nls
+[1]   (2) Use getInitial to retrieve parameter estimates for 8-parameter double-Richards curve
+[1]   (3) Extract parameter estimates for 4-parameter Richards curve in 
+[1]   (4) Use getInitial to retrieve parameter estimates for 4-parameter Richards curve
+[1] if any approaches are successful, modpar will return these and terminate at that stage
+[1]  
+[1] Estimating parameter bounds....
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl             M         RAsym 
+ 4.443135e+03  6.471252e-02  2.336873e+01  3.802140e-01 -1.126358e+03 
+           Rk            Ri            RM 
+ 3.520421e-01  1.040000e+02  7.983006e-01 
+[1] (1) Status of 8-parameter double-Richards curve fit in nls:
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl             M         RAsym 
+ 4.443135e+03  6.471252e-02  2.336873e+01  3.802140e-01 -1.126358e+03 
+           Rk            Ri            RM 
+ 1.056126e+00  1.040000e+02  7.983006e-01 
+[1] ....8-parameter nls fit successful
+$Asym
+[1] 4443.135
+
+$K
+[1] 0.06471252
+
+$Infl
+[1] 23.36873
+
+$M
+[1] 0.380214
+
+$RAsym
+[1] -1126.358
+
+$Rk
+[1] 0.3520421
+
+$Ri
+[1] 104
+
+$RM
+[1] 0.7983006
+
+> 
+> 
+>     getInitial(mass ~ SSposnegRichards(age, Asym, K, Infl, M, 
++ 
++ 
++         RAsym, Rk, Ri, RM, modno = 1, pn.options = "myoptions"), data = posneg.data)
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl             M         RAsym 
+ 4.443135e+03  6.471252e-02  2.336873e+01  3.802140e-01 -1.126358e+03 
+           Rk            Ri            RM 
+ 1.056126e+00  1.040000e+02  7.983006e-01 
+      Asym          K     Infl        M     RAsym       Rk  Ri        RM
+1 4443.135 0.06471252 23.36873 0.380214 -1126.358 1.056126 104 0.7983006
+> 
+> 
+> 
+> 
+> 
+>     # retrieve mean estimates and produce plot to illustrate fit for 
+> 
+> 
+>     # curve with M, Ri and Rk fixed
+> 
+> 
+>     pars <- coef(nls(mass ~ SSposnegRichards(age, 
++ 
++ 
++         Asym = Asym, K = K, Infl = Infl, RAsym = RAsym, 
++ 
++ 
++         	RM = RM, modno = 24, pn.options = "myoptions"), data = posneg.data,
++ 
++ 
++         	control=list(tolerance = 10)))
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl         RAsym            RM 
+ 4.443135e+03  6.471251e-02  2.336873e+01 -1.125921e+03  7.977930e-01 
+> 
+> 
+>     plot(posneg.data$age, posneg.data$mass, pch=".")
+> 
+> 
+>     curve(posnegRichards.eqn(x, Asym = pars[1], K = pars[2], 
++ 
++ 
++         Infl = pars[3], RAsym = pars[4],  
++ 
++ 
++         RM = pars[5],  modno = 24, pn.options = "myoptions"), xlim = c(0, 
++ 
++ 
++         200), add = TRUE)
+> 
+> 
+>     
+> 
+> 
+> 
+> 
+> 
+>     
+> 
+> 
+>         # following example not run as appropriate data are not available in the package
+> 
+> 
+>         # retrieve mean estimates and produce plot to illustrate fit for custom model 17
+> 
+> 
+>      ## Not run: 
+> ##D  
+> ##D 
+> ##D 
+> ##D      pars<-as.numeric( getInitial(mass ~ SSposnegRichards(age, Asym, K, Infl,
+> ##D 
+> ##D 
+> ##D            M, RAsym, Rk, Ri, RM, modno = 17, pn.options = "myoptions"), data = datansd) )
+> ##D 
+> ##D 
+> ##D      plot(datansd$jday21March, datansd$moosensd)
+> ##D 
+> ##D 
+> ##D      curve( posnegRichards.eqn(x, Asym = pars[1], K = 1, Infl = pars[2], 
+> ##D 
+> ##D 
+> ##D             M = pars[3], RAsym = pars[4], Rk = 1, Ri = pars[5], RM = pars[6], 
+> ##D 
+> ##D 
+> ##D             modno = 17, pn.options = "myoptions"), lty = 3, xlim = c(0, 200) , add = TRUE)
+> ## End(Not run)
+> 
+> 
+>         
+> 
+> 
+>     # fit nls object using 8 parameter model
+> 
+> 
+>     # note: ensure data object is a groupedData object
+> 
+> 
+>     richardsR1.nls <- nls(mass ~ SSposnegRichards(age, Asym = Asym, 
++ 
++ 
++         K = K, Infl = Infl, M = M, RAsym = RAsym, Rk = Rk, Ri = Ri, 
++ 
++ 
++         RM = RM, modno = 1, pn.options = "myoptions"), data = posneg.data)
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl             M         RAsym 
+ 4.443135e+03  6.471252e-02  2.336873e+01  3.802140e-01 -1.126358e+03 
+           Rk            Ri            RM 
+ 1.056126e+00  1.040000e+02  7.983006e-01 
+> 
+> 
+>         
+> 
+> 
+> 
+> 
+> 
+>     # following example not run as it fits very few levels in these data - as noted
+> 
+> 
+>     # such a comprehensive equation is rarely required
+> 
+> 
+>     # fit nlsList object using 8 parameter model
+> 
+> 
+>     # note: ensure data object is a groupedData object
+> 
+> 
+>     # also note: not many datasets require all 8 parameters
+> 
+> 
+>          ## Not run: 
+> ##D 
+> ##D 
+> ##D          richardsR1.lis <- nlsList(mass ~ SSposnegRichards(age, Asym = Asym, 
+> ##D 
+> ##D 
+> ##D         K = K, Infl = Infl, M = M, RAsym = RAsym, Rk = Rk, Ri = Ri, 
+> ##D 
+> ##D 
+> ##D         RM = RM, modno = 1, pn.options = "myoptions"), data = posneg.data)
+> ##D 
+> ##D 
+> ##D     summary(richardsR1.lis)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> 
+>     # fit nlsList object using 6 parameter model with value M and RM
+> 
+> 
+>     # fixed to value in pnmodelparams and then fit nlme model
+> 
+> 
+>     # note data is subset to provide estimates for a few individuals
+> 
+> 
+>     # as an example
+> 
+> 
+>     subdata <- subset(posneg.data,posneg.data$id == as.character(26)
++ 
++ 
++    		| posneg.data$id == as.character(1) 
++ 
++ 
++    		| posneg.data$id == as.character(32) 
++ 
++ 
++    		| posneg.data$id == as.character(43))
+> 
+> 
+>     richardsR22.lis <- nlsList(mass ~ SSposnegRichards(age, Asym = Asym, 
++ 
++ 
++         K = K, Infl = Infl, RAsym = RAsym, Rk = Rk, Ri = Ri, 
++ 
++ 
++         modno = 22, pn.options = "myoptions"), data = subdata)
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl         RAsym            Rk 
+4442.09000033    0.05663976   24.15242862 -405.02849115    0.12657390 
+           Ri 
+  98.00000000 
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl         RAsym            Rk 
+4416.90608285    0.07915099   22.27476420 -711.32960182    1.05612638 
+           Ri 
+ 101.00000000 
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl         RAsym            Rk 
+ 4480.2234875     0.0768325    22.5051390 -1188.1247469     0.0891642 
+           Ri 
+   68.4167559 
+[1] "Warning: simultaneous optimization of pre- and post- peak curves failed, using separately fitted parameters"
+[1] "Values from SSposnegRichards:"
+         Asym             K          Infl         RAsym            Rk 
+4607.77186112    0.06634803   23.53890635 -979.92415893    1.05612638 
+           Ri 
+  99.00000000 
+Warning message:
+1 error caught in nls(model, data = data, control = controlvals): singular gradient 
+> 
+> 
+>     summary(richardsR22.lis )
+Call:
+  Model: mass ~ SSposnegRichards(age, Asym = Asym, K = K, Infl = Infl, RAsym = RAsym, Rk = Rk, Ri = Ri, modno = 22, pn.options = "myoptions") | id 
+   Data: subdata 
+
+Coefficients:
+   Asym 
+   Estimate Std. Error  t value     Pr(>|t|)
+43 4488.443  20.835843 215.4193 9.002158e-17
+1        NA         NA       NA           NA
+26 4489.988   6.868832 653.6756 2.722338e-17
+32 4610.199   7.704149 598.4047 1.556917e-17
+   K 
+     Estimate   Std. Error  t value     Pr(>|t|)
+43 0.05558306 0.0005236128 106.1530 1.275433e-14
+1          NA           NA       NA           NA
+26 0.07647130 0.0004182469 182.8377 2.030479e-13
+32 0.06627615 0.0003696408 179.2988 7.175980e-14
+   Infl 
+   Estimate Std. Error  t value     Pr(>|t|)
+43 24.47113 0.15313554 159.8005 7.282013e-16
+1        NA         NA       NA           NA
+26 22.55806 0.05794094 389.3285 1.023764e-15
+32 23.55354 0.06742174 349.3464 6.735629e-16
+   RAsym 
+     Estimate Std. Error    t value     Pr(>|t|)
+43  -601.9598   73.67035  -8.170992 7.363930e-07
+1          NA         NA         NA           NA
+26 -1552.4307   61.00858 -25.446103 1.904995e-07
+32 -1181.1819   79.38781 -14.878631 2.372108e-06
+   Rk 
+    Estimate  Std. Error   t value     Pr(>|t|)
+43 0.1114551 0.019304603  5.773499 7.750680e-06
+1         NA          NA        NA           NA
+26 0.1951281 0.009491822 20.557498 8.245662e-07
+32 0.2408568 0.026577960  9.062275 6.373380e-05
+   Ri 
+   Estimate Std. Error   t value     Pr(>|t|)
+43 101.3117  1.5401845  65.77892 3.632830e-13
+1        NA         NA        NA           NA
+26 102.4716  0.4908576 208.76030 8.028412e-14
+32 102.4396  0.7726419 132.58359 5.932190e-13
+
+Residual standard error: 8.708896 on 21 degrees of freedom
+
+> 
+> 
+>     richardsR22.nlme <- nlme(richardsR22.lis, random = pdDiag(Asym + Infl ~ 1) )
+> 
+> 
+>     summary(richardsR22.nlme)
+Nonlinear mixed-effects model fit by maximum likelihood
+  Model: mass ~ SSposnegRichards(age, Asym = Asym, K = K, Infl = Infl,      RAsym = RAsym, Rk = Rk, Ri = Ri, modno = 22, pn.options = "myoptions") 
+ Data: subdata 
+       AIC      BIC    logLik
+  669.4035 686.9647 -325.7018
+
+Random effects:
+ Formula: list(Asym ~ 1, Infl ~ 1)
+ Level: id
+ Structure: Diagonal
+            Asym      Infl Residual
+StdDev: 52.37771 0.2685865 121.8838
+
+Fixed effects: list(Asym ~ 1, K ~ 1, Infl ~ 1, RAsym ~ 1, Rk ~ 1, Ri ~ 1) 
+         Value Std.Error DF   t-value p-value
+Asym  4429.281  50.91127 43  87.00001  0.0000
+K        0.072   0.00284 43  25.19368  0.0000
+Infl    22.737   0.45850 43  49.58990  0.0000
+RAsym -813.190  80.19566 43 -10.14008  0.0000
+Rk       0.623   0.37570 43   1.65903  0.1044
+Ri     101.154   0.92963 43 108.81063  0.0000
+ Correlation: 
+      Asym   K      Infl   RAsym  Rk    
+K     -0.567                            
+Infl   0.462 -0.297                     
+RAsym -0.491  0.379 -0.324              
+Rk    -0.263  0.195 -0.172  0.477       
+Ri    -0.071  0.051 -0.047 -0.335 -0.626
+
+Standardized Within-Group Residuals:
+         Min           Q1          Med           Q3          Max 
+-2.744982436 -0.332716290  0.005180043  0.557277107  3.620687825 
+
+Number of Observations: 52
+Number of Groups: 4 
+> 
+> 
+>          
+> 
+> 
+>     # fit nls object using simple logistic model, with 
+> 
+> 
+>     # M, RAsym, Rk, Ri, and RM fixed to values in pnmodelparams
+> 
+> 
+>     modpar(logist.data$age, logist.data$mass ,force4par = TRUE, pn.options = "myoptions")
+[1] modpar will attempt to parameterize your data using the following sequential procedures:
+[1]   (1) Extract parameter estimates for 8-parameter double-Richards curve in nls
+[1]   (2) Use getInitial to retrieve parameter estimates for 8-parameter double-Richards curve
+[1]   (3) Extract parameter estimates for 4-parameter Richards curve in 
+[1]   (4) Use getInitial to retrieve parameter estimates for 4-parameter Richards curve
+[1] if any approaches are successful, modpar will return these and terminate at that stage
+[1]  
+[1] (3) Status of 4-parameter Richards curve nls fit:
+[1] 4 parameter nls fit successful
+$Asym
+[1] 90.56236
+
+$K
+[1] 0.2784432
+
+$Infl
+[1] 4.915554
+
+$M
+[1] 0.7975415
+
+$RAsym
+[1] NA
+
+$Rk
+[1] NA
+
+$Ri
+[1] NA
+
+$RM
+[1] NA
+
+> 
+> 
+>     change.pnparameters(M = 1, pn.options = "myoptions") #set to logistic (M =1) prior to fit
+$Asym
+[1] 90.56236
+
+$K
+[1] 0.2784432
+
+$Infl
+[1] 4.915554
+
+$M
+[1] 1
+
+$RAsym
+[1] NA
+
+$Rk
+[1] NA
+
+$Ri
+[1] NA
+
+$RM
+[1] NA
+
+$first.y
+[1] NA
+
+$x.at.first.y
+[1] NA
+
+$last.y
+[1] NA
+
+$x.at.last.y
+[1] NA
+
+$twocomponent.x
+[1] NA
+
+$verbose
+[1] FALSE
+
+$force4par
+[1] TRUE
+
+$force.nonmonotonic
+[1] FALSE
+
+$Amin
+[1] 45.28118
+
+$Amax
+[1] 316.9682
+
+$Kmin
+[1] 0.1392216
+
+$Kmax
+[1] 0.4176649
+
+$Imin
+[1] -2.457777
+
+$Imax
+[1] 17.20444
+
+$Mmin
+[1] -1
+
+$Mmax
+[1] 3
+
+$RAmin
+[1] 45.28118
+
+$RAmax
+[1] 316.9682
+
+$Rkmin
+[1] 0.1392216
+
+$Rkmax
+[1] 0.4176649
+
+$Rimin
+[1] 2.457777
+
+$Rimax
+[1] 11.06
+
+$RMmin
+[1] NA
+
+$RMmax
+[1] 3
+
+$taper.ends
+[1] 0.45
+
+> 
+> 
+>     richardsR32.nls <- nls(mass ~ SSposnegRichards(age, Asym = Asym, 
++ 
++ 
++         K = K, Infl = Infl, modno = 32, pn.options = "myoptions"), data = logist.data)
+> 
+> 
+>     coef(richardsR32.nls)
+      Asym          K       Infl 
+90.1361220  0.2980271  5.2060464 
+> 
+> 
+>                 
+> 
+> 
+>     # fit a two component model - enter your own data in place of "mydata"
+> 
+> 
+>     # this is not run for want of an appropriate dataset
+> 
+> 
+>     # if x of intersection unknown
+> 
+> 
+>     ## Not run: 
+> ##D 
+> ##D 
+> ##D     modpar(mydata$x,mydata$y,twocomponent.x=TRUE, pn.options = "myoptions")
+> ##D 
+> ##D 
+> ##D     # if x of intersection = 75
+> ##D 
+> ##D 
+> ##D     modpar(mydata$x,mydata$y,twocomponent.x=75, pn.options = "myoptions") 
+> ##D 
+> ##D 
+> ##D     richardsR1.nls <- nls(y~ SSposnegRichards(x, Asym = Asym, K = K,
+> ##D 
+> ##D 
+> ##D       Infl = Infl, M = M, RAsym = RAsym, Rk = Rk, Ri = Ri, RM = RM, 
+> ##D 
+> ##D 
+> ##D       modno = 1, pn.options = "myoptions")
+> ##D 
+> ##D 
+> ##D       , data = mydata)
+> ##D 
+> ##D 
+> ##D     coef(richardsR1.nls)
+> ## End(Not run)
+> 
+> 
+>     
+> 
+> 
+> cleanEx()
+> nameEx("change.pnparameters")
+> ### * change.pnparameters
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: change.pnparameters
+> ### Title: Change Fixed Parameter Values
+> ### Aliases: change.pnparameters
+> 
+> ### ** Examples
+> 
+> 
+> 
+> # change all fixed values except K and Rk
+> 
+> 
+>     modpar(posneg.data$age, posneg.data$mass, pn.options = "myoptions")
+[1] modpar will attempt to parameterize your data using the following sequential procedures:
+[1]   (1) Extract parameter estimates for 8-parameter double-Richards curve in nls
+[1]   (2) Use getInitial to retrieve parameter estimates for 8-parameter double-Richards curve
+[1]   (3) Extract parameter estimates for 4-parameter Richards curve in 
+[1]   (4) Use getInitial to retrieve parameter estimates for 4-parameter Richards curve
+[1] if any approaches are successful, modpar will return these and terminate at that stage
+[1]  
+[1] (1) Status of 8-parameter double-Richards curve fit in nls:
+[1] ....8-parameter nls fit successful
+$Asym
+[1] 4443.135
+
+$K
+[1] 0.06471252
+
+$Infl
+[1] 23.36873
+
+$M
+[1] 0.380214
+
+$RAsym
+[1] -1126.358
+
+$Rk
+[1] 0.2112253
+
+$Ri
+[1] 104
+
+$RM
+[1] 0.7983006
+
+> 
+> 
+>     change.pnparameters(Asym = 10000, Infl = 80, M = 5, RAsym = 10000, 
++ 
++ 
++         Ri = 240, RM = 5, pn.options = "myoptions")
+$Asym
+[1] 10000
+
+$K
+[1] 0.06471252
+
+$Infl
+[1] 80
+
+$M
+[1] 5
+
+$RAsym
+[1] 10000
+
+$Rk
+[1] 0.2112253
+
+$Ri
+[1] 240
+
+$RM
+[1] 5
+
+$first.y
+[1] NA
+
+$x.at.first.y
+[1] NA
+
+$last.y
+[1] NA
+
+$x.at.last.y
+[1] NA
+
+$twocomponent.x
+[1] NA
+
+$verbose
+[1] FALSE
+
+$force4par
+[1] FALSE
+
+$force.nonmonotonic
+[1] FALSE
+
+$Amin
+[1] 5000
+
+$Amax
+[1] 35000
+
+$Kmin
+[1] 0.03235626
+
+$Kmax
+[1] 0.09706877
+
+$Imin
+[1] -40
+
+$Imax
+[1] 280
+
+$Mmin
+[1] -5
+
+$Mmax
+[1] 15
+
+$RAmin
+[1] 5000
+
+$RAmax
+[1] 35000
+
+$Rkmin
+[1] 0.1056126
+
+$Rkmax
+[1] 0.3168379
+
+$Rimin
+[1] 120
+
+$Rimax
+[1] 540
+
+$RMmin
+[1] NA
+
+$RMmax
+[1] 15
+
+$taper.ends
+[1] 0.45
+
+> 
+> 
+> 
+> 
+> 
+> # change fixed values of M and constrain hatching mass to 45.5 in a growth curve
+> 
+> 
+>     change.pnparameters(M = 1, RM = 0.5, first.y = 45.5, pn.options = "myoptions")
+$Asym
+[1] 10000
+
+$K
+[1] 0.06471252
+
+$Infl
+[1] 80
+
+$M
+[1] 1
+
+$RAsym
+[1] 10000
+
+$Rk
+[1] 0.2112253
+
+$Ri
+[1] 240
+
+$RM
+[1] 0.5
+
+$first.y
+[1] 45.5
+
+$x.at.first.y
+[1] NA
+
+$last.y
+[1] NA
+
+$x.at.last.y
+[1] NA
+
+$twocomponent.x
+[1] NA
+
+$verbose
+[1] FALSE
+
+$force4par
+[1] FALSE
+
+$force.nonmonotonic
+[1] FALSE
+
+$Amin
+[1] 5000
+
+$Amax
+[1] 35000
+
+$Kmin
+[1] 0.03235626
+
+$Kmax
+[1] 0.09706877
+
+$Imin
+[1] -40
+
+$Imax
+[1] 280
+
+$Mmin
+[1] -1
+
+$Mmax
+[1] 3
+
+$RAmin
+[1] 5000
+
+$RAmax
+[1] 35000
+
+$Rkmin
+[1] 0.1056126
+
+$Rkmax
+[1] 0.3168379
+
+$Rimin
+[1] 120
+
+$Rimax
+[1] 540
+
+$RMmin
+[1] NA
+
+$RMmax
+[1] 1.5
+
+$taper.ends
+[1] 0.45
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extraF")
+> ### * extraF
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extraF
+> ### Title: Compare Two nlsList Models Using Extra Sum-of-Squares F-Tests
+> ### Aliases: extraF
+> 
+> ### ** Examples
+> 
+> 
+> 
+>    #compare two nested nlsList models (4 vs 8 parameter models)
+> 
+> 
+>    modpar(posneg.data$age, posneg.data$mass, pn.options = "myoptions")
+[1] modpar will attempt to parameterize your data using the following sequential procedures:
+[1]   (1) Extract parameter estimates for 8-parameter double-Richards curve in nls
+[1]   (2) Use getInitial to retrieve parameter estimates for 8-parameter double-Richards curve
+[1]   (3) Extract parameter estimates for 4-parameter Richards curve in 
+[1]   (4) Use getInitial to retrieve parameter estimates for 4-parameter Richards curve
+[1] if any approaches are successful, modpar will return these and terminate at that stage
+[1]  
+[1] (1) Status of 8-parameter double-Richards curve fit in nls:
+[1] ....8-parameter nls fit successful
+$Asym
+[1] 4443.135
+
+$K
+[1] 0.06471252
+
+$Infl
+[1] 23.36873
+
+$M
+[1] 0.380214
+
+$RAsym
+[1] -1126.358
+
+$Rk
+[1] 0.2112253
+
+$Ri
+[1] 104
+
+$RM
+[1] 0.7983006
+
+> 
+> 
+>    # (only first 4 group levels in data used for example's sake)
+> 
+> 
+>    subdata<-subset(posneg.data, as.numeric(row.names (posneg.data) ) < 53)
+> 
+> 
+>    richardsR2.lis <- nlsList(mass ~ SSposnegRichards(age, Asym = Asym, K = K,
++ 
++ 
++      Infl = Infl, M = M, RAsym = RAsym, Rk = Rk, Ri = Ri,modno = 2, pn.options = "myoptions")
++ 
++ 
++                         , data = subdata)
+Warning message:
+1 error caught in nls(model, data = data, control = controlvals): singular gradient 
+> 
+> 
+>    richardsR12.lis <- nlsList(mass ~ SSposnegRichards(age, Asym = Asym, K = K,
++ 
++ 
++      Infl = Infl, M = M, modno = 12, pn.options = "myoptions")
++ 
++ 
++                         , data = subdata)
+> 
+> 
+>    extraF(richardsR12.lis, richardsR2.lis)
+                                              Fstat df_n df_d P  RSS_gen
+test of richardsR12.lis vs. richardsR2.lis 55.68064   12   36 0 192.8338
+                                            RSS_sub
+test of richardsR12.lis vs. richardsR2.lis 5561.388
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extraF.nls")
+> ### * extraF.nls
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extraF.nls
+> ### Title: Compare Two nls Models Using Extra Sum-of-Squares F-Tests
+> ### Aliases: extraF.nls
+> 
+> ### ** Examples
+> 
+> 
+> 
+> #fit and compare two nested nls models (7 vs 8 parameter models)
+> 
+> 
+>    #create list for fixed parameters
+> 
+> 
+>    modpar(posneg.data$age, posneg.data$mass, pn.options = "myoptions") 
+[1] modpar will attempt to parameterize your data using the following sequential procedures:
+[1]   (1) Extract parameter estimates for 8-parameter double-Richards curve in nls
+[1]   (2) Use getInitial to retrieve parameter estimates for 8-parameter double-Richards curve
+[1]   (3) Extract parameter estimates for 4-parameter Richards curve in 
+[1]   (4) Use getInitial to retrieve parameter estimates for 4-parameter Richards curve
+[1] if any approaches are successful, modpar will return these and terminate at that stage
+[1]  
+[1] (1) Status of 8-parameter double-Richards curve fit in nls:
+[1] ....8-parameter nls fit successful
+$Asym
+[1] 4443.135
+
+$K
+[1] 0.06471252
+
+$Infl
+[1] 23.36873
+
+$M
+[1] 0.380214
+
+$RAsym
+[1] -1126.358
+
+$Rk
+[1] 0.2112253
+
+$Ri
+[1] 104
+
+$RM
+[1] 0.7983006
+
+> 
+> 
+>    richardsR1.nls <- nls(mass ~ SSposnegRichards(age, Asym = Asym, K = K,
++ 
++ 
++    Infl = Infl, M = M, RAsym = RAsym, Rk = Rk, Ri = Ri, RM = RM, modno = 1, pn.options = myoptions)
++ 
++ 
++                         , data = posneg.data)
+> 
+> 
+>    richardsR2.nls <- nls(mass ~ SSposnegRichards(age, Asym = Asym, K = K,
++ 
++ 
++    Infl = Infl, M = M, RAsym = RAsym, Rk = Rk, Ri = Ri, modno = 2, pn.options = myoptions)
++ 
++ 
++                         , data = posneg.data)
+> 
+> 
+>    extraF.nls(richardsR2.nls, richardsR1.nls)
+                                               Fstat df_n df_d P  RSS_gen
+test of richardsR2.nls vs. richardsR1.nls 0.03442921    1 1293 1 58351276
+                                           RSS_sub
+test of richardsR2.nls vs. richardsR1.nls 58352831
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.mod")
+> ### * get.mod
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.mod
+> ### Title: Copy objects between R environments
+> ### Aliases: get.mod
+> 
+> ### ** Examples
+> 
+> 
+> 
+>  #transfer all nlsList models from the FlexParamCurve working environmment (FPCEnv) 
+> 
+> 
+>    #to the Global Environment. Note: unless pn.mod.compare or 
+> 
+> 
+>    #pn.modselect.step have been run, in which case this is default
+> 
+> 
+>    #1. subset data object (only 3 individuals) to expediate model selection
+> 
+> 
+>    subdata <- subset(posneg.data, as.numeric(row.names (posneg.data) ) < 40)
+> 
+> 
+>    #2. run model selection in FPCEnv using pn.mod.compare. Only two models (#1 and #5)
+> 
+> 
+>    #specified to be run here to reduce processing time. see pn.mod.compare
+> 
+> 
+>    modseltable <- pn.mod.compare(subdata$age, subdata$mass,
++ 
++ 
++    subdata$id, existing = FALSE, pn.options = "myoptions", mod.subset = c(1,5)
++ 
++ 
++    , Envir = FlexParamCurve:::FPCEnv)
+[1] modpar will attempt to parameterize your data using the following sequential procedures:
+[1]   (1) Extract parameter estimates for 8-parameter double-Richards curve in nls
+[1]   (2) Use getInitial to retrieve parameter estimates for 8-parameter double-Richards curve
+[1]   (3) Extract parameter estimates for 4-parameter Richards curve in 
+[1]   (4) Use getInitial to retrieve parameter estimates for 4-parameter Richards curve
+[1] if any approaches are successful, modpar will return these and terminate at that stage
+[1]  
+[1] (1) Status of 8-parameter double-Richards curve fit in nls:
+[1] ....8 parameter nls fit failed
+[1] (2) Status of 8-parameter double-Richards getInitial call
+[1] ....8-parameter getInitial successful
+[1] "checking fit of positive section of the curve for variable M*************************************"
+[1] "checking fit of positive section of the curve for fixed M*************************************"
+[1] "3 parameter positive richards model failed/not fitted*************************************"
+[1] "4 parameter positive richards model failed/not fitted*************************************"
+[1] "Variable M models most appropriate*************************************"
+[1] "################  ################  ##################  #################  ###############  #########"
+[1] "Fitting model 1 of 2: richardsR1.lis"
+[[1]]
+[1] "**********************  Model richardsR1.lis has not been successfully fit, please trouble-shoot this model separately and then repeat function using existing=TRUE  *************************************************"
+
+[1] "################  ################  ##################  #################  ###############  #########"
+[1] "Fitting model 2 of 2: richardsR5.lis"
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpSQkQc2/R.INSTALL33c27155b309/FlexParamCurve/R/SSposnegRichards.R#2272: 
+ --- package (from environment) --- 
+FlexParamCurve
+ --- call from context --- 
+fn(par, ...)
+ --- call from argument --- 
+if (Re(as.complex(1 + M[1] * exp(-K[1] * (xy$x - Infl[1])))) < 
+    0) {
+    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - Ri[1])))) < 
+        0) {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsFMRM(xy$x, Asym, K, Infl, M, 
+                RAsym, Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsFMRM((0:max(xy$x)), 
+                Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+    else {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsFM(xy$x, Asym, K, Infl, M, 
+                RAsym, Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsFM((0:max(xy$x)), 
+                Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+} else {
+    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - Ri[1])))) < 
+        0) {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsFRM(xy$x, Asym, K, Infl, M, 
+                RAsym, Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsFRM((0:max(xy$x)), 
+                Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+    else {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsF(xy$x, Asym, K, Infl, M, RAsym, 
+                Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF((0:max(xy$x)), Asym, 
+                K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+}
+ --- R stacktrace ---
+where 1 at ../../../../R/src/library/stats/R/optim.R#25: fn(par, ...)
+where 2 at ../../../../R/src/library/stats/R/optim.R#65: (function(par) fn(par,...))(c(Asym = 4334.17580073736, K = 0.0632653544876502, 
+Infl = 24.8483463411178, M = 0.517002166128575, RM = 0.997841195933385
+))
+where 3 at /var/scratch2/tomas/tmp/RtmpSQkQc2/R.INSTALL33c27155b309/FlexParamCurve/R/SSposnegRichards.R#2653: optim(value, richardsR, method = "L-BFGS-B", lower = dnbnds, 
+    upper = upbnds, control = list(maxit = 1000, parscale = parscaleR))
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 8 at /var/scratch2/tomas/tmp/RtmpSQkQc2/R.INSTALL33c27155b309/FlexParamCurve/R/SSposnegRichards.R#2653: try(oppar1 <- (optim(value, richardsR, method = "L-BFGS-B", lower = dnbnds, 
+    upper = upbnds, control = list(maxit = 1000, parscale = parscaleR))), 
+    silent = TRUE)
+where 9 at ../../../../R/src/library/stats/R/selfStart.R#96: (attr(object, "initial"))(mCall = mCall, data = data, LHS = LHS)
+where 10 at ../../../../R/src/library/stats/R/selfStart.R#67: getInitial.selfStart(func, data, mCall = as.list(match.call(func, 
+    call = object[[3L]])), LHS = object[[2L]], ...)
+where 11 at ../../../../R/src/library/stats/R/selfStart.R#87: getInitial(func, data, mCall = as.list(match.call(func, call = object[[3L]])), 
+    LHS = object[[2L]], ...)
+where 12 at ../../../../R/src/library/stats/R/selfStart.R#67: getInitial.formula(formula, mf)
+where 13 at ../../../../R/src/library/stats/R/nls.R#588: getInitial(formula, mf)
+where 14 at /var/scratch2/tomas/tmp/RtmpMLs3Yl/R.INSTALL34756f42912a/nlme/R/nlsList.R#101: nls(model, data = data, control = controlvals)
+where 15: doTryCatch(return(expr), name, parentenv, handler)
+where 16: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 17: tryCatchList(expr, classes, parentenv, handlers)
+where 18 at /var/scratch2/tomas/tmp/RtmpMLs3Yl/R.INSTALL34756f42912a/nlme/R/nlsList.R#96: tryCatch({
+    data <- as.data.frame(dat)
+    if (is.null(start)) {
+        nls(model, data = data, control = controlvals)
+    }
+    else {
+        nls(model, data = data, control = controlvals, start = start)
+    }
+}, error = function(e) e)
+where 19: FUN(X[[i]], ...)
+where 20 at /var/scratch2/tomas/tmp/RtmpMLs3Yl/R.INSTALL34756f42912a/nlme/R/nlsList.R#96: lapply(split(data, groups), function(dat) tryCatch({
+    data <- as.data.frame(dat)
+    if (is.null(start)) {
+        nls(model, data = data, control = controlvals)
+    }
+    else {
+        nls(model, data = data, control = controlvals, start = start)
+    }
+}, error = function(e) e))
+where 21 at /var/scratch2/tomas/tmp/RtmpMLs3Yl/R.INSTALL34756f42912a/nlme/R/nlsList.R#23: nlsList.formula(y ~ SSposnegRichards(x, Asym = Asym, K = K, Infl = Infl, 
+    M = M, RM = RM, modno = 5, pn.options = "myoptions"), data = userdata, 
+    ...)
+where 22: nlsList(y ~ SSposnegRichards(x, Asym = Asym, K = K, Infl = Infl, 
+    M = M, RM = RM, modno = 5, pn.options = "myoptions"), data = userdata, 
+    ...)
+where 23: eval(parse(text = sprintf("%s", paste("nlsList(y~SSposnegRichards(x,Asym=Asym", 
+    savK, ",Infl=Infl", savM, ",RM=RM,modno=", modelno, ", pn.options = \"", 
+    pnoptnm, "\"),data=userdata, ...)", sep = ""))))
+where 24 at /var/scratch2/tomas/tmp/RtmpSQkQc2/R.INSTALL33c27155b309/FlexParamCurve/R/pn.mod.compare.R#224: eval(parse(text = sprintf("%s", paste("nlsList(y~SSposnegRichards(x,Asym=Asym", 
+    savK, ",Infl=Infl", savM, ",RM=RM,modno=", modelno, ", pn.options = \"", 
+    pnoptnm, "\"),data=userdata, ...)", sep = ""))))
+where 25: doTryCatch(return(expr), name, parentenv, handler)
+where 26: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 27: tryCatchList(expr, classes, parentenv, handlers)
+where 28: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 29 at /var/scratch2/tomas/tmp/RtmpSQkQc2/R.INSTALL33c27155b309/FlexParamCurve/R/pn.mod.compare.R#224: try(eval(parse(text = sprintf("%s", paste("nlsList(y~SSposnegRichards(x,Asym=Asym", 
+    savK, ",Infl=Infl", savM, ",RM=RM,modno=", modelno, ", pn.options = \"", 
+    pnoptnm, "\"),data=userdata, ...)", sep = "")))), silent = TRUE)
+where 30 at /var/scratch2/tomas/tmp/RtmpSQkQc2/R.INSTALL33c27155b309/FlexParamCurve/R/pn.mod.compare.R#308: runmod(userdata, modno[i], modelsig, existing = existing)
+where 31: pn.mod.compare(subdata$age, subdata$mass, subdata$id, existing = FALSE, 
+    pn.options = "myoptions", mod.subset = c(1, 5), Envir = FlexParamCurve:::FPCEnv)
+
+ --- value of length: 13 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE
+ --- function from context --- 
+function(Rparams) {
+                  val2 <- data.frame(Asym = modelparams$Asym, 
+                    K = modelparams$K, Infl = modelparams$Infl, 
+                    M = modelparams$M, RAsym = modelparams$RAsym, 
+                    Rk = modelparams$Rk, Ri = modelparams$Ri, 
+                    RM = modelparams$RM)
+                  val3 <- (data.frame(t(Rparams)))
+                  if (length(val3$Asym) == 1) 
+                    val2$Asym <- val3$Asym
+                  if (length(val3$K) == 1) 
+                    val2$K <- val3$K
+                  if (length(val3$Infl) == 1) 
+                    val2$Infl <- val3$Infl
+                  if (length(val3$M) == 1) 
+                    val2$M <- val3$M
+                  if (length(val3$RAsym) == 1) 
+                    val2$RAsym <- val3$RAsym
+                  if (length(val3$Rk) == 1) 
+                    val2$Rk <- val3$Rk
+                  if (length(val3$Ri) == 1) 
+                    val2$Ri <- val3$Ri
+                  if (length(val3$RM) == 1) 
+                    val2$RM <- val3$RM
+                  Asym <- val2$Asym
+                  K <- val2$K
+                  Infl <- val2$Infl
+                  M <- val2$M
+                  RAsym <- val2$RAsym
+                  Rk <- val2$Rk
+                  Ri <- val2$Ri
+                  RM <- val2$RM
+                  if (is.na(exp(-K * (min(xy$x) - Infl))) == 
+                    TRUE | (exp(-K * (min(xy$x) - Infl))) == 
+                    Inf) {
+                    K = modelparams$K
+                    Infl = modelparams$Infl
+                  }
+                  if (is.na(exp(-K * (max(xy$x) - Infl))) == 
+                    TRUE | (exp(-K * (min(xy$x) - Infl))) == 
+                    Inf) {
+                    K = modelparams$K
+                    Infl = modelparams$Infl
+                  }
+                  if (is.na(exp(-Rk * (min(xy$x) - Ri))) == TRUE | 
+                    (exp(-Rk * (min(xy$x) - Ri))) == Inf) {
+                    Rk = modelparams$Rk
+                    Ri = modelparams$Ri
+                  }
+                  if (is.na(exp(-Rk * (max(xy$x) - Ri))) == TRUE | 
+                    (exp(-Rk * (min(xy$x) - Ri))) == Inf) {
+                    Rk = modelparams$Rk
+                    Ri = modelparams$Ri
+                  }
+                  options(warn = -1)
+                  if(modno == 17.2 | modno == 17.4) RAsym <- Asym
+                  if(modno == 17.3| modno == 17.4) RM <- M              
+                  if (Re(as.complex(1 + M[1] * exp(-K[1] * (xy$x - 
+                    Infl[1])))) < 0) {
+                    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - 
+                      Ri[1])))) < 0) {
+                      if (modno >= 17 & modno < 18) {
+                            y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsFMRM(xy$x, Asym, 
+                          K, Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                try(if (min(Im(SSposnegRichardsFMRM((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    } else {
+                      if (modno >= 17 & modno < 18) {
+                        y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsFM(xy$x, Asym, 
+                          K, Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                try(if (min(Im(SSposnegRichardsFM((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    }
+                  } else {
+                    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - 
+                      Ri[1])))) < 0) {
+                      if (modno >= 17 & modno < 18) {
+                        y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsFRM(xy$x, Asym, 
+                          K, Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}    
+                try(if (min(Im(SSposnegRichardsFRM((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    } else {
+                      if (modno >= 17 & modno < 18) {
+                        y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+    		if(!is.na(evl)){
+                 if (evl == Inf) {
+                   evl <- 1e+290
+                 	} else {
+                   evl <- 1e+290
+                 		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsF(xy$x, Asym, K, 
+                          Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    }
+                  }
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	} 
+                options(warn = 0)
+                  return(evl)
+                }
+<bytecode: 0x3ee46a8>
+<environment: 0x35675a0>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

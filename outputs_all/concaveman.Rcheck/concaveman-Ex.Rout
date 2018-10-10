@@ -1,0 +1,84 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "concaveman"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('concaveman')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("concaveman")
+> ### * concaveman
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: concaveman
+> ### Title: concaveman: A very fast 2D concave hull algorithm.
+> ### Aliases: concaveman concaveman-package concaveman concaveman.matrix
+> ###   concaveman.sf concaveman.SpatialPoints
+> 
+> ### ** Examples
+> 
+> data(points)
+> polygons <- concaveman(points)
+> plot(points)
+> plot(polygons, add = TRUE)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at ../../../../R/src/library/graphics/R/plot.R#385: 
+ --- package (from environment) --- 
+graphics
+ --- call from context --- 
+plot.data.frame(polygons, add = TRUE)
+ --- call from argument --- 
+if (cl %in% c("integer", "numeric")) stripchart(x1, ...) else plot(x1, 
+    ...)
+ --- R stacktrace ---
+where 1 at ../../../../R/src/library/graphics/R/plot.R#21: plot.data.frame(polygons, add = TRUE)
+where 2: plot(polygons, add = TRUE)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function (x, ...)
+{
+    plot2 <- function(x, xlab=names(x)[1L], ylab=names(x)[2L], ...)
+        plot(x[[1L]], x[[2L]], xlab=xlab, ylab=ylab, ...)
+
+    if(!is.data.frame(x))
+	stop("'plot.data.frame' applied to non data frame")
+    if(ncol(x) == 1) {
+        x1 <- x[[1L]]
+        cl <- class(x1)
+        if(cl %in% c("integer", "numeric"))  stripchart(x1, ...)
+        else plot(x1, ...) # factor, ts, complex ...
+    } else if(ncol(x) == 2) {
+        plot2(x, ...)
+    } else {
+	pairs(data.matrix(x), ...)
+    }
+}
+<bytecode: 0x5da73f8>
+<environment: namespace:graphics>
+ --- function search by body ---
+Function plot.data.frame in namespace graphics has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
