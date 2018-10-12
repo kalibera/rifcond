@@ -1,0 +1,370 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "seq2pathway"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('seq2pathway')
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Chipseq_Peak_demo")
+> ### * Chipseq_Peak_demo
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Chipseq_Peak_demo
+> ### Title: chip seq loci data example
+> ### Aliases: Chipseq_Peak_demo
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Chipseq_Peak_demo)
+> head(Chipseq_Peak_demo)
+      peakID chrom    start      end signalvalue
+1 Peak_59951 chr14 19003706 19004370    6.611026
+2 Peak_59952 chr14 19003800 19024138    3.450042
+3 Peak_59953 chr14 19005068 19005305   10.997456
+4 Peak_59954 chr14 19006372 19006587   21.055350
+5 Peak_59955 chr14 19013301 19013534    8.242503
+> 
+> 
+> 
+> cleanEx()
+> nameEx("FisherTest_GO_BP_MF_CC")
+> ### * FisherTest_GO_BP_MF_CC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: FisherTest_GO_BP_MF_CC
+> ### Title: A wrapper function to perform the Fisher's exact test, using
+> ###   GO-defined genesets.
+> ### Aliases: FisherTest_GO_BP_MF_CC
+> ### Keywords: methods
+> 
+> ### ** Examples
+> 
+>   data(dat_chip)
+>   head(dat_chip)
+           peakscore
+ABCD4       8.433123
+ABHD12B     9.526305
+ABHD4       9.988747
+AC004817.1 10.086676
+AC005477.1 10.086676
+AC007375.1 10.186544
+>   data(GO_BP_list,package="seq2pathway.data")
+>   data(Des_BP_list,package="seq2pathway.data")
+>   newOntology <- list(GO_BP_list[1:200], Des_BP_list[1:200])
+>   # A demo run of this funcion
+>   FS_test<- FisherTest_GO_BP_MF_CC(gs=as.vector(rownames(dat_chip)),
++                                  Ontology="newOntology", newOntology=newOntology)
+Warning in FisherTest_GO_BP_MF_CC(gs = as.vector(rownames(dat_chip)), Ontology = "newOntology",  :
+  Ontology other than 'GOterm','BP','MF' and 'CC' is test
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpSqYz9P/R.INSTALL6ead1d3f21ea/seq2pathway/R/seq2pathway-internal.r#200: 
+ --- package (from environment) --- 
+seq2pathway
+ --- call from context --- 
+FisherTest_GO_BP_MF_CC(gs = as.vector(rownames(dat_chip)), Ontology = "newOntology", 
+    newOntology = newOntology)
+ --- call from argument --- 
+if (names(newOntology[[1]]) != names(newOntology[[2]])) {
+    stop("the two lists of newOntology should have the same ontology IDs.")
+}
+ --- R stacktrace ---
+where 1: FisherTest_GO_BP_MF_CC(gs = as.vector(rownames(dat_chip)), Ontology = "newOntology", 
+    newOntology = newOntology)
+
+ --- value of length: 200 type: logical ---
+  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function(gs,
+    genome=c("hg38","hg19","mm10","mm9"),min_Intersect_Count=5, 
+    Ontology=c("GOterm","BP","MF","CC", "newOntology"), newOntology=NULL)
+{
+if(missing(min_Intersect_Count)) {min_Intersect_Count=5}
+if(!Ontology %in% c("GOterm","BP","MF","CC")) 
+ { warning ("Ontology other than 'GOterm','BP','MF' and 'CC' is test")
+   if(length(newOntology)<2) {
+	stop ("newOntology should be a list of two lists with the same list names.")}
+   if(length(newOntology[[1]])!=length(newOntology[[2]])){ 
+          stop ("newOntology should be a list of two equal-length lists.")}
+   if(names(newOntology[[1]])!=names(newOntology[[2]])){        
+          stop ("the two lists of newOntology should have the same ontology IDs.")}
+          }
+if(is.null(newOntology)) 
+{
+####load GP pathway information
+if(Ontology =="GOterm") {
+   data(GO_BP_list,package="seq2pathway.data")
+   data(GO_MF_list,package="seq2pathway.data")
+   data(GO_CC_list,package="seq2pathway.data") 
+   data(Des_BP_list,package="seq2pathway.data")
+   data(Des_MF_list,package="seq2pathway.data")
+   data(Des_CC_list,package="seq2pathway.data")
+   } else  if(Ontology =="BP") {
+         data(GO_BP_list,package="seq2pathway.data") 
+         data(Des_BP_list,package="seq2pathway.data")
+         } else if(Ontology =="MF") {
+              data(GO_MF_list,package="seq2pathway.data") 
+              data(Des_MF_list,package="seq2pathway.data")
+              } else if(Ontology =="CC") {
+                  data(GO_CC_list,package="seq2pathway.data")
+                  data(Des_CC_list,package="seq2pathway.data")
+                  }
+}
+#######check genome
+if(missing(genome)){genome="hg19"}
+#####load  GO_GENCODE_databse_intersect_gene information
+if(genome=="hg38"){
+data(GO_GENCODE_df_hg_v20,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_hg_v20
+}else if(genome=="hg19"){
+data(GO_GENCODE_df_hg_v19,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_hg_v19
+}else if(genome=="mm10"){
+data(GO_GENCODE_df_mm_vM4,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_mm_vM4
+}else if(genome=="mm9"){
+data(GO_GENCODE_df_mm_vM1,package="seq2pathway.data")
+GO_GENCODE_df<-GO_GENCODE_df_mm_vM1
+}
+
+GO_FisherTest_result<-list()
+n.list=0
+############## newOntology
+if(!is.null(newOntology)) 
+{
+n.list <- n.list+1
+# newOntology <- list(GO_BP_list[1:200], Des_BP_list[1:200])
+gene_list <- newOntology[[1]]
+Des_list <- newOntology[[2]]
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(gene_list))), 
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with gene_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(gene_list))),
+	unique(toupper(unlist(gs)))))
+
+mdat <- matrix(, nrow = length(gene_list), ncol = 9, byrow = TRUE,
+               dimnames = list(c(1:length(gene_list)),
+               c("GOID","Description","Fisher_Pvalue", "Fisher_odds","FDR",
+		"Intersect_Count","GO_gene_inBackground","GO_gene_raw_Count",
+		"Intersect_gene")))
+mdat<-as.data.frame(mdat)
+
+for(i in 1:length(gene_list)){
+
+pathwaygene<-length(intersect(toupper(gene_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(gene_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(gene_list)[i]
+mdat[i,2]<-as.character(Des_list[which(names(Des_list)==names(gene_list)[i])])
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(gene_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(gene_list[[i]]),
+	unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("newOntology")
+} else
+{
+####################GO:BP
+if(Ontology %in% c("GOterm","BP"))
+{
+n.list=n.list+1
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(GO_BP_list))), 
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with GO_BP_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(GO_BP_list))),
+	unique(toupper(unlist(gs)))))
+
+mdat <- matrix(, nrow = length(GO_BP_list), ncol = 9, byrow = TRUE,
+        dimnames = list(c(1:length(GO_BP_list)),
+        c("GOID","Description","Fisher_Pvalue", "Fisher_odds","FDR",
+	 "Intersect_Count","GO_gene_inBackground","GO_gene_raw_Count","Intersect_gene")))
+mdat<-as.data.frame(mdat)
+for(i in 1:length(GO_BP_list)){
+
+pathwaygene<-length(intersect(toupper(GO_BP_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(GO_BP_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(GO_BP_list)[i]
+mdat[i,2]<-as.character(Des_BP_list[which(names(Des_BP_list)==names(GO_BP_list)[i])])
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(GO_BP_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(GO_BP_list[[i]]),
+	unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("GO_BP")
+}
+####################GO:CC
+if(Ontology %in% c("GOterm","CC"))
+{
+n.list=n.list+1
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(GO_CC_list))), 
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with GO_CC_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(GO_CC_list))),
+	unique(toupper(unlist(gs)))))
+
+mdat <- matrix(, nrow = length(GO_CC_list), ncol = 9, byrow = TRUE,
+               dimnames = list(c(1:length(GO_CC_list)),
+                             c("GOID","Description","Fisher_Pvalue", 
+				"Fisher_odds","FDR","Intersect_Count",
+				"GO_gene_inBackground","GO_gene_raw_Count","Intersect_gene")))
+mdat<-as.data.frame(mdat)
+for(i in 1:length(GO_CC_list)){
+
+pathwaygene<-length(intersect(toupper(GO_CC_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(GO_CC_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(GO_CC_list)[i]
+mdat[i,2]<-Des_CC_list[which(names(Des_CC_list)==names(GO_CC_list)[i])]
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(GO_CC_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(GO_CC_list[[i]]),unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("GO_CC")
+}
+####################GO:MF
+if(Ontology %in% c("GOterm","MF"))
+{
+n.list=n.list+1
+###background counts
+Para_GenesetsGene<-length(intersect(unique(toupper(unlist(GO_MF_list))),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+###gene vector annotated from GENCODE intersect with GO_MF_list
+Para_PeakGene<-length(intersect(unique(toupper(unlist(GO_MF_list))),
+	unique(toupper(unlist(gs)))))
+
+
+mdat <- matrix(, nrow = length(GO_MF_list), ncol = 9, byrow = TRUE,
+               dimnames = list(c(1:length(GO_MF_list)),
+                            c("GOID","Description","Fisher_Pvalue", 
+				"Fisher_odds","FDR","Intersect_Count",
+				"GO_gene_inBackground","GO_gene_raw_Count","Intersect_gene")))
+mdat<-as.data.frame(mdat)
+for(i in 1:length(GO_MF_list)){
+
+pathwaygene<-length(intersect(toupper(GO_MF_list[[i]]),
+	union(unique(toupper(GO_GENCODE_df$gene_name)),toupper(unlist(gs)))))
+
+a<-length(intersect(toupper(GO_MF_list[[i]]),unique(toupper(unlist(gs)))))
+b<-Para_PeakGene-a
+c<-pathwaygene-a
+d<-Para_GenesetsGene-a-b-c
+
+Con<-matrix(c(a, b, c, d),nrow = 2, byrow =TRUE)
+mdat[i,1]<-names(GO_MF_list)[i]
+mdat[i,2]<-Des_MF_list[which(names(Des_MF_list)==names(GO_MF_list)[i])]
+mdat[i,3]<-fisher.test(Con)$p.value
+mdat[i,4]<-fisher.test(Con)$estimate
+mdat[i,6]<-a
+mdat[i,7]<-pathwaygene
+mdat[i,8]<-length(GO_MF_list[[i]])
+mdat[i,9]<-paste(intersect(toupper(GO_MF_list[[i]]),
+	unique(toupper(unlist(gs)))),collapse=" ")
+}
+mdat<-mdat[mdat$Intersect_Count>=min_Intersect_Count,]
+mdat$FDR <- p.adjust(mdat[,c("Fisher_Pvalue")],method="BH")
+mdat<-mdat[order(mdat$FDR),]
+row.names(mdat)<-NULL
+GO_FisherTest_result[[n.list]]<-mdat
+rm(mdat)
+names(GO_FisherTest_result)[n.list]<-c("GO_MF")
+}
+}
+
+print("Fisher's exact test done")
+return(GO_FisherTest_result)
+}
+<bytecode: 0x4edffd0>
+<environment: namespace:seq2pathway>
+ --- function search by body ---
+Function FisherTest_GO_BP_MF_CC in namespace seq2pathway has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

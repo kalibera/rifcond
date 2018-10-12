@@ -1,0 +1,209 @@
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following objects are masked from ‘package:Biobase’:
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: ‘DelayedArray’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following objects are masked from ‘package:base’:
+
+    aperm, apply
+
+Loading required package: limma
+
+Attaching package: ‘limma’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    plotMA
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpymGXbM/R.INSTALL11c71d84419d/SVAPLSseq/R/svplsSurr.R#101: 
+ --- package (from environment) --- 
+SVAPLSseq
+ --- call from context --- 
+svplsSurr(dat = sim.dat, group = group)
+ --- call from argument --- 
+if (surr.select == "automatic") {
+    if (!is.null(controls)) 
+        pvals = anova(lm(as.formula(paste("svd(Y[controls, ])$v[, 1] ~", 
+            surr.effect, sep = " "))))[, 5]
+    if (is.null(controls)) 
+        pvals = anova(lm(as.formula(paste("svd(E)$v[, 1] ~", 
+            surr.effect, sep = " "))))[, 5]
+    index = which(pvals < cutoff)
+}
+ --- R stacktrace ---
+where 1: svplsSurr(dat = sim.dat, group = group)
+where 2: eval(expr, .GlobalEnv)
+where 3 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 4 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
+where 5: doTryCatch(return(expr), name, parentenv, handler)
+where 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 7: tryCatchList(expr, classes, parentenv, handlers)
+where 8: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 9 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 10 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
+where 11: tryCatchList(expr, classes, parentenv, handlers)
+where 12 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
+    cat("\n")
+    sink()
+})
+where 13 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 14 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 15 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 16: doTryCatch(return(expr), name, parentenv, handler)
+where 17: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 18: tryCatchList(expr, classes, parentenv, handlers)
+where 19 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 20: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/SVAPLSseq.Rcheck/vign_test/SVAPLSseq")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(dat, group, controls = NULL, phi = function(x) log(x + const), const = 1,
+           pls.method = "oscorespls", max.surrs = 3, opt.surrs = 1, surr.select = c("automatic", "manual"), cutoff = 10^-7, parallel = FALSE,
+           num.cores = NULL, plot = FALSE){
+
+    if (class(dat) == "matrix") data = dat
+    if (class(dat) == "SummarizedExperiment") data = assay(dat)
+    if (class(dat) == "DGEList") data = dat$counts
+    Y = phi(data)
+
+    ###Fit an Initial Model to Y and organize the fitted model residuals into a matrix
+    if (parallel){
+      e = unlist(mclapply(1:nrow(Y), function(u) lm(Y[u, ] ~ group)$resid, mc.cores = num.cores))
+    }
+    if (!parallel) e = unlist(lapply(1:nrow(Y), function(u) lm(Y[u, ] ~ group)$resid))
+
+    E = matrix(e, nrow(Y), ncol(Y), byrow = TRUE)
+
+    ###Extract the signatures of hidden variation using Partial Least Squares
+    if (!is.null(controls)) pls.fit = mvr(t(Y) ~ t(Y[controls, ]), ncomp = max.surrs, method = pls.method)
+    if (is.null(controls)) pls.fit = mvr(t(E) ~ t(Y), ncomp = max.surrs, method = pls.method)
+
+    sc = scores(pls.fit)
+    surr.effect = paste("+", paste("sc[, ", paste(as.character(1:ncol(sc)), "]", sep = ""), sep = "", collapse = "+"), sep = "")
+
+    if (surr.select == "automatic"){
+      if (!is.null(controls)) pvals = anova(lm(as.formula(paste("svd(Y[controls, ])$v[, 1] ~", surr.effect, sep = " "))))[, 5]
+      if (is.null(controls)) pvals = anova(lm(as.formula(paste("svd(E)$v[, 1] ~", surr.effect, sep = " "))))[, 5]
+      index = which(pvals < cutoff)
+    }
+
+    if (surr.select == "manual") index = opt.surrs
+
+    if (length(index) == 0) stop("No Significant Surrogate Variables")
+    if (length(index) > 0){
+      surr = sc[, index]
+
+      if (length(index) == 1) vars = var(surr)
+      if (length(index) > 1)  vars = apply(surr, 2, var)
+      prop.vars = vars/sum(vars)
+
+      if (plot == TRUE){
+        surr.df = as.data.frame(surr[, 1:max.surrs])
+        colnames(surr.df) = paste("surr", as.character(1:max.surrs), sep = "")
+        grp = factor(colnames(surr.df), levels = colnames(surr.df))
+
+        bp.df = data.frame(grp, prop.vars)
+        bp <- qplot(grp, data = bp.df, geom="bar", weight = prop.vars) + scale_x_discrete("Surrogate Variable") + scale_y_continuous("Explained Variance Proportion")
+        bp + theme(axis.text.x = element_text(angle = 0, hjust = 1))
+      }
+
+      res = new("svplsSurr", surr = surr, prop.vars = prop.vars)
+    }
+    return(res)
+  }
+<bytecode: 0x10ec1940>
+<environment: namespace:SVAPLSseq>
+ --- function search by body ---
+Function svplsSurr in namespace SVAPLSseq has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

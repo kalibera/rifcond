@@ -10,7 +10,8 @@ and `_R_CHECK_LENGTH_1_CONDITION_=package:_R_CHECK_PACKAGE_NAME_,abort,verbose`
 statement is in the package being currently checked, so the risk of false
 alarms/false identification of a package to fix, is very small). The outputs
 are from recent CRAN packages and from BIOC 3.7, package versions are
-detailed in the `README` file.
+detailed in the `README` file. The reports in `outputs_38` are for tests
+with BIOC 3.8.
 
 The reports in `outputs_all` use `R_KEEP_PKG_SOURCE=yes` and
 `_R_CHECK_LENGTH_1_CONDITION_=abort,verbose`, which means that R fails on

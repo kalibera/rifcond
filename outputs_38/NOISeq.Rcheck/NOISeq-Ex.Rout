@@ -1,0 +1,600 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "NOISeq"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('NOISeq')
+Loading required package: Biobase
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: splines
+Loading required package: Matrix
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ARSyNSeq")
+> ### * ARSyNSeq
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ARSyNseq
+> ### Title: ASCA Removal of Systematic Noise on Seq data
+> ### Aliases: ARSyNseq arsynseq
+> ### Keywords: ASCA, ANOVA, PCA, batch
+> 
+> ### ** Examples
+> 
+> 
+> # Generating an artificial batch effect from Marioni's data
+> data(Marioni)
+> set.seed(123)
+> mycounts2 = mycounts
+> mycounts2[,1:4] = mycounts2[,1:4] + runif(nrow(mycounts2)*4, 3, 5)
+> myfactors = data.frame(myfactors, "batch" = c(rep(1,4), rep(2,6)))
+> mydata2 = readData(mycounts2, factors = myfactors)
+> 
+> # Exploring batch effect with PCA
+> myPCA = dat(mydata2, type = "PCA")
+> par(mfrow = c(1,2))
+> explo.plot(myPCA, factor = "Tissue")
+> explo.plot(myPCA, factor = "batch")
+> 
+> # Removing batch effect when the batch is identified for each sample and exploring results with PCA
+> mydata2corr1 = ARSyNseq(mydata2, factor = "batch", batch = TRUE, norm = "rpkm",  logtransf = FALSE)
+> myPCA = dat(mydata2corr1, type = "PCA")
+> par(mfrow = c(1,2))
+> explo.plot(myPCA, factor = "Tissue")
+> explo.plot(myPCA, factor = "batch")
+> 
+> # If we consider that exist a batch but it is not identified (we do not know the batch information):
+> mydata2corr2 = ARSyNseq(mydata2, factor = "Tissue", batch = FALSE, norm = "rpkm",  logtransf = FALSE)
+> myPCA = dat(mydata2corr2, type = "PCA")
+> par(mfrow = c(1,2))
+> explo.plot(myPCA, factor = "Tissue")
+> explo.plot(myPCA, factor = "batch")
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("DE.plot")
+> ### * DE.plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Differential expression plots
+> ### Title: Plotting differential expression results
+> ### Aliases: DE.plot
+> 
+> ### ** Examples
+> 
+> ## We load the object generated after running noiseq on Marioni's data
+> data(noiseq)
+> 
+> ## Third, plot the expression values for all genes and highlighting the differentially expressed genes
+> DE.plot(mynoiseq, q = 0.8, graphic = "expr", log.scale = TRUE)
+[1] "1614 differentially expressed features"
+> DE.plot(mynoiseq, q = 0.8, graphic = "MD")
+[1] "1614 differentially expressed features"
+> DE.plot(mynoiseq, chromosomes = c(1,2), log.scale = TRUE,join = FALSE, q = 0.8, graphic = "chrom")
+[1] "REMEMBER. You are plotting these chromosomes and in this order:"
+[1] 1 2
+[1] "1289 differentially expressed features (up in first condition)"
+[1] "325 differentially expressed features (down in first condition)"
+> DE.plot(mynoiseq, chromosomes = NULL, q = 0.8, graphic = "distr")
+[1] "1614 differentially expressed features"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("PCA.GENES")
+> ### * PCA.GENES
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: PCA.GENES
+> ### Title: Principal Component Analysis
+> ### Aliases: PCA.GENES
+> 
+> ### ** Examples
+> 
+> 
+> 	## Simulate data matrix with 500 variables and 10 observations
+> 	datasim = matrix(sample(0:100, 5000, replace = TRUE), nrow = 10)
+> 
+> 	## PCA
+> 	myPCA = PCA.GENES(datasim)
+> 
+> 	## Extracting the variance explained by each principal component
+> 	myPCA$var.exp
+              [,1]      [,2]
+ [1,] 1.349104e-01 0.1349104
+ [2,] 1.245351e-01 0.2594454
+ [3,] 1.204174e-01 0.3798628
+ [4,] 1.148168e-01 0.4946796
+ [5,] 1.115862e-01 0.6062658
+ [6,] 1.059028e-01 0.7121686
+ [7,] 1.025595e-01 0.8147281
+ [8,] 9.535448e-02 0.9100826
+ [9,] 8.991742e-02 1.0000000
+[10,] 6.656920e-17 1.0000000
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("QCreport")
+> ### * QCreport
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: QCreport
+> ### Title: Quality Control report for expression data
+> ### Aliases: QCreport
+> 
+> ### ** Examples
+> 
+> ## Load the input object from Marioni's data as returned by readData()
+> data(myCounts)
+> 
+> ## Generate the report
+> QCreport(mydata, samples = NULL, factor = "Tissue")
+Biotypes detection is to be computed for:
+[1] "Kidney" "Liver" 
+[1] "Counts per million distributions are to be computed for:"
+[1] "Kidney" "Liver" 
+[1] "Counts per million distributions are to be computed for:"
+[1] "Kidney" "Liver" 
+[1] "Length bias detection information is to be computed for:"
+[1] "Kidney" "Liver" 
+[1] "Kidney"
+
+Call:
+lm(formula = datos[, i] ~ bx)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-85.399 -19.603   3.049  25.848  74.827 
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept)   121.33      48.63   2.495  0.02148 * 
+bx1           -34.97      52.24  -0.670  0.51082   
+bx2           269.24      88.41   3.045  0.00639 **
+bx3         -1301.13     719.73  -1.808  0.08570 . 
+bx4          6292.42    4655.39   1.352  0.19158   
+bx5               NA         NA      NA       NA   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 48.63 on 20 degrees of freedom
+Multiple R-squared:  0.4804,	Adjusted R-squared:  0.3764 
+F-statistic: 4.622 on 4 and 20 DF,  p-value: 0.008332
+
+[1] "Liver"
+
+Call:
+lm(formula = datos[, i] ~ bx)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-51.84 -18.19   0.00  21.29  42.30 
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    42.18      29.68   1.421 0.170729    
+bx1            10.75      31.88   0.337 0.739524    
+bx2           222.14      53.96   4.117 0.000535 ***
+bx3         -1141.68     439.26  -2.599 0.017161 *  
+bx4          5758.12    2841.23   2.027 0.056243 .  
+bx5               NA         NA      NA       NA    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 29.68 on 20 degrees of freedom
+Multiple R-squared:  0.5228,	Adjusted R-squared:  0.4273 
+F-statistic: 5.477 on 4 and 20 DF,  p-value: 0.003815
+
+[1] "GC content bias detection is to be computed for:"
+[1] "Kidney" "Liver" 
+[1] "Kidney"
+
+Call:
+lm(formula = datos[, i] ~ bx)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-38.136  -4.568   0.832  10.406  48.852 
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  89.4686    20.2643   4.415 0.000267 ***
+bx1           0.2447    28.1216   0.009 0.993144    
+bx2         177.5119    36.0617   4.922 8.22e-05 ***
+bx3         -68.5025    57.1321  -1.199 0.244534    
+bx4         107.6385    64.0141   1.681 0.108220    
+bx5               NA         NA      NA       NA    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 20.26 on 20 degrees of freedom
+Multiple R-squared:  0.6192,	Adjusted R-squared:  0.543 
+F-statistic:  8.13 on 4 and 20 DF,  p-value: 0.0004613
+
+[1] "Liver"
+
+Call:
+lm(formula = datos[, i] ~ bx)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-29.424  -9.185   0.000   9.384  22.594 
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept)   49.862     15.000   3.324  0.00338 **
+bx1           22.700     20.816   1.091  0.28845   
+bx2           75.753     26.694   2.838  0.01017 * 
+bx3            7.595     42.291   0.180  0.85927   
+bx4           18.511     47.385   0.391  0.70019   
+bx5               NA         NA      NA       NA   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 15 on 20 degrees of freedom
+Multiple R-squared:  0.4385,	Adjusted R-squared:  0.3262 
+F-statistic: 3.904 on 4 and 20 DF,  p-value: 0.01678
+
+[1] "Reference sample is: R1L1Kidney"
+[1] "Confidence intervals for median of M:"
+           0.28%                 99.72%                Diagnostic Test
+R1L2Liver  "-0.885386943079506"  "-0.778175457057378"  "FAILED"       
+R1L3Kidney "-0.0471703644087826" "-0.0471703644087824" "FAILED"       
+R1L4Liver  "-0.882004637125138"  "-0.760787865621193"  "FAILED"       
+R1L6Liver  "-0.915433348289652"  "-0.766014578345276"  "FAILED"       
+R1L7Kidney "0.0348451027997053"  "0.0348451027997056"  "FAILED"       
+R1L8Liver  "-0.900091572461633"  "-0.769380953078242"  "FAILED"       
+R2L2Kidney "-0.0850229820491386" "-0.0472529035420782" "FAILED"       
+R2L3Liver  "-0.874045752274301"  "-0.753177072656832"  "FAILED"       
+R2L6Kidney "-0.0720117497246753" "-0.0367786558837124" "FAILED"       
+[1] "Diagnostic test: FAILED. Normalization is required to correct this bias."
+[1] "Percentage of protein_coding biotype in each sample:"
+ Kidney   Liver 
+87.4017 87.7358 
+[1] "Confidence interval at 95% for the difference of percentages: Kidney - Liver"
+[1] -1.6359  0.9676
+[1] "The percentage of this biotype is NOT significantly different for these two samples (p-value = 0.6307 )."
+pdf 
+  2 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dat")
+> ### * dat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Data_Exploration
+> ### Title: Exploration of expression data.
+> ### Aliases: dat
+> 
+> ### ** Examples
+> 
+> ## Load the input object with the expression data and the annotations
+> data(myCounts)
+> 
+> ## Generating data for the plot "biodetection" and samples in columns 3 and 4 of expression data
+> mydata2plot = dat(mydata, type = "biodetection", k = 0)
+Biotypes detection is to be computed for:
+ [1] "R1L1Kidney" "R1L2Liver"  "R1L3Kidney" "R1L4Liver"  "R1L6Liver" 
+ [6] "R1L7Kidney" "R1L8Liver"  "R2L2Kidney" "R2L3Liver"  "R2L6Kidney"
+> 
+> ## Generating the corresponding plot
+> explo.plot(mydata2plot, samples = c(3,4))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpfmLa2u/R.INSTALL9f0f42cda1aa/NOISeq/R/biodetection.plot.R#157: 
+ --- package (from environment) --- 
+NOISeq
+ --- call from context --- 
+biodetection.plot(object@dat, samples = samples, plottype = plottype, 
+    toplot = toplot, ...)
+ --- call from argument --- 
+if (plottype == "persample") {
+    barplot(biotable1[c(1, 3), ], main = samples[1], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c("grey", 2), las = 2, ylim = c(0, ymaxL), border = c("grey", 
+            2))
+    barplot(biotable1[c(2, 4), ], main = samples[1], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c(2, 1), las = 2, density = 30, ylim = c(0, ymaxL), 
+        border = 2, add = TRUE)
+    if (ymaxR > 0) {
+        axis(side = 4, at = pretty(c(0, ymaxL), n = 5), labels = round(pretty(c(0, 
+            ymaxL), n = 5) * ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+    }
+    legend(x = "topright", bty = "n", horiz = FALSE, fill = c("grey", 
+        2, 2), density = c(NA, 30, NA), border = c("grey", 2, 
+        2), legend = c("% in genome", "detected", "% in sample"))
+    barplot(biotable2[c(1, 3), ], main = samples[2], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c("grey", 4), las = 2, ylim = c(0, ymaxL), border = c("grey", 
+            4))
+    barplot(biotable2[c(2, 4), ], main = samples[2], xlab = NULL, 
+        ylab = "%features", axis.lty = 1, legend = FALSE, beside = TRUE, 
+        col = c(4, 1), las = 2, density = 30, ylim = c(0, ymaxL), 
+        border = 4, add = TRUE)
+    if (ymaxR > 0) {
+        axis(side = 4, at = pretty(c(0, ymaxL), n = 5), labels = round(pretty(c(0, 
+            ymaxL), n = 5) * ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+    }
+    legend(x = "topright", bty = "n", horiz = FALSE, fill = c("grey", 
+        4, 4), density = c(NA, 30, NA), border = c("grey", 4, 
+        4), legend = c("% in genome", "detected", "% in sample"))
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpfmLa2u/R.INSTALL9f0f42cda1aa/NOISeq/R/classes.R#11: biodetection.plot(object@dat, samples = samples, plottype = plottype, 
+    toplot = toplot, ...)
+where 2: .local(object, ...)
+where 3 at /var/scratch2/tomas/tmp/RtmpfmLa2u/R.INSTALL9f0f42cda1aa/NOISeq/R/classes.R#9: explo.plot(mydata2plot, samples = c(3, 4))
+where 4: explo.plot(mydata2plot, samples = c(3, 4))
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(dat, samples = c(1,2), plottype = "persample", 
+                              toplot = "protein_coding", toreport = FALSE,...) {  
+  
+  mypar = par(no.readonly = TRUE)
+
+  if (length(samples) > 2) {
+    stop("ERROR: This function cannot generate plots for more than 2 samples.\n 
+         Please, use it as many times as needed to generate the plots for all your samples.\n")
+  }
+  
+  if (is.numeric(samples)) samples = names(dat$biotables)[samples]
+    
+  biotable1 <- rbind(dat$genome, dat$biotables[[samples[1]]], rep(0, length(dat$genome)))
+  
+    
+  
+  # Computing ylim for left and right axis
+     
+  if (ncol(biotable1) >= 3) {
+    ymaxL <- ceiling(max(biotable1[,1:3], na.rm = TRUE))
+    ymaxR <- max(biotable1[,-c(1:3)], na.rm = TRUE)        
+  } else {
+    ymaxL <- ceiling(max(biotable1, na.rm = TRUE))
+    ymaxR = 0 
+  } 
+  
+  
+  if (length(samples) == 2) {
+    
+    biotable2 <- rbind(dat$genome, dat$biotables[[samples[2]]], rep(0, length(dat$genome)))
+    
+    if (ncol(biotable2) >= 3) {
+      ymax2 <- ceiling(max(biotable2[,1:3], na.rm = TRUE))
+      ymax2sin <- max(biotable2[,-c(1:3)], na.rm = TRUE)
+      ymaxR <- ceiling(max(ymaxR, ymax2sin))
+    } else {
+      ymax2 <- ceiling(max(biotable2, na.rm = TRUE))      
+    }    
+    
+    ymaxL = max(ymaxL, ymax2)   
+  }
+  
+  
+  
+  # Rescaling biotables (datos2)
+  if (length(samples) == 2) {        
+    if (ncol(biotable2) >= 3) biotable2[,-c(1:3)] <- biotable2[,-c(1:3)]*ymaxL/ymaxR    
+  }  
+  
+  # Rescaling biotables (datos1)  
+  if (ncol(biotable1) >= 3) biotable1[,-c(1:3)] <- biotable1[,-c(1:3)]*ymaxL/ymaxR
+  
+  
+  ## PLOTS
+    
+  if (length(samples) == 1) {   # Plot (1 sample) - 2 scales    
+    
+    par(mar = c(11, 4, 2, 2))
+    
+    barplot(biotable1[c(1,3),], main = samples[1],
+            xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+            beside = TRUE, col = c("grey", 2), las = 2,
+            ylim = c(0, ymaxL), border = c("grey", 2))
+    
+    barplot(biotable1[c(2,4),], main = samples[1],
+            xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+            beside = TRUE, col = c(2, 1), las = 2, density = 30,
+            ylim = c(0, ymaxL), border = 2, add = TRUE)    
+    
+    if (ymaxR > 0) {  # if number of biotypes >= 3 so we have left and right axis
+      axis(side=4, at = pretty(c(0,ymaxL), n = 5), 
+           labels = round(pretty(c(0,ymaxL), n = 5)*ymaxR/ymaxL, 1))    
+      abline(v = 9.5, col = 3, lwd = 2, lty = 2)        
+    }    
+    
+    legend(x = "topright", bty = "n", horiz = FALSE,
+           fill = c("grey", 2, 2), density = c(NA,30,NA),
+           border = c("grey", 2, 2),
+           legend = c("% in genome", "detected", "% in sample"))
+    
+    
+  } else {   # Plot (2 samples)    
+    
+    par(mar = c(11, 4, 2, 2))    
+    
+    if (plottype == "persample") {    ### A plot for each sample separately
+      
+      # Datos1
+      barplot(biotable1[c(1,3),], main = samples[1],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c("grey", 2), las = 2,
+              ylim = c(0, ymaxL), border = c("grey", 2))
+      
+      barplot(biotable1[c(2,4),], main = samples[1],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c(2, 1), las = 2, density = 30,
+              ylim = c(0, ymaxL), border = 2, add = TRUE)
+      
+      if (ymaxR > 0) {   # if number of biotypes >= 3 so we have left and right axis
+        axis(side=4, at = pretty(c(0,ymaxL), n = 5), 
+             labels = round(pretty(c(0,ymaxL), n = 5)*ymaxR/ymaxL, 1))      
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+      }  
+      
+      legend(x = "topright", bty = "n", horiz = FALSE,
+             fill = c("grey", 2, 2), density = c(NA,30,NA), border = c("grey", 2, 2),
+             legend = c("% in genome", "detected", "% in sample"))
+      
+      
+      # Datos2        
+      barplot(biotable2[c(1,3),], main = samples[2],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c("grey", 4), las = 2,
+              ylim = c(0, ymaxL), border = c("grey", 4))
+      
+      barplot(biotable2[c(2,4),], main = samples[2],
+              xlab = NULL, ylab = "%features", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c(4, 1), las = 2, density = 30,
+              ylim = c(0, ymaxL), border = 4, add = TRUE)
+      
+      if (ymaxR > 0) {   # if number of biotypes >= 3 so we have left and right axis
+        axis(side=4, at = pretty(c(0,ymaxL), n = 5), 
+             labels = round(pretty(c(0,ymaxL), n = 5)*ymaxR/ymaxL, 1))
+        abline(v = 9.5, col = 3, lwd = 2, lty = 2)
+      }      
+      
+      legend(x = "topright", bty = "n", horiz = FALSE, 
+             fill = c("grey", 4, 4), density = c(NA,30,NA),
+             border = c("grey", 4, 4),
+             legend = c("% in genome", "detected", "% in sample"))
+      
+    }
+
+    
+    if (plottype == "comparison") {   ## A plot comparing two samples with regard to genome and for % in sample
+      
+      lefttable = rbind(100*dat$biotables[[samples[1]]][1,]/dat$genome, 100*dat$biotables[[samples[2]]][1,]/dat$genome)     
+      
+      righttable = rbind(dat$biotables[[samples[1]]][2,], dat$biotables[[samples[2]]][2,])
+      
+      if (length(toplot) > 1) {
+        toplot = toplot[1]
+        print("WARNING: More than one biotype was provided, the proportion test will only by applied to the first biotype.")
+      }
+      
+      if ((toplot != 1) && (toplot != "global")) {         
+        numgenes = dat$genomesize
+        myx = round(righttable[,toplot]*numgenes/100, 0)
+        mytest = prop.test(x = myx, n = rep(numgenes, 2), alternative = "two.sided")
+        if (is.numeric(toplot)) toplot = colnames(righttable)[toplot]
+      }
+      
+      asumar = colSums(righttable)
+      asumar = which(asumar < 0.25)
+      if (length(asumar) > 1) {
+        righttable = cbind(righttable[,-asumar], rowSums(righttable[,asumar]))
+        colnames(righttable)[ncol(righttable)] = "Others"
+      }            
+      
+      # Detection in the genome
+      bbb = barplot(lefttable, main = "Biotype detection over genome total",
+                    xlab = NULL, ylab = "% detected features", axis.lty = 1, legend = FALSE, cex.names = 0.8,
+                    beside = TRUE, col = c(2,4), las = 2, density = 80, border = c(2,4), ylim = c(0,100))    
+      bbb = colSums(bbb)/2
+      lines(bbb, dat$genome, pch = 20, type = "o", lwd = 2)
+      
+      
+      # %detection in the sample        
+      barplot(righttable, main = "Relative biotype abundance in sample",
+              xlab = NULL, ylab = "Relative % biotypes", axis.lty = 1, legend = FALSE,
+              beside = TRUE, col = c(2, 4), las = 2, border = c(2,4))
+                  
+      legend(x = "topright", bty = "n", horiz = FALSE, pch = c(15,15,20), lwd = c(NA,NA,1), legend = c(samples, "% in genome"),
+             col = c(2,4,1))
+      
+      if ((toplot != 1) && (toplot != "global")) {        
+        print(paste("Percentage of", toplot, "biotype in each sample:"))
+        names(mytest$estimate) = samples
+        print(round(mytest$estimate*100, 4))
+        print(paste("Confidence interval at 95% for the difference of percentages:", samples[1], "-", samples[2]))
+        print(round(mytest$conf.int[1:2]*100, 4))
+        if (mytest$p.value < 0.05) {
+          print(paste("The percentage of this biotype is significantly DIFFERENT for these two samples (p-value =",
+                      signif(mytest$p.value, 4), ")."))
+        } else {
+          print(paste("The percentage of this biotype is NOT significantly different for these two samples (p-value =",
+                      signif(mytest$p.value, 4), ")."))
+        }       
+      }      
+    }
+    
+    
+  }
+  
+  # Reset with the default values
+  if (!toreport) par(mypar)
+  
+  
+}
+<bytecode: 0x8a2c128>
+<environment: namespace:NOISeq>
+ --- function search by body ---
+Function biodetection.plot in namespace NOISeq has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

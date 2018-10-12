@@ -1,0 +1,392 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/biovizBase.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘biovizBase/DESCRIPTION’ ... OK
+* this is package ‘biovizBase’ version ‘1.29.2’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘biovizBase’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  'BSgenome' 'rtracklayer'
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+genSymbols: no visible binding for global variable 'start_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:105-106)
+genSymbols: no visible binding for global variable 'end_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:105-106)
+genSymbols: no visible binding for global variable 'start_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:107-108)
+genSymbols: no visible binding for global variable 'end_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:107-108)
+genSymbols: no visible binding for global variable 'start_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:110)
+genSymbols: no visible binding for global variable 'end_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:110)
+genSymbols: no visible binding for global variable 'Chromosome'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:119-123)
+genSymbols: no visible binding for global variable 'start_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:119-123)
+genSymbols: no visible binding for global variable 'end_location'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:119-123)
+genSymbols: no visible binding for global variable 'symbol'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/utils.R:119-123)
+transformToLinkInCircle: no visible binding for global variable
+  '.circle.x'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/transform.R:434)
+transformToLinkInCircle: no visible binding for global variable
+  '.circle.y'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/transform.R:434)
+transformToLinkInCircle : <anonymous>: no visible binding for global
+  variable 'from.x'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/transform.R:447)
+transformToLinkInCircle : <anonymous>: no visible binding for global
+  variable 'from.y'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/transform.R:447)
+transformToLinkInCircle : <anonymous>: no visible binding for global
+  variable 'to.x'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/transform.R:447)
+transformToLinkInCircle : <anonymous>: no visible binding for global
+  variable 'to.y'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/transform.R:447)
+mold,ExpressionSet: no visible global function definition for 'exprs'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/mold-method.R:55)
+mold,ExpressionSet: no visible global function definition for 'pData'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/mold-method.R:56)
+mold,ExpressionSet: no visible global function definition for 'exprs'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/mold-method.R:57)
+mold,RleList: no visible binding for global variable 'xRleList'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/mold-method.R:162)
+mold,eSet: no visible global function definition for 'phenoData'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/mold-method.R:5)
+mold,eSet: no visible global function definition for 'melt'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/mold-method.R:8)
+mold,eSet: no visible global function definition for 'varLabels'
+  (/var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/mold-method.R:8)
+Undefined global functions or variables:
+  .circle.x .circle.y Chromosome end_location exprs from.x from.y melt
+  pData phenoData start_location symbol to.x to.y varLabels xRleList
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘biovizBase-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: crunch
+> ### Title: Fetching GRanges from various data source
+> ### Aliases: crunch crunch,TxDb-method crunch,EnsDb-method
+> ###   crunch,GAlignments-method crunch,BamFile-method
+> 
+> ### ** Examples
+> 
+> library(biovizBase)
+> library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+Loading required package: GenomicFeatures
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:parallel':
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: 'S4Vectors'
+
+The following object is masked from 'package:base':
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: GenomicRanges
+Loading required package: AnnotationDbi
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+> data(genesymbol, package = "biovizBase")
+> txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+> obj <- txdb
+> temp <- crunch(txdb, which = genesymbol["BRCA1"], type = "all")
+Parsing transcripts...
+Parsing exons...
+Parsing cds...
+Parsing utrs...
+------exons...
+------cdss...
+------introns...
+------utr...
+aggregating...
+Done
+> temp <- crunch(txdb, which = genesymbol["BRCA1"], type = "reduce")
+Parsing transcripts...
+Parsing exons...
+Parsing cds...
+Parsing utrs...
+------exons...
+------cdss...
+------introns...
+------utr...
+aggregating...
+Done
+> 
+> ## Fetching data from a EnsDb object.
+> library(EnsDb.Hsapiens.v75)
+Loading required package: ensembldb
+Loading required package: AnnotationFilter
+
+Attaching package: 'ensembldb'
+
+The following object is masked from 'package:stats':
+
+    filter
+
+> edb <- EnsDb.Hsapiens.v75
+> gr <- genesymbol["BRCA1"]
+> seqlevels(gr) <- sub(seqlevels(gr), pattern="chr", replacement="")
+> temp <- crunch(edb, which = gr)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/crunch-method.R#284: 
+ --- package (from environment) --- 
+biovizBase
+ --- call from context --- 
+.local(obj, ...)
+ --- call from argument --- 
+if (!is.na(genome(which))) {
+    if (unname(genome(which)) != unique(unname(genome(obj)))) 
+        stop("Genome versions do not fit! Argument 'which' has ", 
+            unname(genome(which)), " argument 'obj' ", unname(unique(genome(which))), 
+            "!")
+}
+ --- R stacktrace ---
+where 1: .local(obj, ...)
+where 2 at /var/scratch2/tomas/tmp/RtmpdfCe3W/R.INSTALL9aca5a3503a8/biovizBase/R/crunch-method.R#1: crunch(edb, which = gr)
+where 3: crunch(edb, which = gr)
+
+ --- value of length: 45 type: logical ---
+                 1                 10                 11                 12 
+             FALSE              FALSE              FALSE              FALSE 
+                13                 14                 15                 16 
+             FALSE              FALSE              FALSE              FALSE 
+                17       17_ctg5_hap1 17_gl000205_random                 18 
+             FALSE              FALSE              FALSE              FALSE 
+                19 19_gl000209_random  1_gl000191_random                  2 
+             FALSE              FALSE              FALSE              FALSE 
+                20                 21                 22                  3 
+             FALSE              FALSE              FALSE              FALSE 
+                 4        4_ctg9_hap1  4_gl000194_random                  5 
+             FALSE              FALSE              FALSE              FALSE 
+                 6         6_apd_hap1         6_cox_hap2         6_dbb_hap3 
+             FALSE              FALSE              FALSE              FALSE 
+       6_mann_hap4         6_mcf_hap5         6_qbl_hap6        6_ssto_hap7 
+             FALSE              FALSE              FALSE              FALSE 
+                 7                  8                  9        Un_gl000211 
+             FALSE              FALSE              FALSE              FALSE 
+       Un_gl000212        Un_gl000218        Un_gl000219        Un_gl000220 
+             FALSE              FALSE              FALSE              FALSE 
+       Un_gl000222        Un_gl000223        Un_gl000228                  X 
+             FALSE              FALSE              FALSE              FALSE 
+                 Y 
+             FALSE 
+ --- function from context --- 
+function(obj, which,
+                                      columns = c("tx_id",
+                                                  "gene_name",
+                                                  "gene_id"),
+                                      type = c("all", "reduce"),
+                                      truncate.gaps = FALSE,
+                                      truncate.fun = NULL,
+                                      ratio = 0.0025){
+    type <- match.arg(type)
+    ## If which is a GRanges convert that to a GRangesFilter, otherwise just
+    ## pass on the "which" parameter as argument "filter" to the ensembldb
+    ## methods.
+    if(is(which, "GRanges")) {
+        if(length(which) == 0) {
+            message("No transcripts found at this region.")
+            return(GRanges())
+        }
+        if(length(which) > 1)
+            stop("'which' has to be a single GRanges object.")
+        if(!is.na(genome(which))){
+            if(unname(genome(which)) != unique(unname(genome(obj))))
+                stop("Genome versions do not fit! Argument 'which' has ",
+                     unname(genome(which)), " argument 'obj' ",
+                     unname(unique(genome(which))), "!")
+        }
+        ## Check if we've got the seqnames.
+        if(!(seqlevels(which) %in% seqlevels(obj)))
+            stop(seqlevels(which), " does not match any seqlevel in argument 'obj'!")
+        exFilter <- GRangesFilter(which, type = "any")
+    } else exFilter <- which
+    ## Check input argument 'columns':
+    notAvailable <- !(columns %in% listColumns(obj))
+    if(any(notAvailable)){
+        if(all(notAvailable))
+            stop("None of the columns specified by arguments 'columns' are available!",
+                 " Allowed values are:", paste(listColumns(obj), collapse=", "), ".")
+        ## Reducing to those which are allowed...
+        warning("Columns ", paste(columns[notAvailable], collapse=", "), " are not",
+                " available in the database and have been removed.")
+        columns <- columns[!notAvailable]
+    }
+    ## Approach:
+    ## 1) Get all exons in that region and retrieve also the
+    ##    tx_coding_seq_start. We're fetching the data just once and
+    ##    calculating everything we need from that, i.e. cds, utr and introns.
+    message("Fetching data...", appendLF=FALSE)
+    requiredCols <- c("tx_cds_seq_start", "tx_cds_seq_end", "exon_id", "tx_id")
+    ## Forcing tx_id on the columns:
+    columns <- unique(c(columns, "tx_id"))
+    ## In order to solve also the "overlapping" condition I have first to fetch
+    ## the transcripts in the region and their exons. That way we get, for a
+    ## GRangesFilter or GRanges all transcripts that have an exon or an intron
+    ## at the specified region.
+    txInRegion <- transcripts(obj, filter = exFilter)
+    if(length(txInRegion) == 0){
+        message("No transcripts found at this region.")
+        return(GRanges())
+    }
+    regExons <- exons(obj, filter = TxIdFilter(unique(txInRegion$tx_id)),
+                      columns = unique(c(requiredCols, columns)))
+    ## Simple sanitizing: check if what we got is on the same chromosome!
+    if(length(unique(as.character(seqnames(regExons)))) > 1)
+        stop("Got features from different chromosomes! Please adjust argument",
+             " 'which' in order to fetch only features from a single chromosome.")
+    message("OK")
+    if(length(regExons) > 0){
+        message("Parsing exons...", appendLF=FALSE)
+        ## Get an DataFrame that we can use as mcols for the GRanges:
+        mDf <- unique(mcols(regExons)[, columns])
+        ## Actually, with this I have all I need.
+        ## 2) Define introns.
+        regExonsList <- split(regExons, regExons$tx_id)
+        message("OK\nDefining introns...", appendLF=FALSE)
+        ints <- gaps(ranges(regExonsList))
+        ints <- unlist(ints)
+        if(length(ints) > 0){
+            regIntrons <- GRanges(seqnames=unique(seqnames(regExons)), ranges=ints,
+                                  strand="*",
+                                  mDf[match(names(ints), mDf$tx_id), ])
+            regIntrons$type <- "gap"
+        }else{
+            regIntrons <- GRanges()
+        }
+        message("OK\nDefining UTRs...", appendLF=FALSE)
+        ## 3) Define UTRs.
+        codingTx <- regExons[!is.na(regExons$tx_cds_seq_end)]
+        if(length(codingTx) > 0){
+            ## Define the whole CDS region per tx
+            codingReg <- GRanges(seqnames=seqnames(codingTx),
+                                 ranges=IRanges(codingTx$tx_cds_seq_start,
+                                                codingTx$tx_cds_seq_end),
+                                 strand=strand(codingTx),
+                                 tx_id=codingTx$tx_id)
+            codingTx <- split(codingTx, codingTx$tx_id)
+            ## Subset to one CDS region per tx and split
+            codingReg <- codingReg[match(names(codingTx), codingReg$tx_id)]
+            codingReg <- split(codingReg, codingReg$tx_id)
+            regUTRs <- unlist(setdiff(codingTx, codingReg))
+            mcols(regUTRs) <- mDf[match(names(regUTRs), mDf$tx_id), ]
+            regUTRs$type <- "utr"
+            message("OK\nDefining CDS...", appendLF=FALSE)
+            ## 4) Define CDS
+            regCDSs <- unlist(intersect(codingTx, codingReg))
+            mcols(regCDSs) <- mDf[match(names(regCDSs), mDf$tx_id), ]
+            regCDSs$type <- "cds"
+        }else{
+            regUTRs <- GRanges()
+            regCDSs <- GRanges()
+        }
+        message("OK\n", appendLF=FALSE)
+        regExons <- regExons[, columns]
+        regExons$type <- "exon"
+        ensRes <- c(regExons, regIntrons, regUTRs, regCDSs)
+    }else{
+        warning("Did not find any transcript at the specified region!")
+        return(GRanges())
+    }
+    return(reduceNtruncate(ensRes, type=type, truncate.gaps=truncate.gaps,
+                           truncate.fun=truncate.fun, ratio=ratio))
+
+}
+<environment: namespace:biovizBase>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘runTests.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 4 NOTEs

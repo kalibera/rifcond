@@ -1,0 +1,166 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(AgreementInterval)
+Loading required package: psych
+
+Attaching package: 'psych'
+
+The following object is masked from 'package:testthat':
+
+    describe
+
+> 
+> test_check("AgreementInterval")
+a  and  b agree with each other at discordance rate of 0.05 with tolerance probability of 0.23 from sample size n= 5 .
+
+Tomography  and  Urography agree with each other at discordance rate of 0.05 with tolerance probability of 0.49 from sample size n= 52 .
+
+Urography  and  Tomography agree with each other at discordance rate of 0.05 with tolerance probability of 0.49 from sample size n= 52 .
+Given clinical relevant limit, Urography  and  Tomography agree with each other at discordance rate of 0.124 with tolerance probability of 0.64 from the same sample size n= 52 .
+
+Tomography  and  Urography agree with each other at discordance rate of 0.05 with tolerance probability of 0.49 from sample size n= 52 .
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpjv7sJq/R.INSTALLbc343f6e0758/AgreementInterval/R/tolProb.R#25: 
+ --- package (from environment) --- 
+AgreementInterval
+ --- call from context --- 
+tolProb(n = 3, k = c(2, 3))
+ --- call from argument --- 
+if (!is.numeric(n) | length(n) != 1 | !is.numeric(k) | length(k) != 
+    1 | n < k) stop("Please enter n and k as a integer with n>=k")
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpRL3UW2/R.INSTALL578a80714d9/rlang/R/eval.R#103: tolProb(n = 3, k = c(2, 3))
+where 2 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/expectation.R#99: eval_bare(get_expr(quo), get_env(quo))
+where 3: doTryCatch(return(expr), name, parentenv, handler)
+where 4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 5: tryCatchList(expr, classes, parentenv, handlers)
+where 6 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/capture-condition.R#36: tryCatch({
+    code
+    NULL
+}, error = function(e) e)
+where 7 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/expectation.R#99: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+where 8 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/expect-output.R#120: quasi_capture(enquo(object), capture_error, label = label)
+where 9 at testthat/test-tolProb.R#10: expect_error(tolProb(n = 3, k = c(2, 3)))
+where 10: eval(code, test_env)
+where 11 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#152: eval(code, test_env)
+where 12 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 13: doTryCatch(return(expr), name, parentenv, handler)
+where 14: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 15: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 16: doTryCatch(return(expr), name, parentenv, handler)
+where 17: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 18: tryCatchList(expr, classes, parentenv, handlers)
+where 19 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 20 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 21 at testthat/test-tolProb.R#7: test_that("tolProb errors correctly", {
+    expect_error(tolProb(n = 3, k = "a"))
+    expect_error(tolProb(n = 3, k = 4))
+    expect_error(tolProb(n = 3, k = c(2, 3)))
+    expect_error(tolProb(n = c(3, 4), 2))
+})
+where 22: eval(code, test_env)
+where 23 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#152: eval(code, test_env)
+where 24 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 25: doTryCatch(return(expr), name, parentenv, handler)
+where 26: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 27: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 28: doTryCatch(return(expr), name, parentenv, handler)
+where 29: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 30: tryCatchList(expr, classes, parentenv, handlers)
+where 31 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 32 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 33 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 34 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/reporter-zzz.R#53: force(code)
+where 35 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 36: FUN(X[[i]], ...)
+where 37 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 38 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/reporter-zzz.R#53: force(code)
+where 39 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 40 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 41 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 42 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 43: test_check("AgreementInterval")
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function(n, k, alpha=0.05){
+  if (!is.numeric(n) | length(n)!=1 |
+      !is.numeric(k) | length(k)!=1 | n<k)
+    stop("Please enter n and k as a integer with n>=k")
+ i=0:k
+ x1=choose(n, i)
+ x2=(1-alpha)^(n-i)
+ x3=alpha^i
+ x0=sum(x1*x2*x3)
+ beta=1-x0
+ return(beta)
+}
+<bytecode: 0x3b75800>
+<environment: namespace:AgreementInterval>
+ --- function search by body ---
+Function tolProb in namespace AgreementInterval has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

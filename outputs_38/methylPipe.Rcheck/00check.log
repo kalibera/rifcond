@@ -1,0 +1,268 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/methylPipe.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘methylPipe/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘methylPipe’ version ‘1.15.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘methylPipe’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+BSprepare : binomTestMulti: no visible global function definition for
+  'binom.test'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:204-205)
+BSprepare : binomTestMulti : pVfun: no visible global function
+  definition for 'binom.test'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:208-210)
+BSprepare : binomTestMulti: no visible global function definition for
+  'p.adjust'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:213)
+chiCombP: no visible global function definition for 'pchisq'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:302)
+consolidateDMRs: no visible global function definition for 'p.adjust'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:326)
+plotMeth: no visible global function definition for 'rainbow'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:979)
+process.hmc: no visible global function definition for 'write.table'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:30)
+process.hmc: no visible global function definition for 'write.table'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R:33)
+findDMR,BSdataSet : DMRchr: no visible global function definition for
+  'kruskal.test'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:290-292)
+findDMR,BSdataSet : DMRchr: no visible global function definition for
+  'wilcox.test'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:322-323)
+findDMR,BSdataSet: no visible global function definition for
+  'stopCluster'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:369)
+findPMDs,BSdata : PMDchr: no visible global function definition for
+  'segmentPMDs'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:145)
+mCsmoothing,BSdata: no visible global function definition for
+  'smooth.spline'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:101-102)
+mCsmoothing,BSdata: no visible global function definition for 'box'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:112)
+mCsmoothing,BSdata: no visible global function definition for 'axis'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:113)
+mCsmoothing,BSdata: no visible global function definition for 'axis'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:114-115)
+mCsmoothing,BSdata: no visible global function definition for 'mtext'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:116)
+mCsmoothing,BSdata: no visible global function definition for 'mtext'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:117)
+methstats,BSdataSet: no visible global function definition for
+  'stopCluster'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:482)
+methstats,BSdataSet : panel.cor: no visible global function definition
+  for 'par'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:510)
+methstats,BSdataSet : panel.cor: no visible global function definition
+  for 'par'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:511)
+methstats,BSdataSet : panel.cor: no visible global function definition
+  for 'cor.test'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:514)
+methstats,BSdataSet : panel.cor: no visible global function definition
+  for 'text'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:516)
+methstats,BSdataSet : panel.cor: no visible global function definition
+  for 'text'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:517)
+methstats,BSdataSet : panel.smooth: no visible global function
+  definition for 'points'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:523)
+methstats,BSdataSet : panel.smooth: no visible global function
+  definition for 'lines'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:525-527)
+methstats,BSdataSet : panel.hist: no visible global function definition
+  for 'par'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:532)
+methstats,BSdataSet : panel.hist: no visible global function definition
+  for 'par'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:533)
+methstats,BSdataSet : panel.hist: no visible global function definition
+  for 'par'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:534)
+methstats,BSdataSet : panel.hist: no visible global function definition
+  for 'hist'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:535)
+methstats,BSdataSet : panel.hist: no visible global function definition
+  for 'rect'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:538)
+methstats,BSdataSet: no visible global function definition for 'pairs'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:541-542)
+methstats,BSdataSet: no visible global function definition for 'dist'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:546)
+methstats,BSdataSet: no visible global function definition for 'hclust'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:547)
+methstats,BSdataSet: no visible global function definition for
+  'dev.new'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:548)
+methstats,BSdataSet: no visible global function definition for 'plot'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:549)
+show,BSdata: no visible global function definition for 'organism'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdata-methods.R:11)
+show,BSdataSet: no visible global function definition for 'organism'
+  (/var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/BSdataSet-methods.R:12)
+Undefined global functions or variables:
+  axis binom.test box cor.test dev.new dist hclust hist kruskal.test
+  lines mtext organism p.adjust pairs par pchisq plot points rainbow
+  rect segmentPMDs smooth.spline stopCluster text wilcox.test
+  write.table
+Consider adding
+  importFrom("grDevices", "dev.new", "rainbow")
+  importFrom("graphics", "axis", "box", "hist", "lines", "mtext",
+             "pairs", "par", "plot", "points", "rect", "text")
+  importFrom("stats", "binom.test", "cor.test", "dist", "hclust",
+             "kruskal.test", "p.adjust", "pchisq", "smooth.spline",
+             "wilcox.test")
+  importFrom("utils", "write.table")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented S4 methods:
+  generic '[' and siglist 'BSdataSet,ANY,ANY,ANY'
+  generic '[' and siglist 'GElist,ANY,ANY,ANY'
+All user-level objects in a package (including S4 classes and methods)
+should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘methylPipe-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: GEcollection-class
+> ### Title: Class "GEcollection"
+> ### Aliases: GEcollection-class GEcollection show,GEcollection-method
+> ###   chr,GEcollection-method binC,GEcollection-method
+> ###   binmC,GEcollection-method binrC,GEcollection-method
+> ###   nbins,GEcollection-method length,GEcollection-method
+> ###   binscore,GEcollection-method binscore<-,GEcollection-method chr binC
+> ###   binmC binrC nbins binscore length binscore<-
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> require(BSgenome.Hsapiens.UCSC.hg18)
+Loading required package: BSgenome.Hsapiens.UCSC.hg18
+Loading required package: BSgenome
+Loading required package: rtracklayer
+> uncov_GR <- GRanges(Rle('chr20'), IRanges(c(14350,69251,84185), c(18349,73250,88184)))
+> H1data <- system.file('extdata', 'H1_chr20_CG_10k_tabix_out.txt.gz', package='methylPipe')
+> H1.db <- BSdata(file=H1data, uncov=uncov_GR, org=Hsapiens)
+> gr_file <- system.file('extdata', 'GR_chr20.Rdata', package='methylPipe')
+> load(gr_file)
+> gec.H1 <- profileDNAmetBin(GenoRanges=GR_chr20, Sample=H1.db, mcCLASS='mCG')
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R#635: 
+ --- package (from environment) --- 
+methylPipe
+ --- call from context --- 
+getCposDensity(GenoRanges, Cpos = Cpos, nbins = Nbins)
+ --- call from argument --- 
+if (is.na(Cpos[[i]])) Cpos[[i]] <- rep(0, nbins) else Cpos[[i]] <- sapply(Cpos[[i]], 
+    length)/widths
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R#713: getCposDensity(GenoRanges, Cpos = Cpos, nbins = Nbins)
+where 2: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 3 at /var/scratch2/tomas/tmp/RtmpdPmxkl/R.INSTALL1ce2408ea61/methylPipe/R/Allfunctions.R#713: suppressWarnings(CposD <- getCposDensity(GenoRanges, Cpos = Cpos, 
+    nbins = Nbins))
+where 4: profileDNAmetBin(GenoRanges = GR_chr20, Sample = H1.db, mcCLASS = "mCG")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(GenoRanges, Cpos, nbins) {
+    allwidths <- width(GenoRanges)
+    Nbins <- nbins
+    for(i in 1:length(Cpos)) {
+        widths <- rep(round(allwidths[i]/Nbins), Nbins)
+        if(is.na(Cpos[[i]]))
+          Cpos[[i]] <- rep(0,nbins)
+        else
+          Cpos[[i]] <- sapply(Cpos[[i]], length)/widths
+    }
+    return(Cpos)
+}
+<bytecode: 0x41aae740>
+<environment: namespace:methylPipe>
+ --- function search by body ---
+Function getCposDensity in namespace methylPipe has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 27: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/methylPipe.Rcheck/vign_test/methylPipe")
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function from context --- 
+function(GenoRanges, Cpos, nbins) {
+    allwidths <- width(GenoRanges)
+    Nbins <- nbins
+    for(i in 1:length(Cpos)) {
+        widths <- rep(round(allwidths[i]/Nbins), Nbins)
+        if(is.na(Cpos[[i]]))
+          Cpos[[i]] <- rep(0,nbins)
+        else
+          Cpos[[i]] <- sapply(Cpos[[i]], length)/widths
+    }
+    return(Cpos)
+}
+<bytecode: 0x2b676c28>
+<environment: namespace:methylPipe>
+ --- function search by body ---
+Function getCposDensity in namespace methylPipe has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 2 WARNINGs, 2 NOTEs

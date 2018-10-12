@@ -1,0 +1,36 @@
+CRAN packages (6)
+
+AgreementInterval,0.1.0
+eeptools,1.2.0
+FlexParamCurve,1.5-3
+inpdfr,0.1.6
+pricesensitivitymeter,0.3.2
+QTL.gCIMapping,3.0
+
+BIOC 3.8 packages (25)
+
+biovizBase,1.29.2
+cbaf,1.3.5
+CONFESS,1.9.0
+DaMiRseq,1.5.2
+fabia,2.27.0
+flowViz,1.45.0
+gaia,2.25.3
+GateFinder,1.1.0
+GenVisR,1.13.2
+Guitar,1.19.0
+hapFabia,1.23.0
+KEGGlincs,1.7.3
+Linnorm,2.5.0
+MassArray,1.33.0
+methylPipe,1.15.0
+NOISeq,2.25.0
+pathview,1.21.2
+phyloseq,1.25.3
+rHVDM,1.47.0
+SEPA,1.11.0
+seq2pathway,1.13.2
+SPLINTER,1.7.2
+SVAPLSseq,1.7.0
+TFEA.ChIP,1.1.1
+twilight,1.57.0

@@ -1,0 +1,251 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(DaMiRseq)
+Loading required package: SummarizedExperiment
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:parallel':
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order, paste,
+    pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: 'S4Vectors'
+
+The following object is masked from 'package:base':
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: 'matrixStats'
+
+The following objects are masked from 'package:Biobase':
+
+    anyMissing, rowMedians
+
+Loading required package: BiocParallel
+
+Attaching package: 'DelayedArray'
+
+The following objects are masked from 'package:matrixStats':
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following objects are masked from 'package:base':
+
+    aperm, apply
+
+Loading required package: ggplot2
+> 
+> test_check("DaMiRseq")
+10 Predictors have been selected for classification 
+3 Predictors have been selected for classification 
+100 Highly correlated features have been discarded for classification. 
+ 0 Features remained. 
+100 Highly correlated features have been discarded for classification. 
+ 0 Features remained. 
+15 Genes have been discarded for classification 985 Genes remained. 
+All the genes have been discarded!!!
+        th.VIP argument is too high. Please choose a lower level of th.VIPPlease wait. This operation will take about 21 seconds (i.e. about 0 minutes). ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp9f60zM/R.INSTALL9fd375d867d1/DaMiRseq/R/plot.R#98: 
+ --- package (from environment) --- 
+DaMiRseq
+ --- call from context --- 
+DaMiR.corrplot(sv, df, type = c("pearson", "spearman"), sig.level = 1e-04)
+ --- call from argument --- 
+if (type == "pearson") {
+    corrplot::corrplot(rcorr(as.matrix(sva_corr), type = "pearson")$r, 
+        type = "upper", is.corr = TRUE, addCoef.col = "black", 
+        number.cex = 0.5, p.mat = rcorr(as.matrix(sva_corr), 
+            type = "pearson")$P, sig.level = sig.level)
+} else if (type == "spearman") {
+    corrplot::corrplot(rcorr(as.matrix(sva_corr), type = "spearman")$r, 
+        type = "upper", is.corr = TRUE, addCoef.col = "black", 
+        number.cex = 0.5, p.mat = rcorr(as.matrix(sva_corr), 
+            type = "spearman")$P, sig.level = sig.level)
+} else {
+    stop("Please set 'spearman or 'pearson' as correlation type.")
+}
+ --- R stacktrace ---
+where 1 at testthat/test_corrplot.R#5: DaMiR.corrplot(sv, df, type = c("pearson", "spearman"), sig.level = 1e-04)
+where 2: eval(code, test_env)
+where 3 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#152: eval(code, test_env)
+where 4 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 5: doTryCatch(return(expr), name, parentenv, handler)
+where 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 7: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 8: doTryCatch(return(expr), name, parentenv, handler)
+where 9: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 10: tryCatchList(expr, classes, parentenv, handlers)
+where 11 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 12 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 13 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 14 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/reporter-zzz.R#53: force(code)
+where 15 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 16: FUN(X[[i]], ...)
+where 17 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 18 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/reporter-zzz.R#53: force(code)
+where 19 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 20 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 21 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 22 at /var/scratch2/tomas/tmp/Rtmp1fH1GW/R.INSTALL7a4066c2aa48/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 23: test_check("DaMiRseq")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(sv,
+                           df,
+                           type=c("pearson","spearman"),
+                           sig.level=0.0001){
+
+  # check missing arguments
+  if (missing(sv))
+    stop("'sv' argument must be provided")
+  if (missing(df))
+    stop("'df' argument must be provided")
+  if (missing(type)){
+    type <- type[1]
+  }
+
+  # check the type of argument
+  if(!(is.matrix(sv)))
+    stop("'sv' must be a matrix")
+  if(!(is(df, "DataFrame") | is.data.frame(df)))
+    stop("'df' must be a data.frame")
+  if(!(is.numeric(sig.level)))
+    stop("'sig.level' must be numeric")
+
+  # check the presence of NA or Inf
+  df<-as.data.frame(df)
+  if (any(is.na(sv)))
+    stop("NA values are not allowed in the 'sv' argument")
+  if (any(is.na(df)))
+    stop("NA values are not allowed in the 'df' matrix")
+  if (any(is.infinite(sv)))
+    stop("Inf values are not allowed in the 'sv' matrix")
+
+  # specific checks
+  if(!("class" %in% colnames(df)))
+    stop("'class' info is lacking!
+         Include the variable 'class'
+         in the 'df' data frame and label it 'class'!")
+  if(dim(sv)[1] != dim(df)[1])
+    stop("nrow(df) must be equal to nrow(sv)")
+  if (sig.level >1 | sig.level < 0)
+    stop("'sig.level' must be between 0 and 1")
+
+  sva_corr <- as.data.frame(cbind(sv,df))
+  for (i in seq_len(ncol(sva_corr))){
+    if (is.numeric(sva_corr[,i])==FALSE){
+      droplevels(sva_corr[,i])
+      sva_corr[,i] <- as.numeric(sva_corr[,i])
+    }
+  }
+
+  if(type == "pearson"){
+    corrplot::corrplot(rcorr(as.matrix(sva_corr), type='pearson')$r,
+                       type = "upper",
+                       is.corr = TRUE,
+                       addCoef.col = "black",
+                       number.cex=0.5,
+                       p.mat = rcorr(as.matrix(sva_corr),
+                                     type='pearson')$P,
+                       sig.level = sig.level)
+  }else if(type == "spearman"){
+    corrplot::corrplot(rcorr(as.matrix(sva_corr), type='spearman')$r,
+                       type = "upper",
+                       is.corr = TRUE,
+                       addCoef.col = "black",
+                       number.cex=0.5,
+                       p.mat = rcorr(as.matrix(sva_corr),
+                                     type='spearman')$P,
+                       sig.level = sig.level)
+  } else{
+    stop("Please set 'spearman or 'pearson' as correlation type.")
+  }
+}
+<bytecode: 0x2c8d31f0>
+<environment: namespace:DaMiRseq>
+ --- function search by body ---
+Function DaMiR.corrplot in namespace DaMiRseq has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

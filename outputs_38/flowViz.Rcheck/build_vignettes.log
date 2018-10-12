@@ -1,0 +1,1097 @@
+Warning in buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/flowViz.Rcheck/vign_test/flowViz") :
+  Files named as vignettes but with no recognized vignette engine:
+   ‘vignettes/densityplot_vs_histogram.Rmd’
+(Is a VignetteBuilder field missing?)
+Loading required package: flowCore
+Loading required package: lattice
+Note: method with signature 'filter#missing' chosen for function 'glpolygon',
+ target signature 'logicalFilterResult#missing'.
+ "filterResult#ANY" would also be valid
+Loading required package: cluster
+Loading required package: flowWorkspace
+Loading required package: ncdfFlow
+Loading required package: RcppArmadillo
+Loading required package: BH
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpYwl38z/R.INSTALLd01755d6c4a7/flowViz/R/densityplot.R#411: 
+ --- package (from environment) --- 
+flowViz
+ --- call from context --- 
+(function(x, y, darg=list(n=50, na.rm=TRUE), frames, channel,
+             overlap = 0.3, channel.name, filter=NULL,
+             fill=superpose.polygon$col,
+             lty=superpose.polygon$lty,
+             lwd=superpose.polygon$lwd,
+             alpha=superpose.polygon$alpha,
+             col=superpose.polygon$border,
+             groups=NULL, refline=NULL,
+             margin=0.005
+			 ,stats=FALSE
+			 ,pos=0.5
+			 ,digits=2
+			 ,abs=FALSE
+			 ,fitGate=TRUE
+             ,checkName = TRUE
+             , plotType = "densityplot"
+             , hist.type = "density"
+             , breaks = "Sturges"
+             ,gp, ...)
+{
+	
+    
+    which.channel <- tail(which.packet(), 1)
+    
+    lc <- length(channel)
+    channel <- channel[[which.channel]]
+    channel.name <- channel.name[which.channel]
+    ycode <- as.numeric(y)
+    validName <- !length(grep("\\(", channel.name))
+    if(checkName)
+      validName <- !(length(grep("\\(", channel.name)) ||
+            length(grep("\\(", channel.name)))
+    else
+      validName <- TRUE
+    
+    if(!validName)
+      warning("Gate will not be plotted because channel names contain '(' character! Try to set checkName to FALSE to skip this check.")
+
+    if (any(duplicated(ycode)))
+        warning("Some combinations seem to have multiple samples.  \n  ",
+                "Only one will be used.")
+    nnm <- as.character(x)
+    filter <- .processFilter(filter, nnm, lc = lc, which.channel = which.channel)  
+    ny <- nlevels(y)
+	superpose.polygon <- flowViz.par.get("superpose.polygon")
+    border <- rep(col, length = ny)
+    col <- rep(fill, length = ny)
+    if(!is.null(groups))
+        col <- col[groups]
+    lty <- rep(lty, length = ny)
+    lwd <- rep(lwd, length = ny)
+    alpha <- rep(alpha, length = ny)
+    x <- as.character(x)
+    height <- (1 + overlap)
+    parm <- gsub("`", "", as.character(channel))
+	ptList<-plotType("gdensity", parm)
+    for (i in rev(seq_len(ny))){
+        if (i %in% ycode)
+        {
+            nm <- x[match(i, ycode)]
+            xx <- evalInFlowFrame(channel, frames[[nm]])
+            r <- unlist(range(frames[[nm]])[, channel.name])
+            
+            if(!is.logical(margin)||isTRUE(margin))#when margin is logical FALSE we skip marginal events filtering
+            {
+              margin <- min(1, max(0, margin))
+              pl <- xx<=r[1]
+              pr <- xx>=r[2]
+              xxt <- xx[!(pl | pr)]
+              ## we indicate piled up data by vertical lines (if > 1%) unless
+              ## margin=FALSE
+              if(margin<1)
+                  mbar(xx, list(pl, pr), r, i, col[i], margin)
+              }else
+                xxt <- xx
+            ## we need a smaller bandwidth than the default and keep it constant
+            if(length(xxt)){
+                
+                if(plotType == "densityplot"){
+                  #densityplot
+                  if(!("adjust" %in% names(darg)))
+                    darg[["adjust"]] <- 2
+                  
+                  h <- do.call(density, c(list(x=xxt), darg))
+                  x.val <- h$x
+                  y.val <- h$y
+                  n <- length(x.val)
+                }else{
+                  fitGate <- FALSE
+                  #histogram
+                  h <- lattice:::hist.constructor(xxt, breaks = breaks, ...)
+                  y.val <- switch(hist.type, count = h$counts, percent = 100 * h$counts/length(x), density = h$density)
+                  x.val <- h$breaks
+                  n <- length(x.val)
+                  if (length(y.val) != n - 1) 
+                    warning("problem with 'hist' computations")
+                }
+
+                max.d <- max(y.val)
+                xl <- x.val[c(1, 1:n, n)]
+                yl <- i + height * c(0, y.val, 0) / max.d
+                
+                if(plotType == "densityplot")
+                  panel.polygon(x=xl,y=yl, col=col[i], border=NA, alpha=alpha[i])
+                else
+                  panel.rect(x = xl[-n], y = 0, height = yl, width = diff(xl), 
+                      col = col[i], alpha = alpha[i], border = border[i], just = c("left", "bottom"), identifier = "histogram")
+                
+                ## add the filterResult if possible, we get them from the output of
+                ## glpolygon (with plot=FALSE)
+				
+                if(!is.null(filter[[nm]]) && validName){
+                  curFilter <- filter[[nm]]
+                  
+                  if(is.list(stats))
+                    curStats <- stats[[nm]]
+                  else
+                    curStats <- stats
+#                browser()
+                if(is(curFilter,"filters"))
+                {
+                  mapply(curFilter,curStats,FUN=function(thisFilter,thisStats){
+#                        browser()              
+                         names <- .getStats(thisFilter,thisStats, frames[[nm]], digits, ...)
+                        
+
+                        #this plot routine is only for 2-d scatter plot
+                        #thus set plot as FALSE,just use it to get bounds
+                        #add plot stats/names
+                        bounds <- glpolygon(thisFilter, frames[[nm]],
+                            channels=parm
+                            ,ptList=ptList
+                            ,verbose=FALSE
+                            , plot=FALSE 
+                            ,names=names
+                            ,xlim=r
+                            ,ylim=c(i,i+1)
+                            ,strict=FALSE)
+                        oo <- options(warn=-1)
+                        on.exit(options(oo))
+                        if(!is.na(bounds)){
+                          ## iterate over gate regions
+                          for(j in seq_along(bounds)){
+                            tb <- bounds[[j]]
+#							browser()
+                            if(fitGate)
+                            {
+                              if(ncol(tb) == 1 && colnames(tb) == parm){
+                                sel <- xl >= min(tb) & xl <= max(tb)
+                                if(any(sel)){
+                                  afun <- approxfun(xl, yl)
+                                  xr <- c(min(tb), seq(min(tb), max(tb), len=100),
+                                      max(tb))
+                                  yr <- c(i, afun(xr[-c(1, length(xr))]), i)
+                                  gpd<-gp$gate.density
+                                  panel.polygon(xr, yr
+                                      , border=gpd$col, col=gpd$fill,
+                                      alpha=gpd$alpha, lwd=gpd$lwd,
+                                      lty=gpd$lty
+                                  )
+                                }
+                              }	
+                            }else
+                            {
+#								browser()
+                              gpg<-gp$gate
+                              panel.lines(x=c(tb[1],tb[1]),y=c(i,i+height)
+                                  ,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+                              panel.lines(x=c(tb[2],tb[2]),y=c(i,i+height)
+                                  ,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+                            }
+                            
+                          }
+                        }
+                        
+                        
+                        
+                        options(oo)
+                      })
+                }else
+                {
+					curFilter<-filter[[nm]]
+#					browser()
+                    if(is.list(stats))
+                      thisStats <- stats[[nm]]
+                    else
+                      thisStats <- stats
+                    names <- .getStats(curFilter,thisStats, frames[[nm]], digits, ...)
+					
+#					browser()
+					#this plot routine is only for 2-d scatter plot
+					#thus set plot as FALSE,just use it to get bounds
+					#add plot stats/names
+                    bounds <- glpolygon(curFilter, frames[[nm]],
+                                        channels=parm
+										,ptList=ptList
+                                        ,verbose=FALSE
+										, plot=FALSE 
+										,names=names
+										,xlim=r
+										,ylim=c(i,i+1)
+										,strict=FALSE)
+                    oo <- options(warn=-1)
+                    on.exit(options(oo))
+                    if(!is.na(bounds)){
+                        ## iterate over gate regions
+                        for(j in seq_along(bounds)){
+                            tb <- bounds[[j]]
+#							browser()
+							if(fitGate)
+							{
+								if(ncol(tb) == 1 && colnames(tb) == parm){
+									sel <- xl >= min(tb) & xl <= max(tb)
+									if(any(sel)){
+										afun <- approxfun(xl, yl)
+										xr <- c(min(tb), seq(min(tb), max(tb), len=100),
+												max(tb))
+										yr <- c(i, afun(xr[-c(1, length(xr))]), i)
+										gpd<-gp$gate.density
+										panel.polygon(xr, yr
+												, border=gpd$col, col=gpd$fill,
+												alpha=gpd$alpha, lwd=gpd$lwd,
+												lty=gpd$lty
+												)
+									}
+								}	
+							}else
+							{
+#								browser()
+								gpg<-gp$gate
+								panel.lines(x=c(tb[1],tb[1]),y=c(i,i+height)
+										,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+								panel.lines(x=c(tb[2],tb[2]),y=c(i,i+height)
+										,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+							}
+                            
+                        }
+                    }
+					
+					
+					
+                    options(oo)
+                }
+               }
+#				browser()
+                panel.lines(x=xl,y=yl, col=border[i], lty=lty[i],lwd=lwd[i])
+
+            }else{
+                panel.lines(rl, rep(i,2), col="black")
+            }
+			
+        }
+    }
+    if(!is.null(refline))
+        panel.abline(v=refline)
+})(x = quote(1:7), y = quote(1:7), subscripts = quote(1:7), filter = quote(new("curv1Filter", 
+    bwFac = 1.2, gridsize = c(401, 401), parameters = new("parameters", 
+        .Data = list(new("unitytransform", .Data = function () 
+        NULL, parameters = "FSC-H", transformationId = "defaultUnityTransform"))), 
+    filterId = "defaultCurv1Filter")), plotType = quote("densityplot"), 
+    gp = quote(list(gate = list(alpha = 1, cex = NULL, pch = NULL, 
+        col = "#9E0142", fill = "transparent", lwd = 1, lty = "solid"), 
+        gate.text = list(font = 1, col = "#000000", alpha = 1, 
+            cex = 0.8, lineheight = 0.8, background = list(fill = "white", 
+                col = "transparent", alpha = 1)), overlay.symbol = list(
+            alpha = 0.5, bg.alpha = 0.3, col = "transparent", 
+            fill = "red", cex = 0.5, pch = 19), flow.symbol = list(
+            alpha = 1, cex = 0.1, pch = 19, col = "black", fill = "transparent"), 
+        gate.density = list(alpha = 1, fill = "#FFFFFFB3", col = "black", 
+            lwd = 1, lty = "dotted"), argcolramp = function(n) {
+            x <- ramp(seq.int(0, 1, length.out = n))
+            rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255, alpha = alpha * 255)
+          }, grid.pars = list(), fontsize = list(text = 12, points = 8), 
+        background = list(alpha = 1, col = "transparent"), panel.background = list(
+            col = "grey90"), clip = list(panel = "on", strip = "on"), 
+        add.line = list(alpha = 1, col = "black", lty = 1, lwd = 1), 
+        add.text = list(alpha = 1, cex = 0.8, col = "black", 
+            font = 1, lineheight = 1.2), plot.polygon = list(
+            alpha = 1, col = "grey20", border = "transparent", 
+            lty = 1, lwd = 1), box.dot = list(alpha = 1, col = "grey20", 
+            cex = 1, font = 1, pch = "|"), box.rectangle = list(
+            alpha = 1, col = "grey20", fill = "white", lty = 1, 
+            lwd = 1), box.umbrella = list(alpha = 1, col = "grey20", 
+            lty = 1, lwd = 1), dot.line = list(alpha = 1, col = "white", 
+            lty = 1, lwd = 1), dot.symbol = list(alpha = 1, cex = 0.8, 
+            col = "black", font = 1, pch = 19), plot.line = list(
+            alpha = 1, col = "black", lty = 1, lwd = 1), plot.symbol = list(
+            alpha = 1, cex = 0.6, col = "black", font = 1, pch = 19, 
+            fill = "transparent"), reference.line = list(alpha = 1, 
+            col = "white", lty = 1, lwd = 1), strip.background = list(
+            alpha = 1, col = c("grey80", "grey70", "grey60")), 
+        strip.shingle = list(alpha = 1, col = c("grey60", "grey50", 
+        "grey40")), strip.border = list(alpha = 1, col = "transparent", 
+            lty = c(1, 1, 1, 1, 1, 1, 1), lwd = c(1, 1, 1, 1, 
+            1, 1, 1)), superpose.line = list(alpha = 1, col = c("#F8766D", 
+        "#B79F00", "#00BA38", "#00BFC4", "#619CFF", "#F564E3"
+        ), lty = c(1, 1, 1, 1, 1, 1, 1), lwd = c(1, 1, 1, 1, 
+        1, 1, 1)), superpose.symbol = list(alpha = c(1, 1, 1, 
+        1, 1, 1, 1), cex = 0.6, col = c("#F8766D", "#B79F00", 
+        "#00BA38", "#00BFC4", "#619CFF", "#F564E3"), fill = c("#CCFFFF", 
+        "#FFCCFF", "#CCFFCC", "#FFE5CC", "#CCE6FF", "#FFFFCC", 
+        "#FFCCCC"), font = c(1, 1, 1, 1, 1, 1, 1), pch = 19), 
+        superpose.polygon = list(alpha = c(1, 1, 1, 1, 1, 1, 
+        1), col = c("#F8766D", "#B79F00", "#00BA38", "#00BFC4", 
+        "#619CFF", "#F564E3"), border = "transparent", lty = c(1, 
+        1, 1, 1, 1, 1, 1), lwd = c(1, 1, 1, 1, 1, 1, 1)), regions = list(
+            alpha = 1, col = c("#3B4FB8", "#3C4EB6", "#3D4DB4", 
+            "#3E4DB3", "#404CB1", "#414CB0", "#424BAE", "#434BAC", 
+            "#454AAB", "#464AA9", "#4749A8", "#4849A6", "#4A48A4", 
+            "#4B48A3", "#4C47A1", "#4D47A0", "#4F469E", "#50469C", 
+            "#51459B", "#524599", "#544498", "#554396", "#564394", 
+            "#574293", "#594291", "#5A4190", "#5B418E", "#5C408C", 
+            "#5E408B", "#5F3F89", "#603F88", "#613E86", "#633E84", 
+            "#643D83", "#653D81", "#663C80", "#683C7E", "#693B7C", 
+            "#6A3B7B", "#6B3A79", "#6D3978", "#6E3976", "#6F3874", 
+            "#703873", "#723771", "#733770", "#74366E", "#75366C", 
+            "#77356B", "#783569", "#793468", "#7A3466", "#7C3365", 
+            "#7D3363", "#7E3261", "#7F3260", "#81315E", "#82315D", 
+            "#83305B", "#843059", "#862F58", "#872E56", "#882E55", 
+            "#892D53", "#8B2D51", "#8C2C50", "#8D2C4E", "#8E2B4D", 
+            "#902B4B", "#912A49", "#922A48", "#932946", "#952945", 
+            "#962843", "#972841", "#982740", "#9A273E", "#9B263D", 
+            "#9C263B", "#9D2539", "#9F2438", "#A02436", "#A12335", 
+            "#A22333", "#A42231", "#A52230", "#A6212E", "#A7212D", 
+            "#A9202B", "#AA2029", "#AB1F28", "#AC1F26", "#AE1E25", 
+            "#AF1E23", "#B01D21", "#B11D20", "#B31C1E", "#B41C1D", 
+            "#B51B1B", "#B71B1A")), shade.colors = list(alpha = 1, 
+            palette = function(irr, ref, height, saturation = .9) {
+                             hsv(h = height, s = 1 - saturation * (1 - (1-ref)^0.5), v = irr)
+                         }), axis.line = list(alpha = 1, col = "transparent", 
+            lty = 1, lwd = 1), axis.text = list(alpha = 1, cex = 0.8, 
+            col = "grey50", font = 1, lineheight = 0.9), axis.components = list(
+            left = list(tck = 1, pad1 = 1, pad2 = 1), top = list(
+                tck = 1, pad1 = 1, pad2 = 1), right = list(tck = 1, 
+                pad1 = 1, pad2 = 1), bottom = list(tck = 1, pad1 = 1, 
+                pad2 = 1)), layout.heights = list(top.padding = 1, 
+            main = 1, main.key.padding = 1, key.top = 1, xlab.top = 1, 
+            key.axis.padding = 1, axis.top = 1, strip = 1, panel = 1, 
+            axis.panel = 1, between = 1, axis.bottom = 1, axis.xlab.padding = 1, 
+            xlab = 1, xlab.key.padding = 0, key.bottom = 1, key.sub.padding = 1, 
+            sub = 1, bottom.padding = 1), layout.widths = list(
+            left.padding = 1, key.left = 1, key.ylab.padding = 0, 
+            ylab = 1, ylab.axis.padding = 1, axis.left = 1, axis.panel = 1, 
+            strip.left = 1, panel = 1, between = 1, axis.right = 1, 
+            axis.key.padding = 1, ylab.right = 1, key.right = 1, 
+            right.padding = 1), box.3d = list(alpha = 1, col = "black", 
+            lty = 1, lwd = 1), par.xlab.text = list(alpha = 1, 
+            cex = 1, col = "black", font = 1, lineheight = 1), 
+        par.ylab.text = list(alpha = 1, cex = 1, col = "black", 
+            font = 1, lineheight = 1), par.zlab.text = list(alpha = 1, 
+            cex = 1, col = "black", font = 1, lineheight = 1), 
+        par.main.text = list(alpha = 1, cex = 1.2, col = "black", 
+            font = 2, lineheight = 1), par.sub.text = list(alpha = 1, 
+            cex = 1, col = "black", font = 2, lineheight = 1))), 
+    channel = quote(list(`FSC-H` = `FSC-H`)), channel.name = quote(c(`FSC-H` = "FSC-H")), 
+    frames = quote(<environment>), overlap = quote(0.3), which.channel = quote(c("FSC-H", 
+    "FSC-H", "FSC-H", "FSC-H", "FSC-H", "FSC-H", "FSC-H")), box.ratio = quote(1), 
+    horizontal = quote(TRUE))
+ --- call from argument --- 
+if (!is.na(bounds)) {
+    for (j in seq_along(bounds)) {
+        tb <- bounds[[j]]
+        if (fitGate) {
+            if (ncol(tb) == 1 && colnames(tb) == parm) {
+                sel <- xl >= min(tb) & xl <= max(tb)
+                if (any(sel)) {
+                  afun <- approxfun(xl, yl)
+                  xr <- c(min(tb), seq(min(tb), max(tb), len = 100), 
+                    max(tb))
+                  yr <- c(i, afun(xr[-c(1, length(xr))]), i)
+                  gpd <- gp$gate.density
+                  panel.polygon(xr, yr, border = gpd$col, col = gpd$fill, 
+                    alpha = gpd$alpha, lwd = gpd$lwd, lty = gpd$lty)
+                }
+            }
+        }
+        else {
+            gpg <- gp$gate
+            panel.lines(x = c(tb[1], tb[1]), y = c(i, i + height), 
+                col = gpg$col, alpha = gpg$alpha, lwd = gpg$lwd, 
+                lty = gpg$lty)
+            panel.lines(x = c(tb[2], tb[2]), y = c(i, i + height), 
+                col = gpg$col, alpha = gpg$alpha, lwd = gpg$lwd, 
+                lty = gpg$lty)
+        }
+    }
+}
+ --- R stacktrace ---
+where 1: (function(x, y, darg=list(n=50, na.rm=TRUE), frames, channel,
+             overlap = 0.3, channel.name, filter=NULL,
+             fill=superpose.polygon$col,
+             lty=superpose.polygon$lty,
+             lwd=superpose.polygon$lwd,
+             alpha=superpose.polygon$alpha,
+             col=superpose.polygon$border,
+             groups=NULL, refline=NULL,
+             margin=0.005
+			 ,stats=FALSE
+			 ,pos=0.5
+			 ,digits=2
+			 ,abs=FALSE
+			 ,fitGate=TRUE
+             ,checkName = TRUE
+             , plotType = "densityplot"
+             , hist.type = "density"
+             , breaks = "Sturges"
+             ,gp, ...)
+{
+	
+    
+    which.channel <- tail(which.packet(), 1)
+    
+    lc <- length(channel)
+    channel <- channel[[which.channel]]
+    channel.name <- channel.name[which.channel]
+    ycode <- as.numeric(y)
+    validName <- !length(grep("\\(", channel.name))
+    if(checkName)
+      validName <- !(length(grep("\\(", channel.name)) ||
+            length(grep("\\(", channel.name)))
+    else
+      validName <- TRUE
+    
+    if(!validName)
+      warning("Gate will not be plotted because channel names contain '(' character! Try to set checkName to FALSE to skip this check.")
+
+    if (any(duplicated(ycode)))
+        warning("Some combinations seem to have multiple samples.  \n  ",
+                "Only one will be used.")
+    nnm <- as.character(x)
+    filter <- .processFilter(filter, nnm, lc = lc, which.channel = which.channel)  
+    ny <- nlevels(y)
+	superpose.polygon <- flowViz.par.get("superpose.polygon")
+    border <- rep(col, length = ny)
+    col <- rep(fill, length = ny)
+    if(!is.null(groups))
+        col <- col[groups]
+    lty <- rep(lty, length = ny)
+    lwd <- rep(lwd, length = ny)
+    alpha <- rep(alpha, length = ny)
+    x <- as.character(x)
+    height <- (1 + overlap)
+    parm <- gsub("`", "", as.character(channel))
+	ptList<-plotType("gdensity", parm)
+    for (i in rev(seq_len(ny))){
+        if (i %in% ycode)
+        {
+            nm <- x[match(i, ycode)]
+            xx <- evalInFlowFrame(channel, frames[[nm]])
+            r <- unlist(range(frames[[nm]])[, channel.name])
+            
+            if(!is.logical(margin)||isTRUE(margin))#when margin is logical FALSE we skip marginal events filtering
+            {
+              margin <- min(1, max(0, margin))
+              pl <- xx<=r[1]
+              pr <- xx>=r[2]
+              xxt <- xx[!(pl | pr)]
+              ## we indicate piled up data by vertical lines (if > 1%) unless
+              ## margin=FALSE
+              if(margin<1)
+                  mbar(xx, list(pl, pr), r, i, col[i], margin)
+              }else
+                xxt <- xx
+            ## we need a smaller bandwidth than the default and keep it constant
+            if(length(xxt)){
+                
+                if(plotType == "densityplot"){
+                  #densityplot
+                  if(!("adjust" %in% names(darg)))
+                    darg[["adjust"]] <- 2
+                  
+                  h <- do.call(density, c(list(x=xxt), darg))
+                  x.val <- h$x
+                  y.val <- h$y
+                  n <- length(x.val)
+                }else{
+                  fitGate <- FALSE
+                  #histogram
+                  h <- lattice:::hist.constructor(xxt, breaks = breaks, ...)
+                  y.val <- switch(hist.type, count = h$counts, percent = 100 * h$counts/length(x), density = h$density)
+                  x.val <- h$breaks
+                  n <- length(x.val)
+                  if (length(y.val) != n - 1) 
+                    warning("problem with 'hist' computations")
+                }
+
+                max.d <- max(y.val)
+                xl <- x.val[c(1, 1:n, n)]
+                yl <- i + height * c(0, y.val, 0) / max.d
+                
+                if(plotType == "densityplot")
+                  panel.polygon(x=xl,y=yl, col=col[i], border=NA, alpha=alpha[i])
+                else
+                  panel.rect(x = xl[-n], y = 0, height = yl, width = diff(xl), 
+                      col = col[i], alpha = alpha[i], border = border[i], just = c("left", "bottom"), identifier = "histogram")
+                
+                ## add the filterResult if possible, we get them from the output of
+                ## glpolygon (with plot=FALSE)
+				
+                if(!is.null(filter[[nm]]) && validName){
+                  curFilter <- filter[[nm]]
+                  
+                  if(is.list(stats))
+                    curStats <- stats[[nm]]
+                  else
+                    curStats <- stats
+#                browser()
+                if(is(curFilter,"filters"))
+                {
+                  mapply(curFilter,curStats,FUN=function(thisFilter,thisStats){
+#                        browser()              
+                         names <- .getStats(thisFilter,thisStats, frames[[nm]], digits, ...)
+                        
+
+                        #this plot routine is only for 2-d scatter plot
+                        #thus set plot as FALSE,just use it to get bounds
+                        #add plot stats/names
+                        bounds <- glpolygon(thisFilter, frames[[nm]],
+                            channels=parm
+                            ,ptList=ptList
+                            ,verbose=FALSE
+                            , plot=FALSE 
+                            ,names=names
+                            ,xlim=r
+                            ,ylim=c(i,i+1)
+                            ,strict=FALSE)
+                        oo <- options(warn=-1)
+                        on.exit(options(oo))
+                        if(!is.na(bounds)){
+                          ## iterate over gate regions
+                          for(j in seq_along(bounds)){
+                            tb <- bounds[[j]]
+#							browser()
+                            if(fitGate)
+                            {
+                              if(ncol(tb) == 1 && colnames(tb) == parm){
+                                sel <- xl >= min(tb) & xl <= max(tb)
+                                if(any(sel)){
+                                  afun <- approxfun(xl, yl)
+                                  xr <- c(min(tb), seq(min(tb), max(tb), len=100),
+                                      max(tb))
+                                  yr <- c(i, afun(xr[-c(1, length(xr))]), i)
+                                  gpd<-gp$gate.density
+                                  panel.polygon(xr, yr
+                                      , border=gpd$col, col=gpd$fill,
+                                      alpha=gpd$alpha, lwd=gpd$lwd,
+                                      lty=gpd$lty
+                                  )
+                                }
+                              }	
+                            }else
+                            {
+#								browser()
+                              gpg<-gp$gate
+                              panel.lines(x=c(tb[1],tb[1]),y=c(i,i+height)
+                                  ,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+                              panel.lines(x=c(tb[2],tb[2]),y=c(i,i+height)
+                                  ,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+                            }
+                            
+                          }
+                        }
+                        
+                        
+                        
+                        options(oo)
+                      })
+                }else
+                {
+					curFilter<-filter[[nm]]
+#					browser()
+                    if(is.list(stats))
+                      thisStats <- stats[[nm]]
+                    else
+                      thisStats <- stats
+                    names <- .getStats(curFilter,thisStats, frames[[nm]], digits, ...)
+					
+#					browser()
+					#this plot routine is only for 2-d scatter plot
+					#thus set plot as FALSE,just use it to get bounds
+					#add plot stats/names
+                    bounds <- glpolygon(curFilter, frames[[nm]],
+                                        channels=parm
+										,ptList=ptList
+                                        ,verbose=FALSE
+										, plot=FALSE 
+										,names=names
+										,xlim=r
+										,ylim=c(i,i+1)
+										,strict=FALSE)
+                    oo <- options(warn=-1)
+                    on.exit(options(oo))
+                    if(!is.na(bounds)){
+                        ## iterate over gate regions
+                        for(j in seq_along(bounds)){
+                            tb <- bounds[[j]]
+#							browser()
+							if(fitGate)
+							{
+								if(ncol(tb) == 1 && colnames(tb) == parm){
+									sel <- xl >= min(tb) & xl <= max(tb)
+									if(any(sel)){
+										afun <- approxfun(xl, yl)
+										xr <- c(min(tb), seq(min(tb), max(tb), len=100),
+												max(tb))
+										yr <- c(i, afun(xr[-c(1, length(xr))]), i)
+										gpd<-gp$gate.density
+										panel.polygon(xr, yr
+												, border=gpd$col, col=gpd$fill,
+												alpha=gpd$alpha, lwd=gpd$lwd,
+												lty=gpd$lty
+												)
+									}
+								}	
+							}else
+							{
+#								browser()
+								gpg<-gp$gate
+								panel.lines(x=c(tb[1],tb[1]),y=c(i,i+height)
+										,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+								panel.lines(x=c(tb[2],tb[2]),y=c(i,i+height)
+										,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+							}
+                            
+                        }
+                    }
+					
+					
+					
+                    options(oo)
+                }
+               }
+#				browser()
+                panel.lines(x=xl,y=yl, col=border[i], lty=lty[i],lwd=lwd[i])
+
+            }else{
+                panel.lines(rl, rep(i,2), col="black")
+            }
+			
+        }
+    }
+    if(!is.null(refline))
+        panel.abline(v=refline)
+})(x = quote(1:7), y = quote(1:7), subscripts = quote(1:7), filter = quote(new("curv1Filter", 
+    bwFac = 1.2, gridsize = c(401, 401), parameters = new("parameters", 
+        .Data = list(new("unitytransform", .Data = function () 
+        NULL, parameters = "FSC-H", transformationId = "defaultUnityTransform"))), 
+    filterId = "defaultCurv1Filter")), plotType = quote("densityplot"), 
+    gp = quote(list(gate = list(alpha = 1, cex = NULL, pch = NULL, 
+        col = "#9E0142", fill = "transparent", lwd = 1, lty = "solid"), 
+        gate.text = list(font = 1, col = "#000000", alpha = 1, 
+            cex = 0.8, lineheight = 0.8, background = list(fill = "white", 
+                col = "transparent", alpha = 1)), overlay.symbol = list(
+            alpha = 0.5, bg.alpha = 0.3, col = "transparent", 
+            fill = "red", cex = 0.5, pch = 19), flow.symbol = list(
+            alpha = 1, cex = 0.1, pch = 19, col = "black", fill = "transparent"), 
+        gate.density = list(alpha = 1, fill = "#FFFFFFB3", col = "black", 
+            lwd = 1, lty = "dotted"), argcolramp = function(n) {
+            x <- ramp(seq.int(0, 1, length.out = n))
+            rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255, alpha = alpha * 255)
+          }, grid.pars = list(), fontsize = list(text = 12, points = 8), 
+        background = list(alpha = 1, col = "transparent"), panel.background = list(
+            col = "grey90"), clip = list(panel = "on", strip = "on"), 
+        add.line = list(alpha = 1, col = "black", lty = 1, lwd = 1), 
+        add.text = list(alpha = 1, cex = 0.8, col = "black", 
+            font = 1, lineheight = 1.2), plot.polygon = list(
+            alpha = 1, col = "grey20", border = "transparent", 
+            lty = 1, lwd = 1), box.dot = list(alpha = 1, col = "grey20", 
+            cex = 1, font = 1, pch = "|"), box.rectangle = list(
+            alpha = 1, col = "grey20", fill = "white", lty = 1, 
+            lwd = 1), box.umbrella = list(alpha = 1, col = "grey20", 
+            lty = 1, lwd = 1), dot.line = list(alpha = 1, col = "white", 
+            lty = 1, lwd = 1), dot.symbol = list(alpha = 1, cex = 0.8, 
+            col = "black", font = 1, pch = 19), plot.line = list(
+            alpha = 1, col = "black", lty = 1, lwd = 1), plot.symbol = list(
+            alpha = 1, cex = 0.6, col = "black", font = 1, pch = 19, 
+            fill = "transparent"), reference.line = list(alpha = 1, 
+            col = "white", lty = 1, lwd = 1), strip.background = list(
+            alpha = 1, col = c("grey80", "grey70", "grey60")), 
+        strip.shingle = list(alpha = 1, col = c("grey60", "grey50", 
+        "grey40")), strip.border = list(alpha = 1, col = "transparent", 
+            lty = c(1, 1, 1, 1, 1, 1, 1), lwd = c(1, 1, 1, 1, 
+            1, 1, 1)), superpose.line = list(alpha = 1, col = c("#F8766D", 
+        "#B79F00", "#00BA38", "#00BFC4", "#619CFF", "#F564E3"
+        ), lty = c(1, 1, 1, 1, 1, 1, 1), lwd = c(1, 1, 1, 1, 
+        1, 1, 1)), superpose.symbol = list(alpha = c(1, 1, 1, 
+        1, 1, 1, 1), cex = 0.6, col = c("#F8766D", "#B79F00", 
+        "#00BA38", "#00BFC4", "#619CFF", "#F564E3"), fill = c("#CCFFFF", 
+        "#FFCCFF", "#CCFFCC", "#FFE5CC", "#CCE6FF", "#FFFFCC", 
+        "#FFCCCC"), font = c(1, 1, 1, 1, 1, 1, 1), pch = 19), 
+        superpose.polygon = list(alpha = c(1, 1, 1, 1, 1, 1, 
+        1), col = c("#F8766D", "#B79F00", "#00BA38", "#00BFC4", 
+        "#619CFF", "#F564E3"), border = "transparent", lty = c(1, 
+        1, 1, 1, 1, 1, 1), lwd = c(1, 1, 1, 1, 1, 1, 1)), regions = list(
+            alpha = 1, col = c("#3B4FB8", "#3C4EB6", "#3D4DB4", 
+            "#3E4DB3", "#404CB1", "#414CB0", "#424BAE", "#434BAC", 
+            "#454AAB", "#464AA9", "#4749A8", "#4849A6", "#4A48A4", 
+            "#4B48A3", "#4C47A1", "#4D47A0", "#4F469E", "#50469C", 
+            "#51459B", "#524599", "#544498", "#554396", "#564394", 
+            "#574293", "#594291", "#5A4190", "#5B418E", "#5C408C", 
+            "#5E408B", "#5F3F89", "#603F88", "#613E86", "#633E84", 
+            "#643D83", "#653D81", "#663C80", "#683C7E", "#693B7C", 
+            "#6A3B7B", "#6B3A79", "#6D3978", "#6E3976", "#6F3874", 
+            "#703873", "#723771", "#733770", "#74366E", "#75366C", 
+            "#77356B", "#783569", "#793468", "#7A3466", "#7C3365", 
+            "#7D3363", "#7E3261", "#7F3260", "#81315E", "#82315D", 
+            "#83305B", "#843059", "#862F58", "#872E56", "#882E55", 
+            "#892D53", "#8B2D51", "#8C2C50", "#8D2C4E", "#8E2B4D", 
+            "#902B4B", "#912A49", "#922A48", "#932946", "#952945", 
+            "#962843", "#972841", "#982740", "#9A273E", "#9B263D", 
+            "#9C263B", "#9D2539", "#9F2438", "#A02436", "#A12335", 
+            "#A22333", "#A42231", "#A52230", "#A6212E", "#A7212D", 
+            "#A9202B", "#AA2029", "#AB1F28", "#AC1F26", "#AE1E25", 
+            "#AF1E23", "#B01D21", "#B11D20", "#B31C1E", "#B41C1D", 
+            "#B51B1B", "#B71B1A")), shade.colors = list(alpha = 1, 
+            palette = function(irr, ref, height, saturation = .9) {
+                             hsv(h = height, s = 1 - saturation * (1 - (1-ref)^0.5), v = irr)
+                         }), axis.line = list(alpha = 1, col = "transparent", 
+            lty = 1, lwd = 1), axis.text = list(alpha = 1, cex = 0.8, 
+            col = "grey50", font = 1, lineheight = 0.9), axis.components = list(
+            left = list(tck = 1, pad1 = 1, pad2 = 1), top = list(
+                tck = 1, pad1 = 1, pad2 = 1), right = list(tck = 1, 
+                pad1 = 1, pad2 = 1), bottom = list(tck = 1, pad1 = 1, 
+                pad2 = 1)), layout.heights = list(top.padding = 1, 
+            main = 1, main.key.padding = 1, key.top = 1, xlab.top = 1, 
+            key.axis.padding = 1, axis.top = 1, strip = 1, panel = 1, 
+            axis.panel = 1, between = 1, axis.bottom = 1, axis.xlab.padding = 1, 
+            xlab = 1, xlab.key.padding = 0, key.bottom = 1, key.sub.padding = 1, 
+            sub = 1, bottom.padding = 1), layout.widths = list(
+            left.padding = 1, key.left = 1, key.ylab.padding = 0, 
+            ylab = 1, ylab.axis.padding = 1, axis.left = 1, axis.panel = 1, 
+            strip.left = 1, panel = 1, between = 1, axis.right = 1, 
+            axis.key.padding = 1, ylab.right = 1, key.right = 1, 
+            right.padding = 1), box.3d = list(alpha = 1, col = "black", 
+            lty = 1, lwd = 1), par.xlab.text = list(alpha = 1, 
+            cex = 1, col = "black", font = 1, lineheight = 1), 
+        par.ylab.text = list(alpha = 1, cex = 1, col = "black", 
+            font = 1, lineheight = 1), par.zlab.text = list(alpha = 1, 
+            cex = 1, col = "black", font = 1, lineheight = 1), 
+        par.main.text = list(alpha = 1, cex = 1.2, col = "black", 
+            font = 2, lineheight = 1), par.sub.text = list(alpha = 1, 
+            cex = 1, col = "black", font = 2, lineheight = 1))), 
+    channel = quote(list(`FSC-H` = `FSC-H`)), channel.name = quote(c(`FSC-H` = "FSC-H")), 
+    frames = quote(<environment>), overlap = quote(0.3), which.channel = quote(c("FSC-H", 
+    "FSC-H", "FSC-H", "FSC-H", "FSC-H", "FSC-H", "FSC-H")), box.ratio = quote(1), 
+    horizontal = quote(TRUE))
+where 2 at /var/scratch2/tomas/tmp/Rtmp6WRlGx/R.INSTALLab189cb963d/lattice/R/miscellaneous.R#44: do.call(FUN, args, quote = TRUE)
+where 3 at /var/scratch2/tomas/tmp/Rtmp6WRlGx/R.INSTALLab189cb963d/lattice/R/print.trellis.R#1190: checkArgsAndCall(panel, pargs)
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7 at /var/scratch2/tomas/tmp/Rtmp6WRlGx/R.INSTALLab189cb963d/lattice/R/print.trellis.R#1190: tryCatch(checkArgsAndCall(panel, pargs), error = function(e) panel.error(e))
+where 8 at /var/scratch2/tomas/tmp/Rtmp6WRlGx/R.INSTALLab189cb963d/lattice/R/print.trellis.R#198: printFunction(x, ...)
+where 9: print.trellis(x)
+where 10: print(x)
+where 11 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/output.R#666: normal_print(x)
+where 12 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/output.R#659: knit_print.default(x, ...)
+where 13 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/utils.R#783: knit_print(x, ...)
+where 14 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/utils.R#783: withVisible(knit_print(x, ...))
+where 15 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/utils.R#794: fun(x, options = options)
+where 16 at /var/scratch2/tomas/tmp/RtmptvIBSV/R.INSTALL5f1a1ddf0ce8/evaluate/R/eval.r#202: value_fun(ev$value, ev$visible)
+where 17 at /var/scratch2/tomas/tmp/RtmptvIBSV/R.INSTALL5f1a1ddf0ce8/evaluate/R/eval.r#202: withVisible(value_fun(ev$value, ev$visible))
+where 18 at /var/scratch2/tomas/tmp/RtmptvIBSV/R.INSTALL5f1a1ddf0ce8/evaluate/R/eval.r#202: withCallingHandlers(withVisible(value_fun(ev$value, ev$visible)), 
+    warning = wHandler, error = eHandler, message = mHandler)
+where 19 at /var/scratch2/tomas/tmp/RtmptvIBSV/R.INSTALL5f1a1ddf0ce8/evaluate/R/eval.r#202: handle(pv <- withCallingHandlers(withVisible(value_fun(ev$value, 
+    ev$visible)), warning = wHandler, error = eHandler, message = mHandler))
+where 20 at /var/scratch2/tomas/tmp/RtmptvIBSV/R.INSTALL5f1a1ddf0ce8/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 21 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 22 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 23 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 24 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/block.R#91: block_exec(params)
+where 25 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/block.R#6: call_block(x)
+where 26 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/block.R#3: process_group.block(group)
+where 27 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/output.R#314: process_group(group)
+where 28 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 29 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/output.R#258: process_file(text, output)
+where 30 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/utils-conversion.R#121: knit(input, text = text, envir = envir, encoding = encoding, 
+    quiet = quiet)
+where 31 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/utils-conversion.R#129: knit2html(..., force_v1 = TRUE)
+where 32 at /var/scratch2/tomas/tmp/RtmpWrgLrj/R.INSTALLbb8a630020b0/knitr/R/utils-vignettes.R#40: (if (grepl("\\.[Rr]md$", file)) knit2html_v1 else if (grepl("\\.[Rr]rst$", 
+    file)) knit2pandoc else knit)(file, encoding = encoding, 
+    quiet = quiet, envir = globalenv())
+where 33 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 34: doTryCatch(return(expr), name, parentenv, handler)
+where 35: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 36: tryCatchList(expr, classes, parentenv, handlers)
+where 37 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 38: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/flowViz.Rcheck/vign_test/flowViz")
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+function(x, y, darg=list(n=50, na.rm=TRUE), frames, channel,
+             overlap = 0.3, channel.name, filter=NULL,
+             fill=superpose.polygon$col,
+             lty=superpose.polygon$lty,
+             lwd=superpose.polygon$lwd,
+             alpha=superpose.polygon$alpha,
+             col=superpose.polygon$border,
+             groups=NULL, refline=NULL,
+             margin=0.005
+			 ,stats=FALSE
+			 ,pos=0.5
+			 ,digits=2
+			 ,abs=FALSE
+			 ,fitGate=TRUE
+             ,checkName = TRUE
+             , plotType = "densityplot"
+             , hist.type = "density"
+             , breaks = "Sturges"
+             ,gp, ...)
+{
+	
+    
+    which.channel <- tail(which.packet(), 1)
+    
+    lc <- length(channel)
+    channel <- channel[[which.channel]]
+    channel.name <- channel.name[which.channel]
+    ycode <- as.numeric(y)
+    validName <- !length(grep("\\(", channel.name))
+    if(checkName)
+      validName <- !(length(grep("\\(", channel.name)) ||
+            length(grep("\\(", channel.name)))
+    else
+      validName <- TRUE
+    
+    if(!validName)
+      warning("Gate will not be plotted because channel names contain '(' character! Try to set checkName to FALSE to skip this check.")
+
+    if (any(duplicated(ycode)))
+        warning("Some combinations seem to have multiple samples.  \n  ",
+                "Only one will be used.")
+    nnm <- as.character(x)
+    filter <- .processFilter(filter, nnm, lc = lc, which.channel = which.channel)  
+    ny <- nlevels(y)
+	superpose.polygon <- flowViz.par.get("superpose.polygon")
+    border <- rep(col, length = ny)
+    col <- rep(fill, length = ny)
+    if(!is.null(groups))
+        col <- col[groups]
+    lty <- rep(lty, length = ny)
+    lwd <- rep(lwd, length = ny)
+    alpha <- rep(alpha, length = ny)
+    x <- as.character(x)
+    height <- (1 + overlap)
+    parm <- gsub("`", "", as.character(channel))
+	ptList<-plotType("gdensity", parm)
+    for (i in rev(seq_len(ny))){
+        if (i %in% ycode)
+        {
+            nm <- x[match(i, ycode)]
+            xx <- evalInFlowFrame(channel, frames[[nm]])
+            r <- unlist(range(frames[[nm]])[, channel.name])
+            
+            if(!is.logical(margin)||isTRUE(margin))#when margin is logical FALSE we skip marginal events filtering
+            {
+              margin <- min(1, max(0, margin))
+              pl <- xx<=r[1]
+              pr <- xx>=r[2]
+              xxt <- xx[!(pl | pr)]
+              ## we indicate piled up data by vertical lines (if > 1%) unless
+              ## margin=FALSE
+              if(margin<1)
+                  mbar(xx, list(pl, pr), r, i, col[i], margin)
+              }else
+                xxt <- xx
+            ## we need a smaller bandwidth than the default and keep it constant
+            if(length(xxt)){
+                
+                if(plotType == "densityplot"){
+                  #densityplot
+                  if(!("adjust" %in% names(darg)))
+                    darg[["adjust"]] <- 2
+                  
+                  h <- do.call(density, c(list(x=xxt), darg))
+                  x.val <- h$x
+                  y.val <- h$y
+                  n <- length(x.val)
+                }else{
+                  fitGate <- FALSE
+                  #histogram
+                  h <- lattice:::hist.constructor(xxt, breaks = breaks, ...)
+                  y.val <- switch(hist.type, count = h$counts, percent = 100 * h$counts/length(x), density = h$density)
+                  x.val <- h$breaks
+                  n <- length(x.val)
+                  if (length(y.val) != n - 1) 
+                    warning("problem with 'hist' computations")
+                }
+
+                max.d <- max(y.val)
+                xl <- x.val[c(1, 1:n, n)]
+                yl <- i + height * c(0, y.val, 0) / max.d
+                
+                if(plotType == "densityplot")
+                  panel.polygon(x=xl,y=yl, col=col[i], border=NA, alpha=alpha[i])
+                else
+                  panel.rect(x = xl[-n], y = 0, height = yl, width = diff(xl), 
+                      col = col[i], alpha = alpha[i], border = border[i], just = c("left", "bottom"), identifier = "histogram")
+                
+                ## add the filterResult if possible, we get them from the output of
+                ## glpolygon (with plot=FALSE)
+				
+                if(!is.null(filter[[nm]]) && validName){
+                  curFilter <- filter[[nm]]
+                  
+                  if(is.list(stats))
+                    curStats <- stats[[nm]]
+                  else
+                    curStats <- stats
+#                browser()
+                if(is(curFilter,"filters"))
+                {
+                  mapply(curFilter,curStats,FUN=function(thisFilter,thisStats){
+#                        browser()              
+                         names <- .getStats(thisFilter,thisStats, frames[[nm]], digits, ...)
+                        
+
+                        #this plot routine is only for 2-d scatter plot
+                        #thus set plot as FALSE,just use it to get bounds
+                        #add plot stats/names
+                        bounds <- glpolygon(thisFilter, frames[[nm]],
+                            channels=parm
+                            ,ptList=ptList
+                            ,verbose=FALSE
+                            , plot=FALSE 
+                            ,names=names
+                            ,xlim=r
+                            ,ylim=c(i,i+1)
+                            ,strict=FALSE)
+                        oo <- options(warn=-1)
+                        on.exit(options(oo))
+                        if(!is.na(bounds)){
+                          ## iterate over gate regions
+                          for(j in seq_along(bounds)){
+                            tb <- bounds[[j]]
+#							browser()
+                            if(fitGate)
+                            {
+                              if(ncol(tb) == 1 && colnames(tb) == parm){
+                                sel <- xl >= min(tb) & xl <= max(tb)
+                                if(any(sel)){
+                                  afun <- approxfun(xl, yl)
+                                  xr <- c(min(tb), seq(min(tb), max(tb), len=100),
+                                      max(tb))
+                                  yr <- c(i, afun(xr[-c(1, length(xr))]), i)
+                                  gpd<-gp$gate.density
+                                  panel.polygon(xr, yr
+                                      , border=gpd$col, col=gpd$fill,
+                                      alpha=gpd$alpha, lwd=gpd$lwd,
+                                      lty=gpd$lty
+                                  )
+                                }
+                              }	
+                            }else
+                            {
+#								browser()
+                              gpg<-gp$gate
+                              panel.lines(x=c(tb[1],tb[1]),y=c(i,i+height)
+                                  ,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+                              panel.lines(x=c(tb[2],tb[2]),y=c(i,i+height)
+                                  ,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+                            }
+                            
+                          }
+                        }
+                        
+                        
+                        
+                        options(oo)
+                      })
+                }else
+                {
+					curFilter<-filter[[nm]]
+#					browser()
+                    if(is.list(stats))
+                      thisStats <- stats[[nm]]
+                    else
+                      thisStats <- stats
+                    names <- .getStats(curFilter,thisStats, frames[[nm]], digits, ...)
+					
+#					browser()
+					#this plot routine is only for 2-d scatter plot
+					#thus set plot as FALSE,just use it to get bounds
+					#add plot stats/names
+                    bounds <- glpolygon(curFilter, frames[[nm]],
+                                        channels=parm
+										,ptList=ptList
+                                        ,verbose=FALSE
+										, plot=FALSE 
+										,names=names
+										,xlim=r
+										,ylim=c(i,i+1)
+										,strict=FALSE)
+                    oo <- options(warn=-1)
+                    on.exit(options(oo))
+                    if(!is.na(bounds)){
+                        ## iterate over gate regions
+                        for(j in seq_along(bounds)){
+                            tb <- bounds[[j]]
+#							browser()
+							if(fitGate)
+							{
+								if(ncol(tb) == 1 && colnames(tb) == parm){
+									sel <- xl >= min(tb) & xl <= max(tb)
+									if(any(sel)){
+										afun <- approxfun(xl, yl)
+										xr <- c(min(tb), seq(min(tb), max(tb), len=100),
+												max(tb))
+										yr <- c(i, afun(xr[-c(1, length(xr))]), i)
+										gpd<-gp$gate.density
+										panel.polygon(xr, yr
+												, border=gpd$col, col=gpd$fill,
+												alpha=gpd$alpha, lwd=gpd$lwd,
+												lty=gpd$lty
+												)
+									}
+								}	
+							}else
+							{
+#								browser()
+								gpg<-gp$gate
+								panel.lines(x=c(tb[1],tb[1]),y=c(i,i+height)
+										,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+								panel.lines(x=c(tb[2],tb[2]),y=c(i,i+height)
+										,col=gpg$col,alpha=gpg$alpha, lwd=gpg$lwd,lty=gpg$lty)
+							}
+                            
+                        }
+                    }
+					
+					
+					
+                    options(oo)
+                }
+               }
+#				browser()
+                panel.lines(x=xl,y=yl, col=border[i], lty=lty[i],lwd=lwd[i])
+
+            }else{
+                panel.lines(rl, rep(i,2), col="black")
+            }
+			
+        }
+    }
+    if(!is.null(refline))
+        panel.abline(v=refline)
+}
+<bytecode: 0x1d1078b8>
+<environment: namespace:flowViz>
+ --- function search by body ---
+Function panel.densityplot.flowset.stack in namespace flowViz has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

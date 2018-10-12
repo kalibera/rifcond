@@ -1,0 +1,631 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/FlexParamCurve.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘FlexParamCurve/DESCRIPTION’ ... OK
+* this is package ‘FlexParamCurve’ version ‘1.5-3’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘FlexParamCurve’ can be installed ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... ERROR
+Running examples in ‘FlexParamCurve-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: get.mod
+> ### Title: Copy objects between R environments
+> ### Aliases: get.mod
+> 
+> ### ** Examples
+> 
+> 
+> 
+>  #transfer all nlsList models from the FlexParamCurve working environmment (FPCEnv) 
+> 
+> 
+>    #to the Global Environment. Note: unless pn.mod.compare or 
+> 
+> 
+>    #pn.modselect.step have been run, in which case this is default
+> 
+> 
+>    #1. subset data object (only 3 individuals) to expediate model selection
+> 
+> 
+>    subdata <- subset(posneg.data, as.numeric(row.names (posneg.data) ) < 40)
+> 
+> 
+>    #2. run model selection in FPCEnv using pn.mod.compare. Only two models (#1 and #5)
+> 
+> 
+>    #specified to be run here to reduce processing time. see pn.mod.compare
+> 
+> 
+>    modseltable <- pn.mod.compare(subdata$age, subdata$mass,
++ 
++ 
++    subdata$id, existing = FALSE, pn.options = "myoptions", mod.subset = c(1,5)
++ 
++ 
++    , Envir = FlexParamCurve:::FPCEnv)
+[1] modpar will attempt to parameterize your data using the following sequential procedures:
+[1]   (1) Extract parameter estimates for 8-parameter double-Richards curve in nls
+[1]   (2) Use getInitial to retrieve parameter estimates for 8-parameter double-Richards curve
+[1]   (3) Extract parameter estimates for 4-parameter Richards curve in 
+[1]   (4) Use getInitial to retrieve parameter estimates for 4-parameter Richards curve
+[1] if any approaches are successful, modpar will return these and terminate at that stage
+[1]  
+[1] (1) Status of 8-parameter double-Richards curve fit in nls:
+[1] ....8 parameter nls fit failed
+[1] (2) Status of 8-parameter double-Richards getInitial call
+[1] ....8-parameter getInitial successful
+[1] "checking fit of positive section of the curve for variable M*************************************"
+[1] "checking fit of positive section of the curve for fixed M*************************************"
+[1] "3 parameter positive richards model failed/not fitted*************************************"
+[1] "4 parameter positive richards model failed/not fitted*************************************"
+[1] "Variable M models most appropriate*************************************"
+[1] "################  ################  ##################  #################  ###############  #########"
+[1] "Fitting model 1 of 2: richardsR1.lis"
+[[1]]
+[1] "**********************  Model richardsR1.lis has not been successfully fit, please trouble-shoot this model separately and then repeat function using existing=TRUE  *************************************************"
+
+[1] "################  ################  ##################  #################  ###############  #########"
+[1] "Fitting model 2 of 2: richardsR5.lis"
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpl1XuWt/R.INSTALL82e06ec4080d/FlexParamCurve/R/SSposnegRichards.R#2272: 
+ --- package (from environment) --- 
+FlexParamCurve
+ --- call from context --- 
+fn(par, ...)
+ --- call from argument --- 
+if (Re(as.complex(1 + M[1] * exp(-K[1] * (xy$x - Infl[1])))) < 
+    0) {
+    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - Ri[1])))) < 
+        0) {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsFMRM(xy$x, Asym, K, Infl, M, 
+                RAsym, Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsFMRM((0:max(xy$x)), 
+                Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+    else {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsFM(xy$x, Asym, K, Infl, M, 
+                RAsym, Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsFM((0:max(xy$x)), 
+                Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+} else {
+    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - Ri[1])))) < 
+        0) {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsFRM(xy$x, Asym, K, Infl, M, 
+                RAsym, Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsFRM((0:max(xy$x)), 
+                Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+    else {
+        if (modno >= 17 & modno < 18) {
+            y1 <- SSposnegRichardsF17(xy$x, Asym, Infl, M, RAsym, 
+                Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+        else {
+            y1 <- SSposnegRichardsF(xy$x, Asym, K, Infl, M, RAsym, 
+                Rk, Ri, RM)
+            y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+            y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+            evl <- sum((xy$y - y1)^2)
+            if (!is.na(evl)) {
+                if (evl == Inf) {
+                  evl <- 1e+290
+                }
+                else {
+                  evl <- 1e+290
+                }
+            }
+            try(if (min(Im(SSposnegRichardsF((0:max(xy$x)), Asym, 
+                K, Infl, M, RAsym, Rk, Ri, RM)) < 0)) {
+                evl <- 1e+200
+            }, silent = TRUE)
+        }
+    }
+}
+ --- R stacktrace ---
+where 1 at ../../../../R/src/library/stats/R/optim.R#25: fn(par, ...)
+where 2 at ../../../../R/src/library/stats/R/optim.R#65: (function(par) fn(par,...))(c(Asym = 4334.17580073736, K = 0.0632653544876502, 
+Infl = 24.8483463411178, M = 0.517002166128575, RM = 0.997841195933385
+))
+where 3 at /var/scratch2/tomas/tmp/Rtmpl1XuWt/R.INSTALL82e06ec4080d/FlexParamCurve/R/SSposnegRichards.R#2653: optim(value, richardsR, method = "L-BFGS-B", lower = dnbnds, 
+    upper = upbnds, control = list(maxit = 1000, parscale = parscaleR))
+where 4: doTryCatch(return(expr), name, parentenv, handler)
+where 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 6: tryCatchList(expr, classes, parentenv, handlers)
+where 7: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 8 at /var/scratch2/tomas/tmp/Rtmpl1XuWt/R.INSTALL82e06ec4080d/FlexParamCurve/R/SSposnegRichards.R#2653: try(oppar1 <- (optim(value, richardsR, method = "L-BFGS-B", lower = dnbnds, 
+    upper = upbnds, control = list(maxit = 1000, parscale = parscaleR))), 
+    silent = TRUE)
+where 9 at ../../../../R/src/library/stats/R/selfStart.R#96: (attr(object, "initial"))(mCall = mCall, data = data, LHS = LHS)
+where 10 at ../../../../R/src/library/stats/R/selfStart.R#67: getInitial.selfStart(func, data, mCall = as.list(match.call(func, 
+    call = object[[3L]])), LHS = object[[2L]], ...)
+where 11 at ../../../../R/src/library/stats/R/selfStart.R#87: getInitial(func, data, mCall = as.list(match.call(func, call = object[[3L]])), 
+    LHS = object[[2L]], ...)
+where 12 at ../../../../R/src/library/stats/R/selfStart.R#67: getInitial.formula(formula, mf)
+where 13 at ../../../../R/src/library/stats/R/nls.R#588: getInitial(formula, mf)
+where 14 at /var/scratch2/tomas/tmp/RtmpVt5fPe/R.INSTALL7de47ef9ddb0/nlme/R/nlsList.R#101: nls(model, data = data, control = controlvals)
+where 15: doTryCatch(return(expr), name, parentenv, handler)
+where 16: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 17: tryCatchList(expr, classes, parentenv, handlers)
+where 18 at /var/scratch2/tomas/tmp/RtmpVt5fPe/R.INSTALL7de47ef9ddb0/nlme/R/nlsList.R#96: tryCatch({
+    data <- as.data.frame(dat)
+    if (is.null(start)) {
+        nls(model, data = data, control = controlvals)
+    }
+    else {
+        nls(model, data = data, control = controlvals, start = start)
+    }
+}, error = function(e) e)
+where 19: FUN(X[[i]], ...)
+where 20 at /var/scratch2/tomas/tmp/RtmpVt5fPe/R.INSTALL7de47ef9ddb0/nlme/R/nlsList.R#96: lapply(split(data, groups), function(dat) tryCatch({
+    data <- as.data.frame(dat)
+    if (is.null(start)) {
+        nls(model, data = data, control = controlvals)
+    }
+    else {
+        nls(model, data = data, control = controlvals, start = start)
+    }
+}, error = function(e) e))
+where 21 at /var/scratch2/tomas/tmp/RtmpVt5fPe/R.INSTALL7de47ef9ddb0/nlme/R/nlsList.R#23: nlsList.formula(y ~ SSposnegRichards(x, Asym = Asym, K = K, Infl = Infl, 
+    M = M, RM = RM, modno = 5, pn.options = "myoptions"), data = userdata, 
+    ...)
+where 22: nlsList(y ~ SSposnegRichards(x, Asym = Asym, K = K, Infl = Infl, 
+    M = M, RM = RM, modno = 5, pn.options = "myoptions"), data = userdata, 
+    ...)
+where 23: eval(parse(text = sprintf("%s", paste("nlsList(y~SSposnegRichards(x,Asym=Asym", 
+    savK, ",Infl=Infl", savM, ",RM=RM,modno=", modelno, ", pn.options = \"", 
+    pnoptnm, "\"),data=userdata, ...)", sep = ""))))
+where 24 at /var/scratch2/tomas/tmp/Rtmpl1XuWt/R.INSTALL82e06ec4080d/FlexParamCurve/R/pn.mod.compare.R#224: eval(parse(text = sprintf("%s", paste("nlsList(y~SSposnegRichards(x,Asym=Asym", 
+    savK, ",Infl=Infl", savM, ",RM=RM,modno=", modelno, ", pn.options = \"", 
+    pnoptnm, "\"),data=userdata, ...)", sep = ""))))
+where 25: doTryCatch(return(expr), name, parentenv, handler)
+where 26: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 27: tryCatchList(expr, classes, parentenv, handlers)
+where 28: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 29 at /var/scratch2/tomas/tmp/Rtmpl1XuWt/R.INSTALL82e06ec4080d/FlexParamCurve/R/pn.mod.compare.R#224: try(eval(parse(text = sprintf("%s", paste("nlsList(y~SSposnegRichards(x,Asym=Asym", 
+    savK, ",Infl=Infl", savM, ",RM=RM,modno=", modelno, ", pn.options = \"", 
+    pnoptnm, "\"),data=userdata, ...)", sep = "")))), silent = TRUE)
+where 30 at /var/scratch2/tomas/tmp/Rtmpl1XuWt/R.INSTALL82e06ec4080d/FlexParamCurve/R/pn.mod.compare.R#308: runmod(userdata, modno[i], modelsig, existing = existing)
+where 31: pn.mod.compare(subdata$age, subdata$mass, subdata$id, existing = FALSE, 
+    pn.options = "myoptions", mod.subset = c(1, 5), Envir = FlexParamCurve:::FPCEnv)
+
+ --- value of length: 13 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE
+ --- function from context --- 
+function(Rparams) {
+                  val2 <- data.frame(Asym = modelparams$Asym, 
+                    K = modelparams$K, Infl = modelparams$Infl, 
+                    M = modelparams$M, RAsym = modelparams$RAsym, 
+                    Rk = modelparams$Rk, Ri = modelparams$Ri, 
+                    RM = modelparams$RM)
+                  val3 <- (data.frame(t(Rparams)))
+                  if (length(val3$Asym) == 1) 
+                    val2$Asym <- val3$Asym
+                  if (length(val3$K) == 1) 
+                    val2$K <- val3$K
+                  if (length(val3$Infl) == 1) 
+                    val2$Infl <- val3$Infl
+                  if (length(val3$M) == 1) 
+                    val2$M <- val3$M
+                  if (length(val3$RAsym) == 1) 
+                    val2$RAsym <- val3$RAsym
+                  if (length(val3$Rk) == 1) 
+                    val2$Rk <- val3$Rk
+                  if (length(val3$Ri) == 1) 
+                    val2$Ri <- val3$Ri
+                  if (length(val3$RM) == 1) 
+                    val2$RM <- val3$RM
+                  Asym <- val2$Asym
+                  K <- val2$K
+                  Infl <- val2$Infl
+                  M <- val2$M
+                  RAsym <- val2$RAsym
+                  Rk <- val2$Rk
+                  Ri <- val2$Ri
+                  RM <- val2$RM
+                  if (is.na(exp(-K * (min(xy$x) - Infl))) == 
+                    TRUE | (exp(-K * (min(xy$x) - Infl))) == 
+                    Inf) {
+                    K = modelparams$K
+                    Infl = modelparams$Infl
+                  }
+                  if (is.na(exp(-K * (max(xy$x) - Infl))) == 
+                    TRUE | (exp(-K * (min(xy$x) - Infl))) == 
+                    Inf) {
+                    K = modelparams$K
+                    Infl = modelparams$Infl
+                  }
+                  if (is.na(exp(-Rk * (min(xy$x) - Ri))) == TRUE | 
+                    (exp(-Rk * (min(xy$x) - Ri))) == Inf) {
+                    Rk = modelparams$Rk
+                    Ri = modelparams$Ri
+                  }
+                  if (is.na(exp(-Rk * (max(xy$x) - Ri))) == TRUE | 
+                    (exp(-Rk * (min(xy$x) - Ri))) == Inf) {
+                    Rk = modelparams$Rk
+                    Ri = modelparams$Ri
+                  }
+                  options(warn = -1)
+                  if(modno == 17.2 | modno == 17.4) RAsym <- Asym
+                  if(modno == 17.3| modno == 17.4) RM <- M              
+                  if (Re(as.complex(1 + M[1] * exp(-K[1] * (xy$x - 
+                    Infl[1])))) < 0) {
+                    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - 
+                      Ri[1])))) < 0) {
+                      if (modno >= 17 & modno < 18) {
+                            y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsFMRM(xy$x, Asym, 
+                          K, Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                try(if (min(Im(SSposnegRichardsFMRM((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    } else {
+                      if (modno >= 17 & modno < 18) {
+                        y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsFM(xy$x, Asym, 
+                          K, Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                try(if (min(Im(SSposnegRichardsFM((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    }
+                  } else {
+                    if (Re(as.complex(1 + RM[1] * exp(-Rk[1] * (xy$x - 
+                      Ri[1])))) < 0) {
+                      if (modno >= 17 & modno < 18) {
+                        y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsFRM(xy$x, Asym, 
+                          K, Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}    
+                try(if (min(Im(SSposnegRichardsFRM((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    } else {
+                      if (modno >= 17 & modno < 18) {
+                        y1 <- SSposnegRichardsF17(xy$x, Asym, 
+                          Infl, M, RAsym, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+    		if(!is.na(evl)){
+                 if (evl == Inf) {
+                   evl <- 1e+290
+                 	} else {
+                   evl <- 1e+290
+                 		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF17((0:max(xy$x)), 
+                          Asym, Infl, M, RAsym, Ri, RM)) < 0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      } else {
+                        y1 <- SSposnegRichardsF(xy$x, Asym, K, 
+                          Infl, M, RAsym, Rk, Ri, RM)
+                        y1[is.na(y1)] <- 1e-290 * pnmodelparams$RAsym
+                        y1[y1 == Inf] <- 1e-290 * pnmodelparams$RAsym
+                        evl <- sum((xy$y - y1)^2)
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	}
+                	try(if (min(Im(SSposnegRichardsF((0:max(xy$x)), 
+                          Asym, K, Infl, M, RAsym, Rk, Ri, RM)) < 
+                          0)) {
+                          evl <- 1e+200
+                        }, silent = TRUE)
+                      }
+                    }
+                  }
+   		if(!is.na(evl)){
+                if (evl == Inf) {
+                  evl <- 1e+290
+                	} else {
+                  evl <- 1e+290
+                		}
+               	} 
+                options(warn = 0)
+                  return(evl)
+                }
+<bytecode: 0x3f4e140>
+<environment: 0x357c220>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR

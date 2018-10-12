@@ -1,0 +1,297 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/MassArray.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘MassArray/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘MassArray’ version ‘1.33.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘MassArray’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Package listed in more than one of Depends, Imports, Suggests, Enhances:
+  ‘methods’
+A package should be listed in only one of these fields.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+calcMeth: warning in matrix(0, nr = 0, nc = N): partial argument match
+  of 'nr' to 'nrow'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:101)
+calcMeth: warning in matrix(0, nr = 0, nc = N): partial argument match
+  of 'nc' to 'ncol'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:101)
+calcMeth: warning in matrix(0, nr = num.SNRs, nc = N): partial argument
+  match of 'nr' to 'nrow'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:104)
+calcMeth: warning in matrix(0, nr = num.SNRs, nc = N): partial argument
+  match of 'nc' to 'ncol'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:104)
+calcMeth: warning in matrix(0, nr = num.missing, nc = N): partial
+  argument match of 'nr' to 'nrow'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:118)
+calcMeth: warning in matrix(0, nr = num.missing, nc = N): partial
+  argument match of 'nc' to 'ncol'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:118)
+calcMeth: warning in matrix(0, nr = num.SNRs, nc = N): partial argument
+  match of 'nr' to 'nrow'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:133)
+calcMeth: warning in matrix(0, nr = num.SNRs, nc = N): partial argument
+  match of 'nc' to 'ncol'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:133)
+calcMeth: warning in matrix(0, nr = length(na.coefs), nc = N): partial
+  argument match of 'nr' to 'nrow'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:148)
+calcMeth: warning in matrix(0, nr = length(na.coefs), nc = N): partial
+  argument match of 'nc' to 'ncol'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:148)
+calcMeth : optimizeCoefficients: warning in matrix(0, nr =
+  num.fragments, nc = N): partial argument match of 'nr' to 'nrow'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:161)
+calcMeth : optimizeCoefficients: warning in matrix(0, nr =
+  num.fragments, nc = N): partial argument match of 'nc' to 'ncol'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:161)
+calcMeth : optimizeCoefficients: warning in matrix(NA, nr =
+  length(coefs) + 1, nc = length(coefs)): partial argument match of
+  'nr' to 'nrow'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:165)
+calcMeth : optimizeCoefficients: warning in matrix(NA, nr =
+  length(coefs) + 1, nc = length(coefs)): partial argument match of
+  'nc' to 'ncol'
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/calcPercentConversion.R:165)
+$<-,MassArrayData: no visible global function definition for ‘slot<-’
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/MassArrayData.R:259)
+$<-,MassArrayFragment: no visible global function definition for
+  ‘slot<-’
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/MassArrayFragment.R:111)
+$<-,MassArrayPeak: no visible global function definition for ‘slot<-’
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/MassArrayPeak.R:108)
+$<-,MassArraySpectrum: no visible global function definition for
+  ‘slot<-’
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/MassArraySpectrum.R:80)
+initialize,MassArrayData: no visible global function definition for
+  ‘read.table’
+  (/var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/MassArrayData.R:144)
+Undefined global functions or variables:
+  read.table slot<-
+Consider adding
+  importFrom("methods", "slot<-")
+  importFrom("utils", "read.table")
+to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+contains 'methods').
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘MassArray-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: convControl
+> ### Title: Conversion control
+> ### Aliases: convControl
+> ### Keywords: manip character
+> 
+> ### ** Examples
+> 
+> data(MassArray.example.data)
+> MassArray.example.data$fragments.T[[54]]
+An object of class "MassArrayFragment"
+Slot "ID":
+[1] 54
+
+Slot "assay.name":
+[1] ""
+
+Slot "name":
+[1] ""
+
+Slot "sequence":
+[1] "ACACACAT"
+
+Slot "position":
+[1] 126
+
+Slot "length":
+[1] 8
+
+Slot "CpGs":
+[1] 0
+
+Slot "MW":
+[1] 2509.587
+
+Slot "collisions":
+[1] 0
+
+Slot "collision.IDs":
+[[1]]
+integer(0)
+
+
+Slot "CG.collisions":
+[1] 0
+
+Slot "CG.collision.IDs":
+list()
+
+Slot "type":
+[1] "T"
+
+Slot "direction":
+[1] "+"
+
+Slot "extra":
+[1] "5OH"
+
+Slot "bisulfite.converted":
+[1] TRUE
+
+Slot "assayable":
+[1] TRUE
+
+Slot "conversion.control":
+[1] FALSE
+
+Slot "required":
+[1] FALSE
+
+Slot "ignored":
+[1] FALSE
+
+Slot "primer":
+[1] FALSE
+
+> conversion.data <- convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpdhHUqd/R.INSTALLf7ca5c3432ac/MassArray/R/convControl.R#26: 
+ --- package (from environment) --- 
+MassArray
+ --- call from context --- 
+convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
+ --- call from argument --- 
+if (fragmentation[[which.fragment]]$collisions > 0) next
+ --- R stacktrace ---
+where 1: convControl(MassArray.example.data$sequence, MassArray.example.data$fragments.T)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function (sequence, fragmentation, multiple=FALSE) {
+	sequence <- toupper(sequence)
+	N <- nchar(sequence)
+	fragment.positions <- unlist(lapply(fragmentation, slot, "position"))
+	fragment.ends <- fragment.positions + unlist(lapply(fragmentation, slot, "length")) - 1
+	fragments <- gregexpr("G[ACT]*A[CT]*C[T]*T(?=G[CTG]*A)", sequence, perl=TRUE)[[1]]
+	lengths <- regexpr("G[ACT]*A[CT]*C[T]*TG[CTG]*A", substr(rep(sequence, length(fragments)), fragments, rep(N, length(fragments))))
+	attr(fragments, "match.length") <- attr(lengths, "match.length")
+	if (all(unlist(fragments) == -1)) {
+		warning("No conversion controls found")
+		return(fragmentation)	
+	}
+	fragments.seq <- substr(rep(sequence, length(fragments)), fragments, fragments+attr(fragments, "match.length")-1)
+	fragments.tg.position <- regexpr("TG", fragments.seq) + fragments
+	peaks.unique <- unique(unlist(lapply(fragmentation, slot, "MW")))
+	for (i in 1:length(fragments.seq)) {
+		## DO NOT INCLUDE CG-CONTAINING FRAGMENTS AS CONVERSION CONTROLS
+		if (length(grep("CG", fragments.seq[i])) > 0) next
+		which.fragment <- which(fragment.positions <= fragments.tg.position[i] & fragment.ends >= fragments.tg.position[i])
+		## DO NOT INCLUDE FRAGMENTS THAT ARE NOT ASSAYABLE
+		if (!fragmentation[[which.fragment]]$assayable) next
+		## EXCLUDE FRAGMENTS LOCATED WITHIN PRIMER SEQUENCES ON EITHER END
+		## (NOT TRUE CONVERSION CONTROL BECAUSE BIASED IN FAVOR OF CONVERSION)
+		if (fragmentation[[which.fragment]]$primer) next
+		## DO NOT INCLUDE CONTROL FRAGMENTS THAT HAVE PEAK COLLISIONS
+		if (fragmentation[[which.fragment]]$collisions > 0) next
+		## DO NOT INCLUDE CONTROL FRAGMENTS THAT WILL INTRODUCE PEAK COLLISIONS
+		if (multiple) {
+			sequence.plus.control <- gsub("CA", "CR", fragmentation[[which.fragment]]$sequence)
+		}
+		else {
+			sequence.plus.control <- sub("CA", "CR", fragmentation[[which.fragment]]$sequence)
+		}
+		MW <- calcMW(sequence.plus.control)
+		if (any(MW[2:length(MW)] %in% peaks.unique)) next
+		num.collisions <- sum(unlist(lapply(findCollisions(peaks.unique), length)) - 1 ) / 2
+		peaks.unique.plus.control <- unique(c(peaks.unique, MW))
+		num.collisions.plus.control <- sum(unlist(lapply(findCollisions(peaks.unique.plus.control), length)) - 1) / 2
+		if (num.collisions.plus.control > num.collisions) next
+		## CONVERSION CONTROL IS GOOD => UPDATE FRAGMENTATION PROFILE APPROPRIATELY
+		peaks.unique <- peaks.unique.plus.control
+		fragmentation[[which.fragment]]$conversion.control <- TRUE
+		fragmentation[[which.fragment]]$sequence <- sequence.plus.control
+		fragmentation[[which.fragment]]$MW <- as.numeric(calcMW(fragmentation[[which.fragment]]$sequence))
+		fragmentation[[which.fragment]]$CpGs <- as.integer(fragmentation[[which.fragment]]$CpGs + 1)
+	}
+	return(fragmentation)
+}
+<bytecode: 0x5211bb8>
+<environment: namespace:MassArray>
+ --- function search by body ---
+Function convControl in namespace MassArray has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+* checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Warning in convControl(paste(fwd.tag, sequence, rev.tag, sep = ""), fragments,  :
+  No conversion controls found
+Warning in convControl(paste(fwd.tag, sequence, rev.tag, sep = ""), fragments,  :
+  No conversion controls found
+Warning in convControl(paste(fwd.tag, sequence, rev.tag, sep = ""), fragments,  :
+  No conversion controls found
+Warning in convControl(paste(fwd.tag, sequence, rev.tag, sep = ""), fragments,  :
+  No conversion controls found
+Warning in convControl(paste(fwd.tag, sequence, rev.tag, sep = ""), fragments,  :
+  No conversion controls found
+Warning in convControl(paste(fwd.tag, sequence, rev.tag, sep = ""), fragments,  :
+  No conversion controls found
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  Running 'texi2dvi' on 'MassArray.tex' failed.
+LaTeX errors:
+! Package auto-pst-pdf Error: 
+    "shell escape" (or "write18") is not enabled:
+    auto-pst-pdf will not work!
+.
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 3 NOTEs
