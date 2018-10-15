@@ -1,0 +1,784 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "denpro"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('denpro')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("branchmap")
+> ### * branchmap
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: branchmap
+> ### Title: Computes a branching map from a sequence of level set trees
+> ### Aliases: branchmap
+> ### Keywords: smooth multivariate
+> 
+> ### ** Examples
+> 
+> dendat<-sim.data(n=200,type="mulmod")
+> 
+> h1<-0.9
+> h2<-2.2
+> lkm<-5
+> hseq<-hgrid(h1,h2,lkm)
+> 
+> N<-c(16,16)
+> estiseq<-lstseq.kern(dendat,hseq,N,lstree=TRUE)
+> 
+> bm<-branchmap(estiseq)
+> 
+> plotbranchmap(bm)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("colors2data")
+> ### * colors2data
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: colors2data
+> ### Title: Assigns colors to data points
+> ### Aliases: colors2data
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> # generate data
+> seed<-1
+> n<-50
+> d<-2
+> l<-3; D<-4; c<-D/sqrt(2)
+> M<-matrix(0,l,d); M[2,]<-c; M[3,]<--c
+> sig<-matrix(1,l,d)
+> p<-rep(1/l,l)
+> dendat<-sim.data(type="mixt",n=n,M=M,sig=sig,p=p,seed=seed)
+> 
+> # colored volume function 
+> h<-(4/(d+2))^(1/(d+4))*n^(-1/(d+4))*apply(dendat,2,sd)
+> N<-rep(20,d)
+> pcf<-pcf.kern(dendat,h,N)
+> lst<-leafsfirst(pcf)
+> 
+> # colored scatter plot
+> cd<-colors2data(dendat,pcf,lst)
+> plot(dendat,col=cd$datacolo)
+> 
+> # colored scatter plot: plot the observations so that the observations with
+> # the highest density value are plotted last
+> cd<-colors2data(dendat,pcf,lst)
+> plot(dendat[cd$ord,1],dendat[cd$ord,2],col=cd$datacolo[cd$ord])
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("denpro-package")
+> ### * denpro-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: denpro-package
+> ### Title: Visualization of Multivariate Functions, Sets, and Data
+> ### Aliases: denpro-package denpro
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> # level set tree
+> 
+> dendat<-sim.data(n=200,type="mulmod")   # data
+> pcf<-pcf.kern(dendat,h=1,N=c(32,32))    # kernel estimate
+> 
+> lst<-leafsfirst(pcf)             # level set tree
+> td<-treedisc(lst,pcf,ngrid=60)   # pruned level set tree
+> 
+> plotvolu(td)                     # volume plot
+> 
+> plotbary(td)                     # barycenter plot 
+> 
+> # shape tree
+> 
+> dendat<-sim.data(n=200,type="cross")    # data
+> pcf<-pcf.kern(dendat,h=1,N=c(32,32))    # kernel estimate
+> 
+> st<-leafsfirst(pcf,propo=0.01)   # shape tree, 1 per cent level set
+> tdst<-treedisc(st,pcf,ngrid=60)  # pruned shape tree
+> 
+> plotvolu(tdst)          # radius plot
+> 
+> plotbary(tdst)          # location plot
+> 
+> # tail tree
+> 
+> dendat<-sim.data(n=200,type="cross")    # data
+> 
+> tt<-leafsfirst(dendat=dendat,rho=0.65) # tail tree
+> 
+> plotbary(tt)     # tail tree plot
+> 
+> plotvolu(tt)     # tail frequency plot
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("draw.levset")
+> ### * draw.levset
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: draw.levset
+> ### Title: Plots a level set of a 2D function
+> ### Aliases: draw.levset
+> ### Keywords: hplot
+> 
+> ### ** Examples
+> 
+> dendat<-sim.data(n=100,type="mulmod")
+> pcf<-pcf.kern(dendat,h=1,N=c(32,32))
+> 
+> draw.levset(pcf,lev=1.331979e-02)
+> 
+> draw.levset(pcf,propor=0.4)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("draw.pcf")
+> ### * draw.pcf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: draw.pcf
+> ### Title: Prepares the plotting of a 2D or 1D piecewise constant function
+> ### Aliases: draw.pcf
+> ### Keywords: hplot
+> 
+> ### ** Examples
+> 
+> # 2D case
+> dendat<-sim.data(n=100,type="mulmod")
+> pcf<-pcf.kern(dendat,h=1,N=c(32,32))
+> 
+> dp<-draw.pcf(pcf,pnum=c(30,30))
+> 
+> contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+> 
+> persp(dp$x,dp$y,dp$z)
+> 
+> # 1D case
+> set.seed(1)
+> dendat<-matrix(rnorm(20),20)   #10*1 data-matrix
+> pcf<-pcf.kern(dendat,h=1,N=c(25))
+> 
+> dp<-draw.pcf(pcf)
+> 
+> plot(dp$x,dp$y,type="l")
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("excmas")
+> ### * excmas
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: excmas
+> ### Title: Computes the excess masses associated with the nodes of a level
+> ###   set tree
+> ### Aliases: excmas
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> set.seed(1)
+> dendat<-matrix(rnorm(20),10)   #10*2 data-matrix
+> pcf<-pcf.kern(dendat,h=1,N=c(16,16))
+> lst<-leafsfirst(pcf)
+> excmas(lst)
+          [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
+[1,] 0.4996677 0.4077618 0.4029074 0.3984121 0.3940424 0.3895436 0.3846846
+          [,8]      [,9]     [,10]     [,11]     [,12]     [,13]     [,14]
+[1,] 0.3793026 0.3733434 0.3686945 0.3668957 0.3630436 0.3602112 0.3584426
+         [,15]     [,16]     [,17]     [,18]     [,19]     [,20]     [,21]
+[1,] 0.3546658 0.3536602 0.3514432 0.3484966 0.3477112 0.3456034 0.3428638
+         [,22]     [,23]     [,24]     [,25]     [,26]     [,27]     [,28]
+[1,] 0.3426182 0.3395981 0.3395244 0.3393695 0.3383351 0.3364487 0.3347774
+         [,29]     [,30]     [,31]     [,32]     [,33]     [,34]     [,35]
+[1,] 0.3335941 0.3313042 0.3312783 0.3308053 0.3298831 0.3297752 0.3245726
+         [,36]     [,37]     [,38]     [,39]     [,40]     [,41]     [,42]
+[1,] 0.3239578 0.3216649 0.3185728 0.3152412 0.3144507 0.3133098 0.3132845
+         [,43]     [,44]     [,45]     [,46]     [,47]     [,48]     [,49]
+[1,] 0.3113903 0.3105907 0.3091354 0.3075071 0.3074617 0.3062229 0.3057175
+         [,50]     [,51]     [,52]     [,53]     [,54]     [,55]     [,56]
+[1,] 0.3053508 0.3049317 0.3048792 0.3032021 0.2971551 0.2958475 0.2942183
+         [,57]     [,58]     [,59]     [,60]     [,61]     [,62]     [,63]
+[1,] 0.2860713 0.2817155 0.2786928 0.2740995 0.2721033 0.2719745 0.2714292
+         [,64]     [,65]    [,66]     [,67]     [,68]     [,69]     [,70]
+[1,] 0.2669583 0.2664007 0.263839 0.2616439 0.2586337 0.2579716 0.2556753
+         [,71]     [,72]     [,73]     [,74]     [,75]     [,76]     [,77]
+[1,] 0.2555956 0.2547508 0.2532954 0.2529311 0.2448945 0.2438293 0.2408845
+         [,78]    [,79]     [,80]     [,81]     [,82]     [,83]     [,84]
+[1,] 0.2328908 0.229638 0.2197314 0.2193199 0.2183556 0.2141522 0.2138028
+         [,85]     [,86]     [,87]     [,88]    [,89]     [,90]     [,91]
+[1,] 0.2116251 0.2115104 0.2099087 0.2052515 0.203527 0.2011008 0.2000387
+         [,92]     [,93]     [,94]     [,95]     [,96]   [,97]     [,98]
+[1,] 0.1992977 0.1989859 0.1965579 0.1932019 0.1869942 0.18136 0.1808014
+         [,99]    [,100]    [,101]    [,102]    [,103]    [,104]    [,105]
+[1,] 0.1783044 0.1719172 0.1699718 0.1682884 0.1681596 0.1653217 0.1616623
+        [,106]    [,107]    [,108]    [,109]    [,110]    [,111]    [,112]
+[1,] 0.1577444 0.1567774 0.1546293 0.1518231 0.1517884 0.1499169 0.1491531
+        [,113]    [,114]    [,115]    [,116]    [,117]    [,118]    [,119]
+[1,] 0.1488571 0.1483947 0.1480118 0.1450795 0.1444323 0.1442991 0.1432297
+        [,120]    [,121]    [,122]    [,123]    [,124]    [,125]    [,126]
+[1,] 0.1332274 0.1317237 0.1276509 0.1263803 0.1259818 0.1223141 0.1171788
+        [,127]   [,128]    [,129]    [,130]    [,131]    [,132]    [,133]
+[1,] 0.1154071 0.113941 0.1134635 0.1122127 0.1092669 0.1085029 0.1058838
+        [,134]     [,135]     [,136]     [,137]     [,138]     [,139]
+[1,] 0.1041751 0.09996873 0.09843028 0.09791656 0.09769022 0.09428573
+         [,140]     [,141]     [,142]     [,143]     [,144]     [,145]
+[1,] 0.09333525 0.09211166 0.09052325 0.08749691 0.08586216 0.08584426
+         [,146]     [,147]     [,148]     [,149]     [,150]     [,151]
+[1,] 0.08436968 0.08269333 0.08066184 0.07717879 0.07373464 0.07290056
+         [,152]     [,153]    [,154]     [,155]     [,156]     [,157]
+[1,] 0.07147921 0.07022944 0.0689549 0.06565595 0.06430977 0.06080492
+         [,158]     [,159]     [,160]    [,161]     [,162]    [,163]     [,164]
+[1,] 0.06043292 0.05986941 0.05695802 0.0567256 0.05589313 0.0537789 0.05321346
+         [,165]     [,166]     [,167]     [,168]     [,169]     [,170]
+[1,] 0.05315774 0.05161898 0.05028383 0.05009783 0.04837489 0.04795851
+         [,171]     [,172]    [,173]     [,174]     [,175]     [,176]
+[1,] 0.04739006 0.04524977 0.0450778 0.04148015 0.03894208 0.03765005
+         [,177]     [,178]     [,179]     [,180]     [,181]     [,182]
+[1,] 0.03724205 0.03705691 0.03700041 0.03666465 0.03586024 0.03527552
+         [,183]    [,184]     [,185]    [,186]    [,187]     [,188]     [,189]
+[1,] 0.03120014 0.0297097 0.02940547 0.0278727 0.0273694 0.02727209 0.02725614
+         [,190]     [,191]     [,192]     [,193]     [,194]    [,195]
+[1,] 0.02710176 0.02609629 0.02457977 0.02404469 0.02395082 0.0238925
+         [,196]     [,197]     [,198]     [,199]     [,200]     [,201]
+[1,] 0.02335169 0.02305503 0.02288106 0.02282802 0.02253766 0.02205635
+         [,202]     [,203]     [,204]     [,205]     [,206]     [,207]
+[1,] 0.02134903 0.02092581 0.02073393 0.02008038 0.01701888 0.01550962
+         [,208]     [,209]     [,210]    [,211]    [,212]     [,213]     [,214]
+[1,] 0.01481274 0.01471872 0.01433562 0.0142301 0.0136312 0.01252155 0.01179989
+         [,215]     [,216]     [,217]     [,218]      [,219]      [,220]
+[1,] 0.01112461 0.01062344 0.01047148 0.01001169 0.009540455 0.009206314
+          [,221]     [,222]      [,223]      [,224]      [,225]      [,226]
+[1,] 0.009076445 0.00710928 0.007106109 0.007094069 0.006801251 0.006637763
+          [,227]      [,228]     [,229]      [,230]      [,231]      [,232]
+[1,] 0.006542097 0.005977985 0.00595729 0.005555961 0.004844551 0.004795248
+          [,233]      [,234]      [,235]      [,236]      [,237]      [,238]
+[1,] 0.004698121 0.004533008 0.004162054 0.003297038 0.003108286 0.002066054
+          [,239]      [,240]      [,241]      [,242]      [,243]      [,244]
+[1,] 0.001993505 0.001734287 0.001424837 0.001361264 0.001357983 0.001247685
+          [,245]       [,246]       [,247]       [,248]       [,249]
+[1,] 0.001043178 0.0009683652 0.0009269876 0.0008571783 0.0007692402
+           [,250]      [,251]      [,252]       [,253]       [,254]
+[1,] 0.0003505223 0.000268233 0.000255858 0.0001725513 1.459367e-05
+           [,255]       [,256]
+[1,] 1.024305e-05 8.183428e-06
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exmap")
+> ### * exmap
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exmap
+> ### Title: Computes a scale of excess mass profiles
+> ### Aliases: exmap
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> dendat<-sim.data(n=200,type="mulmod")
+> 
+> h1<-0.9
+> h2<-2.2
+> lkm<-5
+> hseq<-hgrid(h1,h2,lkm)
+> 
+> N<-c(16,16)
+> estiseq<-lstseq.kern(dendat,hseq,N,lstree=TRUE)
+> 
+> mt<-modegraph(estiseq)
+> 
+> horilines<-c(1,2,3,4)
+> 
+> sp<-exmap(estiseq,mt,horilines)
+> 
+> plotexmap(sp,mt,ylim=c(1,4.5))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("findbnodes")
+> ### * findbnodes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: findbnodes
+> ### Title: Finds pointers to the nodes of a level set tree
+> ### Aliases: findbnodes
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> # generate data
+> seed<-1
+> n<-50
+> d<-2
+> l<-3; D<-4; c<-D/sqrt(2)
+> M<-matrix(0,l,d); M[2,]<-c; M[3,]<--c
+> sig<-matrix(1,l,d)
+> p<-rep(1/l,l)
+> dendat<-sim.data(type="mixt",n=n,M=M,sig=sig,p=p,seed=seed)
+> 
+> h<-(4/(d+2))^(1/(d+4))*n^(-1/(d+4))*apply(dendat,2,sd)
+> N<-rep(20,d)
+> pcf<-pcf.kern(dendat,h,N)
+> lst<-leafsfirst(pcf)
+> 
+> nodes<-findbnodes(lst,modenum=3)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hgrid")
+> ### * hgrid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hgrid
+> ### Title: Returns a grid of smoothing parameter values
+> ### Aliases: hgrid
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> h1<-0.9
+> h2<-2.2
+> lkm<-5
+> hseq<-hgrid(h1,h2,lkm)
+> 
+> hseq<-hgrid(h1,h2,lkm,base=NULL)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("leafsfirst")
+> ### * leafsfirst
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: leafsfirst
+> ### Title: Computes a level set tree, shape tree, or tail tree
+> ### Aliases: leafsfirst
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> dendat<-sim.data(n=100,type="mulmod")
+> pcf<-pcf.kern(dendat,h=1,N=c(32,32))
+> 
+> # level set tree
+> 
+> lst<-leafsfirst(pcf)          
+> 
+> td<-treedisc(lst,pcf,ngrid=30)
+> plotvolu(td)
+> 
+> # shape tree
+> 
+> st<-leafsfirst(pcf,propo=0.1)   # 10% level set  
+> 
+> tdst<-treedisc(st,pcf,ngrid=30)
+> plotvolu(tdst)
+> 
+> # tail tree
+> 
+> rho<-0.65
+> tt<-leafsfirst(dendat=dendat,rho=rho)
+> 
+> plotbary(tt)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("leafsfirst.adagrid")
+> ### * leafsfirst.adagrid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: leafsfirst.adagrid
+> ### Title: Computes a level set tree of a discretized kernel estimator with
+> ###   an adaptive grid
+> ### Aliases: leafsfirst.adagrid
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> # generate data
+> seed<-1
+> n<-50
+> d<-2
+> l<-3; D<-4; c<-D/sqrt(2)
+> M<-matrix(0,l,d); M[2,]<-c; M[3,]<--c
+> sig<-matrix(1,l,d)
+> p<-rep(1/l,l)
+> dendat<-sim.data(type="mixt",n=n,M=M,sig=sig,p=p,seed=seed)
+> 
+> h<-(4/(d+2))^(1/(d+4))*n^(-1/(d+4))*apply(dendat,2,sd)
+> minobs<-3
+> #pcf<-pcf.greedy.kernel(dendat,h,minobs=minobs,type="greedy")
+> #lst<-leafsfirst.adagrid(pcf)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("locofmax")
+> ### * locofmax
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: locofmax
+> ### Title: Calculates the location of the maximum of a function
+> ### Aliases: locofmax
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> dendat<-sim.data(n=100,type="mulmod")
+> pcf<-pcf.kern(dendat,h=1,N=c(32,32))
+> 
+> locofmax(pcf)
+         [,1]
+[1,] 2.101568
+[2,] 3.443778
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lstseq.kern")
+> ### * lstseq.kern
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lstseq.kern
+> ### Title: Calculates a scale of kernel estimates
+> ### Aliases: lstseq.kern
+> ### Keywords: smooth
+> 
+> ### ** Examples
+> 
+> dendat<-sim.data(n=200,type="mulmod")
+> 
+> h1<-0.9
+> h2<-2.2
+> lkm<-5
+> hseq<-hgrid(h1,h2,lkm)
+> 
+> N<-c(16,16)
+> estiseq<-lstseq.kern(dendat,hseq,N)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("modecent")
+> ### * modecent
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: modecent
+> ### Title: Returns locations of modes of a density estimate
+> ### Aliases: modecent
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> set.seed(1)
+> dendat<-matrix(rnorm(20),10)   #10*2 data-matrix
+> pcf<-pcf.kern(dendat,h=2,N=c(16,16))
+> lst<-leafsfirst(pcf)
+> modecent(lst)
+              [,1]      [,2]
+[1,] -3.501159e-06 0.4637084
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("modegraph")
+> ### * modegraph
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: modegraph
+> ### Title: Calculates a mode graph from a scale of estimates
+> ### Aliases: modegraph
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> dendat<-sim.data(n=200,type="mulmod")
+> 
+> h1<-0.9
+> h2<-2.2
+> lkm<-5
+> hseq<-hgrid(h1,h2,lkm)
+> 
+> N<-c(16,16)
+> estiseq<-lstseq.kern(dendat,hseq,N,lstree=TRUE)
+> 
+> mt<-modegraph(estiseq)
+> 
+> plotmodet(mt)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("paracoor")
+> ### * paracoor
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: paracoor
+> ### Title: Makes a parallel coordinate plot
+> ### Aliases: paracoor
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> X<-sim.data(n=100,type="mulmod")
+> paracoor(X)
+> 
+> set.seed(1)
+> X<-matrix(rnorm(300),100,3)
+> paracoor(X)
+> 
+> set.seed(1)
+> X<-matrix(rnorm(400),100,4)
+> paracoor(X)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pcf.func")
+> ### * pcf.func
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pcf.func
+> ### Title: Calculates a piecewise constant function for some illustrative
+> ###   purposes
+> ### Aliases: pcf.func
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> # Elliptical copulas
+> 
+> N<-c(32,32)  # choose the grid size
+> copula<-c("gauss","student")
+> margin<-c("normal","student","unif")
+> b<-4
+> support<-c(-b,b,-b,b)
+> 
+> ci<-1        # copula, ci = 1, 2
+> r<-0.5       # parameter of the copula
+> df<-2        # degrees of freedom for the Student copula 
+> 
+> mi<-1        # margin, mi = 1, 2, 3
+> sig<-c(1,1)  # std:s for the margins
+> t<-c(2,2)    # degreeds of freedom for the student margin
+> 
+> ef<-pcf.func(copula[ci],N,marginal=margin[mi],support=support,
++              r=r,df=df,sig=sig,t=t)
+> 
+> dp<-draw.pcf(ef)
+> contour(dp$x,dp$y,dp$z)   
+> 
+> persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+> 
+> # Archimedean copulas
+> 
+> N<-c(32,32)  # choose the grid size
+> copula<-c("gumbel","frank","clayton")
+> margin<-c("normal","student","unif")
+> b<-4
+> support<-c(-b,b,-b,b)
+> 
+> ci<-1        # copula, ci = 1, 2, 3
+> g<-2         # parameter of the copula
+> 
+> mi<-1        # margin, mi = 1, 2, 3
+> sig<-c(1,1)  # std:s for the margins
+> t<-c(2,2)    # degreeds of freedom for the student margin
+> 
+> ef<-pcf.func(copula[ci],N,marginal=margin[mi],support=support,
++              g=g,sig=sig,t=t)
+> 
+> dp<-draw.pcf(ef)
+> contour(dp$x,dp$y,dp$z)   
+> 
+> persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+> 
+> # mixture of Gaussians
+> 
+> d<-2
+> mixnum<-3               #we simulate a mixture of three Gaussians
+> M<-matrix(0,mixnum,d)   #rows of M contain the means of members of the mixture
+> M[1,]<-c(0,0)   
+> M[2,]<-c(4,0)  
+> M[3,]<-c(0,4)   
+> sig<-matrix(1,mixnum,d) #rows of sig contain the std:s ot the marginals
+> p0<-1/mixnum
+> p<-p0*rep(1,mixnum)     #p is a vector of weights for the mixture members
+> N<-c(50,50)
+> 
+> pcf<-pcf.func("mixt",N,sig=sig,M=M,p=p) 
+> 
+> dp<-draw.pcf(pcf,pnum=c(30,30))
+> contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+> persp(dp$x,dp$y,dp$z)
+> 
+> # skewed Gaussian
+> 
+> func<-"skewgauss"
+> N<-c(50,50)
+> support<-c(-6,2,-6,2)
+> mu<-c(0,0)
+> sig<-c(3,1)
+> alpha<-c(6,0)
+> theta<--3*pi/4
+> 
+> pcf<-pcf.func(func,N,support=support,mu=mu,sig=sig,
++                alpha=alpha,theta=theta)
+> 
+> dp<-draw.pcf(pcf,pnum=c(60,60))
+> 
+> contour(dp$x,dp$y,dp$z)
+> 
+> persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+> 
+> # product of univariate Student densities
+> 
+> func<-"prod"
+> marginal<-"student"
+> b<-5; support<-c(-b,b,-b,b)
+> N<-c(32,32)                 # choose the grid size
+> t<-0.5                      # degrees of freedom                 
+> ef<-pcf.func(func,N,t=t,support=support,marginal=marginal)
+> 
+> dp<-draw.pcf(ef)
+> contour(dp$x,dp$y,dp$z)   
+> 
+> persp(dp$x,dp$y,dp$z,theta=30,phi=30) 
+> 
+> # Bartlett-Epanechnikov
+> 
+> func<-"epan"
+> N<-c(50,50)
+> sig<-c(1,1)
+> 
+> ef<-pcf.func(func,N,sig)
+> 
+> dp<-draw.pcf(ef)
+> contour(dp$x,dp$y,dp$z)
+> 
+> persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pcf.kern")
+> ### * pcf.kern
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pcf.kern
+> ### Title: Computes a multivariate kernel estimate
+> ### Aliases: pcf.kern
+> ### Keywords: multivariate smooth
+> 
+> ### ** Examples
+> 
+> n<-100
+> dendat<-sim.data(n=n,type="mulmod")
+> 
+> h<-1
+> pcf<-pcf.kern(dendat,h=h,N=c(32,32))
+> dp<-draw.pcf(pcf)
+> contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+> 
+> d<-2
+> h<-(4/(d+2))^(1/(d+4))*n^(-1/(d+4))*apply(dendat,2,sd)
+> pcf<-pcf.kern(dendat,h=h,N=c(32,32))
+> dp<-draw.pcf(pcf)
+> contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+> 
+> # we use now nonuniform weighting of kernels
+> 
+> weights<-matrix(0,n,1)
+> threshold<-4
+> for (i in 1:n){
++     eta<-(n-i)
++     if (eta/h>threshold) result<-0 else result<-exp(-eta^2/(2*h^2))
++     weights[i]<-result
++ }
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:denpro
+ --- call from context --- 
+NULL
+ --- call from argument --- 
+if (eta/h > threshold) result <- 0 else result <- exp(-eta^2/(2 * 
+    h^2))
+ --- R stacktrace ---
+
+ --- value of length: 2 type: logical ---
+[1] TRUE TRUE
+ --- function from context --- 
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

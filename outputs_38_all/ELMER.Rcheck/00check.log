@@ -1,0 +1,396 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/ELMER.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘ELMER/DESCRIPTION’ ... OK
+* this is package ‘ELMER’ version ‘2.5.5’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘ELMER’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... WARNING
+'::' or ':::' imports not declared from:
+  'data.table' 'tibble' 'tidyr'
+':::' call which should be '::': 'TCGAbiolinks:::TCGAVisualize_volcano'
+  See the note in ?`:::` about the use of this operator.
+Unexported objects imported by ':::' calls:
+  'TCGAbiolinks:::colDataPrepare' 'TCGAbiolinks:::get.GRCh.bioMart'
+  See the note in ?`:::` about the use of this operator.
+There are ::: calls to the package's namespace in its code. A package
+  almost never needs to use ::: for its own objects:
+  'getInfiniumAnnotation'
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+TF.rank.plot: no visible binding for global variable 'pvalue'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:291-304)
+TF.rank.plot: no visible binding for global variable 'label'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:291-304)
+TF.rank.plot: no visible binding for global variable 'Gene'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:308-320)
+addDistNearestTSS: no visible binding for global variable 'Target'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/GetNearbyGenes.R:306-314)
+addDistNearestTSS: no visible binding for global variable 'GeneID'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/GetNearbyGenes.R:306-314)
+addDistNearestTSS: no visible binding for global variable 'Probe'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/GetNearbyGenes.R:322-329)
+addDistNearestTSS: no visible binding for global variable 'GeneID'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/GetNearbyGenes.R:322-329)
+addMutCol: no visible binding for global variable 'Hugo_Symbol'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/TCGA_pipe.R:482)
+calculateEnrichement : <anonymous>: no visible global function
+  definition for 'fisher.test'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Small.R:894)
+createIGVtrack: no visible global function definition for 'col2rgb'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/plots.R:717)
+findMotifRegion: no visible binding for global variable 'gr'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Small.R:959-964)
+findMotifRegion: no visible global function definition for
+  'write.table'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Small.R:975)
+get.diff.meth: no visible binding for global variable 'x'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Main_function.R:223-226)
+get.enriched.motif : <anonymous>: no visible global function definition
+  for 'fisher.test'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Main_function.R:1031)
+getRandomPairs: no visible binding for global variable
+  'hm450.hg38.manifest'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Small.R:802)
+getTFtargets: no visible binding for global variable 'TF'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Main_function.R:1517)
+getTFtargets: no visible binding for global variable 'TF'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Main_function.R:1519)
+heatmapGene: no visible global function definition for 'precede'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/plots.R:472)
+heatmapGene: no visible global function definition for
+  'subsetByOverlaps'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/plots.R:481)
+heatmapGene: no visible binding for global variable 'mae'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/plots.R:493-500)
+motif.enrichment.plot: no visible binding for global variable 'y'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:103-116)
+motif.enrichment.plot: no visible binding for global variable 'x'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:103-116)
+motif.enrichment.plot: no visible binding for global variable 'z'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:103-116)
+motif.enrichment.plot: no visible binding for global variable 'upperOR'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:120)
+motif.enrichment.plot: no visible binding for global variable 'lowerOR'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:120)
+motif.enrichment.plot: no visible binding for global variable 'motif'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:123-135)
+motif.enrichment.plot: no visible binding for global variable 'OR'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:123-135)
+motif.enrichment.plot: no visible binding for global variable 'upperOR'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:147)
+motif.enrichment.plot: no visible binding for global variable 'lowerOR'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:147)
+motif.enrichment.plot: no visible binding for global variable 'motif'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:148-157)
+motif.enrichment.plot: no visible binding for global variable 'OR'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/motif.TF.Plots.R:148-157)
+scatter: no visible binding for global variable 'value'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Scatter.plot.R:225-239)
+scatter: no visible global function definition for 'cor.test'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Scatter.plot.R:244-246)
+scatter: no visible binding for global variable 'mae'
+  (/var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Scatter.plot.R:258-275)
+Undefined global functions or variables:
+  Gene GeneID Hugo_Symbol OR Probe TF Target col2rgb cor.test
+  fisher.test gr hm450.hg38.manifest label lowerOR mae motif precede
+  pvalue subsetByOverlaps upperOR value write.table x y z
+Consider adding
+  importFrom("grDevices", "col2rgb")
+  importFrom("stats", "cor.test", "fisher.test")
+  importFrom("utils", "write.table")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... WARNING
+Codoc mismatches from documentation object 'get.pair':
+get.pair
+  Code: function(data, nearGenes, minSubgroupFrac = 0.4, permu.size =
+                 10000, permu.dir = NULL, raw.pvalue = 0.001, Pe =
+                 0.001, mode = "unsupervised", diff.dir = NULL, dir.out
+                 = "./", diffExp = FALSE, group.col, group1 = NULL,
+                 group2 = NULL, cores = 1, filter.probes = TRUE,
+                 filter.portion = 0.3, filter.percentage = 0.05, label
+                 = NULL, addDistNearestTSS = FALSE, save = TRUE)
+  Docs: function(data, nearGenes, minSubgroupFrac = 0.4, permu.size =
+                 10000, permu.dir = NULL, raw.pvalue = 0.001, Pe =
+                 0.001, mode = "unsupervised", diff.dir = NULL, dir.out
+                 = "./", diffExp = FALSE, group.col, group1, group2,
+                 cores = 1, filter.probes = TRUE, filter.portion = 0.3,
+                 filter.percentage = 0.05, label = NULL, save = TRUE)
+  Argument names in code not in docs:
+    addDistNearestTSS
+  Mismatches in argument names:
+    Position: 20 Code: addDistNearestTSS Docs: save
+  Mismatches in argument default values:
+    Name: 'group1' Code: NULL Docs: 
+    Name: 'group2' Code: NULL Docs: 
+
+Codoc mismatches from documentation object 'scatter.plot':
+scatter.plot
+  Code: function(data, byPair = list(probe = c(), gene = c()), byProbe
+                 = list(probe = c(), numFlankingGenes = 20), byTF =
+                 list(TF = c(), probe = c()), category = NULL, ylim =
+                 NULL, correlation = FALSE, width = 7, height = 6,
+                 dir.out = "./", save = TRUE, ...)
+  Docs: function(data, byPair = list(probe = c(), gene = c()), byProbe
+                 = list(probe = c(), numFlankingGenes = 20), byTF =
+                 list(TF = c(), probe = c()), category = NULL,
+                 correlation = FALSE, width = 7, height = 6, dir.out =
+                 "./", save = TRUE, ...)
+  Argument names in code not in docs:
+    ylim
+  Mismatches in argument names (first 3):
+    Position: 6 Code: ylim Docs: correlation
+    Position: 7 Code: correlation Docs: width
+    Position: 8 Code: width Docs: height
+
+* checking Rd \usage sections ... WARNING
+Documented arguments not in \usage in documentation object 'scatter.plot':
+  ‘ylim’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘ELMER-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: schematic.plot
+> ### Title: schematic.plot to plot schematic plots showing the locations of
+> ###   genes and probes.
+> ### Aliases: schematic.plot
+> 
+> ### ** Examples
+> 
+> data <- ELMER:::getdata("elmer.data.example")
+> pair <- data.frame(Probe = c("cg19403323","cg19403323", "cg26403223"),
++                    GeneID = c("ENSG00000196878", "ENSG00000009790", "ENSG00000009790" ),
++                    Symbol = c("TRAF3IP3","LAMB3","LAMB3"),
++                    Raw.p =c(0.001,0.00001,0.001),
++                    Pe = c(0.001,0.00001,0.001))
+> schematic.plot(data,
++                group.col = "definition",
++                group1 = "Primary solid Tumor",
++                group2 = "Solid Tissue Normal",
++                pair = pair,
++                byProbe = "cg19403323")
+Searching for the 20 near genes
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%Saving as: .//cg19403323.schematic.byProbe
+
+> schematic.plot(data,
++                group.col = "definition",
++                group1 = "Primary solid Tumor",
++                group2 = "Solid Tissue Normal",
++                pair = pair,
++                byGeneID = "ENSG00000009790")
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100% ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpkJO3IN/R.INSTALLf26a45a820b2/GenomicInteractions/R/InteractionTrack-class.R#129: 
+ --- package (from environment) --- 
+GenomicInteractions
+ --- call from context --- 
+GenomicInteractions::InteractionTrack(name = "Putative pair genes\n (-log10 raw p-value)", 
+    interactions, chromosome = chr)
+ --- call from argument --- 
+if (chromosome != "" & !(chromosome %in% seqlevels(x))) {
+    stop(paste("chromosome:", chromosome, "not found in seqlevels of the supplied GenomicInteractions object", 
+        sep = " "))
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Schematic.plot.R#278: GenomicInteractions::InteractionTrack(name = "Putative pair genes\n (-log10 raw p-value)", 
+    interactions, chromosome = chr)
+where 2 at /var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Schematic.plot.R#152: schematic(data = data, gene.gr, probe.gr, significant, label = sprintf("%s/%s.schematic.byGene", 
+    dir.out, gene), save = save, statehub.tracks = statehub.tracks, 
+    group.col = group.col, group1 = group1, group2 = group2, 
+    extra.tracks = extra.tracks)
+where 3: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 4 at /var/scratch2/tomas/tmp/RtmpTK5MRK/R.INSTALLf2594dca7274/ELMER/R/Schematic.plot.R#111: suppressWarnings({
+    if (!missing(byProbe)) {
+        nearGenes <- do.call(GetNearGenes, c(list(TRange = rowRanges(getMet(data))[byProbe, 
+            ], geneAnnot = rowRanges(getExp(data))), params))
+        pb <- txtProgressBar(min = 0, max = length(byProbe), 
+            title = "creating images", style = 3, initial = 0, 
+            char = "=")
+        progress <- 0
+        for (probe in byProbe) {
+            progress <- progress + 1
+            setTxtProgressBar(pb, progress)
+            significant <- pair[pair$Probe == probe, ]
+            gene.gr <- rowRanges(getExp(data))[nearGenes[[probe]]$GeneID, 
+                ]
+            probe.gr <- rowRanges(getMet(data))[unique(nearGenes[[probe]]$Target), 
+                ]
+            schematic(data = data, gene.gr = gene.gr, probe.gr = probe.gr, 
+                significant = significant, label = sprintf("%s/%s.schematic.byProbe", 
+                  dir.out, probe), statehub.tracks = statehub.tracks, 
+                save = save, group.col = group.col, group1 = group1, 
+                group2 = group2, extra.tracks = extra.tracks)
+        }
+        close(pb)
+    }
+    if (!missing(byGeneID)) {
+        pb <- txtProgressBar(min = 0, max = length(byGeneID), 
+            title = "creating images", style = 3, initial = 0, 
+            char = "=")
+        progress <- 0
+        for (gene in byGeneID) {
+            progress <- progress + 1
+            setTxtProgressBar(pb, progress)
+            significant <- pair[pair$GeneID == gene, ]
+            if (nrow(significant) == 0) {
+                warning(paste0("Gene ", gene, " is not in pair list. We cannot plot it."))
+                next
+            }
+            gene.gr <- rowRanges(getExp(data))[gene, ]
+            probe.gr <- rowRanges(getMet(data))[significant$Probe, 
+                ]
+            schematic(data = data, gene.gr, probe.gr, significant, 
+                label = sprintf("%s/%s.schematic.byGene", dir.out, 
+                  gene), save = save, statehub.tracks = statehub.tracks, 
+                group.col = group.col, group1 = group1, group2 = group2, 
+                extra.tracks = extra.tracks)
+        }
+        close(pb)
+    }
+    if (length(byCoordinate$chr) != 0) {
+        for (i in 1:length(byCoordinate$chr)) {
+            coordinate <- GRanges(seqnames = byCoordinate$chr[i], 
+                ranges = IRanges(byCoordinate$start[i], byCoordinate$end[i]))
+            probe.gr <- rowRanges(getMet(data))[unique(pair$Probe), 
+                ]
+            probe.gr <- probe.gr[queryHits(findOverlaps(probe.gr, 
+                coordinate)), ]
+            if (length(probe.gr) == 0) 
+                stop("No probes in that region")
+            gene.gr <- rowRanges(getExp(data))[queryHits(findOverlaps(rowRanges(getExp(data)), 
+                coordinate)), ]
+            if (length(gene.gr) == 0) 
+                stop("No genes in that region")
+            significant <- pair[pair$GeneID %in% names(gene.gr) & 
+                pair$Probe %in% names(probe.gr), ]
+            schematic(data = data, gene.gr, probe.gr, significant, 
+                label = sprintf("%s/%s_%s_%s.schematic.byCoordinate", 
+                  dir.out, byCoordinate$chr[i], byCoordinate$start[i], 
+                  byCoordinate$end[i]), save = save, statehub.tracks = statehub.tracks, 
+                group.col = group.col, group1 = group1, group2 = group2, 
+                extra.tracks = extra.tracks)
+        }
+    }
+})
+where 5: schematic.plot(data, group.col = "definition", group1 = "Primary solid Tumor", 
+    group2 = "Solid Tissue Normal", pair = pair, byGeneID = "ENSG00000009790")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(x, chromosome="", name=NULL, start=NULL, end=NULL){ 
+  if(!(class(x)=="GenomicInteractions")){ stop("x must be a GenomicInteractions object")}
+  if(is.null(name)){
+    name = name(x)
+  }
+  if(chromosome !="" & !(chromosome %in% seqlevels(x))){
+    stop(paste("chromosome:", chromosome, "not found in seqlevels of the supplied GenomicInteractions object", sep=" "))
+  }
+  if(chromosome != ""){
+    if(xor(is.null(start), is.null(end))){
+      stop(paste("both start and end need to be specified"))
+    }else if(is.null(start) & is.null(end)){
+      x = x[as.vector(seqnames(anchorOne(x)) == chromosome | seqnames(anchorTwo(x)) == chromosome)]
+    }else{
+      x = subsetByFeatures(x, GRanges(chromosome, IRanges(start, end)))
+    }
+  }
+	return(new("InteractionTrack", name=name, giobject=x, chromosome=chromosome, variables=list(chromosome=chromosome, start=start, end=end)))	
+}
+<bytecode: 0x7e84f418>
+<environment: namespace:GenomicInteractions>
+ --- function search by body ---
+Function InteractionTrack in namespace GenomicInteractions has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... NOTE
+'::' or ':::' import not declared from: ‘devtools’
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Creating a SummarizedExperiment from gene expression input
+Downloading genome information (try:0) Using: Homo sapiens genes (GRCh37.p13)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creating a SummarizedExperiment from DNA methylation input
+Checking if samples have both DNA methylation and Gene expression and if they are in the same order...
+Starting to add information to samples
+ => Add clinical information to samples
+Error:  Error in getURL(url, fromJSON, timeout(600), simplifyDataFrame = TRUE): 'getURL()' failed:
+  URL: https://api.gdc.cancer.gov/cases/?pretty=true&expand=project,diagnoses,diagnoses.treatments,annotations,family_histories,demographic,exposures&size=20&filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22cases.submitter_id%22,%22value%22:["TCGA-43-3394","TCGA-56-8305","TCGA-56-8307","TCGA-56-8308","TCGA-56-8309","TCGA-58-8386","TCGA-58-8387","TCGA-68-7757","TCGA-68-8250","TCGA-68-8251","TCGA-85-8276","TCGA-85-8277","TCGA-85-8287","TCGA-85-8288","TCGA-85-8350","TCGA-85-8351","TCGA-85-8353","TCGA-85-8355","TCGA-96-8169","TCGA-96-8170%22]%7D%7D]%7D
+  error: HTTP error 503.
+
+We will retry to access GDC again! URL:
+https://api.gdc.cancer.gov/cases/?pretty=true&expand=project,diagnoses,diagnoses.treatments,annotations,family_histories,demographic,exposures&size=20&filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22cases.submitter_id%22,%22value%22:["TCGA-43-3394","TCGA-56-8305","TCGA-56-8307","TCGA-56-8308","TCGA-56-8309","TCGA-58-8386","TCGA-58-8387","TCGA-68-7757","TCGA-68-8250","TCGA-68-8251","TCGA-85-8276","TCGA-85-8277","TCGA-85-8287","TCGA-85-8288","TCGA-85-8350","TCGA-85-8351","TCGA-85-8353","TCGA-85-8355","TCGA-96-8169","TCGA-96-8170%22]%7D%7D]%7D
+Error:  Error in getURL(url, fromJSON, timeout(600), simplifyDataFrame = TRUE): 'getURL()' failed:
+  URL: https://api.gdc.cancer.gov/cases/?pretty=true&expand=project,diagnoses,diagnoses.treatments,annotations,family_histories,demographic,exposures&size=2&filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22cases.submitter_id%22,%22value%22:["TCGA-43-3394","TCGA-56-8305%22]%7D%7D]%7D
+  error: HTTP error 503.
+
+We will retry to access GDC again! URL:
+https://api.gdc.cancer.gov/cases/?pretty=true&expand=project,diagnoses,diagnoses.treatments,annotations,family_histories,demographic,exposures&size=2&filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22cases.submitter_id%22,%22value%22:["TCGA-43-3394","TCGA-56-8305%22]%7D%7D]%7D
+Quitting from lines 61-80 (analysis_data_input.Rmd) 
+Error: processing vignette 'analysis_data_input.Rmd' failed with diagnostics:
+lexical error: invalid char in json text.
+                                       <!DOCTYPE html PUBLIC "-//W3C//
+                     (right here) ------^
+Execution halted
+
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 4 WARNINGs, 2 NOTEs

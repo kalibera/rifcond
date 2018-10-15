@@ -1,0 +1,2647 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "rfordummies"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('rfordummies')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ch01")
+> ### * ch01
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch01
+> ### Title: Print examples of chapter 1 of 'R for Dummies'.
+> ### Aliases: ch01 ch1
+> 
+> ### ** Examples
+> 
+> # Chapter 1 - Introducing R: The Big Picture
+> 
+> # Recognizing the Benefits of Using R
+> 
+> ## It comes as free, open-source code
+> 
+> ### It runs anywhere
+> 
+> ### It supports extensions
+> 
+> ### It provides an engaged community
+> 
+> ### It connects with other languages
+> 
+> 
+> # Looking At Some of the Unique Features of R
+> 
+> ## Performing multiple calculations with vectors
+> 
+> x <- 1:5
+> x
+[1] 1 2 3 4 5
+> x + 2
+[1] 3 4 5 6 7
+> x + 6:10
+[1]  7  9 11 13 15
+> 
+> ## Processing more than just statistics
+> 
+> ## Running code without a compiler
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ch02")
+> ### * ch02
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch02
+> ### Title: Print examples of chapter 2 of 'R for Dummies'.
+> ### Aliases: ch02 ch2
+> 
+> ### ** Examples
+> 
+> # Chapter 2 - Exploring R
+> 
+> # Working with a Code Editor
+> 
+> ## Exploring RGui
+> 
+> ### Seeing the naked R console
+> 
+> 
+> ### Issuing a simple command
+> 
+> 24+7+11
+[1] 42
+> 
+> ### Closing the console
+> 
+> ## Not run: 
+> ##D quit()
+> ## End(Not run)
+> 
+> 
+> ## Dressing up with RStudio
+> 
+> 
+> # Starting Your First R Session
+> 
+> ## Saying hello to the world
+> 
+> print("Hello world!")
+[1] "Hello world!"
+> 
+> ## Doing simple math
+> 
+> 1+2+3+4+5
+[1] 15
+> 
+> ## Using vectors
+> 
+> 
+> c(1,2,3,4,5)
+[1] 1 2 3 4 5
+> 1:5
+[1] 1 2 3 4 5
+> sum(1:5)
+[1] 15
+> 
+> ## Storing and calculating values
+> 
+> x <- 1:5
+> x
+[1] 1 2 3 4 5
+> 
+> y <- 10
+> x + y
+[1] 11 12 13 14 15
+> 
+> x
+[1] 1 2 3 4 5
+> y
+[1] 10
+> 
+> z <- x + y
+> z
+[1] 11 12 13 14 15
+> 
+> h <- "Hello"
+> h
+[1] "Hello"
+> 
+> hw <- c("Hello", "world!")
+> hw
+[1] "Hello"  "world!"
+> 
+> paste("Hello", "world!")
+[1] "Hello world!"
+> 
+> ## Talking back to the user
+> 
+> h <- "Hello"
+> yourname <- readline("What is your name?")
+What is your name?
+> paste(h, yourname)
+[1] "Hello "
+> 
+> # Sourcing a Script
+> 
+> h <- "Hello"
+> yourname <- readline("What is your name?")
+What is your name?
+> print(paste(h, yourname))
+[1] "Hello "
+> 
+> 
+> ### Finding help on functions
+> ?paste
+paste                   package:base                   R Documentation
+
+_C_o_n_c_a_t_e_n_a_t_e _S_t_r_i_n_g_s
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     Concatenate vectors after converting to character.
+
+_U_s_a_g_e:
+
+     paste (..., sep = " ", collapse = NULL)
+     paste0(..., collapse = NULL)
+     
+_A_r_g_u_m_e_n_t_s:
+
+     ...: one or more R objects, to be converted to character vectors.
+
+     sep: a character string to separate the terms.  Not
+          ‘NA_character_’.
+
+collapse: an optional character string to separate the results.  Not
+          ‘NA_character_’.
+
+_D_e_t_a_i_l_s:
+
+     ‘paste’ converts its arguments (_via_ ‘as.character’) to character
+     strings, and concatenates them (separating them by the string
+     given by ‘sep’).  If the arguments are vectors, they are
+     concatenated term-by-term to give a character vector result.
+     Vector arguments are recycled as needed, with zero-length
+     arguments being recycled to ‘""’.
+
+     Note that ‘paste()’ coerces ‘NA_character_’, the character missing
+     value, to ‘"NA"’ which may seem undesirable, e.g., when pasting
+     two character vectors, or very desirable, e.g. in ‘paste("the
+     value of p is ", p)’.
+
+     ‘paste0(..., collapse)’ is equivalent to ‘paste(..., sep = "",
+     collapse)’, slightly more efficiently.
+
+     If a value is specified for ‘collapse’, the values in the result
+     are then concatenated into a single string, with the elements
+     being separated by the value of ‘collapse’.
+
+_V_a_l_u_e:
+
+     A character vector of the concatenated values.  This will be of
+     length zero if all the objects are, unless ‘collapse’ is non-NULL
+     in which case it is a single empty string.
+
+     If any input into an element of the result is in UTF-8 (and none
+     are declared with encoding ‘"bytes"’, see ‘Encoding’), that
+     element will be in UTF-8, otherwise in the current encoding in
+     which case the encoding of the element is declared if the current
+     locale is either Latin-1 or UTF-8, at least one of the
+     corresponding inputs (including separators) had a declared
+     encoding and all inputs were either ASCII or declared.
+
+     If an input into an element is declared with encoding ‘"bytes"’,
+     no translation will be done of any of the elements and the
+     resulting element will have encoding ‘"bytes"’.  If ‘collapse’ is
+     non-NULL, this applies also to the second, collapsing, phase, but
+     some translation may have been done in pasting object together in
+     the first phase.
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) _The New S
+     Language_.  Wadsworth & Brooks/Cole.
+
+_S_e_e _A_l_s_o:
+
+     ‘toString’ typically calls ‘paste(*, collapse=", ")’.  String
+     manipulation with ‘as.character’, ‘substr’, ‘nchar’, ‘strsplit’;
+     further, ‘cat’ which concatenates and writes to a file, and
+     ‘sprintf’ for C like string construction.
+
+     ‘plotmath’ for the use of ‘paste’ in plot annotation.
+
+_E_x_a_m_p_l_e_s:
+
+     ## When passing a single vector, paste0 and paste work like as.character.
+     paste0(1:12)
+     paste(1:12)        # same
+     as.character(1:12) # same
+     
+     ## If you pass several vectors to paste0, they are concatenated in a
+     ## vectorized way.
+     (nth <- paste0(1:12, c("st", "nd", "rd", rep("th", 9))))
+     
+     ## paste works the same, but separates each input with a space.
+     ## Notice that the recycling rules make every input as long as the longest input.
+     paste(month.abb, "is the", nth, "month of the year.")
+     paste(month.abb, letters)
+     
+     ## You can change the separator by passing a sep argument
+     ## which can be multiple characters.
+     paste(month.abb, "is the", nth, "month of the year.", sep = "_*_")
+     
+     ## To collapse the output into a single string, pass a collapse argument.
+     paste0(nth, collapse = ", ")
+     
+     ## For inputs of length 1, use the sep argument rather than collapse
+     paste("1st", "2nd", "3rd", collapse = ", ") # probably not what you wanted
+     paste("1st", "2nd", "3rd", sep = ", ")
+     
+     ## You can combine the sep and collapse arguments together.
+     paste(month.abb, nth, sep = ": ", collapse = "; ")
+     
+     ## Using paste() in combination with strwrap() can be useful
+     ## for dealing with long strings.
+     (title <- paste(strwrap(
+         "Stopping distance of cars (ft) vs. speed (mph) from Ezekiel (1930)",
+         width = 30), collapse = "\n"))
+     plot(dist ~ speed, cars, main = title)
+     
+
+> help(paste)
+paste                   package:base                   R Documentation
+
+_C_o_n_c_a_t_e_n_a_t_e _S_t_r_i_n_g_s
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     Concatenate vectors after converting to character.
+
+_U_s_a_g_e:
+
+     paste (..., sep = " ", collapse = NULL)
+     paste0(..., collapse = NULL)
+     
+_A_r_g_u_m_e_n_t_s:
+
+     ...: one or more R objects, to be converted to character vectors.
+
+     sep: a character string to separate the terms.  Not
+          ‘NA_character_’.
+
+collapse: an optional character string to separate the results.  Not
+          ‘NA_character_’.
+
+_D_e_t_a_i_l_s:
+
+     ‘paste’ converts its arguments (_via_ ‘as.character’) to character
+     strings, and concatenates them (separating them by the string
+     given by ‘sep’).  If the arguments are vectors, they are
+     concatenated term-by-term to give a character vector result.
+     Vector arguments are recycled as needed, with zero-length
+     arguments being recycled to ‘""’.
+
+     Note that ‘paste()’ coerces ‘NA_character_’, the character missing
+     value, to ‘"NA"’ which may seem undesirable, e.g., when pasting
+     two character vectors, or very desirable, e.g. in ‘paste("the
+     value of p is ", p)’.
+
+     ‘paste0(..., collapse)’ is equivalent to ‘paste(..., sep = "",
+     collapse)’, slightly more efficiently.
+
+     If a value is specified for ‘collapse’, the values in the result
+     are then concatenated into a single string, with the elements
+     being separated by the value of ‘collapse’.
+
+_V_a_l_u_e:
+
+     A character vector of the concatenated values.  This will be of
+     length zero if all the objects are, unless ‘collapse’ is non-NULL
+     in which case it is a single empty string.
+
+     If any input into an element of the result is in UTF-8 (and none
+     are declared with encoding ‘"bytes"’, see ‘Encoding’), that
+     element will be in UTF-8, otherwise in the current encoding in
+     which case the encoding of the element is declared if the current
+     locale is either Latin-1 or UTF-8, at least one of the
+     corresponding inputs (including separators) had a declared
+     encoding and all inputs were either ASCII or declared.
+
+     If an input into an element is declared with encoding ‘"bytes"’,
+     no translation will be done of any of the elements and the
+     resulting element will have encoding ‘"bytes"’.  If ‘collapse’ is
+     non-NULL, this applies also to the second, collapsing, phase, but
+     some translation may have been done in pasting object together in
+     the first phase.
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) _The New S
+     Language_.  Wadsworth & Brooks/Cole.
+
+_S_e_e _A_l_s_o:
+
+     ‘toString’ typically calls ‘paste(*, collapse=", ")’.  String
+     manipulation with ‘as.character’, ‘substr’, ‘nchar’, ‘strsplit’;
+     further, ‘cat’ which concatenates and writes to a file, and
+     ‘sprintf’ for C like string construction.
+
+     ‘plotmath’ for the use of ‘paste’ in plot annotation.
+
+_E_x_a_m_p_l_e_s:
+
+     ## When passing a single vector, paste0 and paste work like as.character.
+     paste0(1:12)
+     paste(1:12)        # same
+     as.character(1:12) # same
+     
+     ## If you pass several vectors to paste0, they are concatenated in a
+     ## vectorized way.
+     (nth <- paste0(1:12, c("st", "nd", "rd", rep("th", 9))))
+     
+     ## paste works the same, but separates each input with a space.
+     ## Notice that the recycling rules make every input as long as the longest input.
+     paste(month.abb, "is the", nth, "month of the year.")
+     paste(month.abb, letters)
+     
+     ## You can change the separator by passing a sep argument
+     ## which can be multiple characters.
+     paste(month.abb, "is the", nth, "month of the year.", sep = "_*_")
+     
+     ## To collapse the output into a single string, pass a collapse argument.
+     paste0(nth, collapse = ", ")
+     
+     ## For inputs of length 1, use the sep argument rather than collapse
+     paste("1st", "2nd", "3rd", collapse = ", ") # probably not what you wanted
+     paste("1st", "2nd", "3rd", sep = ", ")
+     
+     ## You can combine the sep and collapse arguments together.
+     paste(month.abb, nth, sep = ": ", collapse = "; ")
+     
+     ## Using paste() in combination with strwrap() can be useful
+     ## for dealing with long strings.
+     (title <- paste(strwrap(
+         "Stopping distance of cars (ft) vs. speed (mph) from Ezekiel (1930)",
+         width = 30), collapse = "\n"))
+     plot(dist ~ speed, cars, main = title)
+     
+
+> 
+> # Navigating the Workspace
+> ls()
+[1] "h"        "hw"       "x"        "y"        "yourname" "z"       
+> 
+> ## Manipulating the content of the workspace
+> 
+> rm(z)
+> ls()
+[1] "h"        "hw"       "x"        "y"        "yourname"
+> 
+> ##Saving your work
+> 
+> getwd()
+[1] "/var/scratch2/tomas/test/mine/R-75396/check/rfordummies.Rcheck"
+> 
+> filename <- file.path(tempdir(), "yourname.rda")
+> ## Not run: 
+> ##D save(yourname, file=filename)
+> ## End(Not run)
+> list.files(tempdir(), pattern = ".rda")
+character(0)
+> 
+> ## Retrieving your work
+> 
+> 
+> rm(yourname)
+> ## Not run: 
+> ##D load("yourname.rda")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ch03")
+> ### * ch03
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch03
+> ### Title: Print examples of chapter 3 of 'R for Dummies'.
+> ### Aliases: ch03 ch3
+> 
+> ### ** Examples
+> 
+> # Chapter 3 - The Fundamentals of R
+> 
+> # Using the Full Power of Functions
+> 
+> ## Vectorizing your functions
+> 
+> baskets.of.Granny <- c(12,4,4,6,9,3)
+> baskets.of.Granny
+[1] 12  4  4  6  9  3
+> sum(baskets.of.Granny)
+[1] 38
+> 
+> firstnames <- c("Joris", "Carolien", "Koen")
+> lastname <- "Meys"
+> paste(firstnames,lastname)
+[1] "Joris Meys"    "Carolien Meys" "Koen Meys"    
+> 
+> authors <- c("Andrie","Joris")
+> lastnames <- c("de Vries","Meys")
+> paste(authors,lastnames)
+[1] "Andrie de Vries" "Joris Meys"     
+> 
+> ## Putting the argument in a function
+> 
+> # print() ### This line of code leads to deliberate error for illustration
+> print(x = "Isn't this fun?")
+[1] "Isn't this fun?"
+> 
+> print(digits=4, x = 11/7)
+[1] 1.571
+> 
+> # Making history
+> 
+> filename <- file.path(tempdir(), "Chapter3.Rhistory")
+> ## Not run: 
+> ##D savehistory(file = filename)
+> ## End(Not run)
+> list.files(tempdir(), pattern = ".Rhistory")
+character(0)
+> ## Not run: 
+> ##D loadhistory(file.path(tempdir(), "Chapter3.Rhistory"))
+> ## End(Not run)
+> 
+> # Keeping Your Code Readable
+> 
+> ## Following naming conventions
+> 
+> ## Choosing a clear name
+> 
+> paste <- paste("This gets","confusing")
+> paste
+[1] "This gets confusing"
+> paste("Don't","you","think?")
+[1] "Don't you think?"
+> 
+> ## Choosing a naming style
+> 
+> ## Structuring your code
+> 
+> baskets.of.Geraldine <- c(5,3,2,2,12,9)
+> Intro <- "It is amazing! The All Star Grannies scored
++ a total of"
+> 
+> Outro <- "baskets in the last six games!"
+> 
+> Total.baskets <- baskets.of.Granny +
++                baskets.of.Geraldine
+> 
+> Text <- paste(Intro,
++               sum(Total.baskets),
++               Outro)
+> cat(Text)
+It is amazing! The All Star Grannies scored
+a total of 71 baskets in the last six games!> Text
+[1] "It is amazing! The All Star Grannies scored\na total of 71 baskets in the last six games!"
+> 
+> cat('If you doubt whether it works,
++ + just try it out.')
+If you doubt whether it works,
++ just try it out.> 
+> ## Adding comments
+> 
+> # The All Star Grannies do it again!
+> baskets.of.Granny <- c(12,4,4,6,9,3) # Granny rules
+> sum(baskets.of.Granny) # total number of points
+[1] 38
+> 
+> 
+> # Getting from Base R to More
+> 
+> ## Finding packages
+> 
+> ## Installing packages
+> 
+> ## Not run: 
+> ##D install.packages("fortunes")
+> ## End(Not run)
+> 
+> library("fortunes")
+> fortune("This is R")
+
+Evelyn Hall: I would like to know how (if) I can extract some of the
+information from the summary of my nlme.
+Simon Blomberg: This is R. There is no if. Only how.
+   -- Evelyn Hall and Simon 'Yoda' Blomberg
+      R-help (April 2005)
+
+> fortune(161)
+
+(3 times...rrrrgh...) and why do you think the mailing list is called
+R-*packages* ???????????
+Please do
+  for(i in 1:20) cat("It's a package!\n")
+   -- Martin Maechler (after a newly released *package* has been called
+      *library* three times in its announcement on R-packages)
+      R-help (March 2006)
+
+> detach(package:fortunes)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ch04")
+> ### * ch04
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch04
+> ### Title: Print examples of chapter 4 of 'R for Dummies'.
+> ### Aliases: ch04 ch4
+> 
+> ### ** Examples
+> 
+> # Chapter 4 - Getting Started with Arithmetic
+> 
+> # Working with Numbers, Infinity, and Missing Values
+> 
+> ## Doing basic arithmetic
+> 
+> ### Using arithmetic operators
+> 
+> 
+> baskets.of.Granny <- c(12,4,4,6,9,3)
+> baskets.of.Geraldine <- c(5,3,2,2,12,9)
+> 
+> 
+> Granny.money <- baskets.of.Granny * 120
+> Geraldine.money <- baskets.of.Geraldine * 145
+> 
+> 
+> Granny.money + Geraldine.money
+[1] 2165  915  770 1010 2820 1665
+> 
+> 
+> baskets.of.Granny * 120 + baskets.of.Geraldine * 145
+[1] 2165  915  770 1010 2820 1665
+> 
+> ### Controlling the order of the operations
+> 4 + 2 * 3
+[1] 10
+> (4 + 2)* 3
+[1] 18
+> 
+> ## Using mathematical functions
+> 
+> ### Calculating logarithms and exponentials
+> 
+> log(1:3)
+[1] 0.0000000 0.6931472 1.0986123
+> log(1:3,base=6)
+[1] 0.0000000 0.3868528 0.6131472
+> 
+> x <- log(1:3)
+> exp(x)
+[1] 1 2 3
+> 
+> ### Putting the science in scientific notation
+> 1.33e4
+[1] 13300
+> 
+> 4.12e-2
+[1] 0.0412
+> 
+> 1.2e6 / 2e3
+[1] 600
+> 
+> 
+> ### Rounding numbers
+> 
+> round(123.456,digits=2)
+[1] 123.46
+> round(-123.456,digits=-2)
+[1] -100
+> signif(-123.456,digits=4)
+[1] -123.5
+> 
+> ### Using trigonometric functions
+> 
+> cos(120)
+[1] 0.814181
+> cos(120*pi/180)
+[1] -0.5
+> 
+> ## Calculating whole vectors
+> 
+> `+`(2,3)
+[1] 5
+> 
+> 
+> ##To infinity and beyond
+> 
+> ### Using infinity
+> 
+> 2/0
+[1] Inf
+> 4 - Inf
+[1] -Inf
+> is.finite(10^(305:310))
+[1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+> 
+> ### Dealing with undefined outcomes
+> Inf / Inf
+[1] NaN
+> NaN + 4
+[1] NaN
+> 
+> 
+> ### Dealing with missing values
+> 
+> x <- NA
+> x + 4
+[1] NA
+> 
+> log(x)
+[1] NA
+> 
+> is.na(x)
+[1] TRUE
+> 
+> ### Calculating infinite, undefined, and missing values
+> 
+> 
+> # Organizing Data in Vectors
+> 
+> ## Discovering the properties of vectors
+> 
+> ### Looking at the structure of a vector
+> 
+> str(baskets.of.Granny)
+ num [1:6] 12 4 4 6 9 3
+> length(baskets.of.Granny)
+[1] 6
+> authors <- c("Andrie", "Joris")
+> str(authors)
+ chr [1:2] "Andrie" "Joris"
+> 
+> ### Testing vector types
+> 
+> 
+> 
+> 
+> is.numeric(baskets.of.Granny)
+[1] TRUE
+> is.integer(baskets.of.Granny)
+[1] FALSE
+> 
+> x <- c(4L,6L)
+> is.integer(x)
+[1] TRUE
+> 
+> ## Creating vectors
+> 
+> seq(from = 4.5, to = 2.5, by = -0.5)
+[1] 4.5 4.0 3.5 3.0 2.5
+> 
+> 
+> seq(from = -2.7, to = 1.3, length.out = 9)
+[1] -2.7 -2.2 -1.7 -1.2 -0.7 -0.2  0.3  0.8  1.3
+> 
+> 
+> baskets.of.Granny <- c(12,4,4,6,9,3)
+> baskets.of.Geraldine <- c(5,3,2,2,12,9)
+> 
+> ## Combining vectors
+> 
+> all.baskets <-c(baskets.of.Granny, baskets.of.Geraldine)
+> all.baskets
+ [1] 12  4  4  6  9  3  5  3  2  2 12  9
+> 
+> ## Repeating vectors
+> rep(c(0, 0, 7), times = 3)
+[1] 0 0 7 0 0 7 0 0 7
+> rep(c(2, 4, 2), each = 3)
+[1] 2 2 2 4 4 4 2 2 2
+> rep(c(0, 7), times = c(4,2))
+[1] 0 0 0 0 7 7
+> rep(1:3,length.out=7)
+[1] 1 2 3 1 2 3 1
+> 
+> # Getting Values in and out of Vectors
+> 
+> ## Understanding indexing in R
+> 
+> numbers <- 30:1
+> numbers
+ [1] 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6
+[26]  5  4  3  2  1
+> 
+> ## Extracting values from a vector
+> 
+> numbers[5]
+[1] 26
+> numbers[c(5,11,3)]
+[1] 26 20 28
+> 
+> indices <- c(5,11,3)
+> numbers[indices]
+[1] 26 20 28
+> numbers[-3]
+ [1] 30 29 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5
+[26]  4  3  2  1
+> numbers[-(1:20)]
+ [1] 10  9  8  7  6  5  4  3  2  1
+> # numbers[-1:20] # NOT RUN, gives error
+> 
+> 
+> ## Changing values in a vector
+> 
+> 
+> baskets.of.Granny[3] <- 5
+> baskets.of.Granny
+[1] 12  4  5  6  9  3
+> 
+> baskets.of.Geraldine[c(2,4)] <- 4
+> baskets.of.Geraldine
+[1]  5  4  2  4 12  9
+> 
+> Granny.copy <- baskets.of.Granny
+> 
+> baskets.of.Granny[4] <- 11
+> baskets.of.Granny
+[1] 12  4  5 11  9  3
+> 
+> baskets.of.Granny <- Granny.copy
+> baskets.of.Granny
+[1] 12  4  5  6  9  3
+> 
+> # Working with Logical Vectors
+> 
+> ## Comparing values
+> 
+> baskets.of.Granny > 5
+[1]  TRUE FALSE FALSE  TRUE  TRUE FALSE
+> which(baskets.of.Granny > 5)
+[1] 1 4 5
+> 
+> the.best <- baskets.of.Geraldine < baskets.of.Granny
+> which(the.best)
+[1] 1 3 4
+> 
+> 
+> 
+> ## Using logical vectors as indices
+> 
+> baskets.of.Granny[the.best]
+[1] 12  5  6
+> x <- c(3, 6, 1, NA, 2)
+> x[x > 2]
+[1]  3  6 NA
+> x > 2
+[1]  TRUE  TRUE FALSE    NA FALSE
+> 
+> ## Combining logical statements
+> 
+> min.baskets <- baskets.of.Granny == min(baskets.of.Granny)
+> max.baskets <- baskets.of.Granny == max(baskets.of.Granny)
+> min.baskets | max.baskets
+[1]  TRUE FALSE FALSE FALSE FALSE  TRUE
+> 
+> x[!is.na(x)]
+[1] 3 6 1 2
+> 
+> ## Summarizing logical vectors
+> 
+> 
+> sum(the.best)
+[1] 3
+> any(the.best)
+[1] TRUE
+> all(the.best)
+[1] FALSE
+> 
+> 
+> 
+> 
+> # Powering Up Your Math with Vector Functions
+> 
+> 
+> ## Using arithmetic vector operations
+> 
+> ### Summarizing a vector
+> min(baskets.of.Granny)
+[1] 3
+> 
+> max(baskets.of.Granny)
+[1] 12
+> sum(baskets.of.Granny,baskets.of.Geraldine)
+[1] 75
+> 
+> 
+> 
+> x <- c(3,6,2,NA,1)
+> sum(x)
+[1] NA
+> sum(x,na.rm=TRUE)
+[1] 12
+> 
+> ### Cumulating operations
+> 
+> cumsum(baskets.of.Granny)
+[1] 12 16 21 27 36 39
+> cummax(baskets.of.Geraldine)
+[1]  5  5  5  5 12 12
+> cummin(x)
+[1]  3  3  2 NA NA
+> 
+> ### Calculating differences
+> 
+> diff(baskets.of.Granny)
+[1] -8  1  1  3 -6
+> diff(x)
+[1]  3 -4 NA NA
+> 
+> ## Recycling arguments
+> 
+> Granny.pointers <- c(10,2,4,0,4,1,4,2,7,2,1,2)
+> points <- Granny.pointers * c(2,3)
+> points
+ [1] 20  6  8  0  8  3  8  6 14  6  2  6
+> sum(points)
+[1] 87
+> 
+> sum(Granny.pointers * c(2,3))
+[1] 87
+> 
+> 
+> 
+> round(diff(baskets.of.Granny) / baskets.of.Granny * 100 )
+Warning in diff(baskets.of.Granny)/baskets.of.Granny :
+  longer object length is not a multiple of shorter object length
+[1]  -67   25   20   50  -67 -267
+> round(diff(baskets.of.Granny) / baskets.of.Granny[1:5] * 100)
+[1] -67  25  20  50 -67
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ch05")
+> ### * ch05
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch05
+> ### Title: Print examples of chapter 5 of 'R for Dummies'.
+> ### Aliases: ch05 ch5
+> 
+> ### ** Examples
+> 
+> # Chapter 5 - Getting Started with Reading and Writing
+> 
+> # Using Character Vectors for Text Data
+> 
+> ## Assigning a value to a character vector
+> 
+> x <- "Hello world!"
+> is.character(x)
+[1] TRUE
+> length(x)
+[1] 1
+> nchar(x)
+[1] 12
+> 
+> ## Creating a character vector with more than one element
+> 
+> x <- c("Hello", "world!")
+> length(x)
+[1] 2
+> nchar(x)
+[1] 5 6
+> 
+> ## Extracting a subset of a vector
+> 
+> letters
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+[20] "t" "u" "v" "w" "x" "y" "z"
+> LETTERS
+ [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+[20] "T" "U" "V" "W" "X" "Y" "Z"
+> letters[10]
+[1] "j"
+> LETTERS[24:26]
+[1] "X" "Y" "Z"
+> tail(LETTERS, 5)
+[1] "V" "W" "X" "Y" "Z"
+> head(letters, 10)
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+> 
+> ## Naming the values in your vectors
+> 
+> ### Looking at how named vectors work
+> 
+> str(islands)
+ Named num [1:48] 11506 5500 16988 2968 16 ...
+ - attr(*, "names")= chr [1:48] "Africa" "Antarctica" "Asia" "Australia" ...
+> islands[c("Asia", "Africa", "Antarctica")]
+      Asia     Africa Antarctica 
+     16988      11506       5500 
+> names(islands)[1:9]
+[1] "Africa"       "Antarctica"   "Asia"         "Australia"    "Axel Heiberg"
+[6] "Baffin"       "Banks"        "Borneo"       "Britain"     
+> names(sort(islands, decreasing=TRUE)[1:6])
+[1] "Asia"          "Africa"        "North America" "South America"
+[5] "Antarctica"    "Europe"       
+> 
+> ## Creating and assigning named vectors
+> 
+> month.days <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+> names(month.days) <- month.name
+> month.days
+  January  February     March     April       May      June      July    August 
+       31        28        31        30        31        30        31        31 
+September   October  November  December 
+       30        31        30        31 
+> names(month.days[month.days==31])
+[1] "January"  "March"    "May"      "July"     "August"   "October"  "December"
+> 
+> # Manipulating Text
+> 
+> ## String theory: Combining and splitting strings
+> 
+> ### Splitting text
+> 
+> pangram <- "The quick brown fox jumps over the lazy dog"
+> pangram
+[1] "The quick brown fox jumps over the lazy dog"
+> strsplit(pangram, " ")
+[[1]]
+[1] "The"   "quick" "brown" "fox"   "jumps" "over"  "the"   "lazy"  "dog"  
+
+> 
+> words <- strsplit(pangram, " ")[[1]]
+> words
+[1] "The"   "quick" "brown" "fox"   "jumps" "over"  "the"   "lazy"  "dog"  
+> 
+> ### Changing text case
+> 
+> unique(tolower(words))
+[1] "the"   "quick" "brown" "fox"   "jumps" "over"  "lazy"  "dog"  
+> toupper(words[c(4, 9)])
+[1] "FOX" "DOG"
+> tolower("Some TEXT in Mixed CASE")
+[1] "some text in mixed case"
+> 
+> ### Concatenating text
+> 
+> paste("The", "quick", "brown", "fox")
+[1] "The quick brown fox"
+> paste(c("The", "quick", "brown", "fox"))
+[1] "The"   "quick" "brown" "fox"  
+> paste(words, collapse=" ")
+[1] "The quick brown fox jumps over the lazy dog"
+> paste(words, collapse="_")
+[1] "The_quick_brown_fox_jumps_over_the_lazy_dog"
+> paste(LETTERS[1:5], 1:5, sep="_", collapse="---")
+[1] "A_1---B_2---C_3---D_4---E_5"
+> paste("Sample", 1:5)
+[1] "Sample 1" "Sample 2" "Sample 3" "Sample 4" "Sample 5"
+> paste(c("A", "B"), c(1, 2, 3, 4), sep="-")
+[1] "A-1" "B-2" "A-3" "B-4"
+> paste(c("A"), c(1, 2, 3, 4, 5), sep="-")
+[1] "A-1" "A-2" "A-3" "A-4" "A-5"
+> 
+> ## Sorting text
+> 
+> sort(letters, decreasing=TRUE)
+ [1] "z" "y" "x" "w" "v" "u" "t" "s" "r" "q" "p" "o" "n" "m" "l" "k" "j" "i" "h"
+[20] "g" "f" "e" "d" "c" "b" "a"
+> sort(words)
+[1] "The"   "brown" "dog"   "fox"   "jumps" "lazy"  "over"  "quick" "the"  
+> 
+> ## Finding text inside text
+> 
+> ### Searching for individual words
+> 
+> head(state.name)
+[1] "Alabama"    "Alaska"     "Arizona"    "Arkansas"   "California"
+[6] "Colorado"  
+> 
+> ### Searching by position
+> 
+> head(substr(state.name, start=3, stop=6))
+[1] "abam" "aska" "izon" "kans" "lifo" "lora"
+> 
+> ### Searching by pattern
+> 
+> grep("New", state.name)
+[1] 29 30 31 32
+> state.name[29]
+[1] "New Hampshire"
+> state.name[grep("New", state.name)]
+[1] "New Hampshire" "New Jersey"    "New Mexico"    "New York"     
+> state.name[grep("new", state.name)]
+character(0)
+> 
+> ### Searching for multiple words
+> 
+> state.name[grep(" ", state.name)]
+ [1] "New Hampshire"  "New Jersey"     "New Mexico"     "New York"      
+ [5] "North Carolina" "North Dakota"   "Rhode Island"   "South Carolina"
+ [9] "South Dakota"   "West Virginia" 
+> state.name[grep("East", state.name)]
+character(0)
+> 
+> ## Substituting text
+> 
+> 
+> gsub("cheap", "sheep's", "A wolf in cheap clothing")
+[1] "A wolf in sheep's clothing"
+> x <- c("file_a.csv", "file_b.csv", "file_c.csv")
+> y <- gsub("file_", "", x)
+> y
+[1] "a.csv" "b.csv" "c.csv"
+> gsub(".csv", "", y)
+[1] "a" "b" "c"
+> 
+> 
+> #### Extending text functionality with stringr
+> 
+> ## Not run: 
+> ##D install.packages("stringr")
+> ## End(Not run)
+> library(stringr)
+
+Attaching package: ‘stringr’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    words
+
+> 
+> 
+> ## Revving up with regular expressions
+> 
+> rwords <- c("bach", "back", "beech", "beach", "black")
+> grep("beach|beech", rwords)
+[1] 3 4
+> rwords[grep("beach|beech", rwords)]
+[1] "beech" "beach"
+> rwords[grep("be(a|e)ch", rwords)]
+[1] "beech" "beach"
+> rwords[grep("b(e*|a*)ch", rwords)]
+[1] "bach"  "beech"
+> 
+> 
+> # Factoring in Factors
+> 
+> ## Creating a factor
+> 
+> directions <- c("North", "East", "South", "South")
+> factor(directions)
+[1] North East  South South
+Levels: East North South
+> factor(directions, levels= c("North", "East", "South", "West"))
+[1] North East  South South
+Levels: North East South West
+> factor(directions, levels= c("North", "East", "South", "West"), labels=c("N", "E", "S", "W"))
+[1] N E S S
+Levels: N E S W
+> 
+> ## Converting a factor
+> 
+> directions <- c("North", "East", "South", "South")
+> directions.factor <- factor(directions)
+> directions.factor
+[1] North East  South South
+Levels: East North South
+> as.character(directions.factor)
+[1] "North" "East"  "South" "South"
+> as.numeric(directions.factor)
+[1] 2 1 3 3
+> 
+> numbers <- factor(c(9, 8, 10, 8, 9))
+> as.character(numbers)
+[1] "9"  "8"  "10" "8"  "9" 
+> as.numeric(numbers)
+[1] 2 1 3 1 2
+> as.numeric(as.character(numbers))
+[1]  9  8 10  8  9
+> 
+> ## Looking at levels
+> 
+> str(state.region)
+ Factor w/ 4 levels "Northeast","South",..: 2 4 4 2 4 4 1 2 2 2 ...
+> levels(state.region)
+[1] "Northeast"     "South"         "North Central" "West"         
+> levels(state.region) <- c("NE", "S", "NC", "W")
+> head(state.region)
+[1] S W W S W W
+Levels: NE S NC W
+> nlevels(state.region)
+[1] 4
+> length(levels(state.region))
+[1] 4
+> levels(state.region)[2:3]
+[1] "S"  "NC"
+> 
+> ## Distinguishing data types
+> 
+> head(state.region)
+[1] S W W S W W
+Levels: NE S NC W
+> table(state.region)
+state.region
+NE  S NC  W 
+ 9 16 12 13 
+> state.region
+ [1] S  W  W  S  W  W  NE S  S  S  W  W  NC NC NC NC S  S  NE S  NE NC NC S  NC
+[26] W  NC W  NE NE W  NE S  NC NC S  W  NE NE S  NC S  S  W  NE S  W  S  NC W 
+Levels: NE S NC W
+> 
+> ## Working with ordered factors
+> 
+> status <- c("Lo", "Hi", "Med", "Med", "Hi")
+> ordered.status <- factor(status, levels=c("Lo", "Med", "Hi"), ordered=TRUE)
+> ordered.status
+[1] Lo  Hi  Med Med Hi 
+Levels: Lo < Med < Hi
+> table(status)
+status
+ Hi  Lo Med 
+  2   1   2 
+> table(ordered.status)
+ordered.status
+ Lo Med  Hi 
+  1   2   2 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:stringr’
+
+> nameEx("ch06")
+> ### * ch06
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch06
+> ### Title: Print examples of chapter 6 of 'R for Dummies'.
+> ### Aliases: ch06 ch6
+> 
+> ### ** Examples
+> 
+> # Chapter 6 - Going on a Date with R
+> 
+> # Working with Dates
+> 
+> xd <- as.Date("2012-07-27")
+> xd
+[1] "2012-07-27"
+> str(xd)
+ Date[1:1], format: "2012-07-27"
+> weekdays(xd)
+[1] "Friday"
+> xd + 7
+[1] "2012-08-03"
+> xd + 0:6
+[1] "2012-07-27" "2012-07-28" "2012-07-29" "2012-07-30" "2012-07-31"
+[6] "2012-08-01" "2012-08-02"
+> weekdays(xd + 0:6)
+[1] "Friday"    "Saturday"  "Sunday"    "Monday"    "Tuesday"   "Wednesday"
+[7] "Thursday" 
+> 
+> startDate <- as.Date("2012-01-01")
+> xm <- seq(startDate, by="2 months", length.out=6)
+> xm
+[1] "2012-01-01" "2012-03-01" "2012-05-01" "2012-07-01" "2012-09-01"
+[6] "2012-11-01"
+>  months(xm)
+[1] "January"   "March"     "May"       "July"      "September" "November" 
+> quarters(xm)
+[1] "Q1" "Q1" "Q2" "Q3" "Q3" "Q4"
+> 
+> Sys.localeconv()
+    decimal_point     thousands_sep          grouping   int_curr_symbol 
+              "."                ""                ""            "USD " 
+  currency_symbol mon_decimal_point mon_thousands_sep      mon_grouping 
+              "$"               "."               ","        "\003\003" 
+    positive_sign     negative_sign   int_frac_digits       frac_digits 
+               ""               "-"               "2"               "2" 
+    p_cs_precedes    p_sep_by_space     n_cs_precedes    n_sep_by_space 
+              "1"               "0"               "1"               "0" 
+      p_sign_posn       n_sign_posn 
+              "1"               "1" 
+> 
+> as.Date("27 July 2012", format="%d %B %Y")
+[1] "2012-07-27"
+> 
+> as.Date("27/7/12", format="%d/%m/%y")
+[1] "2012-07-27"
+> 
+> # Adding Time Information to Dates
+> 
+> apollo <- "July 20, 1969, 20:17:39"
+> apollo.fmt <- "%B %d, %Y, %H:%M:%S"
+> xct <- as.POSIXct(apollo, format=apollo.fmt, tz="UTC")
+> xct
+[1] "1969-07-20 20:17:39 UTC"
+> 
+> format(xct, "%d/%m/%y")
+[1] "20/07/69"
+> format(xct, "%S minutes past %I %p, on %d %B %Y")
+[1] "39 minutes past 08 PM, on 20 July 1969"
+> 
+> # Performing Operations on Dates and Times
+> 
+> ## Addition and subtraction
+> 
+> 24*60*60
+[1] 86400
+> xct + 7*86400
+[1] "1969-07-27 20:17:39 UTC"
+> xct + 3*60*60
+[1] "1969-07-20 23:17:39 UTC"
+> xct - 7*86400
+[1] "1969-07-13 20:17:39 UTC"
+> as.Date(xct) - 7
+[1] "1969-07-13"
+> 
+> ## Comparison of dates
+> 
+> Sys.time()
+[1] "2018-10-13 11:35:29 CDT"
+> Sys.time() < xct
+[1] FALSE
+> 
+> dec.start <- as.POSIXct("1950-01-01")
+> dec <- seq(dec.start, by="10 years", length.out=4)
+> dec
+[1] "1950-01-01 CST" "1960-01-01 CST" "1970-01-01 CST" "1980-01-01 CST"
+> dec > xct
+[1] FALSE FALSE  TRUE  TRUE
+> 
+> ## Extraction
+> 
+> xlt <- as.POSIXlt(xct)
+> xlt
+[1] "1969-07-20 20:17:39 UTC"
+> xlt$year
+[1] 69
+> xlt$mon
+[1] 6
+> unclass(xlt)
+$sec
+[1] 39
+
+$min
+[1] 17
+
+$hour
+[1] 20
+
+$mday
+[1] 20
+
+$mon
+[1] 6
+
+$year
+[1] 69
+
+$wday
+[1] 0
+
+$yday
+[1] 200
+
+$isdst
+[1] 0
+
+attr(,"tzone")
+[1] "UTC"
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ch07")
+> ### * ch07
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch07
+> ### Title: Print examples of chapter 7 of 'R for Dummies'.
+> ### Aliases: ch07 ch7
+> 
+> ### ** Examples
+> 
+> # Chapter 7
+> # Working in More Dimensions
+> 
+> # Adding a Second Dimension
+> 
+> ## Discovering a new dimension
+> 
+> ### Creating your first matrix
+> 
+> first.matrix <- matrix(1:12, ncol=4)
+> first.matrix
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12
+> matrix(1:12, ncol=4, byrow=TRUE)
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8
+[3,]    9   10   11   12
+> 
+> ### Looking at the properties
+> 
+> str(first.matrix)
+ int [1:3, 1:4] 1 2 3 4 5 6 7 8 9 10 ...
+> dim(first.matrix)
+[1] 3 4
+> length(first.matrix)
+[1] 12
+> my.array <- array(1:24, dim=c(3,4,2))
+> baskets.of.Granny <- c(12,4,5,6,9,3)
+> baskets.of.Geraldine <- c(5,4,2,4,12,9)
+> baskets.team <- rbind(baskets.of.Granny, baskets.of.Geraldine)
+> 
+> attributes(my.array)
+$dim
+[1] 3 4 2
+
+> attr(baskets.team,'season') <- '2010-2011'
+> attr(baskets.team,'season')
+[1] "2010-2011"
+> attr(baskets.team,'season') <- NULL
+> 
+> ## Combining vectors into a matrix
+> 
+> baskets.of.Granny <- c(12,4,5,6,9,3)
+> baskets.of.Geraldine <- c(5,4,2,4,12,9)
+> baskets.team <- rbind(baskets.of.Granny, baskets.of.Geraldine)
+> 
+> baskets.team
+                     [,1] [,2] [,3] [,4] [,5] [,6]
+baskets.of.Granny      12    4    5    6    9    3
+baskets.of.Geraldine    5    4    2    4   12    9
+> 
+> cbind(1:3, 4:6, matrix(7:12, ncol=2))
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12
+> 
+> # Using the Indices
+> 
+> ## Extracting values from a matrix
+> 
+> ### Using numeric indices
+> 
+> first.matrix[1:2, 2:3]
+     [,1] [,2]
+[1,]    4    7
+[2,]    5    8
+> first.matrix[2:3,]
+     [,1] [,2] [,3] [,4]
+[1,]    2    5    8   11
+[2,]    3    6    9   12
+> 
+> ### Dropping values using negative indices
+> 
+> first.matrix[-2,-3]
+     [,1] [,2] [,3]
+[1,]    1    4   10
+[2,]    3    6   12
+> 
+> nr <- nrow(first.matrix)
+> id <- nr*2+2
+> first.matrix[-id]
+ [1]  1  2  3  4  5  6  7  9 10 11 12
+> 
+> first.matrix[-(2 * nrow(first.matrix) + 2)]
+ [1]  1  2  3  4  5  6  7  9 10 11 12
+> 
+> 
+> ### Juggling dimensions
+> 
+> first.matrix[-c(1, 3), ]
+[1]  2  5  8 11
+> first.matrix[2, , drop=FALSE]
+     [,1] [,2] [,3] [,4]
+[1,]    2    5    8   11
+> 
+> ## Replacing values in a matrix
+> 
+> first.matrix[3, 2] <- 4
+> first.matrix
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    4    9   12
+> 
+> first.matrix[2, ] <- c(1,3)
+> first.matrix
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    1    3    1    3
+[3,]    3    4    9   12
+> 
+> first.matrix[1:2, 3:4] <- c(8,4,2,1)
+> first.matrix
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    8    2
+[2,]    1    3    4    1
+[3,]    3    4    9   12
+> 
+> # Naming Matrix Rows and Columns
+> 
+> ## Changing the row and column names
+> 
+> rownames(baskets.team) <- c('Granny','Geraldine')
+> rownames(baskets.team)
+[1] "Granny"    "Geraldine"
+> colnames(baskets.team) <- c('1st','2nd','3th','4th','5th','6th')
+> baskets.team
+          1st 2nd 3th 4th 5th 6th
+Granny     12   4   5   6   9   3
+Geraldine   5   4   2   4  12   9
+> 
+> colnames(baskets.team)[3] <- '3rd'
+> 
+> baskets.copy <- baskets.team
+> colnames(baskets.copy) <- NULL
+> baskets.copy
+          [,1] [,2] [,3] [,4] [,5] [,6]
+Granny      12    4    5    6    9    3
+Geraldine    5    4    2    4   12    9
+> 
+> ## Using names as indices
+> 
+> baskets.team[, c("2nd","5th")]
+          2nd 5th
+Granny      4   9
+Geraldine   4  12
+> 
+> baskets.team["Granny",]
+1st 2nd 3rd 4th 5th 6th 
+ 12   4   5   6   9   3 
+> 
+> # Calculating with Matrices
+> 
+> ## Using standard operations with matrices
+> first.matrix + 4
+     [,1] [,2] [,3] [,4]
+[1,]    5    8   12    6
+[2,]    5    7    8    5
+[3,]    7    8   13   16
+> 
+> second.matrix <- matrix(1:3, nrow=3, ncol=4)
+> 
+> first.matrix + second.matrix
+     [,1] [,2] [,3] [,4]
+[1,]    2    5    9    3
+[2,]    3    5    6    3
+[3,]    6    7   12   15
+> 
+> # first.matrix + second.matrix[,1:3] # gives error for illustration
+> # Error in first.matrix + second.matrix[, 1:3] : non-conformable arrays
+> 
+> first.matrix + 1:3
+     [,1] [,2] [,3] [,4]
+[1,]    2    5    9    3
+[2,]    3    5    6    3
+[3,]    6    7   12   15
+> 
+> ## Calculating row and column summaries
+> 
+> rowSums(baskets.team)
+   Granny Geraldine 
+       39        36 
+> 
+> ## Doing matrix arithmetic
+> 
+> ### Transposing a matrix
+> 
+> t(first.matrix)
+     [,1] [,2] [,3]
+[1,]    1    1    3
+[2,]    4    3    4
+[3,]    8    4    9
+[4,]    2    1   12
+> 
+> t(1:10)
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+[1,]    1    2    3    4    5    6    7    8    9    10
+> 
+> t(first.matrix[2,])
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    4    1
+> 
+> ### Inverting a matrix
+> 
+> square.matrix <- matrix(c(1,0,3,2,2,4,3,2,1),ncol=3)
+> solve(square.matrix)
+     [,1]       [,2]       [,3]
+[1,]  0.5 -0.8333333  0.1666667
+[2,] -0.5  0.6666667  0.1666667
+[3,]  0.5 -0.1666667 -0.1666667
+> 
+> ### Multiplying two matrices
+> 
+> first.matrix %*% t(second.matrix)
+     [,1] [,2] [,3]
+[1,]   15   30   45
+[2,]    9   18   27
+[3,]   28   56   84
+> 
+> first.matrix %*% 1:4
+     [,1]
+[1,]   41
+[2,]   23
+[3,]   86
+> 1:3 %*% first.matrix
+     [,1] [,2] [,3] [,4]
+[1,]   12   22   43   40
+> 
+> # Adding More Dimensions
+> 
+> ## Creating an array
+> 
+> ### Using the creator functions
+> 
+> my.array <- array(1:24, dim=c(3,4,2))
+> my.array
+, , 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12
+
+, , 2
+
+     [,1] [,2] [,3] [,4]
+[1,]   13   16   19   22
+[2,]   14   17   20   23
+[3,]   15   18   21   24
+
+> 
+> ### Changing the dimensions of a vector
+> 
+> 
+> my.vector <- 1:24
+> dim(my.vector) <- c(3,4,2)
+> identical(my.array, my.vector)
+[1] TRUE
+> 
+> ## Using dimensions to extract values
+> 
+> my.array[2,3,1]
+[1] 8
+> 
+> my.array[, 3, 2, drop=FALSE]
+, , 1
+
+     [,1]
+[1,]   19
+[2,]   20
+[3,]   21
+
+> 
+> 
+> my.array[2, , ]
+     [,1] [,2]
+[1,]    2   14
+[2,]    5   17
+[3,]    8   20
+[4,]   11   23
+> 
+> 
+> # Combining Different Types of Values in a Data Frame
+> 
+> ## Creating a data frame from a matrix
+> 
+> ### Using the function as.data.frame
+> 
+> baskets.df <- as.data.frame(t(baskets.team))
+> 
+> ### Looking at the structure of a data frame
+> 
+> baskets.df
+    Granny Geraldine
+1st     12         5
+2nd      4         4
+3rd      5         2
+4th      6         4
+5th      9        12
+6th      3         9
+> str(baskets.df)
+'data.frame':	6 obs. of  2 variables:
+ $ Granny   : num  12 4 5 6 9 3
+ $ Geraldine: num  5 4 2 4 12 9
+> 
+> ### Counting values and variables
+> 
+> nrow(baskets.df)
+[1] 6
+> length(baskets.df)
+[1] 2
+> 
+> ## Creating a data frame from scratch
+> 
+> ### Making a data frame from vectors
+> 
+> employee <- c('John Doe','Peter Gynn','Jolie Hope')
+> salary <- c(21000, 23400, 26800)
+> startdate <- as.Date(c('2010-11-1','2008-3-25','2007-3-14'))
+> 
+> employ.data <- data.frame(employee, salary, startdate)
+> 
+> str(employ.data)
+'data.frame':	3 obs. of  3 variables:
+ $ employee : Factor w/ 3 levels "John Doe","Jolie Hope",..: 1 3 2
+ $ salary   : num  21000 23400 26800
+ $ startdate: Date, format: "2010-11-01" "2008-03-25" ...
+> 
+> ### Keeping characters as characters
+> 
+> employ.data <- data.frame(employee, salary, startdate, stringsAsFactors=FALSE)
+> str(employ.data)
+'data.frame':	3 obs. of  3 variables:
+ $ employee : chr  "John Doe" "Peter Gynn" "Jolie Hope"
+ $ salary   : num  21000 23400 26800
+ $ startdate: Date, format: "2010-11-01" "2008-03-25" ...
+> 
+> ## Naming variables and observations
+> 
+> ### Working with variable names
+> 
+> colnames(employ.data)
+[1] "employee"  "salary"    "startdate"
+> names(employ.data)
+[1] "employee"  "salary"    "startdate"
+> 
+> names(employ.data)[3] <- 'firstday'
+> names(employ.data)
+[1] "employee" "salary"   "firstday"
+> 
+> ### Naming observations
+> 
+> rownames(employ.data)
+[1] "1" "2" "3"
+> rownames(employ.data) <- c('Chef','BigChef','BiggerChef')
+> employ.data
+             employee salary   firstday
+Chef         John Doe  21000 2010-11-01
+BigChef    Peter Gynn  23400 2008-03-25
+BiggerChef Jolie Hope  26800 2007-03-14
+> 
+> # Manipulating Values in a Data Frame
+> 
+> ## Extracting variables, observations, and values
+> 
+> ### Pretending it's a matrix
+> 
+> baskets.df['3rd', 'Geraldine']
+[1] 2
+> baskets.df[, 1]
+[1] 12  4  5  6  9  3
+> 
+> str(baskets.df[, 1, drop=FALSE])
+'data.frame':	6 obs. of  1 variable:
+ $ Granny: num  12 4 5 6 9 3
+> 
+> ### Putting your dollar where your data is
+> 
+> baskets.df$Granny
+[1] 12  4  5  6  9  3
+> 
+> ## Adding observations to a data frame
+> 
+> ### Adding a single observation
+> 
+> result <- rbind(baskets.df, c(7,4))
+> result
+    Granny Geraldine
+1st     12         5
+2nd      4         4
+3rd      5         2
+4th      6         4
+5th      9        12
+6th      3         9
+7        7         4
+> 
+> baskets.df <- rbind(baskets.df,'7th' = c(7,4))
+> baskets.df
+    Granny Geraldine
+1st     12         5
+2nd      4         4
+3rd      5         2
+4th      6         4
+5th      9        12
+6th      3         9
+7th      7         4
+> 
+> ### Adding a series of new observations using rbind
+> 
+> new.baskets <- data.frame(Granny=c(3,8),Geraldine=c(9,4))
+> rownames(new.baskets) <- c('8th','9th')
+> baskets.df <- rbind(baskets.df, new.baskets)
+> 
+> ### Adding a series of values using indices
+> 
+> baskets.df[c('8th','9th'), ] <- matrix(c(3,8,9,4), ncol=2)
+> baskets.df[c('8th','9th'), ] <- c(3,8,9,4)
+> 
+> ## Adding variables to a data frame
+> 
+> ### Adding a single variable
+> 
+> baskets.of.Gabrielle <- c(11,5,6,7,3,12,4,5,9)
+> baskets.df$Gabrielle <- baskets.of.Gabrielle
+> 
+> head(baskets.df, 4)
+    Granny Geraldine Gabrielle
+1st     12         5        11
+2nd      4         4         5
+3rd      5         2         6
+4th      6         4         7
+> 
+> ### Adding multiple variables using cbind
+> 
+> new.df <- data.frame(
++    Gertrude  =  c(3,5,2,1,NA,3,1,1,4),
++    Guinevere =  c(6,9,7,3,3,6,2,10,6)
++ )
+> 
+> head(cbind(baskets.df, new.df), 4)
+    Granny Geraldine Gabrielle Gertrude Guinevere
+1st     12         5        11        3         6
+2nd      4         4         5        5         9
+3rd      5         2         6        2         7
+4th      6         4         7        1         3
+> 
+> # Combining Different Objects in a List
+> 
+> ## Creating a list
+> 
+> ### Creating an unnamed list
+> 
+> baskets.list <- list(baskets.team, '2010-2011')
+> baskets.list
+[[1]]
+          1st 2nd 3rd 4th 5th 6th
+Granny     12   4   5   6   9   3
+Geraldine   5   4   2   4  12   9
+
+[[2]]
+[1] "2010-2011"
+
+> 
+> ### Creating a named list
+> 
+> baskets.nlist <- list(scores=baskets.team, season='2010-2011')
+> baskets.nlist
+$scores
+          1st 2nd 3rd 4th 5th 6th
+Granny     12   4   5   6   9   3
+Geraldine   5   4   2   4  12   9
+
+$season
+[1] "2010-2011"
+
+> 
+> 
+> ### Playing with the names of elements
+> 
+> names(baskets.nlist)
+[1] "scores" "season"
+> 
+> ### Getting the number of elements
+> 
+> length(baskets.list)
+[1] 2
+> 
+> ## Extracting elements from lists
+> 
+> ### Using [[]]
+> 
+> baskets.list[[1]]
+          1st 2nd 3rd 4th 5th 6th
+Granny     12   4   5   6   9   3
+Geraldine   5   4   2   4  12   9
+> baskets.nlist[['scores']]
+          1st 2nd 3rd 4th 5th 6th
+Granny     12   4   5   6   9   3
+Geraldine   5   4   2   4  12   9
+> 
+> ### Using []
+> 
+> baskets.list[-1]
+[[1]]
+[1] "2010-2011"
+
+> baskets.nlist[names(baskets.nlist)=='season']
+$season
+[1] "2010-2011"
+
+> 
+> ## Changing the elements in lists
+> 
+> ### Changing the value of elements
+> 
+> baskets.nlist[[1]] <- baskets.df
+> baskets.nlist[['scores']] <- baskets.df
+> baskets.nlist$scores <- baskets.df
+> 
+> baskets.nlist[1] <- list(baskets.df)
+> 
+> baskets.list[1:2] <- list(baskets.df, '2009-2010')
+> 
+> ### Removing elements
+> 
+> baskets.nlist[[1]] <- NULL
+> baskets.nlist$scores <- NULL
+> baskets.nlist['scores'] <- NULL
+> 
+> baskets.nlist <- list(scores=baskets.df, season='2010-2011')
+> baskets.nlist['scores'] <- list(NULL)
+> baskets.nlist
+$scores
+NULL
+
+$season
+[1] "2010-2011"
+
+> 
+> ### Adding extra elements using indices
+> 
+> baskets.nlist$players <- c('Granny','Geraldine')
+> baskets.nlist[['players']] <- c('Granny','Geraldine')
+> baskets.nlist['players'] <- list(c('Granny','Geraldine'))
+> 
+> baskets.list[[3]] <- c('Granny','Geraldine')
+> baskets.list[3] <- list(c('Granny','Geraldine'))
+> 
+> ### Combining lists
+> 
+> 
+> 
+> baskets.list <- list(baskets.team,'2010-2011')
+> players <- list(rownames(baskets.team))
+> 
+> c(baskets.list, players)
+[[1]]
+          1st 2nd 3rd 4th 5th 6th
+Granny     12   4   5   6   9   3
+Geraldine   5   4   2   4  12   9
+
+[[2]]
+[1] "2010-2011"
+
+[[3]]
+[1] "Granny"    "Geraldine"
+
+> 
+> ## Reading the output of str() for lists
+> 
+> str(baskets.list)
+List of 2
+ $ : num [1:2, 1:6] 12 5 4 4 5 2 6 4 9 12 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:2] "Granny" "Geraldine"
+  .. ..$ : chr [1:6] "1st" "2nd" "3rd" "4th" ...
+ $ : chr "2010-2011"
+> 
+> ## Seeing the forest through the trees
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ch08")
+> ### * ch08
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch08
+> ### Title: Print examples of chapter 8 of 'R for Dummies'.
+> ### Aliases: ch08 ch8
+> 
+> ### ** Examples
+> 
+> # Chapter 8
+> # Putting the Fun in Functions
+> 
+> # Moving from Scripts to Functions
+> 
+> ## Making the script
+> 
+> x <- c(0.458, 1.6653, 0.83112)
+> percent <- round(x * 100, digits = 1)
+> result <- paste(percent, "%", sep = "")
+> print(result)
+[1] "45.8%"  "166.5%" "83.1%" 
+> 
+> # source('pastePercent.R') # Only after saving
+> 
+> ## Transforming the script
+> 
+> addPercent <- function(x){
++   percent <- round(x * 100, digits = 1)
++   result <- paste(percent, "%", sep = "")
++   return(result)
++ }
+> 
+> ## Using the function
+> 
+> ls()
+[1] "addPercent" "percent"    "result"     "x"         
+> 
+> ### Formatting the numbers
+> 
+> new.numbers <- c(0.8223, 0.02487, 1.62, 0.4)
+> addPercent(new.numbers)
+[1] "82.2%" "2.5%"  "162%"  "40%"  
+> 
+> ### Playing with function objects
+> 
+> ppaste <- addPercent
+> ppaste
+function (x) 
+{
+    percent <- round(x * 100, digits = 1)
+    result <- paste(percent, "%", sep = "")
+    return(result)
+}
+> 
+> ## Reducing the number of lines
+> 
+> ### Returning values by default
+> 
+> # AddPercent function without last return - not written in book
+> addPercent <- function(x){
++   percent <- round(x * 100, digits = 1)
++   result <- paste(percent, "%", sep = "")
++ }
+> 
+> print( addPercent(new.numbers) )
+[1] "82.2%" "2.5%"  "162%"  "40%"  
+> 
+> addPercent <- function(x){
++   percent <- round(x * 100, digits = 1)
++   paste(percent, "%", sep = "")
++ }
+> 
+> addPercent <- function(x){
++   if( !is.numeric(x) ) return(NULL)
++   percent <- round(x * 100, digits = 1)
++   paste(percent, "%", sep = "")
++ }
+> 
+> ### Breaking the walls
+> 
+> odds <- function(x) x / (1-x)
+> 
+> odds(0.8)
+[1] 4
+> 
+> addPercent <- function(x) paste(round(x * 100, digits = 1), "%", sep = "")
+> 
+> # Using Arguments the Smart Way
+> 
+> ## Adding more arguments
+> 
+> percentages <- c(58.23, 120.4, 33)
+> addPercent(percentages/100)
+[1] "58.2%"  "120.4%" "33%"   
+> 
+> ### Adding the mult argument
+> 
+> addPercent <- function(x, mult){
++   percent <- round(x * mult, digits = 1)
++   paste(percent, "%", sep = "")
++ }
+> 
+> addPercent(percentages, mult = 1)
+[1] "58.2%"  "120.4%" "33%"   
+> 
+> ### Adding a default value
+> 
+> # addPercent(new.numbers) # Gives error for illustrative purposes
+> # Error in x * mult : 'mult' is missing
+> 
+> addPercent <- function(x, mult = 100){
++   percent <- round(x * mult, digits = 1)
++   paste(percent, "%", sep = "")
++ }
+> 
+> addPercent(new.numbers)
+[1] "82.2%" "2.5%"  "162%"  "40%"  
+> 
+> addPercent(percentages, 1)
+[1] "58.2%"  "120.4%" "33%"   
+> 
+> ## Conjuring tricks with dots
+> 
+> addPercent <- function(x, mult = 100, ...){
++   percent <- round(x * mult, ...)
++   paste(percent, "%", sep = "")
++ }
+> 
+> addPercent(new.numbers, digits = 2)
+[1] "82.23%" "2.49%"  "162%"   "40%"   
+> addPercent(new.numbers)
+[1] "82%"  "2%"   "162%" "40%" 
+> 
+> 
+> addPercent <- function(x, mult = 100, digits = 1){
++   percent <- round(x * mult, digits = digits)
++   paste(percent, "%", sep = "")
++ }
+> 
+> ## Using functions as arguments
+> 
+> ### Applying different ways of rounding
+> 
+> addPercent <- function(x, mult = 100, FUN = round, ...){
++   percent <- FUN(x * mult, ...)
++   paste(percent, "%", sep = "")
++ }
+> 
+> addPercent(new.numbers, FUN = signif, digits = 3)
+[1] "82.2%" "2.49%" "162%"  "40%"  
+> 
+> ### Using anonymous functions
+> 
+> profits <- c(2100, 1430, 3580, 5230)
+> rel.profit <- function(x) round(x / sum(x) * 100)
+> addPercent(profits,
++                 FUN = function(x) round(x / sum(x) * 100) )
+[1] "17%" "12%" "29%" "42%"
+> 
+> addPercent(profits / sum(profits))
+[1] "17%" "12%" "29%" "42%"
+> 
+> # Coping with Scoping
+> 
+> 
+> 
+> ## Crossing the borders
+> 
+> ### Creating a test case
+> 
+> x <- 1:5
+> test <- function(x){
++   cat("This is x:", x, "\n")
++   rm(x)
++   cat("This is x after removing it:",x,"\n")
++ }
+> 
+> test(5:1)
+This is x: 5 4 3 2 1 
+This is x after removing it: 1 2 3 4 5 
+> 
+> ### Searching the path
+> 
+> ## Using internal functions
+> 
+> calculate.eff <- function(x, y, control){
++   min.base <- function(z) z - mean(control)
++   min.base(x) / min.base(y)
++ }
+> 
+> 
+> half <- c(2.23, 3.23, 1.48)
+> full <- c(4.85, 4.95, 4.12)
+> nothing <- c(0.14, 0.18, 0.56, 0.23)
+> calculate.eff(half, full, nothing)
+[1] 0.4270093 0.6318887 0.3129473
+> 
+> # Dispatching to a Method
+> 
+> ## Finding the methods behind the function
+> 
+> print
+function (x, ...) 
+UseMethod("print")
+<bytecode: 0x3d8bc20>
+<environment: namespace:base>
+> 
+> ### Using methods with UseMethod
+> 
+> small.one <- data.frame(a = 1:2, b = 2:1)
+> print.data.frame(small.one)
+  a b
+1 1 2
+2 2 1
+> 
+> ### Using default methods
+> 
+> print.default(small.one)
+$a
+[1] 1 2
+
+$b
+[1] 2 1
+
+attr(,"class")
+[1] "data.frame"
+> 
+> ## Doing it yourself
+> 
+> ### Adapting the addPercent function
+> 
+> addPercent.character <- function(x){
++   paste(x,"%",sep="")
++ }
+> 
+> # Not written out in the book - needed for rest code # 
+> addPercent.numeric <- function(x, mult = 100, FUN = round, ...){
++   percent <- FUN(x * mult, ...)
++   paste(percent, "%", sep = "")
++ }
+> 
+> addPercent <- function(x,...){
++   UseMethod("addPercent")
++ }
+> 
+> addPercent(new.numbers, FUN = floor)
+[1] "82%"  "2%"   "162%" "40%" 
+> 
+> addPercent(letters[1:6])
+[1] "a%" "b%" "c%" "d%" "e%" "f%"
+> 
+> # Adding a default function
+> 
+> # addPercent(small.one) # Gives error on purpose
+> # Error in UseMethod("addPercent") :
+> #  no applicable method for 'addPercent' applied to an object of class "data.frame"
+> 
+> addPercent.default <- function(x){
++   cat('You should try a numeric or character vector.\n')
++ }
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ch09")
+> ### * ch09
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ch09
+> ### Title: Print examples of chapter 9 of 'R for Dummies'.
+> ### Aliases: ch09 ch9
+> 
+> ### ** Examples
+> 
+> # Chapter 9
+> # Controlling the Logical Flow
+> 
+> #Making Choices with if Statements
+> 
+> priceCalculator <- function(hours, pph=40){
++     net.price <- hours * pph
++     round(net.price)
++ }
+> 
+> priceCalculator <- function(hours, pph=40){
++     net.price <- hours * pph
++     if(hours > 100) {
++       net.price <- net.price * 0.9
++     }
++     round(net.price)
++ }
+> 
+> priceCalculator(hours = 55)
+[1] 2200
+> priceCalculator(hours = 110)
+[1] 3960
+> 
+> priceCalculator <- function(hours, pph=40){
++     net.price <- hours * pph
++     if(hours > 100) net.price <- net.price * 0.9
++     round(net.price)
++ }
+> 
+> ?'if'
+Control                  package:base                  R Documentation
+
+_C_o_n_t_r_o_l _F_l_o_w
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     These are the basic control-flow constructs of the R language.
+     They function in much the same way as control statements in any
+     Algol-like language.  They are all reserved words.
+
+_U_s_a_g_e:
+
+     if(cond) expr
+     if(cond) cons.expr  else  alt.expr
+     
+     for(var in seq) expr
+     while(cond) expr
+     repeat expr
+     break
+     next
+     
+_A_r_g_u_m_e_n_t_s:
+
+    cond: A length-one logical vector that is not ‘NA’.  Conditions of
+          length greater than one are currently accepted with a
+          warning, but only the first element is used.  An error is
+          signalled instead when the environment variable
+          ‘_R_CHECK_LENGTH_1_CONDITION_’ is set to true.  Other types
+          are coerced to logical if possible, ignoring any class.
+
+     var: A syntactical name for a variable.
+
+     seq: An expression evaluating to a vector (including a list and an
+          expression) or to a pairlist or ‘NULL’.  A factor value will
+          be coerced to a character vector.
+
+expr, cons.expr, alt.expr: An _expression_ in a formal sense.  This is
+          either a simple expression or a so called _compound
+          expression_, usually of the form ‘{ expr1 ; expr2 }’.
+
+_D_e_t_a_i_l_s:
+
+     ‘break’ breaks out of a ‘for’, ‘while’ or ‘repeat’ loop; control
+     is transferred to the first statement outside the inner-most loop.
+     ‘next’ halts the processing of the current iteration and advances
+     the looping index.  Both ‘break’ and ‘next’ apply only to the
+     innermost of nested loops.
+
+     Note that it is a common mistake to forget to put braces (‘{ ..
+     }’) around your statements, e.g., after ‘if(..)’ or ‘for(....)’.
+     In particular, you should not have a newline between ‘}’ and
+     ‘else’ to avoid a syntax error in entering a ‘if ... else’
+     construct at the keyboard or via ‘source’.  For that reason, one
+     (somewhat extreme) attitude of defensive programming is to always
+     use braces, e.g., for ‘if’ clauses.
+
+     The ‘seq’ in a ‘for’ loop is evaluated at the start of the loop;
+     changing it subsequently does not affect the loop.  If ‘seq’ has
+     length zero the body of the loop is skipped. Otherwise the
+     variable ‘var’ is assigned in turn the value of each element of
+     ‘seq’. You can assign to ‘var’ within the body of the loop, but
+     this will not affect the next iteration.  When the loop
+     terminates, ‘var’ remains as a variable containing its latest
+     value.
+
+_V_a_l_u_e:
+
+     ‘if’ returns the value of the expression evaluated, or ‘NULL’
+     invisibly if none was (which may happen if there is no ‘else’).
+
+     ‘for’, ‘while’ and ‘repeat’ return ‘NULL’ invisibly.  ‘for’ sets
+     ‘var’ to the last used element of ‘seq’, or to ‘NULL’ if it was of
+     length zero.
+
+     ‘break’ and ‘next’ do not return a value as they transfer control
+     within the loop.
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) _The New S
+     Language_.  Wadsworth & Brooks/Cole.
+
+_S_e_e _A_l_s_o:
+
+     ‘Syntax’ for the basic R syntax and operators, ‘Paren’ for
+     parentheses and braces.
+
+     ‘ifelse’, ‘switch’ for other ways to control flow.
+
+_E_x_a_m_p_l_e_s:
+
+     for(i in 1:5) print(1:i)
+     for(n in c(2,5,10,20,50)) {
+        x <- stats::rnorm(n)
+        cat(n, ": ", sum(x^2), "\n", sep = "")
+     }
+     f <- factor(sample(letters[1:5], 10, replace = TRUE))
+     for(i in unique(f)) print(i)
+     
+
+> ?"if"
+Control                  package:base                  R Documentation
+
+_C_o_n_t_r_o_l _F_l_o_w
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     These are the basic control-flow constructs of the R language.
+     They function in much the same way as control statements in any
+     Algol-like language.  They are all reserved words.
+
+_U_s_a_g_e:
+
+     if(cond) expr
+     if(cond) cons.expr  else  alt.expr
+     
+     for(var in seq) expr
+     while(cond) expr
+     repeat expr
+     break
+     next
+     
+_A_r_g_u_m_e_n_t_s:
+
+    cond: A length-one logical vector that is not ‘NA’.  Conditions of
+          length greater than one are currently accepted with a
+          warning, but only the first element is used.  An error is
+          signalled instead when the environment variable
+          ‘_R_CHECK_LENGTH_1_CONDITION_’ is set to true.  Other types
+          are coerced to logical if possible, ignoring any class.
+
+     var: A syntactical name for a variable.
+
+     seq: An expression evaluating to a vector (including a list and an
+          expression) or to a pairlist or ‘NULL’.  A factor value will
+          be coerced to a character vector.
+
+expr, cons.expr, alt.expr: An _expression_ in a formal sense.  This is
+          either a simple expression or a so called _compound
+          expression_, usually of the form ‘{ expr1 ; expr2 }’.
+
+_D_e_t_a_i_l_s:
+
+     ‘break’ breaks out of a ‘for’, ‘while’ or ‘repeat’ loop; control
+     is transferred to the first statement outside the inner-most loop.
+     ‘next’ halts the processing of the current iteration and advances
+     the looping index.  Both ‘break’ and ‘next’ apply only to the
+     innermost of nested loops.
+
+     Note that it is a common mistake to forget to put braces (‘{ ..
+     }’) around your statements, e.g., after ‘if(..)’ or ‘for(....)’.
+     In particular, you should not have a newline between ‘}’ and
+     ‘else’ to avoid a syntax error in entering a ‘if ... else’
+     construct at the keyboard or via ‘source’.  For that reason, one
+     (somewhat extreme) attitude of defensive programming is to always
+     use braces, e.g., for ‘if’ clauses.
+
+     The ‘seq’ in a ‘for’ loop is evaluated at the start of the loop;
+     changing it subsequently does not affect the loop.  If ‘seq’ has
+     length zero the body of the loop is skipped. Otherwise the
+     variable ‘var’ is assigned in turn the value of each element of
+     ‘seq’. You can assign to ‘var’ within the body of the loop, but
+     this will not affect the next iteration.  When the loop
+     terminates, ‘var’ remains as a variable containing its latest
+     value.
+
+_V_a_l_u_e:
+
+     ‘if’ returns the value of the expression evaluated, or ‘NULL’
+     invisibly if none was (which may happen if there is no ‘else’).
+
+     ‘for’, ‘while’ and ‘repeat’ return ‘NULL’ invisibly.  ‘for’ sets
+     ‘var’ to the last used element of ‘seq’, or to ‘NULL’ if it was of
+     length zero.
+
+     ‘break’ and ‘next’ do not return a value as they transfer control
+     within the loop.
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) _The New S
+     Language_.  Wadsworth & Brooks/Cole.
+
+_S_e_e _A_l_s_o:
+
+     ‘Syntax’ for the basic R syntax and operators, ‘Paren’ for
+     parentheses and braces.
+
+     ‘ifelse’, ‘switch’ for other ways to control flow.
+
+_E_x_a_m_p_l_e_s:
+
+     for(i in 1:5) print(1:i)
+     for(n in c(2,5,10,20,50)) {
+        x <- stats::rnorm(n)
+        cat(n, ": ", sum(x^2), "\n", sep = "")
+     }
+     f <- factor(sample(letters[1:5], 10, replace = TRUE))
+     for(i in unique(f)) print(i)
+     
+
+> ?`if`
+Control                  package:base                  R Documentation
+
+_C_o_n_t_r_o_l _F_l_o_w
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     These are the basic control-flow constructs of the R language.
+     They function in much the same way as control statements in any
+     Algol-like language.  They are all reserved words.
+
+_U_s_a_g_e:
+
+     if(cond) expr
+     if(cond) cons.expr  else  alt.expr
+     
+     for(var in seq) expr
+     while(cond) expr
+     repeat expr
+     break
+     next
+     
+_A_r_g_u_m_e_n_t_s:
+
+    cond: A length-one logical vector that is not ‘NA’.  Conditions of
+          length greater than one are currently accepted with a
+          warning, but only the first element is used.  An error is
+          signalled instead when the environment variable
+          ‘_R_CHECK_LENGTH_1_CONDITION_’ is set to true.  Other types
+          are coerced to logical if possible, ignoring any class.
+
+     var: A syntactical name for a variable.
+
+     seq: An expression evaluating to a vector (including a list and an
+          expression) or to a pairlist or ‘NULL’.  A factor value will
+          be coerced to a character vector.
+
+expr, cons.expr, alt.expr: An _expression_ in a formal sense.  This is
+          either a simple expression or a so called _compound
+          expression_, usually of the form ‘{ expr1 ; expr2 }’.
+
+_D_e_t_a_i_l_s:
+
+     ‘break’ breaks out of a ‘for’, ‘while’ or ‘repeat’ loop; control
+     is transferred to the first statement outside the inner-most loop.
+     ‘next’ halts the processing of the current iteration and advances
+     the looping index.  Both ‘break’ and ‘next’ apply only to the
+     innermost of nested loops.
+
+     Note that it is a common mistake to forget to put braces (‘{ ..
+     }’) around your statements, e.g., after ‘if(..)’ or ‘for(....)’.
+     In particular, you should not have a newline between ‘}’ and
+     ‘else’ to avoid a syntax error in entering a ‘if ... else’
+     construct at the keyboard or via ‘source’.  For that reason, one
+     (somewhat extreme) attitude of defensive programming is to always
+     use braces, e.g., for ‘if’ clauses.
+
+     The ‘seq’ in a ‘for’ loop is evaluated at the start of the loop;
+     changing it subsequently does not affect the loop.  If ‘seq’ has
+     length zero the body of the loop is skipped. Otherwise the
+     variable ‘var’ is assigned in turn the value of each element of
+     ‘seq’. You can assign to ‘var’ within the body of the loop, but
+     this will not affect the next iteration.  When the loop
+     terminates, ‘var’ remains as a variable containing its latest
+     value.
+
+_V_a_l_u_e:
+
+     ‘if’ returns the value of the expression evaluated, or ‘NULL’
+     invisibly if none was (which may happen if there is no ‘else’).
+
+     ‘for’, ‘while’ and ‘repeat’ return ‘NULL’ invisibly.  ‘for’ sets
+     ‘var’ to the last used element of ‘seq’, or to ‘NULL’ if it was of
+     length zero.
+
+     ‘break’ and ‘next’ do not return a value as they transfer control
+     within the loop.
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) _The New S
+     Language_.  Wadsworth & Brooks/Cole.
+
+_S_e_e _A_l_s_o:
+
+     ‘Syntax’ for the basic R syntax and operators, ‘Paren’ for
+     parentheses and braces.
+
+     ‘ifelse’, ‘switch’ for other ways to control flow.
+
+_E_x_a_m_p_l_e_s:
+
+     for(i in 1:5) print(1:i)
+     for(n in c(2,5,10,20,50)) {
+        x <- stats::rnorm(n)
+        cat(n, ": ", sum(x^2), "\n", sep = "")
+     }
+     f <- factor(sample(letters[1:5], 10, replace = TRUE))
+     for(i in unique(f)) print(i)
+     
+
+> 
+> ## Doing Something Else with an if...else Statement
+> 
+> priceCalculator <- function(hours, pph=40, public=TRUE){
++     net.price <- hours * pph
++     if(hours > 100) net.price <- net.price * 0.9
++     if(public) {
++       tot.price <- net.price * 1.06
++     } else {
++       tot.price <- net.price * 1.12
++     }
++     round(tot.price)
++ }
+> 
+> priceCalculator(25,public=TRUE)
+[1] 1060
+> priceCalculator(25,public=FALSE)
+[1] 1120
+> 
+> priceCalculator <- function(hours, pph=40, public=TRUE){
++     net.price <- hours * pph
++     if(hours > 100) net.price <- net.price * 0.9
++     if(public) tot.price <- net.price * 1.06 else
++                tot.price <- net.price * 1.12
++     round(tot.price)
++ }
+> 
+> priceCalculator <- function(hours, pph=40, public=TRUE){
++     net.price <- hours * pph
++     if(hours > 100) net.price <- net.price * 0.9
++     tot.price <- net.price * if(public) 1.06 else 1.12
++     round(tot.price)
++ }
+> 
+> # Vectorizing Choices
+> 
+> ## Looking at the problem
+> 
+> priceCalculator(c(25,110))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:rfordummies
+ --- call from context --- 
+priceCalculator(c(25, 110))
+ --- call from argument --- 
+if (hours > 100) net.price <- net.price * 0.9
+ --- R stacktrace ---
+where 1: priceCalculator(c(25, 110))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function from context --- 
+function (hours, pph = 40, public = TRUE) 
+{
+    net.price <- hours * pph
+    if (hours > 100) 
+        net.price <- net.price * 0.9
+    tot.price <- net.price * if (public) 
+        1.06
+    else 1.12
+    round(tot.price)
+}
+ --- function search by body ---
+Function .Last.value in namespace base has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

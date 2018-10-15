@@ -1,0 +1,165 @@
+Loading required package: R2HTML
+Loading required package: affy
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall,
+    clusterEvalQ, clusterExport, clusterMap,
+    parApply, parCapply, parLapply, parLapplyLB,
+    parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce,
+    anyDuplicated, append, as.data.frame, basename,
+    cbind, colMeans, colSums, colnames, dirname,
+    do.call, duplicated, eval, evalq, get, grep,
+    grepl, intersect, is.unsorted, lapply, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rank, rbind, rowMeans, rowSums,
+    rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max,
+    which.min
+
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view
+    with 'browseVignettes()'. To cite Bioconductor,
+    see 'citation("Biobase")', and for packages
+    'citation("pkgname")'.
+
+Loading required package: minpack.lm
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- package (from environment) --- 
+rHVDM
+ --- call from context --- 
+.computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- call from argument --- 
+if (refchips == 0) {
+    wei <- rep(0, m)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A")
+where 4: eval(expr, .GlobalEnv)
+where 5 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: eval(expr, .GlobalEnv)
+where 6 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: withVisible(eval(expr, .GlobalEnv))
+where 7: doTryCatch(return(expr), name, parentenv, handler)
+where 8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 9: tryCatchList(expr, classes, parentenv, handlers)
+where 10: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 11 at ../../../../R/src/library/utils/R/SweaveDrivers.R#645: try(withVisible(eval(expr, .GlobalEnv)), silent = TRUE)
+where 12 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: evalFunc(ce, options)
+where 13: tryCatchList(expr, classes, parentenv, handlers)
+where 14 at ../../../../R/src/library/utils/R/SweaveDrivers.R#319: tryCatch(evalFunc(ce, options), finally = {
+    cat("\n")
+    sink()
+})
+where 15 at ../../../../R/src/library/utils/R/Sweave.R#114: driver$runcode(drobj, chunk, chunkopts)
+where 16 at ../../../../R/src/library/tools/R/Vignettes.R#1133: utils::Sweave(...)
+where 17 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 18: doTryCatch(return(expr), name, parentenv, handler)
+where 19: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 20: tryCatchList(expr, classes, parentenv, handlers)
+where 21 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 22: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/rHVDM.Rcheck/vign_test/rHVDM")
+
+ --- value of length: 21 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[10] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[19] FALSE FALSE FALSE
+ --- function from context --- 
+function(X,errtable,refchips){
+	#method as described in GB paper
+	#prepare the receptacle
+	N<-dim(X)[2]
+	if(missing(refchips)){
+		refchips<-c(1:N)
+	}
+	m<-dim(errtable)[1]
+	res<-matrix(rep(0,m*N),m,N)
+	dimnames(res)[[2]]<-dimnames(X)[[2]]
+	#compute average
+	coeffmul<-rep(1./N,N)
+	aver<-as.vector(X %*% coeffmul)
+	difsq<-(X-aver)^2
+	#determine bounds for classification
+	bnds<-c(-20,errtable[,1])
+	for(i in c(1:(m-1))){
+		bnds[i+1]<-errtable[i,1]/2+errtable[i+1,1]/2
+	}
+	bnds[m+1]<-log(max(aver)+1)
+	if(refchips==0){
+		wei<-rep(0,m)
+	}
+	for(i in c(1:m)){
+		keep<-((log(aver)>bnds[i]) & (log(aver)<=bnds[i+1]))
+		ngenes<-sum(keep*1)
+		coe<-rep(1./ngenes,ngenes)
+		res[i,]<-as.vector(t(difsq[keep,]) %*% coe)
+		if(refchips==0){
+			wei[i]<-ngenes
+		}
+	}
+	if(refchips==0){
+		refchips<-.retlessnoisy(X=res,weight=wei,N=3)
+		print(refchips)
+	}
+	#compute average for reference group
+	nref<-length(refchips)
+	coe<-rep(1./nref,nref)
+	avrefchi<-res[,refchips] %*% coe
+	ratio<-as.vector(errtable[,2]/avrefchi)
+	res<-cbind(errtable[,1],res*ratio)
+	dimnames(res)[[2]][1]<-"avg"
+	res
+}
+<bytecode: 0x6648988>
+<environment: namespace:rHVDM>
+ --- function search by body ---
+Function .computeinderrtable in namespace rHVDM has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

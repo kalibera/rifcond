@@ -1,0 +1,397 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "CARBayesST"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('CARBayesST')
+Loading required package: MASS
+Loading required package: Rcpp
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("CARBayesST-package")
+> ### * CARBayesST-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: CARBayesST-package
+> ### Title: Spatio-Temporal Generalised Linear Mixed Models For Areal Unit
+> ###   Data
+> ### Aliases: CARBayesST-package CARBayesST
+> 
+> ### ** Examples
+> 
+> ## See the examples in the function specific help files and in the vignette
+> ## accompanying this package.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ST.CARadaptive")
+> ### * ST.CARadaptive
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ST.CARadaptive
+> ### Title: Fit a spatio-temporal generalised linear mixed model to data,
+> ###   with a spatio-temporal autoregressive process that has an adaptive
+> ###   autocorrelation stucture.
+> ### Aliases: ST.CARadaptive
+> 
+> ### ** Examples
+> 
+> #################################################
+> #### Run the model on simulated data on a lattice
+> #################################################
+> #### set up the regular lattice    
+> x.easting <- 1:10
+> x.northing <- 1:10
+> Grid <- expand.grid(x.easting, x.northing)
+> K <- nrow(Grid)
+> N <- 10
+> N.all <- N * K
+>   
+>     
+> #### set up spatial neighbourhood matrix W
+> distance <- as.matrix(dist(Grid))
+> W <-array(0, c(K,K))
+> W[distance==1] <-1 	
+> 
+> 
+> #### Simulate the elements in the linear predictor and the data
+> Q.W <- 0.99 * (diag(apply(W, 2, sum)) - W) + 0.01 * diag(rep(1,K))
+> Q.W.inv <- solve(Q.W)
+> phi.temp <- mvrnorm(n=1, mu=rep(0,K), Sigma=(0.1 * Q.W.inv))
+> phi <- phi.temp
+>     for(i in 2:N)
++     {
++     phi.temp2 <- mvrnorm(n=1, mu=(0.8 * phi.temp), Sigma=(0.1 * Q.W.inv))
++     phi.temp <- phi.temp2
++     phi <- c(phi, phi.temp)
++     }
+> jump <- rep(c(rep(2, 70), rep(4, 30)),N)
+> LP <- jump + phi
+> fitted <- exp(LP)
+> Y <- rpois(n=N.all, lambda=fitted)
+> 
+> 
+> #### Run the model     
+> ## Not run: 
+> ##D model <- ST.CARadaptive(formula=Y~1, family="poisson", W=W, burnin=10000,
+> ##D n.sample=50000)
+> ## End(Not run)
+> 
+> 
+> #### Toy example for checking    
+> model <- ST.CARadaptive(formula=Y~1, family="poisson", W=W, burnin=10,
++ n.sample=50)
+Setting up the model.
+Generating 40 post burnin and thinned (if requested) samples.
+  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  12%  |                                                                              |==========                                                            |  14%  |                                                                              |===========                                                           |  16%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  22%  |                                                                              |=================                                                     |  24%  |                                                                              |==================                                                    |  26%  |                                                                              |====================                                                  |  28%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  32%  |                                                                              |========================                                              |  34%  |                                                                              |=========================                                             |  36%  |                                                                              |===========================                                           |  38%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  42%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  46%  |                                                                              |==================================                                    |  48%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  52%  |                                                                              |======================================                                |  54%  |                                                                              |=======================================                               |  56%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  62%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  66%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  72%  |                                                                              |====================================================                  |  74%  |                                                                              |=====================================================                 |  76%  |                                                                              |=======================================================               |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  86%  |                                                                              |==============================================================        |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  96%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%
+Summarising results.
+Finished in  3.8 seconds.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ST.CARanova")
+> ### * ST.CARanova
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ST.CARanova
+> ### Title: Fit a spatio-temporal generalised linear mixed model to data,
+> ###   with spatial and temporal main effects and a spatio-temporal
+> ###   interaction.
+> ### Aliases: ST.CARanova
+> 
+> ### ** Examples
+> 
+> #################################################
+> #### Run the model on simulated data on a lattice
+> #################################################
+> #### set up the regular lattice    
+> x.easting <- 1:10
+> x.northing <- 1:10
+> Grid <- expand.grid(x.easting, x.northing)
+> K <- nrow(Grid)
+> N <- 10
+> N.all <- N * K
+> 
+> 
+> #### set up spatial (W) and temporal (D) neighbourhood matrices
+> distance <- as.matrix(dist(Grid))
+> W <-array(0, c(K,K))
+> W[distance==1] <-1 	
+> 	
+> D <-array(0, c(N,N))
+> for(i in 1:N)
++ {
++     for(j in 1:N)
++     {
++         if(abs((i-j))==1)  D[i,j] <- 1 
++     }	
++ }
+> 
+> 
+> #### Simulate the elements in the linear predictor and the data
+> gamma <- rnorm(n=N.all, mean=0, sd=0.001)
+> x <- rnorm(n=N.all, mean=0, sd=1)
+> beta <- 0.1
+> 
+> Q.W <- 0.99 * (diag(apply(W, 2, sum)) - W) + 0.01 * diag(rep(1,K))
+> Q.W.inv <- solve(Q.W)
+> phi <- mvrnorm(n=1, mu=rep(0,K), Sigma=(0.01 * Q.W.inv))
+> 
+> Q.D <- 0.99 * (diag(apply(D, 2, sum)) - D) + 0.01 * diag(rep(1,N))
+> Q.D.inv <- solve(Q.D)
+> delta <- mvrnorm(n=1, mu=rep(0,N), Sigma=(0.01 * Q.D.inv))
+> 
+> phi.long <- rep(phi, N)
+> delta.long <- kronecker(delta, rep(1,K))
+> LP <- 4 +  x * beta + phi.long +  delta.long + gamma
+> mean <- exp(LP)
+> Y <- rpois(n=N.all, lambda=mean)
+> 
+> 
+> #### Run the model
+> ## Not run: 
+> ##D model <- ST.CARanova(formula=Y~x, family="poisson", interaction=TRUE, 
+> ##D W=W, burnin=10000, n.sample=50000)
+> ## End(Not run)
+> 
+> 
+> #### Toy example for checking
+> model <- ST.CARanova(formula=Y~x, family="poisson", interaction=TRUE, 
++ W=W, burnin=10, n.sample=50)
+Setting up the model.
+Generating 40 post burnin and thinned (if requested) samples.
+  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  12%  |                                                                              |==========                                                            |  14%  |                                                                              |===========                                                           |  16%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  22%  |                                                                              |=================                                                     |  24%  |                                                                              |==================                                                    |  26%  |                                                                              |====================                                                  |  28%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  32%  |                                                                              |========================                                              |  34%  |                                                                              |=========================                                             |  36%  |                                                                              |===========================                                           |  38%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  42%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  46%  |                                                                              |==================================                                    |  48%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  52%  |                                                                              |======================================                                |  54%  |                                                                              |=======================================                               |  56%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  62%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  66%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  72%  |                                                                              |====================================================                  |  74%  |                                                                              |=====================================================                 |  76%  |                                                                              |=======================================================               |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  86%  |                                                                              |==============================================================        |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  96%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%
+Summarising results.
+Finished in  1.1 seconds.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ST.CARar")
+> ### * ST.CARar
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ST.CARar
+> ### Title: Fit a spatio-temporal generalised linear mixed model to data,
+> ###   with a spatio-temporal autoregressive process.
+> ### Aliases: ST.CARar
+> 
+> ### ** Examples
+> 
+> #################################################
+> #### Run the model on simulated data on a lattice
+> #################################################
+> #### set up the regular lattice    
+> x.easting <- 1:10
+> x.northing <- 1:10
+> Grid <- expand.grid(x.easting, x.northing)
+> K <- nrow(Grid)
+> N <- 10
+> N.all <- N * K
+> 
+>     
+> #### set up spatial neighbourhood matrix W
+> distance <- as.matrix(dist(Grid))
+> W <-array(0, c(K,K))
+> W[distance==1] <-1 	
+> 
+> 
+> #### Simulate the elements in the linear predictor and the data
+> gamma <- rnorm(n=N.all, mean=0, sd=0.001)
+> x <- rnorm(n=N.all, mean=0, sd=1)
+> beta <- 0.1
+>     
+> Q.W <- 0.99 * (diag(apply(W, 2, sum)) - W) + 0.01 * diag(rep(1,K))
+> Q.W.inv <- solve(Q.W)
+> phi.temp <- mvrnorm(n=1, mu=rep(0,K), Sigma=(0.1 * Q.W.inv))
+> phi <- phi.temp
+>     for(i in 2:N)
++     {
++     phi.temp2 <- mvrnorm(n=1, mu=(0.8 * phi.temp), Sigma=(0.1 * Q.W.inv))
++     phi.temp <- phi.temp2
++     phi <- c(phi, phi.temp)
++     }
+>     
+> LP <- 3 + x * beta  + phi
+> mean <- exp(LP)
+> Y <- rpois(n=N.all, lambda=mean)
+>     
+> 
+> #### Run the model
+> ## Not run: 
+> ##D model <- ST.CARar(formula=Y~x, family="poisson",  W=W, burnin=10000,
+> ##D     n.sample=50000)
+> ## End(Not run)
+>     
+>     
+> #### Toy example for checking  
+> model <- ST.CARar(formula=Y~x, family="poisson",  W=W, burnin=10,
++     n.sample=50)
+Setting up the model.
+Generating 40 post burnin and thinned (if requested) samples.
+  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  12%  |                                                                              |==========                                                            |  14%  |                                                                              |===========                                                           |  16%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  22%  |                                                                              |=================                                                     |  24%  |                                                                              |==================                                                    |  26%  |                                                                              |====================                                                  |  28%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  32%  |                                                                              |========================                                              |  34%  |                                                                              |=========================                                             |  36%  |                                                                              |===========================                                           |  38%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  42%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  46%  |                                                                              |==================================                                    |  48%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  52%  |                                                                              |======================================                                |  54%  |                                                                              |=======================================                               |  56%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  62%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  66%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  72%  |                                                                              |====================================================                  |  74%  |                                                                              |=====================================================                 |  76%  |                                                                              |=======================================================               |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  86%  |                                                                              |==============================================================        |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  96%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%
+Summarising results.
+Finished in  1 seconds.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ST.CARclustrends")
+> ### * ST.CARclustrends
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ST.CARclustrends
+> ### Title: Fit a spatio-temporal generalised linear mixed model to data,
+> ###   with a clustering of temporal trend functions and a temporally common
+> ###   spatial surface.
+> ### Aliases: ST.CARclustrends
+> 
+> ### ** Examples
+> 
+> ##################################################
+> #### Run the model on simulated data on a lattice
+> ##################################################
+> #### Load the libraries required
+> library(truncdist)
+Loading required package: stats4
+Loading required package: evd
+> library(gtools)
+> 
+> 
+> #### set up the regular lattice    
+> x.easting <- 1:10
+> x.northing <- 1:10
+> Grid <- expand.grid(x.easting, x.northing)
+> K <- nrow(Grid)
+> N <- 10
+> N.all <- N * K
+> 
+> #### set up spatial neighbourhood matrix W
+> distance <- as.matrix(dist(Grid))
+> W <-array(0, c(K,K))
+> W[distance==1] <-1 	
+> 
+> 
+> #### Create the spatial covariance matrix
+> Q.W <- 0.99 * (diag(apply(W, 2, sum)) - W) + 0.01 * diag(rep(1,K))
+> Q.W.inv <- solve(Q.W)
+>   
+>            
+> #### Simulate the elements in the linear predictor and the data
+> beta <- 0.01
+> gamma <- 0.7
+> phi <- mvrnorm(n=1, mu=rep(0,K), Sigma=(0.01 * Q.W.inv))
+> 
+> lambda <- rep(1/2, 2)
+> w <- t(rmultinom(K, 1, lambda))
+> 
+> Y <- matrix(NA, nrow = K, ncol = N)
+> for (i in 1:N)
++ {
++   LP <- beta + w[, 2] * (gamma * i) + phi
++   mean <- exp(LP)
++   Y[, i] <- rpois(n=K, lambda=mean)
++  }
+> Y <- as.numeric(Y)
+> 
+> 
+> #### Run the model
+> ## Not run: 
+> ##D model <- ST.CARclustrends(formula=Y~1, family="poisson", W=W, burnin=10000, 
+> ##D n.sample=50000, trends=c("Constant", "LI"))
+> ## End(Not run)
+> 
+> 
+> #### Toy example for checking
+> model <- ST.CARclustrends(formula=Y~1, family="poisson", W=W, burnin=10, 
++ n.sample=50, trends=c("Constant", "LI"))
+Setting up the model.
+Generating 40 post burnin and thinned (if requested) samples
+  |                                                                              |                                                                      |   0% ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpe2YhlG/R.INSTALLc2154f73ebbd/truncdist/R/qtrunc.R#20: 
+ --- package (from environment) --- 
+truncdist
+ --- call from context --- 
+qtrunc(u, spec, a = a, b = b, ...)
+ --- call from argument --- 
+if (G.a == G.b) {
+    stop("Trunction interval is not inside the domain of the quantile function")
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmpe2YhlG/R.INSTALLc2154f73ebbd/truncdist/R/rtrunc.R#15: qtrunc(u, spec, a = a, b = b, ...)
+where 2 at /var/scratch2/tomas/tmp/RtmpUflez0/R.INSTALL35951594cb33/CARBayesST/R/poisson.CARclustrends.R#588: rtrunc(n = Nchains, spec = "norm", a = 0, b = 0.99, mean = rho, 
+    sd = proposal.sd.rho)
+where 3: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 4 at /var/scratch2/tomas/tmp/RtmpUflez0/R.INSTALL35951594cb33/CARBayesST/R/poisson.CARclustrends.R#588: suppressWarnings(rtrunc(n = Nchains, spec = "norm", a = 0, b = 0.99, 
+    mean = rho, sd = proposal.sd.rho))
+where 5 at /var/scratch2/tomas/tmp/RtmpUflez0/R.INSTALL35951594cb33/CARBayesST/R/ST.CARclustrends.R#18: poisson.CARclustrends(formula = formula, data = data, W = W, 
+    burnin = burnin, n.sample = n.sample, thin = thin, trends = trends, 
+    changepoint = changepoint, knots = knots, prior.mean.beta = prior.mean.beta, 
+    prior.var.beta = prior.var.beta, prior.mean.gamma = prior.mean.gamma, 
+    prior.var.gamma = prior.var.gamma, prior.lambda = prior.lambda, 
+    prior.tau2 = prior.tau2, Nchains = Nchains, verbose = TRUE)
+where 6: ST.CARclustrends(formula = Y ~ 1, family = "poisson", W = W, 
+    burnin = 10, n.sample = 50, trends = c("Constant", "LI"))
+
+ --- value of length: 4 type: logical ---
+[1] FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function( p, spec, a = -Inf, b = Inf, ... )
+{
+###
+### This function evaluates the inverse of the truncated distribution function
+### or quantile function for the given vector of probabilities and
+### the specified distribution
+###
+### Arguments
+### p = a numeric vector of probabilities
+### spec = a character value for the name of the distribution (e.g., "norm")
+### ... = other arguments passed to the corresponding density function
+###
+    if ( a >= b )
+        stop( "argument a is greater than or equal to b" )
+    tt <- p
+    G   <- get( paste( "p", spec, sep="" ), mode = "function" )
+    Gin <- get( paste( "q", spec, sep="" ), mode = "function" )
+    G.a <- G( a, ... )
+    G.b <- G( b, ... )
+    if ( G.a == G.b ) {
+        stop( "Trunction interval is not inside the domain of the quantile function" )
+    }    
+    result <- pmin( pmax( a, Gin( G( a, ... ) + 
+              p * ( G( b, ... ) - G( a, ... )), ... ) ), b )
+    return( result )
+}
+<bytecode: 0xe2f4b30>
+<environment: namespace:truncdist>
+ --- function search by body ---
+Function qtrunc in namespace truncdist has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

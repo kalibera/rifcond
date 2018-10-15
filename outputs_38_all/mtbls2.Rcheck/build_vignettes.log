@@ -1,0 +1,198 @@
+Loading required package: Biobase
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:parallel':
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order,
+    paste, pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
+    rowSums, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: Rcpp
+Loading required package: biocViews
+Loading required package: affy
+Loading required package: BiocParallel
+Loading required package: MSnbase
+Loading required package: mzR
+Loading required package: ProtGenerics
+
+Attaching package: 'ProtGenerics'
+
+The following object is masked from 'package:affy':
+
+    intensity
+
+
+This is MSnbase version 2.7.7 
+  Visit https://lgatto.github.io/MSnbase/ to get started.
+
+
+Attaching package: 'MSnbase'
+
+The following object is masked from 'package:affy':
+
+    plotDensity
+
+The following object is masked from 'package:stats':
+
+    smooth
+
+The following object is masked from 'package:base':
+
+    trimws
+
+
+This is xcms version 3.3.2 
+
+
+Attaching package: 'xcms'
+
+The following object is masked from 'package:stats':
+
+    sigma
+
+
+Attaching package: 'pcaMethods'
+
+The following object is masked from 'package:stats':
+
+    loadings
+
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpXTEBtM/R.INSTALLc1ec1ed0cafa/CAMERA/R/xsAnnotate.R#2235: 
+ --- package (from environment) --- 
+CAMERA
+ --- call from context --- 
+getPeaks(object@xcmsSet, index = object@sample)
+ --- call from argument --- 
+if (!is.numeric(index) && index > length(sampnames(xs)) | index < 
+    -1 | index == 0) {
+    stop("Parameter index must be between 1 and number of samples or -1\n")
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpXTEBtM/R.INSTALLc1ec1ed0cafa/CAMERA/R/xsVisualise.R#330: getPeaks(object@xcmsSet, index = object@sample)
+where 2 at /var/scratch2/tomas/tmp/RtmpXTEBtM/R.INSTALLc1ec1ed0cafa/CAMERA/R/xsVisualise.R#314: plotPsSpectrum(an, pspec = x, maxlabel = 5)
+where 3: plotPsSpectrum(an, pspec = x, maxlabel = 5)
+where 4: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 5 at <text>#15: suppressWarnings(plotPsSpectrum(an, pspec = x, maxlabel = 5))
+where 6: FUN(X[[i]], ...)
+where 7: lapply(interestingPspec[o[1:40], "pcgroup"], function(x) {
+    suppressWarnings(plotPsSpectrum(an, pspec = x, maxlabel = 5))
+})
+where 8: lapply(interestingPspec[o[1:40], "pcgroup"], function(x) {
+    suppressWarnings(plotPsSpectrum(an, pspec = x, maxlabel = 5))
+})
+where 9: eval(expr, envir, enclos)
+where 10 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 11 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 12 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 13 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 14 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 15 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 16 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 17 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 18 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 19 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#91: block_exec(params)
+where 20 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#6: call_block(x)
+where 21 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#3: process_group.block(group)
+where 22 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: process_group(group)
+where 23 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 24 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#258: process_file(text, output)
+where 25 at /var/scratch2/tomas/tmp/Rtmpewp0dw/R.INSTALL922570d793a8/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 26 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 27 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 28 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 29: doTryCatch(return(expr), name, parentenv, handler)
+where 30: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 31: tryCatchList(expr, classes, parentenv, handlers)
+where 32 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 33: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/mtbls2.Rcheck/vign_test/mtbls2")
+
+ --- value of length: 16 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[12] FALSE FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function(xs, index=1){
+ 
+  if (!class(xs) == "xcmsSet") {
+    stop ("Parameter xs is no xcmsSet object\n")
+  }
+  if (!is.numeric(index) && index > length(sampnames(xs)) | index < -1 | index == 0) {
+    stop("Parameter index must be between 1 and number of samples or -1\n")
+  }
+  
+  #Testing if xcmsSet is grouped
+  if (nrow(xs@groups) > 0) {
+    #Should all peaks returned
+    if(index == -1) {
+      ts <- xs@peaks;
+    } else {
+      #get peak indices for sample index
+      peaki <- getPeaksIdxCol(xs,NULL)[,index]
+      #extract peaks from sample index
+      ts <- xs@peaks[peaki,]
+    }
+  } else if (length(sampnames(xs)) == 1) {# xs not grouped, testing if it only contains one sample
+        ts <- xs@peaks
+  } else {
+    stop ('First argument must be a xcmsSet with group information or contain only one sample.')
+  }
+  
+  return(as.matrix(ts))
+}
+<bytecode: 0x22338a68>
+<environment: namespace:CAMERA>
+ --- function search by body ---
+Function getPeaks in namespace CAMERA has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,237 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(SNSequate)
+Loading required package: magic
+Loading required package: abind
+> 
+> test_check("SNSequate")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+base
+ --- call from context --- 
+all.equal.numeric(x, y, tolerance = tolerance, check.attributes = check.attributes, 
+    ...)
+ --- call from argument --- 
+if (scale == 1) "absolute" else "scaled"
+ --- R stacktrace ---
+where 1: all.equal.numeric(x, y, tolerance = tolerance, check.attributes = check.attributes, 
+    ...)
+where 2 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/compare-numeric.R#23: all.equal(x, y, tolerance = tolerance, check.attributes = check.attributes, 
+    ...)
+where 3 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/compare.R#13: compare.numeric(act$val, exp$val, ...)
+where 4 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/expect-equality.R#54: compare(act$val, exp$val, ...)
+where 5 at testthat/test_kereq.R#23: expect_equal(prep10$preXy, pre10_xy, tolerance = tol, check.attributes = F, 
+    scale = pre10_xy)
+where 6: eval(code, test_env)
+where 7 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 8 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 9: doTryCatch(return(expr), name, parentenv, handler)
+where 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 11: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 12: doTryCatch(return(expr), name, parentenv, handler)
+where 13: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 14: tryCatchList(expr, classes, parentenv, handlers)
+where 15 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 16 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 17 at testthat/test_kereq.R#6: test_that("EG design", {
+    data(Math20EG)
+    mod <- ker.eq(scores = Math20EG, kert = "gauss", degree = c(2, 
+        3), design = "EG")
+    expect_equal(mod$nx, 1453)
+    expect_equal(mod$ny, 1455)
+    rj <- c(3.3, 6.44, 11.77, 20.17, 32.43, 48.89, 28.93, 17.71, 
+        10.16)
+    expect_equal(mod$rj[c(1:6, 19:21)] * mod$nx, rj, tolerance = tol, 
+        check.attributes = F)
+    sk <- c(1.71, 3.77, 7.65, 14.24, 24.44, 38.75, 47.73, 34.54, 
+        24.18)
+    expect_equal(mod$sk[c(1:6, 19:21)] * mod$ny, sk, tolerance = tol, 
+        check.attributes = F)
+    pre10_yx <- c(0.01, 0.01, 0.02, 0.04, 0.07, 0.13, 0.22, 0.33, 
+        0.48, 0.67)
+    pre10_xy <- c(-0.01, -0.02, -0.05, -0.11, -0.21, -0.37, -0.58, 
+        -0.88, -1.25, -1.71)
+    prep10 <- SNSequate::PREp(mod, 10)
+    expect_equal(prep10$preXy, pre10_xy, tolerance = tol, check.attributes = F, 
+        scale = pre10_xy)
+    expect_equal(prep10$preYx, pre10_yx, tolerance = tol, check.attributes = F, 
+        scale = pre10_yx)
+    see_xy <- c(0.145, 0.225, 0.275, 0.279, 0.199, 0.21, 0.205, 
+        0.144)
+    expect_equal(mod$SEEXy[c(1:4, 18:21)], see_xy, tolerance = tol, 
+        check.attributes = F, scale = see_xy)
+    see_yx <- c(0.22, 0.289, 0.287, 0.266, 0.199, 0.17, 0.119, 
+        0.07)
+    expect_equal(mod$SEEYx[c(1:4, 18:21)], see_yx, tolerance = tol, 
+        check.attributes = F, scale = see_yx)
+})
+where 18: eval(code, test_env)
+where 19 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 20 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 21: doTryCatch(return(expr), name, parentenv, handler)
+where 22: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 23: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 24: doTryCatch(return(expr), name, parentenv, handler)
+where 25: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 26: tryCatchList(expr, classes, parentenv, handlers)
+where 27 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 28 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 29 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 30 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 31 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 32: FUN(X[[i]], ...)
+where 33 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 34 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 35 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 36 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 37 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 38 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 39: test_check("SNSequate")
+
+ --- value of length: 10 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function (target, current, tolerance = sqrt(.Machine$double.eps), 
+    scale = NULL, countEQ = FALSE, formatFUN = function(err, 
+        what) format(err), ..., check.attributes = TRUE) 
+{
+    if (!is.numeric(tolerance)) 
+        stop("'tolerance' should be numeric")
+    if (!is.numeric(scale) && !is.null(scale)) 
+        stop("'scale' should be numeric or NULL")
+    if (!is.logical(check.attributes)) 
+        stop(gettextf("'%s' must be logical", "check.attributes"), 
+            domain = NA)
+    msg <- if (check.attributes) 
+        attr.all.equal(target, current, tolerance = tolerance, 
+            scale = scale, ...)
+    if (data.class(target) != data.class(current)) {
+        msg <- c(msg, paste0("target is ", data.class(target), 
+            ", current is ", data.class(current)))
+        return(msg)
+    }
+    lt <- length(target)
+    lc <- length(current)
+    cplx <- is.complex(target)
+    if (lt != lc) {
+        if (!is.null(msg)) 
+            msg <- msg[-grep("\\bLengths\\b", msg)]
+        msg <- c(msg, paste0(if (cplx) "Complex" else "Numeric", 
+            ": lengths (", lt, ", ", lc, ") differ"))
+        return(msg)
+    }
+    target <- as.vector(target)
+    current <- as.vector(current)
+    out <- is.na(target)
+    if (any(out != is.na(current))) {
+        msg <- c(msg, paste("'is.NA' value mismatch:", sum(is.na(current)), 
+            "in current", sum(out), "in target"))
+        return(msg)
+    }
+    out <- out | target == current
+    if (all(out)) 
+        return(if (is.null(msg)) TRUE else msg)
+    if (countEQ) {
+        N <- length(out)
+        n0 <- sum(out)
+        sabst0 <- sum(abs(target[out]))
+    }
+    else sabst0 <- 0
+    target <- target[!out]
+    current <- current[!out]
+    if (!countEQ) 
+        N <- length(target)
+    if (is.integer(target) && is.integer(current)) 
+        target <- as.double(target)
+    xy <- sum(abs(target - current))/N
+    what <- if (is.null(scale)) {
+        xn <- (sabst0 + sum(abs(target)))/N
+        if (is.finite(xn) && xn > tolerance) {
+            xy <- xy/xn
+            "relative"
+        }
+        else "absolute"
+    }
+    else {
+        xy <- xy/scale
+        if (scale == 1) 
+            "absolute"
+        else "scaled"
+    }
+    if (cplx) 
+        what <- paste(what, "Mod")
+    if (is.na(xy) || xy > tolerance) 
+        msg <- c(msg, paste("Mean", what, "difference:", formatFUN(xy, 
+            what)))
+    if (is.null(msg)) 
+        TRUE
+    else msg
+}
+<bytecode: 0x6279f38>
+<environment: namespace:base>
+ --- function search by body ---
+Function all.equal.numeric in namespace base has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

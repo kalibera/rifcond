@@ -1,0 +1,124 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpo1AmsN/R.INSTALLb1e025cdb5da/ggdendro/R/ggdendrogram.R#38: 
+ --- package (from environment) --- 
+ggdendro
+ --- call from context --- 
+ggdendro::ggdendrogram(ClustOfVar::hclustvar(getminmaxconstructeddata(object)), 
+    rotate = FALSE, size = 2)
+ --- call from argument --- 
+if (dataClass %in% c("dendrogram", "hclust")) {
+    ifelse(rotate, 0, 90)
+} else {
+    ifelse(rotate, 90, 0)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmp5aLNfH/R.INSTALL9a352d9e37e2/preproviz/R/05ReportingClass.R#45: ggdendro::ggdendrogram(ClustOfVar::hclustvar(getminmaxconstructeddata(object)), 
+    rotate = FALSE, size = 2)
+where 2: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 3 at /var/scratch2/tomas/tmp/Rtmp5aLNfH/R.INSTALL9a352d9e37e2/preproviz/R/05ReportingClass.R#45: suppressWarnings(ggdendro::ggdendrogram(ClustOfVar::hclustvar(getminmaxconstructeddata(object)), 
+    rotate = FALSE, size = 2) + labs(title = genv$name))
+where 4 at /var/scratch2/tomas/tmp/Rtmp5aLNfH/R.INSTALL9a352d9e37e2/preproviz/R/06RunClass.R#50: initializeReportClass(analysisclassobject)
+where 5: preproviz(iris)
+where 6: eval(expr, envir, enclos)
+where 7 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 8 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 9 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 10 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 11 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 12 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 13 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 14 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 15 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 16 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#91: block_exec(params)
+where 17 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#6: call_block(x)
+where 18 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#3: process_group.block(group)
+where 19 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: process_group(group)
+where 20 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 21 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#258: process_file(text, output)
+where 22 at /var/scratch2/tomas/tmp/Rtmpewp0dw/R.INSTALL922570d793a8/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 23 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 24 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 25 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 26: doTryCatch(return(expr), name, parentenv, handler)
+where 27: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 28: tryCatchList(expr, classes, parentenv, handlers)
+where 29 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 30: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/preproviz.Rcheck/vign_test/preproviz")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function from context --- 
+function(data, segments=TRUE, labels=TRUE, leaf_labels=TRUE, 
+                         rotate=FALSE, theme_dendro=TRUE, ...){
+  dataClass <- if(inherits(data, "dendro")) data$class else class(data)
+  angle <- if(dataClass %in% c("dendrogram", "hclust")){
+    ifelse(rotate, 0, 90)
+  } else {
+    ifelse(rotate, 90, 0)
+  }
+  hjust <- if(dataClass %in% c("dendrogram", "hclust")){
+    ifelse(rotate, 0, 1)
+  } else {
+    0.5
+  }
+  if(!is.dendro(data)) data <- dendro_data(data)
+  p <- ggplot() + geom_blank()
+  if(segments && !is.null(data$segments)){
+    p <- p + geom_segment(data=segment(data), 
+                          aes_string(x="x", y="y", xend="xend", yend="yend"))
+  }
+  if(leaf_labels && !is.null(data$leaf_labels)){
+    p <- p + geom_text(data=leaf_label(data), 
+                       aes_string(x="x", y="y", label="label"), hjust=hjust, angle=angle, ...)
+  }
+  if(labels){
+    p <- p + scale_x_continuous(breaks = seq_along(data$labels$label), 
+                           labels = data$labels$label)
+  }
+  if(rotate){
+    p <- p + coord_flip()
+    p <- p + scale_y_continuous()
+  } else {
+    p <- p + scale_y_continuous()
+  }
+  if(theme_dendro) p <- p + theme_dendro()
+  p <- p + 
+    theme(axis.text.x = element_text(angle=angle, hjust=1)) +
+    theme(axis.text.y = element_text(angle=angle, hjust=1))
+  
+  p
+}
+<bytecode: 0x114ba580>
+<environment: namespace:ggdendro>
+ --- function search by body ---
+Function ggdendrogram in namespace ggdendro has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,85 @@
+Hmm ... looks like a package
+Warning in nm[isAlias] <- sapply(Rd[isAlias], as.character) :
+  number of items to replace is not a multiple of replacement length
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at ../../../../R/src/library/tools/R/Rd2latex.R#315: 
+ --- package (from environment) --- 
+tools
+ --- call from context --- 
+writeAlias(section, tag)
+ --- call from argument --- 
+if (grepl("[|{(]", alias)) aa <- "\\aliasB{"
+ --- R stacktrace ---
+where 1 at ../../../../R/src/library/tools/R/Rd2latex.R#564: writeAlias(section, tag)
+where 2 at ../../../../R/src/library/tools/R/Rd2latex.R#646: writeSection(Rd[[i]], sections[i])
+where 3 at ../../../../R/src/library/tools/R/Rd2pdf.R#194: Rd2latex(Rd[[f]], outfilename, encoding = encoding, outputEncoding = outputEncoding, 
+    defines = NULL, writeEncoding = !asChapter, macros = macros)
+where 4 at ../../../../R/src/library/tools/R/Rd2pdf.R#89: .pkg2tex(files, outfile, encoding = encoding, append = append, 
+    asChapter = FALSE, extraDirs = extraDirs, internals = internals, 
+    silent = silent, pkglist = pkglist)
+where 5 at ../../../../R/src/library/tools/R/Rd2pdf.R#576: .Rdfiles2tex(files_or_dir, out, encoding = enc, append = TRUE, 
+    extraDirs = OSdir, internals = internals, silent = batch, 
+    pkglist = pkglist)
+where 6 at ../../../../R/src/library/tools/R/Rd2pdf.R#859: .Rd2pdf(files[1L], file.path(build_dir, "Rd2.tex"), title, batch, 
+    description, only_meta, enc, outenc, dir, OSdir, internals, 
+    index, pkglist)
+where 7: doTryCatch(return(expr), name, parentenv, handler)
+where 8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 9: tryCatchList(expr, classes, parentenv, handlers)
+where 10: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 11 at ../../../../R/src/library/tools/R/Rd2pdf.R#859: try(.Rd2pdf(files[1L], file.path(build_dir, "Rd2.tex"), title, 
+    batch, description, only_meta, enc, outenc, dir, OSdir, internals, 
+    index, pkglist))
+where 12: tools:::..Rd2pdf()
+
+ --- value of length: 17 type: logical ---
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE
+ --- function from context --- 
+function(block, tag) {
+        alias <- as.character(block)
+        aa <- "\\aliasA{"
+        ## Some versions of hyperref (from 6.79d) have trouble indexing these
+        ## |, || in base, |.bit, %||% in ggplot2 ...
+        ## And texindy used by some versions of texi2dvi chokes on {/(
+        if(grepl("[|{(]", alias)) aa <- "\\aliasB{"
+        if(is.na(currentAlias)) currentAlias <<- name
+        if (pmatch(paste0(currentAlias, "."), alias, 0L)) {
+            aa <- "\\methaliasA{"
+        } else currentAlias <<- alias
+        ## 'name' is linked from the header
+        if (alias == name) return()
+        alias2 <- latex_link_trans0(alias)
+        of0(aa, latex_code_alias(alias), "}{",
+            latex_escape_name(name), "}{", alias2, "}\n")
+    }
+<bytecode: 0x4a00b60>
+<environment: 0x28b3b70>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

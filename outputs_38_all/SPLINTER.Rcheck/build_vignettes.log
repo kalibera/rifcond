@@ -1,0 +1,147 @@
+Loading required package: BSgenome
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:parallel':
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+    as.data.frame, basename, cbind, colMeans, colSums, colnames,
+    dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
+    intersect, is.unsorted, lapply, mapply, match, mget, order,
+    paste, pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
+    rowSums, rownames, sapply, setdiff, sort, table, tapply, union,
+    unique, unsplit, which, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: 'S4Vectors'
+
+The following object is masked from 'package:base':
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: GenomicRanges
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: 'Biostrings'
+
+The following object is masked from 'package:base':
+
+    strsplit
+
+Loading required package: rtracklayer
+Loading required package: AnnotationDbi
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... OK
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpuXit8N/R.INSTALLf2895a607e50/SPLINTER/R/main_splinter.R#825: 
+ --- package (from environment) --- 
+SPLINTER
+ --- call from context --- 
+insertRegion(region_minus_exon, roi)
+ --- call from argument --- 
+if (as.character(strand(current)) == "-") current <- rev(current)
+ --- R stacktrace ---
+where 1: insertRegion(region_minus_exon, roi)
+where 2: eval(expr, envir, enclos)
+where 3 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 4 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 5 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 6 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 7 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 8 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 9 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 10 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 11 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 12 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#91: block_exec(params)
+where 13 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#6: call_block(x)
+where 14 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#3: process_group.block(group)
+where 15 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: process_group(group)
+where 16 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 17 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#258: process_file(text, output)
+where 18 at /var/scratch2/tomas/tmp/Rtmpewp0dw/R.INSTALL922570d793a8/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 19 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 20 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 21 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 22: doTryCatch(return(expr), name, parentenv, handler)
+where 23: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 24: tryCatchList(expr, classes, parentenv, handlers)
+where 25 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 26: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/SPLINTER.Rcheck/vign_test/SPLINTER")
+
+ --- value of length: 17 type: logical ---
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[15] TRUE TRUE TRUE
+ --- function from context --- 
+function(subject,roi){
+  roi<-roi$roi
+  s2<-subject[,"exon_rank"]
+  for(tx in seq_along(s2)){
+    #message(names(s2)[tx])
+    current<-s2[[tx]]
+    current<-append(current,roi,after=0)
+    current<-reduce(current)
+    if(as.character(strand(current))=="-") current<-rev(current)
+    elementMetadata(current) <- DataFrame(exon_rank=seq(1,length(current)))
+    s2[[tx]]<-current
+  }
+  return(s2)
+}
+<bytecode: 0x5a34e238>
+<environment: namespace:SPLINTER>
+ --- function search by body ---
+Function insertRegion in namespace SPLINTER has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

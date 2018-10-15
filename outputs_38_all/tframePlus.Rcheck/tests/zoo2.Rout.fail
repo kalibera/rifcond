@@ -1,0 +1,75 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # This tests part of a problem as of zoo 1.7-11 that is fixed in the devel version.
+> #changeTSrepresentation() seems sometimes to need  require("zoo") rather than
+> # requireNamespace("zoo"). zoo needs to overwrite the as.Date() generic since there 
+> # is no  default for the origin in the as.Date.numeric() method.
+> 
+> #test2 <- function(){
+> #     loadNamespace("zoo")
+> #     z0 <- ts(matrix(rnorm(10),10,1), start=c(1990,1), frequency=1)
+> #     z1 <- zoo::as.Date(stats::time(z0))
+> #     as.ts(z1)
+> #     }
+> 
+> require("tframePlus")
+Loading required package: tframePlus
+Loading required package: tframe
+> 
+> z0 <- ts(matrix(rnorm(10),10,1), start=c(1990,1), frequency=1)
+> 
+> z <- changeTSrepresentation(z0, "zoo")
+Loading required namespace: zoo
+> 
+> z <- changeTSrepresentation(z0, "ts")
+> 
+> z
+Time Series:
+Start = 1990 
+End = 1999 
+Frequency = 1 
+         Series 1
+ [1,] -0.83320509
+ [2,]  0.65500419
+ [3,]  0.18722532
+ [4,]  1.07559585
+ [5,]  1.50814480
+ [6,]  0.42454326
+ [7,] -0.56360688
+ [8,] -0.08282159
+ [9,] -0.73409170
+[10,]  0.08455766
+> 
+> if(start(z) != 1990 ) stop("zoo changeTSrepresentation test 1 failed.")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+: 
+ --- package (from environment) --- 
+package:tframePlus
+ --- call from context --- 
+NULL
+ --- call from argument --- 
+if (start(z) != 1990) stop("zoo changeTSrepresentation test 1 failed.")
+ --- R stacktrace ---
+
+ --- value of length: 2 type: logical ---
+[1] FALSE  TRUE
+ --- function from context --- 
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

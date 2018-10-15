@@ -1,0 +1,81 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at <text>#2: 
+ --- package (from environment) --- 
+package:markdown
+ --- call from context --- 
+cond1(3:7, 5, 1)
+ --- call from argument --- 
+if (a > b) {
+    a * b + k
+} else {
+    k
+}
+ --- R stacktrace ---
+where 1: cond1(3:7, 5, 1)
+where 2: eval(expr, envir, enclos)
+where 3 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 4 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 5 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 6 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 7 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 8 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 9 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 10 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 11 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 12 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#91: block_exec(params)
+where 13 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#6: call_block(x)
+where 14 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#3: process_group.block(group)
+where 15 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: process_group(group)
+where 16 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 17 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#258: process_file(text, output)
+where 18 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#40: (if (grepl("\\.[Rr]md$", file)) knit2html_v1 else if (grepl("\\.[Rr]rst$", 
+    file)) knit2pandoc else knit)(file, encoding = encoding, 
+    quiet = quiet, envir = globalenv())
+where 19 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 20: doTryCatch(return(expr), name, parentenv, handler)
+where 21: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 22: tryCatchList(expr, classes, parentenv, handlers)
+where 23 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 24: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/derivmkts.Rcheck/vign_test/derivmkts")
+
+ --- value of length: 5 type: logical ---
+[1] FALSE FALSE FALSE  TRUE  TRUE
+ --- function from context --- 
+function(a, b, k) {
+    if (a > b) {
+        a*b + k
+    } else {
+        k
+    }
+}
+<bytecode: 0x332f148>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

@@ -1,0 +1,223 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/funcy.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘funcy/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘funcy’ version ‘1.0.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘funcy’ can be installed ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking compiled code ... NOTE
+Note: information on .o files is not available
+* checking examples ... ERROR
+Running examples in ‘funcy-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: fpca
+> ### Title: Functional principal component analysis
+> ### Aliases: fpca
+> 
+> ### ** Examples
+> 
+> ##Generate a regular dataset
+> set.seed(2804)
+> ds <- sampleFuncy(obsNr=40, timeNr=15, reg=TRUE)
+> 
+> ##Execute functional principal component analysis
+> res <- fpca(Data(ds))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#1055: 
+ --- package (from environment) --- 
+sm
+ --- call from context --- 
+sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+ --- call from argument --- 
+if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+    den <- w %*% rep(1, n)
+    w <- w/matrix(rep(den, n), ncol = n)
+} else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 
+    1)) {
+    if (is.na(opt$period[2])) 
+        wd1 <- wd2
+    s0 <- w %*% rep(1, n)
+    s1 <- (w * wd1) %*% rep(1, n)
+    s2 <- (w * wd1^2) %*% rep(1, n)
+    w <- w * (matrix(rep(s2, n), ncol = n) - wd1 * matrix(rep(s1, 
+        n), ncol = n))
+    w <- w/(matrix(rep(s2, n), ncol = n) * matrix(rep(s0, n), 
+        ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+} else {
+    a11 <- w %*% rep(1, n)
+    a12 <- (w * wd1) %*% rep(1, n)
+    a13 <- (w * wd2) %*% rep(1, n)
+    a22 <- (w * wd1^2) %*% rep(1, n)
+    a23 <- (w * wd1 * wd2) %*% rep(1, n)
+    a33 <- (w * wd2^2) %*% rep(1, n)
+    d <- a22 * a33 - a23^2
+    b1 <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 * a22 - 
+        a12 * a23) * a13)/d)
+    b2 <- (a13 * a23 - a12 * a33) * b1/d
+    b3 <- (a12 * a23 - a13 * a22) * b1/d
+    wt <- matrix(rep(b1, n), ncol = n)
+    wt <- wt + matrix(rep(b2, n), ncol = n) * wd1
+    wt <- wt + matrix(rep(b3, n), ncol = n) * wd2
+    w <- wt * w
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#272: sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+where 2 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#82: sm.regression.2d(x, y, h, model, weights, rawdata, options = opt)
+where 3 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: smoothFct2D(x = trxin, y = cov.raw, h = hcov, eval.points = trxou, 
+    weights = rep(1, length(cov.raw)), poly.index = c(1, 2), 
+    eval.grid = FALSE, display = "none")
+where 4: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 5 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: suppressWarnings(smoothFct2D(x = trxin, y = cov.raw, h = hcov, 
+    eval.points = trxou, weights = rep(1, length(cov.raw)), poly.index = c(1, 
+        2), eval.grid = FALSE, display = "none")$estimate)
+where 6 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#20: fpc(Yin = Yin, Tin = Tin, Tout = NULL, isobs = isobs, dimBase = dimBase, 
+    fpcCtrl = fpcCtrl, reg = reg)
+where 7: fpca(Data(ds))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function (x, eval.points, h, cross = FALSE, weights = rep(1, nrow(x)),
+    options = list()) {
+
+    opt <- sm.options(options)
+    if (all(is.na(opt$period))) opt$period <- rep(NA, 2)
+    replace.na(opt, hmult, 1)
+    replace.na(opt, h.weights, rep(1, nrow(x)))
+    replace.na(opt, poly.index, 1)
+    poly.index <- opt$poly.index
+    h.weights  <- opt$h.weights
+    hmult      <- opt$hmult
+    n          <- nrow(x)
+    ne         <- nrow(eval.points)
+
+    wd1 <- matrix(rep(eval.points[, 1], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd1 <- wd1 - matrix(rep(x[, 1], ne), ncol = n, byrow = TRUE)
+    if (("hw.eval" %in% names(opt)) & (opt$hw.eval = TRUE))
+       hw  <- matrix(rep(h.weights, n),  ncol = n)
+    else
+       hw  <- matrix(rep(h.weights, ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[1])) 
+       w <- exp(cos(2 * pi * wd1 / opt$period[1]) / (h[1] * hmult * hw))
+    else
+       w <- exp(-0.5 * (wd1 / (h[1] * hmult * hw))^2)
+    wd2 <- matrix(rep(eval.points[, 2], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd2 <- wd2 - matrix(rep(x[, 2], ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[2])) 
+       w <- w * exp(cos(2 * pi * wd2 / opt$period[2]) / (h[2] * hmult * hw))
+    else
+       w <- w * exp(-0.5 * (wd2 / (h[2] * hmult * hw))^2)
+    w <- w * matrix(rep(weights, ne), ncol = n, byrow = TRUE)
+    
+    if (cross)
+        diag(w) <- 0
+
+    if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+        den <- w %*% rep(1, n)
+        w   <- w/matrix(rep(den, n), ncol = n)
+        }
+    else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 1)) {
+    	if (is.na(opt$period[2])) wd1 <- wd2
+    	s0 <- w %*% rep(1, n)
+        s1 <- (w * wd1) %*% rep(1, n)
+        s2 <- (w * wd1^2) %*% rep(1, n)
+        w  <- w * (matrix(rep(s2, n), ncol = n) - 
+                 wd1 * matrix(rep(s1, n), ncol = n))
+        w  <- w / (matrix(rep(s2, n), ncol = n) * 
+                   matrix(rep(s0, n), ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+        }
+    else {
+        a11 <- w %*% rep(1, n)
+        a12 <- (w * wd1) %*% rep(1, n)
+        a13 <- (w * wd2) %*% rep(1, n)
+        a22 <- (w * wd1^2) %*% rep(1, n)
+        a23 <- (w * wd1 * wd2) %*% rep(1, n)
+        a33 <- (w * wd2^2) %*% rep(1, n)
+        d   <- a22 * a33 - a23^2
+        b1  <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 *
+                  a22 - a12 * a23) * a13)/d)
+        b2  <- (a13 * a23 - a12 * a33) * b1/d
+        b3  <- (a12 * a23 - a13 * a22) * b1/d
+        wt  <- matrix(rep(b1, n), ncol = n)
+        wt  <- wt + matrix(rep(b2, n), ncol = n) * wd1
+        wt  <- wt + matrix(rep(b3, n), ncol = n) * wd2
+        w   <- wt * w
+    }
+    w
+}
+<bytecode: 0xe4e5428>
+<environment: namespace:sm>
+ --- function search by body ---
+Function sm.weight2 in namespace sm has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... ERROR
+  Running ‘testthat.R’
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  4: withVisible(eval(expr, pf)) at ../../../../R/src/library/utils/R/capture.output.R:40
+  5: eval(expr, pf) at ../../../../R/src/library/utils/R/capture.output.R:40
+  6: eval(expr, pf)
+  7: funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, fpcCtrl = fpcCtrl, 
+         funcyCtrl = funcyCtrlMbc, save.data = TRUE, parallel = parallel)
+  8: sapply(FRES@models, function(x) x@cluster) at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R:165
+  9: lapply(X = X, FUN = FUN, ...)
+  10: FUN(X[[i]], ...)
+  
+  ══ testthat results  ═══════════════════════════════════════════════════════════
+  OK: 9 SKIPPED: 0 FAILED: 1
+  1. Error: Test control arguments (@test-old-unit-tests.R#70) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+* checking PDF version of manual ... OK
+* DONE
+Status: 2 ERRORs, 1 NOTE

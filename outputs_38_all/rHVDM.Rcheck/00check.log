@@ -1,0 +1,418 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/rHVDM.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘rHVDM/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘rHVDM’ version ‘1.47.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘rHVDM’ can be installed ... WARNING
+Found the following significant warnings:
+  Note: break used in wrong context: no loop is visible at coreHVDM.R:382 
+See ‘/var/scratch2/tomas/test/mine/R-75396/check/rHVDM.Rcheck/00install.out’ for details.
+Information on the location(s) of code generating the ‘Note’s can be
+obtained by re-running with environment variable R_KEEP_PKG_SOURCE set
+to ‘yes’.
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+.bin.ut: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/measurementerrorHVDM.R:225)
+.binb.ut: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/measurementerrorHVDM.R:245)
+.binb.ut: no visible global function definition for ‘quantile’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/measurementerrorHVDM.R:247)
+.geneoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:808)
+.geneoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:809)
+.geneoutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:818)
+.geneoutput: no visible global function definition for ‘arrows’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:819)
+.geneoutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:820)
+.geneoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:822)
+.geneoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:823)
+.greport: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:170)
+.parameteroutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:664)
+.parameteroutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:665)
+.parameteroutput: no visible global function definition for ‘arrows’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:687)
+.parameteroutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:694)
+.parameteroutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:695)
+.parameteroutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:712)
+.parameteroutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:713)
+.parameteroutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:730)
+.parameteroutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:731)
+.parameteroutput: no visible global function definition for ‘arrows’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:732)
+.parameteroutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:735)
+.parameteroutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:736)
+.parameteroutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:740)
+.parameteroutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:741)
+.parameteroutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:759)
+.parameteroutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:760)
+.parameteroutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:762)
+.parameteroutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:763)
+.parameteroutput: no visible global function definition for ‘cov2cor’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:772)
+.parameteroutputg: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:390)
+.parameteroutputg: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:391)
+.parameteroutputg: no visible global function definition for ‘arrows’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:421)
+.parameteroutputg: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:425)
+.parameteroutputg: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:426)
+.parameteroutputg: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:439)
+.parameteroutputg: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:440)
+.parameteroutputg: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:442)
+.parameteroutputg: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:443)
+.parameteroutputg: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:454)
+.parameteroutputg: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:455)
+.parameteroutputg: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:457)
+.parameteroutputg: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:458)
+.parameteroutputg: no visible global function definition for ‘cov2cor’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:467)
+.parameteroutputg.nl: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:534)
+.parameteroutputg.nl: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:535)
+.parameteroutputg.nl: no visible global function definition for
+  ‘arrows’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:553)
+.parameteroutputg.nl: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:557)
+.parameteroutputg.nl: no visible global function definition for
+  ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:558)
+.parameteroutputg.nl: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:571)
+.parameteroutputg.nl: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:572)
+.parameteroutputg.nl: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:574)
+.parameteroutputg.nl: no visible global function definition for
+  ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:575)
+.parameteroutputg.nl: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:586)
+.parameteroutputg.nl: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:587)
+.parameteroutputg.nl: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:589)
+.parameteroutputg.nl: no visible global function definition for
+  ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:590)
+.parameteroutputg.nl: no visible global function definition for
+  ‘cov2cor’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:599)
+.scoreoutput: no visible global function definition for ‘qchisq’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:847)
+.scoreoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:849)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:850)
+.scoreoutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:851)
+.scoreoutput: no visible global function definition for ‘dchisq’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:851)
+.scoreoutput: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:852)
+.scoreoutput: no visible global function definition for ‘dchisq’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:852)
+.scoreoutput: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:854)
+.scoreoutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:855)
+.scoreoutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:856)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:857)
+.scoreoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:858)
+.scoreoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:866)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:867)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:871)
+.scoreoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:872)
+.scoreoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:882)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:883)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:892)
+.scoreoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:893)
+.scoreoutput: no visible global function definition for ‘qchisq’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:913)
+.scoreoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:915)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:916)
+.scoreoutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:917)
+.scoreoutput: no visible global function definition for ‘dchisq’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:917)
+.scoreoutput: no visible global function definition for ‘points’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:918)
+.scoreoutput: no visible global function definition for ‘dchisq’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:918)
+.scoreoutput: no visible global function definition for ‘qnorm’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:920)
+.scoreoutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:921)
+.scoreoutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:922)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:923)
+.scoreoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:924)
+.scoreoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:932)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:933)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:942)
+.scoreoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:943)
+.scoreoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:953)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:954)
+.scoreoutput: no visible global function definition for ‘par’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:963)
+.scoreoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:964)
+.scorout: no visible global function definition for ‘pchisq’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/coreHVDM.R:161)
+.screenoutput: no visible global function definition for ‘png’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:153)
+.screenoutput: no visible global function definition for ‘plot’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:154)
+.screenoutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:155)
+.screenoutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:158)
+.screenoutput: no visible global function definition for ‘lines’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:159)
+.screenoutput: no visible global function definition for ‘dev.off’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:160)
+.sreport: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:9)
+.treport: no visible global function definition for ‘runif’
+  (/var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/outputHVDM.R:259)
+Undefined global functions or variables:
+  arrows cov2cor dchisq dev.off lines par pchisq plot png points qchisq
+  qnorm quantile runif
+Consider adding
+  importFrom("grDevices", "dev.off", "png")
+  importFrom("graphics", "arrows", "lines", "par", "plot", "points")
+  importFrom("stats", "cov2cor", "dchisq", "pchisq", "qchisq", "qnorm",
+             "quantile", "runif")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under ‘inst/doc’ ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘rHVDM-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: estimerrors
+> ### Title: computes the standard deviation of the measurement error using
+> ###   pre-calculated tables specific to the plattform or user-defined table
+> ### Aliases: estimerrors
+> ### Keywords: IO ts
+> 
+> ### ** Examples
+> 
+> data(HVDMexample)
+> fiveGybis<-estimerrors(eset=fiveGyMAS5,plattid="affy_HGU133A",refchips=leastnoisychips)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/measurementerrorHVDM.R#23: 
+ --- package (from environment) --- 
+rHVDM
+ --- call from context --- 
+.computeinderrtable(X = X, errtable = errtable, refchips = refs)
+ --- call from argument --- 
+if (refchips == 0) {
+    wei <- rep(0, m)
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/measurementerrorHVDM.R#68: .computeinderrtable(X = X, errtable = errtable, refchips = refs)
+where 2 at /var/scratch2/tomas/tmp/Rtmpbxihib/R.INSTALLe3404361550/rHVDM/R/userfcnHVDM.R#147: .computerrs(eset = eset, errtable = errtable, refs = refchips)
+where 3: estimerrors(eset = fiveGyMAS5, plattid = "affy_HGU133A", refchips = leastnoisychips)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE FALSE FALSE
+ --- function from context --- 
+function(X,errtable,refchips){
+	#method as described in GB paper
+	#prepare the receptacle
+	N<-dim(X)[2]
+	if(missing(refchips)){
+		refchips<-c(1:N)
+	}
+	m<-dim(errtable)[1]
+	res<-matrix(rep(0,m*N),m,N)
+	dimnames(res)[[2]]<-dimnames(X)[[2]]
+	#compute average
+	coeffmul<-rep(1./N,N)
+	aver<-as.vector(X %*% coeffmul)
+	difsq<-(X-aver)^2
+	#determine bounds for classification
+	bnds<-c(-20,errtable[,1])
+	for(i in c(1:(m-1))){
+		bnds[i+1]<-errtable[i,1]/2+errtable[i+1,1]/2
+	}
+	bnds[m+1]<-log(max(aver)+1)
+	if(refchips==0){
+		wei<-rep(0,m)
+	}
+	for(i in c(1:m)){
+		keep<-((log(aver)>bnds[i]) & (log(aver)<=bnds[i+1]))
+		ngenes<-sum(keep*1)
+		coe<-rep(1./ngenes,ngenes)
+		res[i,]<-as.vector(t(difsq[keep,]) %*% coe)
+		if(refchips==0){
+			wei[i]<-ngenes
+		}
+	}
+	if(refchips==0){
+		refchips<-.retlessnoisy(X=res,weight=wei,N=3)
+		print(refchips)
+	}
+	#compute average for reference group
+	nref<-length(refchips)
+	coe<-rep(1./nref,nref)
+	avrefchi<-res[,refchips] %*% coe
+	ratio<-as.vector(errtable[,2]/avrefchi)
+	res<-cbind(errtable[,1],res*ratio)
+	dimnames(res)[[2]][1]<-"avg"
+	res
+}
+<bytecode: 0x3efe2e0>
+<environment: namespace:rHVDM>
+ --- function search by body ---
+Function .computeinderrtable in namespace rHVDM has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... ERROR
+Errors in running code in vignettes:
+when running code in ‘rHVDM.Rnw’
+  ...
+	res
+}
+<bytecode: 0x25e7cc8>
+<environment: namespace:rHVDM>
+ --- function search by body ---
+Function .computeinderrtable in namespace rHVDM has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+
+... incomplete output.  Crash?
+
+* checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+		coe<-rep(1./ngenes,ngenes)
+		res[i,]<-as.vector(t(difsq[keep,]) %*% coe)
+		if(refchips==0){
+			wei[i]<-ngenes
+		}
+	}
+	if(refchips==0){
+		refchips<-.retlessnoisy(X=res,weight=wei,N=3)
+		print(refchips)
+	}
+	#compute average for reference group
+	nref<-length(refchips)
+	coe<-rep(1./nref,nref)
+	avrefchi<-res[,refchips] %*% coe
+	ratio<-as.vector(errtable[,2]/avrefchi)
+	res<-cbind(errtable[,1],res*ratio)
+	dimnames(res)[[2]][1]<-"avg"
+	res
+}
+<bytecode: 0x6648988>
+<environment: namespace:rHVDM>
+ --- function search by body ---
+Function .computeinderrtable in namespace rHVDM has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+
+* checking PDF version of manual ... OK
+* DONE
+Status: 2 ERRORs, 1 WARNING, 3 NOTEs

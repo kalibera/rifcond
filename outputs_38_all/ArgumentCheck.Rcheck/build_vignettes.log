@@ -1,0 +1,125 @@
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at <text>#7: 
+ --- package (from environment) --- 
+package:ArgumentCheck
+ --- call from context --- 
+cylinder.volume(height = c(-3, 3), radius = -4)
+ --- call from argument --- 
+if (height < 0) ArgumentCheck::addError(msg = "'height' must be >= 0", 
+    argcheck = Check)
+ --- R stacktrace ---
+where 1: cylinder.volume(height = c(-3, 3), radius = -4)
+where 2: eval(expr, envir, enclos)
+where 3 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: eval(expr, envir, enclos)
+where 4 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withVisible(eval(expr, envir, enclos))
+where 5 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = wHandler, 
+    error = eHandler, message = mHandler)
+where 6: doTryCatch(return(expr), name, parentenv, handler)
+where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 8: tryCatchList(expr, classes, parentenv, handlers)
+where 9: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 10 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#166: try(f, silent = TRUE)
+where 11 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, 
+    enclos)), warning = wHandler, error = eHandler, message = mHandler))
+where 12 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#189: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, 
+    envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+where 13 at /var/scratch2/tomas/tmp/RtmpZGXXbh/R.INSTALL11c011f1a149/evaluate/R/eval.r#73: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, 
+    debug = debug, last = i == length(out), use_try = stop_on_error != 
+        2L, keep_warning = keep_warning, keep_message = keep_message, 
+    output_handler = output_handler, include_timing = include_timing)
+where 14 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/hooks.R#17: evaluate::evaluate(...)
+where 15 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning), 
+    keep_message = !isFALSE(options$message), stop_on_error = if (options$error && 
+        options$include) 0L else 2L, output_handler = knit_handlers(options$render, 
+        options))
+where 16 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#170: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, 
+    keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message), 
+    stop_on_error = if (options$error && options$include) 0L else 2L, 
+    output_handler = knit_handlers(options$render, options)))
+where 17 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#91: block_exec(params)
+where 18 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#6: call_block(x)
+where 19 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/block.R#3: process_group.block(group)
+where 20 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: process_group(group)
+where 21 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#314: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group), 
+    error = function(e) {
+        setwd(wd)
+        cat(res, sep = "\n", file = output %n% "")
+        message("Quitting from lines ", paste(current_lines(i), 
+            collapse = "-"), " (", knit_concord$get("infile"), 
+            ") ")
+    })
+where 22 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/output.R#258: process_file(text, output)
+where 23 at /var/scratch2/tomas/tmp/Rtmpewp0dw/R.INSTALL922570d793a8/rmarkdown/R/render.R#501: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, 
+    encoding = encoding)
+where 24 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#40: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+where 25 at /var/scratch2/tomas/tmp/Rtmp2EOpgb/R.INSTALL70d861d842ef/knitr/R/utils-vignettes.R#92: vweave_rmarkdown(...)
+where 26 at ../../../../R/src/library/tools/R/Vignettes.R#520: engine$weave(file, quiet = quiet, encoding = enc)
+where 27: doTryCatch(return(expr), name, parentenv, handler)
+where 28: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 29: tryCatchList(expr, classes, parentenv, handlers)
+where 30 at ../../../../R/src/library/tools/R/Vignettes.R#518: tryCatch({
+    engine$weave(file, quiet = quiet, encoding = enc)
+    setwd(startdir)
+    find_vignette_product(name, by = "weave", engine = engine)
+}, error = function(e) {
+    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s", 
+        file, conditionMessage(e)), domain = NA, call. = FALSE)
+})
+where 31: buildVignettes(dir = "/var/scratch2/tomas/test/mine/R-75396/check/ArgumentCheck.Rcheck/vign_test/ArgumentCheck")
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(height, radius)
+{
+  #* Establish a new 'ArgCheck' object
+  Check <- ArgumentCheck::newArgCheck()
+  
+  #* Add an error if height < 0
+  if (height < 0) 
+    ArgumentCheck::addError(
+      msg = "'height' must be >= 0",
+      argcheck = Check
+    )
+  
+  #* Add an error if radius < 0
+  if (radius < 0)
+    ArgumentCheck::addError(
+      msg = "'radius' must be >= 0",
+      argcheck = Check
+    )
+  
+  #* Return errors and warnings (if any)
+  ArgumentCheck::finishArgCheck(Check)
+  
+  pi * radius^2 * height 
+}
+<bytecode: 0x6bea9b0>
+ --- function search by body ---
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

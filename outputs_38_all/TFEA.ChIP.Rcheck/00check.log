@@ -1,0 +1,293 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/TFEA.ChIP.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘TFEA.ChIP/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘TFEA.ChIP’ version ‘1.1.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘TFEA.ChIP’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘TFEA.ChIP-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: GeneID2entrez
+> ### Title: Translates gene IDs from Gene Symbol or Ensemble ID to Entrez
+> ###   ID.
+> ### Aliases: GeneID2entrez
+> 
+> ### ** Examples
+> 
+> GeneID2entrez(c('TNMD','DPM1','SCYL3','FGR','CFH','FUCA2','GCLC'))
+Done! 7 genes of 7 successfully translated.
+
+[1] "64102" "8813"  "57147" "2268"  "3075"  "2519"  "2729" 
+> GeneID2entrez(c('Mcm6', 'Rpl7', 'Itch' ), mode ="m2m")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpKiwS2p/R.INSTALLb21a57d4845b/TFEA.ChIP/R/All-functions.R#653: 
+ --- package (from environment) --- 
+TFEA.ChIP
+ --- call from context --- 
+GeneID2entrez(c("Mcm6", "Rpl7", "Itch"), mode = "m2m")
+ --- call from argument --- 
+if (biomart_test == 0) {
+    stop(paste0("We are having trouble reaching biomaRt.\n", 
+        "Please, try again later."))
+}
+ --- R stacktrace ---
+where 1: GeneID2entrez(c("Mcm6", "Rpl7", "Itch"), mode = "m2m")
+
+ --- value of length: 8 type: logical ---
+     biomart version
+[1,]   FALSE   FALSE
+[2,]   FALSE   FALSE
+[3,]   FALSE   FALSE
+[4,]   FALSE   FALSE
+ --- function from context --- 
+function(gene.IDs, return.Matrix = FALSE, mode = "h2h") {
+
+    #' @title Translates gene IDs from Gene Symbol or Ensemble ID to Entrez ID.
+    #' @description Translates mouse or human gene IDs from Gene Symbol or
+    #' Ensemble Gene ID to Entrez Gene ID using the IDs approved by HGNC.
+    #' When translating from Gene Symbol, keep in mind that many genes have
+    #' been given more than one symbol through the years. This function will
+    #' return the Entrez ID corresponding to the currently approved symbols
+    #' if they exist, otherwise NA is returned. In addition some genes might
+    #' map to more than one Entrez ID, in this case gene is assigned to the
+    #' first match and a warning is displayed.
+    #' @param gene.IDs Array of Gene Symbols or Ensemble Gene IDs.
+    #' @param return.Matrix T/F. When TRUE, the function returns a matrix[n,2],
+    #' one column with the gene symbols or Ensemble IDs, another with their
+    #' respective Entrez IDs.
+    #' @param mode Specify the organism used: 'h2h' for homo sapiens gene IDs,
+    #' 'm2m' for mouse gene IDs, or 'm2h' to get the corresponding human gene
+    #' IDs from a mouse input.
+    #' @return Vector or matrix containing the Entrez IDs(or NA) corresponding
+    #' to every element of the input.
+    #' @export GeneID2entrez
+    #' @examples
+    #' GeneID2entrez(c('TNMD','DPM1','SCYL3','FGR','CFH','FUCA2','GCLC'))
+    #' GeneID2entrez(c('Mcm6', 'Rpl7', 'Itch' ), mode ="m2m")
+
+    stopifnot( mode %in% c("h2h", "m2m", "m2h"))
+
+    gene.IDs <- gene.IDs[ !is.na( gene.IDs ) ]
+
+    if ( mode == 'h2h'){
+
+        Genes <- GenomicFeatures::genes(TxDb.Hsapiens.UCSC.hg19.knownGene)
+        suppressMessages(GeneNames <- biomaRt::select(org.Hs.eg.db,
+            Genes$gene_id, c("SYMBOL", "ENSEMBL")))
+        # suppressWarnings added to avoid 'select()' returned 1:many
+        # mapping between keys and columns
+
+        if ( all( grepl("^ENSG", gene.IDs, perl = TRUE ) ) ) {
+            ID.type <- "ENSEMBL"
+        } else {
+            ID.type <- "SYMBOL"
+        }
+
+        gene.IDs <- toupper(gene.IDs)  # in case any name is in lowercase.
+
+        tmp <- match(as.character(gene.IDs), GeneNames[, ID.type])
+        tmp2 <- match(GeneNames[, ID.type], as.character(gene.IDs))
+
+        if (sum(duplicated(tmp2[!is.na(tmp2)])) > 0) {
+            warning("Some genes returned 1:many mapping to ENTREZ ID. ",
+                "Genes were assigned the first ENTREZ ID match found.\n",
+                call. = FALSE)
+        }
+        message("Done! ", length(tmp[!is.na(tmp)]), " genes of ",
+            length(tmp), " successfully translated.\n")
+
+        if (return.Matrix == TRUE) {
+            if (length(tmp[is.na(tmp)]) > 0) {
+                message("Couldn't find Entrez IDs for ", length(tmp[is.na(tmp)]),
+                    " genes (NAs returned instead).\n")
+            }
+            return(data.frame(GENE.ID = gene.IDs, ENTREZ.ID = GeneNames[tmp,
+                "ENTREZID"]))
+        } else {
+            if (length(tmp[is.na(tmp)]) > 0) {
+                message("Couldn't find Entrez IDs for ", length(tmp[is.na(tmp)]),
+                    " genes.\n")
+            }
+            return(GeneNames[tmp[!is.na(tmp)], "ENTREZID"])
+        }
+
+    } else if( mode == "m2m" ) {
+
+        biomart_test <- tryCatch(
+            {R.utils::withTimeout( {tmp <- biomaRt::listMarts()},
+                                   timeout = 3, onTimeout = "warning")},
+            error = function(w) { return( 0 ) },
+            warning = function(w){ return( 0 ) }
+        )
+        if (biomart_test == 0 ){
+            stop( paste0("We are having trouble reaching biomaRt.\n",
+                "Please, try again later."))
+        }
+
+        mouse <- biomaRt::useMart("ensembl", dataset = "mmusculus_gene_ensembl")
+        GeneNames <- biomaRt::getBM(attributes = c("ensembl_gene_id", "mgi_symbol","entrezgene"),
+                    values = "*",
+                    mart = mouse)
+
+        if ( all( grepl("^ENSM", gene.IDs, perl = TRUE ) ) ) {
+
+            ids <- GeneNames[ match( gene.IDs, GeneNames$ensembl_gene_id), c(1,3) ]
+            colnames(ids)<- c("GENE.ID", "ENTREZ.ID")
+
+        } else {
+
+            ids <- GeneNames[ match( gene.IDs, GeneNames$mgi_symbol), c(1,3) ]
+            colnames(ids)<- c("GENE.ID", "ENTREZ.ID")
+        }
+
+        message("Done! ", sum( ! is.na( ids$ENTREZ.ID ) ) ,
+            " genes of ", dim( ids )[1], " successfully translated.\n")
+
+        if (return.Matrix == TRUE) {
+            if ( sum( is.na( ids$ENTREZ.ID )) > 0) {
+                message("Couldn't find Entrez IDs for ", sum( is.na( ids$ENTREZ.ID )),
+                    " genes (NAs returned instead).\n")
+            }
+            return( ids )
+        } else {
+            if ( sum( is.na( ids$ENTREZ.ID )) > 0) {
+                message("Couldn't find human Entrez IDs for ",
+                    sum( is.na( ids$ENTREZ.ID )), " genes.\n")
+            }
+            return( ids$ENTREZ.ID )
+        }
+
+
+    } else if( mode == "m2h" ){
+
+        biomart_test <- tryCatch(
+            {R.utils::withTimeout( {tmp <- biomaRt::listMarts()},
+                                   timeout = 3, onTimeout = "warning")},
+            error = function(w) { return( 0 ) },
+            warning = function(w){ return( 0 ) }
+        )
+        if (biomart_test == 0 ){
+            stop( paste0("We are having trouble reaching biomaRt.\n",
+                "Please, try again later."))
+        }
+
+
+        human <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+        mouse <- biomaRt::useMart("ensembl", dataset = "mmusculus_gene_ensembl")
+
+        if ( all( grepl("^ENSM", gene.IDs, perl = TRUE ) ) == TRUE) {
+            hs_ids = getLDS(
+                attributes = c("ensembl_gene_id"), filters = "ensembl_gene_id",
+                values = gene.IDs , mart = mouse,
+                attributesL = c("entrezgene"), martL = human,
+                uniqueRows = TRUE )
+
+            # re-sorting to set gene IDs in their original order.
+            hs_ids <- hs_ids[ match( gene.IDs, hs_ids$Gene.stable.ID), ]
+            colnames(hs_ids)<- c("mouse.gene.ID", "human.gene.ID")
+
+        } else if ( all( grepl("^\\d*$", gene.IDs, perl = TRUE) ) == TRUE ) {
+            hs_ids = getLDS(
+                attributes = c("entrezgene"), filters = "entrezgene",
+                values = gene.IDs, mart = mouse,
+                attributesL = c("entrezgene"), martL = human,
+                uniqueRows = TRUE )
+
+            # re-sorting to set gene IDs in their original order.
+            hs_ids <- hs_ids[ match( gene.IDs, hs_ids$NCBI.gene.ID), ]
+            colnames(hs_ids)<- c("mouse.gene.ID", "human.gene.ID")
+
+        } else {
+            hs_ids = getLDS(
+                attributes = c("mgi_symbol"), filters = "mgi_symbol",
+                values = gene.IDs, mart = mouse,
+                attributesL = c("entrezgene"), martL = human,
+                uniqueRows = TRUE )
+
+            # re-sorting to set gene IDs in their original order.
+            hs_ids <- hs_ids[ match( gene.IDs, hs_ids$MGI.symbol), ]
+            colnames(hs_ids)<- c("mouse.gene.ID", "human.gene.ID")
+        }
+
+        message("Done! ", sum( ! is.na( hs_ids$human.gene.ID )),
+            " genes of ", dim(hs_ids)[1], " successfully translated.\n")
+
+        if (return.Matrix == TRUE) {
+            if ( sum( is.na( hs_ids$human.gene.ID )) > 0) {
+                message("Couldn't find human Entrez IDs for ",
+                     sum( is.na( hs_ids$human.gene.ID )),
+                    " genes (NAs returned instead).\n")
+            }
+            return( hs_ids )
+        } else {
+            if ( sum( is.na( hs_ids$human.gene.ID )) > 0) {
+                message("Couldn't find human Entrez IDs for ",
+                     sum( is.na( hs_ids$human.gene.ID )),  " genes.\n")
+            }
+            return( hs_ids$human.gene.ID )
+        }
+
+    }
+}
+<bytecode: 0x34fba718>
+<environment: namespace:TFEA.ChIP>
+ --- function search by body ---
+Function GeneID2entrez in namespace TFEA.ChIP has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘runTests.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR

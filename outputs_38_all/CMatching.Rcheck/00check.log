@@ -1,0 +1,385 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/CMatching.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘CMatching/DESCRIPTION’ ... OK
+* this is package ‘CMatching’ version ‘2.2.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘CMatching’ can be installed ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... ERROR
+Running examples in ‘CMatching-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: schools
+> ### Title: Schools data set (NELS-88)
+> ### Aliases: schools
+> ### Keywords: school dataset (NELS-88)
+> 
+> ### ** Examples
+> 
+> data(schools)
+>  
+> # Kreft and De Leeuw, Introducing Multilevel Modeling, Sage (1988).   
+> # The data set is the subsample of NELS-88 data consisting of 10 handpicked schools
+> # from the 1003 schools in the full data set.
+>  
+> # Suppose that the effect of homeworks on math score is unconfounded conditional on X and
+> # unobserved school features (we assume this only for illustrative purpouse)
+> 
+> # Let us consider the following variables:
+> 
+> X<-schools$ses #X<-as.matrix(schools[,c("ses","white","public")])
+> Y<-schools$math
+> Tr<-ifelse(schools$homework>1,1,0)
+> Group<-schools$schid
+> # Note that when Group is missing, NULL or there is only one Group the function
+> # returns the output of the Match function with a warning.
+> 
+> # Let us assume that the effect of homeworks (Tr) on math score (Y)
+> # is unconfounded conditional on X and other unobserved schools features.
+> # Several strategies to handle unobserved group characteristics
+> # are described in Arpino & Cannas, 2016 (see References). 
+> 
+> 
+> # Multivariate Matching on covariates in X 
+> #(default parameters: one-to-one matching on X with replacement with a caliper of 0.25).
+> 
+> ### Matching within schools
+>  mw<-MatchW(Y=Y, Tr=Tr, X=X, Group=Group, caliper=0.1)
+>  
+>  # compare balance before and after matching
+>  bmw  <- MatchBalance(Tr~X,data=schools,match.out=mw)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmp2hnCqM/R.INSTALL1da96b08e362/Matching/R/Matching.R#1985: 
+ --- package (from environment) --- 
+Matching
+ --- call from context --- 
+MatchBalance(Tr ~ X, data = schools, match.out = mw)
+ --- call from argument --- 
+if ((class(match.out) != "Match") & (class(match.out) != "Matchby") & 
+    (!is.null(match.out))) {
+    warning("Object not of class 'Match'")
+    match.out <- NULL
+}
+ --- R stacktrace ---
+where 1: MatchBalance(Tr ~ X, data = schools, match.out = mw)
+
+ --- value of length: 2 type: logical ---
+[1]  TRUE FALSE
+ --- function from context --- 
+function(formul, data=NULL, match.out=NULL, ks=TRUE, 
+                         nboots=500, weights=NULL,
+                         digits=5, paired=TRUE, print.level=1)
+  {
+    if(!is.list(match.out) & !is.null(match.out)) {
+      warning("'Match' object contains no valid matches")
+      match.out  <- NULL
+    }
+
+    if ( (class(match.out) != "Match") & (class(match.out) != "Matchby") & (!is.null(match.out)) ) {
+      warning("Object not of class 'Match'")
+      match.out  <- NULL
+    }
+
+    orig.na.action <- as.character(options("na.action"))
+    options("na.action"=na.pass)            
+    if (is.null(data))
+      {
+        xdata <- as.data.frame(get.xdata(formul,datafr=environment(formul)))
+        Tr <- as.double(get.ydata(formul,datafr=environment(formul)))
+
+      } else {
+        data  <- as.data.frame(data)
+
+        xdata  <- as.data.frame(get.xdata(formul, data))
+        Tr  <- as.double(get.ydata(formul, data))
+      }
+    options("na.action"=orig.na.action)
+
+    if (is.null(weights))
+      weights <- rep(1,length(Tr))
+
+    if(!is.numeric(weights))
+      stop("'weights' must be a numeric vector")
+
+    if( sum(is.na(xdata))!=0 | sum(is.na(Tr))!=0)
+      {
+
+        if(orig.na.action!="na.omit" & orig.na.action!="na.exclude" & orig.na.action!="na.fail")
+          warning("'na.action' should be set to 'na.omit', 'na.exclude' or 'na.fail' see 'help(na.action)'")
+
+        if (orig.na.action=="na.fail")
+          {
+            stop("NA's found in data input.")            
+          } else {
+            warning("NA's found in data input.  IT IS HIGHLY RECOMMENDED THAT YOU TEST IF THE MISSING VALUES ARE BALANCED INSTEAD OF JUST DELETING THEM.")
+          }
+
+        indx1 <- apply(is.na(xdata),1,sum)==0 & is.na(Tr)==0
+        Tr <- Tr[indx1]
+        xdata = xdata[indx1,]
+        weights <- weights[indx1]
+      } #end of na
+
+    if (sum(Tr !=1 & Tr !=0) > 0) {
+      stop("Treatment indicator must be a logical variable---i.e., TRUE (1) or FALSE (0)")
+    }
+
+    nvars  <- ncol(xdata)
+    names.xdata  <- names(xdata)
+
+    findx  <- 1
+    if (sum(xdata[,1]==rep(1,nrow(xdata)))==nrow(xdata))
+      {
+        findx  <- 2
+      }
+
+    if(nboots < 10 & nboots > 0)
+      nboots <- 10
+    
+    if (ks)
+      {
+        ks.bm <- KSbootBalanceSummary(index.treated=(Tr==0),
+                                      index.control=(Tr==1),
+                                      X=xdata[,findx:nvars],
+                                      nboots=nboots)
+
+        if (!is.null(match.out))
+          {
+            ks.am <- KSbootBalanceSummary(index.treated=match.out$index.treated,
+                                          index.control=match.out$index.control,
+                                          X=xdata[,findx:nvars],
+                                          nboots=nboots)
+          }
+      } 
+
+    BeforeMatchingBalance <- list()
+    AfterMatchingBalance <- list()
+
+    BMsmallest.p.value <- 1
+    BMsmallest.number <- 1
+    BMsmallest.name <- names.xdata[findx]
+
+    AMsmallest.p.value <- NULL
+    AMsmallest.number <- NULL
+    AMsmallest.name <- NULL
+    
+    if (!is.null(match.out))
+      {
+        AMsmallest.p.value <- 1
+        AMsmallest.number <- 1
+        AMsmallest.name <- names.xdata[findx]        
+      }
+
+    for( i in findx:nvars)
+      {
+        count <- i-findx+1
+        if(print.level > 0)
+          cat("\n***** (V",count,") ", names.xdata[i]," *****\n",sep="")
+        
+        ks.do  <- FALSE
+        is.dummy  <- length(unique( xdata[,i] )) < 3
+        if (ks & !is.dummy)
+          ks.do  <- TRUE
+
+        BeforeMatchingBalance[[count]]  <-  balanceUV(xdata[,i][Tr==1], xdata[,i][Tr==0], nboots=0,
+                                                      weights.Tr=weights[Tr==1], weights.Co=weights[Tr==0],
+                                                      match=FALSE)
+        
+        if (BeforeMatchingBalance[[count]]$tt$p.value < BMsmallest.p.value)
+          {
+            BMsmallest.p.value <- BeforeMatchingBalance[[count]]$tt$p.value
+            BMsmallest.number <- count
+            BMsmallest.name <- names.xdata[i]            
+          } else if (BeforeMatchingBalance[[count]]$tt$p.value == BMsmallest.p.value)
+            {
+              BMsmallest.number <- c(BMsmallest.number,count)
+              BMsmallest.name <- c(BMsmallest.name,names.xdata[i])
+            }
+        
+        if (ks.do)
+          {
+            BeforeMatchingBalance[[count]]$ks <- list()
+            BeforeMatchingBalance[[count]]$ks$ks <- list()
+            BeforeMatchingBalance[[count]]$ks$ks$p.value <- ks.bm$ks.naive.pval[count]
+            BeforeMatchingBalance[[count]]$ks$ks$statistic <- ks.bm$ks.stat[count]              
+            if (nboots > 0)
+              {
+                BeforeMatchingBalance[[count]]$ks$ks.boot.pvalue <- ks.bm$ks.boot.pval[count]
+
+                if (ks.bm$ks.boot.pval[count] < BMsmallest.p.value)
+                  {
+                    BMsmallest.p.value <- ks.bm$ks.boot.pval[count]
+                    BMsmallest.number <- count
+                    BMsmallest.name <- names.xdata[i]            
+                  } else if ( (ks.bm$ks.boot.pval[count] == BMsmallest.p.value) & (sum(BMsmallest.number==count)==0) )
+                    {
+                      BMsmallest.number <- c(BMsmallest.number,count)
+                      BMsmallest.name <- c(BMsmallest.name,names.xdata[i])
+                    }
+              } else {
+                BeforeMatchingBalance[[count]]$ks$ks.boot.pvalue <- NA
+
+                if (ks.bm$ks.naive.pval[count] < BMsmallest.p.value)
+                  {
+                    BMsmallest.p.value <- ks.bm$ks.naive.pval[count]
+                    BMsmallest.number <- count
+                    BMsmallest.name <- names.xdata[i]            
+                  } else if ( (ks.bm$ks.naive.pval[count] == BMsmallest.p.value) & (sum(BMsmallest.number==count)==0) )
+                    {
+                      BMsmallest.number <- c(BMsmallest.number,count)
+                      BMsmallest.name <- c(BMsmallest.name,names.xdata[i])
+                    }              
+              }
+            
+          } else {
+            BeforeMatchingBalance[[count]]$ks <- NULL
+          }
+        
+        if (!is.null(match.out))
+          {
+            AfterMatchingBalance[[count]]  <- balanceUV(xdata[,i][match.out$index.treated],
+                                                        xdata[,i][match.out$index.control],
+                                                        weights=match.out$weights, nboots=0,
+                                                        paired=paired, match=TRUE)
+            
+            if (AfterMatchingBalance[[count]]$tt$p.value < AMsmallest.p.value)
+              {
+                AMsmallest.p.value <- AfterMatchingBalance[[count]]$tt$p.value
+                AMsmallest.number <- count
+                AMsmallest.name <- names.xdata[i]            
+              } else if ( (AfterMatchingBalance[[count]]$tt$p.value == AMsmallest.p.value) & (sum(AMsmallest.number==count)==0) )
+                    {
+                      AMsmallest.number <- c(AMsmallest.number,count)
+                      AMsmallest.name <- c(AMsmallest.name,names.xdata[i])
+                    }
+            
+            if (ks.do)
+              {                
+                AfterMatchingBalance[[count]]$ks <- list()
+                AfterMatchingBalance[[count]]$ks$ks <- list()
+                AfterMatchingBalance[[count]]$ks$ks$p.value <- ks.am$ks.naive.pval[count]
+                AfterMatchingBalance[[count]]$ks$ks$statistic <- ks.am$ks.stat[count]
+                if (nboots > 0)
+                  {
+                    AfterMatchingBalance[[count]]$ks$ks.boot.pvalue <- ks.am$ks.boot.pval[count]
+
+                    if (ks.am$ks.boot.pval[count] < AMsmallest.p.value)
+                      {
+                        AMsmallest.p.value <- ks.am$ks.boot.pval[count]
+                        AMsmallest.number <- count
+                        AMsmallest.name <- names.xdata[i]            
+                      } else if ( (ks.am$ks.boot.pval[count] == AMsmallest.p.value) & (sum(AMsmallest.number==count)==0) )
+                        {
+                          AMsmallest.number <- c(AMsmallest.number,count)
+                          AMsmallest.name <- c(AMsmallest.name,names.xdata[i])
+                        }
+                  } else {
+                    AfterMatchingBalance[[count]]$ks$ks.boot.pvalue <- NA
+
+                    if (ks.am$ks.naive.pval[count] < AMsmallest.p.value)
+                      {
+                        AMsmallest.p.value <- ks.am$ks.naive.pval[count]
+                        AMsmallest.number <- count
+                        AMsmallest.name <- names.xdata[i]            
+                      } else if ( (ks.am$ks.naive.pval[count] == AMsmallest.p.value) & (sum(AMsmallest.number==count)==0) )
+                        {
+                          AMsmallest.number <- c(AMsmallest.number,count)
+                          AMsmallest.name <- c(AMsmallest.name,names.xdata[i])
+                        }              
+                  }                    
+              } else {
+                AfterMatchingBalance[[count]]$ks <- NULL
+              }
+            if(print.level > 0)
+              PrintBalanceUV(BeforeMatchingBalance[[count]], AfterMatchingBalance[[count]], digits=digits)
+          } else {
+            if(print.level > 0)
+              {
+                cat("before matching:\n")
+                summary(BeforeMatchingBalance[[count]], digits=digits)
+              }
+          } #end of if match.out
+      } #end of for loop
+    
+    if(print.level & ( (nvars-findx+1) > 1))
+      {
+        cat("\n")
+
+        if (BMsmallest.p.value < 1)
+          {
+            cat("Before Matching Minimum p.value:", format.pval(BMsmallest.p.value, digits=digits),"\n")
+            cat("Variable Name(s):",BMsmallest.name, " Number(s):",BMsmallest.number,"\n\n")
+          } else {
+            cat("Before Matching Minimum p.value: 1\n\n")
+          }
+
+        if (!is.null(match.out))
+          {
+            if(AMsmallest.p.value < 1)
+              {
+                cat("After Matching Minimum p.value:", format.pval(AMsmallest.p.value, digits=digits),"\n")
+                cat("Variable Name(s):",AMsmallest.name, " Number(s):",AMsmallest.number,"\n\n")
+              } else {
+                cat("After Matching Minimum p.value: 1\n\n")
+              }
+          } #end of !is.null(match.out)
+      }#end of print.level & (nvars > 1)
+  
+    return(invisible(list(BeforeMatching=BeforeMatchingBalance,
+                          AfterMatching=AfterMatchingBalance,
+                          BMsmallest.p.value=BMsmallest.p.value,
+                          BMsmallestVarName=BMsmallest.name,
+                          BMsmallestVarNumber=BMsmallest.number,
+                          AMsmallest.p.value=AMsmallest.p.value,
+                          AMsmallestVarName=AMsmallest.name,
+                          AMsmallestVarNumber=AMsmallest.number)))
+  }
+<bytecode: 0xc6770c8>
+<environment: namespace:Matching>
+ --- function search by body ---
+Function MatchBalance in namespace Matching has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR

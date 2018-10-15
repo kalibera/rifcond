@@ -1,0 +1,1139 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Zelig"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('Zelig')
+Loading required package: survival
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ATT")
+> ### * ATT
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ATT
+> ### Title: Compute simulated (sample) average treatment effects on the
+> ###   treated from a Zelig model estimation
+> ### Aliases: ATT
+> 
+> ### ** Examples
+> 
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> data(sanction)
+> z.att <- zelig(num ~ target + coop + mil, model = "poisson",
++                  data = sanction) %>%
++              ATT(treatment = "mil") %>%
++              get_qi(qi = "ATT", xvalue = "TE")
+How to cite this model in Zelig:
+  R Core Team. 2007.
+  poisson: Poisson Regression for Event Count Dependent Variables
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:dplyr’
+
+> nameEx("Zelig-ar-class")
+> ### * Zelig-ar-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-ar-class
+> ### Title: Time-Series Model with Autoregressive Disturbance
+> ### Aliases: Zelig-ar-class zar
+> 
+> ### ** Examples
+> 
+> data(seatshare)
+> subset <- seatshare[seatshare$country == "UNITED KINGDOM",]
+> ts.out <- zelig(formula = unemp ~ leftseat, model = "ar", ts = "year", data = subset)
+Warning: ++++ All Zelig time series models are deprecated ++++
+How to cite this model in Zelig:
+  James Honaker. 2018.
+  ar: Time-Series Model with Autoregressive Disturbance
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(ts.out)
+Model: 
+
+Call:
+z5$zelig(formula = formula, data = data, ts = "year", by = by, order = c(1, 
+0, 0))
+
+Coefficients:
+         ar1  intercept  leftseat
+      0.9413     5.9545   -3.2463
+s.e.  0.0439     2.6543    3.2894
+
+sigma^2 estimated as 1.046:  log likelihood = -57.3,  aic = 122.6
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-arima-class")
+> ### * Zelig-arima-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-arima-class
+> ### Title: Autoregressive and Moving-Average Models with Integration for
+> ###   Time-Series Data
+> ### Aliases: Zelig-arima-class zarima
+> 
+> ### ** Examples
+> 
+> data(seatshare)
+> subset <- seatshare[seatshare$country == "UNITED KINGDOM",]
+> ts.out <- zarima$new()
+Warning: ++++ All Zelig time series models are deprecated ++++
+> ts.out$zelig(unemp ~ leftseat, order = c(1, 0, 1), data = subset)
+> 
+> # Set fitted values and simulate quantities of interest
+> ts.out$setx(leftseat = 0.75)
+> ts.out$setx1(leftseat = 0.25)
+> ts.out$sim()
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-exp-class")
+> ### * Zelig-exp-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-exp-class
+> ### Title: Exponential Regression for Duration Dependent Variables
+> ### Aliases: Zelig-exp-class zexp
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> data(coalition)
+> library(survival)
+> z.out <- zelig(Surv(duration, ciep12) ~ fract + numst2, model = "exp",
++                data = coalition)
+How to cite this model in Zelig:
+  Terry M. Therneau, and Thomas Lumley. 2011.
+  exp: Exponential Regression for Duration Dependent Variables
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(z.out)
+Model: 
+
+Call:
+z5$zelig(formula = Surv(duration, ciep12) ~ fract + numst2, data = coalition)
+                Value Std. Error     z       p
+(Intercept)  5.535873   0.547355 10.11 < 2e-16
+fract       -0.003909   0.000741 -5.27 1.3e-07
+numst2       0.461179   0.123895  3.72   2e-04
+
+Scale fixed at 1 
+
+Exponential distribution
+Loglik(model)= -1077.4   Loglik(intercept only)= -1100.7
+	Chisq= 46.66 on 2 degrees of freedom, p= 7.4e-11 
+Number of Newton-Raphson Iterations: 4 
+n= 314 
+
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-factor-bayes-class")
+> ### * Zelig-factor-bayes-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-factor-bayes-class
+> ### Title: Bayesian Factor Analysis
+> ### Aliases: Zelig-factor-bayes-class zfactorbayes
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D data(swiss)
+> ##D names(swiss) <- c("Fert", "Agr", "Exam", "Educ", "Cath", "InfMort")
+> ##D z.out <- zelig(~ Agr + Exam + Educ + Cath + InfMort,
+> ##D model = "factor.bayes", data = swiss,
+> ##D factors = 2, verbose = FALSE,
+> ##D a0 = 1, b0 = 0.15, burnin = 500, mcmc = 5000)
+> ##D 
+> ##D z.out$geweke.diag()
+> ##D z.out <- zelig(~ Agr + Exam + Educ + Cath + InfMort,
+> ##D model = "factor.bayes", data = swiss, factors = 2,
+> ##D lambda.constraints =
+> ##D    list(Exam = list(1,"+"),
+> ##D         Exam = list(2,"-"),
+> ##D         Educ = c(2, 0),
+> ##D         InfMort = c(1, 0)),
+> ##D verbose = FALSE, a0 = 1, b0 = 0.15,
+> ##D burnin = 500, mcmc = 5000)
+> ##D 
+> ##D z.out$geweke.diag()
+> ##D z.out$heidel.diag()
+> ##D z.out$raftery.diag()
+> ##D summary(z.out)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-gamma-class")
+> ### * Zelig-gamma-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-gamma-class
+> ### Title: Gamma Regression for Continuous, Positive Dependent Variables
+> ### Aliases: Zelig-gamma-class zgamma
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> data(coalition)
+> z.out <- zelig(duration ~ fract + numst2, model = "gamma", data = coalition)
+How to cite this model in Zelig:
+  R Core Team. 2007.
+  gamma: Gamma Regression for Continuous, Positive Dependent Variables
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(z.out)
+Model: 
+
+Call:
+z5$zelig(formula = duration ~ fract + numst2, data = coalition)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.2510  -0.9112  -0.2278   0.4132   1.5360  
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)
+(Intercept) -1.296e-02  1.329e-02  -0.975  0.33016
+fract        1.149e-04  1.723e-05   6.668 1.19e-10
+numst2      -1.739e-02  5.881e-03  -2.957  0.00335
+
+(Dispersion parameter for Gamma family taken to be 0.6291004)
+
+    Null deviance: 300.74  on 313  degrees of freedom
+Residual deviance: 272.19  on 311  degrees of freedom
+AIC: 2428.1
+
+Number of Fisher Scoring iterations: 6
+
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-gamma-gee-class")
+> ### * Zelig-gamma-gee-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-gamma-gee-class
+> ### Title: Generalized Estimating Equation for Gamma Regression
+> ### Aliases: Zelig-gamma-gee-class zgammagee
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> data(coalition)
+> coalition$cluster <- c(rep(c(1:62), 5),rep(c(63), 4))
+> sorted.coalition <- coalition[order(coalition$cluster),]
+> z.out <- zelig(duration ~ fract + numst2, model = "gamma.gee",id = "cluster",
++                data = sorted.coalition,corstr = "exchangeable")
+How to cite this model in Zelig:
+  Patrick Lam. 2011.
+  gamma-gee: General Estimating Equation for Gamma Regression
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(z.out)
+Model: 
+
+Call:
+z5$zelig(formula = duration ~ fract + numst2, id = "cluster", 
+    corstr = "exchangeable", data = sorted.coalition)
+
+ Coefficients:
+              Estimate    Std.err   Wald Pr(>|W|)
+(Intercept) -1.296e-02  1.268e-02  1.045   0.3067
+fract        1.149e-04  1.474e-05 60.761 6.44e-15
+numst2      -1.740e-02  6.294e-03  7.643   0.0057
+
+Estimated Scale Parameters:
+            Estimate Std.err
+(Intercept)   0.6231 0.04483
+
+Correlation: Structure = exchangeable  Link = identity 
+
+Estimated Correlation Parameters:
+       Estimate Std.err
+alpha -0.008086 0.03363
+Number of clusters:   63   Maximum cluster size: 5 
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-gamma-survey-class")
+> ### * Zelig-gamma-survey-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-gamma-survey-class
+> ### Title: Gamma Regression with Survey Weights
+> ### Aliases: Zelig-gamma-survey-class zgammasurvey
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> data(api, package="survey")
+> z.out1 <- zelig(api00 ~ meals + yr.rnd, model = "gamma.survey",
++ weights = ~pw, data = apistrat)
+Warning: Not all features are available in Zelig Survey.
+Consider using surveyglm and setx directly.
+For details see: <http://docs.zeligproject.org/articles/to_zelig.html>.
+How to cite this model in Zelig:
+  Nicholas Carnes. 2018.
+  gamma-survey: Gamma Regression with Survey Weights
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(z.out1)
+Model: 
+
+Call:
+z5$zelig(formula = api00 ~ meals + yr.rnd, data = apistrat, weights = ~pw)
+
+Survey design:
+design <- survey::svydesign(data = data, ids = ids, probs = probs,
+                                    strata = strata, fpc = fpc, nest = nest,
+                                    check.strata = check.strata,
+                                    weights = localWeights)
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept) 1.13e-03   1.56e-05   72.31   <2e-16
+meals       7.93e-06   4.39e-07   18.06   <2e-16
+yr.rndYes   5.11e-05   4.45e-05    1.15     0.25
+
+(Dispersion parameter for Gamma family taken to be 0.3836)
+
+Number of Fisher Scoring iterations: 4
+
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-ivreg-class")
+> ### * Zelig-ivreg-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-ivreg-class
+> ### Title: Instrumental-Variable Regression
+> ### Aliases: Zelig-ivreg-class zivreg
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> library(dplyr) # for the pipe operator %>%
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> # load and transform data
+> data("CigarettesSW")
+> CigarettesSW$rprice <- with(CigarettesSW, price/cpi)
+> CigarettesSW$rincome <- with(CigarettesSW, income/population/cpi)
+> CigarettesSW$tdiff <- with(CigarettesSW, (taxs - tax)/cpi)
+> # log second stage independent variables, as logging internally for ivreg is
+> # not currently supported
+> CigarettesSW$log_rprice <- log(CigarettesSW$rprice)
+> CigarettesSW$log_rincome <- log(CigarettesSW$rincome)
+> z.out1 <- zelig(log(packs) ~ log_rprice + log_rincome |
++ log_rincome + tdiff + I(tax/cpi),data = CigarettesSW, subset = year == "1995",model = "ivreg")
+How to cite this model in Zelig:
+  Christian Kleiber and Achim Zeileis. 2008.
+  ivreg: Instrumental-Variable Regression
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(z.out1)
+Model: 
+
+Call:
+z5$zelig(formula = log(packs) ~ log_rprice + log_rincome | log_rincome + 
+    tdiff + I(tax/cpi), data = CigarettesSW, subset = year == 
+    "1995")
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.6007 -0.0862 -0.0010  0.1165  0.3734 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)    9.895      1.059    9.35  4.1e-12
+log_rprice    -1.277      0.263   -4.85  1.5e-05
+log_rincome    0.280      0.239    1.18     0.25
+
+Residual standard error: 0.188 on 45 degrees of freedom
+Multiple R-Squared: 0.429,	Adjusted R-squared: 0.404 
+Wald test: 13.3 on 2 and 45 DF,  p-value: 2.93e-05 
+
+Next step: Use 'setx' method
+> library(Zelig)
+> library(AER) # for sandwich vcov
+Loading required package: car
+Loading required package: carData
+
+Attaching package: ‘car’
+
+The following object is masked from ‘package:dplyr’:
+
+    recode
+
+Loading required package: lmtest
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Loading required package: sandwich
+> library(dplyr) # for the pipe operator %>%
+> 
+> # load and transform data
+> data("CigarettesSW")
+> CigarettesSW$rprice <- with(CigarettesSW, price/cpi)
+> CigarettesSW$rincome <- with(CigarettesSW, income/population/cpi)
+> CigarettesSW$tdiff <- with(CigarettesSW, (taxs - tax)/cpi)
+> 
+> # log second stage independent variables, as logging internally for ivreg is
+> # not currently supported
+> CigarettesSW$log_rprice <- log(CigarettesSW$rprice)
+> CigarettesSW$log_rincome <- log(CigarettesSW$rincome)
+> 
+> # estimate model
+> z.out1 <- zelig(log(packs) ~ log_rprice + log_rincome |
++                     log_rincome + tdiff + I(tax/cpi),
++                     data = CigarettesSW,
++                     model = "ivreg")
+How to cite this model in Zelig:
+  Christian Kleiber and Achim Zeileis. 2008.
+  ivreg: Instrumental-Variable Regression
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(z.out1)
+Model: 
+
+Call:
+z5$zelig(formula = log(packs) ~ log_rprice + log_rincome | log_rincome + 
+    tdiff + I(tax/cpi), data = CigarettesSW)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.6138 -0.0723  0.0144  0.0949  0.3750 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)    9.736      0.569   17.12  < 2e-16
+log_rprice    -1.229      0.155   -7.92  4.9e-12
+log_rincome    0.257      0.143    1.79    0.077
+
+Residual standard error: 0.165 on 93 degrees of freedom
+Multiple R-Squared: 0.549,	Adjusted R-squared: 0.539 
+Wald test: 39.9 on 2 and 93 DF,  p-value: 3.02e-13 
+
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:AER’, ‘package:sandwich’, ‘package:lmtest’,
+  ‘package:zoo’, ‘package:car’, ‘package:carData’, ‘package:dplyr’
+
+> nameEx("Zelig-logit-bayes-class")
+> ### * Zelig-logit-bayes-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-logit-bayes-class
+> ### Title: Bayesian Logit Regression
+> ### Aliases: Zelig-logit-bayes-class zlogitbayes
+> 
+> ### ** Examples
+> 
+> data(turnout)
+> z.out <- zelig(vote ~ race + educate, model = "logit.bayes",data = turnout, verbose = FALSE)
+How to cite this model in Zelig:
+  Ben Goodrich, and Ying Lu. 2013.
+  logit-bayes: Bayesian Logistic Regression for Dichotomous Dependent Variables
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-logit-class")
+> ### * Zelig-logit-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-logit-class
+> ### Title: Logistic Regression for Dichotomous Dependent Variables
+> ### Aliases: Zelig-logit-class zlogit
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> data(turnout)
+> z.out1 <- zelig(vote ~ age + race, model = "logit", data = turnout,
++                 cite = FALSE)
+> summary(z.out1)
+Model: 
+
+Call:
+z5$zelig(formula = vote ~ age + race, data = turnout)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-1.927  -1.296   0.707   0.777   1.072  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)  0.03837    0.17692    0.22  0.82832
+age          0.01126    0.00305    3.69  0.00023
+racewhite    0.64555    0.13448    4.80  1.6e-06
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2266.7  on 1999  degrees of freedom
+Residual deviance: 2228.8  on 1997  degrees of freedom
+AIC: 2235
+
+Number of Fisher Scoring iterations: 4
+
+Next step: Use 'setx' method
+> summary(z.out1, odds_ratios = TRUE)
+Model: 
+
+Call:
+z5$zelig(formula = vote ~ age + race, data = turnout)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-1.927  -1.296   0.707   0.777   1.072  
+
+Coefficients:
+            Estimate (OR) Std. Error (OR) z value Pr(>|z|)    
+(Intercept)       1.03911         0.18384    0.22  0.82832    
+age               1.01133         0.00309    3.69  0.00023 ***
+racewhite         1.90704         0.25646    4.80  1.6e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2266.7  on 1999  degrees of freedom
+Residual deviance: 2228.8  on 1997  degrees of freedom
+AIC: 2235
+
+Number of Fisher Scoring iterations: 4
+
+> x.out1 <- setx(z.out1, age = 36, race = "white")
+> s.out1 <- sim(z.out1, x = x.out1)
+> summary(s.out1)
+
+ sim x :
+ -----
+ev
+       mean      sd    50%   2.5%  97.5%
+[1,] 0.7481 0.01223 0.7482 0.7229 0.7707
+pv
+         0     1
+[1,] 0.266 0.734
+> plot(s.out1)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-logit-gee-class")
+> ### * Zelig-logit-gee-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-logit-gee-class
+> ### Title: Generalized Estimating Equation for Logit Regression
+> ### Aliases: Zelig-logit-gee-class zlogitgee
+> 
+> ### ** Examples
+> 
+> 
+> data(turnout)
+> turnout$cluster <- rep(c(1:200), 10)
+> sorted.turnout <- turnout[order(turnout$cluster),]
+> 
+> z.out1 <- zelig(vote ~ race + educate, model = "logit.gee",
++ id = "cluster", data = sorted.turnout)
+How to cite this model in Zelig:
+  Patrick Lam. 2011.
+  logit-gee: General Estimating Equation for Logistic Regression
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> 
+> summary(z.out1)
+Model: 
+
+Call:
+z5$zelig(formula = vote ~ race + educate, id = "cluster", data = sorted.turnout)
+
+ Coefficients:
+            Estimate Std.err Wald Pr(>|W|)
+(Intercept)  -1.2189  0.2190 31.0  2.6e-08
+racewhite     0.5022  0.1411 12.7  0.00037
+educate       0.1610  0.0162 98.6  < 2e-16
+
+Estimated Scale Parameters:
+            Estimate Std.err
+(Intercept)    0.983  0.0466
+
+Correlation: Structure = independenceNumber of clusters:   200   Maximum cluster size: 10 
+Next step: Use 'setx' method
+> x.out1 <- setx(z.out1)
+> s.out1 <- sim(z.out1, x = x.out1)
+> summary(s.out1)
+
+ sim x :
+ -----
+ev
+      mean     sd   50%  2.5% 97.5%
+[1,] 0.773 0.0117 0.774 0.751 0.795
+pv
+         0     1
+[1,] 0.225 0.775
+> plot(s.out1)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-logit-survey-class")
+> ### * Zelig-logit-survey-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-logit-survey-class
+> ### Title: Logit Regression with Survey Weights
+> ### Aliases: Zelig-logit-survey-class zlogitsurvey
+> 
+> ### ** Examples
+> 
+> 
+> data(api, package = "survey")
+> apistrat$yr.rnd.numeric <- as.numeric(apistrat$yr.rnd == "Yes")
+> z.out1 <- zelig(yr.rnd.numeric ~ meals + mobility, model = "logit.survey",
++                weights = apistrat$pw, data = apistrat)
+Warning: Not all features are available in Zelig Survey.
+Consider using surveyglm and setx directly.
+For details see: <http://docs.zeligproject.org/articles/to_zelig.html>.
+Warning in eval(family$initialize) :
+  non-integer #successes in a binomial glm!
+How to cite this model in Zelig:
+  Nicholas Carnes. 2018.
+  logit-survey: Logistic Regression with Survey Weights
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> 
+> summary(z.out1)
+Model: 
+
+Call:
+z5$zelig(formula = yr.rnd.numeric ~ meals + mobility, data = apistrat, 
+    weights = apistrat$pw)
+
+Survey design:
+design <- survey::svydesign(data = data, ids = ids, probs = probs,
+                                    strata = strata, fpc = fpc, nest = nest,
+                                    check.strata = check.strata,
+                                    weights = localWeights)
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  -5.4885     1.0746   -5.11  7.7e-07
+meals         0.0342     0.0123    2.78   0.0059
+mobility      0.0865     0.0266    3.25   0.0013
+
+(Dispersion parameter for binomial family taken to be 37.1)
+
+Number of Fisher Scoring iterations: 7
+
+Next step: Use 'setx' method
+> x.low <- setx(z.out1, meals= quantile(apistrat$meals, 0.2))
+> x.high <- setx(z.out1, meals= quantile(apistrat$meals, 0.8))
+> s.out1 <- sim(z.out1, x = x.low, x1 = x.high)
+> summary(s.out1)
+
+ sim x :
+ -----
+ev
+       mean     sd    50%    2.5% 97.5%
+[1,] 0.0386 0.0313 0.0305 0.00759 0.122
+pv
+         0     1
+[1,] 0.954 0.046
+
+ sim x1 :
+ -----
+ev
+      mean     sd   50%  2.5% 97.5%
+[1,] 0.182 0.0447 0.177 0.108  0.28
+pv
+         0     1
+[1,] 0.817 0.183
+fd
+      mean     sd   50%   2.5% 97.5%
+[1,] 0.143 0.0485 0.141 0.0567 0.239
+> plot(s.out1)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-lognorm-class")
+> ### * Zelig-lognorm-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-lognorm-class
+> ### Title: Log-Normal Regression for Duration Dependent Variables
+> ### Aliases: Zelig-lognorm-class zlognorm
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> data(coalition)
+> z.out <- zelig(Surv(duration, ciep12) ~ fract + numst2, model ="lognorm",  data = coalition)
+How to cite this model in Zelig:
+  Terry M Therneau, and Thomas Lumley. 2007.
+  lognorm: Log-Normal Regression for Duration Dependent Variables
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(z.out)
+Model: 
+
+Call:
+z5$zelig(formula = Surv(duration, ciep12) ~ fract + numst2, data = coalition)
+                Value Std. Error     z       p
+(Intercept)  5.366670   0.597517  8.98 < 2e-16
+fract       -0.004438   0.000806 -5.51 3.6e-08
+numst2       0.559833   0.142351  3.93 8.4e-05
+Log(scale)   0.182389   0.044214  4.13 3.7e-05
+
+Scale= 1.2 
+
+Log Normal distribution
+Loglik(model)= -1078   Loglik(intercept only)= -1101
+	Chisq= 46.6 on 2 degrees of freedom, p= 7.7e-11 
+Number of Newton-Raphson Iterations: 3 
+n= 314 
+
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-ls-class")
+> ### * Zelig-ls-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-ls-class
+> ### Title: Least Squares Regression for Continuous Dependent Variables
+> ### Aliases: Zelig-ls-class zls
+> 
+> ### ** Examples
+> 
+> library(Zelig)
+> data(macro)
+> z.out1 <- zelig(unem ~ gdp + capmob + trade, model = "ls", data = macro,
++ cite = FALSE)
+> summary(z.out1)
+Model: 
+
+Call:
+z5$zelig(formula = unem ~ gdp + capmob + trade, data = macro)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-5.301 -2.077 -0.319  1.979  7.772 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  6.18129    0.45057   13.72  < 2e-16
+gdp         -0.32360    0.06282   -5.15  4.4e-07
+capmob       1.42194    0.16644    8.54  4.2e-16
+trade        0.01985    0.00561    3.54  0.00045
+
+Residual standard error: 2.75 on 346 degrees of freedom
+Multiple R-squared:  0.288,	Adjusted R-squared:  0.282 
+F-statistic: 46.6 on 3 and 346 DF,  p-value: <2e-16
+
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-ma-class")
+> ### * Zelig-ma-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-ma-class
+> ### Title: Time-Series Model with Moving Average
+> ### Aliases: Zelig-ma-class zma
+> 
+> ### ** Examples
+> 
+> data(seatshare)
+> subset <- seatshare[seatshare$country == "UNITED KINGDOM",]
+> ts.out <- zelig(formula = unemp ~ leftseat, model = "ma", ts = "year", data = subset)
+Warning: ++++ All Zelig time series models are deprecated ++++
+How to cite this model in Zelig:
+  James Honaker. 2018.
+  ma: Time-Series Model with Moving Average
+  in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
+  "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+> summary(ts.out)
+Model: 
+
+Call:
+z5$zelig(formula = formula, data = data, ts = "year", by = by, order = c(0, 
+0, 1))
+
+Coefficients:
+        ma1  intercept  leftseat
+      1.000       10.6    -11.49
+s.e.  0.066        1.9      3.99
+
+sigma^2 estimated as 2.44:  log likelihood = -74.6,  aic = 157
+Next step: Use 'setx' method
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Zelig-mlogit-bayes-class")
+> ### * Zelig-mlogit-bayes-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Zelig-mlogit-bayes-class
+> ### Title: Bayesian Multinomial Logistic Regression
+> ### Aliases: Zelig-mlogit-bayes-class zmlogitbayes
+> 
+> ### ** Examples
+> 
+> data(mexico)
+> z.out <- zelig(vote88 ~ pristr + othcok + othsocok,model = "mlogit.bayes",
++ data = mexico,verbose = FALSE)
+Calculating MLEs and large sample var-cov matrix.
+This may take a moment...
+Inverting Hessian to get large sample var-cov matrix.
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpGWbpCK/R.INSTALL2a3422f39120/MCMCpack/R/MCMCmnl.R#573: 
+ --- package (from environment) --- 
+MCMCpack
+ --- call from context --- 
+MCMCpack::MCMCmnl(formula = vote88 ~ pristr + othcok + othsocok, 
+    verbose = FALSE, data = as.data.frame(.))
+ --- call from argument --- 
+if (mcmc.method == "RWM") {
+    auto.Scythe.call(output.object = "posterior", cc.fun.name = "MCMCmnlMH", 
+        sample.nonconst = sample, Y = Y, X = X, burnin = as.integer(burnin), 
+        mcmc = as.integer(mcmc), thin = as.integer(thin), tune = tune, 
+        lecuyer = as.integer(lecuyer), seedarray = as.integer(seed.array), 
+        lecuyerstream = as.integer(lecuyer.stream), verbose = as.integer(verbose), 
+        betastart = beta.start, betamode = beta.mode, b0 = b0, 
+        B0 = B0, V = V, RW = as.integer(1), tdf = as.double(tdf))
+    output <- form.mcmc.object(posterior, names = xnames, title = "MCMCmnl Posterior Sample")
+} else if (mcmc.method == "IndMH") {
+    auto.Scythe.call(output.object = "posterior", cc.fun.name = "MCMCmnlMH", 
+        sample.nonconst = sample, Y = Y, X = X, burnin = as.integer(burnin), 
+        mcmc = as.integer(mcmc), thin = as.integer(thin), tune = tune, 
+        lecuyer = as.integer(lecuyer), seedarray = as.integer(seed.array), 
+        lecuyerstream = as.integer(lecuyer.stream), verbose = as.integer(verbose), 
+        betastart = beta.start, betamode = beta.mode, b0 = b0, 
+        B0 = B0, V = V, RW = as.integer(0), tdf = as.double(tdf))
+    output <- form.mcmc.object(posterior, names = xnames, title = "MCMCmnl Posterior Sample")
+} else if (mcmc.method == "slice") {
+    auto.Scythe.call(output.object = "posterior", cc.fun.name = "MCMCmnlslice", 
+        sample.nonconst = sample, Y = Y, X = X, burnin = as.integer(burnin), 
+        mcmc = as.integer(mcmc), thin = as.integer(thin), lecuyer = as.integer(lecuyer), 
+        seedarray = as.integer(seed.array), lecuyerstream = as.integer(lecuyer.stream), 
+        verbose = as.integer(verbose), betastart = beta.start, 
+        b0 = b0, B0 = B0, V = V)
+    output <- form.mcmc.object(posterior, names = xnames, title = "MCMCmnl Posterior Sample")
+}
+ --- R stacktrace ---
+where 1: MCMCpack::MCMCmnl(formula = vote88 ~ pristr + othcok + othsocok, 
+    verbose = FALSE, data = as.data.frame(.))
+where 2: eval(fn2(.self$model.call, quote(as.data.frame(.))))
+where 3 at /var/scratch2/tomas/tmp/RtmpzMuy2s/R.INSTALL6094aa1b0d0/rlang/R/lifecycle-retired.R#213: eval(fn2(.self$model.call, quote(as.data.frame(.))))
+where 4 at /var/scratch2/tomas/tmp/RtmpHMtzEN/R.INSTALLb28b48eef093/dplyr/R/grouped-df.r#223: overscope_eval_next(overscope, args[[j]])
+where 5 at /var/scratch2/tomas/tmp/RtmpHMtzEN/R.INSTALLb28b48eef093/dplyr/R/do.r#84: do.grouped_df(., z.out = eval(fn2(.self$model.call, quote(as.data.frame(.)))))
+where 6: do(., z.out = eval(fn2(.self$model.call, quote(as.data.frame(.)))))
+where 7 at /var/scratch2/tomas/tmp/Rtmp8ChaeZ/R.INSTALL6f4d5601b7a7/magrittr/R/freduce.R#20: function_list[[k]](value)
+where 8 at /var/scratch2/tomas/tmp/Rtmp8ChaeZ/R.INSTALL6f4d5601b7a7/magrittr/R/freduce.R#20: withVisible(function_list[[k]](value))
+where 9 at /var/scratch2/tomas/tmp/Rtmp8ChaeZ/R.INSTALL6f4d5601b7a7/magrittr/R/pipe.R#28: freduce(value, `_function_list`)
+where 10: `_fseq`(`_lhs`)
+where 11: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 12 at /var/scratch2/tomas/tmp/Rtmp8ChaeZ/R.INSTALL6f4d5601b7a7/magrittr/R/pipe.R#44: eval(quote(`_fseq`(`_lhs`)), env, env)
+where 13 at /var/scratch2/tomas/tmp/Rtmp8ChaeZ/R.INSTALL6f4d5601b7a7/magrittr/R/pipe.R#44: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+where 14 at /var/scratch2/tomas/tmp/RtmpckQk64/R.INSTALL630372013ee8/Zelig/R/model-zelig.R#502: .self$data %>% group_by_(.self$by) %>% do(z.out = eval(fn2(.self$model.call, 
+    quote(as.data.frame(.)))))
+where 15 at /var/scratch2/tomas/tmp/RtmpckQk64/R.INSTALL630372013ee8/Zelig/R/model-bayes.R#37: callSuper(formula = formula, data = data, ..., by = by, bootstrap = FALSE)
+where 16: z5$zelig(formula = vote88 ~ pristr + othcok + othsocok, data = mexico, 
+    verbose = FALSE)
+where 17: eval(mf, environment())
+where 18 at /var/scratch2/tomas/tmp/RtmpckQk64/R.INSTALL630372013ee8/Zelig/R/wrappers.R#124: eval(mf, environment())
+where 19: doTryCatch(return(expr), name, parentenv, handler)
+where 20: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 21: tryCatchList(expr, classes, parentenv, handlers)
+where 22: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 23 at /var/scratch2/tomas/tmp/RtmpckQk64/R.INSTALL630372013ee8/Zelig/R/wrappers.R#124: try(eval(mf, environment()), silent = TRUE)
+where 24: zelig(vote88 ~ pristr + othcok + othsocok, model = "mlogit.bayes", 
+    data = mexico, verbose = FALSE)
+
+ --- value of length: 3 type: logical ---
+[1] FALSE  TRUE FALSE
+ --- function from context --- 
+function(formula, baseline=NULL, data=NULL,
+           burnin = 1000, mcmc = 10000, thin=1,
+           mcmc.method = c("IndMH", "RWM", "slice"),
+           tune = 1.0, tdf=6, verbose = 0, seed = NA,
+           beta.start = NA, b0 = 0, B0 = 0, ...) {
+
+    ## checks
+    check.offset(list(...))
+    check.mcmc.parameters(burnin, mcmc, thin)
+    if (tdf <= 0){
+      stop("degrees of freedom for multivariate-t proposal must be positive.\n Respecify tdf and try again.\n")
+    }
+
+    ## seeds
+    seeds <- form.seeds(seed)
+    lecuyer <- seeds[[1]]
+    seed.array <- seeds[[2]]
+    lecuyer.stream <- seeds[[3]]
+
+    ## form response and model matrix
+    holder <- parse.formula.mnl(formula=formula, baseline=baseline,
+                                data=data)
+    Y <- holder[[1]]
+    ## check to make sure baseline category is always available in choiceset
+    if (is.null(baseline)){
+      if (max(Y[,1] == -999) == 1){
+        stop("Baseline choice not available in all choicesets.\n Respecify baseline category and try again.\n")
+      }
+    }
+    else{
+      if (max(Y[,baseline] == -999) == 1){
+        stop("Baseline choice not available in all choicesets.\n Respecify baseline category and try again.\n")
+      }
+    }
+    X <- holder[[2]]
+    xnames <- holder[[3]]
+    xobs <- holder[[4]]
+    number.choices <- holder[[5]]
+    K <- ncol(X)  # number of covariates
+
+    ## form the tuning parameter
+    tune <- vector.tune(tune, K)
+
+    ## priors and starting values
+    mvn.prior <- form.mvn.prior(b0, B0, K)
+    b0 <- mvn.prior[[1]]
+    B0 <- mvn.prior[[2]]
+
+    beta.init <- rep(0, K)
+    cat("Calculating MLEs and large sample var-cov matrix.\n")
+    cat("This may take a moment...\n")
+    if (max(is.na(Y))){
+      optim.out <- optim(beta.init, mnl.logpost.NA, method="BFGS",
+                         control=list(fnscale=-1),
+                         hessian=TRUE, Y=Y, X=X, b0=b0, B0=B0)
+    }
+    else{
+      new.Y <- apply(Y==1, 1, which)
+      optim.out <- optim(beta.init, mnl.logpost.noNA, method="BFGS",
+                         control=list(fnscale=-1),
+                         hessian=TRUE, new.Y=new.Y, X=X, b0=b0, B0=B0)
+    }
+    cat("Inverting Hessian to get large sample var-cov matrix.\n")
+    ##V <- solve(-1*optim.out$hessian)
+    V <- chol2inv(chol(-1*optim.out$hessian))
+    beta.mode <- matrix(optim.out$par, K, 1)
+
+
+    if (is.na(beta.start) || is.null(beta.start)){
+      beta.start <- matrix(optim.out$par, K, 1)
+    }
+    else if(is.null(dim(beta.start))) {
+      beta.start <- matrix(beta.start, K, 1)
+    }
+    else if (length(beta.start != K)){
+      stop("beta.start not of appropriate dimension\n")
+    }
+
+    ## define holder for posterior sample
+    sample <- matrix(data=0, mcmc/thin, dim(X)[2] )
+    posterior <- NULL
+
+    if (mcmc.method=="RWM"){
+      ## call C++ code to draw sample
+      auto.Scythe.call(output.object="posterior", cc.fun.name="MCMCmnlMH",
+                       sample.nonconst=sample, Y=Y, X=X,
+                       burnin=as.integer(burnin),
+                       mcmc=as.integer(mcmc), thin=as.integer(thin),
+                       tune=tune, lecuyer=as.integer(lecuyer),
+                       seedarray=as.integer(seed.array),
+                       lecuyerstream=as.integer(lecuyer.stream),
+                       verbose=as.integer(verbose),
+                       betastart=beta.start, betamode=beta.mode,
+                       b0=b0, B0=B0,
+                       V=V, RW=as.integer(1), tdf=as.double(tdf))
+
+      ## put together matrix and build MCMC object to return
+      output <- form.mcmc.object(posterior, names=xnames,
+                                 title="MCMCmnl Posterior Sample")
+    }
+    else if (mcmc.method=="IndMH"){
+      auto.Scythe.call(output.object="posterior", cc.fun.name="MCMCmnlMH",
+                       sample.nonconst=sample, Y=Y, X=X,
+                       burnin=as.integer(burnin),
+                       mcmc=as.integer(mcmc), thin=as.integer(thin),
+                       tune=tune, lecuyer=as.integer(lecuyer),
+                       seedarray=as.integer(seed.array),
+                       lecuyerstream=as.integer(lecuyer.stream),
+                       verbose=as.integer(verbose),
+                       betastart=beta.start, betamode=beta.mode,
+                       b0=b0, B0=B0,
+                       V=V, RW=as.integer(0), tdf=as.double(tdf))
+
+      ## put together matrix and build MCMC object to return
+      output <- form.mcmc.object(posterior, names=xnames,
+                                 title="MCMCmnl Posterior Sample")
+
+    }
+    else if (mcmc.method=="slice"){
+      ## call C++ code to draw sample
+      auto.Scythe.call(output.object="posterior", cc.fun.name="MCMCmnlslice",
+                       sample.nonconst=sample, Y=Y, X=X,
+                       burnin=as.integer(burnin),
+                       mcmc=as.integer(mcmc), thin=as.integer(thin),
+                       lecuyer=as.integer(lecuyer),
+                       seedarray=as.integer(seed.array),
+                       lecuyerstream=as.integer(lecuyer.stream),
+                       verbose=as.integer(verbose), betastart=beta.start,
+                       b0=b0, B0=B0, V=V)
+
+      ## put together matrix and build MCMC object to return
+      output <- form.mcmc.object(posterior, names=xnames,
+                                 title="MCMCmnl Posterior Sample")
+
+    }
+
+    return(output)
+
+  }
+<bytecode: 0x1baca888>
+<environment: namespace:MCMCpack>
+ --- function search by body ---
+Function MCMCmnl in namespace MCMCpack has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

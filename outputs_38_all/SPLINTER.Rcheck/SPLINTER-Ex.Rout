@@ -1,0 +1,630 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "SPLINTER"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('SPLINTER')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("acceptor.m")
+> ### * acceptor.m
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: acceptor.m
+> ### Title: acceptor.m
+> ### Aliases: acceptor.m
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(acceptor.m)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("addEnsemblAnnotation")
+> ### * addEnsemblAnnotation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: addEnsemblAnnotation
+> ### Title: addEnsemblAnnotation
+> ### Aliases: addEnsemblAnnotation
+> 
+> ### ** Examples
+> 
+> data_path<-system.file("extdata",package="SPLINTER")
+> splice_data<-extractSpliceEvents(data=paste(data_path,"/skipped_exons.txt",sep=""))
+> splice_data<-addEnsemblAnnotation(data=splice_data,species="mmusculus")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("callPrimer3")
+> ### * callPrimer3
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: callPrimer3
+> ### Title: callPrimer3
+> ### Aliases: callPrimer3
+> 
+> ### ** Examples
+> 
+> ### NOT RUN ###
+> # primer_results<-callPrimer3(seq='')
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("checkPrimer")
+> ### * checkPrimer
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: checkPrimer
+> ### Title: checkPrimer
+> ### Aliases: checkPrimer
+> 
+> ### ** Examples
+> 
+> # create a primer pair
+> roi
+$type
+[1] "SE"
+
+$name
+[1] "Prmt5"
+
+$roi
+GRanges object with 1 range and 1 metadata column:
+      seqnames            ranges strand | exon_rank
+         <Rle>         <IRanges>  <Rle> | <integer>
+  [1]    chr14 55132128-55132291      - |         1
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+$flank
+GRanges object with 2 ranges and 1 metadata column:
+      seqnames            ranges strand | exon_rank
+         <Rle>         <IRanges>  <Rle> | <integer>
+  [1]    chr14 55133434-55133483      - |         2
+  [2]    chr14 55130830-55130991      - |         1
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+$roi_range
+Warning in showList(object, showFunction, print.classinfo = TRUE) :
+  Note that starting with BioC 3.7, the class attribute of all
+  GRangesList **instances** needs to be set to "CompressedGRangesList".
+  Please update this object with 'updateObject(object, verbose=TRUE)' and
+  re-serialize it.
+GRangesList object of length 2:
+[[1]] 
+GRanges object with 3 ranges and 0 metadata columns:
+      seqnames            ranges strand
+         <Rle>         <IRanges>  <Rle>
+  [1]    chr14 55133434-55133483      -
+  [2]    chr14 55132128-55132291      -
+  [3]    chr14 55130830-55130991      -
+
+[[2]] 
+GRanges object with 2 ranges and 0 metadata columns:
+      seqnames            ranges strand
+  [1]    chr14 55133434-55133483      -
+  [2]    chr14 55130830-55130991      -
+
+-------
+seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+> primer_pair <- data.frame(PRIMER_LEFT_SEQUENCE="agctcttgaaattggagctgac",
++                           PRIMER_RIGHT_SEQUENCE="cttagaaagaacaggaaatcc",
++                           stringsAsFactors=FALSE)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compatible_cds")
+> ### * compatible_cds
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compatible_cds
+> ### Title: compatible_cds
+> ### Aliases: compatible_cds
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(compatible_cds)
+> ## maybe str(compatible_cds) ; plot(compatible_cds) ...
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compatible_tx")
+> ### * compatible_tx
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compatible_tx
+> ### Title: compatible_tx
+> ### Aliases: compatible_tx
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(compatible_tx)
+> ## maybe str(compatible_tx) ; plot(compatible_tx) ...
+> 
+> 
+> 
+> cleanEx()
+> nameEx("donor.m")
+> ### * donor.m
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: donor.m
+> ### Title: donor.m
+> ### Aliases: donor.m
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(donor.m)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("eventOutcomeCompare")
+> ### * eventOutcomeCompare
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: eventOutcomeCompare
+> ### Title: eventOutcomeCompare
+> ### Aliases: eventOutcomeCompare
+> 
+> ### ** Examples
+> 
+> suppressMessages(library(BSgenome.Mmusculus.UCSC.mm9))
+> bsgenome<-BSgenome.Mmusculus.UCSC.mm9
+> eventOutcomeCompare(seq1=compatible_cds$hits[[1]],seq2=region_minus_exon,
++  genome=bsgenome,direction=TRUE)
+
+### ENSMUST00000023873 ###
+-   early termination
+middle insertion GILKPK (247-252)
+middle deletion LEIGADLP (206-213)
+middle deletion EPIK (224-227)
+middle deletion KAAIL (227-231)
+multiple mismatch sites
+3' end mismatch : ALEIGADLPSNHVIDRWLGEPIKAAILPTSIFLTNKKGFPVLSKVQQRLIFRLLKLEVQFIITGTNHHSEKEFCSYLQYLEYLSQNRPPPNAYELFAKGYEDYLQSPLQPLMDNLESQTYEVFEKDPIKYSQYQQAIYKCLLDRVPEEEKETNVQVLMVLGAGRGPLVNASLRAAKQAERRIRLYAVEKNPNAVVTLENWQFEEWGSQVTVVSSDMREWVAPEKADIIVSELLGSFADNELSPECLDGAQHFLKDDGVSIPGEYTSFLAPISSSKLYNEVRACREKDRDPEAQFEMPYVVRLHNFHQLSAPKPCFTFSHPNRDPMIDNNRYCTLEFPVEVNTVLHGFAGYFETVLYRDITLSIRPETHSPGMFSWFPIFFPIKQPITVHEGQNICVRFWRCSNSKKVWYEWAVTAPVCSSIHNPTGRSYTIGL* to VGSAVYHHGNQPPLREGVLFLPPVLGILKPKSPSTQCL*
+length : 637 AA to 242 AA
+Original
+MAAMAVGGAGGSRVSSGRDLNCVPEIADTLGAVAKQGFDFLCMPVFHPRFKREFIQEPAKNRPGPQTRSDLLLSGRDWNTLIVGKLSPWIHPDSKVEKIRRNSEAAMLQELNFGAYLGLPAFLLPLNQEDNTNLARVLTNHIHTGHHSSMFWMRVPLVAPEDLRDDVIENAPTTHTEEYSGEEKTWMWWHNFRTLCDYSKRIAVALEIGADLPSNHVIDRWLGEPIKAAILPTSIFLTNKKGFPVLSKVQQRLIFRLLKLEVQFIITGTNHHSEKEFCSYLQYLEYLSQNRPPPNAYELFAKGYEDYLQSPLQPLMDNLESQTYEVFEKDPIKYSQYQQAIYKCLLDRVPEEEKETNVQVLMVLGAGRGPLVNASLRAAKQAERRIRLYAVEKNPNAVVTLENWQFEEWGSQVTVVSSDMREWVAPEKADIIVSELLGSFADNELSPECLDGAQHFLKDDGVSIPGEYTSFLAPISSSKLYNEVRACREKDRDPEAQFEMPYVVRLHNFHQLSAPKPCFTFSHPNRDPMIDNNRYCTLEFPVEVNTVLHGFAGYFETVLYRDITLSIRPETHSPGMFSWFPIFFPIKQPITVHEGQNICVRFWRCSNSKKVWYEWAVTAPVCSSIHNPTGRSYTIGL*
+
+Post-event
+MAAMAVGGAGGSRVSSGRDLNCVPEIADTLGAVAKQGFDFLCMPVFHPRFKREFIQEPAKNRPGPQTRSDLLLSGRDWNTLIVGKLSPWIHPDSKVEKIRRNSEAAMLQELNFGAYLGLPAFLLPLNQEDNTNLARVLTNHIHTGHHSSMFWMRVPLVAPEDLRDDVIENAPTTHTEEYSGEEKTWMWWHNFRTLCDYSKRIAVVGSAVYHHGNQPPLREGVLFLPPVLGILKPKSPSTQCL*ALCQRL*RLSAVPTPASDGQSGISDI*SV*KGPHQILSISAGYL*MFARPSTRRRKGDQCPGTYGAGCRPGSSCECVSSGSQTGRAADQAVCCGEEPQCCGDARELAV*RMGEPGDSCLIRHAGMGGSGES*HHCQ*ASGFLCRQRAVT*VSGWSTALPER*WREHPWRIHLLPGSHFFL*AVQ*GPCLSGKGPRS*GTV*DALCGSVAQLPPALCS*ALLYLQPSQPRSYD*QQPLLYLGVSCGGEHSASWLRRLL*DCALPGHHSEYPPRDSLSWDVLMVPHLLPH*AAHHGARRPEHLCAFLAMQQFQESVVRVGGDGPRLFFYSQPYRPLLYHWPL
+
+$alignment
+Global-Local PairwiseAlignmentsSingleSubject (1 of 1)
+pattern:     MAAMAVGGAGGSRVSSGRDLNCVPEIADTLGA...GVL----FLP-----PVLGILKPKSPSTQCL*
+subject: [1] MAAMAVGGAGGSRVSSGRDLNCVPEIADTLGA...AILPTSIFLTNKKGFPVL------SKVQQRLI
+score: 1085.5 
+
+$eventtypes
+[1] "(NMD)"
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:BSgenome.Mmusculus.UCSC.mm9', 'package:BSgenome',
+  'package:rtracklayer', 'package:Biostrings', 'package:XVector',
+  'package:GenomicRanges', 'package:GenomeInfoDb', 'package:IRanges',
+  'package:S4Vectors', 'package:stats4', 'package:BiocGenerics',
+  'package:parallel'
+
+> nameEx("eventOutcomeTranslate")
+> ### * eventOutcomeTranslate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: eventOutcomeTranslate
+> ### Title: eventOutcomeTranslate
+> ### Aliases: eventOutcomeTranslate
+> 
+> ### ** Examples
+> 
+> suppressMessages(library(BSgenome.Mmusculus.UCSC.mm9))
+> bsgenome<-BSgenome.Mmusculus.UCSC.mm9
+> translation_results<-eventOutcomeTranslate(compatible_cds,genome=bsgenome,
++  direction=TRUE)
+Translating for Type 1
+  A AAStringSet instance of length 1
+    width seq                                               names               
+[1]   638 MAAMAVGGAGGSRVSSGRDLNCV...AVTAPVCSSIHNPTGRSYTIGL* ENSMUST00000023873
+###ENSMUST00000023873:637 AA###
+Sequence
+MAAMAVGGAGGSRVSSGRDLNCVPEIADTLGAVAKQGFDFLCMPVFHPRFKREFIQEPAKNRPGPQTRSDLLLSGRDWNTLIVGKLSPWIHPDSKVEKIRRNSEAAMLQELNFGAYLGLPAFLLPLNQEDNTNLARVLTNHIHTGHHSSMFWMRVPLVAPEDLRDDVIENAPTTHTEEYSGEEKTWMWWHNFRTLCDYSKRIAVALEIGADLPSNHVIDRWLGEPIKAAILPTSIFLTNKKGFPVLSKVQQRLIFRLLKLEVQFIITGTNHHSEKEFCSYLQYLEYLSQNRPPPNAYELFAKGYEDYLQSPLQPLMDNLESQTYEVFEKDPIKYSQYQQAIYKCLLDRVPEEEKETNVQVLMVLGAGRGPLVNASLRAAKQAERRIRLYAVEKNPNAVVTLENWQFEEWGSQVTVVSSDMREWVAPEKADIIVSELLGSFADNELSPECLDGAQHFLKDDGVSIPGEYTSFLAPISSSKLYNEVRACREKDRDPEAQFEMPYVVRLHNFHQLSAPKPCFTFSHPNRDPMIDNNRYCTLEFPVEVNTVLHGFAGYFETVLYRDITLSIRPETHSPGMFSWFPIFFPIKQPITVHEGQNICVRFWRCSNSKKVWYEWAVTAPVCSSIHNPTGRSYTIGL*
+
+Translating for Type 2
+No transcripts available.
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:BSgenome.Mmusculus.UCSC.mm9', 'package:BSgenome',
+  'package:rtracklayer', 'package:Biostrings', 'package:XVector',
+  'package:GenomicRanges', 'package:GenomeInfoDb', 'package:IRanges',
+  'package:S4Vectors', 'package:stats4', 'package:BiocGenerics',
+  'package:parallel'
+
+> nameEx("eventPlot")
+> ### * eventPlot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: eventPlot
+> ### Title: eventPlot
+> ### Aliases: eventPlot
+> 
+> ### ** Examples
+> 
+> # define BAM files
+> data_path<-system.file("extdata",package="SPLINTER")
+> mt<-paste(data_path,"/mt_chr14.bam",sep="")
+> wt<-paste(data_path,"/wt_chr14.bam",sep="")
+> 
+> # plot results
+> eventPlot(transcripts=valid_tx,roi_plot=roi,bams=c(wt,mt),
++  names=c('wt','mt'),rspan=1000)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extendROI")
+> ### * extendROI
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extendROI
+> ### Title: extendROI
+> ### Aliases: extendROI
+> 
+> ### ** Examples
+> 
+> extendROI(roi,valid_tx,up=1)
+Current exon #6, #8
+Extending exon to #5, #8
+$type
+[1] "SE"
+
+$name
+[1] "Prmt5"
+
+$roi
+GRanges object with 1 range and 1 metadata column:
+      seqnames            ranges strand | exon_rank
+         <Rle>         <IRanges>  <Rle> | <integer>
+  [1]    chr14 55132128-55132291      - |         1
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+$flank
+GRanges object with 2 ranges and 1 metadata column:
+      seqnames            ranges strand | exon_rank
+         <Rle>         <IRanges>  <Rle> | <integer>
+  [1]    chr14 55133434-55133483      - |         2
+  [2]    chr14 55130830-55130991      - |         1
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+$roi_range
+Warning in showList(object, showFunction, print.classinfo = TRUE) :
+  Note that starting with BioC 3.7, the class attribute of all
+  GRangesList **instances** needs to be set to "CompressedGRangesList".
+  Please update this object with 'updateObject(object, verbose=TRUE)' and
+  re-serialize it.
+GRangesList object of length 2:
+[[1]] 
+GRanges object with 3 ranges and 0 metadata columns:
+      seqnames            ranges strand
+         <Rle>         <IRanges>  <Rle>
+  [1]    chr14 55133612-55133724      -
+  [2]    chr14 55132128-55132291      -
+  [3]    chr14 55130830-55130991      -
+
+[[2]] 
+GRanges object with 2 ranges and 0 metadata columns:
+      seqnames            ranges strand
+  [1]    chr14 55133612-55133724      -
+  [2]    chr14 55130830-55130991      -
+
+-------
+seqinfo: 35 sequences (1 circular) from mm9 genome
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extractSpliceEvents")
+> ### * extractSpliceEvents
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extractSpliceEvents
+> ### Title: extractSpliceEvents
+> ### Aliases: extractSpliceEvents
+> 
+> ### ** Examples
+> 
+> data_path<-system.file("extdata",package="SPLINTER")
+> splice_data<-extractSpliceEvents(data=paste(data_path,"/skipped_exons.txt",sep=""))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extractSpliceSites")
+> ### * extractSpliceSites
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extractSpliceSites
+> ### Title: extractSpliceSites
+> ### Aliases: extractSpliceSites
+> 
+> ### ** Examples
+> 
+> data_path<-system.file("extdata",package="SPLINTER")
+> splice_data<-extractSpliceEvents(data=paste(data_path,"/skipped_exons.txt",sep=""))
+> splice_sites<-extractSpliceSites(splice_data,target="SE")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("findCompatibleEvents")
+> ### * findCompatibleEvents
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: findCompatibleEvents
+> ### Title: findCompatibleEvents
+> ### Aliases: findCompatibleEvents
+> 
+> ### ** Examples
+> 
+> compatible_cds <- findCompatibleEvents(valid_cds,roi=roi,verbose=TRUE)
+Checking Type 1.....
+ENSMUST00000023873 
+
+Checking Type 2.....
+No transcripts found!
+1 match(es) from original 2 transcripts.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("findCompatibleExon")
+> ### * findCompatibleExon
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: findCompatibleExon
+> ### Title: findCompatibleExon
+> ### Aliases: findCompatibleExon
+> 
+> ### ** Examples
+> 
+> compatible_exons <- findCompatibleExon(valid_cds,roi)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("findTX")
+> ### * findTX
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: findTX
+> ### Title: findTX
+> ### Aliases: findTX
+> 
+> ### ** Examples
+> 
+> valid_cds <-findTX(id=splice_data$data[2,]$ID,tx=thecds,db=txdb,valid=FALSE)
+No valid transcripts found.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getPCRsizes")
+> ### * getPCRsizes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getPCRsizes
+> ### Title: getPCRsizes
+> ### Aliases: getPCRsizes
+> 
+> ### ** Examples
+> 
+> suppressMessages(library(BSgenome.Mmusculus.UCSC.mm9))
+> bsgenome<-BSgenome.Mmusculus.UCSC.mm9
+> ## create a primer pair
+> ## for actual use, obtain primer pair from primer design (callPrimer3)
+> primer_pair <- data.frame(PRIMER_LEFT_SEQUENCE="agctcttgaaattggagctgac",
++                           PRIMER_RIGHT_SEQUENCE="cttagaaagaacaggaaatcc",
++                           stringsAsFactors=FALSE)
+> 
+> ## confirm location
+> cp<-checkPrimer(primer_pair,bsgenome,roi)
+> cp
+$total_span
+GRanges object with 1 range and 0 metadata columns:
+      seqnames            ranges strand
+         <Rle>         <IRanges>  <Rle>
+  [1]    chr14 55132161-55132293      *
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+$primer_left_span
+GRanges object with 1 range and 0 metadata columns:
+      seqnames            ranges strand
+         <Rle>         <IRanges>  <Rle>
+  [1]    chr14 55132272-55132293      *
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+$primer_right_span
+GRanges object with 1 range and 0 metadata columns:
+      seqnames            ranges strand
+         <Rle>         <IRanges>  <Rle>
+  [1]    chr14 55132161-55132181      *
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths
+
+> 
+> ## get the PCR sizes
+> pcr_result1 <- getPCRsizes(cp,theexons)
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:BSgenome.Mmusculus.UCSC.mm9', 'package:BSgenome',
+  'package:rtracklayer', 'package:Biostrings', 'package:XVector',
+  'package:GenomicRanges', 'package:GenomeInfoDb', 'package:IRanges',
+  'package:S4Vectors', 'package:stats4', 'package:BiocGenerics',
+  'package:parallel'
+
+> nameEx("getRegionDNA")
+> ### * getRegionDNA
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getRegionDNA
+> ### Title: getRegionDNA
+> ### Aliases: getRegionDNA
+> 
+> ### ** Examples
+> 
+> suppressMessages(library(BSgenome.Mmusculus.UCSC.mm9))
+> bsgenome<-BSgenome.Mmusculus.UCSC.mm9
+> getRegionDNA(roi,bsgenome)
+$seq
+[1] "GTGGCATAACTTTCGGACTCTGTGTGACTATAGCAAGAGAATTGCAGTAG[]TTGGAAGTGCAGTTTATCATCACGGGAACCAACCACCACTCAGAGAAGGAGTTCTGTTCCTACCTCCAGTACTTGGAATACTTAAGCCAAAATCGCCCTCCACCCAATGCCTATGAGCTCTTTGCCAAAGGCTATGAAGACTATCTGCAGTCCCCACTCCAG"
+
+$jstart
+[1] 51
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:BSgenome.Mmusculus.UCSC.mm9', 'package:BSgenome',
+  'package:rtracklayer', 'package:Biostrings', 'package:XVector',
+  'package:GenomicRanges', 'package:GenomeInfoDb', 'package:IRanges',
+  'package:S4Vectors', 'package:stats4', 'package:BiocGenerics',
+  'package:parallel'
+
+> nameEx("insertRegion")
+> ### * insertRegion
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: insertRegion
+> ### Title: insertRegion
+> ### Aliases: insertRegion
+> 
+> ### ** Examples
+> 
+> #Inserts the exon defined in roi GRanges object from a GRanges/GRangesList
+> region_minus_exon
+Warning in showList(object, showFunction, print.classinfo = TRUE) :
+  Note that starting with BioC 3.7, the class attribute of all
+  GRangesList **instances** needs to be set to "CompressedGRangesList".
+  Please update this object with 'updateObject(object, verbose=TRUE)' and
+  re-serialize it.
+GRangesList object of length 1:
+$ENSMUST00000023873 
+GRanges object with 16 ranges and 3 metadata columns:
+       seqnames            ranges strand |    cds_id    cds_name exon_rank
+          <Rle>         <IRanges>  <Rle> | <integer> <character> <integer>
+   [1]    chr14 55136084-55136193      - |    181046        <NA>         1
+   [2]    chr14 55135334-55135452      - |    181045        <NA>         2
+   [3]    chr14 55134943-55135028      - |    181044        <NA>         3
+   [4]    chr14 55134140-55134274      - |    181043        <NA>         4
+   [5]    chr14 55133612-55133724      - |    181042        <NA>         5
+   ...      ...               ...    ... .       ...         ...       ...
+  [12]    chr14 55128671-55128780      - |    181032        <NA>        12
+  [13]    chr14 55128381-55128474      - |    181031        <NA>        13
+  [14]    chr14 55128126-55128242      - |    181030        <NA>        14
+  [15]    chr14 55127729-55127793      - |    181029        <NA>        15
+  [16]    chr14 55126632-55126784      - |    181028        <NA>        16
+
+-------
+seqinfo: 35 sequences (1 circular) from mm9 genome
+> region_with_exon<-insertRegion(region_minus_exon,roi)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpuXit8N/R.INSTALLf2895a607e50/SPLINTER/R/main_splinter.R#825: 
+ --- package (from environment) --- 
+SPLINTER
+ --- call from context --- 
+insertRegion(region_minus_exon, roi)
+ --- call from argument --- 
+if (as.character(strand(current)) == "-") current <- rev(current)
+ --- R stacktrace ---
+where 1: insertRegion(region_minus_exon, roi)
+
+ --- value of length: 17 type: logical ---
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[16] TRUE TRUE
+ --- function from context --- 
+function(subject,roi){
+  roi<-roi$roi
+  s2<-subject[,"exon_rank"]
+  for(tx in seq_along(s2)){
+    #message(names(s2)[tx])
+    current<-s2[[tx]]
+    current<-append(current,roi,after=0)
+    current<-reduce(current)
+    if(as.character(strand(current))=="-") current<-rev(current)
+    elementMetadata(current) <- DataFrame(exon_rank=seq(1,length(current)))
+    s2[[tx]]<-current
+  }
+  return(s2)
+}
+<bytecode: 0x4291c6b8>
+<environment: namespace:SPLINTER>
+ --- function search by body ---
+Function insertRegion in namespace SPLINTER has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

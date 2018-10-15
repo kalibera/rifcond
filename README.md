@@ -16,8 +16,9 @@ with BIOC 3.8.
 The reports in `outputs_all` use `R_KEEP_PKG_SOURCE=yes` and
 `_R_CHECK_LENGTH_1_CONDITION_=abort,verbose`, which means that R fails on
 condition of length bigger than one no matter from which package is the
-problematic code. The outputs are from recent CRAN packages and from BIOC
-3.7, packages versions are again detailed in the `README` file.
+problematic code.  The outputs are from recent CRAN packages and from BIOC
+3.7, packages versions are again detailed in the `README` file.  The reports
+in `outputs_38_all` are for tests with BIOC 3.8.
 
 With the `abort` option, R aborts unconditionally and reports diagnostic
 information to help debugging, but this means that only one instance of the

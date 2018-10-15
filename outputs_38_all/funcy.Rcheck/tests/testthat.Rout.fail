@@ -1,0 +1,863 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(funcy)
+Loading required package: flexclust
+Loading required package: grid
+Loading required package: lattice
+Loading required package: modeltools
+Loading required package: stats4
+Loading required package: splines
+> 
+> test_check("funcy")
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#1055: 
+ --- package (from environment) --- 
+sm
+ --- call from context --- 
+sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+ --- call from argument --- 
+if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+    den <- w %*% rep(1, n)
+    w <- w/matrix(rep(den, n), ncol = n)
+} else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 
+    1)) {
+    if (is.na(opt$period[2])) 
+        wd1 <- wd2
+    s0 <- w %*% rep(1, n)
+    s1 <- (w * wd1) %*% rep(1, n)
+    s2 <- (w * wd1^2) %*% rep(1, n)
+    w <- w * (matrix(rep(s2, n), ncol = n) - wd1 * matrix(rep(s1, 
+        n), ncol = n))
+    w <- w/(matrix(rep(s2, n), ncol = n) * matrix(rep(s0, n), 
+        ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+} else {
+    a11 <- w %*% rep(1, n)
+    a12 <- (w * wd1) %*% rep(1, n)
+    a13 <- (w * wd2) %*% rep(1, n)
+    a22 <- (w * wd1^2) %*% rep(1, n)
+    a23 <- (w * wd1 * wd2) %*% rep(1, n)
+    a33 <- (w * wd2^2) %*% rep(1, n)
+    d <- a22 * a33 - a23^2
+    b1 <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 * a22 - 
+        a12 * a23) * a13)/d)
+    b2 <- (a13 * a23 - a12 * a33) * b1/d
+    b3 <- (a12 * a23 - a13 * a22) * b1/d
+    wt <- matrix(rep(b1, n), ncol = n)
+    wt <- wt + matrix(rep(b2, n), ncol = n) * wd1
+    wt <- wt + matrix(rep(b3, n), ncol = n) * wd2
+    w <- wt * w
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#272: sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+where 2 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#82: sm.regression.2d(x, y, h, model, weights, rawdata, options = opt)
+where 3 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: smoothFct2D(x = trxin, y = cov.raw, h = hcov, eval.points = trxou, 
+    weights = rep(1, length(cov.raw)), poly.index = c(1, 2), 
+    eval.grid = FALSE, display = "none")
+where 4: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 5 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: suppressWarnings(smoothFct2D(x = trxin, y = cov.raw, h = hcov, 
+    eval.points = trxou, weights = rep(1, length(cov.raw)), poly.index = c(1, 
+        2), eval.grid = FALSE, display = "none")$estimate)
+where 6 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/distclust.R#38: fpc(Yin = Yin, Tin = Tin, isobs = isobs, dimBase = dimBase, Tout = t_unique, 
+    fpcCtrl = fpcCtrl, reg = reg)
+where 7 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/wrappers.R#106: distclust(data, k, reg, regTime, funcyCtrl, fpcCtrl, method = method)
+where 8 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R#96: distclustWrapper(data = data, k = k, reg = reg, regTime = regTime, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrl, ...)
+where 9 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: eval(expr, env)
+where 10: doTryCatch(return(expr), name, parentenv, handler)
+where 11: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 12: tryCatchList(expr, classes, parentenv, handlers)
+where 13: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 14 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: try(eval(expr, env), silent = TRUE)
+where 15 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: sendMaster(try(eval(expr, env), silent = TRUE))
+where 16 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R#96: parallelFct(distclustWrapper(data = data, k = k, reg = reg, regTime = regTime, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrl, ...))
+where 17: funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, save.data = TRUE, 
+    parallel = parallel)
+where 18: eval(expr, pf)
+where 19 at ../../../../R/src/library/utils/R/capture.output.R#40: eval(expr, pf)
+where 20 at ../../../../R/src/library/utils/R/capture.output.R#40: withVisible(eval(expr, pf))
+where 21 at ../../../../R/src/library/utils/R/capture.output.R#45: evalVis(expr)
+where 22 at testthat/test-old-unit-tests.R#7: capture.output(result <- expr)
+where 23 at testthat/test-old-unit-tests.R#70: silent(funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, save.data = TRUE, 
+    parallel = parallel))
+where 24: eval(code, test_env)
+where 25 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 26 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 27: doTryCatch(return(expr), name, parentenv, handler)
+where 28: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 29: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 30: doTryCatch(return(expr), name, parentenv, handler)
+where 31: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 32: tryCatchList(expr, classes, parentenv, handlers)
+where 33 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 34 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 35 at testthat/test-old-unit-tests.R#59: test_that("Test control arguments", {
+    k <- 4
+    set.seed(3806)
+    ds <- sampleFuncy(timeNrMin = 5, timeNrMax = 10, reg = FALSE, 
+        k = k, sd = 0.3)
+    a <- list(coeffsCalc = "estimate", average = TRUE)
+    fpcCtrl <- as(a, "fpcCtrl")
+    b <- list(maxit = 5, baseType = "eigenbasis", flexDim = TRUE)
+    funcyCtrlMbc <- as(b, "funcyCtrlMbc")
+    res3 <- silent(funcit(methods = c(1, 2, 3), data = ds@data, 
+        k = k, clusters = ds@clusters, fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, 
+        save.data = TRUE, parallel = parallel))
+})
+where 36: eval(code, test_env)
+where 37 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 38 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 39: doTryCatch(return(expr), name, parentenv, handler)
+where 40: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 41: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 42: doTryCatch(return(expr), name, parentenv, handler)
+where 43: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 44: tryCatchList(expr, classes, parentenv, handlers)
+where 45 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 46 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 47 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 48 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 49 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 50: FUN(X[[i]], ...)
+where 51 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 52 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 53 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 54 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 55 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 56 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 57: test_check("funcy")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function (x, eval.points, h, cross = FALSE, weights = rep(1, nrow(x)),
+    options = list()) {
+
+    opt <- sm.options(options)
+    if (all(is.na(opt$period))) opt$period <- rep(NA, 2)
+    replace.na(opt, hmult, 1)
+    replace.na(opt, h.weights, rep(1, nrow(x)))
+    replace.na(opt, poly.index, 1)
+    poly.index <- opt$poly.index
+    h.weights  <- opt$h.weights
+    hmult      <- opt$hmult
+    n          <- nrow(x)
+    ne         <- nrow(eval.points)
+
+    wd1 <- matrix(rep(eval.points[, 1], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd1 <- wd1 - matrix(rep(x[, 1], ne), ncol = n, byrow = TRUE)
+    if (("hw.eval" %in% names(opt)) & (opt$hw.eval = TRUE))
+       hw  <- matrix(rep(h.weights, n),  ncol = n)
+    else
+       hw  <- matrix(rep(h.weights, ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[1])) 
+       w <- exp(cos(2 * pi * wd1 / opt$period[1]) / (h[1] * hmult * hw))
+    else
+       w <- exp(-0.5 * (wd1 / (h[1] * hmult * hw))^2)
+    wd2 <- matrix(rep(eval.points[, 2], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd2 <- wd2 - matrix(rep(x[, 2], ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[2])) 
+       w <- w * exp(cos(2 * pi * wd2 / opt$period[2]) / (h[2] * hmult * hw))
+    else
+       w <- w * exp(-0.5 * (wd2 / (h[2] * hmult * hw))^2)
+    w <- w * matrix(rep(weights, ne), ncol = n, byrow = TRUE)
+    
+    if (cross)
+        diag(w) <- 0
+
+    if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+        den <- w %*% rep(1, n)
+        w   <- w/matrix(rep(den, n), ncol = n)
+        }
+    else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 1)) {
+    	if (is.na(opt$period[2])) wd1 <- wd2
+    	s0 <- w %*% rep(1, n)
+        s1 <- (w * wd1) %*% rep(1, n)
+        s2 <- (w * wd1^2) %*% rep(1, n)
+        w  <- w * (matrix(rep(s2, n), ncol = n) - 
+                 wd1 * matrix(rep(s1, n), ncol = n))
+        w  <- w / (matrix(rep(s2, n), ncol = n) * 
+                   matrix(rep(s0, n), ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+        }
+    else {
+        a11 <- w %*% rep(1, n)
+        a12 <- (w * wd1) %*% rep(1, n)
+        a13 <- (w * wd2) %*% rep(1, n)
+        a22 <- (w * wd1^2) %*% rep(1, n)
+        a23 <- (w * wd1 * wd2) %*% rep(1, n)
+        a33 <- (w * wd2^2) %*% rep(1, n)
+        d   <- a22 * a33 - a23^2
+        b1  <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 *
+                  a22 - a12 * a23) * a13)/d)
+        b2  <- (a13 * a23 - a12 * a33) * b1/d
+        b3  <- (a12 * a23 - a13 * a22) * b1/d
+        wt  <- matrix(rep(b1, n), ncol = n)
+        wt  <- wt + matrix(rep(b2, n), ncol = n) * wd1
+        wt  <- wt + matrix(rep(b3, n), ncol = n) * wd2
+        w   <- wt * w
+    }
+    w
+}
+<bytecode: 0x24340fd0>
+<environment: namespace:sm>
+ --- function search by body ---
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#1055: 
+ --- package (from environment) --- 
+sm
+ --- call from context --- 
+sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+ --- call from argument --- 
+if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+    den <- w %*% rep(1, n)
+    w <- w/matrix(rep(den, n), ncol = n)
+} else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 
+    1)) {
+    if (is.na(opt$period[2])) 
+        wd1 <- wd2
+    s0 <- w %*% rep(1, n)
+    s1 <- (w * wd1) %*% rep(1, n)
+    s2 <- (w * wd1^2) %*% rep(1, n)
+    w <- w * (matrix(rep(s2, n), ncol = n) - wd1 * matrix(rep(s1, 
+        n), ncol = n))
+    w <- w/(matrix(rep(s2, n), ncol = n) * matrix(rep(s0, n), 
+        ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+} else {
+    a11 <- w %*% rep(1, n)
+    a12 <- (w * wd1) %*% rep(1, n)
+    a13 <- (w * wd2) %*% rep(1, n)
+    a22 <- (w * wd1^2) %*% rep(1, n)
+    a23 <- (w * wd1 * wd2) %*% rep(1, n)
+    a33 <- (w * wd2^2) %*% rep(1, n)
+    d <- a22 * a33 - a23^2
+    b1 <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 * a22 - 
+        a12 * a23) * a13)/d)
+    b2 <- (a13 * a23 - a12 * a33) * b1/d
+    b3 <- (a12 * a23 - a13 * a22) * b1/d
+    wt <- matrix(rep(b1, n), ncol = n)
+    wt <- wt + matrix(rep(b2, n), ncol = n) * wd1
+    wt <- wt + matrix(rep(b3, n), ncol = n) * wd2
+    w <- wt * w
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#272: sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+where 2 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#82: sm.regression.2d(x, y, h, model, weights, rawdata, options = opt)
+where 3 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: smoothFct2D(x = trxin, y = cov.raw, h = hcov, eval.points = trxou, 
+    weights = rep(1, length(cov.raw)), poly.index = c(1, 2), 
+    eval.grid = FALSE, display = "none")
+where 4: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 5 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: suppressWarnings(smoothFct2D(x = trxin, y = cov.raw, h = hcov, 
+    eval.points = trxou, weights = rep(1, length(cov.raw)), poly.index = c(1, 
+        2), eval.grid = FALSE, display = "none")$estimate)
+where 6: fpc(Yin = Yin, Tin = Tin, isobs = isobs, dimBase = dimBase, fpcCtrl = fpcCtrl, 
+    Tout = grid, reg = FALSE)
+where 7: eval(substitute(expr), data, enclos = parent.frame())
+where 8: eval(substitute(expr), data, enclos = parent.frame())
+where 9: with.default(mkdat, fpc(Yin = Yin, Tin = Tin, isobs = isobs, 
+    dimBase = dimBase, fpcCtrl = fpcCtrl, Tout = grid, reg = FALSE))
+where 10 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/fitfclust.R#136: with(mkdat, fpc(Yin = Yin, Tin = Tin, isobs = isobs, dimBase = dimBase, 
+    fpcCtrl = fpcCtrl, Tout = grid, reg = FALSE))
+where 11 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/fitfclust.R#46: initFct(data = data, pert = pert, grid = grid, h = h, p = p, 
+    dimBase = dimBase, k = k, baseType, seed = seed, init = init, 
+    nrep = nrep, fpcCtrl = fpcCtrl)
+where 12 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/wrappers.R#42: fitfclust(data = data, dimBase = dimBase, h = redDim, p = p, 
+    k = k, regTime = regTime, epsilon = epsilon, maxiter = maxiter, 
+    pert = pert, hard = hard, seed = seed, init = init, nrep = nrep, 
+    reg = reg, fpcCtrl = fpcCtrl, baseType = baseType)
+where 13 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R#87: fitfclustWrapper(data = data, k = k, reg = reg, regTime = regTime, 
+    fpcCtrl = fpcCtrl, funcyCtrlMbc = funcyCtrl, ...)
+where 14 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: eval(expr, env)
+where 15: doTryCatch(return(expr), name, parentenv, handler)
+where 16: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 17: tryCatchList(expr, classes, parentenv, handlers)
+where 18: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 19 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: try(eval(expr, env), silent = TRUE)
+where 20 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: sendMaster(try(eval(expr, env), silent = TRUE))
+where 21 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R#87: parallelFct(fitfclustWrapper(data = data, k = k, reg = reg, regTime = regTime, 
+    fpcCtrl = fpcCtrl, funcyCtrlMbc = funcyCtrl, ...))
+where 22: funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, save.data = TRUE, 
+    parallel = parallel)
+where 23: eval(expr, pf)
+where 24 at ../../../../R/src/library/utils/R/capture.output.R#40: eval(expr, pf)
+where 25 at ../../../../R/src/library/utils/R/capture.output.R#40: withVisible(eval(expr, pf))
+where 26 at ../../../../R/src/library/utils/R/capture.output.R#45: evalVis(expr)
+where 27 at testthat/test-old-unit-tests.R#7: capture.output(result <- expr)
+where 28 at testthat/test-old-unit-tests.R#70: silent(funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, save.data = TRUE, 
+    parallel = parallel))
+where 29: eval(code, test_env)
+where 30 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 31 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 32: doTryCatch(return(expr), name, parentenv, handler)
+where 33: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 34: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 35: doTryCatch(return(expr), name, parentenv, handler)
+where 36: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 37: tryCatchList(expr, classes, parentenv, handlers)
+where 38 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 39 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 40 at testthat/test-old-unit-tests.R#59: test_that("Test control arguments", {
+    k <- 4
+    set.seed(3806)
+    ds <- sampleFuncy(timeNrMin = 5, timeNrMax = 10, reg = FALSE, 
+        k = k, sd = 0.3)
+    a <- list(coeffsCalc = "estimate", average = TRUE)
+    fpcCtrl <- as(a, "fpcCtrl")
+    b <- list(maxit = 5, baseType = "eigenbasis", flexDim = TRUE)
+    funcyCtrlMbc <- as(b, "funcyCtrlMbc")
+    res3 <- silent(funcit(methods = c(1, 2, 3), data = ds@data, 
+        k = k, clusters = ds@clusters, fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, 
+        save.data = TRUE, parallel = parallel))
+})
+where 41: eval(code, test_env)
+where 42 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 43 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 44: doTryCatch(return(expr), name, parentenv, handler)
+where 45: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 46: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 47: doTryCatch(return(expr), name, parentenv, handler)
+where 48: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 49: tryCatchList(expr, classes, parentenv, handlers)
+where 50 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 51 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 52 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 53 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 54 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 55: FUN(X[[i]], ...)
+where 56 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 57 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 58 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 59 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 60 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 61 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 62: test_check("funcy")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function (x, eval.points, h, cross = FALSE, weights = rep(1, nrow(x)),
+    options = list()) {
+
+    opt <- sm.options(options)
+    if (all(is.na(opt$period))) opt$period <- rep(NA, 2)
+    replace.na(opt, hmult, 1)
+    replace.na(opt, h.weights, rep(1, nrow(x)))
+    replace.na(opt, poly.index, 1)
+    poly.index <- opt$poly.index
+    h.weights  <- opt$h.weights
+    hmult      <- opt$hmult
+    n          <- nrow(x)
+    ne         <- nrow(eval.points)
+
+    wd1 <- matrix(rep(eval.points[, 1], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd1 <- wd1 - matrix(rep(x[, 1], ne), ncol = n, byrow = TRUE)
+    if (("hw.eval" %in% names(opt)) & (opt$hw.eval = TRUE))
+       hw  <- matrix(rep(h.weights, n),  ncol = n)
+    else
+       hw  <- matrix(rep(h.weights, ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[1])) 
+       w <- exp(cos(2 * pi * wd1 / opt$period[1]) / (h[1] * hmult * hw))
+    else
+       w <- exp(-0.5 * (wd1 / (h[1] * hmult * hw))^2)
+    wd2 <- matrix(rep(eval.points[, 2], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd2 <- wd2 - matrix(rep(x[, 2], ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[2])) 
+       w <- w * exp(cos(2 * pi * wd2 / opt$period[2]) / (h[2] * hmult * hw))
+    else
+       w <- w * exp(-0.5 * (wd2 / (h[2] * hmult * hw))^2)
+    w <- w * matrix(rep(weights, ne), ncol = n, byrow = TRUE)
+    
+    if (cross)
+        diag(w) <- 0
+
+    if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+        den <- w %*% rep(1, n)
+        w   <- w/matrix(rep(den, n), ncol = n)
+        }
+    else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 1)) {
+    	if (is.na(opt$period[2])) wd1 <- wd2
+    	s0 <- w %*% rep(1, n)
+        s1 <- (w * wd1) %*% rep(1, n)
+        s2 <- (w * wd1^2) %*% rep(1, n)
+        w  <- w * (matrix(rep(s2, n), ncol = n) - 
+                 wd1 * matrix(rep(s1, n), ncol = n))
+        w  <- w / (matrix(rep(s2, n), ncol = n) * 
+                   matrix(rep(s0, n), ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+        }
+    else {
+        a11 <- w %*% rep(1, n)
+        a12 <- (w * wd1) %*% rep(1, n)
+        a13 <- (w * wd2) %*% rep(1, n)
+        a22 <- (w * wd1^2) %*% rep(1, n)
+        a23 <- (w * wd1 * wd2) %*% rep(1, n)
+        a33 <- (w * wd2^2) %*% rep(1, n)
+        d   <- a22 * a33 - a23^2
+        b1  <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 *
+                  a22 - a12 * a23) * a13)/d)
+        b2  <- (a13 * a23 - a12 * a33) * b1/d
+        b3  <- (a12 * a23 - a13 * a22) * b1/d
+        wt  <- matrix(rep(b1, n), ncol = n)
+        wt  <- wt + matrix(rep(b2, n), ncol = n) * wd1
+        wt  <- wt + matrix(rep(b3, n), ncol = n) * wd2
+        w   <- wt * w
+    }
+    w
+}
+<bytecode: 0x24340fd0>
+<environment: namespace:sm>
+ --- function search by body ---
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#1055: 
+ --- package (from environment) --- 
+sm
+ --- call from context --- 
+sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+ --- call from argument --- 
+if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+    den <- w %*% rep(1, n)
+    w <- w/matrix(rep(den, n), ncol = n)
+} else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 
+    1)) {
+    if (is.na(opt$period[2])) 
+        wd1 <- wd2
+    s0 <- w %*% rep(1, n)
+    s1 <- (w * wd1) %*% rep(1, n)
+    s2 <- (w * wd1^2) %*% rep(1, n)
+    w <- w * (matrix(rep(s2, n), ncol = n) - wd1 * matrix(rep(s1, 
+        n), ncol = n))
+    w <- w/(matrix(rep(s2, n), ncol = n) * matrix(rep(s0, n), 
+        ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+} else {
+    a11 <- w %*% rep(1, n)
+    a12 <- (w * wd1) %*% rep(1, n)
+    a13 <- (w * wd2) %*% rep(1, n)
+    a22 <- (w * wd1^2) %*% rep(1, n)
+    a23 <- (w * wd1 * wd2) %*% rep(1, n)
+    a33 <- (w * wd2^2) %*% rep(1, n)
+    d <- a22 * a33 - a23^2
+    b1 <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 * a22 - 
+        a12 * a23) * a13)/d)
+    b2 <- (a13 * a23 - a12 * a33) * b1/d
+    b3 <- (a12 * a23 - a13 * a22) * b1/d
+    wt <- matrix(rep(b1, n), ncol = n)
+    wt <- wt + matrix(rep(b2, n), ncol = n) * wd1
+    wt <- wt + matrix(rep(b3, n), ncol = n) * wd2
+    w <- wt * w
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#272: sm.weight2(x, opt$eval.points, h, weights = weights, options = opt)
+where 2 at /var/scratch2/tomas/tmp/RtmpaltUHC/R.INSTALL5802226f2ef1/sm/R/regression.r#82: sm.regression.2d(x, y, h, model, weights, rawdata, options = opt)
+where 3 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: smoothFct2D(x = trxin, y = cov.raw, h = hcov, eval.points = trxou, 
+    weights = rep(1, length(cov.raw)), poly.index = c(1, 2), 
+    eval.grid = FALSE, display = "none")
+where 4: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+where 5 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/funPrinComp.R#172: suppressWarnings(smoothFct2D(x = trxin, y = cov.raw, h = hcov, 
+    eval.points = trxou, weights = rep(1, length(cov.raw)), poly.index = c(1, 
+        2), eval.grid = FALSE, display = "none")$estimate)
+where 6 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/iterSubspace.R#35: fpc(Yin = Yin, Tin = Tin, Tout = t_unique, isobs = isobs, dimBase = dimBase, 
+    fpcCtrl = fpcCtrl, reg = reg)
+where 7 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/iterSubspace.R#58: projFct(Yin = Yin, Tin = Tin, Tout = t_unique, isobs = isobs, 
+    dimBase = dimBase, fpcCtrl = fpcCtrl, baseType = baseType, 
+    reg = reg)
+where 8 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/wrappers.R#144: iterSubspace(data = data, k = k, regTime = regTime, reg = reg, 
+    funcyCtrlMbc = funcyCtrlMbc, fpcCtrl = fpcCtrl, simplif = simplif)
+where 9 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R#104: iterSubspaceWrapper(data = data, k = k, reg = reg, regTime = regTime, 
+    fpcCtrl = fpcCtrl, funcyCtrlMbc = funcyCtrl, ...)
+where 10 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: eval(expr, env)
+where 11: doTryCatch(return(expr), name, parentenv, handler)
+where 12: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 13: tryCatchList(expr, classes, parentenv, handlers)
+where 14: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1L]], quote(doTryCatch))) 
+            call <- sys.call(-4L)
+        dcall <- deparse(call)[1L]
+        prefix <- paste("Error in", dcall, ": ")
+        LONG <- 75L
+        sm <- strsplit(conditionMessage(e), "\n")[[1L]]
+        w <- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")
+        if (is.na(w)) 
+            w <- 14L + nchar(dcall, type = "b") + nchar(sm[1L], 
+                type = "b")
+        if (w > LONG) 
+            prefix <- paste0(prefix, "\n  ")
+    }
+    else prefix <- "Error : "
+    msg <- paste0(prefix, conditionMessage(e), "\n")
+    .Internal(seterrmessage(msg[1L]))
+    if (!silent && isTRUE(getOption("show.error.messages"))) {
+        cat(msg, file = outFile)
+        .Internal(printDeferredWarnings())
+    }
+    invisible(structure(msg, class = "try-error", condition = e))
+})
+where 15 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: try(eval(expr, env), silent = TRUE)
+where 16 at ../../../../R/src/library/parallel/R/unix/mcparallel.R#40: sendMaster(try(eval(expr, env), silent = TRUE))
+where 17 at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R#104: parallelFct(iterSubspaceWrapper(data = data, k = k, reg = reg, 
+    regTime = regTime, fpcCtrl = fpcCtrl, funcyCtrlMbc = funcyCtrl, 
+    ...))
+where 18: funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, save.data = TRUE, 
+    parallel = parallel)
+where 19: eval(expr, pf)
+where 20 at ../../../../R/src/library/utils/R/capture.output.R#40: eval(expr, pf)
+where 21 at ../../../../R/src/library/utils/R/capture.output.R#40: withVisible(eval(expr, pf))
+where 22 at ../../../../R/src/library/utils/R/capture.output.R#45: evalVis(expr)
+where 23 at testthat/test-old-unit-tests.R#7: capture.output(result <- expr)
+where 24 at testthat/test-old-unit-tests.R#70: silent(funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, 
+    fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, save.data = TRUE, 
+    parallel = parallel))
+where 25: eval(code, test_env)
+where 26 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 27 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 28: doTryCatch(return(expr), name, parentenv, handler)
+where 29: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 30: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 31: doTryCatch(return(expr), name, parentenv, handler)
+where 32: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 33: tryCatchList(expr, classes, parentenv, handlers)
+where 34 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 35 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#31: test_code(desc, code, env = parent.frame())
+where 36 at testthat/test-old-unit-tests.R#59: test_that("Test control arguments", {
+    k <- 4
+    set.seed(3806)
+    ds <- sampleFuncy(timeNrMin = 5, timeNrMax = 10, reg = FALSE, 
+        k = k, sd = 0.3)
+    a <- list(coeffsCalc = "estimate", average = TRUE)
+    fpcCtrl <- as(a, "fpcCtrl")
+    b <- list(maxit = 5, baseType = "eigenbasis", flexDim = TRUE)
+    funcyCtrlMbc <- as(b, "funcyCtrlMbc")
+    res3 <- silent(funcit(methods = c(1, 2, 3), data = ds@data, 
+        k = k, clusters = ds@clusters, fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, 
+        save.data = TRUE, parallel = parallel))
+})
+where 37: eval(code, test_env)
+where 38 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#152: eval(code, test_env)
+where 39 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error)
+where 40: doTryCatch(return(expr), name, parentenv, handler)
+where 41: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 42: tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
+where 43: doTryCatch(return(expr), name, parentenv, handler)
+where 44: tryCatchOne(tryCatchList(expr, names[-nh], parentenv, handlers[-nh]), 
+    names[nh], parentenv, handlers[[nh]])
+where 45: tryCatchList(expr, classes, parentenv, handlers)
+where 46 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-that.R#149: tryCatch(withCallingHandlers({
+    eval(code, test_env)
+    if (!handled && !is.null(test)) {
+        skip_empty()
+    }
+}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning, 
+    message = handle_message, error = handle_error), error = handle_fatal, 
+    skip = function(e) {
+    })
+where 47 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/source.R#42: test_code(NULL, exprs, env)
+where 48 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#131: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+where 49 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 50 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#125: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter, 
+    {
+        lister$start_file(basename(path))
+        source_file(path, new.env(parent = env), chdir = TRUE, 
+            wrap = wrap)
+        end_context()
+    })
+where 51: FUN(X[[i]], ...)
+where 52 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: lapply(paths, test_file, env = env, reporter = current_reporter, 
+    start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+where 53 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/reporter-zzz.R#53: force(code)
+where 54 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-files.R#25: with_reporter(reporter = current_reporter, results <- lapply(paths, 
+    test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE, 
+    load_helpers = FALSE, wrap = wrap))
+where 55 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#86: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 56 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#190: test_dir(path = test_path, reporter = reporter, env = env, filter = filter, 
+    ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning, 
+    wrap = wrap)
+where 57 at /var/scratch2/tomas/tmp/RtmpbDGq4U/R.INSTALL26fb6717adb2/testthat/R/test-directory.R#171: test_package_dir(package = package, test_path = test_path, filter = filter, 
+    reporter = reporter, ..., stop_on_failure = stop_on_failure, 
+    stop_on_warning = stop_on_warning, wrap = wrap)
+where 58: test_check("funcy")
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function (x, eval.points, h, cross = FALSE, weights = rep(1, nrow(x)),
+    options = list()) {
+
+    opt <- sm.options(options)
+    if (all(is.na(opt$period))) opt$period <- rep(NA, 2)
+    replace.na(opt, hmult, 1)
+    replace.na(opt, h.weights, rep(1, nrow(x)))
+    replace.na(opt, poly.index, 1)
+    poly.index <- opt$poly.index
+    h.weights  <- opt$h.weights
+    hmult      <- opt$hmult
+    n          <- nrow(x)
+    ne         <- nrow(eval.points)
+
+    wd1 <- matrix(rep(eval.points[, 1], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd1 <- wd1 - matrix(rep(x[, 1], ne), ncol = n, byrow = TRUE)
+    if (("hw.eval" %in% names(opt)) & (opt$hw.eval = TRUE))
+       hw  <- matrix(rep(h.weights, n),  ncol = n)
+    else
+       hw  <- matrix(rep(h.weights, ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[1])) 
+       w <- exp(cos(2 * pi * wd1 / opt$period[1]) / (h[1] * hmult * hw))
+    else
+       w <- exp(-0.5 * (wd1 / (h[1] * hmult * hw))^2)
+    wd2 <- matrix(rep(eval.points[, 2], rep(n, ne)), ncol = n, byrow = TRUE)
+    wd2 <- wd2 - matrix(rep(x[, 2], ne), ncol = n, byrow = TRUE)
+    if (!is.na(opt$period[2])) 
+       w <- w * exp(cos(2 * pi * wd2 / opt$period[2]) / (h[2] * hmult * hw))
+    else
+       w <- w * exp(-0.5 * (wd2 / (h[2] * hmult * hw))^2)
+    w <- w * matrix(rep(weights, ne), ncol = n, byrow = TRUE)
+    
+    if (cross)
+        diag(w) <- 0
+
+    if ((opt$poly.index == 0) | (sum(is.na(opt$period)) == 0)) {
+        den <- w %*% rep(1, n)
+        w   <- w/matrix(rep(den, n), ncol = n)
+        }
+    else if ((opt$poly.index == 1) & (sum(is.na(opt$period)) == 1)) {
+    	if (is.na(opt$period[2])) wd1 <- wd2
+    	s0 <- w %*% rep(1, n)
+        s1 <- (w * wd1) %*% rep(1, n)
+        s2 <- (w * wd1^2) %*% rep(1, n)
+        w  <- w * (matrix(rep(s2, n), ncol = n) - 
+                 wd1 * matrix(rep(s1, n), ncol = n))
+        w  <- w / (matrix(rep(s2, n), ncol = n) * 
+                   matrix(rep(s0, n), ncol = n) - matrix(rep(s1, n), ncol = n)^2)
+        }
+    else {
+        a11 <- w %*% rep(1, n)
+        a12 <- (w * wd1) %*% rep(1, n)
+        a13 <- (w * wd2) %*% rep(1, n)
+        a22 <- (w * wd1^2) %*% rep(1, n)
+        a23 <- (w * wd1 * wd2) %*% rep(1, n)
+        a33 <- (w * wd2^2) %*% rep(1, n)
+        d   <- a22 * a33 - a23^2
+        b1  <- 1/(a11 - ((a12 * a33 - a13 * a23) * a12 + (a13 *
+                  a22 - a12 * a23) * a13)/d)
+        b2  <- (a13 * a23 - a12 * a33) * b1/d
+        b3  <- (a12 * a23 - a13 * a22) * b1/d
+        wt  <- matrix(rep(b1, n), ncol = n)
+        wt  <- wt + matrix(rep(b2, n), ncol = n) * wd1
+        wt  <- wt + matrix(rep(b3, n), ncol = n) * wd2
+        w   <- wt * w
+    }
+    w
+}
+<bytecode: 0x24340fd0>
+<environment: namespace:sm>
+ --- function search by body ---
+Function sm.weight2 in namespace sm has this body.
+Function sm.weight2 in namespace sm has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+Function sm.weight2 in namespace sm has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+── 1. Error: Test control arguments (@test-old-unit-tests.R#70)  ───────────────
+trying to get slot "cluster" from an object of a basic class ("NULL") with no slots
+1: silent(funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, 
+       fpcCtrl = fpcCtrl, funcyCtrl = funcyCtrlMbc, save.data = TRUE, parallel = parallel)) at testthat/test-old-unit-tests.R:70
+2: capture.output(result <- expr) at testthat/test-old-unit-tests.R:7
+3: evalVis(expr) at ../../../../R/src/library/utils/R/capture.output.R:45
+4: withVisible(eval(expr, pf)) at ../../../../R/src/library/utils/R/capture.output.R:40
+5: eval(expr, pf) at ../../../../R/src/library/utils/R/capture.output.R:40
+6: eval(expr, pf)
+7: funcit(methods = c(1, 2, 3), data = ds@data, k = k, clusters = ds@clusters, fpcCtrl = fpcCtrl, 
+       funcyCtrl = funcyCtrlMbc, save.data = TRUE, parallel = parallel)
+8: sapply(FRES@models, function(x) x@cluster) at /var/scratch2/tomas/tmp/Rtmpab64Us/R.INSTALLc1f028df7d97/funcy/R/xecute.R:165
+9: lapply(X = X, FUN = FUN, ...)
+10: FUN(X[[i]], ...)
+
+══ testthat results  ═══════════════════════════════════════════════════════════
+OK: 9 SKIPPED: 0 FAILED: 1
+1. Error: Test control arguments (@test-old-unit-tests.R#70) 
+
+Error: testthat unit tests failed
+Execution halted

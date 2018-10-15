@@ -1,0 +1,1160 @@
+* using log directory ‘/var/scratch2/tomas/test/mine/R-75396/check/cbaf.Rcheck’
+* using R Under development (unstable) (2018-10-04 r75396)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘cbaf/DESCRIPTION’ ... OK
+* this is package ‘cbaf’ version ‘1.3.5’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘cbaf’ can be installed ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘cbaf-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: processMultipleStudies
+> ### Title: Check Expression/methylation Profile for various cancer studies.
+> ### Aliases: processMultipleStudies
+> 
+> ### ** Examples
+> 
+> genes <- list(K.demethylases = c("KDM1A", "KDM1B", "KDM2A", "KDM2B", "KDM3A",
++  "KDM3B", "JMJD1C", "KDM4A"), K.methyltransferases = c("SUV39H1", "SUV39H2",
++  "EHMT1", "EHMT2", "SETDB1", "SETDB2", "KMT2A", "KMT2A"))
+> 
+> studies <- c("Acute Myeloid Leukemia (TCGA, Provisional)",
++ "Adrenocortical Carcinoma (TCGA, Provisional)",
++ "Bladder Urothelial Carcinoma (TCGA, Provisional)",
++ "Brain Lower Grade Glioma (TCGA, Provisional)",
++ "Breast Invasive Carcinoma (TCGA, Provisional)")
+> 
+> processMultipleStudies(genes, "test2", studies, "RNA-Seq",
++ calculate = c("frequencyPercentage", "frequencyRatio"), heatmapMargines =
++ c(16,10), RowCex = 1, ColCex = 1)
+--- 'test' and 'test2' databases contain sample data and therefore, are not changable. Please use a different submission name. ---
+--- Function 'obtainMultipleStudies()' was skipped: the requested data already exist ---
+--- 'test' and 'test2' databases contain sample data and therefore, are not changable. Please use a different submission name. ---
+--- Function 'automatedStatistics()' was skipped: the requested data already exist ---
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmpSMHEam/R.INSTALL637f725ad243/cbaf/R/cbaf-heatmapOutput.R#286: 
+ --- package (from environment) --- 
+cbaf
+ --- call from context --- 
+heatmapOutput(submissionName = submissionName, shortenStudyNames = shortenStudyNames, 
+    geneLimit = geneLimit, rankingMethod = rankingMethod, heatmapFileFormat = heatmapFileFormat, 
+    resolution = resolution, RowCex = RowCex, ColCex = ColCex, 
+    heatmapMargines = heatmapMargines, rowLabelsAngle = rowLabelsAngle, 
+    columnLabelsAngle = columnLabelsAngle, heatmapColor = heatmapColor, 
+    reverseColor = reverseColor, transposedHeatmap = transposedHeatmap, 
+    simplifyBy = simplifyBy, genesToDrop = genesToDrop)
+ --- call from argument --- 
+if (!heatmapMargines == "auto" & !is.numeric(heatmapMargines) | 
+    is.numeric(heatmapMargines) & !length(heatmapMargines) == 
+        2) {
+    stop("'heatmapMargines' must be a numerical vector containing two numbers")
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/RtmpSMHEam/R.INSTALL637f725ad243/cbaf/R/cbaf-processMultipleStudies.R#328: heatmapOutput(submissionName = submissionName, shortenStudyNames = shortenStudyNames, 
+    geneLimit = geneLimit, rankingMethod = rankingMethod, heatmapFileFormat = heatmapFileFormat, 
+    resolution = resolution, RowCex = RowCex, ColCex = ColCex, 
+    heatmapMargines = heatmapMargines, rowLabelsAngle = rowLabelsAngle, 
+    columnLabelsAngle = columnLabelsAngle, heatmapColor = heatmapColor, 
+    reverseColor = reverseColor, transposedHeatmap = transposedHeatmap, 
+    simplifyBy = simplifyBy, genesToDrop = genesToDrop)
+where 2: processMultipleStudies(genes, "test2", studies, "RNA-Seq", calculate = c("frequencyPercentage", 
+    "frequencyRatio"), heatmapMargines = c(16, 10), RowCex = 1, 
+    ColCex = 1)
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(
+
+  submissionName,
+
+  shortenStudyNames = TRUE,
+
+  geneLimit = FALSE,
+
+  rankingMethod = "variation",
+
+  heatmapFileFormat = "TIFF",
+
+  resolution = 600,
+
+  RowCex = "auto",
+
+  ColCex = "auto",
+
+  heatmapMargines = "auto",
+
+  rowLabelsAngle = 0,
+
+  columnLabelsAngle = 45,
+
+  heatmapColor = "RdBu",
+
+  reverseColor = TRUE,
+
+  transposedHeatmap = FALSE,
+
+  simplifyBy = FALSE,
+
+  genesToDrop = FALSE
+
+  ){
+
+  ##############################################################################
+  ########## Prerequisites
+
+  # Check submissionName
+
+  if(exists("submissionName")){
+
+    if(!is.character(submissionName)){
+
+      stop("'submissionName' must be entered as a character string for naming the process")
+
+    }
+
+  } else{
+
+    stop("'submissionName' must be entered as a character string for naming the process")
+
+  }
+
+
+
+  # Check shortenStudyNames
+
+  if(!is.logical(shortenStudyNames)){
+
+    stop("'shortenStudyNames' can only accept logical values: TRUE or FALSE .")
+
+  }
+
+
+
+  # Check simplifyBy
+
+  if(!geneLimit == FALSE & !is.numeric(geneLimit)){
+
+    stop("'geneLimit' specifies the maximum number of genes on the heatmap(s). If you don't want any restrictions please type FALSE.")
+
+  }
+
+
+
+  # Check rankingMethod
+
+  if(!rankingMethod %in% c("variation", "highValue")){
+
+    stop("'rankingMethod' is one of the two supported method: 'variation' or 'highValue'")
+
+  }
+
+
+
+  # Check heatmap image file format
+
+  if(!(heatmapFileFormat %in% c("TIFF", "PNG", "JPG", "BMP"))){
+
+    stop("'heatmapFileFormat' must be one of the supported image formats: 'TIFF', 'PNG', 'JPG', or 'BMP'")
+
+  }
+
+
+
+  # Check resolution
+
+  if(!is.numeric(resolution)){
+
+    stop("'resolution' must be a number!")
+
+  }
+
+
+
+  # Check RowCex
+
+  if(!RowCex == "auto" & !is.numeric(RowCex) |
+
+     is.numeric(RowCex) & ! (RowCex >= 0 & RowCex <= 2)){
+
+    stop("'RowCex' must be a number between 0 and 2.")
+
+  }
+
+
+
+  # Check ColCex
+
+  if(!ColCex == "auto" & !is.numeric(ColCex) |
+
+     is.numeric(ColCex) & ! (ColCex >= 0 & ColCex <= 2)){
+
+    stop("'ColCex' must be a number between 0 and 2.")
+
+  }
+
+
+
+  # Check heatmapMargines
+
+  if(!heatmapMargines == "auto" & !is.numeric(heatmapMargines) |
+
+     is.numeric(heatmapMargines) & ! length(heatmapMargines) == 2){
+
+    stop("'heatmapMargines' must be a numerical vector containing two numbers")
+
+  }
+
+
+
+  # Check rowLabelsAngle
+
+  if(! rowLabelsAngle == "auto" & ! is.numeric(rowLabelsAngle) |
+
+     is.numeric(rowLabelsAngle) &
+
+     ! (rowLabelsAngle >= 0 & rowLabelsAngle <= 360)){
+
+    stop("'rowLabelsAngle' must be entered as 'auto' or a number corresponding to an angle ranging from 0 to 360.")
+
+  }
+
+
+
+  # Check columnLabelsAngle
+
+  if(! columnLabelsAngle == "auto" & ! is.numeric(columnLabelsAngle) |
+
+     is.numeric(columnLabelsAngle) &
+
+     ! (columnLabelsAngle >= 0 & columnLabelsAngle <= 360)){
+
+    stop("'columnLabelsAngle'  must be entered as 'auto' or a number corresponding to an angle ranging from 0 to 360.")
+
+  }
+
+
+
+  # Check heatmapColor
+
+  if(!heatmapColor %in% c("RdGr", "YlOrRd", "YlOrBl", "YlGnBu", "YlGn", "Reds",
+
+                          "RdPu", "Purples", "PuRd", "PuBuGn", "PuBU", "OrRd",
+
+                          "Oranges", "Greys", "Greens", "GnBu", "BuPu", "BuGn",
+
+                          "Blues", "Set3", "Set2", "Set1", "Pastel2", "Pastel1",
+
+                          "Paired", "Dark2", "Accent", "Spectral", "RdYlGn",
+
+                          "RdYlBu", "RdGy", "RdBu", "PuOr", "PRGn", "PiYG",
+
+                          "BrBG")){
+
+    stop("The entered 'heatmapColor' is not supported.")
+
+  }
+
+
+
+  # Check reverseColor
+
+  if(!is.logical(reverseColor)){
+
+    stop("'reverseColor' can only accept logical values: TRUE or FALSE .")
+
+  }
+
+
+
+  # Check transposedHeatmap
+
+  if(!is.logical(transposedHeatmap)){
+
+    stop("'transposedHeatmap' can only accept logical values: TRUE or FALSE .")
+
+  }
+
+
+
+  # Check transposedHeatmap
+
+  # The FALSE argument is not removable, unfortunately.
+
+  if(!simplifyBy == FALSE & !is.numeric(simplifyBy)){
+
+    stop("'simplify' must be set as FALSE or a be a numeric value.")
+
+  }
+
+
+
+  # Check genesToDrop
+
+  # The FALSE argument is not removable, unfortunately.
+
+  if(!genesToDrop == FALSE & !is.character(genesToDrop)){
+
+    stop("'genesToDrop' must be a character vector containing desired gene names that will be omitted from the heatmap(s).")
+
+  }
+
+
+
+
+
+  ##############################################################################
+  ########## Decide whether function should stops now!
+
+  # Check wheather the requested data exists
+
+  database <- system.file("extdata", submissionName, package="cbaf")
+
+  if(!dir.exists(database)){
+
+    stop("Please run one of the obtainSingleStudy() or obtainMultipleStudies() functions and then the automatedStatistics() function first")
+
+  } else if(dir.exists(database)){
+
+    bfc <- BiocFileCache(
+
+      file.path(system.file("extdata", package = "cbaf"), submissionName)
+
+      )
+
+    if(!nrow(bfcquery(bfc, c("Parameters for automatedStatistics()"))) == 1){
+
+      stop("Please run the automatedStatistics() function first")
+
+    }
+
+  }
+
+
+
+  # obtain parameters for prevous function
+
+  previousFunctionParam <-
+
+    readRDS(
+
+      bfcpath(bfc, bfcquery(bfc, c("Parameters for automatedStatistics()"))$rid)
+
+      )
+
+
+
+
+  # fetch an old parameter from the previous function
+
+  desiredTechnique <- previousFunctionParam$desiredTechnique
+
+  cutoff <- previousFunctionParam$cutoff
+
+
+
+  # setting the value for cutoff
+
+  if(desiredTechnique == "methylation"){
+
+    cutoff.phrase <- "obs/exp cutoff"
+
+  } else{
+
+    cutoff.phrase <- "z-score cutoff"
+
+  }
+
+
+
+
+
+  # Store the new parameteres
+
+  newParameters <-list()
+
+  newParameters$submissionName <- submissionName
+
+  newParameters$shortenStudyNames <- shortenStudyNames
+
+  newParameters$geneLimit <- geneLimit
+
+  newParameters$heatmapFileFormat <- heatmapFileFormat
+
+  newParameters$resolution <- resolution
+
+  newParameters$RowCex <- RowCex
+
+  newParameters$ColCex <- ColCex
+
+  newParameters$heatmapMargines <- heatmapMargines
+
+  newParameters$rowLabelsAngle <- rowLabelsAngle
+
+  newParameters$columnLabelsAngle <- columnLabelsAngle
+
+  newParameters$heatmapColor <- heatmapColor
+
+  newParameters$reverseColor <- reverseColor
+
+  newParameters$transposedHeatmap <- transposedHeatmap
+
+  newParameters$simplifyBy <- simplifyBy
+
+  newParameters$genesToDrop <- genesToDrop
+
+
+
+
+
+  # Check wheather the requested data exists
+
+  number.of.rows.parameters <-
+
+    nrow(bfcquery(bfc, "Parameters for heatmapOutput()"))
+
+
+  if(number.of.rows.parameters == 1){
+
+    oldParameters <-
+
+      readRDS(
+
+        bfcpath(bfc, bfcquery(bfc, c("Parameters for heatmapOutput()"))$rid)
+
+        )
+
+    # Check whether the previous function is skipped
+
+    if(previousFunctionParam$lastRunStatus == "skipped"){
+
+      if(identical(oldParameters, newParameters)){
+
+        continue <- FALSE
+
+      } else{
+
+        continue <- TRUE
+
+      }
+
+    } else{
+
+      continue <- TRUE
+
+    }
+
+  } else{
+
+    continue <- TRUE
+
+  }
+
+
+
+
+
+  # Getting the source data
+
+  statisticsData <-
+
+    readRDS(bfcpath(bfc, bfcquery(bfc, c("Calculated statistics"))$rid))
+
+  if(!is.list(statisticsData)){
+
+    stop("Input database must be a list.")
+
+  }
+
+
+
+
+
+  # get the working directory
+
+  parent.directory <- getwd()
+
+
+
+  ##############################################################################
+  ########## Set the function ready to work
+
+  # Report
+
+  message("***", " Preparing the requested heatmaps for ", submissionName, " ***")
+
+  if(is.numeric(simplifyBy)){
+
+    warning("--- Only significant results will be used to draw heatmaps ---")
+
+  }
+
+
+
+  # Count number of skipped heatmaps
+
+  skipped <- 0
+
+
+
+  # Create progressbar
+
+  possible.subgroups <- c("Frequency.Percentage", "Mean.Value", "Median.Value")
+
+
+  idx <- names(statisticsData[[1]]) %in% possible.subgroups
+
+  total.number <- length(statisticsData)*length((statisticsData[[1]])[idx])
+
+
+  heatmapOutputProgressBar <-
+
+    txtProgressBar(min = 0, max = total.number, style = 3)
+
+  ExtH <- 0
+
+
+
+
+
+  ##############################################################################
+  ########## Core segment
+
+  # Save heatmaps in separate folder
+
+  for(gr in seq_along(statisticsData)){
+
+    # Subset data that can be presented as heatmap
+
+    subset.name <- names(statisticsData)[gr]
+
+
+    possible.subgroups.idx <-
+
+      names(statisticsData[[gr]]) %in% possible.subgroups
+
+
+    subset.data <- (statisticsData[[gr]])[possible.subgroups.idx]
+
+
+
+    # Create a directory and set it as desired folder
+
+    child.directory <- paste(
+
+      gr, ". ", sub(x = subset.name, pattern = "\\.", replacement = "-"), sep=""
+
+      )
+
+    new.directory <- paste(parent.directory, child.directory, sep = "/")
+
+    dir.create(new.directory, showWarnings = FALSE)
+
+    setwd(new.directory)
+
+
+
+    for(possible in seq_along(subset.data)){
+
+      # subset statistics
+
+      statistics.data <- subset.data[[possible]]
+
+
+
+      # Remove desired genes
+
+      if(!is.logical(genesToDrop)){
+
+        if(!is.character(genesToDrop)){
+
+          stop("Please enter the desired genes as a character vector to omit them from the heatmap.")
+
+        } else{
+
+          filtered.colnames <- !(colnames(statistics.data) %in% genesToDrop)
+
+          statistics.data <- statistics.data[, filtered.colnames, drop = FALSE]
+
+        }
+
+      }
+
+
+
+      name.statistics.data <- names(subset.data)[possible]
+
+
+      # determine ourput file name
+
+      output.file.name <- paste0(
+
+        gsub(x = name.statistics.data, pattern = "\\.", replacement = "-"),
+
+        ", ",
+
+        gsub(x = subset.name, pattern = "\\.", replacement = " "),
+
+        " (",
+
+        cutoff.phrase,
+
+        "=",
+
+        cutoff,
+
+        ")",
+
+        if(heatmapFileFormat == "TIFF"){
+
+          ".tiff"
+
+        }else if(heatmapFileFormat == "PNG"){
+
+          ".png"
+
+        }else if(heatmapFileFormat == "JPG"){
+
+          ".jpg"
+
+        }else if(heatmapFileFormat == "BMP"){
+
+          ".bmp"
+
+        }
+
+      )
+
+
+
+
+
+
+      # Check continue permission
+
+      if(continue | !continue & !file.exists(output.file.name)){
+
+
+
+
+        # Check whether study names should be shorted
+
+        if(shortenStudyNames){
+
+          rownames(statistics.data) <-
+
+            sapply(
+
+              strsplit(
+
+                as.character(rownames(statistics.data)),
+
+                split=" (",
+
+                fixed=TRUE
+
+                ),
+
+              function(x) (x[1])
+
+              )
+
+        }
+
+
+
+        heatmap.data <- t(statistics.data)
+
+        # Removing NA
+
+        not.just.na <- apply(heatmap.data, 1, function(x) any(!is.na(x)==TRUE))
+
+        heatmap.data <- heatmap.data[not.just.na,]
+
+        # Removing NaN
+
+        heatmap.data[is.nan(heatmap.data)] <- 0
+
+        # Removing rows that contain only 0
+
+        if(is.matrix(heatmap.data)){
+
+          heatmap.data <- heatmap.data[rowSums(heatmap.data, na.rm = TRUE)!=0,]
+
+        }
+
+        if(is.matrix(heatmap.data)){
+
+          if(nrow(heatmap.data) > 1 & ncol(heatmap.data) > 1){
+
+
+
+
+            # Limiting the number of genes in heatmap to get better resolution
+
+            if(geneLimit==FALSE | geneLimit > ncol(heatmap.data)){
+
+              heatmap.data <- heatmap.data
+
+            } else if(is.numeric(geneLimit) & geneLimit <= ncol(heatmap.data) &
+
+                      rankingMethod == "variation"){
+
+              ordering <- order(abs(rowVars(heatmap.data)), decreasing=TRUE)
+
+              heatmap.data <- heatmap.data[ordering[seq_len(geneLimit)],]
+
+            } else if(is.numeric(geneLimit) & geneLimit <= ncol(heatmap.data) &
+
+                      rankingMethod == "highValue"){
+
+              ordering <- order(abs(rowSums(heatmap.data)), decreasing=TRUE)
+
+              heatmap.data <- heatmap.data[ordering[seq_len(geneLimit)],]
+
+            } else{
+
+              stop("Please type gene number limit or if whole genes are desired please type none")
+
+            }
+
+
+
+
+            if(is.numeric(simplifyBy)){
+
+              heatmap.data[heatmap.data < simplifyBy] <- 0
+
+            }
+
+
+
+
+            # Heatmap color
+
+            if(reverseColor){
+
+              if(heatmapColor == "RdGr"){
+
+                hmcol <- rev(redgreen(75))
+
+              } else {
+
+                hmcol <- rev(colorRampPalette(brewer.pal(9, heatmapColor))(100))
+
+              }
+
+
+            } else if (!reverseColor){
+
+              if(heatmapColor == "RdGr"){
+
+                hmcol <- redgreen(75)
+
+              } else {
+
+                hmcol <- colorRampPalette(brewer.pal(9, heatmapColor))(100)
+
+              }
+
+            }
+
+
+
+
+
+            ######  automatic parameters determination   ######
+
+            if(ColCex == "auto"){
+
+              if(ncol(heatmap.data) <= 18){
+
+                d.ColCex <- 1.8 - ncol(heatmap.data) * 0.0333333333
+
+              }else{
+
+                d.ColCex <- 1 - ((ncol(heatmap.data) - 18)) * 0.0166666666
+
+              }
+
+            }else{
+
+              d.ColCex <- ColCex
+
+            }
+
+
+
+
+            if(RowCex == "auto"){
+
+              if(nrow(heatmap.data) <= 18){
+
+                d.RowCex <- 1.8 - nrow(heatmap.data) * 0.0333333333
+
+              }else{
+
+                d.RowCex <- 1 - ((nrow(heatmap.data) - 18)) * 0.0166666666
+
+              }
+
+            }else{
+
+              d.RowCex <- RowCex
+
+            }
+
+
+            if(heatmapMargines == "auto"){
+
+              # determining the best margin for column names
+
+              # letter type
+
+              number_of_uppercase_letters <- unlist(gregexpr("\\L", colnames(heatmap.data)))
+
+
+
+
+
+              longest.study <- max(nchar(colnames(heatmap.data)))
+
+              longest.study.effect <-
+
+                longest.study*abs(sin(columnLabelsAngle*0.0174532925))
+
+
+              colMargin <- longest.study.effect * d.ColCex * 0.4278074866
+
+
+
+              # determining the best margin for row names
+
+              longest.gene <- max(nchar(rownames(heatmap.data)))
+
+              longest.gene.effect <-
+
+                longest.gene*abs(cos(rowLabelsAngle*0.0174532925))
+
+
+              rowMargin <- longest.gene.effect * d.RowCex * 0.4278074866
+
+
+
+              # determining which margine influence the final vector
+
+              largestMargine <- max(colMargin, rowMargin)
+
+              d.heatmapMargines <- c(largestMargine, largestMargine)
+
+
+
+            }else{
+
+              d.heatmapMargines <- heatmapMargines
+
+            }
+
+
+
+            ###################################################
+
+
+
+
+
+            # Drawing heatmap
+
+            if(heatmapFileFormat == "TIFF"){
+
+
+              tiff(
+
+                filename=paste(getwd(), output.file.name, sep="/"),
+
+                width=11,
+
+                height= 11,
+
+                units = "in",
+
+                res = resolution,
+
+                compression = "lzw"
+
+              )
+
+
+            }else if(heatmapFileFormat == "PNG"){
+
+
+              png(
+
+                filename=paste(getwd(), output.file.name, sep="/"),
+
+                width=11,
+
+                height= 11,
+
+                units = "in",
+
+                res=resolution
+
+              )
+
+
+            }else if(heatmapFileFormat == "BMP"){
+
+
+              bmp(
+
+                filename=paste(getwd(), output.file.name, sep="/"),
+
+                width=11,
+
+                height= 11,
+
+                units = "in",
+
+                res=resolution
+
+              )
+
+
+            }else if(heatmapFileFormat == "JPG"){
+
+
+              jpeg(
+
+                filename=paste(getwd(), output.file.name, sep="/"),
+
+                width=11,
+
+                height= 11,
+
+                units = "in",
+
+                res=resolution
+
+              )
+
+
+            }
+
+
+
+
+
+            # detemining the oriantation of heatmap
+
+            if(!transposedHeatmap){
+
+                heatmap.input.matrix <- heatmap.data
+
+                labCol <- colnames(heatmap.data)
+
+
+            } else if(transposedHeatmap){
+
+                heatmap.input.matrix <- t(heatmap.data)
+
+                labCol <- rownames(heatmap.data)
+
+
+            }
+
+
+
+            # Draw heatmap
+
+            heatmap.2(
+
+              heatmap.input.matrix,
+
+              labCol=labCol,
+
+              na.color= "light gray",
+
+              trace="none",
+
+              symbreaks = TRUE,
+
+              col= hmcol,
+
+              cexRow = d.RowCex,
+
+              cexCol= d.ColCex,
+
+              margins = d.heatmapMargines,
+
+              srtRow = rowLabelsAngle,
+
+              srtCol = columnLabelsAngle
+
+            )
+
+
+
+            dev.off()
+
+
+
+            # Crop margines of the stored image
+
+            # cropped.image <- image_read(output.file.name)
+
+            # cropped.image <- image_crop(cropped.image, "1000x1500+500")
+
+            # image_write(cropped.image,
+
+            #             path = output.file.name,
+
+            #             format = if(heatmapFileFormat == "TIFF"){
+
+            #               "tiff"
+
+            #             }else if(heatmapFileFormat == "PNG"){
+
+            #               "png"
+
+            #             }else if(heatmapFileFormat == "JPG"){
+
+            #               "jpg"
+
+            #             }else if(heatmapFileFormat == "BMP"){
+
+            #               "bmp"
+
+            #            })
+
+
+          }
+
+        }
+
+      }else{
+
+        skipped <- skipped + 1
+
+      }
+
+      # Update progressbar
+
+      ExtH <- ExtH + 1
+
+      setTxtProgressBar(heatmapOutputProgressBar, ExtH)
+
+    }
+
+  }
+
+  # Close progressbar
+
+  close(heatmapOutputProgressBar)
+
+
+
+  # report number of skipped heatmaps
+
+  if(skipped > 0 & skipped != 1){
+
+    message("--- ", as.character(skipped), " out of ", as.character(total.number)," heatmaps were skipped: They already exist. ---")
+
+  } else if(skipped > 0 & skipped == 1){
+
+    message("--- ", as.character(skipped), " out of ", as.character(total.number)," heatmaps was skipped: It already exist. ---")
+
+  }
+
+
+
+  # Store the last parameter
+
+  oldParamHeatmapOutput <- newParameters
+
+
+  # Store the parameters for this run
+
+  if(number.of.rows.parameters == 0){
+
+    saveRDS(
+
+      oldParamHeatmapOutput,
+
+      file=bfcnew(bfc, "Parameters for heatmapOutput()", ext="RDS")
+
+      )
+
+  } else if(number.of.rows.parameters == 1){
+
+    saveRDS(
+
+      oldParamHeatmapOutput,
+
+      file=bfc[[bfcquery(bfc, "Parameters for heatmapOutput()")$rid]]
+
+      )
+
+  }
+
+
+
+  # change directory to parent directory
+
+  setwd(parent.directory)
+
+}
+<bytecode: 0x1f84c350>
+<environment: namespace:cbaf>
+ --- function search by body ---
+Function heatmapOutput in namespace cbaf has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR

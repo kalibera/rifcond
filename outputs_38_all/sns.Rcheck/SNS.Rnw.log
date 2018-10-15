@@ -1,0 +1,457 @@
+
+> options(prompt = "R> ", continue = "+  ", width = 80, 
++     useFancyQuotes = FALSE)
+
+> library("sns")
+Package: sns, Version: 1.1.2
+Metropolis-Hastings MCMC using Stochastic Newton Sampler
+Scientific Computing Group, Sentrana Inc. &
+Imperial College London
+
+> library("mvtnorm")
+
+> my.seed <- 0
+
+> logdensity.mvg <- function(x, mu, isigsq) {
++     f <- dmvnorm(x = as.numeric(x), mean = mu, sigma = solve(isigsq), 
++         log = TRUE)
++     g < .... [TRUNCATED] 
+
+> set.seed(my.seed)
+
+> K <- 3
+
+> mu <- runif(K, min = -0.5, max = +0.5)
+
+> isigsq <- matrix(runif(K * K, min = 0.1, max = 0.2), 
++     ncol = K)
+
+> isigsq <- 0.5 * (isigsq + t(isigsq))
+
+> diag(isigsq) <- rep(0.5, K)
+
+> x.init <- rep(0, K)
+
+> x.smp <- sns.run(x.init, logdensity.mvg, niter = 500, 
++     mh.diag = TRUE, mu = mu, isigsq = isigsq)
+
+> summary(x.smp)
+Stochastic Newton Sampler (SNS)
+state space dimensionality:  3 
+total iterations:  500 
+	NR iterations:  10 
+	burn-in iterations:  250 
+	end iteration:  500 
+	thinning interval:  1 
+	sampling iterations (before thinning):  250 
+acceptance rate:  1 
+	mean relative deviation from quadratic approx: 1.03e-14 % (post-burnin)
+sample statistics:
+	(nominal sample size: 250)
+        mean         sd        ess       2.5%        50%  97.5% p-val
+1   0.319702   1.641531 250.000000  -2.665738   0.268971 3.5486 0.864
+2  -0.089132   1.562272 250.000000  -3.021227  -0.060261 2.7933 0.968
+3  -0.301301   1.439045 166.656823  -3.277038  -0.310379 2.7346 0.792
+summary of ess:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  166.7   208.3   250.0   222.2   250.0   250.0 
+
+> library("RegressionFactory")
+RegressionFactory 0.7.2
+Heart and Lung Institute, Imperial College London &
+Scientific Computing Group, Sentrana Inc.
+
+> loglike.poisson <- function(beta, X, y) {
++     regfac.expand.1par(beta, X = X, y = y, fbase1 = fbase1.poisson.log)
++ }
+
+> set.seed(my.seed)
+
+> K <- 5
+
+> N <- 1000
+
+> X <- matrix(runif(N * K, -0.5, +0.5), ncol = K)
+
+> beta <- runif(K, -0.5, +0.5)
+
+> y <- rpois(N, exp(X %*% beta))
+
+> beta.init <- rep(0, K)
+
+> beta.glm <- glm(y ~ X - 1, family = "poisson", start = beta.init)$coefficients
+
+> beta.sns <- sns.run(beta.init, fghEval = loglike.poisson, 
++     niter = 20, nnr = 20, X = X, y = y)
+
+> beta.nr <- beta.sns[20, ]
+
+> cbind(beta.glm, beta.nr)
+     beta.glm    beta.nr
+X1 -0.1893137 -0.1893137
+X2 -0.4131500 -0.4131500
+X3 -0.1598832 -0.1598832
+X4 -0.1304481 -0.1304481
+X5  0.3434516  0.3434516
+
+> beta.smp <- sns.run(beta.init, loglike.poisson, niter = 200, 
++     nnr = 20, mh.diag = TRUE, X = X, y = y)
+
+> plot(beta.smp, select = 1)
+
+> plot(beta.smp, select = 1)
+
+> summary(beta.smp)
+Stochastic Newton Sampler (SNS)
+state space dimensionality:  5 
+total iterations:  200 
+	NR iterations:  20 
+	burn-in iterations:  100 
+	end iteration:  200 
+	thinning interval:  1 
+	sampling iterations (before thinning):  100 
+acceptance rate:  0.98 
+	mean relative deviation from quadratic approx: 0.282 % (post-burnin)
+sample statistics:
+	(nominal sample size: 100)
+        mean         sd        ess       2.5%        50%   97.5% p-val   
+1  -0.191294   0.101788 100.000000  -0.399519  -0.183148 -0.0023  0.06 . 
+2  -0.416563   0.119709 100.000000  -0.648252  -0.426877 -0.1993  0.01 **
+3  -0.152653   0.103663 100.000000  -0.340861  -0.148608  0.0497  0.14   
+4  -0.134873   0.107803  54.066600  -0.319464  -0.126089  0.0583  0.20   
+5   0.325324   0.089878 100.000000   0.176855   0.326557  0.5292  0.01 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+summary of ess:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  54.07  100.00  100.00   90.81  100.00  100.00 
+
+> beta.smp <- sns.run(beta.init, loglike.poisson, niter = 1000, 
++     nnr = 20, mh.diag = TRUE, X = X, y = y)
+
+> predmean.poisson <- function(beta, Xnew) exp(Xnew %*% 
++     beta)
+
+> ymean.new <- predict(beta.smp, predmean.poisson, nburnin = 100, 
++     Xnew = X)
+
+> predsmp.poisson <- function(beta, Xnew) rpois(nrow(Xnew), 
++     exp(Xnew %*% beta))
+
+> ysmp.new <- predict(beta.smp, predsmp.poisson, nburnin = 100, 
++     Xnew = X)
+
+> summary(ymean.new)
+prediction sample statistics:
+	(nominal sample size: 900)
+        mean         sd        ess       2.5%        50%  97.5%
+1   1.097131   0.055727 745.264732   0.993232   1.096894 1.2046
+2   0.843732   0.054143 715.905103   0.743759   0.839696 0.9601
+3   0.890312   0.048949 739.896961   0.797980   0.888058 0.9929
+4   0.870101   0.064002 900.000000   0.745485   0.871221 1.0004
+5   0.788435   0.051432 900.000000   0.696831   0.784447 0.8981
+6   1.452514   0.121211 814.557259   1.234916   1.441164 1.7091
+...
+
+> summary(ysmp.new)
+prediction sample statistics:
+	(nominal sample size: 900)
+        mean         sd        ess       2.5%        50% 97.5%
+1    1.06889    0.97678  900.00000    0.00000    1.00000     3
+2    0.85222    0.92629  900.00000    0.00000    1.00000     3
+3    0.88222    0.93475  900.00000    0.00000    1.00000     3
+4    0.92444    0.94854 1020.54914    0.00000    1.00000     3
+5    0.75778    0.87047  900.00000    0.00000    1.00000     3
+6    1.48444    1.16530  900.00000    0.00000    1.00000     4
+...
+
+> set.seed(my.seed)
+
+> K <- 100
+
+> X <- matrix(runif(N * K, -0.5, +0.5), ncol = K)
+
+> beta <- runif(K, -0.5, +0.5)
+
+> y <- rpois(N, exp(X %*% beta))
+
+> beta.init <- glm(y ~ X - 1, family = "poisson")$coefficients
+
+> beta.smp <- sns.run(beta.init, loglike.poisson, niter = 100, 
++     nnr = 10, mh.diag = TRUE, X = X, y = y)
+
+> summary(beta.smp)
+Stochastic Newton Sampler (SNS)
+state space dimensionality:  100 
+total iterations:  100 
+	NR iterations:  10 
+	burn-in iterations:  50 
+	end iteration:  100 
+	thinning interval:  1 
+	sampling iterations (before thinning):  50 
+acceptance rate:  0.16 
+	mean relative deviation from quadratic approx: 5.25 % (post-burnin)
+sample statistics:
+	(nominal sample size: 50)
+       mean        sd       ess      2.5%       50%   97.5% p-val  
+1 -0.459896  0.064151  5.362324 -0.621051 -0.434840 -0.4053  0.02 *
+2  0.215889  0.056858 32.204465  0.129271  0.204078  0.4094  0.02 *
+3  0.240960  0.118550 11.351804  0.011089  0.255061  0.3838  0.08 .
+4 -0.093720  0.124676  5.034361 -0.400974 -0.081198  0.0237  0.76  
+5 -0.031323  0.080152  5.981971 -0.108520 -0.046393  0.1001  0.60  
+6  0.492257  0.083493 15.843840  0.260353  0.518507  0.6285  0.02 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+...
+summary of ess:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.596   3.956   6.346   8.480  12.410  32.204 
+
+> beta.smp.part <- sns.run(beta.init, loglike.poisson, 
++     niter = 100, nnr = 10, mh.diag = TRUE, part = sns.make.part(K, 
++         10), X = X, y  .... [TRUNCATED] 
+
+> summary(beta.smp.part)
+Stochastic Newton Sampler (SNS)
+state space dimensionality:  100 
+state space partitioning:  10  subsets
+total iterations:  100 
+	NR iterations:  10 
+	burn-in iterations:  50 
+	end iteration:  100 
+	thinning interval:  1 
+	sampling iterations (before thinning):  50 
+acceptance rate:  0.944 
+sample statistics:
+	(nominal sample size: 50)
+       mean        sd       ess      2.5%       50%   97.5% p-val  
+1 -0.577345  0.095907 50.000000 -0.755301 -0.567751 -0.4085  0.02 *
+2  0.262993  0.100192 18.418195  0.072602  0.257516  0.4128  0.04 *
+3  0.256804  0.095982 50.000000  0.072147  0.270832  0.4498  0.02 *
+4 -0.143442  0.102042 21.673953 -0.327718 -0.155412  0.0474  0.28  
+5  0.048772  0.115663 19.773821 -0.161601  0.060174  0.2294  0.68  
+6  0.415373  0.093859 50.000000  0.227355  0.422012  0.5652  0.02 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+...
+summary of ess:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  8.049  24.524  50.000  41.667  50.000 215.828 
+
+> par(mfrow = c(1, 2))
+
+> plot(beta.smp, select = 1)
+
+> plot(beta.smp.part, select = 1)
+
+> par(mfrow = c(1, 2))
+
+> plot(beta.smp, select = 1)
+
+> plot(beta.smp.part, select = 1)
+
+> loglike.linreg.het <- function(coeff, X, Z, y) {
++     K1 <- ncol(X)
++     K2 <- ncol(Z)
++     beta <- coeff[1:K1]
++     gamma <- coeff[K1 + 1:K2]
++ .... [TRUNCATED] 
+
+> set.seed(my.seed)
+
+> K1 <- 5
+
+> K2 <- 5
+
+> N <- 1000
+
+> X <- matrix(runif(N * K1, -0.5, +0.5), ncol = K1)
+
+> Z <- matrix(runif(N * K2, -0.5, +0.5), ncol = K2)
+
+> beta <- runif(K1, -0.5, +0.5)
+
+> gamma <- runif(K1, -0.5, +0.5)
+
+> mu <- X %*% beta
+
+> var <- exp(Z %*% gamma)
+
+> y <- rnorm(N, X %*% beta, sd = sqrt(var))
+
+> coeff.init <- rep(0, K1 + K2)
+
+> check.logdensity <- sns.check.logdensity(coeff.init, 
++     loglike.linreg.het, X = X, Z = Z, y = y, dx = 1, nevals = 10, 
++     blocks = list(1:(K1 .... [TRUNCATED] 
+
+> check.logdensity
+number of finite function evals: 10 (out of  10 )
+recommended numderiv value: 2 
+is length of gradient vector correct? Yes 
+are dims of Hessian matrix correct? Yes 
+is numerical gradient finite? Yes 
+is numerical Hessian finite? Yes 
+is numeric Hessian (block) negative-definite? Yes Yes Yes 
+
+> loglike.linreg.het.beta <- function(beta, gamma, X, 
++     Z, y) {
++     K1 <- length(beta)
++     ret <- regfac.expand.2par(c(beta, gamma), X, Z, y, .... [TRUNCATED] 
+
+> loglike.linreg.het.gamma <- function(gamma, beta, 
++     X, Z, y) {
++     K1 <- length(beta)
++     K2 <- length(gamma)
++     ret <- regfac.expand.2p .... [TRUNCATED] 
+
+> nsmp <- 100
+
+> beta.iter <- rep(0, K1)
+
+> gamma.iter <- rep(0, K2)
+
+> beta.smp <- array(NA, dim = c(nsmp, K1))
+
+> gamma.smp <- array(NA, dim = c(nsmp, K1))
+
+> for (n in 1:nsmp) {
++     beta.iter <- sns(beta.iter, loglike.linreg.het.beta, gamma = gamma.iter, 
++         X = X, Z = Z, y = y, rnd = nsmp > 10)
+ .... [TRUNCATED] 
+
+> beta.est <- colMeans(beta.smp[(nsmp/2 + 1):nsmp, ])
+
+> gamma.est <- colMeans(gamma.smp[(nsmp/2 + 1):nsmp, 
++     ])
+
+> cbind(beta, beta.est)
+           beta    beta.est
+[1,]  0.1526770 -0.08770796
+[2,] -0.4352875 -0.49244118
+[3,]  0.1766124 -0.03748689
+[4,]  0.2353717  0.19553152
+[5,] -0.3887003 -0.35553077
+
+> cbind(gamma, gamma.est)
+          gamma  gamma.est
+[1,] -0.4533454 -0.5240043
+[2,] -0.3690897 -0.1934824
+[3,]  0.3809564  0.4605329
+[4,]  0.3397255  0.1732960
+[5,]  0.3681427  0.2665750
+
+> library(MfUSampler)
+MfUSampler 1.0.4
+Convenience Functions for Multivariate MCMC Using Univariate Samplers
+For citations, please use:
+Alireza S. Mahani, Mansour T. A. Sharabiani (2017). Multivariate-From-Univariate MCMC Sampler: The R Package MfUSampler. Journal of Statistical Software, Code Snippets, 78(1), 1-22. doi:10.18637/jss.v078.c01
+
+> loglike.linreg.het.gamma.fonly <- function(gamma, 
++     beta, X, Z, y) {
++     return(regfac.expand.2par(c(beta, gamma), X, Z, y, fbase2 = fbase2.g .... [TRUNCATED] 
+
+> beta.iter <- rep(0, K1)
+
+> gamma.iter <- rep(0, K2)
+
+> for (n in 1:nsmp) {
++     beta.iter <- sns(beta.iter, loglike.linreg.het.beta, gamma = gamma.iter, 
++         X = X, Z = Z, y = y, rnd = nsmp > 10)
+ .... [TRUNCATED] 
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/RtmplmobnR/R.INSTALL8c333744d258/MfUSampler/R/MfUSampler.R#27: 
+ --- package (from environment) --- 
+MfUSampler
+ --- call from context --- 
+MfU.Sample(gamma.iter, loglike.linreg.het.gamma.fonly, beta = beta.iter, 
+    X = X, Z = Z, y = y)
+ --- call from argument --- 
+if (uni.sampler == "slice") {
+    for (k in 1:length(x)) {
+        x[k] <- MfU.UniSlice(x[k], MfU.fEval, k, x, f, ..., w = control$slice$w[k], 
+            m = control$slice$m[k], lower = control$slice$lower[k], 
+            upper = control$slice$upper[k])
+    }
+    return(x)
+} else if (uni.sampler == "ars") {
+    for (k in 1:length(x)) {
+        x[k] <- ars(n = 1, MfU.fgEval.f, MfU.fgEval.g, x = control$ars$x[[k]], 
+            ns = control$ars$ns[k], m = control$ars$m[k], emax = control$ars$emax[k], 
+            lb = control$ars$lb[k], ub = control$ars$ub[k], xlb = control$ars$xlb[k], 
+            xub = control$ars$xub[k], k, x, f, ...)
+    }
+    return(x)
+} else if (uni.sampler == "arms") {
+    for (k in 1:length(x)) {
+        x[k] <- arms(x[k], MfU.fEval, indFunc = control$arms$indFunc[[k]], 
+            n.sample = 1, k, x, f, ...)
+    }
+    return(x)
+} else if (uni.sampler == "unimet") {
+    for (k in 1:length(x)) {
+        x[k] <- MfU.UniMet(x[k], MfU.fEval, k, x, f, ..., sigma = control$unimet$sigma[k])
+    }
+    return(x)
+} else {
+    stop("invalid sampler")
+}
+ --- R stacktrace ---
+where 1: MfU.Sample(gamma.iter, loglike.linreg.het.gamma.fonly, beta = beta.iter, 
+    X = X, Z = Z, y = y)
+where 2: eval(ei, envir)
+where 3: eval(ei, envir)
+where 4: withVisible(eval(ei, envir))
+where 5 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
+where 6: doTryCatch(return(expr), name, parentenv, handler)
+where 7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 8: tryCatchList(expr, classes, parentenv, handlers)
+where 9 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
+    source(output, echo = TRUE)
+}, error = function(e) {
+    cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
+    stop(conditionMessage(e), call. = FALSE, domain = NA)
+})
+where 10: tools:::.run_one_vignette("SNS.Rnw", "/var/scratch2/tomas/test/mine/R-75396/check/sns.Rcheck/00_pkg_src/sns/vignettes", 
+    encoding = "latin1", pkgdir = "/var/scratch2/tomas/test/mine/R-75396/check/sns.Rcheck/00_pkg_src/sns")
+
+ --- value of length: 4 type: logical ---
+[1]  TRUE FALSE FALSE FALSE
+ --- function from context --- 
+function(x, f, uni.sampler = c("slice", "ars", "arms", "unimet")
+  , ..., control = MfU.Control(length(x))) {
+  if (uni.sampler == "slice") {
+    for (k in 1:length(x)) {
+      x[k] <- MfU.UniSlice(x[k], MfU.fEval, k, x, f, ..., w=control$slice$w[k], m=control$slice$m[k]
+                           , lower=control$slice$lower[k], upper=control$slice$upper[k])
+    }
+    return (x)
+  } else if (uni.sampler == "ars") {
+    for (k in 1:length(x)) {
+      x[k] <- ars(n=1, MfU.fgEval.f, MfU.fgEval.g, x=control$ars$x[[k]], ns=control$ars$ns[k], m=control$ars$m[k]
+                  , emax=control$ars$emax[k], lb=control$ars$lb[k], ub=control$ars$ub[k], xlb=control$ars$xlb[k]
+                  , xub=control$ars$xub[k], k, x, f, ...)
+    }
+    return (x)
+  } else if (uni.sampler == "arms") {
+    for (k in 1:length(x)) {
+      x[k] <- arms(x[k], MfU.fEval, indFunc = control$arms$indFunc[[k]]
+                   , n.sample = 1, k, x, f, ...)
+    }
+    return (x)
+  } else if (uni.sampler == "unimet") {
+    for (k in 1:length(x)) {
+      x[k] <- MfU.UniMet(x[k], MfU.fEval, k, x, f, ..., sigma = control$unimet$sigma[k])
+    }
+    return (x)
+  } else {
+    stop("invalid sampler")
+  }
+}
+<bytecode: 0x442f668>
+<environment: namespace:MfUSampler>
+ --- function search by body ---
+Function MfU.Sample in namespace MfUSampler has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

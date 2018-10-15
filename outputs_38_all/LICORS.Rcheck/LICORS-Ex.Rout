@@ -1,0 +1,1016 @@
+
+R Under development (unstable) (2018-10-04 r75396) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "LICORS"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('LICORS')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("LC-utils")
+> ### * LC-utils
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: LC-utils
+> ### Title: Utilities for LC class
+> ### Aliases: LC_coordinates2control_settings LC-utils plot.LC summary.LC
+> ### Keywords: hplot method models print
+> 
+> ### ** Examples
+> 
+> aa <- setup_LC_geometry(horizon = list(PLC = 2, FLC = 1), speed = 1, space.dim = 1, 
++     shape = "cone")
+> plot(aa)
+> bb <- setup_LC_geometry(horizon = list(PLC = 2, FLC = 1), speed = 1, space.dim = 1, 
++     shape = "revcone")
+> plot(bb)
+> aa <- setup_LC_geometry(horizon = list(PLC = 2, FLC = 0), speed = 1, space.dim = 1, 
++     shape = "cone")
+> summary(aa)
+   PLC  FLC
+1    2    0
+2    1    1
+3 cone cone
+4    8    1
+* * * * * * * * * * * * * * * * * * * *
+ 
+The field extends over a 1-dimensional space. 
+Light cones have therefore the following characteristics: 
+ 
+                PLC  FLC
+horizon           2    0
+speed             1    1
+shape          cone cone
+dimensionality    8    1
+
+* * * * * * * * * * * * * * * * * * * *> aa <- setup_LC_geometry(horizon = list(PLC = 2, FLC = 0), speed = 1, space.dim = 1, 
++     shape = "cone")
+> LC_coordinates2control_settings(aa$coordinates)
+$n.p
+[1] 8
+
+$n.f
+[1] 1
+
+$space.dim
+[1] 1
+
+$horizon
+$horizon$PLC
+[1] 2
+
+$horizon$FLC
+[1] 0
+
+
+$space.cutoff
+[1] 2
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("LICORS-package")
+> ### * LICORS-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: LICORS-package
+> ### Title: Light Cone Reconstruction of States - Predictive State
+> ###   Estimation From Spatio-Temporal Data
+> ### Aliases: LICORS LICORS-package
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # setup the light cone geometry
+> ##D LC_geom <- setup_LC_geometry(speed = 1, horizon = list(PLC = 2, FLC = 0), 
+> ##D     shape = "cone")
+> ##D # load the field
+> ##D data(contCA00)
+> ##D # get LC configurations from field
+> ##D contCA_LCs <- data2LCs(contCA00$observed, LC.coordinates = LC_geom$coordinates)
+> ##D # run mixed LICORS
+> ##D 
+> ##D mod <- mixed_LICORS(contCA_LCs, num.states_start = 10, initialization = "KmeansPLC", 
+> ##D     max_iter = 20)
+> ##D 
+> ##D plot(mod)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compute_LC_coordinates")
+> ### * compute_LC_coordinates
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compute_LC_coordinates
+> ### Title: Computes coordinates of PLC and FLC relative to origin
+> ### Aliases: compute_LC_coordinates
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> plot(compute_LC_coordinates(speed = 1, horizon = 4), xlim = c(-4, 2), pch = "-", 
++     cex = 2, col = 2, xlab = "Time", ylab = "Space")
+> points(compute_LC_coordinates(speed = 1, horizon = 2, type = "FLC"), pch = "+", cex = 2, 
++     col = "blue")
+> 
+> plot(compute_LC_coordinates(speed = 1, horizon = 4, shape = "tube", type = "FLC"))
+> plot(compute_LC_coordinates(speed = 1, horizon = 4, shape = "revcone", type = "PLC"))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compute_NEC")
+> ### * compute_NEC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compute_NEC
+> ### Title: Compute Negative Entropy Criterion (NEC)
+> ### Aliases: compute_NEC
+> ### Keywords: array manip
+> 
+> ### ** Examples
+> 
+> WW <- matrix(c(rexp(10, 1/10), runif(10)), ncol = 5, byrow = FALSE)
+> WW <- normalize(WW)
+> compute_NEC(WW, -2, -1)
+[1] 1.339533
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compute_margin_coordinates")
+> ### * compute_margin_coordinates
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compute_margin_coordinates
+> ### Title: Get LC configuration from a (N+1)D field
+> ### Aliases: compute_margin_coordinates
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> LC_geom <- setup_LC_geometry(speed = 1, horizon = list(PLC = 3, FLC = 0), shape = "cone")
+> 
+> data(contCA00)
+> 
+> aa <- compute_margin_coordinates(dim(contCA00$observed), LC_geom$coordinates)
+> aa
+$time
+[1]   4 100
+
+$space
+$space[[1]]
+[1]   4 197
+
+
+$dim
+[1]  97 194
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compute_mixture_penalty")
+> ### * compute_mixture_penalty
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compute_mixture_penalty
+> ### Title: Penalty of mixture weights
+> ### Aliases: compute_mixture_penalty
+> ### Keywords: array manip
+> 
+> ### ** Examples
+> 
+> WW <- matrix(c(rexp(10, 1/10), runif(10), 1/10), ncol = 3, byrow = FALSE)
+> WW[1, 1] <- 0
+> WW <- normalize(WW)
+> compute_mixture_penalty(WW, row.average = FALSE)
+[1] 0.35145042 1.19129811 1.37785069 1.10757319 0.79580930 0.22099729 0.07980791
+> compute_mixture_penalty(WW, row.average = TRUE)  # default: average penalty
+[1] 0.7321124
+> 
+> 
+> 
+> cleanEx()
+> nameEx("contCA00")
+> ### * contCA00
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: contCA00
+> ### Title: Simulated 7 state (1+1)D field
+> ### Aliases: contCA00
+> ### Keywords: dataset datasets
+> 
+> ### ** Examples
+> 
+> # set original par parameters
+> op <- par(no.readonly = TRUE)
+> 
+> data(contCA00)
+> par(mfrow = c(2, 2), mar = c(3, 3, 2, 1))
+> for (ii in 1:3) {
++     image2(contCA00[[ii]], legend = FALSE, col = "RdBu", main = attr(summary(contCA00), 
++         "dimnames")[[1]][ii])
++     mtext("Time", 1, 1)
++     mtext("Space", 2, 1)
++ }
+> par(op)
+> ## Not run: 
+> ##D LC_geom <- setup_LC_geometry(speed = 1, horizon = list(PLC = 2, FLC = 0), 
+> ##D     shape = "cone")
+> ##D bb <- data2LCs(contCA00$observed, LC.coordinates = LC_geom$coordinates)
+> ##D image2(bb$PLC)
+> ##D image2(cor(bb$PLC), zlim = c(-1, 1), col = "RdBu")
+> ##D mod_kk <- kmeanspp(bb$PLC, k = 10)
+> ##D plot(bb$FLC, col = mod_kk$cluster, pch = ".", cex = 3)
+> ##D 
+> ##D ff <- estimate_LC_pdfs(bb$FLC, states = mod_kk$cluster, method = "nonparametric")
+> ##D matplot(bb$FLC, ff, pch = ".", cex = 2)
+> ## End(Not run)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("data2LCs")
+> ### * data2LCs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: data2LCs
+> ### Title: Iterate over (N+1)D field and get all LC configurations
+> ### Aliases: data2LCs
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> set.seed(1)
+> AA <- matrix(rnorm(200), ncol = 10)
+> LC_geom <- setup_LC_geometry(speed = 1, horizon = list(PLC = 2, FLC = 0), shape = "cone")
+> bb <- data2LCs(t(AA), LC.coordinates = LC_geom$coordinates)
+> image2(bb$PLC)
+> plot(density(bb$FLC))
+> 
+> # a time series example
+> data(nottem)
+> xx <- nottem
+> LC_geom <- setup_LC_geometry(speed = 1, horizon = list(PLC = 24, FLC = 3), space.dim = 0)
+> bb <- data2LCs(xx, LC.coordinates = LC_geom$coordinates)
+> image2(bb$PLC)
+> plot(density(bb$FLC))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("embed2")
+> ### * embed2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: embed2
+> ### Title: Improved embed() function
+> ### Aliases: embed2
+> 
+> ### ** Examples
+> 
+> data(nottem)
+> aa <- embed2(nottem, 12)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("estimate_LC_pdfs")
+> ### * estimate_LC_pdfs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estimate_LC_pdfs
+> ### Title: Estimate PLC/FLC distributions for all states
+> ### Aliases: estimate_LC_pdfs estimate_LC_pdf_state estimate_LC.pdf.state
+> ### Keywords: distribution multivariate nonparametric
+> 
+> ### ** Examples
+> 
+> set.seed(10)
+> WW <- matrix(runif(10000), ncol = 10)
+> WW <- normalize(WW)
+> temp_flcs <- cbind(sort(rnorm(nrow(WW))))
+> temp_flc_pdfs <- estimate_LC_pdfs(temp_flcs, WW)
+> matplot(temp_flcs, temp_flc_pdfs, col = 1:ncol(WW), type = "l", xlab = "FLCs", 
++     ylab = "pdf", lty = 1)
+> ###################### one state only ###
+> temp_flcs <- temp_flcs[order(temp_flcs)]
+> temp_flc_pdf <- estimate_LC_pdf_state(state = 3, LCs = temp_flcs, weights = WW)
+> 
+> plot(temp_flcs, temp_flc_pdf, type = "l", xlab = "FLC", ylab = "pdf")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("estimate_state_adj_matrix")
+> ### * estimate_state_adj_matrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estimate_state_adj_matrix
+> ### Title: Estimate adjacency matrix for equivalent FLC distributions based
+> ###   on states
+> ### Aliases: estimate_state_adj_matrix
+> ### Keywords: distribution manip multivariate nonparametric
+> 
+> ### ** Examples
+> 
+> WW <- matrix(runif(10000), ncol = 10)
+> WW <- normalize(WW)
+> temp_flcs <- cbind(rnorm(nrow(WW)))
+> temp_pdfs.FLC <- estimate_LC_pdfs(temp_flcs, WW)
+> AA_ks <- estimate_state_adj_matrix(states = weight_matrix2states(WW), FLCs = temp_flcs, 
++     distance = "KS")
+> AA_L1 <- estimate_state_adj_matrix(pdfs.FLC = temp_pdfs.FLC)
+> 
+> par(mfrow = c(1, 2), mar = c(1, 1, 2, 1))
+> image2(AA_ks, zlim = c(0, 1), legend = FALSE, main = "Kolmogorov-Smirnov")
+> image2(AA_L1, legend = FALSE, main = "L1 distance")
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("estimate_state_probs")
+> ### * estimate_state_probs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estimate_state_probs
+> ### Title: Estimate conditional/marginal state probabilities
+> ### Aliases: estimate_state_probs
+> ### Keywords: distribution multivariate nonparametric
+> 
+> ### ** Examples
+> 
+> WW <- matrix(runif(10000), ncol = 10)
+> WW <- normalize(WW)
+> estimate_state_probs(WW)
+ [1] 0.10016014 0.09808540 0.09777014 0.09899849 0.10175766 0.10332007
+ [7] 0.10318711 0.09847843 0.09939564 0.09884693
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_LC_config")
+> ### * get_LC_config
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_LC_config
+> ### Title: Get configuration of a light cone (LC)
+> ### Aliases: get_LC_config
+> ### Keywords: method utilities
+> 
+> ### ** Examples
+> 
+> AA <- matrix(rnorm(40), ncol = 5)
+> image2(AA)
+> LCind <- compute_LC_coordinates(speed = 1, horizon = 1, shape = "cone")
+> AA
+           [,1]        [,2]        [,3]        [,4]        [,5]
+[1,] -0.6264538  0.57578135 -0.01619026  0.61982575  0.38767161
+[2,]  0.1836433 -0.30538839  0.94383621 -0.05612874 -0.05380504
+[3,] -0.8356286  1.51178117  0.82122120 -0.15579551 -1.37705956
+[4,]  1.5952808  0.38984324  0.59390132 -1.47075238 -0.41499456
+[5,]  0.3295078 -0.62124058  0.91897737 -0.47815006 -0.39428995
+[6,] -0.8204684 -2.21469989  0.78213630  0.41794156 -0.05931340
+[7,]  0.4874291  1.12493092  0.07456498  1.35867955  1.10002537
+[8,]  0.7383247 -0.04493361 -1.98935170 -0.10278773  0.76317575
+> get_LC_config(cbind(5, 2), AA, LCind)
+          [,1]
+[1,] 1.5952808
+[2,] 0.3898432
+[3,] 0.5939013
+> # a time series example
+> data(nhtemp)
+> xx <- c(nhtemp)
+> LCind <- compute_LC_coordinates(speed = 1, horizon = 4, shape = "cone", space.dim = 0)
+> cc <- get_LC_config(6, xx, LCind)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_spacetime_grid")
+> ### * get_spacetime_grid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_spacetime_grid
+> ### Title: Get an iterator over the space-time coordinates of the field.
+> ### Aliases: get_spacetime_grid
+> 
+> ### ** Examples
+> 
+> AA <- matrix(rnorm(200), ncol = 10)
+> LC.geom <- setup_LC_geometry(speed = 1, horizon = list(PLC = 3, FLC = 0), shape = "cone")
+> bb <- get_spacetime_grid(dim(AA), LC.geom$coordinates)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("image2")
+> ### * image2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: image2
+> ### Title: Improved image() function
+> ### Aliases: image2 make_legend
+> ### Keywords: aplot color hplot
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Correlation matrix
+> ##D data(iris)  # make sure its from 'datasets' package, not from 'locfit'
+> ##D image(cor(as.matrix(iris[, names(iris) != "Species"])))
+> ##D 
+> ##D # Correlation matrix has diagonal from top left to bottom right
+> ##D par(mar = c(1, 3, 1, 2))
+> ##D image2(cor(as.matrix(iris[, names(iris) != "Species"])), col = "RdBu", axes = FALSE)
+> ## End(Not run)
+> # Color histogram
+> nn <- 10
+> set.seed(nn)
+> AA <- matrix(sample(c(rnorm(nn^2, -1, 0.1), rexp(nn^2/2, 0.5))), ncol = nn)
+> 
+> image2(AA, col = "Spectral")
+> image2(y = 1:15 + 2, x = 1:10, AA, col = "Spectral", axes = TRUE)
+> image2(y = 1:15 + 2, x = 1:10, AA, col = "Spectral", density = TRUE, axes = TRUE)
+> 
+> image2(AA, col = "Spectral", density = TRUE, zlim = c(min(AA), 3))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("initialize_states")
+> ### * initialize_states
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: initialize_states
+> ### Title: State initialization for iterative algorithms (randomly or
+> ###   variants of kmeans)
+> ### Aliases: initialize_states
+> ### Keywords: datagen distribution multivariate
+> 
+> ### ** Examples
+> 
+> x1 <- rnorm(1000)
+> x2 <- rnorm(200, mean = 2)
+> yy <- c(x1, x2)
+> ss <- initialize_states(num.states = 2, num.samples = length(yy), method = "KmeansFLC", 
++     LCs = list(FLCs = yy))
+> plot(yy, col = ss, pch = 19)
+> points(x1, col = "blue")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("kmeanspp")
+> ### * kmeanspp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: kmeanspp
+> ### Title: Kmeans++
+> ### Aliases: kmeanspp
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+> set.seed(1984)
+> nn <- 100
+> XX <- matrix(rnorm(nn), ncol = 2)
+> YY <- matrix(runif(length(XX) * 2, -1, 1), ncol = ncol(XX))
+> ZZ <- rbind(XX, YY)
+> 
+> cluster_ZZ <- kmeanspp(ZZ, k = 5, start = "random")
+> 
+> plot(ZZ, col = cluster_ZZ$cluster + 1, pch = 19)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("merge_states")
+> ### * merge_states
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: merge_states
+> ### Title: Merge several states into one
+> ### Aliases: merge_states
+> ### Keywords: array manip
+> 
+> ### ** Examples
+> 
+> set.seed(10)
+> WW <- matrix(c(rexp(1000, 1/10), runif(1000)), ncol = 5, byrow = FALSE)
+> WW <- normalize(WW)
+> image2(WW, density = TRUE)
+> ## Not run: 
+> ##D merge_states(c(1, 1, 5), WW)  # error since states were repeated
+> ## End(Not run)
+> WW_new <- merge_states(c(1, 3, 5), WW)
+> 
+> par(mfrow = c(1, 2), mar = c(1, 1, 2, 1))
+> image2(WW, main = paste(ncol(WW), "states"), legend = FALSE)
+> image2(WW_new, main = paste(ncol(WW_new), "states"), legend = FALSE)
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("mixed_LICORS-utils")
+> ### * mixed_LICORS-utils
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mixed_LICORS-utils
+> ### Title: Utilities for "LICORS" class
+> ### Aliases: complete_LICORS_control mixed_LICORS-utils plot.mixed_LICORS
+> ###   predict.mixed_LICORS summary.mixed_LICORS
+> ### Keywords: hplot model nonparametric
+> 
+> ### ** Examples
+> 
+> # see examples of LICORS-package see examples in LICORS-package see examples in
+> # LICORS-package see examples in LICORS-package
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mixed_LICORS")
+> ### * mixed_LICORS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mixed_LICORS
+> ### Title: Mixed LICORS: An EM-like Algorithm for Predictive State Space
+> ###   Estimation
+> ### Aliases: mixed_LICORS
+> ### Keywords: cluster distribution multivariate nonparametric
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D data(contCA00)
+> ##D 
+> ##D LC_geom <- setup_LC_geometry(speed = 1, horizon = list(PLC = 2, FLC = 0), 
+> ##D     shape = "cone")
+> ##D bb <- data2LCs(t(contCA00$observed), LC.coordinates = LC_geom$coordinates)
+> ##D 
+> ##D mm <- mixed_LICORS(bb, num.states.init = 15, init = "KmeansPLC", 
+> ##D     control = list(max.iter = 50, lambda = 0.001))
+> ##D plot(mm)
+> ##D ff_new <- estimate_LC_pdfs(bb$FLC, weight.matrix = mm$conditional_state_probs, 
+> ##D     method = "nonparametric")
+> ##D matplot(bb$FLC, ff_new, pch = ".", cex = 2)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("normalize")
+> ### * normalize
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: normalize
+> ### Title: Normalize a matrix/vector to sum to one (probability simplex)
+> ### Aliases: normalize
+> ### Keywords: array manip
+> 
+> ### ** Examples
+> 
+> print(normalize(c(1, 4, 2, 2, 10)))
+[1] 0.05263158 0.21052632 0.10526316 0.10526316 0.52631579
+> print(normalize(c(-1, -2, -1)))
+[1] 1 0 0
+> AA <- matrix(rnorm(12), ncol = 3)
+> print(normalize(AA, byrow = TRUE))
+          [,1]      [,2]      [,3]
+[1,] 0.0000000 0.3639807 0.6360193
+[2,] 1.0000000 0.0000000 0.0000000
+[3,] 0.0000000 0.2438108 0.7561892
+[4,] 0.5857576 0.2710992 0.1431432
+> print(normalize(AA, byrow = FALSE))
+          [,1]      [,2]      [,3]
+[1,] 0.0000000 0.2118665 0.2324130
+[2,] 0.1032328 0.0000000 0.0000000
+[3,] 0.0000000 0.3134065 0.6102275
+[4,] 0.8967672 0.4747270 0.1573595
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rdensity")
+> ### * rdensity
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rdensity
+> ### Title: Generate random sample from density() or wKDE
+> ### Aliases: rdensity
+> ### Keywords: # distribution nonparametric
+> 
+> ### ** Examples
+> 
+> set.seed(1923)
+> xx <- c(rnorm(100, mean = 2), runif(100))
+> aa <- density(xx)
+> plot(aa)
+> xx_sample <- rdensity(n = 1000, fhat = aa, data = xx)
+> lines(density(xx_sample), col = 2)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("relabel_vector")
+> ### * relabel_vector
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: relabel_vector
+> ### Title: Relabels a vector to consecutive labels
+> ### Aliases: relabel_vector
+> ### Keywords: arith array list manip
+> 
+> ### ** Examples
+> 
+> TempVec <- c(10, 2, 1, 2, 2, 2, 10)
+> print(relabel_vector(TempVec))
+[1] 1 2 3 2 2 2 1
+> 
+> print(relabel_vector(c(2, 2, 5)))
+[1] 1 1 2
+> 
+> 
+> 
+> cleanEx()
+> nameEx("remove_small_sample_states")
+> ### * remove_small_sample_states
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: remove_small_sample_states
+> ### Title: Reassign low sample states to close states
+> ### Aliases: remove_small_sample_states
+> ### Keywords: manip method
+> 
+> ### ** Examples
+> 
+> set.seed(10)
+> WW <- matrix(c(rexp(1000, 1/10), runif(1000)), ncol = 5, byrow = FALSE)
+> WW <- normalize(WW)
+> colSums(WW)
+[1] 150.26275 155.78926  71.75018  10.89582  11.30197
+> remove_small_sample_states(WW, 20)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("search_knn")
+> ### * search_knn
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: search_knn
+> ### Title: K nearest neighbor (KNN) search
+> ### Aliases: search_knn
+> ### Keywords: classif cluster nonparametric
+> 
+> ### ** Examples
+> 
+> set.seed(1984)
+> XX <- matrix(rnorm(40), ncol = 2)
+> YY <- matrix(runif(length(XX) * 2), ncol = ncol(XX))
+> knns_of_XX_in_XX <- search_knn(XX, 1)
+> knns_of_YY_in_XX <- search_knn(XX, 1, query = YY)
+> plot(rbind(XX, YY), type = "n", xlab = "", ylab = "")
+> points(XX, pch = 19, cex = 2, xlab = "", ylab = "")
+> arrows(XX[, 1], XX[, 2], XX[knns_of_XX_in_XX, 1], XX[knns_of_XX_in_XX, 2], lwd = 2)
+> points(YY, pch = 15, col = 2)
+> arrows(YY[, 1], YY[, 2], XX[knns_of_YY_in_XX, 1], XX[knns_of_YY_in_XX, 2], col = 2)
+> legend("left", c("X", "Y"), lty = 1, pch = c(19, 15), cex = c(2, 1), col = c(1, 2))
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at ../../../../R/src/library/graphics/R/legend.R#101: 
+ --- package (from environment) --- 
+graphics
+ --- call from context --- 
+legend("left", c("X", "Y"), lty = 1, pch = c(19, 15), cex = c(2, 
+    1), col = c(1, 2))
+ --- call from argument --- 
+if (xc < 0) text.width <- -text.width
+ --- R stacktrace ---
+where 1: legend("left", c("X", "Y"), lty = 1, pch = c(19, 15), cex = c(2, 
+    1), col = c(1, 2))
+
+ --- value of length: 2 type: logical ---
+[1] FALSE FALSE
+ --- function from context --- 
+function(x, y = NULL, legend, fill = NULL, col = par("col"), border="black",
+         lty, lwd, pch, angle = 45, density = NULL, bty = "o", bg = par("bg"),
+         box.lwd = par("lwd"), box.lty = par("lty"), box.col = par("fg"),
+	 pt.bg = NA, cex = 1, pt.cex = cex, pt.lwd = lwd,
+	 xjust = 0, yjust = 1, x.intersp = 1, y.intersp = 1, adj = c(0, 0.5),
+	 text.width = NULL, text.col = par("col"), text.font = NULL,
+	 merge = do.lines && has.pch, trace = FALSE,
+	 plot = TRUE, ncol = 1, horiz = FALSE, title = NULL,
+	 inset = 0, xpd, title.col = text.col, title.adj = 0.5,
+         seg.len = 2)
+{
+    ## the 2nd arg may really be `legend'
+    if(missing(legend) && !missing(y) &&
+       (is.character(y) || is.expression(y))) {
+	legend <- y
+	y <- NULL
+    }
+    mfill <- !missing(fill) || !missing(density)
+
+    if(!missing(xpd)) {
+        op <- par("xpd")
+        on.exit(par(xpd=op))
+        par(xpd=xpd)
+    }
+    title <- as.graphicsAnnot(title)
+    if(length(title) > 1) stop("invalid 'title'")
+    legend <- as.graphicsAnnot(legend)
+    n.leg <- if(is.call(legend)) 1 else length(legend)
+    if(n.leg == 0) stop("'legend' is of length 0")
+    auto <-
+	if (is.character(x))
+	    match.arg(x, c("bottomright", "bottom", "bottomleft", "left",
+			   "topleft", "top", "topright", "right", "center"))
+	else NA
+
+    if (is.na(auto)) {
+	xy <- xy.coords(x, y, setLab = FALSE); x <- xy$x; y <- xy$y
+	nx <- length(x)
+	if (nx < 1 || nx > 2) stop("invalid coordinate lengths")
+    } else nx <- 0
+
+    xlog <- par("xlog")
+    ylog <- par("ylog")
+
+    rect2 <- function(left, top, dx, dy, density = NULL, angle, ...) {
+	r <- left + dx; if(xlog) { left <- 10^left; r <- 10^r }
+	b <- top  - dy; if(ylog) {  top <- 10^top;  b <- 10^b }
+	rect(left, top, r, b, angle = angle, density = density, ...)
+    }
+    segments2 <- function(x1, y1, dx, dy, ...) {
+	x2 <- x1 + dx; if(xlog) { x1 <- 10^x1; x2 <- 10^x2 }
+	y2 <- y1 + dy; if(ylog) { y1 <- 10^y1; y2 <- 10^y2 }
+	segments(x1, y1, x2, y2, ...)
+    }
+    points2 <- function(x, y, ...) {
+	if(xlog) x <- 10^x
+	if(ylog) y <- 10^y
+	points(x, y, ...)
+    }
+    text2 <- function(x, y, ...) {
+	##--- need to adjust  adj == c(xadj, yadj) ?? --
+	if(xlog) x <- 10^x
+	if(ylog) y <- 10^y
+	text(x, y, ...)
+    }
+    if(trace)
+	catn <- function(...)
+	    do.call("cat", c(lapply(list(...),formatC), list("\n")))
+
+    cin <- par("cin")
+    Cex <- cex * par("cex")		# = the `effective' cex for text
+
+    ## at this point we want positive width even for reversed x axis.
+    if(is.null(text.width))
+	text.width <- max(abs(strwidth(legend, units="user",
+				       cex=cex, font = text.font)))
+    else if(!is.numeric(text.width) || text.width < 0)
+	stop("'text.width' must be numeric, >= 0")
+
+    xc <- Cex * xinch(cin[1L], warn.log=FALSE) # [uses par("usr") and "pin"]
+    yc <- Cex * yinch(cin[2L], warn.log=FALSE)
+    if(xc < 0) text.width <- -text.width
+
+    xchar  <- xc
+    xextra <- 0
+    yextra <- yc * (y.intersp - 1)
+    ## watch out for reversed axis here: heights can be negative
+    ymax   <- yc * max(1, strheight(legend, units="user", cex=cex)/yc)
+    ychar <- yextra + ymax
+    if(trace) catn("  xchar=", xchar, "; (yextra,ychar)=", c(yextra,ychar))
+
+    if(mfill) {
+	##= sizes of filled boxes.
+	xbox <- xc * 0.8
+	ybox <- yc * 0.5
+	dx.fill <- xbox ## + x.intersp*xchar
+    }
+    do.lines <- (!missing(lty) && (is.character(lty) || any(lty > 0))
+		 ) || !missing(lwd)
+
+    ## legends per column:
+    n.legpercol <-
+	if(horiz) {
+	    if(ncol != 1)
+                warning(gettextf("horizontal specification overrides: Number of columns := %d",
+                                 n.leg), domain = NA)
+	    ncol <- n.leg
+	    1
+	} else ceiling(n.leg / ncol)
+
+    has.pch <- !missing(pch) && length(pch) > 0 # -> default 'merge' is available
+    if(do.lines) {
+	x.off <- if(merge) -0.7 else 0
+    } else if(merge)
+	warning("'merge = TRUE' has no effect when no line segments are drawn")
+
+    if(has.pch) {
+	if(is.character(pch) && !is.na(pch[1L]) &&
+           nchar(pch[1L], type = "c") > 1) {
+	    if(length(pch) > 1)
+		warning("not using pch[2..] since pch[1L] has multiple chars")
+	    np <- nchar(pch[1L], type = "c")
+	    pch <- substr(rep.int(pch[1L], np), 1L:np, 1L:np)
+	}
+        ## this coercion was documented but not done in R < 3.0.0
+        if(!is.character(pch)) pch <- as.integer(pch)
+    }
+
+    if (is.na(auto)) {
+	##- Adjust (x,y) :
+	if (xlog) x <- log10(x)
+	if (ylog) y <- log10(y)
+    }
+    if(nx == 2) {
+	## (x,y) are specifiying OPPOSITE corners of the box
+	x <- sort(x)
+	y <- sort(y)
+	left <- x[1L]
+	top  <- y[2L]
+	w <- diff(x)# width
+	h <- diff(y)# height
+	w0 <- w/ncol # column width
+
+	x <- mean(x)
+	y <- mean(y)
+	if(missing(xjust)) xjust <- 0.5
+	if(missing(yjust)) yjust <- 0.5
+
+    }
+    else {## nx == 1  or  auto
+	## -- (w,h) := (width,height) of the box to draw -- computed in steps
+	h <- (n.legpercol + !is.null(title)) * ychar + yc
+	w0 <- text.width + (x.intersp + 1) * xchar
+	if(mfill)	w0 <- w0 + dx.fill
+	if(do.lines)	w0 <- w0 + (seg.len + x.off)*xchar
+	w <- ncol*w0 + .5* xchar
+	if (!is.null(title)
+	    && (abs(tw <- strwidth(title, units="user", cex=cex) + 0.5*xchar)) > abs(w)) {
+	    xextra <- (tw - w)/2
+	    w <- tw
+	}
+
+	##-- (w,h) are now the final box width/height.
+
+	if (is.na(auto)) {
+	    left <- x - xjust * w
+	    top	 <- y + (1 - yjust) * h
+	} else {
+	    usr <- par("usr")
+	    inset <- rep_len(inset, 2)
+	    insetx <- inset[1L]*(usr[2L] - usr[1L])
+	    left <- switch(auto, "bottomright" =,
+			   "topright" =, "right" = usr[2L] - w - insetx,
+			   "bottomleft" =, "left" =, "topleft" = usr[1L] + insetx,
+			   "bottom" =, "top" =, "center" = (usr[1L] + usr[2L] - w)/2)
+	    insety <- inset[2L]*(usr[4L] - usr[3L])
+	    top <- switch(auto, "bottomright" =,
+			  "bottom" =, "bottomleft" = usr[3L] + h + insety,
+			  "topleft" =, "top" =, "topright" = usr[4L] - insety,
+			  "left" =, "right" =, "center" = (usr[3L] + usr[4L] + h)/2)
+	}
+    }
+
+    if (plot && bty != "n") { ## The legend box :
+	if(trace)
+	    catn("  rect2(", left, ",", top,", w=", w, ", h=", h, ", ...)",
+                 sep = "")
+	rect2(left, top, dx = w, dy = h, col = bg, density = NULL,
+              lwd = box.lwd, lty = box.lty, border = box.col)
+    }
+
+    ## (xt[],yt[]) := `current' vectors of (x/y) legend text
+    xt <- left + xchar + xextra +
+	(w0 * rep.int(0:(ncol-1), rep.int(n.legpercol,ncol)))[1L:n.leg]
+    yt <- top -	0.5 * yextra - ymax -
+	(rep.int(1L:n.legpercol,ncol)[1L:n.leg] - 1 + !is.null(title)) * ychar
+
+    if (mfill) {		#- draw filled boxes -------------
+	if(plot) {
+	    if(!is.null(fill)) fill <- rep_len(fill, n.leg)
+	    rect2(left = xt, top=yt+ybox/2, dx = xbox, dy = ybox,
+		  col = fill,
+		  density = density, angle = angle, border = border)
+	}
+	xt <- xt + dx.fill
+    }
+    if(plot && (has.pch || do.lines))
+	col <- rep_len(col, n.leg)
+
+    ## NULL is not documented but people use it.
+    if(missing(lwd) || is.null(lwd))
+	lwd <- par("lwd") # = default for pt.lwd
+    if (do.lines) {			#- draw lines ---------------------
+        ## NULL is not documented
+	if(missing(lty) || is.null(lty)) lty <- 1
+	lty <- rep_len(lty, n.leg)
+	lwd <- rep_len(lwd, n.leg)
+	ok.l <- !is.na(lty) & (is.character(lty) | lty > 0) & !is.na(lwd)
+	if(trace)
+	    catn("  segments2(",xt[ok.l] + x.off*xchar, ",", yt[ok.l],
+		 ", dx=", seg.len*xchar, ", dy=0, ...)")
+	if(plot)
+	    segments2(xt[ok.l] + x.off*xchar, yt[ok.l],
+                      dx = seg.len*xchar, dy = 0,
+		      lty = lty[ok.l], lwd = lwd[ok.l], col = col[ok.l])
+	# if (!merge)
+	xt <- xt + (seg.len+x.off) * xchar
+    }
+    if (has.pch) {			#- draw points -------------------
+	pch <- rep_len(pch, n.leg)
+	pt.bg <- rep_len(pt.bg, n.leg)
+	pt.cex <- rep_len(pt.cex, n.leg)
+	pt.lwd <- rep_len(pt.lwd, n.leg)
+        ok <- !is.na(pch)
+        if (!is.character(pch)) {
+            ## R 2.x.y omitted pch < 0
+            ok <- ok & (pch >= 0 | pch <= -32)
+        } else {
+            ## like points
+            ok <- ok & nzchar(pch)
+        }
+	x1 <- (if(merge && do.lines) xt-(seg.len/2)*xchar else xt)[ok]
+	y1 <- yt[ok]
+	if(trace)
+	    catn("  points2(", x1,",", y1,", pch=", pch[ok],", ...)")
+	if(plot)
+	    points2(x1, y1, pch = pch[ok], col = col[ok],
+		    cex = pt.cex[ok], bg = pt.bg[ok], lwd = pt.lwd[ok])
+##D	if (!merge) xt <- xt + dx.pch
+    }
+
+    xt <- xt + x.intersp * xchar
+    if(plot) {
+	if (!is.null(title))
+            text2(left + w*title.adj, top - ymax, labels = title,
+                  adj = c(title.adj, 0), cex = cex, col = title.col)
+
+	text2(xt, yt, labels = legend, adj = adj, cex = cex,
+	      col = text.col, font = text.font)
+    }
+    invisible(list(rect = list(w = w, h = h, left = left, top = top),
+		   text = list(x = xt, y = yt)))
+}
+<bytecode: 0xdf2bab0>
+<environment: namespace:graphics>
+ --- function search by body ---
+Function legend in namespace graphics has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1

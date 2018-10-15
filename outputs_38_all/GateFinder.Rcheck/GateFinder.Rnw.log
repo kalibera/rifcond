@@ -1,0 +1,124 @@
+
+> library(GateFinder)
+sROC 0.1-2 loaded
+
+> library(flowCore)
+
+> data(LPSData)
+
+> targetpop <- (exprs(rawdata)[, 34] > 3.5)
+
+> plot(exprs(rawdata)[, c(2, 34)], pch = ".", col = targetpop + 
++     1, xlab = "Cell Length", ylab = "p-p38")
+
+> abline(h = 3.5, col = 3, lwd = 2, lty = 2)
+
+> x = exprs(rawdata)[, prop.markers]
+
+> colnames(x) = marker.names[prop.markers]
+
+> results = GateFinder(x, targetpop)
+ ----------- FAILURE REPORT -------------- 
+ --- srcref --- 
+ at /var/scratch2/tomas/tmp/Rtmpj0fyq1/R.INSTALL9f7d1e8e96fc/GateFinder/R/AllMethods.R#334: 
+ --- package (from environment) --- 
+GateFinder
+ --- call from context --- 
+.getScores(x, targetpop, gates = gates, skipdims = c(dimx, dimy), 
+    currentpop = currentpop, beta, randomize = randomize, predimx = predimx[i], 
+    predimy = predimy[i])
+ --- call from argument --- 
+if (is.na(gates[[i]][[j]]) | (length(gates[[i]][[j]]) == 0)) {
+    fmeasure[i, j] = 0
+    precision[i, j] = 0
+    recall[i, j] = 0
+    next
+}
+ --- R stacktrace ---
+where 1 at /var/scratch2/tomas/tmp/Rtmpj0fyq1/R.INSTALL9f7d1e8e96fc/GateFinder/R/AllMethods.R#104: .getScores(x, targetpop, gates = gates, skipdims = c(dimx, dimy), 
+    currentpop = currentpop, beta, randomize = randomize, predimx = predimx[i], 
+    predimy = predimy[i])
+where 2: GateFinder(x, targetpop)
+where 3: eval(ei, envir)
+where 4: eval(ei, envir)
+where 5: withVisible(eval(ei, envir))
+where 6 at ../../../../R/src/library/tools/R/Vignettes.R#1005: source(output, echo = TRUE)
+where 7: doTryCatch(return(expr), name, parentenv, handler)
+where 8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+where 9: tryCatchList(expr, classes, parentenv, handlers)
+where 10 at ../../../../R/src/library/tools/R/Vignettes.R#1004: tryCatch({
+    source(output, echo = TRUE)
+}, error = function(e) {
+    cat("\n  When sourcing ", sQuote(output), ":\n", sep = "")
+    stop(conditionMessage(e), call. = FALSE, domain = NA)
+})
+where 11: tools:::.run_one_vignette("GateFinder.Rnw", "/var/scratch2/tomas/test/mine/R-75396/check/GateFinder.Rcheck/00_pkg_src/GateFinder/vignettes", 
+    pkgdir = "/var/scratch2/tomas/test/mine/R-75396/check/GateFinder.Rcheck/00_pkg_src/GateFinder")
+
+ --- value of length: 14 type: logical ---
+     CD45RA  CD19
+[1,]  FALSE FALSE
+[2,]  FALSE FALSE
+[3,]  FALSE FALSE
+[4,]  FALSE FALSE
+[5,]  FALSE FALSE
+[6,]  FALSE FALSE
+[7,]  FALSE FALSE
+ --- function from context --- 
+function(x, targetpop, gates, skipdims=NA, currentpop=rep(TRUE,length(targetpop)), beta, randomize, predimx=NULL, predimy=NULL){
+        if (length(which(!is.na(unlist(gates))))==0)
+            return(NA)
+        n=dim(x)[2]
+        fmeasure=matrix(0,n,n)
+        precision=matrix(0,n,n)
+        recall=matrix(0,n,n)
+        for (i in 1:(n-1)){
+            for (j in (i+1):n){
+                if (!is.null(predimx))
+                    if (i!=predimx)
+                        next
+                if (!is.null(predimy))
+                    if (j!=predimy)
+                        next
+                if (i %in% skipdims)
+                    next
+                if (j %in% skipdims)
+                    next
+                if (is.na(gates[[i]][[j]]) | (length(gates[[i]][[j]])==0)){
+                    fmeasure[i,j]=0
+                    precision[i,j]=0
+                    recall[i,j]=0
+                    next
+                }
+                foundpop=currentpop & as.logical(.inpoly(x[,i],x[,j],list(x=gates[[i]][[j]][,1],y=gates[[i]][[j]][,2])))
+                tp=length(which(targetpop & foundpop))
+                fp=length(which(!targetpop & foundpop))
+                fn=length(which(targetpop & !foundpop))
+                tn=length(which(!targetpop & !foundpop))
+                precision[i,j]=tp/(tp+fp)
+                recall[i,j]=tp/(tp+fn)
+                fmeasure[i,j]=(1+beta^2)*precision[i,j]*recall[i,j]/(beta^2*precision[i,j]+recall[i,j])
+            }
+        }
+        if (randomize){
+            answer=sample(as.vector(fmeasure), size=1, prob=as.vector(fmeasure))
+        }
+        if (!randomize){
+            answer=max(fmeasure)
+        }
+        temp=which(fmeasure==answer,arr.ind=TRUE)
+        if((dim(temp))[1]>1)
+            temp=temp[1,]
+        i=temp[1]
+        j=temp[2]
+        newpop=rep(FALSE, length(currentpop))
+        if (length(gates[[i]][[j]])!=0)
+            newpop=currentpop & as.logical(.inpoly(x[,i],x[,j],list(x=gates[[i]][[j]][,1],y=gates[[i]][[j]][,2])))
+        return(list(i=i,j=j,fmeasure=fmeasure[i,j],precision=precision[i,j],recall=recall[i,j],newpop=newpop,allfmeasures=fmeasure))
+    }
+<bytecode: 0x1bd04b58>
+<environment: namespace:GateFinder>
+ --- function search by body ---
+Function .getScores in namespace GateFinder has this body.
+ ----------- END OF FAILURE REPORT -------------- 
+Fatal error: the condition has length > 1
